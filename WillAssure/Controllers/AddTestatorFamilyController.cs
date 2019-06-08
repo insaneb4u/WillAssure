@@ -200,7 +200,7 @@ namespace WillAssure.Controllers
 
             if (dt.Rows.Count > 0)
             {
-
+                ViewBag.disablefield = "true";
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
@@ -525,8 +525,22 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@Identity_Proof", TFM.Identity_Proof);
                 cmd.Parameters.AddWithValue("@Identity_Proof_Value", TFM.Identity_Proof_Value);
                 cmd.Parameters.AddWithValue("@Alt_Identity_Proof", TFM.Alt_Identity_Proof);
+
+            if (TFM.Alt_Identity_Proof_Value != null)
+            {
                 cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", TFM.Alt_Identity_Proof_Value);
-                cmd.Parameters.AddWithValue("@Is_Informed_Person", "none");
+            }
+            else
+            {
+                TFM.Alt_Identity_Proof_Value = "None";
+                cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", TFM.Alt_Identity_Proof_Value);
+            }
+
+               
+
+
+
+            cmd.Parameters.AddWithValue("@Is_Informed_Person", "none");
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -548,8 +562,30 @@ namespace WillAssure.Controllers
             cmd2.Parameters.AddWithValue("@Religion", "none");
             cmd2.Parameters.AddWithValue("@Identity_proof", TFM.Identity_Proof);
             cmd2.Parameters.AddWithValue("@Identity_proof_value", TFM.Identity_Proof_Value);
-            cmd2.Parameters.AddWithValue("@Alt_Identity_proof", TFM.Alt_Identity_Proof);
-            cmd2.Parameters.AddWithValue("@Alt_Identity_proof_value", TFM.Alt_Identity_Proof_Value);
+
+            if (TFM.Alt_Identity_Proof != null)
+            {
+                cmd2.Parameters.AddWithValue("@Alt_Identity_proof", TFM.Alt_Identity_Proof);
+            }
+            else
+            {
+                TFM.Alt_Identity_Proof = "None";
+                cmd2.Parameters.AddWithValue("@Alt_Identity_proof", TFM.Alt_Identity_Proof);
+            }
+
+           
+
+            if (TFM.Alt_Identity_Proof_Value != null)
+            {
+                cmd2.Parameters.AddWithValue("@Alt_Identity_proof_value", TFM.Alt_Identity_Proof_Value);
+            }
+            else
+            {
+                TFM.Alt_Identity_Proof_Value = "none";
+                cmd2.Parameters.AddWithValue("@Alt_Identity_proof_value", TFM.Alt_Identity_Proof_Value);
+            }
+
+            
 
             cmd2.Parameters.AddWithValue("@Address1", TFM.Address1);
             if (TFM.Address2 != null || TFM.Address2 == "")

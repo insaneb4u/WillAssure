@@ -19,8 +19,14 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddBeneficiary
-        public ActionResult AddBeneficiaryIndex()
+        public ActionResult AddBeneficiaryIndex(string success)
         {
+            if (success == "true")
+            {
+                ViewBag.Message = "Verified";
+            }
+
+
             ViewBag.view = "Will";
             ViewBag.collapse = "true";
             // check type fsdf
@@ -197,8 +203,32 @@ namespace WillAssure.Controllers
                 BM.Religion = dt.Rows[0]["Religion"].ToString();
                 BM.Identity_proof = dt.Rows[0]["Identity_proof"].ToString();
                 BM.Identity_proof_value = dt.Rows[0]["Identity_proof_value"].ToString();
-                BM.Alt_Identity_proof = dt.Rows[0]["Alt_Identity_proof"].ToString();
-                BM.Alt_Identity_proof_value = dt.Rows[0]["Alt_Identity_proof_value"].ToString();
+                
+
+                if(BM.Alt_Identity_proof != null)
+                {
+                    BM.Alt_Identity_proof = dt.Rows[0]["Alt_Identity_proof"].ToString();
+                }
+                else
+                {
+                    BM.Alt_Identity_proof = "None";
+                    BM.Alt_Identity_proof = dt.Rows[0]["Alt_Identity_proof"].ToString();
+
+                }
+
+
+
+
+                if (BM.Alt_Identity_proof_value != null)
+                {
+                    BM.Alt_Identity_proof_value = dt.Rows[0]["Alt_Identity_proof_value"].ToString();
+                }
+                else
+                {
+                    BM.Alt_Identity_proof_value = "None";
+                    BM.Alt_Identity_proof_value = dt.Rows[0]["Alt_Identity_proof_value"].ToString();
+                }
+               
                 BM.Address1 = dt.Rows[0]["Address1"].ToString();
                 BM.Address2 = dt.Rows[0]["Address2"].ToString();
                 BM.Address3 = dt.Rows[0]["Address3"].ToString();
@@ -447,8 +477,31 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@Religion", "none");
                 cmd.Parameters.AddWithValue("@Identity_proof", BM.Identity_proof);
                 cmd.Parameters.AddWithValue("@Identity_proof_value", BM.Identity_proof_value);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof", BM.Alt_Identity_proof);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+
+
+                if (BM.Alt_Identity_proof != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", BM.Alt_Identity_proof);
+                }
+                else
+                {
+                    BM.Alt_Identity_proof = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", BM.Alt_Identity_proof);
+                }
+
+                if (BM.Alt_Identity_proof_value != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+                }
+                else
+                {
+
+                    BM.Alt_Identity_proof_value = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+
+                }
+               
+                
 
                 cmd.Parameters.AddWithValue("@Address1", BM.Address1);
                 if (BM.Address2 != null || BM.Address2 == "")
@@ -804,8 +857,8 @@ namespace WillAssure.Controllers
 
 
 
-            
-            return View("~/Views/AddBeneficiary/AddBeneficiaryPageContent.cshtml");
+
+            return RedirectToAction("AddBeneficiaryIndex", "AddBeneficiary", new { success = "true" });
         }
 
 

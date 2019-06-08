@@ -20,8 +20,15 @@ namespace WillAssure.Controllers
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         SqlConnection con = new SqlConnection(connectionString);
         // GET: AddPetCare
-        public ActionResult AddPetCareIndex()
+        public ActionResult AddPetCareIndex(string success)
         {
+
+            if (success == "true")
+            {
+                ViewBag.Message = "Verified";
+            }
+
+
             ViewBag.collapse = "true";
             
             // check type 
@@ -345,7 +352,7 @@ namespace WillAssure.Controllers
 
 
 
-            return View("~/Views/AddPetCare/AddPetCarePageContent.cshtml");
+            return RedirectToAction("AddPetCareIndex", "AddPetCare", new { success = "true" });
         }
 
 

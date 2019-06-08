@@ -22,8 +22,14 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddAssetMapping
-        public ActionResult AddAssetMappingIndex()
+        public ActionResult AddAssetMappingIndex(string success)
         {
+            if (success == "true")
+            {
+                ViewBag.Message = "Verified";
+            }
+
+
             ViewBag.collapse = "true";
             // check type 
             string typ = "";
@@ -1228,7 +1234,7 @@ namespace WillAssure.Controllers
          
 
             ModelState.Clear();
-            return View("~/Views/AddAssetMapping/AddAssetMappingPageContent.cshtml");
+            return RedirectToAction("AddAssetMappingIndex", "AddAssetMapping", new { success = "true" });
         }
 
 
@@ -1311,7 +1317,7 @@ namespace WillAssure.Controllers
 
             con.Close();
             ModelState.Clear();
-            return View("~/Views/AddAssetMapping/AddAssetMappingPageContent.cshtml");
+            return RedirectToAction("AddAssetMappingIndex", "AddAssetMapping", new { success = "true" });
         }
 
 

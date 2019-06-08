@@ -180,16 +180,16 @@
 
 
     function checkotpentered(value) {
-
+    
         var data = $("#txtotp").val();
 
         $.ajax({
 
             type: "POST",
-            url: "../VisitorData/checkenteredOTP",
+            url: "@Url.Action("checkOTP","checkenteredOTP")",
             data: { "send": "" + data + "" },
             success: function (data) {
-                alert(data);
+            ;
                 if (data == "true") {
                     $("#lblsuccess").show();
                     $("#lblfailed").hide();
@@ -435,11 +435,11 @@
         $.ajax({
 
             type: "POST",
-            url: "../VisitorData/checkOTP",
+            url: "@Url.Action("checkOTP", "VisitorData")",
             data: { "send": "" + x + "" },
             success: function (data) {
 
-
+                alert(data);
 
                 $('#primarymodal').modal('hide');
                 $("#txtotp").val("");

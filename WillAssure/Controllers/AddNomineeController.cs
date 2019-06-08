@@ -19,8 +19,13 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddNominee
-        public ActionResult AddNomineeIndex()
+        public ActionResult AddNomineeIndex(string success)
         {
+
+            if (success == "true")
+            {
+                ViewBag.Message = "Verified";
+            }
             ViewBag.collapse = "true";
             // check type 
             string typ = "";
@@ -387,8 +392,29 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@Religion", NM.Religion);
                 cmd.Parameters.AddWithValue("@Identity_Proof", NM.Identity_Proof);
                 cmd.Parameters.AddWithValue("@Identity_Proof_Value", NM.Identity_Proof_Value);
+
+            if (NM.Alt_Identity_Proof != null)
+            {
                 cmd.Parameters.AddWithValue("@Alt_Identity_Proof", NM.Alt_Identity_Proof);
+            }
+            else
+            {
+                NM.Alt_Identity_Proof = "None";
+                cmd.Parameters.AddWithValue("@Alt_Identity_Proof", NM.Alt_Identity_Proof);
+            }
+
+
+            if (NM.Alt_Identity_Proof_Value != null)
+            {
                 cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", NM.Alt_Identity_Proof_Value);
+            }
+            else
+            {
+                NM.Alt_Identity_Proof_Value = "None";
+                cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", NM.Alt_Identity_Proof_Value);
+            }
+               
+                
                 cmd.Parameters.AddWithValue("@Address1", NM.Address1);
             if (NM.Address2 != null)
             {
@@ -435,7 +461,7 @@ namespace WillAssure.Controllers
 
 
 
-            return View("~/Views/AddNominee/AddNomineePageContent.cshtml");
+            return RedirectToAction("AddNomineeIndex", "AddNominee", new { success = "true" });
         }
 
 

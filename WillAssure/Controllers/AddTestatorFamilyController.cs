@@ -20,8 +20,13 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddTestatorFamily
-        public ActionResult AddTestatorFamilyIndex()
+        public ActionResult AddTestatorFamilyIndex(string success)
         {
+
+            if (success == "true")
+            {
+                ViewBag.Message = "Verified";
+            }
 
             ViewBag.view = "Will";
             ViewBag.collapse = "true";
@@ -204,7 +209,7 @@ namespace WillAssure.Controllers
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-
+                    TFM.fId = Convert.ToInt32(dt.Rows[i]["fId"]);
                     TFM.First_Name = dt.Rows[i]["First_Name"].ToString();
                     TFM.Last_Name = dt.Rows[i]["Last_Name"].ToString();
                     TFM.Middle_Name = dt.Rows[i]["Middle_Name"].ToString();
@@ -659,11 +664,11 @@ namespace WillAssure.Controllers
             //cmdv.ExecuteNonQuery();
             //con.Close();
 
-
+            
 
             ModelState.Clear();
 
-            return View("~/Views/AddTestatorFamily/AddTestatorFamilyPageContent.cshtml");
+            return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily" , new { success = "true" });
         }
 
 
@@ -918,6 +923,49 @@ namespace WillAssure.Controllers
 
             return check;
 
+        }
+
+
+
+        public ActionResult updatetestatorfamily(TestatorFamilyModel TFM)
+        {
+
+
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SP_CRUDtestatorfamily", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@condition", "update");
+            cmd.Parameters.AddWithValue("@fId", TFM.fId);
+            cmd.Parameters.AddWithValue("@First_Name", TFM.First_Name);
+            cmd.Parameters.AddWithValue("@Last_Name", TFM.Last_Name);
+            cmd.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
+            DateTime dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            cmd.Parameters.AddWithValue("@DOB", dat);
+            cmd.Parameters.AddWithValue("@Marital_Status", "none");
+            cmd.Parameters.AddWithValue("@Religion", "none");
+            cmd.Parameters.AddWithValue("@Relationship", TFM.RelationshipTxt);
+            cmd.Parameters.AddWithValue("@Address1", TFM.Address1);
+            cmd.Parameters.AddWithValue("@Address2", TFM.Address2);
+            cmd.Parameters.AddWithValue("@Address3", TFM.Address3);
+            cmd.Parameters.AddWithValue("@City", TFM.City_txt);
+            cmd.Parameters.AddWithValue("@State", TFM.State_txt);
+            cmd.Parameters.AddWithValue("@tId", TFM.ddltid);
+            cmd.Parameters.AddWithValue("@Pin", TFM.Pin);
+            cmd.Parameters.AddWithValue("@active", "1");
+            cmd.Parameters.AddWithValue("@Identity_Proof", TFM.Identity_Proof);
+            cmd.Parameters.AddWithValue("@Identity_Proof_Value", TFM.Identity_Proof_Value);
+            cmd.Parameters.AddWithValue("@Alt_Identity_Proof", TFM.Alt_Identity_Proof);
+            cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", TFM.Alt_Identity_Proof_Value);
+            cmd.Parameters.AddWithValue("@Is_Informed_Person", "none");
+            
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            ViewBag.message = "Verified";
+            ViewBag.disablefield = "true";
+
+            return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily", new { success = "true" });
         }
 
 

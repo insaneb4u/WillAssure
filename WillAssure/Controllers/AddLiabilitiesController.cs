@@ -22,9 +22,14 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddLiabilities
-        public ActionResult AddLiabilitiesIndex()
+        public ActionResult AddLiabilitiesIndex(string success)
         {
-           
+
+            if (success == "true")
+            {
+                ViewBag.Message = "Verified";
+            }
+
             ViewBag.collapse = "true";
             // check type 
             string typ = "";
@@ -330,7 +335,7 @@ namespace WillAssure.Controllers
             ViewBag.Message = "Verified";
             ModelState.Clear();
 
-            return View("~/Views/AddLiabilities/AddLiabilitiesPageContent.cshtml");
+            return RedirectToAction("AddLiabilitiesIndex", "AddLiabilities", new { success = "true" });
         }
 
 

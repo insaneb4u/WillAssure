@@ -18,8 +18,13 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddAppointees
-        public ActionResult AddAppointeesIndex()
+        public ActionResult AddAppointeesIndex(string success)
         {
+            if (success == "true")
+            {
+                ViewBag.Message = "Verified";
+            }
+
             ViewBag.collapse = "true";
             if (Session["rId"] == null || Session["uuid"] == null)
             {
@@ -584,8 +589,37 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@Surname", AM.Surname);
                 cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);
                 cmd.Parameters.AddWithValue("@Identity_proof_value", AM.Identity_Proof_Value);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+
+
+                if (AM.Alt_Identity_Proof != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+                }
+                else
+                {
+                    AM.Alt_Identity_Proof = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+                }
+
+
+                if (AM.Alt_Identity_Proof_Value != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+                }
+                else
+                {
+                    AM.Alt_Identity_Proof_Value = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+                }
+
+                
+               
+
+
+
+
+
+
                 DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 cmd.Parameters.AddWithValue("@DOB", dat);
                 cmd.Parameters.AddWithValue("@Gender", AM.Gender);
@@ -670,8 +704,38 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@Surname", AM.Surname);
                 cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);
                 cmd.Parameters.AddWithValue("@Identity_proof_value", AM.Identity_Proof_Value);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+
+
+
+                if (AM.Alt_Identity_Proof != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+                }
+                else
+                {
+                    AM.Alt_Identity_Proof = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+                }
+
+
+                if (AM.Alt_Identity_Proof_Value != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+                }
+                else
+                {
+                    AM.Alt_Identity_Proof_Value = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+                }
+
+
+                
+               
+
+
+
+
+
                 DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 cmd.Parameters.AddWithValue("@DOB", dat);
                 cmd.Parameters.AddWithValue("@Gender", AM.Gender);
@@ -907,8 +971,31 @@ namespace WillAssure.Controllers
                 cmdd.Parameters.AddWithValue("@Surname", AM.altSurname);
                 cmdd.Parameters.AddWithValue("@Identity_proof", AM.altIdentity_Proof);
                 cmdd.Parameters.AddWithValue("@Identity_proof_value", AM.altIdentity_Proof_Value);
-                cmdd.Parameters.AddWithValue("@Alt_Identity_proof", AM.altAlt_Identity_Proof);
-                cmdd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.altAlt_Identity_Proof_Value);
+
+
+                if (AM.altAlt_Identity_Proof != null)
+                {
+
+                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof", AM.altAlt_Identity_Proof);
+                }
+                else
+                {
+                      AM.altAlt_Identity_Proof = "None";
+                     cmdd.Parameters.AddWithValue("@Alt_Identity_proof", AM.altAlt_Identity_Proof);
+                }
+
+
+                if (AM.altAlt_Identity_Proof_Value != null)
+                {
+                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.altAlt_Identity_Proof_Value);
+                }
+                else
+                {
+                    AM.altAlt_Identity_Proof_Value = "None";
+                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.altAlt_Identity_Proof_Value);
+                }
+               
+               
                 DateTime dat2 = DateTime.ParseExact(AM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 cmdd.Parameters.AddWithValue("@DOB", dat2);
                 cmdd.Parameters.AddWithValue("@Gender", AM.altGender);
@@ -1062,7 +1149,7 @@ namespace WillAssure.Controllers
 
             ModelState.Clear();
 
-            return View("/Views/AddAppointees/AddAppointeesPageContent.cshtml");
+            return RedirectToAction("AddAppointeesIndex", "AddAppointees", new { success = "true" });
         }
 
 

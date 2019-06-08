@@ -863,7 +863,7 @@ namespace WillAssure.Controllers
 
 
 
-        public string checkOTP()
+        public JsonResult checkOTP()
         {
             int response = Convert.ToInt32(Request["send"]);
             string email = "";
@@ -1035,7 +1035,7 @@ namespace WillAssure.Controllers
 
 
 
-
+           
             string message = "Please Check Your Email ID For Credentials";
 
 
@@ -1045,7 +1045,7 @@ namespace WillAssure.Controllers
 
 
 
-            return message;
+            return Json(message);
 
         }
 

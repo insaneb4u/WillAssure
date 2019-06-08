@@ -20,8 +20,14 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
         string json = "";
         // GET: AddMainAssets
-        public ActionResult AddMainAssetsIndex()
+        public ActionResult AddMainAssetsIndex(string success)
         {
+
+            if (success == "true")
+            {
+                ViewBag.Message = "Verified";
+            }
+
             ViewBag.view = "Will";
             ViewBag.collapse = "true";
             // check type 
@@ -1312,7 +1318,7 @@ namespace WillAssure.Controllers
             con.Close();
                 ModelState.Clear();
 
-                
+
             //}
             //else
             //{
@@ -1322,10 +1328,10 @@ namespace WillAssure.Controllers
 
 
 
-       
 
 
-            return View("~/Views/AddMainAssets/AddMainAssetsPageContent.cshtml");
+
+            return RedirectToAction("AddMainAssetsIndex", "AddMainAssets", new { success = "true" });
         }
 
 

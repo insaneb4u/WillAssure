@@ -443,8 +443,8 @@
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label for="input-1">Alt Identity Proof</label>
-                                        <div id="appendtxt2"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+                                        <label for="input-1">Alt Identity Proof Value</label>
+                                        <div id="appendtxt2"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
 
                                     </div>
                                 </div>
@@ -670,8 +670,8 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1"> Identity Proof Value</label>
-                                            <div id="altappendtxt">  @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproofnumber", @placeholder = "Enter Aadhaar Card", @autocomplete = "off" })</div>
-                                            @*@Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })*@
+                                            <div id="altappendtxt"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })</div>
+                                            
                                         </div>
                                     </div>
 
@@ -692,8 +692,10 @@
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <div id="altappendtxt2">  </div>
-                                            @*@Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })*@
+
+                                            <label for="input-1">Alt Identity Proof Value</label>
+                                            <div id="altappendtxt2"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+
                                         </div>
                                     </div>
 
@@ -738,7 +740,7 @@
 
 
 
-                                <button type="button" style="display:none;" id="confirmtestatorfamily"></button>
+                                @*  @*<button type="button" style="display:none;" id="confirmtestatorfamily"></button>*@*@
 
                                 @if (Session["distid"] != null)
                                 {
@@ -776,24 +778,24 @@
                     <script>
 
 
-                        function validateDOB(value) {
+                        //function validateDOB(value) {
 
 
 
-                            var today = new Date();
-                            var birthDate = new Date(value);
-                            var age = today.getFullYear() - birthDate.getFullYear();
+                        //    var today = new Date();
+                        //    var birthDate = new Date(value);
+                        //    var age = today.getFullYear() - birthDate.getFullYear();
 
-                            if (age > 18) {
-                                $("#datemsg").hide();
-                            }
-                            else {
-                                $("#datemsg").show();
-                            }
+                        //    if (age > 18) {
+                        //        $("#datemsg").hide();
+                        //    }
+                        //    else {
+                        //        $("#datemsg").show();
+                        //    }
 
 
 
-                        }
+                        //}
 
 
 

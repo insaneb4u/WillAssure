@@ -965,7 +965,7 @@ namespace WillAssure.Controllers
             ViewBag.message = "Verified";
             ViewBag.disablefield = "true";
 
-            return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily", new { success = "true" });
+            return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily");
         }
 
 

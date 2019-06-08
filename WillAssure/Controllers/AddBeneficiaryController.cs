@@ -191,8 +191,10 @@ namespace WillAssure.Controllers
 
             if (dt.Rows.Count > 0)
             {
+                ViewBag.disablefield = "true";
 
-                BM.bpId = Convert.ToInt32(Session["distid"]);
+
+                BM.bpId = Convert.ToInt32(dt.Rows[0]["bpId"]);
                 BM.First_Name = dt.Rows[0]["First_Name"].ToString();
                 BM.Last_Name = dt.Rows[0]["Last_Name"].ToString();
                 BM.Middle_Name = dt.Rows[0]["Middle_Name"].ToString();
@@ -241,6 +243,42 @@ namespace WillAssure.Controllers
                 BM.documentId = 0;
                 BM.beneficiary_type = dt.Rows[0]["beneficiary_type"].ToString();
 
+            }
+
+
+
+
+            con.Open();
+            string query2 = "select * from alternate_Beneficiary where bpId = " + BM.bpId + " ";
+            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+            DataTable dt2 = new DataTable();
+            da2.Fill(dt2);
+
+            con.Close();
+            if (dt2.Rows.Count > 0)
+            {
+                ViewBag.disablefield = "true";
+
+                BM.altbpId = Convert.ToInt32(dt2.Rows[0]["lnk_bd_id"]);
+                BM.altFirst_Name = dt2.Rows[0]["First_Name"].ToString();
+                BM.altLast_Name = dt2.Rows[0]["Last_Name"].ToString();
+                BM.altMiddle_Name = dt2.Rows[0]["Middle_Name"].ToString();
+
+                BM.altDob = Convert.ToDateTime(dt2.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+                BM.altMobile = dt2.Rows[0]["Mobile"].ToString();
+                BM.altRelationshipTxt = dt2.Rows[0]["Relationship"].ToString();
+                BM.altMarital_Status_Txt = dt2.Rows[0]["Marital_Status"].ToString();
+                BM.altReligion_TXT = dt2.Rows[0]["Religion"].ToString();
+                BM.altIdentity_Proof = dt2.Rows[0]["Identity_Proof"].ToString();
+                BM.altIdentity_Proof_Value = dt2.Rows[0]["Identity_Proof_Value"].ToString();
+                BM.altAlt_Identity_Proof = dt2.Rows[0]["Alt_Identity_Proof"].ToString();
+                BM.altAlt_Identity_Proof_Value = dt2.Rows[0]["Alt_Identity_Proof_Value"].ToString();
+                BM.altAddress1 = dt2.Rows[0]["Address1"].ToString();
+                BM.altAddress2 = dt2.Rows[0]["Address2"].ToString();
+                BM.altAddress3 = dt2.Rows[0]["Address3"].ToString();
+                BM.altcitytext = dt2.Rows[0]["City"].ToString();
+                BM.altstatetext = dt2.Rows[0]["State"].ToString();
+                BM.altPin = dt2.Rows[0]["Pin"].ToString();
             }
 
 
@@ -462,6 +500,7 @@ namespace WillAssure.Controllers
                 int bpid = 0;
             if (Session["doctype"].ToString() == "Will")
             {
+                ViewBag.Message = "RecordsInsert";
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SP_CRUDBeneficiaryDetails", con);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -560,11 +599,13 @@ namespace WillAssure.Controllers
 
 
                 //end
+                ViewBag.disablefield = "true";
             }
 
 
             if (Session["doctype"].ToString() == "POA")
             {
+                ViewBag.Message = "RecordsInsert";
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SP_CRUDBeneficiaryDetails", con);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -640,11 +681,14 @@ namespace WillAssure.Controllers
 
 
                 //end
+
+                ViewBag.disablefield = "true";
             }
 
 
             if (Session["doctype"].ToString() == "Giftdeeds")
             {
+                ViewBag.Message = "RecordsInsert";
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SP_CRUDBeneficiaryDetails", con);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -720,6 +764,8 @@ namespace WillAssure.Controllers
 
 
                 //end
+
+                ViewBag.disablefield = "true";
             }
 
 
@@ -784,6 +830,7 @@ namespace WillAssure.Controllers
 
                 altcmd.ExecuteNonQuery();
                 con.Close();
+                ViewBag.disablefield = "true";
             }
 
 
@@ -842,7 +889,7 @@ namespace WillAssure.Controllers
 
 
             ModelState.Clear();
-            ViewBag.Message = "RecordsInsert";
+           
 
 
 
@@ -1134,6 +1181,86 @@ namespace WillAssure.Controllers
 
             return check;
 
+        }
+
+
+
+        public ActionResult updateBeneficiary(BeneficiaryModel BM)
+        {
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SP_CRUDBeneficiaryDetails", con);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@condition", "update");
+            cmd.Parameters.AddWithValue("@bpId  ", BM.bpId);
+            cmd.Parameters.AddWithValue("@First_Name ", BM.First_Name);
+            cmd.Parameters.AddWithValue("@Last_Name", BM.Last_Name);
+            cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
+
+            cmd.Parameters.AddWithValue("@DOB", Convert.ToDateTime(BM.Dob));
+            cmd.Parameters.AddWithValue("@Mobile", BM.Mobile);
+            cmd.Parameters.AddWithValue("@Relationship", BM.RelationshipTxt);
+            cmd.Parameters.AddWithValue("@Marital_Status", "none");
+            cmd.Parameters.AddWithValue("@Religion", "none");
+            cmd.Parameters.AddWithValue("@Identity_proof", BM.Identity_proof);
+            cmd.Parameters.AddWithValue("@Identity_proof_value", BM.Alt_Identity_proof_value);
+            cmd.Parameters.AddWithValue("@Alt_Identity_proof", "None");
+            cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+            cmd.Parameters.AddWithValue("@Address1", BM.Address1);
+            cmd.Parameters.AddWithValue("@Address2", BM.Address2);
+            cmd.Parameters.AddWithValue("@Address3", BM.Address3);
+            cmd.Parameters.AddWithValue("@City", BM.City_txt);
+            cmd.Parameters.AddWithValue("@State", BM.State_txt);
+            cmd.Parameters.AddWithValue("@Pin", BM.Pin);
+            cmd.Parameters.AddWithValue("@aid", "");
+            cmd.Parameters.AddWithValue("@tid", BM.ddltid);
+            cmd.Parameters.AddWithValue("@beneficiary_type", "none");
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+
+
+
+        
+
+            if (BM.check == "true")
+            {
+
+                con.Open();
+                SqlCommand cmd2 = new SqlCommand("SP_CRUD_alternate_Beneficiary", con);
+                cmd2.CommandType = CommandType.StoredProcedure;
+                cmd2.Parameters.AddWithValue("@condition", "update");
+                cmd2.Parameters.AddWithValue("@lnk_bd_id", BM.altbpId);
+                cmd2.Parameters.AddWithValue("@bpId", BM.altbpId);
+                cmd2.Parameters.AddWithValue("@First_Name", BM.altFirst_Name);
+                cmd2.Parameters.AddWithValue("@Last_Name", BM.altLast_Name);
+                cmd2.Parameters.AddWithValue("@Middle_Name", BM.altMiddle_Name);
+                //DateTime dat2 = DateTime.ParseExact(BM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                cmd2.Parameters.AddWithValue("@DOB", Convert.ToDateTime(BM.altDob));
+                cmd2.Parameters.AddWithValue("@Mobile", BM.altMobile);
+                cmd2.Parameters.AddWithValue("@Relationship", BM.altRelationshipTxt);
+                cmd2.Parameters.AddWithValue("@Marital_Status", "none");
+                cmd2.Parameters.AddWithValue("@Religion", "none");
+                cmd2.Parameters.AddWithValue("@Identity_Proof", BM.altIdentity_Proof);
+                cmd2.Parameters.AddWithValue("@Identity_Proof_Value", BM.altIdentity_Proof_Value);
+                cmd2.Parameters.AddWithValue("@Alt_Identity_Proof", BM.altAlt_Identity_Proof);
+                cmd2.Parameters.AddWithValue("@Alt_Identity_Proof_Value", BM.altAlt_Identity_Proof_Value);
+                cmd2.Parameters.AddWithValue("@Address1", BM.altAddress1);
+                cmd2.Parameters.AddWithValue("@Address2", BM.altAddress2);
+                cmd2.Parameters.AddWithValue("@Address3", BM.altAddress3);
+                cmd2.Parameters.AddWithValue("@City", BM.altcitytext);
+                cmd2.Parameters.AddWithValue("@State", BM.altstatetext);
+                cmd2.Parameters.AddWithValue("@Pin", BM.altPin);
+                cmd2.Parameters.AddWithValue("@tid", BM.ddltid);
+                cmd2.ExecuteNonQuery();
+                con.Close();
+
+
+            }
+
+            ViewBag.Message = "RecordsInsert";
+
+            return RedirectToAction("AddBeneficiaryIndex", "AddBeneficiary");
         }
 
 

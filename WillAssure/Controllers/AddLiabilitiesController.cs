@@ -157,6 +157,8 @@ namespace WillAssure.Controllers
             dachk11.Fill(dtchk11);
             if (dtchk11.Rows.Count > 0)
             {
+                ViewBag.disablefield = "true";
+                lml.libid = Convert.ToInt32(dtchk11.Rows[0]["lid"]);
                 lml.Amount = Convert.ToInt32(dtchk11.Rows[0]["Amount"]);
                 lml.Name1  =  dtchk11.Rows[0]["Name"].ToString();
                 lml.address = dtchk11.Rows[0]["address"].ToString();
@@ -334,7 +336,7 @@ namespace WillAssure.Controllers
             Session["assetcategorynameforliablities"] = LM.assetCategorytext;
             ViewBag.Message = "Verified";
             ModelState.Clear();
-
+            ViewBag.disablefield = "true";
             return RedirectToAction("AddLiabilitiesIndex", "AddLiabilities", new { success = "true" });
         }
 
@@ -682,6 +684,22 @@ namespace WillAssure.Controllers
 
 
             return msg;
+        }
+
+
+
+
+        public ActionResult UpdateLiabilities(LiabilitiesModel LM)
+        {
+            con.Open();
+            string query = "update Liabilities set Amount= " + LM.Amount + " , Name = " + LM.Name1 + " , address=" + LM.address + " , city = " + LM.citytext + " state = " + LM.statetext + " , pin=" + LM.pin + " , Mobile=" + LM.Mobile + " , Details=" + LM.Details + " , tid=" + LM.tid + "  where lId =" + LM.libid + "  ";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            ViewBag.Message = "Verified";
+
+            return RedirectToAction("AddLiabilitiesIndex", "AddLiabilities");
         }
 
 

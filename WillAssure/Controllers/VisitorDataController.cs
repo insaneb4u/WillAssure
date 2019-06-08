@@ -613,6 +613,28 @@ namespace WillAssure.Controllers
             }
 
 
+            if (documenttype == "WillCodocilGiftdeedsPOA")
+            {
+
+                con.Open();
+                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + userid + " ";
+                SqlCommand cc1 = new SqlCommand(qq1, con);
+                cc1.ExecuteNonQuery();
+                con.Close();
+            }
+
+
+            if (documenttype == "WillCodocilGiftdeedsPOALivingWill")
+            {
+
+                con.Open();
+                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + userid + " ";
+                SqlCommand cc1 = new SqlCommand(qq1, con);
+                cc1.ExecuteNonQuery();
+                con.Close();
+            }
+
+
             con.Open();
                 string query3 = "insert into TestatorDetails (First_Name,Middle_Name,Last_Name,Mobile,Email,uid ,DOB,Occupation,maritalStatus,RelationShip,Religion,Identity_Proof,Identity_proof_Value,Alt_Identity_Proof,Alt_Identity_proof_Value,Gender,Address1,Address2,Address3,City ,State,Country ,Pin,active) values ('" + name + "' , '" + middlename + "' , '" + lastname + "' , '" + contactno + "' , '" + emailid + "' , " + userid + " , GETDATE() ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'no' )    ";
                 SqlCommand cmd3 = new SqlCommand(query3, con);

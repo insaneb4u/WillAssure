@@ -1028,6 +1028,27 @@ namespace WillAssure.Controllers
                 con.Close();
             }
 
+            if (TFM.documenttype == "WillCodocilGiftdeedsPOA")
+            {
+
+                con.Open();
+                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                SqlCommand cc1 = new SqlCommand(qq1, con);
+                cc1.ExecuteNonQuery();
+                con.Close();
+            }
+
+
+            if (TFM.documenttype == "WillCodocilGiftdeedsPOALivingWill")
+            {
+
+                con.Open();
+                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                SqlCommand cc1 = new SqlCommand(qq1, con);
+                cc1.ExecuteNonQuery();
+                con.Close();
+            }
+
 
             ViewBag.PaymentLink = "true";
 

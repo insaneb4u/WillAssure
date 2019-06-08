@@ -68,21 +68,23 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-title text-primary">Add Liabilities</div>
+
+                        <div class="row">
+                            <div class="col-sm-3">  <div class="card-title text-primary">Add Liabilities</div></div>
+                            <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Liabilities Details )</h6></div></div>
+                        </div>
 
                         <hr class="div_rd">
 
                         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "RoleForm" }))
                         {
-                            <div class="row">
-                                <div class='col-sm-1'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Testator</label></div>
-                                <div class="col-sm-3">
+                        <div class="row">
+                            <div class='col-sm-1'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Testator</label></div>
+                            <div class="col-sm-3">
 
-                            
-                                                <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
-                                                <input type="hidden" name="ddltid" value="@Session["distid"].ToString()" />
 
-                                      
+                                <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
+                                <input type="hidden" name="ddltid" value="@Session["distid"].ToString()" />
 
 
 
@@ -93,17 +95,19 @@
 
 
 
-                                </div>
+
 
                             </div>
+                            <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Edit Details</button></div>
+                        </div>
                             <hr class="div_rd">
                             <input type="hidden" id="txtcheck" value="" name="name" />
 
-
+                           
 
                             <div class="row">
                                 <div class="col-sm-6">
-
+                                    @Html.HiddenFor(m => m.libid)
                                     <div class="form-group">
                                         <label for="input-1">Amount</label>
 
@@ -213,7 +217,7 @@
                                     <div class="form-group">
                                         <label for="input-1">Pin</label>
 
-                                        @Html.TextBoxFor(m => m.pin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "txtRole", @placeholder = "Enter Pin", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        @Html.TextBoxFor(m => m.pin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "txtPin", @placeholder = "Enter Pin", @autocomplete = "off", alert = "LabourCost is requried" })
                                     </div>
                                 </div>
 
@@ -223,7 +227,7 @@
                                     <div class="form-group">
                                         <label for="input-1">Mobile</label>
 
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control input-shadow validate[required,custom[Mobile]] text-input", @id = "txtRole", @placeholder = "Enter Mobile", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control input-shadow validate[required,custom[Mobile]] text-input", @id = "txtmobile", @placeholder = "Enter Mobile", @autocomplete = "off", alert = "LabourCost is requried" })
                                     </div>
                                 </div>
 
@@ -334,7 +338,7 @@
                                     <div class="form-group">
                                         <label for="input-1">Proportion</label>
 
-                                        @Html.TextBoxFor(m => m.Proportion, new { @class = "form-control input-shadow  text-input", @id = "txtDetails", @placeholder = "Enter Proportion", @onblur = "validateproportion(this.value)", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        @Html.TextBoxFor(m => m.Proportion, new { @class = "form-control input-shadow  text-input", @id = "txtprop", @placeholder = "Enter Proportion", @onblur = "validateproportion(this.value)", @autocomplete = "off", alert = "LabourCost is requried" })
                                     </div>
                                 </div>
 
@@ -343,7 +347,8 @@
 
                             <div class="form-group" style="float:right">
 
-                                <button type="submit" id="btnRoleformsubmit" formaction="InsertLiabilitiesDetails" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> Add Liabilities</button>
+                                <button type="submit" id="btnliablitiesformsubmit" formaction="InsertLiabilitiesDetails" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> Add Liabilities</button>
+                                <button type="submit" id="btnupdate" style="display:none;" formaction="UpdateLiabilities" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
                                 <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><button type="button" id="btnnext" style="display:" class="btn btn-danger shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                             </div>
 
@@ -702,6 +707,84 @@
 
                 }
             });
+
+    });
+
+
+</script>
+
+
+
+
+@if (ViewBag.disablefield == "true")
+{
+    <script>
+
+
+
+        $("#btnfieldedit").show();
+
+        $("#btnliablitiesformsubmit").hide();
+
+        
+
+
+
+        $(document).ready(function () {
+
+            $("#txtAmount").attr("disabled", "disabled");
+            $("#txtName").attr("disabled", "disabled");
+            $("#txtAddress").attr("disabled", "disabled");
+            $("#ddlstate").attr("disabled", "disabled");
+            $("#ddlcity").attr("disabled", "disabled");
+            $("#ddlstate").attr("disabled", "disabled");
+           
+            $("#txtPin").attr("disabled", "disabled");
+            $("#txtmobile").attr("disabled", "disabled");
+            $("#txtDetails").attr("disabled", "disabled");
+            $("#ddlAssetType").attr("disabled", "disabled");
+            $("#ddlAssetCategory").attr("disabled", "disabled");
+            $("#txtprop").attr("disabled", "disabled");
+           
+
+
+        });
+
+
+    </script>
+}
+
+
+
+
+
+
+
+
+<script>
+
+
+    $("#btnfieldedit").click(function () {
+
+        $("#txtAmount").removeAttr("disabled");
+        $("#txtName").removeAttr("disabled");
+        $("#txtAddress").removeAttr("disabled");
+        $("#ddlstate").removeAttr("disabled");
+        $("#ddlcity").removeAttr("disabled");
+        $("#ddlstate").removeAttr("disabled");
+     
+        $("#txtPin").removeAttr("disabled");
+        $("#txtmobile").removeAttr("disabled");
+        $("#txtDetails").removeAttr("disabled");
+        $("#ddlAssetType").removeAttr("disabled");
+        $("#ddlAssetCategory").removeAttr("disabled");
+        $("#txtprop").removeAttr("disabled");
+       
+
+        $("#btnupdate").show();
+
+
+        $("#btneditmsg").show();
 
     });
 

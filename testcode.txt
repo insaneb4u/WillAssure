@@ -1,0 +1,103 @@
+   <div class="row">
+		<div class="col-sm-3">  <div class="card-title text-primary">Add Testators Family</div></div>
+		<div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Testator Family Details )</h6></div></div>
+	</div>
+	
+	
+	 @Html.HiddenFor(m => m.fId);
+	 
+	 
+	 
+	 
+	    @if (ViewBag.disablefield == "true")
+                    {
+                        <script>
+
+                            
+
+                            $("#btnfieldedit").show();
+
+                            $("#btntestatorsubmit").hide();
+
+                            $("#btntestatorsubmit").hide();
+
+                          
+
+                            $(document).ready(function () {
+
+                                $("#txtFirstName").attr("disabled", "disabled");
+                                $("#txtMiddle_Name").attr("disabled", "disabled");
+                                $("#txtLastName").attr("disabled", "disabled");
+                                $("#DOB").attr("disabled", "disabled");
+                                $("#ddlrelation").attr("disabled", "disabled");
+                                $("#ddlstate").attr("disabled", "disabled");
+                                $("#ddlcity").attr("disabled", "disabled");
+                                $("#txtPin").attr("disabled", "disabled");
+                                $("#txtAddress1").attr("disabled", "disabled");
+                                $("#txtAddress2").attr("disabled", "disabled");
+                                $("#txtAddress3").attr("disabled", "disabled");
+                                $("#ddlidentityproof").attr("disabled", "disabled");
+                                $("#Alt_Identity_Proof_Value").attr("disabled", "disabled");
+                                $("#ddlidentityproof1").attr("disabled", "disabled");
+                                $("#Identity_Proof_Value").attr("disabled", "disabled");
+
+
+                            });
+
+
+                        </script>
+                    }
+					
+					
+					
+					
+					
+					
+					
+					
+					     <script>
+
+
+                        $("#btnfieldedit").click(function () {
+
+                            $("#txtFirstName").removeAttr("disabled");
+                            $("#txtMiddle_Name").removeAttr("disabled");
+                            $("#txtLastName").removeAttr("disabled");
+                            $("#DOB").removeAttr("disabled");
+                            $("#ddlrelation").removeAttr("disabled");
+                            $("#ddlstate").removeAttr("disabled");
+                            $("#ddlcity").removeAttr("disabled");
+                            $("#txtPin").removeAttr("disabled");
+                            $("#txtAddress1").removeAttr("disabled");
+                            $("#txtAddress2").removeAttr("disabled");
+                            $("#txtAddress3").removeAttr("disabled");
+                            $("#ddlidentityproof").removeAttr("disabled");
+                            $("#Alt_Identity_Proof_Value").removeAttr("disabled");
+                            $("#ddlidentityproof1").removeAttr("disabled");
+                            $("#Identity_Proof_Value").removeAttr("disabled");
+
+                            $("#btnupdate").show();
+
+
+                            $("#btneditmsg").show();
+
+                        });
+
+
+                    </script>
+
+ <button type="submit" id="btnupdate" style="display:none;" formaction="updatetestatorfamily" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
+
+Personal Details
+  <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Edit Details</button></div>
+					
+					 ViewBag.disablefield = "true";
+					 
+					 
+					 
+					 after insert
+					  ViewBag.disablefield = "true";
+					  
+					  
+					  
+					  return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily");

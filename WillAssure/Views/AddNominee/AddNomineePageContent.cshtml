@@ -116,8 +116,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-title text-primary">Add Nominee</div>
 
+                        <div class="row">
+                            <div class="col-sm-3">  <div class="card-title text-primary">Add Nominee</div></div>
+                            <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Testator Family Details )</h6></div></div>
+                        </div>
 
                         @using (Html.BeginForm("InsertNomineeData", null, FormMethod.Post, new { id = "NomineeForm" }))
                         {
@@ -127,16 +130,16 @@
                             <div class="row">
                                 <div class="col-sm-1"></div><div class='col-sm-2'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Testator</label></div>
                                 <div class='col-sm-3'>
-                               
-                                                <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
-                                                <input type="hidden" id="tid" name="ddltid" value="@Session["distid"].ToString()" />
-                                          
+
+                                    <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
+                                    <input type="hidden" id="tid" name="ddltid" value="@Session["distid"].ToString()" />
+
 
 
 
 
                                 </div>
-
+                                <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Edit Details</button></div>
                             </div>
 
                             <hr class="div_rd">
@@ -149,7 +152,7 @@
 
                                 <div class="col-sm-3">
 
-
+                                    @Html.HiddenFor(m => m.nId)
 
                                     <div class="form-group">
                                         <label for="input-1">First Name</label>
@@ -190,7 +193,7 @@
 
                                             <label for="input-1">Date Of Birth</label>
                                             <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                <input class="form-control input-shadow validate[required]"  type="text" id="DOB" value="@Model.Dob" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB" value="@Model.Dob" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
 
@@ -203,11 +206,11 @@
 
                                             <label for="input-1">Date Of Birth</label>
                                             <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                <input class="form-control input-shadow validate[required]"  type="text" id="DOB" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
 
-                                           
+
                                         </div>
                                     }
 
@@ -508,7 +511,8 @@
 
                             <div class="form-group" style="float:right">
 
-                                <button type="submit" id="btnRoleformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> Add Nominee</button>
+                                <button type="submit" id="btnnomineeformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> Add Nominee</button>
+                                <button type="submit" id="btnupdate" style="display:none;" formaction="@Url.Action("updateNominee","AddNominee")" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
                                 <a href="@Url.Action("AddAppointeesIndex","AddAppointees")"><button type="button" id="btnnext" style="display:none" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                             </div>
 
@@ -664,7 +668,7 @@
                             }
 
 
-                    
+
 
 
                             var previousid = id;
@@ -937,3 +941,87 @@
 
 
 
+                    @if (ViewBag.disablefield == "true")
+                    {
+                        <script>
+
+
+
+                            $("#btnfieldedit").show();
+
+                            $("#btnnomineeformsubmit").hide();
+
+                            
+
+
+
+                            $(document).ready(function () {
+
+                                $("#txtfirstname").attr("disabled", "disabled");
+                                $("#txtmiddlename").attr("disabled", "disabled");
+                                $("#txtlastname").attr("disabled", "disabled");
+                                $("#DOB").attr("disabled", "disabled");
+                                $("#txtmobile").attr("disabled", "disabled");
+                                $("#ddlrelation").attr("disabled", "disabled");
+                                $("#Marital_Status").attr("disabled", "disabled");
+                                $("#Religion").attr("disabled", "disabled");
+                                $("#ddlstate").attr("disabled", "disabled");
+                                $("#ddlcity").attr("disabled", "disabled");
+                                $("#txtpin").attr("disabled", "disabled");
+                                $("#txtaddress1").attr("disabled", "disabled");
+                                $("#txtaddress2").attr("disabled", "disabled");
+                                $("#txtaddress3").attr("disabled", "disabled");
+                                $("#Identity_Proof").attr("disabled", "disabled");
+                                $("#txtidentityproof").attr("disabled", "disabled");
+                                $("#ddlidentityproof1").attr("disabled", "disabled");
+                                $("#txtIdentityProofValue").attr("disabled", "disabled");
+                                $("#txtdescriptionofasset").attr("disabled", "disabled");
+
+
+                            });
+
+
+                        </script>
+                    }
+
+
+
+
+
+
+
+
+                    <script>
+
+
+                        $("#btnfieldedit").click(function () {
+
+                            $("#txtfirstname").removeAttr("disabled");
+                            $("#txtmiddlename").removeAttr("disabled");
+                            $("#txtlastname").removeAttr("disabled");
+                            $("#DOB").removeAttr("disabled");
+                            $("#txtmobile").removeAttr("disabled");
+                            $("#ddlrelation").removeAttr("disabled");
+                            $("#Marital_Status").removeAttr("disabled");
+                            $("#Religion").removeAttr("disabled");
+                            $("#ddlstate").removeAttr("disabled");
+                            $("#ddlcity").removeAttr("disabled");
+                            $("#txtpin").removeAttr("disabled");
+                            $("#txtaddress1").removeAttr("disabled");
+                            $("#txtaddress2").removeAttr("disabled");
+                            $("#txtaddress3").removeAttr("disabled");
+                            $("#Identity_Proof").removeAttr("disabled");
+                            $("#txtidentityproof").removeAttr("disabled");
+                            $("#ddlidentityproof1").removeAttr("disabled");
+                            $("#txtIdentityProofValue").removeAttr("disabled");
+                            $("#txtdescriptionofasset").removeAttr("disabled");
+
+                            $("#btnupdate").show();
+
+
+                            $("#btneditmsg").show();
+
+                        });
+
+
+                    </script>

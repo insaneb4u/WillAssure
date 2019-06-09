@@ -135,7 +135,8 @@
 
 
                                 </div>
-                                <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Edit Details</button></div>
+                                <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>
+
                             </div>
                             <hr class="div_rd">
                             <input type="hidden" id="txtcheck" value="" name="name" />
@@ -991,7 +992,7 @@
 
                             $("#btntestatorsubmit").hide();
 
-                            $("#btntestatorsubmit").hide();
+                            
 
                           
 
@@ -1023,8 +1024,38 @@
 
                     <script>
 
+                        $("#btnfieldedit1").click(function () {
+                            $("#btnfieldedit").show();
+                            $("#btnfieldedit1").css("display", "none");
+                            $("#btneditmsg").hide();
+                            $("#btnupdate").hide();
+
+
+                            $("#txtFirstName").attr("disabled", "disabled");
+                            $("#txtMiddle_Name").attr("disabled", "disabled");
+                            $("#txtLastName").attr("disabled", "disabled");
+                            $("#DOB").attr("disabled", "disabled");
+                            $("#ddlrelation").attr("disabled", "disabled");
+                            $("#ddlstate").attr("disabled", "disabled");
+                            $("#ddlcity").attr("disabled", "disabled");
+                            $("#txtPin").attr("disabled", "disabled");
+                            $("#txtAddress1").attr("disabled", "disabled");
+                            $("#txtAddress2").attr("disabled", "disabled");
+                            $("#txtAddress3").attr("disabled", "disabled");
+                            $("#ddlidentityproof").attr("disabled", "disabled");
+                            $("#Alt_Identity_Proof_Value").attr("disabled", "disabled");
+                            $("#ddlidentityproof1").attr("disabled", "disabled");
+                            $("#Identity_Proof_Value").attr("disabled", "disabled");
+
+
+
+                        });
+
 
                         $("#btnfieldedit").click(function () {
+                       
+                            $("#btnfieldedit1").show();
+                            $("#btnfieldedit").css("display","none");
 
                             $("#txtFirstName").removeAttr("disabled");
                             $("#txtMiddle_Name").removeAttr("disabled");

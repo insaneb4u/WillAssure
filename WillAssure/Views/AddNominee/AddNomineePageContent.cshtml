@@ -139,7 +139,8 @@
 
 
                                 </div>
-                                <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Edit Details</button></div>
+                                <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>
+
                             </div>
 
                             <hr class="div_rd">
@@ -236,7 +237,7 @@
 
                                             <label for="input-1">Relation</label>
                                             <select id="ddlrelation" class="form-control input-shadow validate[required]">
-                                                <option value="">@Model.RelationshipTxt</option>
+                                                <option value="@Model.RelationshipTxt">@Model.RelationshipTxt</option>
                                             </select>
                                             @Html.HiddenFor(m => m.RelationshipId, new { id = "RelationshipId" })
                                             @Html.HiddenFor(m => m.RelationshipTxt, new { id = "RelationshipTxt" })
@@ -996,6 +997,14 @@
 
                         $("#btnfieldedit").click(function () {
 
+
+
+                            $("#btnfieldedit1").show();
+                            $("#btnfieldedit").hide();
+                            $("#btneditmsg").show();
+                            $("#btnupdate").show();
+
+
                             $("#txtfirstname").removeAttr("disabled");
                             $("#txtmiddlename").removeAttr("disabled");
                             $("#txtlastname").removeAttr("disabled");
@@ -1020,6 +1029,48 @@
 
 
                             $("#btneditmsg").show();
+
+                        });
+
+
+
+
+
+
+                        $("#btnfieldedit1").click(function () {
+                            $("#btnfieldedit").show();
+                            $("#btnfieldedit1").hide();
+                            $("#btnupdate").hide();
+
+                            $("#btneditmsg").hide();
+
+
+
+
+
+                            $("#txtfirstname").attr("disabled", "disabled");
+                            $("#txtmiddlename").attr("disabled", "disabled");
+                            $("#txtlastname").attr("disabled", "disabled");
+                            $("#DOB").attr("disabled", "disabled");
+                            $("#txtmobile").attr("disabled", "disabled");
+                            $("#ddlrelation").attr("disabled", "disabled");
+                            $("#Marital_Status").attr("disabled", "disabled");
+                            $("#Religion").attr("disabled", "disabled");
+                            $("#ddlstate").attr("disabled", "disabled");
+                            $("#ddlcity").attr("disabled", "disabled");
+                            $("#txtpin").attr("disabled", "disabled");
+                            $("#txtaddress1").attr("disabled", "disabled");
+                            $("#txtaddress2").attr("disabled", "disabled");
+                            $("#txtaddress3").attr("disabled", "disabled");
+                            $("#Identity_Proof").attr("disabled", "disabled");
+                            $("#txtidentityproof").attr("disabled", "disabled");
+                            $("#ddlidentityproof1").attr("disabled", "disabled");
+                            $("#txtIdentityProofValue").attr("disabled", "disabled");
+                            $("#txtdescriptionofasset").attr("disabled", "disabled");
+
+
+
+
 
                         });
 

@@ -300,7 +300,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value=''>--Select--</option>";
 
             if (dt.Rows.Count > 0)
             {
@@ -798,8 +798,33 @@ namespace WillAssure.Controllers
                 altcmd.Parameters.AddWithValue("@Religion", "none");
                 altcmd.Parameters.AddWithValue("@Identity_Proof", BM.altIdentity_Proof);
                 altcmd.Parameters.AddWithValue("@Identity_Proof_Value", BM.altIdentity_Proof_Value);
-                altcmd.Parameters.AddWithValue("@Alt_Identity_Proof", BM.altAlt_Identity_Proof);
-                altcmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", BM.altAlt_Identity_Proof_Value);
+
+
+
+                
+
+                if (BM.altAlt_Identity_Proof != null)
+                {
+                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof", BM.altAlt_Identity_Proof);
+                }
+                else
+                {
+                    BM.altAlt_Identity_Proof = "None";
+                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof", BM.altAlt_Identity_Proof);
+                }
+
+                if (BM.altAlt_Identity_Proof_Value != null)
+                {
+                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", BM.altAlt_Identity_Proof_Value);
+                }
+                else
+                {
+                    BM.altAlt_Identity_Proof_Value = "None";
+                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", BM.altAlt_Identity_Proof_Value);
+                }
+
+
+                
                 altcmd.Parameters.AddWithValue("@Address1", BM.altAddress1);
                 if (BM.Address2 != null || BM.Address2 == "")
                 {
@@ -1243,8 +1268,34 @@ namespace WillAssure.Controllers
                 cmd2.Parameters.AddWithValue("@Religion", "none");
                 cmd2.Parameters.AddWithValue("@Identity_Proof", BM.altIdentity_Proof);
                 cmd2.Parameters.AddWithValue("@Identity_Proof_Value", BM.altIdentity_Proof_Value);
-                cmd2.Parameters.AddWithValue("@Alt_Identity_Proof", BM.altAlt_Identity_Proof);
-                cmd2.Parameters.AddWithValue("@Alt_Identity_Proof_Value", BM.altAlt_Identity_Proof_Value);
+
+                if (BM.altAlt_Identity_Proof != null)
+                {
+                    cmd2.Parameters.AddWithValue("@Alt_Identity_Proof", BM.altAlt_Identity_Proof);
+                }
+                else
+                {
+                    BM.altAlt_Identity_Proof = "None";
+                    cmd2.Parameters.AddWithValue("@Alt_Identity_Proof", BM.altAlt_Identity_Proof);
+                }
+
+
+                if (BM.altAlt_Identity_Proof_Value != null)
+                {
+                    cmd2.Parameters.AddWithValue("@Alt_Identity_Proof_Value", BM.altAlt_Identity_Proof_Value);
+                }
+                else
+                {
+                    BM.altAlt_Identity_Proof_Value = "None";
+                    cmd2.Parameters.AddWithValue("@Alt_Identity_Proof_Value", BM.altAlt_Identity_Proof_Value);
+                }
+                
+                
+
+
+
+
+
                 cmd2.Parameters.AddWithValue("@Address1", BM.altAddress1);
                 cmd2.Parameters.AddWithValue("@Address2", BM.altAddress2);
                 cmd2.Parameters.AddWithValue("@Address3", BM.altAddress3);

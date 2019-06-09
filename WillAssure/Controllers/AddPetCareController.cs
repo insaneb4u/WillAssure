@@ -158,6 +158,8 @@ namespace WillAssure.Controllers
             dachk11.Fill(dtchk11);
             if (dtchk11.Rows.Count > 0)
             {
+                ViewBag.disablefield = "true";
+                pml.petid = Convert.ToInt32(dtchk11.Rows[0]["petid"]);
                 pml.petname = dtchk11.Rows[0]["petname"].ToString();
                 pml.petage = dtchk11.Rows[0]["petage"].ToString();
                 pml.typeofpet = dtchk11.Rows[0]["typeofpet"].ToString();
@@ -339,11 +341,11 @@ namespace WillAssure.Controllers
                 ModelState.Clear();
 
 
-       
 
 
 
-            ModelState.Clear();
+
+            ViewBag.disablefield = "true";
 
 
 
@@ -641,6 +643,60 @@ namespace WillAssure.Controllers
             return msg;
         }
 
+
+
+
+        public ActionResult UpdatePetcare(PetCareModel PM)
+        {
+
+
+            con.Open();
+            string qqchk2 = "select amId from AssetsCategory where  AssetsCategory= '" + PM.assetCategorytext + "'   ";
+            SqlDataAdapter dachk2 = new SqlDataAdapter(qqchk2, con);
+            DataTable dtchk2 = new DataTable();
+            dachk2.Fill(dtchk2);
+            if (dtchk2.Rows.Count > 0)
+            {
+                PM.assetCategoryid = Convert.ToInt32(dtchk2.Rows[0]["amId"]);
+            }
+
+
+
+
+            string qqchk3 = "select atId from AssetsType where AssetsType ='" + PM.assettypetext + "'   ";
+            SqlDataAdapter dachk3 = new SqlDataAdapter(qqchk3, con);
+            DataTable dtchk3 = new DataTable();
+            dachk3.Fill(dtchk3);
+            if (dtchk3.Rows.Count > 0)
+            {
+                PM.assettypeid = Convert.ToInt32(dtchk3.Rows[0]["atId"]);
+            }
+            con.Close();
+
+
+
+
+
+
+            con.Open();
+            string query = "update PetCare set petname='" + PM.petname + "'  , petage=" + PM.petage + " , typeofpet='" + PM.typeofpet + "' , amtforpet = " + PM.amtforpet + "  , amtfromwhichasset='" + PM.amtfromwhichasset + "' , responsibelpersonforpet='" + PM.responsibelpersonforpet + "' , tid=" + Convert.ToInt32(Session["distid"]) + " , assettypeid = "+PM.assettypeid+ " , assetcategoryid = "+PM.assetCategoryid+ " , Proportion = "+PM.Proportion+" where petid=" + PM.petid + "  ";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            ViewBag.Message = "Verified";
+
+
+
+
+
+
+            return RedirectToAction("AddPetCareIndex", "AddPetCare");
+        }
+
+
+
+      
 
 
 

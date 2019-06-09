@@ -73,26 +73,36 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-title text-primary">Add Pet</div>
+
+
+
+                        <div class="row">
+                            <div class="col-sm-3">  <div class="card-title text-primary">Add Pet</div></div>
+                            <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Testator Family Details )</h6></div></div>
+                        </div>
+
 
 
                         @using (Html.BeginForm("InsertPetcaredata", null, FormMethod.Post, new { id = "RoleForm" }))
                         {
-                            <div class="row">
-                                <div class='col-sm-1'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Testator</label></div>
-                                <div class="col-sm-3">
-                             
-                                            <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
-                                            <input type="hidden" name="ddltid" value="@Session["distid"].ToString()" />
-                                 
 
-                                </div>
+                            @Html.HiddenFor(m => m.petid);
+                        <div class="row">
+                            <div class='col-sm-1'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Testator</label></div>
+                            <div class="col-sm-3">
+
+                                <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
+                                <input type="hidden" name="ddltid" value="@Session["distid"].ToString()" />
+
 
                             </div>
+                            <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>
+
+                        </div>
                             <hr />
                             <div class="row">
                                 <div class="col-sm-6">
-
+                                    @Html.HiddenFor(m=>m.petid)
                                     <div class="form-group">
                                         <label for="input-1">Pet Name</label>
 
@@ -260,7 +270,8 @@
 
                             <div class="form-group" style="float:right">
 
-                                <button type="submit" id="btnRoleformsubmit"  class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> Add Pet</button>
+                                <button type="submit" id="btnpetsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> Add Pet</button>
+                                <button type="submit" id="btnupdate" style="display:none;" formaction="UpdatePetcare" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
                                 <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><button type="button" id="btnnext" style="display:" class="btn btn-danger shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                             </div>
 
@@ -508,7 +519,7 @@
     function validateproportion(value) {
 
         var data = value + "~" + $("#assetCategorytext").val();
-        
+
         $.ajax({
 
             type: "POST",
@@ -576,3 +587,106 @@
 
 
 </script>
+
+
+
+
+
+@if (ViewBag.disablefield == "true")
+{
+    <script>
+
+
+
+        $("#btnfieldedit").show();
+
+        $("#btnpetsubmit").hide();
+
+
+
+
+
+        $(document).ready(function () {
+
+            $("#txtpetname").attr("disabled", "disabled");
+            $("#txtpetage").attr("disabled", "disabled");
+            $("#txttypeofpet").attr("disabled", "disabled");
+            $("#txtamtforpet").attr("disabled", "disabled");
+            $("#ddlmaritalstatus").attr("disabled", "disabled");
+            $("#txtresponsiblepet").attr("disabled", "disabled");
+            $("#ddlAssetType").attr("disabled", "disabled");
+            $("#ddlAssetCategory").attr("disabled", "disabled");
+            $("#txtDetails").attr("disabled", "disabled");
+           
+
+        });
+
+
+    </script>
+}
+
+
+
+
+
+
+
+
+<script>
+
+
+    $("#btnfieldedit").click(function () {
+
+        $("#btnfieldedit1").show();
+        $("#btnfieldedit").hide();
+        $("#btneditmsg").show();
+        $("#btnupdate").show();
+
+
+        $("#txtpetname").removeAttr("disabled");
+        $("#txtpetage").removeAttr("disabled");
+        $("#txttypeofpet").removeAttr("disabled");
+        $("#txtamtforpet").removeAttr("disabled");
+        $("#ddlmaritalstatus").removeAttr("disabled");
+        $("#txtresponsiblepet").removeAttr("disabled");
+        $("#ddlAssetType").removeAttr("disabled");
+        $("#ddlAssetCategory").removeAttr("disabled");
+        $("#txtDetails").removeAttr("disabled");
+       
+
+        $("#btnupdate").show();
+
+
+        $("#btneditmsg").show();
+
+    });
+
+
+
+
+
+    $("#btnfieldedit1").click(function () {
+        $("#btnfieldedit").show();
+        $("#btnfieldedit1").hide();
+        $("#btnupdate").hide();
+
+        $("#btneditmsg").hide();
+
+
+
+        $("#txtpetname").attr("disabled", "disabled");
+            $("#txtpetage").attr("disabled", "disabled");
+            $("#txttypeofpet").attr("disabled", "disabled");
+            $("#txtamtforpet").attr("disabled", "disabled");
+            $("#ddlmaritalstatus").attr("disabled", "disabled");
+            $("#txtresponsiblepet").attr("disabled", "disabled");
+            $("#ddlAssetType").attr("disabled", "disabled");
+            $("#ddlAssetCategory").attr("disabled", "disabled");
+            $("#txtDetails").attr("disabled", "disabled");
+           
+
+    });
+
+
+</script>
+

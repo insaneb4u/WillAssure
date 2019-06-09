@@ -692,7 +692,32 @@ namespace WillAssure.Controllers
         public ActionResult UpdateLiabilities(LiabilitiesModel LM)
         {
             con.Open();
-            string query = "update Liabilities set Amount= " + LM.Amount + " , Name = " + LM.Name1 + " , address=" + LM.address + " , city = " + LM.citytext + " state = " + LM.statetext + " , pin=" + LM.pin + " , Mobile=" + LM.Mobile + " , Details=" + LM.Details + " , tid=" + LM.tid + "  where lId =" + LM.libid + "  ";
+            string qqchk2 = "select amId from AssetsCategory where  AssetsCategory= '" + LM.assetCategorytext + "'   ";
+            SqlDataAdapter dachk2 = new SqlDataAdapter(qqchk2, con);
+            DataTable dtchk2 = new DataTable();
+            dachk2.Fill(dtchk2);
+            if (dtchk2.Rows.Count > 0)
+            {
+                LM.assetCategoryid = Convert.ToInt32(dtchk2.Rows[0]["amId"]);
+            }
+
+
+
+
+            string qqchk3 = "select atId from AssetsType where AssetsType ='" + LM.assettypetext+ "'   ";
+            SqlDataAdapter dachk3 = new SqlDataAdapter(qqchk3, con);
+            DataTable dtchk3 = new DataTable();
+            dachk3.Fill(dtchk3);
+            if (dtchk3.Rows.Count > 0)
+            {
+                LM.assettypeid = Convert.ToInt32(dtchk3.Rows[0]["atId"]);
+            }
+            con.Close();
+
+
+
+            con.Open();
+            string query = "update Liabilities set Amount= " + LM.Amount + " , Name = '" + LM.Name1 + "' , address='" + LM.address + "' , city = '" + LM.citytext + "' , state = '" + LM.statetext + "' , pin='" + LM.pin + "' , Mobile='" + LM.Mobile + "' , Details='" + LM.Details + "' , tid=" + Session["distid"].ToString() + "  , assettypeid = "+LM.assettypeid+ " , assetcategoryid = "+LM.assetCategoryid+ " , Proportion = "+LM.Proportion+" where lId =" + LM.libid + "  ";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.ExecuteNonQuery();
             con.Close();

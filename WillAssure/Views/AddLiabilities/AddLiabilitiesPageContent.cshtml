@@ -98,7 +98,8 @@
 
 
                             </div>
-                            <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Edit Details</button></div>
+                            <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>
+
                         </div>
                             <hr class="div_rd">
                             <input type="hidden" id="txtcheck" value="" name="name" />
@@ -149,7 +150,7 @@
                                             <label for="input-1">State</label>
 
                                             <select id="ddlstate" class="form-control input-shadow validate[required]">
-                                                <option value="">@Model.statetext</option>
+                                                <option value="@Model.statetext">@Model.statetext</option>
                                             </select>
                                             @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
                                             @Html.HiddenFor(m => m.statetext, new { id = "statetext" })
@@ -182,7 +183,7 @@
                                         <div class="form-group">
                                             <label for="input-1">City</label>
                                             <select id="ddlcity" onchange="ddlcity(value)" class="form-control input-shadow validate[required]">
-                                                <option value="">@Model.citytext</option>
+                                                <option value="@Model.citytext">@Model.citytext</option>
                                             </select>
                                             @Html.HiddenFor(m => m.cityid, new { id = "cityid" })
                                             @Html.HiddenFor(m => m.citytext, new { id = "citytext" })
@@ -266,7 +267,8 @@
 
 
                                             <select id="ddlAssetType" class="form-control input-shadow validate[required]">
-                                                <option value="">@Model.assettypetext</option>
+
+                                                <option value="@Model.assettypetext">@Model.assettypetext</option>
                                             </select>
                                             @Html.HiddenFor(m => m.assettypeid, new { id = "assettypeid" })
                                             @Html.HiddenFor(m => m.assettypetext, new { id = "assettypetext" })
@@ -303,7 +305,7 @@
                                             <label for="input-1">Asset Category</label>
 
                                             <select id="ddlAssetCategory" class="form-control input-shadow validate[required]">
-                                                <option value="">@Model.assetCategorytext</option>
+                                                <option value="@Model.assetCategorytext">@Model.assetCategorytext</option>
                                             </select>
                                             @Html.HiddenFor(m => m.assetCategoryid, new { id = "assetCategoryid" })
                                             @Html.HiddenFor(m => m.assetCategorytext, new { id = "assetCategorytext" })
@@ -766,6 +768,12 @@
 
     $("#btnfieldedit").click(function () {
 
+
+        $("#btnfieldedit1").show();
+        $("#btnfieldedit").hide();
+        $("#btneditmsg").show();
+        $("#btnupdate").show();
+
         $("#txtAmount").removeAttr("disabled");
         $("#txtName").removeAttr("disabled");
         $("#txtAddress").removeAttr("disabled");
@@ -785,6 +793,35 @@
 
 
         $("#btneditmsg").show();
+
+    });
+
+
+
+
+
+    $("#btnfieldedit1").click(function () {
+        $("#btnfieldedit").show();
+        $("#btnfieldedit1").hide();
+        $("#btnupdate").hide();
+
+        $("#btneditmsg").hide();
+
+
+        $("#txtAmount").attr("disabled", "disabled");
+        $("#txtName").attr("disabled", "disabled");
+        $("#txtAddress").attr("disabled", "disabled");
+        $("#ddlstate").attr("disabled", "disabled");
+        $("#ddlcity").attr("disabled", "disabled");
+        $("#ddlstate").attr("disabled", "disabled");
+
+        $("#txtPin").attr("disabled", "disabled");
+        $("#txtmobile").attr("disabled", "disabled");
+        $("#txtDetails").attr("disabled", "disabled");
+        $("#ddlAssetType").attr("disabled", "disabled");
+        $("#ddlAssetCategory").attr("disabled", "disabled");
+        $("#txtprop").attr("disabled", "disabled");
+
 
     });
 

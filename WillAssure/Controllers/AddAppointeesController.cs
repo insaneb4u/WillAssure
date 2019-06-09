@@ -292,8 +292,8 @@ namespace WillAssure.Controllers
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-
-
+                    ViewBag.disablefield = "true";
+                    Am.apId = Convert.ToInt32(dt.Rows[i]["apId"]);
                     Am.Typetxt = dt.Rows[i]["Type"].ToString();
                     Am.subTypetxt = dt.Rows[i]["subType"].ToString();
                     Am.Name = dt.Rows[i]["Name"].ToString();
@@ -324,6 +324,66 @@ namespace WillAssure.Controllers
 
 
 
+            //  for alternate appointees
+
+            con.Open();
+            string query2 = "select * from alternate_Appointees where apId = " + Am.apId + "";
+            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+            DataTable dt2 = new DataTable();
+            da2.Fill(dt2);
+            con.Close();
+
+
+            if (dt2.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt2.Rows.Count; i++)
+                {
+                    ViewBag.disablefield = "true";
+                    Am.altapId = Convert.ToInt32(dt2.Rows[i]["id"]);
+                    Am.altguardian = dt2.Rows[i]["altguardian"].ToString();
+                    Am.altexecutor = dt2.Rows[i]["altexec"].ToString();
+
+
+                    Am.altName = dt2.Rows[i]["Name"].ToString();
+                    Am.altmiddleName = dt2.Rows[i]["middleName"].ToString();
+                    Am.altSurname = dt2.Rows[i]["Surname"].ToString();
+                    Am.altIdentity_Proof = dt2.Rows[i]["Identity_Proof"].ToString();
+                    Am.altIdentity_Proof_Value = dt2.Rows[i]["Identity_Proof_Value"].ToString();
+                    Am.altAlt_Identity_Proof = dt2.Rows[i]["Alt_Identity_Proof"].ToString();
+                    Am.altAlt_Identity_Proof_Value = dt2.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+
+                    Am.altDob = dt2.Rows[i]["DOB"].ToString();
+
+                    Am.altGender = dt2.Rows[i]["Gender"].ToString();
+                    Am.altOccupation = dt2.Rows[i]["Occupation"].ToString();
+                    Am.altRelationshipTxt = dt2.Rows[i]["Relationship"].ToString();
+                    Am.altAddress1 = dt2.Rows[i]["Address1"].ToString();
+                    Am.altAddress2 = dt2.Rows[i]["Address2"].ToString();
+                    Am.altAddress3 = dt2.Rows[i]["Address3"].ToString();
+                    Am.altcitytext = dt2.Rows[i]["City"].ToString();
+                    Am.altstatetext = dt2.Rows[i]["State"].ToString();
+                    Am.altPin = dt2.Rows[i]["Pin"].ToString();
+
+
+
+
+                }
+            }
+
+
+
+
+
+
+
+            //end
+
+
+
+
+
 
 
             return View("/Views/AddAppointees/AddAppointeesPageContent.cshtml",Am);
@@ -339,7 +399,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<select value='0'>--Select State--</select>";
 
             if (dt.Rows.Count > 0)
             {
@@ -415,7 +475,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value='0'>--Select--</option>";
 
             if (dt.Rows.Count > 0)
             {
@@ -577,6 +637,7 @@ namespace WillAssure.Controllers
             int apid = 0;
             if (Session["doctype"].ToString() == "Will")
             {
+                ViewBag.disablefield = "true";
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SP_CRUDAppointees", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -692,6 +753,7 @@ namespace WillAssure.Controllers
 
             if (Session["doctype"].ToString() == "POA")
             {
+                ViewBag.disablefield = "true";
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SP_CRUDAppointees", con);
                 cmd.CommandType = CommandType.StoredProcedure;
@@ -804,6 +866,7 @@ namespace WillAssure.Controllers
 
             if (Session["doctype"].ToString() == "Giftdeeds")
             {
+                ViewBag.disablefield = "true";
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SP_CRUDAppointees", con);
                 cmd.CommandType = CommandType.StoredProcedure;

@@ -13,6 +13,7 @@ namespace WillAssure.Controllers
     public class LoginPageController : Controller
     {
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
+
         SqlConnection con = new SqlConnection(connectionString);
         // GET: LoginPage
         public ActionResult LoginPageIndex()

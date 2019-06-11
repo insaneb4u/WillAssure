@@ -141,7 +141,7 @@ namespace WillAssure.Controllers
                  
 
                         con.Open();
-                        string query = "select a.tId , a.First_Name  , b.beneficiary_type   from TestatorDetails a inner join BeneficiaryDetails b on a.tId=b.tId inner join users c on a.uId=c.uId where c.uId =  " + Convert.ToInt32(Session["uuid"]) + " ";
+                        string query = "select  a.tId , a.First_Name  , b.doctype   from TestatorDetails a inner join BeneficiaryDetails b on a.tId=b.tId inner join users c on a.uId=c.uId where c.uId =  " + Convert.ToInt32(Session["uuid"]) + "  and b.doctype = 'will' ";
                         SqlDataAdapter da = new SqlDataAdapter(query, con);
                         DataTable dt = new DataTable();
                         da.Fill(dt);
@@ -156,7 +156,7 @@ namespace WillAssure.Controllers
                             {
 
                                 data = data + "<tr class='nr'><td>" + dt.Rows[i]["tId"].ToString() + "</td>"
-        + "<td>" + dt.Rows[i]["beneficiary_type"].ToString() + "</td>"
+        + "<td>" + dt.Rows[i]["doctype"].ToString() + "</td>"
         + "<td>" + dt.Rows[i]["First_Name"].ToString() + "</td>"
         + "<td> <button type='button'   id=" + dt.Rows[i]["tId"].ToString() + " onClick='detailid(this.id)'   class='btn btn-primary'>View Details</button></tr>";
 
@@ -186,7 +186,7 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string query = "select a.tId , a.First_Name  , b.beneficiary_type   from TestatorDetails a inner join BeneficiaryDetails b on a.tId=b.tId inner join users c on a.uId=c.uId ";
+                string query = "select a.tId , a.First_Name  , b.doctype   from TestatorDetails a inner join BeneficiaryDetails b on a.tId=b.tId inner join users c on a.uId=c.uId and b.doctype = 'will' ";
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -201,7 +201,7 @@ namespace WillAssure.Controllers
                     {
 
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["tId"].ToString() + "</td>"
-+ "<td>" + dt.Rows[i]["beneficiary_type"].ToString() + "</td>"
++ "<td>" + dt.Rows[i]["doctype"].ToString() + "</td>"
 + "<td>" + dt.Rows[i]["First_Name"].ToString() + "</td>"
 + "<td> <button type='button'   id=" + dt.Rows[i]["tId"].ToString() + " onClick='Edit(this.id)'   class='btn btn-primary'>View Document</button></tr>";
 

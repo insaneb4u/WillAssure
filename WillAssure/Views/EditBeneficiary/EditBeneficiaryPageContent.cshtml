@@ -29,7 +29,7 @@
             <div class="col-lg-12">
                 <div class="card">
 
-               
+
 
 
                     @if (Session["doctype"] != null)
@@ -44,49 +44,54 @@
                         }
                     }
 
-                    <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-2">
+                            <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><button type="button" id="btnnext" style="display:;" class="btn btn-danger  px-5">Add&nbsp;&nbsp;<i class="icon-plus"></i></button></a>
+                        </div>
                         <div class="col-sm-3">
+
                             <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>
                         </div>
-                        <hr class="div_rd">
-                        <div class="table-responsive">
-                            <table id="default-datatable" class="table table-bordered">
-                                <thead>
-                                    <tr class="ui-widget-header">
-                                        <th>bpId</th>
-                                        <th>First_Name</th>
-                                        <th>Last_Name</th>
-                                        <th>Middle_Name</th>
-                                        <th>DOB</th>
-                                        <th>Mobile</th>
-                                        <th>Relationship</th>
-                                        <th>Marital_Status</th>
-                                        <th>Religion</th>
-                                        <th>Identity_proof</th>
-                                        <th>Identity_proof_value</th>
-                                        <th>Alt_Identity_proof</th>
-                                        <th>Alt_Identity_proof_value</th>
-                                        <th>Address1</th>
-                                        <th>Address2</th>
-                                        <th>Address3</th>
-                                        <th>City</th>
-                                        <th>State</th>
-                                        <th>Pin</th>
-                                        <th>aid</th>
-                                        <th>tId</th>
-                                        <th>dateCreated</th>
-                                        <th>createdBy</th>
-                                        <th>documentId</th>
-                                        <th>beneficiary_type</th>
-
-                                        <th>Action</th>
-
-                                    </tr>
-                                </thead>
-                                <tbody id="BeneficiaryData"></tbody>
-                            </table>
-                        </div>
                     </div>
+                    <hr class="div_rd">
+                    <div class="table-responsive">
+                        <table id="default-datatable" class="table table-bordered">
+                            <thead>
+                                <tr class="ui-widget-header">
+                                    <th>bpId</th>
+                                    <th>First_Name</th>
+                                    <th>Last_Name</th>
+                                    <th>Middle_Name</th>
+                                    <th>DOB</th>
+                                    <th>Mobile</th>
+                                    <th>Relationship</th>
+                                    <th>Marital_Status</th>
+                                    <th>Religion</th>
+                                    <th>Identity_proof</th>
+                                    <th>Identity_proof_value</th>
+                                    <th>Alt_Identity_proof</th>
+                                    <th>Alt_Identity_proof_value</th>
+                                    <th>Address1</th>
+                                    <th>Address2</th>
+                                    <th>Address3</th>
+                                    <th>City</th>
+                                    <th>State</th>
+                                    <th>Pin</th>
+                                    <th>aid</th>
+                                    <th>tId</th>
+                                    <th>dateCreated</th>
+                                    <th>createdBy</th>
+                                    <th>documentId</th>
+                                    <th>beneficiary_type</th>
+
+                                    <th>Action</th>
+
+                                </tr>
+                            </thead>
+                            <tbody id="BeneficiaryData"></tbody>
+                        </table>
+                    </div>
+                </div>
                 </div>
             </div>
         </div><!-- End Row-->

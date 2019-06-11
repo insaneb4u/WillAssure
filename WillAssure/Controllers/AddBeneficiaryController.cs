@@ -23,7 +23,7 @@ namespace WillAssure.Controllers
         {
             if (success == "true")
             {
-                ViewBag.Message = "Verified";
+                ViewBag.Message = "RecordsInsert";
             }
 
 

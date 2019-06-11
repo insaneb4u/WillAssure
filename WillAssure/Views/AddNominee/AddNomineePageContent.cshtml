@@ -139,7 +139,7 @@
 
 
                                 </div>
-                                <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>
+                                <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" /><a href="@Url.Action("EditNomineeIndex","EditNominee")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
 
                             </div>
 
@@ -313,7 +313,7 @@
 
                                             <label for="input-1">State</label>
                                             <select id="ddlstate" class="form-control input-shadow validate[required]">
-                                                <option value="">@Model.statetext</option>
+                                                <option value="@Model.statetext">@Model.statetext</option>
                                             </select>
                                             @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
                                             @Html.HiddenFor(m => m.statetext, new { id = "statetext" })
@@ -561,7 +561,7 @@
                 type: "POST",
                 url:"@Url.Action("BindStateDDL", "AddNominee")",
                 success: function (data) {
-                    $('#ddlstate').empty().append(data);
+                    $('#ddlstate').append(data);
                 }
               });
 
@@ -746,7 +746,7 @@
             type: "POST",
             url:"@Url.Action("BindRelationDDL", "AddNominee")",
             success: function (data) {
-                $('#ddlrelation').empty().append(data);
+                $('#ddlrelation').append(data);
             }
         });
 
@@ -946,13 +946,13 @@
                     {
                         <script>
 
-
+                            $("#btnmore").show();
 
                             $("#btnfieldedit").show();
 
                             $("#btnnomineeformsubmit").hide();
 
-                            
+
 
 
 
@@ -1073,6 +1073,74 @@
 
 
                         });
+
+
+                    </script>
+
+
+
+
+                    <script>
+
+                        $("#btnmore").click(function () {
+
+                            $("#btnupdate").hide();
+
+                            $("#btnnomineeformsubmit").show();
+
+
+                            $("#btnfieldedit").hide();
+
+                            $("#txtfirstname").removeAttr("disabled");
+                            $("#txtmiddlename").removeAttr("disabled");
+                            $("#txtlastname").removeAttr("disabled");
+                            $("#DOB").removeAttr("disabled");
+                            $("#txtmobile").removeAttr("disabled");
+                            $("#ddlrelation").removeAttr("disabled");
+                            $("#Marital_Status").removeAttr("disabled");
+                            $("#Religion").removeAttr("disabled");
+                            $("#ddlstate").removeAttr("disabled");
+                            $("#ddlcity").removeAttr("disabled");
+                            $("#txtpin").removeAttr("disabled");
+                            $("#txtaddress1").removeAttr("disabled");
+                            $("#txtaddress2").removeAttr("disabled");
+                            $("#txtaddress3").removeAttr("disabled");
+                            $("#Identity_Proof").removeAttr("disabled");
+                            $("#txtidentityproof").removeAttr("disabled");
+                            $("#ddlidentityproof1").removeAttr("disabled");
+                            $("#txtIdentityProofValue").removeAttr("disabled");
+                            $("#txtdescriptionofasset").removeAttr("disabled");
+
+
+
+
+
+                            $("#txtfirstname").val("");
+                            $("#txtmiddlename").val("");
+                            $("#txtlastname").val("");
+                            $("#DOB").val("");
+                            $("#txtmobile").val("");
+                            $("#ddlrelation").val("");
+                            $("#Marital_Status").val("");
+                            $("#Religion").val("");
+                            $("#ddlstate").val("");
+                            $("#ddlcity").val("");
+                            $("#txtpin").val("");
+                            $("#txtaddress1").val("");
+                            $("#txtaddress2").val("");
+                            $("#txtaddress3").val("");
+                            $("#Identity_Proof").val("");
+                            $("#txtidentityproof").val("");
+                            $("#ddlidentityproof1").val("");
+                            $("#txtIdentityProofValue").val("");
+                            $("#txtdescriptionofasset").val("");
+
+
+                        });
+
+
+
+
 
 
                     </script>

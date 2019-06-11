@@ -26,6 +26,7 @@ namespace WillAssure.Controllers
             if (success == "true")
             {
                 ViewBag.Message = "Verified";
+            
             }
 
             ViewBag.view = "Will";
@@ -260,7 +261,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "<option value='' >--Select--</option>";
+            string data = "";
 
             if (dt.Rows.Count > 0)
             {
@@ -286,6 +287,10 @@ namespace WillAssure.Controllers
             return data;
 
         }
+
+
+
+     
 
 
 

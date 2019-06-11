@@ -168,21 +168,21 @@
                         @using (Html.BeginForm("InsertBeneficiaryData", null, FormMethod.Post, new { id = "BeneficiaryForm" }))
 
                         {
-                                <div class="row">
-                                    <div class="col-sm-1"></div><div class='col-sm-2'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Testator</label></div>
-                                    <div class='col-sm-3'>
+                            <div class="row">
+                                <div class="col-sm-1"></div><div class='col-sm-2'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Testator</label></div>
+                                <div class='col-sm-3'>
 
-                                        <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
-                                        <input type="text" name="ddltid" id="tid" style="display:none;" value="@Session["distid"].ToString()" />
-
-
+                                    <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
+                                    <input type="text" name="ddltid" id="tid" style="display:none;" value="@Session["distid"].ToString()" />
 
 
 
 
-                                    </div>
-                                    <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>
+
+
                                 </div>
+                                <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" /><a href="@Url.Action("EditBeneficiaryIndex","EditBeneficiary")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
+                            </div>
 
                             <hr />
                             @Html.HiddenFor(m => m.check, new { @id = "txtcheck" })
@@ -279,8 +279,8 @@
                                             <select id="ddlrelation" class="form-control input-shadow validate[required]">
                                                 <option value="@Model.RelationshipTxt">@Model.RelationshipTxt</option>
                                             </select>
-                                            @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid" })
-                                            @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext" })
+                                            @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid1" })
+                                            @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext1" })
                                         </div>
                                     </div>
                                 }
@@ -289,12 +289,9 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Relation</label>
-                                            <select id="ddlrelation" class="form-control input-shadow validate[required]">
-                                                <option value="">--Select--</option>
-
-                                            </select>
-                                            @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid" })
-                                            @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext" })
+                                            <select id="ddlrelation" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                                            @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid1" })
+                                            @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext1" })
                                         </div>
                                     </div>
 
@@ -302,38 +299,37 @@
 
 
 
-
                                 @*<div class="col-sm-6">
-            <div class="form-group">
-                <label for="input-3">Marital Status</label>
-                @Html.DropDownListFor(x => x.Marital_Status, new SelectListItem[]{
-                new SelectListItem() {Text = "--Select--", Value=""},
-                new SelectListItem() {Text = "Married", Value="Married"},
-                new SelectListItem() {Text = "UnMarried", Value="UnMarried"}} , new { @class= "form-control input-shadow validate[required]", @id = "ddlMarital_Status" })
-                @Html.HiddenFor(m => m.Marital_Status_TXT, new { @id = "Marital_Status_TXT" })
-                @Html.HiddenFor(m => m.Marital_Status_ID, new { @id = "Marital_Status_ID" })
-            </div>
-        </div>
+                                        <div class="form-group">
+                                            <label for="input-3">Marital Status</label>
+                                            @Html.DropDownListFor(x => x.Marital_Status, new SelectListItem[]{
+                                            new SelectListItem() {Text = "--Select--", Value=""},
+                                            new SelectListItem() {Text = "Married", Value="Married"},
+                                            new SelectListItem() {Text = "UnMarried", Value="UnMarried"}} , new { @class= "form-control input-shadow validate[required]", @id = "ddlMarital_Status" })
+                                            @Html.HiddenFor(m => m.Marital_Status_TXT, new { @id = "Marital_Status_TXT" })
+                                            @Html.HiddenFor(m => m.Marital_Status_ID, new { @id = "Marital_Status_ID" })
+                                        </div>
+                                    </div>
 
 
 
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label for="input-3">Religion</label>
-                @Html.DropDownListFor(x => x.Religion, new SelectListItem[]{
-         new SelectListItem() {Text = "--Select--", Value=""},
-         new SelectListItem() {Text = "Buddhism", Value="Buddhism"},
-         new SelectListItem() {Text = "Christians", Value="Christians"},
-         new SelectListItem() {Text = "Hinduism", Value="Hinduism"},
-         new SelectListItem() {Text = "Islam", Value="Islam"},
-         new SelectListItem() {Text = "Jainism", Value="Jainism"},
-         new SelectListItem() {Text = "Sikhism", Value="Sikhism"},
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="input-3">Religion</label>
+                                            @Html.DropDownListFor(x => x.Religion, new SelectListItem[]{
+                                     new SelectListItem() {Text = "--Select--", Value=""},
+                                     new SelectListItem() {Text = "Buddhism", Value="Buddhism"},
+                                     new SelectListItem() {Text = "Christians", Value="Christians"},
+                                     new SelectListItem() {Text = "Hinduism", Value="Hinduism"},
+                                     new SelectListItem() {Text = "Islam", Value="Islam"},
+                                     new SelectListItem() {Text = "Jainism", Value="Jainism"},
+                                     new SelectListItem() {Text = "Sikhism", Value="Sikhism"},
 
-         new SelectListItem() {Text = "Zoroastrian", Value="Zoroastrian"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlReligion" })
-                @Html.HiddenFor(m => m.Religion_txt, new { @id = "Religion_txt" })
-                @Html.HiddenFor(m => m.Religion_id, new { @id = "Religion_id" })
-            </div>
-        </div>*@
+                                     new SelectListItem() {Text = "Zoroastrian", Value="Zoroastrian"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlReligion" })
+                                            @Html.HiddenFor(m => m.Religion_txt, new { @id = "Religion_txt" })
+                                            @Html.HiddenFor(m => m.Religion_id, new { @id = "Religion_id" })
+                                        </div>
+                                    </div>*@
 
 
 
@@ -362,9 +358,7 @@
                                         }
                                         else
                                         {
-                                            <select id="ddlstate" class="form-control input-shadow validate[required]">
-                                                <option value="">--Select State--</option>
-                                            </select>
+                                            <select id="ddlstate" class="form-control input-shadow validate[required]"></select>
                                             @Html.HiddenFor(m => m.State_id, new { id = "stateid" })
                                             @Html.HiddenFor(m => m.State_txt, new { id = "statetext" })
                                         }
@@ -398,7 +392,7 @@
                                         <div class="form-group">
                                             <label for="input-1">City</label>
                                             <select id="ddlcity" class="form-control input-shadow validate[required]">
-                                                <option value="">--Select City--</option>
+                                                <option value="">--Select--</option>
                                             </select>
                                             @Html.HiddenFor(m => m.City_id, new { id = "cityid" })
                                             @Html.HiddenFor(m => m.City_txt, new { id = "citytext" })
@@ -603,7 +597,7 @@
                                     <div class="col-sm-3">
 
                                         <div class="form-group">
-                                            @Html.HiddenFor(m=>m.altbpId)
+                                            @Html.HiddenFor(m => m.altbpId)
                                             <label for="input-1">First Name</label>
                                             @Html.TextBoxFor(m => m.altFirst_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "altfirstname", @placeholder = "Enter First Name", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
@@ -682,16 +676,36 @@
 
 
 
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Relation</label>
-                                            <select id="altddlrelation" class="form-control input-shadow validate[required]">
-                                                <option value="">--Select--</option>
-                                            </select>
-                                            @Html.HiddenFor(m => m.altRelationshipId, new { id = "altRelationshipId" })
-                                            @Html.HiddenFor(m => m.altRelationshipTxt, new { @id = "altRelationshipTxt", @name = "altRelationshipTxt" })
+
+                                    @if (Model.RelationshipTxt != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Relation</label>
+                                                <select id="altddlrelation" class="form-control input-shadow validate[required]">
+                                                    <option value="@Model.RelationshipTxt">@Model.RelationshipTxt</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid" })
+                                                @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext", @name = "altRelationshipTxt" })
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Relation</label>
+                                                <select id="altddlrelation" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                                                @Html.HiddenFor(m => m.altRelationshipId, new { id = "altRelationshipId" })
+                                                @Html.HiddenFor(m => m.altRelationshipTxt, new { id = "altRelationshipTxt", @name = "altRelationshipTxt" })
+                                            </div>
+                                        </div>
+
+                                    }
+
+
+
+
                                 </div>
 
 
@@ -1182,7 +1196,7 @@
     $("#ddlcity").change(function () {
         var value = $(this).children(":selected").attr("value");
         var text = $("#ddlcity option:selected").html();
-        
+
         $("#citytext").val(text);
         $("#cityid").val(value);
 
@@ -1239,7 +1253,7 @@
             type: "POST",
             url:"@Url.Action("BindRelationDDL", "AddBeneficiary")",
             success: function (data) {
-                $('#ddlrelation').empty().append(data);
+                $('#ddlrelation').append(data);
 
             }
         });
@@ -1432,7 +1446,7 @@
             type: "POST",
             url:"@Url.Action("BindRelationDDL", "AddBeneficiary")",
             success: function (data) {
-                $('#altddlrelation').empty().append(data);
+                $('#altddlrelation').append(data);
             }
         });
 
@@ -1703,7 +1717,7 @@
 {
     <script>
 
-
+        $("#btnmore").show();
 
         $("#btnfieldedit").show();
 
@@ -1731,26 +1745,26 @@
             $("#txtAddress3").attr("disabled", "disabled");
             $("#altddlidentityproof").attr("disabled", "disabled");
             $("#txtIdentityProofValue").attr("disabled", "disabled");
-            $("#ddlidentityproof22").attr("disabled", "disabled"); 
-            $("#txtIdentityProofValue22").attr("disabled", "disabled"); 
+            $("#ddlidentityproof22").attr("disabled", "disabled");
+            $("#txtIdentityProofValue22").attr("disabled", "disabled");
 
 
-            $("#altfirstname").attr("disabled", "disabled"); 
-            $("#altmiddlename").attr("disabled", "disabled"); 
-            $("#altlastname").attr("disabled", "disabled"); 
-            $("#DOB").attr("disabled", "disabled"); 
-            $("#altmobile").attr("disabled", "disabled"); 
-            $("#altddlrelation").attr("disabled", "disabled"); 
-            $("#altddlstate").attr("disabled", "disabled"); 
-            $("#altddlcity").attr("disabled", "disabled"); 
-            $("#altpin").attr("disabled", "disabled"); 
-            $("#altaddress1").attr("disabled", "disabled"); 
-            $("#altaddress2").attr("disabled", "disabled"); 
-            $("#altaddress3").attr("disabled", "disabled"); 
-            $("#seconddl").attr("disabled", "disabled"); 
-            $("#txtidentityproof").attr("disabled", "disabled"); 
-            $("#altddlidentityproof1").attr("disabled", "disabled"); 
-            $("#alttxtIdentityProofValue").attr("disabled", "disabled"); 
+            $("#altfirstname").attr("disabled", "disabled");
+            $("#altmiddlename").attr("disabled", "disabled");
+            $("#altlastname").attr("disabled", "disabled");
+            $("#DOB").attr("disabled", "disabled");
+            $("#altmobile").attr("disabled", "disabled");
+            $("#altddlrelation").attr("disabled", "disabled");
+            $("#altddlstate").attr("disabled", "disabled");
+            $("#altddlcity").attr("disabled", "disabled");
+            $("#altpin").attr("disabled", "disabled");
+            $("#altaddress1").attr("disabled", "disabled");
+            $("#altaddress2").attr("disabled", "disabled");
+            $("#altaddress3").attr("disabled", "disabled");
+            $("#seconddl").attr("disabled", "disabled");
+            $("#txtidentityproof").attr("disabled", "disabled");
+            $("#altddlidentityproof1").attr("disabled", "disabled");
+            $("#alttxtIdentityProofValue").attr("disabled", "disabled");
 
         });
 
@@ -1785,27 +1799,27 @@
         $("#txtAddress3").removeAttr("disabled");
         $("#altddlidentityproof").removeAttr("disabled");
         $("#txtIdentityProofValue").removeAttr("disabled");
-        $("#ddlidentityproof22").removeAttr("disabled"); 
-        $("#txtIdentityProofValue22").removeAttr("disabled"); 
-       
+        $("#ddlidentityproof22").removeAttr("disabled");
+        $("#txtIdentityProofValue22").removeAttr("disabled");
 
 
-        $("#altfirstname").removeAttr("disabled"); 
-        $("#altmiddlename").removeAttr("disabled"); 
-        $("#altlastname").removeAttr("disabled"); 
-        $("#DOB").removeAttr("disabled"); 
-        $("#altmobile").removeAttr("disabled"); 
-        $("#altddlrelation").removeAttr("disabled"); 
-        $("#altddlstate").removeAttr("disabled"); 
-        $("#altddlcity").removeAttr("disabled"); 
-        $("#altpin").removeAttr("disabled"); 
-        $("#altaddress1").removeAttr("disabled"); 
-        $("#altaddress2").removeAttr("disabled"); 
-        $("#altaddress3").removeAttr("disabled"); 
-        $("#seconddl").removeAttr("disabled"); 
-        $("#txtidentityproof").removeAttr("disabled"); 
-        $("#altddlidentityproof1").removeAttr("disabled"); 
-        $("#alttxtIdentityProofValue").removeAttr("disabled"); 
+
+        $("#altfirstname").removeAttr("disabled");
+        $("#altmiddlename").removeAttr("disabled");
+        $("#altlastname").removeAttr("disabled");
+        $("#DOB").removeAttr("disabled");
+        $("#altmobile").removeAttr("disabled");
+        $("#altddlrelation").removeAttr("disabled");
+        $("#altddlstate").removeAttr("disabled");
+        $("#altddlcity").removeAttr("disabled");
+        $("#altpin").removeAttr("disabled");
+        $("#altaddress1").removeAttr("disabled");
+        $("#altaddress2").removeAttr("disabled");
+        $("#altaddress3").removeAttr("disabled");
+        $("#seconddl").removeAttr("disabled");
+        $("#txtidentityproof").removeAttr("disabled");
+        $("#altddlidentityproof1").removeAttr("disabled");
+        $("#alttxtIdentityProofValue").removeAttr("disabled");
 
         $("#btneditmsg").show();
 
@@ -1859,9 +1873,111 @@
         $("#seconddl").attr("disabled", "disabled");
         $("#txtidentityproof").attr("disabled", "disabled");
         $("#altddlidentityproof1").attr("disabled", "disabled");
-        $("#alttxtIdentityProofValue").attr("disabled", "disabled"); 
+        $("#alttxtIdentityProofValue").attr("disabled", "disabled");
 
 
 
     });
+</script>
+
+
+
+<script>
+
+    $("#btnmore").click(function () {
+
+        $("#btnupdate").hide();
+
+        $("#btnBeneficiaryformsubmit").show();
+
+     
+
+        $("#btnfieldedit").hide();
+
+        $("#txtFirst_Name").removeAttr("disabled");
+        $("#txtMiddle_Name").removeAttr("disabled");
+        $("#txtLast_Name").removeAttr("disabled");
+        $("#DOB").removeAttr("disabled");
+        $("#txtMobile").removeAttr("disabled");
+        $("#ddlrelation").removeAttr("disabled");
+        $("#ddlstate").removeAttr("disabled");
+        $("#ddlcity").removeAttr("disabled");
+        $("#txtPin").removeAttr("disabled");
+        $("#txtAddress1").removeAttr("disabled");
+        $("#txtAddress2").removeAttr("disabled");
+        $("#txtAddress3").removeAttr("disabled");
+        $("#altddlidentityproof").removeAttr("disabled");
+        $("#txtIdentityProofValue").removeAttr("disabled");
+        $("#ddlidentityproof22").removeAttr("disabled");
+        $("#txtIdentityProofValue22").removeAttr("disabled");
+
+
+        $("#altfirstname").removeAttr("disabled");
+        $("#altmiddlename").removeAttr("disabled");
+        $("#altlastname").removeAttr("disabled");
+        $("#DOB").removeAttr("disabled");
+        $("#altmobile").removeAttr("disabled");
+        $("#altddlrelation").removeAttr("disabled");
+        $("#altddlstate").removeAttr("disabled");
+        $("#altddlcity").removeAttr("disabled");
+        $("#altpin").removeAttr("disabled");
+        $("#altaddress1").removeAttr("disabled");
+        $("#altaddress2").removeAttr("disabled");
+        $("#altaddress3").removeAttr("disabled");
+        $("#seconddl").removeAttr("disabled");
+        $("#txtidentityproof").removeAttr("disabled");
+        $("#altddlidentityproof1").removeAttr("disabled");
+        $("#alttxtIdentityProofValue").removeAttr("disabled");
+
+
+
+
+
+
+
+
+        $("#txtFirst_Name").val("");
+        $("#txtMiddle_Name").val("");
+        $("#txtLast_Name").val("");
+        $("#DOB").val("");
+        $("#txtMobile").val("");
+        $("#ddlrelation").val("");
+        $("#ddlstate").val("");
+        $("#ddlcity").val("");
+        $("#txtPin").val("");
+        $("#txtAddress1").val("");
+        $("#txtAddress2").val("");
+        $("#txtAddress3").val("");
+        $("#altddlidentityproof").val("");
+        $("#txtIdentityProofValue").val("");
+        $("#ddlidentityproof22").val("");
+        $("#txtIdentityProofValue22").val("");
+
+
+        $("#altfirstname").val("");
+        $("#altmiddlename").val("");
+        $("#altlastname").val("");
+        $("#DOB").val("");
+        $("#altmobile").val("");
+        $("#altddlrelation").val("");
+        $("#altddlstate").val("");
+        $("#altddlcity").val("");
+        $("#altpin").val("");
+        $("#altaddress1").val("");
+        $("#altaddress2").val("");
+        $("#altaddress3").val("");
+        $("#seconddl").val("");
+        $("#txtidentityproof").val("");
+        $("#altddlidentityproof1").val("");
+        $("#alttxtIdentityProofValue").val("");
+        $("#alttxtIdentityProofValue").val("");
+
+
+    });
+
+
+
+
+
+
 </script>

@@ -20,23 +20,34 @@ namespace WillAssure.Controllers
         // GET: EditBeneficiary
         public ActionResult EditBeneficiaryIndex()
         {
-
-            if (Session["Type"].ToString() != "DistributorAdmin")
+            if (Session["Type"] != null)
             {
-                if (Session["doctype"].ToString() == "Will")
+                if (Session["Type"].ToString() != "DistributorAdmin")
                 {
-                    ViewBag.view = "Will";
-                }
+                    if (Session["doctype"] != null)
+                    {
+                        if (Session["doctype"].ToString() == "Will")
+                        {
+                            ViewBag.view = "Will";
+                        }
 
 
-                if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
-                {
-                    ViewBag.view = "POA";
-                    ViewBag.view = "GiftDeeds";
+                        if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
+                        {
+                            ViewBag.view = "POA";
+                            ViewBag.view = "GiftDeeds";
+                        }
+                    }
+
                 }
             }
+            else
+            {
 
-            
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+
             ViewBag.documentlink = "true";
             ViewBag.collapse = "true";
             return View("~/Views/EditBeneficiary/EditBeneficiaryPageContent.cshtml");

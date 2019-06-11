@@ -98,7 +98,8 @@
 
 
                             </div>
-                            <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>
+                            <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><a href="@Url.Action("EditLiabilitiesIndex","EditLiabilities")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
+
 
                         </div>
                             <hr class="div_rd">
@@ -383,7 +384,7 @@
             url: "@Url.Action("BindAssetTypeDDL", "AddLiabilities")",
             success: function (data) {
 
-                $('#ddlAssetType').empty().append(data);
+                $('#ddlAssetType').append(data);
             }
 
 
@@ -497,7 +498,7 @@
                 type: "POST",
                 url:"@Url.Action("BindStateDDL", "AddLiabilities")",
                 success: function (data) {
-                    $('#ddlstate').empty().append(data);
+                    $('#ddlstate').append(data);
                 }
               });
 

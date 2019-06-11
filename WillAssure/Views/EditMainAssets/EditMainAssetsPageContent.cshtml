@@ -38,26 +38,32 @@
                         }
                     }
 
-                    <div class="card-body">
-                        <div class="col-sm-3">
-                            <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>
-                        </div>
-                        <hr class="div_rd">
-                        <div class="table-responsive">
-                            <table id="default-datatable" class="table table-bordered">
-                                <thead>
-                                    <tr class="ui-widget-header">
-                                        <th>AIId</th>
-                                        <th>Assset Type</th>
-                                        <th>Asset Category</th>
-                                        <th>Data</th>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                        <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><button type="button" id="btnnext" style="display:;" class="btn btn-danger shadow-primary px-5">Add&nbsp;&nbsp;<i class="icon-plus"></i></button></a>
+                                    </div>
+                                    <div class="col-sm-3">
 
-                                    </tr>
-                                </thead>
-                                <tbody id="MappedData"></tbody>
-                            </table>
-                        </div>
-                    </div>
+                                        <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>
+                                    </div>
+                                </div>
+                                <hr class="div_rd">
+                                <div class="table-responsive">
+                                    <table id="default-datatable" class="table table-bordered">
+                                        <thead>
+                                            <tr class="ui-widget-header">
+                                                <th>AIId</th>
+                                                <th>Assset Type</th>
+                                                <th>Asset Category</th>
+                                                <th>Data</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody id="MappedData"></tbody>
+                                    </table>
+                                </div>
+                            </div>
                 </div>
             </div>
         </div><!-- End Row-->
@@ -85,6 +91,9 @@
             }
         });
 
+        
+
+          
 
 
          $.ajax({

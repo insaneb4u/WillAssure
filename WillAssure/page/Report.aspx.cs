@@ -499,6 +499,8 @@ namespace WillAssure.Views.ViewDocument
             SqlCommand cmd2 = new SqlCommand(query2, con);
             cmd2.ExecuteNonQuery();
             con.Close();
+
+           
         }
 
         protected void btnChangeTemplate_Click(object sender, EventArgs e)

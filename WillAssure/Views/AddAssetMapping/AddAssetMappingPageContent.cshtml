@@ -131,18 +131,18 @@
                                 <div class='col-sm-1'><label for='input-1' style="line-height:40px;">Testator <span id='errproportion' style='color:red;display:;'>(*)</span></label></div>
                                 <div class="col-sm-3">
 
-                              
-                                                <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
-                                                <input type="hidden" id="tid" name="ddltid" value="@Session["distid"].ToString()" />
-                                     
-                                            
-                                   
-                                    
+
+                                    <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
+                                    <input type="hidden" id="tid" name="ddltid" value="@Session["distid"].ToString()" />
+
+
+
+
 
 
                                     <input type="hidden" id="txtcount" name="name" value="" />
                                 </div>
-
+                                <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><a href="@Url.Action("EditBeneficiaryMappingIndex","EditBeneficiaryMapping")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
                             </div>
 
                             @*<div class="row">

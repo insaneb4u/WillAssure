@@ -172,14 +172,81 @@ namespace WillAssure.Controllers
             con.Close();
 
 
-        
-                   
+
+
+
+
 
             
 
 
-            return View("~/Views/AddMainAssets/AddMainAssetsPageContent.cshtml");
+
+
+
+
+                return View("~/Views/AddMainAssets/AddMainAssetsPageContent.cshtml");
         }
+
+
+
+        public string  jstruct()
+        {
+            string final = "";
+
+            if (Session["distid"] != null)
+            {
+
+                if (Session["distid"].ToString() != "")
+                {
+
+                    con.Open();
+                    string query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where b.tid = " + Convert.ToInt32(Session["distid"]) + "   ";
+                    SqlDataAdapter da = new SqlDataAdapter(query, con);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    con.Close();
+                    string data = "";
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            string getjson = dt.Rows[i]["Json"].ToString();
+
+
+                            var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
+                            foreach (var kv in dict)
+                            {
+                                final = final + kv.Key + ":" + kv.Value;
+                            }
+
+
+                        }
+                    }
+
+                    
+
+
+
+                }
+
+            }
+            else
+            {
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+
+
+            return final;
+
+        }
+
+
+
+
+
+
 
         public String BindAssetTypeDDL()
         {

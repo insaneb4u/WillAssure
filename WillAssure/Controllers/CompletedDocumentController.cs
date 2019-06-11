@@ -118,6 +118,13 @@ namespace WillAssure.Controllers
 
 
 
+            if (ViewBag.documentbtn1 == null && ViewBag.documentbtn3 == null && ViewBag.documentbtn4 == null)
+            {
+                ViewBag.empty = "true";
+            }
+
+
+
 
 
             return View("~/Views/CompletedDocument/Completeddocumentpagecontent.cshtml");

@@ -119,7 +119,7 @@
 
                                 <div class="row">
                                     <div class="col-sm-3">  <div class="card-title text-primary">Add Witness Appointment</div></div>
-                                    <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Testator Family Details )</h6></div></div>
+                                    <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Appointees Family Details )</h6></div></div>
                                 </div>
 
 
@@ -130,7 +130,7 @@
 
                                 <div class="row">
                                     <div class="col-sm-3">  <div class="card-title text-primary">Add Appointees</div></div>
-                                    <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Testator Family Details )</h6></div></div>
+                                    <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Appointees Family Details )</h6></div></div>
                                 </div>
 
                             }
@@ -148,17 +148,17 @@
                             @Html.HiddenFor(m => m.apId);
 
                             @Html.HiddenFor(m => m.altapId);
-                            <div class="row">
-                                <div class="col-sm-1"></div><div class='col-sm-2'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Testator</label></div>
-                                <div class='col-sm-3'>
+                                <div class="row">
+                                    <div class="col-sm-1"></div><div class='col-sm-2'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Testator</label></div>
+                                    <div class='col-sm-3'>
 
-                                    <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
-                                    <input type="hidden" name="ddltid" id="tid" value="@Session["distid"].ToString()" />
+                                        <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
+                                        <input type="hidden" name="ddltid" id="tid" value="@Session["distid"].ToString()" />
+
+                                    </div>
+                                    <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" /><a href="@Url.Action("EditAppointeesIndex","EditAppointees")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
 
                                 </div>
-                                <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>
-
-                            </div>
 
                             <hr class="div_rd">
 
@@ -308,7 +308,7 @@
                                         <div class="form-group">
                                             <label for="input-1">State</label>
                                             <select id="ddlstate" class="form-control input-shadow validate[required]">
-                                                <option value="">@Model.statetext</option>
+                                                <option value="@Model.statetext">@Model.statetext</option>
                                             </select>
                                             @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
                                             @Html.HiddenFor(m => m.statetext, new { id = "statetext" })
@@ -335,7 +335,7 @@
                                         <div class="form-group">
                                             <label for="input-1">City</label>
                                             <select id="ddlcity" class="form-control input-shadow validate[required]">
-                                                <option value="">@Model.citytext</option>
+                                                <option value="@Model.citytext">@Model.citytext</option>
                                             </select>
                                             @Html.HiddenFor(m => m.cityid, new { id = "cityid" })
                                             @Html.HiddenFor(m => m.citytext, new { id = "citytext" })
@@ -413,20 +413,20 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Alt Identity Proof</label>
-                                        @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
+                                        @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
                                    new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
                                     new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                    new SelectListItem() {Text = "Passport", Value="Passport"},
                                    new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
                                    new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ", @id="ddlidentityproof11" , @onchange= "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-                                        @Html.HiddenFor(m => m.Alt_Identity_Proof, new { id = "Alt_Identity_Proof" })
+                                        @Html.HiddenFor(m => m.Alt_Identity_Proof_Value, new { id = "Alt_Identity_Proof" })
                                     </div>
                                 </div>
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Alt Identity Proof Value</label>
-                                        <div id="appendtxt2"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+                                        <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
                                     </div>
                                 </div>
                             </div>
@@ -487,7 +487,7 @@
                               new SelectListItem() {Text = "Guardian", Value="Guardian"},
                               new SelectListItem() {Text = "Witness", Value="Witness"},
                               new SelectListItem() {Text = "Agent", Value="Agent"},
-                              new SelectListItem() {Text = "Donee", Value="Donee"}}, new { @class = "form-control input-shadow", @id="ddltype" })
+                              new SelectListItem() {Text = "Donee", Value="Donee"}}, new { @class = "form-control input-shadow", @id="ddltypealt2" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -497,7 +497,7 @@
                                 new SelectListItem() {Text = "--Select--", Value=""},
                                 new SelectListItem() {Text = "Single", Value="Single"},
                                 new SelectListItem() {Text = "Many Joint", Value="Many Joint"},
-                                new SelectListItem() {Text = "Many Independent", Value="Many Independent"}}, new { @class = "form-control input-shadow", @id = "ddlsubtype" })
+                                new SelectListItem() {Text = "Many Independent", Value="Many Independent"}}, new { @class = "form-control input-shadow", @id = "ddlsubtypealt2" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
@@ -537,56 +537,154 @@
                                             @Html.TextBoxFor(m => m.altOccupation, new { @class = "form-control input-shadow  validate[required] text-input", @id = "txtoccupation2", @placeholder = "Enter Occupation", @autocomplete = "off" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Relation</label>
-                                            <select id="altddlrelation" class="form-control input-shadow  validate[required]">
-                                                <option value="">--Select--</option>
-                                            </select>
-                                            @Html.HiddenFor(m => m.altRelationshipId, new { id = "altRelationshipId" })
-                                            @Html.HiddenFor(m => m.altRelationshipTxt, new { id = "altRelationshipTxt" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Date Of Birth</label>
-                                            <div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB2" onchange="validateDOB2(this.value)" name="altDOB" autocomplete="off" placeholder="Select Date Of Birth" />
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+
+
+
+
+
+
+
+
+                                    @if (Model.altRelationshipTxt != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Relation</label>
+                                                <select id="altddlrelation" class="form-control input-shadow  validate[required]">
+                                                    <option value="@Model.altRelationshipTxt">@Model.altRelationshipTxt</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altRelationshipId, new { id = "altRelationshipId" })
+                                                @Html.HiddenFor(m => m.altRelationshipTxt, new { id = "altRelationshipTxt" })
                                             </div>
-                                            <span style="color:red; display:none;" id="datemsg2">Invalid Date Of Birth</span>
                                         </div>
-                                    </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Relation</label>
+                                                <select id="altddlrelation" class="form-control input-shadow  validate[required]">
+                                                    <option value="">--Select--</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altRelationshipId, new { id = "altRelationshipId" })
+                                                @Html.HiddenFor(m => m.altRelationshipTxt, new { id = "altRelationshipTxt" })
+                                            </div>
+                                        </div>
+                                    }
+
+
+
+
+                                    @if (Model.altDob != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Date Of Birth</label>
+                                                <div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">
+                                                    <input class="form-control input-shadow validate[required]" type="text" value="@Model.altDob" id="DOB2" onchange="validateDOB2(this.value)" name="altDOB" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                                <span style="color:red; display:none;" id="datemsg2">Invalid Date Of Birth</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Date Of Birth</label>
+                                                <div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">
+                                                    <input class="form-control input-shadow validate[required]" type="text" id="DOB2" onchange="validateDOB2(this.value)" name="altDOB" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                                <span style="color:red; display:none;" id="datemsg2">Invalid Date Of Birth</span>
+                                            </div>
+                                        </div>
+                                    }
+
+
+
+
+
+
+
+
+
+
                                 </div>
                                 <hr />
                                 <div class="row">
                                     <div class="col-sm-1"></div>
                                     <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">State</label>
-                                            <select id="altddlstate" class="form-control input-shadow validate[required]">
-                                                <option value="">--Select State--</option>
-                                            </select>
-                                            @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
-                                            @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
+
+
+
+
+                                    @if (Model.statetext != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">State</label>
+                                                <select id="altddlstate" class="form-control input-shadow validate[required]">
+                                                    <option value="@Model.statetext">@Model.statetext</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
+                                                @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">State</label>
+                                                <select id="altddlstate" class="form-control input-shadow validate[required]">
+                                                    <option value="">--Select State--</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
+                                                @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
+                                            </div>
+                                        </div>
+                                    }
+
+
+
+
+                                    @if (Model.altcitytext != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">City</label>
+                                                <select id="altddlcity" class="form-control input-shadow validate[required]">
+                                                    <option value="@Model.altcitytext">@Model.altcitytext</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
+                                                @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">City</label>
+                                                <select id="altddlcity" class="form-control input-shadow validate[required]">
+                                                    <option value="">--Select City--</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
+                                                @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
+                                            </div>
+                                        </div>
+                                    }
+
+
+
+
 
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label for="input-1">City</label>
-                                            <select id="altddlcity" class="form-control input-shadow validate[required]">
-                                                <option value="">--Select City--</option>
-                                            </select>
-                                            @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
-                                            @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
                                             <label for="input-1">Pin</label>
-                                            @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]]  text-input", @id = "txtpin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                            @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]]  text-input", @id = "txtpin2", @placeholder = "Enter Pin", @autocomplete = "off" })
                                         </div>
                                     </div>
                                 </div>
@@ -595,21 +693,21 @@
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 1</label>
-                                            @Html.TextAreaFor(m => m.altAddress1, new { @class = "form-control input-shadow validate[required]  text-input", @id = "txtaddress2", @placeholder = "Enter Address1", @autocomplete = "off" })
+                                            @Html.TextAreaFor(m => m.altAddress1, new { @class = "form-control input-shadow validate[required]  text-input", @id = "txtaddress2alt1", @placeholder = "Enter Address1", @autocomplete = "off" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 2</label>
-                                            @Html.TextAreaFor(m => m.altAddress2, new { @class = "form-control input-shadow   text-input", @id = "txtaddress2", @placeholder = "Enter Address2", @autocomplete = "off" })
+                                            @Html.TextAreaFor(m => m.altAddress2, new { @class = "form-control input-shadow   text-input", @id = "txtaddress2alt2", @placeholder = "Enter Address2", @autocomplete = "off" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 3</label>
-                                            @Html.TextAreaFor(m => m.altAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3", @placeholder = "Enter Address3", @autocomplete = "off" })
+                                            @Html.TextAreaFor(m => m.altAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3alt3", @placeholder = "Enter Address3", @autocomplete = "off" })
                                         </div>
                                     </div>
                                 </div>
@@ -631,7 +729,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1"> Identity Proof Value</label>
-                                            <div id="altappendtxt"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })</div>
+                                            <div id="altappendtxt"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValuealt", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })</div>
 
                                         </div>
                                     </div>
@@ -644,15 +742,15 @@
                                               new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow", @id="ddlidentityproof22" , @onchange= "altgetAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-                                            @Html.HiddenFor(m => m.altAlt_Identity_Proof_Value, new { id = "altAlt_Identity_Proof_Value" })
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow", @id="ddlidentityproof22alt" , @onchange= "altgetAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                            @Html.HiddenFor(m => m.altIdentity_Proof_Value, new { id = "ddlidentityproof22alt" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="altappendtxt2"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+                                            <div id="altappendtxt2"> @Html.TextBoxFor(m => m.altAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValuealt2", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
                                         </div>
                                     </div>
                                 </div>
@@ -671,13 +769,13 @@
 
 
                             <div class="form-group" style="float:right">
-                                <button type="submit" id="btnDistributorformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Add Appointees</button>
-                                <button type="submit" id="btnupdate" style="display:none;" formaction="updatetestatorfamily" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
+                                <button type="submit" id="btnDistributorformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
+                                <button type="submit" id="btnupdate" style="display:none;" formaction="UpdateAppointees" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
                                 @if (Session["distid"] != null)
                                 {
                                     <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() } )">
-                                <button type="button" id="btnnext" style="display:none;" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
-                                    
+                                        <button type="button" id="btnnext" style="display:none;" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
+
                                     </a>
                                 }
                                 else
@@ -768,7 +866,7 @@
             type: "POST",
             url:"@Url.Action("BindStateDDL", "AddAppointees")",
             success: function (data) {
-                $('#ddlstate').empty().append(data);
+                $('#ddlstate').append(data);
             }
         });
 
@@ -778,7 +876,7 @@
             type: "POST",
             url:"@Url.Action("BindRelationDDL", "AddAppointees")",
             success: function (data) {
-                $('#ddlrelation').empty().append(data);
+                $('#ddlrelation').append(data);
             }
         });
 
@@ -1006,7 +1104,7 @@
 
 
 
-                            $("#ddlidentityproof11").find("option[value='" + previousid + "']").attr("disabled", "disabled");
+                            $("#ddlidentityproof11").find("option[value='" + previousid + "']").removeAttr("disabled");
 
 
                         }
@@ -1194,7 +1292,7 @@
 
 
 
-                            $("#ddlidentityproof22").find("option[value='" + previousid + "']").attr("disabled", "disabled");
+                            $("#ddlidentityproof22").find("option[value='" + previousid + "']").removeAttr("disabled");
 
 
                         }
@@ -1247,7 +1345,7 @@
             type: "POST",
             url:"@Url.Action("BindStateDDL", "AddAppointees")",
             success: function (data) {
-                $('#altddlstate').empty().append(data);
+                $('#altddlstate').append(data);
             }
         });
 
@@ -1257,7 +1355,7 @@
             type: "POST",
             url:"@Url.Action("BindRelationDDL", "AddAppointees")",
             success: function (data) {
-                $('#altddlrelation').empty().append(data);
+                $('#altddlrelation').append(data);
             }
           });
 
@@ -1429,10 +1527,10 @@
                         <script>
 
 
-
+                            $("#btnmore").show();
                             $("#btnfieldedit").show();
 
-                            
+
 
                             $("#btnDistributorformsubmit").hide();
 
@@ -1440,21 +1538,46 @@
 
                             $(document).ready(function () {
 
-                                $("#txtFirstName").attr("disabled", "disabled");
-                                $("#txtMiddle_Name").attr("disabled", "disabled");
-                                $("#txtLastName").attr("disabled", "disabled");
+                                $("#ddltype").attr("disabled", "disabled");
+                                $("#ddlsubtype").attr("disabled", "disabled");
+                                $("#txtname").attr("disabled", "disabled");
+                                $("#txtmiddlename").attr("disabled", "disabled");
+                                $("#txtsurname").attr("disabled", "disabled");
                                 $("#DOB").attr("disabled", "disabled");
+                                $("#Gender").attr("disabled", "disabled");
+                                $("#txtoccupation").attr("disabled", "disabled");
                                 $("#ddlrelation").attr("disabled", "disabled");
                                 $("#ddlstate").attr("disabled", "disabled");
                                 $("#ddlcity").attr("disabled", "disabled");
-                                $("#txtPin").attr("disabled", "disabled");
-                                $("#txtAddress1").attr("disabled", "disabled");
-                                $("#txtAddress2").attr("disabled", "disabled");
-                                $("#txtAddress3").attr("disabled", "disabled");
-                                $("#ddlidentityproof").attr("disabled", "disabled");
-                                $("#Alt_Identity_Proof_Value").attr("disabled", "disabled");
-                                $("#ddlidentityproof1").attr("disabled", "disabled");
-                                $("#Identity_Proof_Value").attr("disabled", "disabled");
+                                $("#txtpin").attr("disabled", "disabled");
+                                $("#txtaddress1").attr("disabled", "disabled");
+                                $("#txtaddress2").attr("disabled", "disabled");
+                                $("#txtaddress3").attr("disabled", "disabled");
+                                $("#Identity_Proof").attr("disabled", "disabled");
+                                $("#txtidentityproof").attr("disabled", "disabled");
+                                $("#ddlidentityproof11").attr("disabled", "disabled");
+                                $("#txtIdentityProofValue").attr("disabled", "disabled");
+
+
+                                $("#ddltypealt2").attr("disabled", "disabled");
+                                $("#ddlsubtypealt2").attr("disabled", "disabled");
+                                $("#txtname2").attr("disabled", "disabled");
+                                $("#txtmiddlename2").attr("disabled", "disabled");
+                                $("#txtsurname2").attr("disabled", "disabled");
+                                $("#altGender").attr("disabled", "disabled");
+                                $("#txtoccupation2").attr("disabled", "disabled");
+                                $("#altddlrelation").attr("disabled", "disabled");
+                                $("#DOB2").attr("disabled", "disabled");
+                                $("#altddlstate").attr("disabled", "disabled");
+                                $("#altddlcity").attr("disabled", "disabled");
+                                $("#txtpin2").attr("disabled", "disabled");
+                                $("#txtaddress2alt1").attr("disabled", "disabled");
+                                $("#txtaddress2alt2").attr("disabled", "disabled");
+                                $("#txtaddress3alt3").attr("disabled", "disabled");
+                                $("#altIdentity_Proof").attr("disabled", "disabled");
+                                $("#txtIdentityProofValuealt").attr("disabled", "disabled");
+                                $("#ddlidentityproof22alt").attr("disabled", "disabled");
+                                $("#txtIdentityProofValuealt2").attr("disabled", "disabled");
 
 
                             });
@@ -1481,21 +1604,53 @@
                             $("#btnupdate").show();
 
 
-                            $("#txtFirstName").removeAttr("disabled");
-                            $("#txtMiddle_Name").removeAttr("disabled");
-                            $("#txtLastName").removeAttr("disabled");
+
+
+                            $("#ddltype").removeAttr("disabled");
+                            $("#ddlsubtype").removeAttr("disabled");
+                            $("#txtname").removeAttr("disabled");
+                            $("#txtmiddlename").removeAttr("disabled");
+                            $("#txtsurname").removeAttr("disabled");
                             $("#DOB").removeAttr("disabled");
+                            $("#Gender").removeAttr("disabled");
+                            $("#txtoccupation").removeAttr("disabled");
                             $("#ddlrelation").removeAttr("disabled");
                             $("#ddlstate").removeAttr("disabled");
                             $("#ddlcity").removeAttr("disabled");
-                            $("#txtPin").removeAttr("disabled");
-                            $("#txtAddress1").removeAttr("disabled");
-                            $("#txtAddress2").removeAttr("disabled");
-                            $("#txtAddress3").removeAttr("disabled");
-                            $("#ddlidentityproof").removeAttr("disabled");
-                            $("#Alt_Identity_Proof_Value").removeAttr("disabled");
-                            $("#ddlidentityproof1").removeAttr("disabled");
-                            $("#Identity_Proof_Value").removeAttr("disabled");
+                            $("#txtpin").removeAttr("disabled");
+                            $("#txtaddress1").removeAttr("disabled");
+                            $("#txtaddress2").removeAttr("disabled");
+                            $("#txtaddress3").removeAttr("disabled");
+                            $("#Identity_Proof").removeAttr("disabled");
+                            $("#txtidentityproof").removeAttr("disabled");
+                            $("#ddlidentityproof11").removeAttr("disabled");
+                            $("#txtIdentityProofValue").removeAttr("disabled");
+
+
+                            $("#ddltypealt2").removeAttr("disabled");
+                            $("#ddlsubtypealt2").removeAttr("disabled");
+                            $("#txtname2").removeAttr("disabled");
+                            $("#txtmiddlename2").removeAttr("disabled");
+                            $("#txtsurname2").removeAttr("disabled");
+                            $("#altGender").removeAttr("disabled");
+                            $("#txtoccupation2").removeAttr("disabled");
+                            $("#altddlrelation").removeAttr("disabled");
+                            $("#DOB2").removeAttr("disabled");
+                            $("#altddlstate").removeAttr("disabled");
+                            $("#altddlcity").removeAttr("disabled");
+                            $("#txtpin2").removeAttr("disabled");
+                            $("#txtaddress2alt1").removeAttr("disabled");
+                            $("#txtaddress2alt2").removeAttr("disabled");
+                            $("#txtaddress3alt3").removeAttr("disabled");
+                            $("#altIdentity_Proof").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt").removeAttr("disabled");
+                            $("#ddlidentityproof22alt").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt2").removeAttr("disabled");
+
+
+
+
+
 
                             $("#btnupdate").show();
 
@@ -1517,24 +1672,46 @@
 
                             $("#btneditmsg").hide();
 
-                            $("#txtFirstName").attr("disabled", "disabled");
-                            $("#txtMiddle_Name").attr("disabled", "disabled");
-                            $("#txtLastName").attr("disabled", "disabled");
+                            $("#ddltype").attr("disabled", "disabled");
+                            $("#ddlsubtype").attr("disabled", "disabled");
+                            $("#txtname").attr("disabled", "disabled");
+                            $("#txtmiddlename").attr("disabled", "disabled");
+                            $("#txtsurname").attr("disabled", "disabled");
                             $("#DOB").attr("disabled", "disabled");
+                            $("#Gender").attr("disabled", "disabled");
+                            $("#txtoccupation").attr("disabled", "disabled");
                             $("#ddlrelation").attr("disabled", "disabled");
                             $("#ddlstate").attr("disabled", "disabled");
                             $("#ddlcity").attr("disabled", "disabled");
-                            $("#txtPin").attr("disabled", "disabled");
-                            $("#txtAddress1").attr("disabled", "disabled");
-                            $("#txtAddress2").attr("disabled", "disabled");
-                            $("#txtAddress3").attr("disabled", "disabled");
-                            $("#ddlidentityproof").attr("disabled", "disabled");
-                            $("#Alt_Identity_Proof_Value").attr("disabled", "disabled");
-                            $("#ddlidentityproof1").attr("disabled", "disabled");
-                            $("#Identity_Proof_Value").attr("disabled", "disabled");
+                            $("#txtpin").attr("disabled", "disabled");
+                            $("#txtaddress1").attr("disabled", "disabled");
+                            $("#txtaddress2").attr("disabled", "disabled");
+                            $("#txtaddress3").attr("disabled", "disabled");
+                            $("#Identity_Proof").attr("disabled", "disabled");
+                            $("#txtidentityproof").attr("disabled", "disabled");
+                            $("#ddlidentityproof11").attr("disabled", "disabled");
+                            $("#txtIdentityProofValue").attr("disabled", "disabled");
 
 
-
+                            $("#ddltypealt2").attr("disabled", "disabled");
+                            $("#ddlsubtypealt2").attr("disabled", "disabled");
+                            $("#txtname2").attr("disabled", "disabled");
+                            $("#txtmiddlename2").attr("disabled", "disabled");
+                            $("#txtsurname2").attr("disabled", "disabled");
+                            $("#altGender").attr("disabled", "disabled");
+                            $("#txtoccupation2").attr("disabled", "disabled");
+                            $("#altddlrelation").attr("disabled", "disabled");
+                            $("#DOB2").attr("disabled", "disabled");
+                            $("#altddlstate").attr("disabled", "disabled");
+                            $("#altddlcity").attr("disabled", "disabled");
+                            $("#txtpin2").attr("disabled", "disabled");
+                            $("#txtaddress2alt1").attr("disabled", "disabled");
+                            $("#txtaddress2alt2").attr("disabled", "disabled");
+                            $("#txtaddress3alt3").attr("disabled", "disabled");
+                            $("#altIdentity_Proof").attr("disabled", "disabled");
+                            $("#txtIdentityProofValuealt").attr("disabled", "disabled");
+                            $("#ddlidentityproof22alt").attr("disabled", "disabled");
+                            $("#txtIdentityProofValuealt2").attr("disabled", "disabled");
 
 
 
@@ -1549,6 +1726,122 @@
                             $("#btneditmsg").hide();
 
                         });
+                    </script>
+
+
+
+                    <script>
+
+                        $("#btnmore").click(function () {
+
+                            $("#btnupdate").hide();
+
+                            $("#btnDistributorformsubmit").show();
+
+
+                            $("#btnfieldedit").hide();
+
+                            $("#ddltype").removeAttr("disabled");
+                            $("#ddlsubtype").removeAttr("disabled");
+                            $("#txtname").removeAttr("disabled");
+                            $("#txtmiddlename").removeAttr("disabled");
+                            $("#txtsurname").removeAttr("disabled");
+                            $("#DOB").removeAttr("disabled");
+                            $("#Gender").removeAttr("disabled");
+                            $("#txtoccupation").removeAttr("disabled");
+                            $("#ddlrelation").removeAttr("disabled");
+                            $("#ddlstate").removeAttr("disabled");
+                            $("#ddlcity").removeAttr("disabled");
+                            $("#txtpin").removeAttr("disabled");
+                            $("#txtaddress1").removeAttr("disabled");
+                            $("#txtaddress2").removeAttr("disabled");
+                            $("#txtaddress3").removeAttr("disabled");
+                            $("#Identity_Proof").removeAttr("disabled");
+                            $("#txtidentityproof").removeAttr("disabled");
+                            $("#ddlidentityproof11").removeAttr("disabled");
+                            $("#txtIdentityProofValue").removeAttr("disabled");
+
+
+                            $("#ddltypealt2").removeAttr("disabled");
+                            $("#ddlsubtypealt2").removeAttr("disabled");
+                            $("#txtname2").removeAttr("disabled");
+                            $("#txtmiddlename2").removeAttr("disabled");
+                            $("#txtsurname2").removeAttr("disabled");
+                            $("#altGender").removeAttr("disabled");
+                            $("#txtoccupation2").removeAttr("disabled");
+                            $("#altddlrelation").removeAttr("disabled");
+                            $("#DOB2").removeAttr("disabled");
+                            $("#altddlstate").removeAttr("disabled");
+                            $("#altddlcity").removeAttr("disabled");
+                            $("#txtpin2").removeAttr("disabled");
+                            $("#txtaddress2alt1").removeAttr("disabled");
+                            $("#txtaddress2alt2").removeAttr("disabled");
+                            $("#txtaddress3alt3").removeAttr("disabled");
+                            $("#altIdentity_Proof").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt").removeAttr("disabled");
+                            $("#ddlidentityproof22alt").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt2").removeAttr("disabled");
+
+
+
+
+
+
+
+
+
+                            $("#ddltype").val("");
+                            $("#ddlsubtype").val("");
+                            $("#txtname").val("");
+                            $("#txtmiddlename").val("");
+                            $("#txtsurname").val("");
+                            $("#DOB").val("");
+                            $("#Gender").val("");
+                            $("#txtoccupation").val("");
+                            $("#ddlrelation").val("");
+                            $("#ddlstate").val("");
+                            $("#ddlcity").val("");
+                            $("#txtpin").val("");
+                            $("#txtaddress1").val("");
+                            $("#txtaddress2").val("");
+                            $("#txtaddress3").val("");
+                            $("#Identity_Proof").val("");
+                            $("#txtidentityproof").val("");
+                            $("#ddlidentityproof11").val("");
+                            $("#txtIdentityProofValue").val("");
+
+
+                            $("#ddltypealt2").val("");
+                            $("#ddlsubtypealt2").val("");
+                            $("#txtname2").val("");
+                            $("#txtmiddlename2").val("");
+                            $("#txtsurname2").val("");
+                            $("#altGender").val("");
+                            $("#txtoccupation2").val("");
+                            $("#altddlrelation").val("");
+                            $("#DOB2").val("");
+                            $("#altddlstate").val("");
+                            $("#altddlcity").val("");
+                            $("#txtpin2").val("");
+                            $("#txtaddress2alt1").val("");
+                            $("#txtaddress2alt2").val("");
+                            $("#txtaddress3alt3").val("");
+                            $("#altIdentity_Proof").val("");
+                            $("#txtIdentityProofValuealt").val("");
+                            $("#ddlidentityproof22alt").val("");
+                            $("#txtIdentityProofValuealt2").val("");
+
+
+
+
+
+                        });
+
+
+
+
+
+
                     </script>
 
                     @*end*@

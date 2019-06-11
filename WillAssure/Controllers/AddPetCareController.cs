@@ -147,12 +147,22 @@ namespace WillAssure.Controllers
             }
 
             con.Close();
-
-
+            string distid = "";
+            if (Session["distid"] != null)
+            {
+                if (Session["distid"].ToString() != "")
+                {
+                    distid = Session["distid"].ToString();
+                }
+            }
+            else
+            {
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
 
             PetCareModel pml = new PetCareModel();
             con.Open();
-            string querychk11 = "select * from PetCare where tid = " + Session["distid"].ToString() + " ";
+            string querychk11 = "select * from PetCare where tid = " + distid  + " ";
             SqlDataAdapter dachk11 = new SqlDataAdapter(querychk11, con);
             DataTable dtchk11 = new DataTable();
             dachk11.Fill(dtchk11);
@@ -164,7 +174,7 @@ namespace WillAssure.Controllers
                 pml.petage = dtchk11.Rows[0]["petage"].ToString();
                 pml.typeofpet = dtchk11.Rows[0]["typeofpet"].ToString();
                 pml.amtforpet = dtchk11.Rows[0]["amtforpet"].ToString();
-                pml.amtfromwhichasset = dtchk11.Rows[0]["amtfromwhichasset"].ToString();
+                //pml.amtfromwhichasset = dtchk11.Rows[0]["amtfromwhichasset"].ToString();
                 pml.responsibelpersonforpet = dtchk11.Rows[0]["responsibelpersonforpet"].ToString();
                 pml.Proportion = Convert.ToInt32(dtchk11.Rows[0]["Proportion"]);
 
@@ -326,7 +336,7 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string query = "insert into PetCare (petname,petage,typeofpet,amtforpet,amtfromwhichasset,responsibelpersonforpet,tid , assettypeid , assetcategoryid , Proportion) values ('" + PM.petname + "' , " + PM.petage + " , '" + PM.typeofpet + "' , " + PM.amtforpet + " ,'" + PM.amtfromwhichasset + "' , '" + PM.responsibelpersonforpet + "' , " + PM.ddltid + " , " + PM.assettypeid + " , " + PM.assetCategoryid + " , " + PM.Proportion + ")";
+                string query = "insert into PetCare (petname,petage,typeofpet,amtforpet,responsibelpersonforpet,tid , assettypeid , assetcategoryid , Proportion) values ('" + PM.petname + "' , " + PM.petage + " , '" + PM.typeofpet + "' , " + PM.amtforpet + "  , '" + PM.responsibelpersonforpet + "' , " + PM.ddltid + " , " + PM.assettypeid + " , " + PM.assetCategoryid + " , " + PM.Proportion + ")";
                 SqlCommand cmd = new SqlCommand(query, con);
                 cmd.ExecuteNonQuery();
                 con.Close();

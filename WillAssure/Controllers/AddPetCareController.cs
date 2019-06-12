@@ -20,7 +20,7 @@ namespace WillAssure.Controllers
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         SqlConnection con = new SqlConnection(connectionString);
         // GET: AddPetCare
-        public ActionResult AddPetCareIndex(string success)
+        public ActionResult AddPetCareIndex(string success, string NestId)
         {
 
             if (success == "true")
@@ -159,10 +159,23 @@ namespace WillAssure.Controllers
             {
                 RedirectToAction("LoginPageIndex", "LoginPage");
             }
-
+            string querychk11 = "";
             PetCareModel pml = new PetCareModel();
             con.Open();
-            string querychk11 = "select * from PetCare where tid = " + distid  + " ";
+
+
+            if (NestId != null)
+            {
+                querychk11 = "select * from PetCare where petid = " + NestId + " ";
+            }
+            else
+            {
+                querychk11 = "select * from PetCare where tid = " + distid + " ";
+            }
+            
+
+
+
             SqlDataAdapter dachk11 = new SqlDataAdapter(querychk11, con);
             DataTable dtchk11 = new DataTable();
             dachk11.Fill(dtchk11);

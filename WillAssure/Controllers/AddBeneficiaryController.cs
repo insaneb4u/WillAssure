@@ -19,7 +19,7 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddBeneficiary
-        public ActionResult AddBeneficiaryIndex(string success)
+        public ActionResult AddBeneficiaryIndex(string success, string NestId)
         {
             if (success == "true")
             {
@@ -177,12 +177,25 @@ namespace WillAssure.Controllers
 
 
 
-
+            string query = "";
 
             BeneficiaryModel BM = new BeneficiaryModel();
 
             con.Open();
-            string query = "select * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' ";
+            if (NestId != null)
+            {
+                query = "select * from BeneficiaryDetails where fetchid not in('TF') and bpId  = '" + NestId + "' ";
+            }
+            else
+            {
+                query = "select * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' ";
+            }
+
+          
+
+
+
+
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);

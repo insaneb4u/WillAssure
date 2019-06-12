@@ -22,7 +22,7 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddLiabilities
-        public ActionResult AddLiabilitiesIndex(string success)
+        public ActionResult AddLiabilitiesIndex(string success, string NestId)
         {
 
             if (success == "true")
@@ -147,8 +147,8 @@ namespace WillAssure.Controllers
             }
 
             con.Close();
-           
-            LiabilitiesModel lml = new LiabilitiesModel();
+            string querychk11 = "";
+             LiabilitiesModel lml = new LiabilitiesModel();
             if (Session["distid"] != null)
             {
 
@@ -157,7 +157,19 @@ namespace WillAssure.Controllers
 
                    
                     con.Open();
-                    string querychk11 = "select * from Liabilities where tid = " + Session["distid"].ToString() + " ";
+
+                    if (NestId != null)
+                    {
+                        querychk11 = "select * from Liabilities where lId = " + NestId  + " ";
+                    }
+                    else
+                    {
+                        querychk11 = "select * from Liabilities where tid = " + Session["distid"].ToString() + " ";
+                    }
+                     
+                 
+
+
                     SqlDataAdapter dachk11 = new SqlDataAdapter(querychk11, con);
                     DataTable dtchk11 = new DataTable();
                     dachk11.Fill(dtchk11);

@@ -141,6 +141,16 @@
                             {
                                 Response.Redirect("/LoginPage/LoginPageIndex");
                             }
+
+
+                                <div style="float:right;">
+
+                                    <input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" /><a href="@Url.Action("EditAppointeesIndex","EditAppointees")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a>
+
+                                </div>
+
+
+
                         }
                         @using (Html.BeginForm("InsertAppointeesFormData", null, FormMethod.Post, new { id = "DistributorForm" }))
                         {
@@ -156,7 +166,7 @@
                                         <input type="hidden" name="ddltid" id="tid" value="@Session["distid"].ToString()" />
 
                                     </div>
-                                    <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" /><a href="@Url.Action("EditAppointeesIndex","EditAppointees")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
+                                    <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>
 
                                 </div>
 

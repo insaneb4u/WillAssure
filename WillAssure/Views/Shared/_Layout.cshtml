@@ -1502,14 +1502,19 @@
 
 
     $(function () {
-        var startDate = new Date('1930-01-01');
+       
         var now = new Date();
-        var sDate = new Date(now.getFullYear() - 18, now.getMonth(), now.getDay());
+        var sDate = new Date(now.getFullYear() - 18, now.getMonth(), 1);
+
+       
+
         var endDate = new Date(sDate.getFullYear + '-' + sDate.getMonth() + '-' + sDate.getDay());
+        var startDate = new Date('1930-01-01');
+    
         $('#datepicker').datepicker({
             //other option
             startDate: startDate, //set start date
-            endDate: endDate //set end date
+            endDate: sDate //set end date
         });
     });
 

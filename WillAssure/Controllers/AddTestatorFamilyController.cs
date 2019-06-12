@@ -20,7 +20,7 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddTestatorFamily
-        public ActionResult AddTestatorFamilyIndex(string success)
+        public ActionResult AddTestatorFamilyIndex(string success , string NestId)
         {
 
             if (success == "true")
@@ -192,12 +192,25 @@ namespace WillAssure.Controllers
 
 
             TestatorFamilyModel TFM = new TestatorFamilyModel();
-         
 
+            string query = "";
 
 
             con.Open();
-            string query = "select * from testatorFamily where tId = " + Convert.ToInt32(Session["distid"]) + "";
+
+            if (NestId != null)
+            {
+                query = "select * from testatorFamily where fId = " + NestId + "";
+            }
+            else
+            {
+                query = "select * from testatorFamily where tId = " + Convert.ToInt32(Session["distid"]) + "";
+            }
+
+           
+
+
+
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);

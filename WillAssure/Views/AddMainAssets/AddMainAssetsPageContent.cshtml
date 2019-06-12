@@ -166,11 +166,11 @@
 
 
 
-                                   
+
 
 
                                 </div>
-                                <div class="col-sm-3" id="mappmsg" style="display:none;" >
+                                <div class="col-sm-3" id="mappmsg" style="display:none;">
                                     <label style="color:red;">Asset Category Already Mapped</label>
                                 </div>
                                 <div class="col-sm-2">
@@ -191,10 +191,10 @@
                                         <select id="ddlasset" onChange='getassetcolumntext(this.options[this.selectedIndex].innerHTML)' class="form-control input-shadow validate[required]">
                                             <option value="">--Select--</option>
                                         </select>
-                                      
+
                                     </div>
                                 </div>
-                               
+
 
 
 
@@ -223,6 +223,12 @@
                             <div class="row" id="binddata">
 
                             </div>
+
+
+                            <div  id="updatedata">
+
+                            </div>
+
 
                             <div class="row">
                                 <div class="col-sm-12">
@@ -437,7 +443,9 @@
             success: function (data) {
                 if (data != "") {
 
-                    //$("#Binddata").hide();
+                    $("#Binddata").hide();
+
+                    $("#updatedata").empty().append(data);
 
                 }
             }

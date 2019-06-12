@@ -18,7 +18,7 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddAppointees
-        public ActionResult AddAppointeesIndex(string success)
+        public ActionResult AddAppointeesIndex(string success, string NestId)
         {
             if (success == "true")
             {
@@ -274,7 +274,7 @@ namespace WillAssure.Controllers
 
 
 
-
+            string query = "";
 
             AppointeesModel Am = new AppointeesModel();
             string distid = "";
@@ -285,7 +285,20 @@ namespace WillAssure.Controllers
                     distid = Session["distid"].ToString();
 
                     con.Open();
-                    string query = "select * from Appointees where apId = " + distid + "";
+
+                    if (NestId != null)
+                    {
+                        query = "select * from Appointees where apId = " + NestId + "";
+                    }
+                    else
+                    {
+                        query = "select * from Appointees where tid = " + distid + "";
+                    }
+
+                    
+
+
+
                     SqlDataAdapter da = new SqlDataAdapter(query, con);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
@@ -332,16 +345,32 @@ namespace WillAssure.Controllers
               return  RedirectToAction("LoginPageIndex", "LoginPage");
             }
 
-            
+
 
 
 
 
 
             //  for alternate appointees
-
+            string query2 = "";
             con.Open();
-            string query2 = "select * from alternate_Appointees where apId = " + Am.apId + "";
+
+            if (NestId != null)
+            {
+                 query2 = "select * from alternate_Appointees where apId = " + NestId + "";
+
+            }
+            else
+            {
+                 query2 = "select * from alternate_Appointees where apId = " + Am.apId + "";
+
+            }
+
+
+
+
+
+
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);

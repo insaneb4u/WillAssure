@@ -189,10 +189,12 @@ namespace WillAssure.Controllers
 
 
 
-        public string  jstruct()
+        public string  jstruct(string NestId)
         {
             string final = "";
-
+            string structure = "";
+            string data = "";
+            string query = "";
             if (Session["distid"] != null)
             {
 
@@ -200,12 +202,23 @@ namespace WillAssure.Controllers
                 {
 
                     con.Open();
-                    string query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where b.tid = " + Convert.ToInt32(Session["distid"]) + "   ";
+
+                    if (NestId != null)
+                    {
+                        query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where b.aiid = " + NestId + "   ";
+                    }
+                    else
+                    {
+                        query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where b.tid = " + Convert.ToInt32(Session["distid"]) + "   ";
+                    }
+                     
+
+
                     SqlDataAdapter da = new SqlDataAdapter(query, con);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
                     con.Close();
-                    string data = "";
+                    
 
                     if (dt.Rows.Count > 0)
                     {
@@ -217,7 +230,26 @@ namespace WillAssure.Controllers
                             var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
                             foreach (var kv in dict)
                             {
+                                string removecomma = kv.Key;
+                                string first = removecomma.Split('~')[0];
+                                string second = removecomma.Split('~')[1];
+
                                 final = final + kv.Key + ":" + kv.Value;
+
+
+                                structure = structure + "<div class='row'>" +
+                                    "<div class='col-sm-6'>" +
+                                    "<div class='form-group'>" +
+                                    "<label for='input-1'>"+second+"</label>" +
+                                    "<input type='text' value="+kv.Value+"  class='form-control'  />" +
+                                    "</div>" +
+                                    "</div>" +
+                                    "</div>";
+                                   
+
+                              
+                             
+
                             }
 
 
@@ -237,8 +269,11 @@ namespace WillAssure.Controllers
             }
 
 
+           
 
-            return final;
+
+
+            return structure;
 
         }
 

@@ -19,7 +19,7 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddNominee
-        public ActionResult AddNomineeIndex(string success)
+        public ActionResult AddNomineeIndex(string success , string NestId)
         {
 
             if (success == "true")
@@ -172,12 +172,22 @@ namespace WillAssure.Controllers
             con.Close();
 
 
-
+            string query = "";
 
 
             NomineeModel NM = new NomineeModel();
             con.Open();
-            string query = "select * from Nominee where tId = "+ Convert.ToInt32(Session["distid"]) + " ";
+
+            if (NestId != null)
+            {
+                query = "select * from Nominee where nId = " +NestId+ " ";
+            }
+            else
+            {
+                query = "select * from Nominee where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+            }
+             
+
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);

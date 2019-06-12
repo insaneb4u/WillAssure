@@ -109,7 +109,9 @@
                             <div class="col-sm-3">  <div class="card-title text-primary">Add Testators Family</div></div>
                             <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Testator Family Details )</h6></div></div>
                         </div>
-                      
+                        <div style="float:right;">
+                            <input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" />&nbsp;&nbsp;<a href="@Url.Action("EditTestatorFamilyIndex","EditTestatorFamily")"><input type="button" id="btnview" style="display:none;" name="name" value="View" class="btn btn-success" /></a>
+                        </div>
 
                         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "FamilyForm" }))
                         {
@@ -135,7 +137,7 @@
 
 
                                 </div>
-                                <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><input type="button" style="display:none;" id="btnmore"  name="name" value="Add More" class="btn btn-danger" /><a href="@Url.Action("EditTestatorFamilyIndex","EditTestatorFamily")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
+                                <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>
 
                             </div>
                             <hr class="div_rd">
@@ -795,7 +797,7 @@
 
                                 $("#btntestatorfamilysubmitSUCCESS").click(); //trigger event after listening to it.
 
-                              
+                                
 
 
 
@@ -993,7 +995,7 @@
 
                             
                             $("#btnmore").show();
-
+                            $("#btnview").show();
 
                             $("#btnfieldedit").show();
 

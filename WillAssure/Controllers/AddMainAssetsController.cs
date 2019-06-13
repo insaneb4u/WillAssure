@@ -20,7 +20,7 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
         string json = "";
         // GET: AddMainAssets
-        public ActionResult AddMainAssetsIndex(string success)
+        public ActionResult AddMainAssetsIndex(string success, string NestId)
         {
 
             if (success == "true")
@@ -177,20 +177,25 @@ namespace WillAssure.Controllers
 
 
 
-            
+            // fill up already exist data for assetinformation
+
+            int aaid = 0;
+
+            string q44 = "select max(aiid) as aiid from AssetInformation";
+            SqlDataAdapter da44 = new SqlDataAdapter(q44, con);
+            DataTable dt44 = new DataTable();
+            da44.Fill(dt44);
+            if (dt44.Rows.Count > 0)
+            {
+
+                aaid = Convert.ToInt32(dt44.Rows[0]["aiid"]);
+
+            }
 
 
 
 
 
-
-                return View("~/Views/AddMainAssets/AddMainAssetsPageContent.cshtml");
-        }
-
-
-
-        public string  jstruct(string NestId)
-        {
             string final = "";
             string structure = "";
             string data = "";
@@ -205,29 +210,35 @@ namespace WillAssure.Controllers
 
                     if (NestId != null)
                     {
-                        query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where b.aiid = " + NestId + "   ";
+                        query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = " + NestId + "   ";
                     }
                     else
                     {
-                        query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where b.tid = " + Convert.ToInt32(Session["distid"]) + "   ";
+                        query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = " + aaid + "   ";
                     }
-                     
+
 
 
                     SqlDataAdapter da = new SqlDataAdapter(query, con);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
                     con.Close();
-                    
+
 
                     if (dt.Rows.Count > 0)
                     {
+                        ViewBag.disablefield = "true";
+
                         for (int i = 0; i < dt.Rows.Count; i++)
                         {
                             string getjson = dt.Rows[i]["Json"].ToString();
 
+                            ViewBag.assettype = dt.Rows[0]["AssetsType"].ToString();
+                            ViewBag.assetcategory = dt.Rows[0]["AssetsCategory"].ToString();
+
 
                             var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
+                            int count = 0;
                             foreach (var kv in dict)
                             {
                                 string removecomma = kv.Key;
@@ -236,27 +247,33 @@ namespace WillAssure.Controllers
 
                                 final = final + kv.Key + ":" + kv.Value;
 
+                                
 
-                                structure = structure + "<div class='row'>" +
-                                    "<div class='col-sm-6'>" +
+
+
+
+                                structure = structure + "<div class='col-sm-3'>" +
                                     "<div class='form-group'>" +
-                                    "<label for='input-1'>"+second+"</label>" +
-                                    "<input type='text' value="+kv.Value+"  class='form-control'  />" +
-                                    "</div>" +
+                                    "<label for='input-1'>" + second + "</label>" +
+                                    "<input type='text' id="+ count++ + " class='form-control' style='width:150px;' value=" + kv.Value + "   />" +
                                     "</div>" +
                                     "</div>";
-                                   
 
-                              
-                             
+
+
+
+
+
 
                             }
 
 
                         }
+
+                        ViewBag.assetdata = structure;
                     }
 
-                    
+
 
 
 
@@ -269,12 +286,45 @@ namespace WillAssure.Controllers
             }
 
 
-           
 
 
 
-            return structure;
 
+            
+
+
+
+
+
+
+
+
+
+
+
+            //end
+
+
+
+
+
+
+
+
+
+
+
+            return View("~/Views/AddMainAssets/AddMainAssetsPageContent.cshtml");
+        }
+
+
+
+        public ActionResult jstruct()
+        {
+
+
+
+            return View("~/Views/AddMainAssets/AddMainAssetsPageContent.cshtml");
         }
 
 
@@ -292,7 +342,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "<option value=''>--Select--</option>";
+            string data = "";
 
             if (dt.Rows.Count > 0)
             {
@@ -1286,6 +1336,7 @@ namespace WillAssure.Controllers
                     cmd22.ExecuteNonQuery();
                     con.Close();
                     ViewBag.Message = "Verified";
+                    ViewBag.disablefield = "true";
                 }
 
 

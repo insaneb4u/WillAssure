@@ -152,11 +152,15 @@
                             }
                         }
 
+                        <div style="float:right;">
+
+                            <input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" />&nbsp;&nbsp; <a href="@Url.Action("EditMainAssetsIndex", "EditMainAssets")"><input type="button" name="name" class="btn btn-success" value="View" /></a>
+                        </div>
 
                         @using (Html.BeginForm("InsertMainAsset", null, FormMethod.Post, new { id = "mainassetinfo" }))
                         {
 
-
+                            @Html.HiddenFor(m => m.aiid);
                             <div class="row">
                                 <div class='col-sm-2'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Testator</label></div>
                                 <div class="col-sm-3">
@@ -174,7 +178,8 @@
                                     <label style="color:red;">Asset Category Already Mapped</label>
                                 </div>
                                 <div class="col-sm-2">
-                                    <a href="@Url.Action("EditMainAssetsIndex", "EditMainAssets")"><input type="button" name="name" class="btn btn-success" value="View" /></a>
+
+                                    <div class="col-sm-3"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Edit Details</button></div>
                                 </div>
 
                             </div>
@@ -183,32 +188,78 @@
 
                             <div class="row">
 
-                                <div class="col-sm-6">
 
-                                    <div class="form-group">
-                                        <label for="input-1">Asset Type</label>
 
-                                        <select id="ddlasset" onChange='getassetcolumntext(this.options[this.selectedIndex].innerHTML)' class="form-control input-shadow validate[required]">
-                                            <option value="">--Select--</option>
-                                        </select>
+                                @if (ViewBag.assettype != null)
+                                {
+                                    <div class="col-sm-6">
 
+                                        <div class="form-group">
+                                            <label for="input-1">Asset Type</label>
+
+                                            <select id="ddlasset" onChange='getassetcolumntext(this.options[this.selectedIndex].innerHTML)' class="form-control input-shadow validate[required]">
+                                                <option value="@ViewBag.assettype">@ViewBag.assettype</option>
+                                            </select>
+
+                                        </div>
                                     </div>
-                                </div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-6">
 
+                                        <div class="form-group">
+                                            <label for="input-1">Asset Type</label>
 
+                                            <select id="ddlasset" onChange='getassetcolumntext(this.options[this.selectedIndex].innerHTML)' class="form-control input-shadow validate[required]">
+                                                <option value="">--Select--</option>
+                                            </select>
 
-
-                                <div class="col-sm-6">
-
-                                    <div class="form-group">
-                                        <label for="input-1">Asset Category</label>
-
-                                        <select id="ddlassetcat" onChange='getassetcat(this.options[this.selectedIndex].innerHTML)' class="form-control input-shadow validate[required]">
-                                            <option value="">--Select--</option>
-                                        </select>
-
+                                        </div>
                                     </div>
-                                </div>
+                                }
+
+
+
+
+
+                                @if (ViewBag.assetcategory != null)
+                                {
+
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label for="input-1">Asset Category</label>
+
+                                            <select id="ddlassetcat" onChange='getassetcat(this.options[this.selectedIndex].innerHTML)' class="form-control input-shadow validate[required]">
+                                                <option value="">@ViewBag.assetcategory</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+
+                                }
+                                else
+                                {
+
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+                                            <label for="input-1">Asset Category</label>
+
+                                            <select id="ddlassetcat" onChange='getassetcat(this.options[this.selectedIndex].innerHTML)' class="form-control input-shadow validate[required]">
+                                                <option value="">--Select--</option>
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                }
+
+
+
+
 
 
 
@@ -225,7 +276,7 @@
                             </div>
 
 
-                            <div  id="updatedata">
+                            <div class="row" id="updatedata">
 
                             </div>
 
@@ -258,6 +309,7 @@
                                     <div class="form-group" style="float:right">
                                         @*<button type="button" id="btnadd" class="btn btn-danger shadow-primary px-5"><i class="icon-plus"></i>Add</button>*@
                                         <button type="submit" name="Submit Asset Info" value="Submit Asset Info" id="btnmainassetsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit Gift </button>
+                                        <button type="submit" id="btnupdate" style="display:none;" formaction="updatetestatorfamily" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
                                         <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><button type="button" id="btnnext" style="display:none" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                                     </div>
                                 }
@@ -288,6 +340,11 @@
             <button type="button" id="btncheckExists" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
             @*<button type="button" style="display:none" id="confirmtestatorfamily"></button>*@
             <button id="btnCHECK" style="display:none;"></button>
+
+            <textarea id="assetinfodata" style="display:none;">
+ @ViewBag.assetdata
+           </textarea>
+
         </div>
 
 
@@ -296,6 +353,33 @@
 
 </div>
 @*end*@
+
+
+
+@if (ViewBag.assetdata != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            var data = $("#assetinfodata").val();
+
+            $("#updatedata").empty().append(data);
+
+            $("#Binddata").hide();
+
+        });
+
+
+    </script>
+}
+
+
+
+
+
+
+
 
 <script>
        $("#ddlassetcat").change(function () {
@@ -329,7 +413,10 @@
          });
     });
 
-     $(document).ready(function () {
+    $(document).ready(function () {
+
+       
+
          var r1 = $("input[name='optradio']:checked").val();
 
 
@@ -337,7 +424,7 @@
             type: "POST",
             url:"@Url.Action("BindAssetTypeDDL", "AddMainAssets")",
             success: function (data) {
-                $('#ddlasset').empty().append(data);
+                $('#ddlasset').append(data);
             }
          });
 
@@ -436,7 +523,7 @@
 
 
 
-          $.ajax({
+          @*$.ajax({
 
             type: "POST",
             url:"@Url.Action("jstruct", "AddMainAssets")",
@@ -449,7 +536,7 @@
 
                 }
             }
-        });
+        });*@
 
 
     });
@@ -630,7 +717,7 @@
 
 
             $("#mappmsg").show();
-            
+
 
 
 
@@ -639,3 +726,113 @@
     </script>
 
 }
+
+
+
+
+
+@if (ViewBag.disablefield == "true")
+{
+    <script>
+
+        $("#btnmore").show();
+        $("#btnview").show();
+
+        $("#btnfieldedit").show();
+
+        $("#btntestatorsubmit").hide();
+
+        $("#btntestatorsubmit").hide();
+
+
+
+        $(document).ready(function () {
+
+            $("#txtasset").attr("disabled", "disabled");
+
+            $("#0").attr("disabled", "disabled");
+            $("#1").attr("disabled", "disabled");
+            $("#2").attr("disabled", "disabled");
+            $("#3").attr("disabled", "disabled");
+            $("#4").attr("disabled", "disabled");
+            $("#5").attr("disabled", "disabled");
+            $("#6").attr("disabled", "disabled");
+         
+
+
+        });
+
+
+    </script>
+}
+
+
+
+
+
+
+
+
+<script>
+
+
+    $("#btnfieldedit").click(function () {
+
+        $("#txtasset").removeAttr("disabled");
+      
+
+        $("#btnupdate").show();
+
+
+        $("#btneditmsg").show();
+
+
+        $("#0").removeAttr("disabled");
+        $("#1").removeAttr("disabled");
+        $("#2").removeAttr("disabled");
+        $("#3").removeAttr("disabled");
+        $("#4").removeAttr("disabled");
+        $("#5").removeAttr("disabled");
+        $("#6").removeAttr("disabled");
+
+    });
+
+
+</script>
+
+
+
+<script>
+
+    $("#btnmore").click(function () {
+
+        $("#btnupdate").hide();
+
+        $("#btntestatorsubmit").show();
+
+        $("#btnfieldedit").hide();
+
+
+        $("#0").removeAttr("disabled");
+        $("#1").removeAttr("disabled");
+        $("#2").removeAttr("disabled");
+        $("#3").removeAttr("disabled");
+        $("#4").removeAttr("disabled");
+        $("#5").removeAttr("disabled");
+        $("#6").removeAttr("disabled");
+      
+
+
+
+
+ 
+
+
+    });
+
+
+
+
+
+
+</script>

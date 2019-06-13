@@ -40,8 +40,8 @@ namespace WillAssure.Models
        public string InstrumentName { get; set; }
        public string Proportion { get; set; }
         public int atId { get; set; }
-
-
+        public string htmlcontent { get; set; }
+        public int AssetsCategoryId { get; set; }
 
 
         public int documentprice { get; set; }

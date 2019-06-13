@@ -48,10 +48,10 @@
                                 {
                                     <h5>
                                         <ul id="menu" style="font-weight:bold;">
-                                            <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Donor ></li></a>
-                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Donee ></li></a>
-                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black">Gift ></li></a>
-                                            <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")">
+                                            <a href="@Url.Action("AddTestatorsFormIndex", "AddTestatorsForm")"><li style="color:black;">Donor ></li></a>
+                                            <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black">Donee ></li></a>
+                                            <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black">Gift ></li></a>
+                                            <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
                                                 <li style="color:">Asset Mapping ></li>
                                             </a>
                                             <li style="color:#e1e1e1">Witness Appointment ></li>
@@ -67,13 +67,13 @@
                                         <h5>
                                             <ul id="menu" style="font-weight:bold;">
 
-                                                <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                                <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                                <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                                <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                                <a href="@Url.Action("AddLiabilitiesIndex","AddLiabilities")"><li style="color:black;">Liabilites></li></a>
-                                                <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
-                                                <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="">Mapping ></li></a>
+                                                <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                                <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                                <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
+                                                <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
+                                                <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:black;">PetCare ></li></a>
+                                                <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="">Mapping ></li></a>
                                                 <li style="color:#e1e1e1">Nominee ></li>
                                                 <li style="color:#e1e1e1">Appointees > </li>
                                                 <li style="color:#e1e1e1">Document</li>
@@ -85,13 +85,13 @@
                                         <h5>
                                             <ul id="menu" style="font-weight:bold;">
 
-                                                <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                                <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                                <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                                <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                                <a href="@Url.Action("AddLiabilitiesIndex","AddLiabilities")"><li style="color:black;">Liabilites></li></a>
-                                                <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
-                                                <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="">Mapping ></li></a>
+                                                <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                                <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                                <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
+                                                <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
+                                                <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:black;">PetCare ></li></a>
+                                                <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="">Mapping ></li></a>
                                                 <li style="color:#e1e1e1">Nominee ></li>
                                                 <li style="color:#e1e1e1">Appointees > </li>
                                                 <li style="color:#e1e1e1">Document</li>
@@ -142,7 +142,12 @@
 
                                     <input type="hidden" id="txtcount" name="name" value="" />
                                 </div>
-                                <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><a href="@Url.Action("EditBeneficiaryMappingIndex","EditBeneficiaryMapping")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
+                                <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><a href="@Url.Action("EditBeneficiaryMappingIndex", "EditBeneficiaryMapping")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
+
+
+                                <div id='bindcategorydata'>testing</div>
+
+
                             </div>
 
                             @*<div class="row">
@@ -261,13 +266,13 @@
                                 {
                                     <div class="form-group" style="float:right">
 
-                                        <a href="@Url.Action("AddAppointeesIndex","AddAppointees")"><button type="button" style="display:;" id="btnnext" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                        <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><button type="button" style="display:;" id="btnnext" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="form-group" style="float:right">
-                                        <a href="@Url.Action("AddNomineeIndex","AddNominee")"><button type="button" style="display:;" id="btnnext" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                        <a href="@Url.Action("AddNomineeIndex", "AddNominee")"><button type="button" style="display:;" id="btnnext" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                                     </div>
                                 }
                             }
@@ -373,7 +378,74 @@
 
         $(document).ready(function () {
 
-           
+
+
+
+              $.ajax({
+
+                type: "POST",
+
+                url: "@Url.Action("BindBeneficiaryDDL", "AddAssetMapping")",
+                success: function (data) {
+                    
+                    var response = data;
+                    var md = data.split("~")[0];
+                    var count = data.split("~")[1];
+                    alert(count);
+                    $("#txtcount").val(count);
+                    for (var i = 1; i < count; i++) {
+
+
+                      var x =  $("#ddlbeneficiary" + i + "").append(md);
+
+                        //alert(x);
+                        
+                    }
+
+                    
+
+
+                }
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+               $.ajax({
+
+                type: "POST",
+
+                 url: "@Url.Action("BindCategorydata", "AddAssetMapping")",
+                
+                success: function (data) {
+
+                    console.log(data);
+
+                    $("#bindcategorydata").html(data);
+                  
+
+                    }
+
+
+                
+            });
+
+
+
+
+
+
+
+
+
 
 
 
@@ -392,9 +464,10 @@
                          for (var j = 0; j < response.length; j++) {
                              var assettypeid = response[j].atId;
                              var AssetsType = response[j].atId_group[0].AssetsType;
+                            
                              var atId_group = response[j].atId_group[0].AssetsType_group;
                              var data = atId_group;
-
+                            
 
 
                              //   console.log(JSON.stringify(atId_group));
@@ -402,7 +475,7 @@
                              $("#accordion8").append(assettypehtmlelem);
                           
                              for (var i = 0; i < atId_group.length; i++) {
-
+                                 var htmlcontent = data[i].htmlcontent;
                                  var liability_proportion = petcare_proportion = total_liability_petcare_proportion =0;
                                  if (parseInt($("#assetcategoryidforliablities").val()) == parseInt(data[i].assetcatid)) {
 
@@ -458,9 +531,11 @@
                                  res += data[i].AssetsCategory + data[i].assetcatid;
                                  res += "</button>";
                                  res += "</div>";
-                                 res += "<div id='accordio" + data[i].assetcatid + "' class='collapse  accordiondiv' data-parent='#accordion8'";
+                                 res += "<div id='accordio" + data[i].assetcatid + "' class='collapse  accordiondiv' data-parent='#accordion8'>";
                                  //res +="<div id='test'></div>";
+                                
                                  res += "<div class='card-body'>";
+                                 res += htmlcontent;
                                  res += "<input type='hidden' id='liability_proportion_" + data[i].assetcatid + " ' name='name' value='" + liability_proportion + "' />";
                                  res += "<input type='hidden' id='petcare_proportion_" + data[i].assetcatid + "' name='name' value='" + petcare_proportion + "' />";
                                  res += "<input type='hidden' class='total_liability_petcare_proportion' id='total_liability_petcare_proportion_" + data[i].assetcatid + "' name='name' value='" + total_liability_petcare_proportion + "' />";
@@ -480,6 +555,7 @@
                                  res += "</div>";
                                  res += "<div id='parentdiv" + data[i].assetcatid + "'  class='test'>";
                                  res += "<div class='row rowdiv' id='beneficiarydetails' >";
+                                 
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;";
                                  res += "<div class='col-sm-2'>";
                                  res += "<div class='form-group'>";
@@ -488,18 +564,19 @@
                                  res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                                  res += "</div>";
                                  res += "</div>";   // new
-                                 res += "<div class='col-sm-2'>";
-                                 res += "<div class='form-group'>";
-                                 res += "<label for='input-1'>SchemeName<span id='errscheme' style='color:red;display:;' >(*)</span></label>";
-                                 res += "<select id='schemename" + data[i].assetcatid + "' onchange='getschemename(this.id)' name='contentList' class='form-control schemenameclass validate[required]'></select>";
-                                 res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
-                                 res += "</div>";
-                                 res += "</div>";
+                                 //res += "<div class='col-sm-2'>";
+                                 //res += "<div class='form-group'>";
+                                 ////res += "<label for='input-1'>SchemeName<span id='errscheme' style='color:red;display:;' >(*)</span></label>";
+                                 ////res += "<select id='schemename" + data[i].assetcatid + "' onchange='getschemename(this.id)' name='contentList' class='form-control schemenameclass validate[required]'></select>";
+                                 //res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
+                                 //res += "</div>";
+                                 //res += "</div>";
                                  res += "<div class='col-sm-3'>";
-                                 res += "<label for='input-1'>Instruments</label><span id='errinstrument' style='color:red;display:;'>(*)</span>";
-                                 res += "<select id='DDLAssetColumn" + data[i].assetcatid + "' onchange='getDDLAssetColumn(this.id)' name='contentList' class='form-control instrumentclass validate[required]'></select>";
+                                 //res += "<label for='input-1'>Instruments</label><span id='errinstrument' style='color:red;display:;'>(*)</span>";
+                                 //res += "<select id='DDLAssetColumn" + data[i].assetcatid + "' onchange='getDDLAssetColumn(this.id)' name='contentList' class='form-control instrumentclass validate[required]'></select>";
                                  res += "</div>";
                                  res += "<div class='col-sm-2 grandparent'>";
+                                 //res += "<div id='bindcategorydata'></div>";
                                  res += "<div class='form-group parent'>";
                                  res += "<label for='input-1'>Proportion</label><span id='errproportion' style='color:red;display:;'>(*)</span>";
                                  res += "<input type='text' autocomplete='off' class='form-control proportioninput validate[required]' onkeypress='return isNumberKey(event)' onchange='gettxtproportion(this.value)' name='rank' id='txtproportion" + data[i].assetcatid + "' />";
@@ -603,24 +680,7 @@
 
 
 
-            $.ajax({
-
-                type: "POST",
-
-                url: "@Url.Action("BindBeneficiaryDDL", "AddAssetMapping")",
-                success: function (data) {
-
-                    var response = data;
-                    var md = data.split("~")[0];
-                    var count = data.split("~")[1];
-                    $("#txtcount").val(count);
-                    for (var i = 1; i < count; i++) {
-                        $("#ddlbeneficiary" + i + "").append(md);
-                    }
-
-
-                }
-            });
+          
 
 
 
@@ -935,7 +995,8 @@
                     if (lang_name == myval && lang_name != '') {
                         alert(selectedtext + ' already exists');
                         $("#" + id).val('0');
-                        check = 'inactive'
+                        check = 'inactive';
+                        return false;
                     }
 
                 }

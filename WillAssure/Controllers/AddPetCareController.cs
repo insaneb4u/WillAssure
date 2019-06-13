@@ -167,51 +167,53 @@ namespace WillAssure.Controllers
             if (NestId != null)
             {
                 querychk11 = "select * from PetCare where petid = " + NestId + " ";
+
+
+                SqlDataAdapter dachk11 = new SqlDataAdapter(querychk11, con);
+                DataTable dtchk11 = new DataTable();
+                dachk11.Fill(dtchk11);
+                if (dtchk11.Rows.Count > 0)
+                {
+                    ViewBag.disablefield = "true";
+                    pml.petid = Convert.ToInt32(dtchk11.Rows[0]["petid"]);
+                    pml.petname = dtchk11.Rows[0]["petname"].ToString();
+                    pml.petage = dtchk11.Rows[0]["petage"].ToString();
+                    pml.typeofpet = dtchk11.Rows[0]["typeofpet"].ToString();
+                    pml.amtforpet = dtchk11.Rows[0]["amtforpet"].ToString();
+                    //pml.amtfromwhichasset = dtchk11.Rows[0]["amtfromwhichasset"].ToString();
+                    pml.responsibelpersonforpet = dtchk11.Rows[0]["responsibelpersonforpet"].ToString();
+                    pml.Proportion = Convert.ToInt32(dtchk11.Rows[0]["Proportion"]);
+
+
+                    string qqchk = "select AssetsType from AssetsType where atId = " + dtchk11.Rows[0]["assettypeid"].ToString() + "   ";
+                    SqlDataAdapter dachk = new SqlDataAdapter(qqchk, con);
+                    DataTable dtchk = new DataTable();
+                    dachk.Fill(dtchk);
+                    if (dtchk.Rows.Count > 0)
+                    {
+                        pml.assettypetext = dtchk.Rows[0]["AssetsType"].ToString();
+                    }
+
+                    string qqchk2 = "select AssetsCategory from AssetsCategory where amId = " + dtchk11.Rows[0]["assetcategoryid"].ToString() + "   ";
+                    SqlDataAdapter dachk2 = new SqlDataAdapter(qqchk2, con);
+                    DataTable dtchk2 = new DataTable();
+                    dachk2.Fill(dtchk2);
+                    if (dtchk2.Rows.Count > 0)
+                    {
+                        pml.assetCategorytext = dtchk2.Rows[0]["AssetsCategory"].ToString();
+                    }
+
+                }
+                con.Close();
+
+
             }
-            else
-            {
-                querychk11 = "select * from PetCare where tid = " + distid + " ";
-            }
+           
             
 
 
 
-            SqlDataAdapter dachk11 = new SqlDataAdapter(querychk11, con);
-            DataTable dtchk11 = new DataTable();
-            dachk11.Fill(dtchk11);
-            if (dtchk11.Rows.Count > 0)
-            {
-                ViewBag.disablefield = "true";
-                pml.petid = Convert.ToInt32(dtchk11.Rows[0]["petid"]);
-                pml.petname = dtchk11.Rows[0]["petname"].ToString();
-                pml.petage = dtchk11.Rows[0]["petage"].ToString();
-                pml.typeofpet = dtchk11.Rows[0]["typeofpet"].ToString();
-                pml.amtforpet = dtchk11.Rows[0]["amtforpet"].ToString();
-                //pml.amtfromwhichasset = dtchk11.Rows[0]["amtfromwhichasset"].ToString();
-                pml.responsibelpersonforpet = dtchk11.Rows[0]["responsibelpersonforpet"].ToString();
-                pml.Proportion = Convert.ToInt32(dtchk11.Rows[0]["Proportion"]);
-
-
-                string qqchk = "select AssetsType from AssetsType where atId = " + dtchk11.Rows[0]["assettypeid"].ToString() + "   ";
-                SqlDataAdapter dachk = new SqlDataAdapter(qqchk, con);
-                DataTable dtchk = new DataTable();
-                dachk.Fill(dtchk);
-                if (dtchk.Rows.Count > 0)
-                {
-                    pml.assettypetext = dtchk.Rows[0]["AssetsType"].ToString();
-                }
-
-                string qqchk2 = "select AssetsCategory from AssetsCategory where amId = " + dtchk11.Rows[0]["assetcategoryid"].ToString() + "   ";
-                SqlDataAdapter dachk2 = new SqlDataAdapter(qqchk2, con);
-                DataTable dtchk2 = new DataTable();
-                dachk2.Fill(dtchk2);
-                if (dtchk2.Rows.Count > 0)
-                {
-                    pml.assetCategorytext = dtchk2.Rows[0]["AssetsCategory"].ToString();
-                }
-
-            }
-            con.Close();
+           
 
 
 

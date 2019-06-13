@@ -181,14 +181,19 @@ namespace WillAssure.Controllers
 
             int aaid = 0;
 
-            string q44 = "select max(aiid) as aiid from AssetInformation";
+            string q44 = "select top 1 aiid  from AssetInformation order by aiid desc";
             SqlDataAdapter da44 = new SqlDataAdapter(q44, con);
             DataTable dt44 = new DataTable();
             da44.Fill(dt44);
             if (dt44.Rows.Count > 0)
             {
 
-                aaid = Convert.ToInt32(dt44.Rows[0]["aiid"]);
+                if (dt44.Rows[0]["aiid"].ToString() == "")
+                {
+                    aaid = Convert.ToInt32(dt44.Rows[0]["aiid"]);
+                }
+
+             
 
             }
 
@@ -214,7 +219,7 @@ namespace WillAssure.Controllers
                     }
                     else
                     {
-                        query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = " + aaid + "   ";
+                        query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = "+aaid+"  ";
                     }
 
 
@@ -247,17 +252,20 @@ namespace WillAssure.Controllers
 
                                 final = final + kv.Key + ":" + kv.Value;
 
-                                
 
 
 
+                                if (kv.Value != "")
+                                {
+                                    structure = structure + "<div class='col-sm-3'>" +
+                                  "<div class='form-group'>" +
+                                  "<label for='input-1'>" + second + "</label>" +
+                                  "<input type='text' id=" + count++ + " class='form-control' style='width:150px;' value=" + kv.Value + "   />" +
+                                  "</div>" +
+                                  "</div>";
+                                }
 
-                                structure = structure + "<div class='col-sm-3'>" +
-                                    "<div class='form-group'>" +
-                                    "<label for='input-1'>" + second + "</label>" +
-                                    "<input type='text' id="+ count++ + " class='form-control' style='width:150px;' value=" + kv.Value + "   />" +
-                                    "</div>" +
-                                    "</div>";
+                              
 
 
 
@@ -1297,18 +1305,18 @@ namespace WillAssure.Controllers
 
 
 
-                con.Open();
-                string qcheck = "SELECT count(*) FROM AssetInformation where amId = " + amid + "  ";
-                SqlCommand cmdchk = new SqlCommand(qcheck,con);
-                int count = (int)cmdchk.ExecuteScalar();
-                con.Close();
+                //con.Open();
+                //string qcheck = "SELECT count(*) FROM AssetInformation where amId = " + amid + "  ";
+                //SqlCommand cmdchk = new SqlCommand(qcheck, con);
+                //int count = (int)cmdchk.ExecuteScalar();
+                //con.Close();
 
-                if (count > 0)
-                {
-                    Response.Write("<script>alert('Asset Category Already Mapped Please Select Another Asset')</script>");
-                }
-                else
-                {
+                //if (count > 0)
+                //{
+                //    Response.Write("<script>alert('Asset Category Already Mapped Please Select Another Asset')</script>");
+                //}
+                //else
+                //{
 
                     con.Open();
                     string query = "insert into AssetInformation (atId,amId,Json,tid,uId) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + ")";
@@ -1337,7 +1345,7 @@ namespace WillAssure.Controllers
                     con.Close();
                     ViewBag.Message = "Verified";
                     ViewBag.disablefield = "true";
-                }
+                //}
 
 
 

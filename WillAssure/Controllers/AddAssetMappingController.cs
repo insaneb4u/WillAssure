@@ -144,14 +144,14 @@ namespace WillAssure.Controllers
             if (Session["rId"] == null || Session["uuid"] == null)
             {
 
-               RedirectToAction("LoginPageIndex", "LoginPage");
+                RedirectToAction("LoginPageIndex", "LoginPage");
 
             }
 
 
 
 
-         
+
 
 
             List<LoginModel> Lmlist = new List<LoginModel>();
@@ -186,12 +186,12 @@ namespace WillAssure.Controllers
 
             con.Close();
 
-        
-                   
-             
-      
 
-            
+
+
+
+
+
 
             return View("~/Views/AddAssetMapping/AddAssetMappingPageContent.cshtml");
         }
@@ -220,7 +220,7 @@ namespace WillAssure.Controllers
             SqlDataAdapter cda2 = new SqlDataAdapter(ck2, con);
             DataTable cdt2 = new DataTable();
             cda2.Fill(cdt2);
-      
+
             if (cdt2.Rows.Count > 0)
             {
                 tid = Convert.ToInt32(cdt2.Rows[0]["tId"]);
@@ -249,7 +249,7 @@ namespace WillAssure.Controllers
 
 
 
-            d = "select * from BeneficiaryDetails where tId = "+tid+"";
+            d = "select * from BeneficiaryDetails where tId = " + tid + "";
 
 
 
@@ -368,18 +368,18 @@ namespace WillAssure.Controllers
             {
                 if (Session["Type"].ToString() != "Testator" || Session["Type"].ToString() != "DistributorAdmin")
                 {
-                    query3 = "select ac.*,at.AssetsType as AssetsType from AssetsCategory ac left join assetstype at on at.atId=ac.atId inner join AssetInformation d on d.amId=ac.amId where d.uId = "+Session["uuid"]+" ";
+                    query3 = "select ac.*, d.aiid ,at.AssetsType as AssetsType,ac.amId as amId from AssetsCategory ac left join assetstype at on at.atId=ac.atId inner join AssetInformation d on d.amId=ac.amId where d.uId = " + Session["uuid"] + " ";
                 }
-               
+
             }
             else
             {
                 RedirectToAction("LoginPageIndex", "LoginPage");
             }
 
-           
 
-            
+
+
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt3 = new DataTable();
             da3.Fill(dt3);
@@ -393,10 +393,95 @@ namespace WillAssure.Controllers
                 {
                     LoginModel assetcatdata = new LoginModel();
 
-                    assetcatdata.assetcatid = Convert.ToInt32(dt3.Rows[i]["amId"]);
+                    int assetcatid=Convert.ToInt32(dt3.Rows[i]["aiid"].ToString());
+                    string final = "";
+                    string structure = "<div class='row'>";
+                    string data = "";
+                    string query1 = "";
+                    if (Session["distid"] != null)
+                    {
+
+                        if (Session["distid"].ToString() != "")
+                        {
+
+                            con.Open();
+
+
+                            query1 = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = " + assetcatid + "   ";
+
+
+
+
+                            SqlDataAdapter da1 = new SqlDataAdapter(query1, con);
+                            DataTable dt1 = new DataTable();
+                            da1.Fill(dt1);
+                            con.Close();
+
+
+                            if (dt1.Rows.Count > 0)
+                            {
+                                ViewBag.disablefield = "true";
+
+                                for (int j = 0; j < dt1.Rows.Count; j++)
+                                {
+                                    string getjson = dt1.Rows[j]["Json"].ToString();
+
+                                    ViewBag.assettype = dt1.Rows[0]["AssetsType"].ToString();
+                                    ViewBag.assetcategory = dt1.Rows[0]["AssetsCategory"].ToString();
+
+
+                                    var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
+                                    int count = 0;
+                                    foreach (var kv in dict)
+                                    {
+                                        string removecomma = kv.Key;
+                                        string first = removecomma.Split('~')[0];
+                                        string second = removecomma.Split('~')[1];
+
+                                        final = final + kv.Key + ":" + kv.Value;
+
+
+
+
+
+
+                                        structure = structure + "<div class='col-sm-3'>" +
+                                            "<div class='form-group'>" +
+                                            "<label for='input-1'>" + second + "</label>" +
+                                            "<input type='text' id='" + count++ + "' class='form-control' style='width:150px;' value='" + kv.Value + "'   />" +
+                                            "</div>" +
+                                            "</div>";
+
+
+
+
+
+
+
+                                    }
+
+
+                                }
+
+
+                            }
+
+                        }
+
+
+
+
+
+
+                    }
+                    structure = structure + "</div>";
+
+                    assetcatdata.assetcatid = Convert.ToInt32(dt3.Rows[i]["aiid"]);
                     assetcatdata.atId = Convert.ToInt32(dt3.Rows[i]["atId"]);
                     assetcatdata.AssetsType = dt3.Rows[i]["AssetsType"].ToString();
                     assetcatdata.AssetsCategory = dt3.Rows[i]["AssetsCategory"].ToString();
+                    assetcatdata.AssetsCategoryId = Convert.ToInt32(dt3.Rows[i]["amId"].ToString());
+                    assetcatdata.htmlcontent = structure;
                     assetcatlist.Add(assetcatdata);
 
 
@@ -466,8 +551,8 @@ namespace WillAssure.Controllers
             string d = "";
 
 
-                d = "select aiid , atId , amId  , tid , docid , Json from AssetInformation where  uid = "+Convert.ToInt32(Session["uuid"])+"  ";
-            
+            d = "select aiid , atId , amId  , tid , docid , Json from AssetInformation where  uid = " + Convert.ToInt32(Session["uuid"]) + "  ";
+
 
 
 
@@ -476,7 +561,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string query3 = "select * from AssetInformation where  uid = "+Convert.ToInt32(Session["uuid"])+"  ";
+            string query3 = "select * from AssetInformation where  uid = " + Convert.ToInt32(Session["uuid"]) + "  ";
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt = new DataTable();
             da3.Fill(dt);
@@ -528,7 +613,7 @@ namespace WillAssure.Controllers
 
 
 
-         
+
 
 
 
@@ -1080,7 +1165,7 @@ namespace WillAssure.Controllers
             string final = "";
             string bindddlname = "<option value=''>--Select--</option>";
             con.Open();
-            string query1 = "select aiid , Json from AssetInformation where  uid = "+Convert.ToInt32(Session["uuid"])+"";
+            string query1 = "select aiid , Json from AssetInformation where  uid = " + Convert.ToInt32(Session["uuid"]) + "";
             SqlDataAdapter da1 = new SqlDataAdapter(query1, con);
             DataTable dt1 = new DataTable();
             da1.Fill(dt1);
@@ -1098,7 +1183,7 @@ namespace WillAssure.Controllers
                     {
                         string testString = item.Key;
                         ArrayList result = new ArrayList(testString.Split('~'));
-                        
+
 
                         if (result[0].ToString() == "IssuedBy")
                         {
@@ -1209,8 +1294,8 @@ namespace WillAssure.Controllers
             assetcat = Convert.ToString(response.Split('~')[7]);
 
             con.Open();
-            string getassettype = "select atId from AssetsCategory where amId = "+assetcat+" ";
-            SqlDataAdapter atda = new SqlDataAdapter(getassettype,con);
+            string getassettype = "select atId from AssetsCategory where amId = " + assetcat + " ";
+            SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
             DataTable atdt = new DataTable();
             atda.Fill(atdt);
             if (atdt.Rows.Count > 0)
@@ -1221,17 +1306,17 @@ namespace WillAssure.Controllers
             con.Close();
 
 
-         
-         
-                con.Open();
-                string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID , SchemeName , InstrumentName , Proportion , tid , doctype) values   (  " + assettype + " , " + assetcat + ", " + beneficiary + " , '" + schemename + "' , '" + instrument + "' , '" + proportion + "' , " + Convert.ToInt32(tid) + " , '"+ Session["doctype"].ToString() + "') ";
-                SqlCommand cmd = new SqlCommand(query, con);
-                cmd.ExecuteNonQuery();
-                con.Close();
 
 
-            
-         
+            con.Open();
+            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID , SchemeName , InstrumentName , Proportion , tid , doctype) values   (  " + assettype + " , " + assetcat + ", " + beneficiary + " , '" + schemename + "' , '" + instrument + "' , '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "') ";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+
+
+
 
             ModelState.Clear();
             return RedirectToAction("AddAssetMappingIndex", "AddAssetMapping", new { success = "true" });
@@ -1239,7 +1324,7 @@ namespace WillAssure.Controllers
 
 
 
-        public ActionResult InsertMultipleAssetMappeddata(string data, string assettype, string assetcat , string tid , string btnidentify)
+        public ActionResult InsertMultipleAssetMappeddata(string data, string assettype, string assetcat, string tid, string btnidentify)
         {
             ViewBag.collapse = "true";
             // roleassignment
@@ -1303,8 +1388,8 @@ namespace WillAssure.Controllers
                 {
                     con.Open();
                     result[i].ToString();
-                    string query = "insert into BeneficiaryAssets (Beneficiary_ID,SchemeName,InstrumentName,Proportion , tid , AssetType_ID , AssetCategory_ID , doctype) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , "+assettyp+" , "+btnidentify+" , '"+ Session["doctype"].ToString() + "')";
-                    SqlCommand cmd = new SqlCommand(query,con);
+                    string query = "insert into BeneficiaryAssets (Beneficiary_ID,SchemeName,InstrumentName,Proportion , tid , AssetType_ID , AssetCategory_ID , doctype) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettyp + " , " + btnidentify + " , '" + Session["doctype"].ToString() + "')";
+                    SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();
                 }
@@ -1330,7 +1415,7 @@ namespace WillAssure.Controllers
 
             string data = "<option value=''>--Select--</option>";
             con.Open();
-            string query1 = "select aiid, bpId , First_Name from BeneficiaryDetails where  bpId not in ("+ response + ")";
+            string query1 = "select aiid, bpId , First_Name from BeneficiaryDetails where  bpId not in (" + response + ")";
             SqlDataAdapter da1 = new SqlDataAdapter(query1, con);
             DataTable dt1 = new DataTable();
             da1.Fill(dt1);
@@ -1417,21 +1502,21 @@ namespace WillAssure.Controllers
                     con.Close();
                     string data = "";
 
-                   
-                        con.Open();
-                        string query2 = "select * from BeneficiaryAssets where tid =  " + Convert.ToInt32(dt.Rows[0]["tId"]) + " ";
-                        SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
-                        DataTable dt2 = new DataTable();
-                        da2.Fill(dt2);
-                        con.Close();
-                        string popup = "";
-                        if (dt2.Rows.Count > 0)
-                        {
-                            popup = "true";
 
-                        }
+                    con.Open();
+                    string query2 = "select * from BeneficiaryAssets where tid =  " + Convert.ToInt32(dt.Rows[0]["tId"]) + " ";
+                    SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+                    DataTable dt2 = new DataTable();
+                    da2.Fill(dt2);
+                    con.Close();
+                    string popup = "";
+                    if (dt2.Rows.Count > 0)
+                    {
+                        popup = "true";
 
-                    
+                    }
+
+
 
 
                     if (dt.Rows.Count > 0)
@@ -1455,7 +1540,7 @@ namespace WillAssure.Controllers
 
 
                     }
-                   
+
 
                     return data;
 
@@ -1582,7 +1667,7 @@ namespace WillAssure.Controllers
 
                     }
                 }
-                    
+
 
             }
 
@@ -1595,7 +1680,109 @@ namespace WillAssure.Controllers
         }
 
 
+        public string BindCategorydata()
+        {
+            con.Open();
+            string query1 = "select amId from AssetInformation where tid = "+ Convert.ToInt32(Session["distid"]) + " ";
+            SqlDataAdapter da1 = new SqlDataAdapter(query1,con);
+            DataTable dt1 = new DataTable();
+            da1.Fill(dt1);
+            int assetcatid = 0;
+            if (dt1.Rows.Count > 0)
+            {
+                assetcatid = Convert.ToInt32(dt1.Rows[0]["amId"]);
+            }
+
+        
+
+            con.Close();
 
 
+
+
+            string final = "";
+            string structure = "<div class='row'>";
+            string data = "";
+            string query = "";
+            if (Session["distid"] != null)
+            {
+
+                if (Session["distid"].ToString() != "")
+                {
+
+                    con.Open();
+
+
+                    query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where d.amId = " + assetcatid + "   ";
+
+
+
+
+                    SqlDataAdapter da = new SqlDataAdapter(query, con);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    con.Close();
+
+
+                    if (dt.Rows.Count > 0)
+                    {
+                        ViewBag.disablefield = "true";
+
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            string getjson = dt.Rows[i]["Json"].ToString();
+
+                            ViewBag.assettype = dt.Rows[0]["AssetsType"].ToString();
+                            ViewBag.assetcategory = dt.Rows[0]["AssetsCategory"].ToString();
+
+
+                            var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
+                            int count = 0;
+                            foreach (var kv in dict)
+                            {
+                                string removecomma = kv.Key;
+                                string first = removecomma.Split('~')[0];
+                                string second = removecomma.Split('~')[1];
+
+                                final = final + kv.Key + ":" + kv.Value;
+
+
+
+
+
+
+                                structure = structure + "<div class='col-sm-3'>" +
+                                    "<div class='form-group'>" +
+                                    "<label for='input-1'>" + second + "</label>" +
+                                    "<input type='text' id='" + count++ + "' class='form-control' style='width:150px;' value='" + kv.Value + "'   />" +
+                                    "</div>" +
+                                    "</div>";
+
+
+
+
+
+
+
+                            }
+
+
+                        }
+
+                       
+                    }
+
+                }
+
+
+
+
+
+
+            }
+            structure = structure + "</div>";
+
+            return structure;
+        }
     }
 }

@@ -145,7 +145,7 @@
                                 <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><a href="@Url.Action("EditBeneficiaryMappingIndex", "EditBeneficiaryMapping")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
 
 
-                                <div id='bindcategorydata'>testing</div>
+                                
 
 
                             </div>
@@ -378,10 +378,14 @@
 
         $(document).ready(function () {
 
+            
+                
+            
+            
 
+           
 
-
-              $.ajax({
+              @*$.ajax({
 
                 type: "POST",
 
@@ -406,7 +410,7 @@
 
 
                 }
-            });
+            });*@
 
 
 
@@ -419,25 +423,7 @@
 
 
 
-               $.ajax({
-
-                type: "POST",
-
-                 url: "@Url.Action("BindCategorydata", "AddAssetMapping")",
-                
-                success: function (data) {
-
-                    console.log(data);
-
-                    $("#bindcategorydata").html(data);
-                  
-
-                    }
-
-
-                
-            });
-
+            
 
 
 
@@ -473,9 +459,11 @@
                              //   console.log(JSON.stringify(atId_group));
                              var assettypehtmlelem = "<h6 class='text-uppercase'>" + AssetsType + "</h6><hr>";
                              $("#accordion8").append(assettypehtmlelem);
-                          
+                             var beneficiarycontent = "";
                              for (var i = 0; i < atId_group.length; i++) {
                                  var htmlcontent = data[i].htmlcontent;
+                                  beneficiarycontent = data[i].DDLbeneficiarycontent;
+                                 
                                  var liability_proportion = petcare_proportion = total_liability_petcare_proportion =0;
                                  if (parseInt($("#assetcategoryidforliablities").val()) == parseInt(data[i].assetcatid)) {
 
@@ -529,6 +517,7 @@
                                  res += "<div class='card-header'>";
                                  res += "<button type='button' class='btn btn-link shadow-none text-danger collapsed' data-toggle='collapse' data-target='#accordio" + data[i].assetcatid + "' aria-expanded='false' aria-controls='collapse-23'>";
                                  res += data[i].AssetsCategory + data[i].assetcatid;
+                                 res += "<input type='text' style='display:none;' id='txtassetcat"+data[i].assetcatid+"'  value='"+data[i].AssetsCategory+"' class='form-control' />";
                                  res += "</button>";
                                  res += "</div>";
                                  res += "<div id='accordio" + data[i].assetcatid + "' class='collapse  accordiondiv' data-parent='#accordion8'>";
@@ -571,29 +560,44 @@
                                  //res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                                  //res += "</div>";
                                  //res += "</div>";
-                                 res += "<div class='col-sm-3'>";
+                                 //res += "<div class='col-sm-3'>";
                                  //res += "<label for='input-1'>Instruments</label><span id='errinstrument' style='color:red;display:;'>(*)</span>";
                                  //res += "<select id='DDLAssetColumn" + data[i].assetcatid + "' onchange='getDDLAssetColumn(this.id)' name='contentList' class='form-control instrumentclass validate[required]'></select>";
-                                 res += "</div>";
+                                 //res += "</div>";
                                  res += "<div class='col-sm-2 grandparent'>";
                                  //res += "<div id='bindcategorydata'></div>";
                                  res += "<div class='form-group parent'>";
                                  res += "<label for='input-1'>Proportion</label><span id='errproportion' style='color:red;display:;'>(*)</span>";
-                                 res += "<input type='text' autocomplete='off' class='form-control proportioninput validate[required]' onkeypress='return isNumberKey(event)' onchange='gettxtproportion(this.value)' name='rank' id='txtproportion" + data[i].assetcatid + "' />";
+                                 res += "<input type='text' autocomplete='off' class='form-control proportioninput validate[required]'  onkeypress='return isNumberKey(event)'   onchange='gettxtproportion(this.id,this.value)' name='rank' id='txtproportion" + data[i].assetcatid + "' />";
                                  res += "</div>";
                                  res += "</div>";
-                                 res += "<div class='col-sm-2'>";
+                                 res += "<div class='col-sm-2' id='totaldiv"+data[i].assetcatid+"'>";
                                  res += "<div class='form-group start'>";
-                                 res += "<label for='input-1'>Total</label>";
-                                 res += "<input type='text' id='txttotal" + data[i].assetcatid + "'  class='form-control totalinput validate[required]' readonly />";
+                                 res += "<label for='input-1'>Balance Proportion</label>";
+                                 res += "<input type='text' id='txttotal"+data[i].assetcatid+"' min=0  class='form-control totalinput' readonly />";
                                  res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-198px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
                                  res += "</div>";
                                  res += "</div>";
+
+
+                                 res += "<div class='col-sm-2' id='singlepropo"+data[i].assetcatid+"' style='display:none;'>";
+                                 res += "<div class='form-group start'>";
+                                 res += "<label for='input-1'>Proportion</label>";
+                                 res += "<input type='text' id='txtsingleproportion"+data[i].assetcatid+"' Value='100'  class='form-control totalinput' readonly />";
+                                 res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-198px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
+                                 res += "</div>";
+                                 res += "</div>";
+
+
+
+
+
+
                                  res += "</div>";
                                  res += "</div>";
                                  res += "<div class='form-group'>";
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' id='btnmappingsubmit' value=" + data[i].assetcatid + "  class='btn btn-primary shadow-primary px-5 btn" + data[i].assetcatid + "'><i class='icon-lock'></i>Submit</button>";
-                                 res += "<button type='button' id='btnadd'    value='" + data[i].assetcatid + "' style='display:none;'    class='btn btn-success shadow-primary px-5 btnadd " + data[i].assetcatid + "'><i class='icon-lock'></i>Add Multiple</button>";
+                                 res += "<button type='button' id='btnadd'   value='" + data[i].assetcatid + "' style='display:none;' disabled='disabled'    class='btn btn-success shadow-primary px-5 btnadd"+data[i].assetcatid+"'><i class='icon-lock'></i>Add Multiple</button>";
                                  res += " </div>";
                                  res += " </div>";
                                  res += " </div>";
@@ -619,13 +623,46 @@
                                  //  console.log(res);
 
                                  $("#accordion8").append(res);
+
+                                 if ($("#getvalone").prop("checked", true)) {
+
+                                     $("#totaldiv"+data[i].assetcatid+"").hide();
+                                     $("#singlepropo"+data[i].assetcatid+"").show();
+                                 }
+
+                                 $(".btn"+data[i].assetcatid+"").attr("disabled","disabled");
+                                
                              }
+
+
+                             var data = beneficiarycontent;
+                           
+                             var md = data.split("~")[0];
+                             var count = data.split("~")[1];
+                             
+                             $("#txtcount").val(count);
+                             for (var i = 1; i < count; i++) {
+
+
+                                 var x = $("#ddlbeneficiary" + i + "").append(md);
+                                
+                                 //alert(x);
+
+                             }
+
+
+
+                            
+
+                             
                          }
 
 
 
-
-
+                         $(".grandparent").hide();
+                         $("#totaldiv").hide();
+                         
+                         
 
                 }
             });
@@ -802,12 +839,15 @@
             return true;
         }
         $(document).on('keyup', '.proportioninput', function () {
-             
+
+           
+
             
             var $rowdiv = $(this).closest('.rowdiv');
             var $prevdiv = $rowdiv.prev('.rowdiv');
-            var parentaccordionid = $rowdiv.parent('div').parent('div').attr('id');
-            
+            var parentaccordionid = $rowdiv.parent('div').parent('div').parent('div').attr('id');
+
+           
             
             var rr = $(this).attr('id');
             var f = rr.replace('txtproportion', '');
@@ -816,57 +856,119 @@
 
 
             var prevtotalinputval = $prevdiv.find('.totalinput').val();
+
+           
+
+
             if (typeof prevtotalinputval === "undefined") {
 
                 prevtotalinputval = temp;
             }
             var proportionvalue = $(this).val();
+   
+            if (prevtotalinputval != "") {
+                if (parseInt(prevtotalinputval) > parseInt(proportionvalue) || parseInt(prevtotalinputval) == parseInt(proportionvalue)  ) {
 
-            var t = $("#txttotalval").val();
-            var result = "";
+                 
+
+                    if (proportionvalue == "") {
 
 
-
-           // if ($rowdiv.find('.totalinput').val() == "") {
-
-                $rowdiv.find('.totalinput').val(temp - proportionvalue);
-
-                if (temp != "100") {
-                   // alert('1st');
-                    var x = prevtotalinputval - proportionvalue;
-                    if (parseInt(proportionvalue) > prevtotalinputval) {
-                        alert('proportion value cannot be greater than ' + prevtotalinputval);
-                        $(this).val('');
-                        $rowdiv.find('.totalinput').val('');
-                    } else {
-                        $rowdiv.find('.totalinput').val(x);
+                        $(".btnadd" + f + "").attr("disabled", "disabled");
                     }
-                   
-                }
+                    else {
+
+                        $(".btnadd" + f + "").removeAttr("disabled");
+                    }
 
 
-                if (temp == "100") {
-                // alert('2nd');
+
+
+
+
+
+
+
+
+                    var t = $("#txttotalval").val();
+                    var result = "";
+
+
+
+                    // if ($rowdiv.find('.totalinput').val() == "") {
+
+                    $rowdiv.find('.totalinput').val(temp - proportionvalue);
+
+                    if (temp != "100") {
+                        // alert('1st');
+                        var x = prevtotalinputval - proportionvalue;
+                        if (parseInt(proportionvalue) > prevtotalinputval) {
+                            alert('proportion value cannot be greater than ' + prevtotalinputval);
+                            $(this).val('');
+                            $rowdiv.find('.totalinput').val('');
+                        } else {
+                            $rowdiv.find('.totalinput').val(x);
+                        }
+
+                    }
+
+
+                    if (temp == "100") {
+                        // alert('2nd');
+
+                        var x = parseInt(prevtotalinputval) - proportionvalue;
+                        if (parseInt(proportionvalue) > parseInt(temp)) {
+                            alert('proportion value cannot be greater than ' + parseInt(temp));
+                            $(this).val('');
+                            $rowdiv.find('.totalinput').val('');
+                        } else {
+                            $rowdiv.find('.totalinput').val(x);
+                        }
+
+                    }
+                    if ($rowdiv.find('.totalinput').val() != "") {
+                        if ($rowdiv.find('.totalinput').val() > 0) {
+
+                            $('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+                        } else {
+                            $('#' + parentaccordionid).find('#btnmappingsubmit').removeAttr("disabled");
+                            $(".btnadd" + f + "").attr("disabled", "disabled");
+                        }
+                    } else {
+                        $('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+                    }
+
+
+
                   
-                    var x = parseInt(prevtotalinputval) - proportionvalue;
-                    if (parseInt(proportionvalue) > parseInt(temp)) {
-                        alert('proportion value cannot be greater than ' + parseInt(temp));
-                        $(this).val('');
-                        $rowdiv.find('.totalinput').val('');
-                    } else {
-                        $rowdiv.find('.totalinput').val(x);
-                    }
+
+                }
+                else {
+
+                    alert("Proportion Value Cannot Be Greater Than Total...!");
                    
+                    $(this).val("");
+                    var x = $rowdiv.find('.totalinput').val("");
+                   
+               
                 }
-            if ($rowdiv.find('.totalinput').val() != "") {
-            if ($rowdiv.find('.totalinput').val() > 0) {
-                $('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
-            } else {
-                $('#' + parentaccordionid).find('#btnmappingsubmit').removeAttr("disabled");
-                }
-            } else {
-                $('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+
+
+                 //$(this).id.attr("disabled","disabled");
+
+
+                
+
             }
+
+            
+
+
+
+
+
+
+       
 
                /* var x = prevtotalinputval - proportionvalue;
                 $rowdiv.find('.totalinput').val(x);*/
@@ -1094,16 +1196,24 @@
 
         $(document).on("change", "#getvalone", function () {
             var myClass = $(this).attr("class");
-
+            $(".grandparent").hide();
+            $(".totaldiv" + myClass + "").hide();
+            $("#singlepropo"+myClass+"").show();
             $("#appendselection").empty().append("<input type='text' class='form-control' placeholder='Certificate No.' /> ");
 
-            $("."+myClass).hide();
+            $(".btnadd"+myClass).hide();
         });
 
         $(document).on("change", "#getvaltwo", function () {
             var myClass = $(this).attr("class");
 
-            $("."+myClass).show();
+            $(".btnadd" + myClass).show();
+            
+            $(".grandparent").show();
+          var x = $("#totaldiv"+myClass+"").show();
+
+            $("#singlepropo" + myClass + "").hide();
+            
         });
 
         $(document).on("click", "#btnremove", function () {
@@ -1112,8 +1222,11 @@
             var btnnum = $(this).val();
 
 
+            $(".btn"+btnnum+"").attr("disabled", "disabled");
 
 
+            $(".btnadd" + btnnum + "").removeAttr("disabled");
+            
 
 
             $("#parentdiv" + btnnum + "").find('.rowdiv:last').remove();
@@ -1122,7 +1235,7 @@
 
         $(document).on("click", "#btnadd", function () {
 
-
+            $(this).attr("disabled", "disabled");
             var btnnum = $(this).val();
 
             //get parentdiv last div element whose class name is rowdiv
@@ -1132,8 +1245,8 @@
 
             var $clone = $("#parentdiv"+btnnum+"").find('.rowdiv:last').clone();
 
-
-
+         
+          
 
             // for beneficiary ddl id auto generate  getidentifier
 
@@ -1248,7 +1361,17 @@
         });
 
 
-        function gettxtproportion(value) {
+        function blurFunction(id,value) {
+
+         
+
+       
+        }
+
+
+        function gettxtproportion(id,value) {
+
+
             $("#query").append(value + "~");
         }
 
@@ -1288,13 +1411,13 @@
 
             if (radioValue == "Single") {
 
-                var assettype = $("#ddlassettype").val();
-                var assetcat = $("#ddlassetcat").val();
+                
+                var assetcat = $("#txtassetcat"+btnidentify+"").val();
+
+                
 
 
-
-
-                if ($("#ddlbeneficiary" + btnidentify + "").find(":selected").val() == "" || $("#schemename" + btnidentify + "").find(":selected").text() == "" || $("#DDLAssetColumn" + btnidentify + "").find(":selected").text() == "" || $("#txtproportion" + btnidentify + "").val() == "" || $("#ddltid").val() == "") {
+                @*if ($("#ddlbeneficiary" + btnidentify + "").find(":selected").val() == "") {
 
 
 
@@ -1302,7 +1425,7 @@
                 }
                 else {
 
-                    var data = assettype + "~" + assetcat + "~" + beneficiary + "~" + schemename + "~" + instrument + "~" + proportion + "~" + tid + "~" + btnidentify;
+                    var data = assettype + "~" + assetcat + "~" + beneficiary + "~" + proportion + "~" + tid + "~" + btnidentify;
 
                     $.ajax({
 
@@ -1324,7 +1447,7 @@
                         }
                     });
 
-                }
+                }*@
 
 
 

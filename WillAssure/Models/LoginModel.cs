@@ -48,5 +48,8 @@ namespace WillAssure.Models
 
         public string documentname { get; set; }
 
+      public string DDLbeneficiarycontent { get; set; }
+
+
     }
 }

@@ -197,61 +197,59 @@ namespace WillAssure.Controllers
         }
 
 
-        public String BindBeneficiaryDDL()
-        {
+        //public String BindBeneficiaryDDL()
+        //{
 
-            string final = "";
+        //    string final = "";
 
-            string ck = "select type from users where uId =" + Convert.ToInt32(Session["uuid"]) + "";
-            SqlDataAdapter cda = new SqlDataAdapter(ck, con);
-            DataTable cdt = new DataTable();
-            cda.Fill(cdt);
-            string type = "";
-            if (cdt.Rows.Count > 0)
-            {
-                type = cdt.Rows[0]["type"].ToString();
+        //    string ck = "select type from users where uId =" + Convert.ToInt32(Session["uuid"]) + "";
+        //    SqlDataAdapter cda = new SqlDataAdapter(ck, con);
+        //    DataTable cdt = new DataTable();
+        //    cda.Fill(cdt);
+        //    string type = "";
+        //    if (cdt.Rows.Count > 0)
+        //    {
+        //        type = cdt.Rows[0]["type"].ToString();
 
-            }
-
-
-
-            int tid = 0;
-            string ck2 = "select tId from TestatorDetails where uId =" + Convert.ToInt32(Session["uuid"]) + "";
-            SqlDataAdapter cda2 = new SqlDataAdapter(ck2, con);
-            DataTable cdt2 = new DataTable();
-            cda2.Fill(cdt2);
-
-            if (cdt2.Rows.Count > 0)
-            {
-                tid = Convert.ToInt32(cdt2.Rows[0]["tId"]);
-
-            }
+        //    }
 
 
 
+        //    int tid = 0;
+        //    string ck2 = "select tId from TestatorDetails where uId =" + Convert.ToInt32(Session["uuid"]) + "";
+        //    SqlDataAdapter cda2 = new SqlDataAdapter(ck2, con);
+        //    DataTable cdt2 = new DataTable();
+        //    cda2.Fill(cdt2);
 
+        //    if (cdt2.Rows.Count > 0)
+        //    {
+        //        tid = Convert.ToInt32(cdt2.Rows[0]["tId"]);
 
-            string d = "";
-
-
-
-            //d = " select tb.tid,us.Type ,  concat(bd.first_name, '  ', '(benefi)') as name ";
-            //d += " from users us  inner join users b ON us.uId = b.linked_user ";
-            //d += " left outer join  testatorDetails tb on b.uid = tb.uId ";
-            //d += " left outer join testatorFamily tf on tb.tid = tf.tid ";
-            //d += " left outer join BeneficiaryDetails bd on tb.tid = bd.tid ";
-            //d += " where b.linked_user = " + Convert.ToInt32(Session["uuid"]) + " and tb.tid = " + Convert.ToInt32(Session["distid"]) + "  and tb.tid is not null    and bd.first_name is not null ";
-            //d += " union select   tb.tid,us.Type ,  concat(tf.First_Name, '  ', '(FAMILY)') as name ";
-            //d += " from users us  inner join users b ON us.uId = b.linked_user ";
-            //d += " left outer join   testatorDetails tb  on b.uid = tb.uId ";
-            //d += " left outer join testatorFamily tf on tb.tId = tf.tid where ";
-            //d += " b.linked_user = " + Convert.ToInt32(Session["uuid"]) + "  and tb.tid = " + Convert.ToInt32(Session["distid"]) + "   and tb.tid is not null and tf.first_name is not null ";
+        //    }
 
 
 
-            d = "select * from BeneficiaryDetails where tId = " + tid + "";
 
 
+        //    string d = "";
+
+
+
+        //    //d = " select tb.tid,us.Type ,  concat(bd.first_name, '  ', '(benefi)') as name ";
+        //    //d += " from users us  inner join users b ON us.uId = b.linked_user ";
+        //    //d += " left outer join  testatorDetails tb on b.uid = tb.uId ";
+        //    //d += " left outer join testatorFamily tf on tb.tid = tf.tid ";
+        //    //d += " left outer join BeneficiaryDetails bd on tb.tid = bd.tid ";
+        //    //d += " where b.linked_user = " + Convert.ToInt32(Session["uuid"]) + " and tb.tid = " + Convert.ToInt32(Session["distid"]) + "  and tb.tid is not null    and bd.first_name is not null ";
+        //    //d += " union select   tb.tid,us.Type ,  concat(tf.First_Name, '  ', '(FAMILY)') as name ";
+        //    //d += " from users us  inner join users b ON us.uId = b.linked_user ";
+        //    //d += " left outer join   testatorDetails tb  on b.uid = tb.uId ";
+        //    //d += " left outer join testatorFamily tf on tb.tId = tf.tid where ";
+        //    //d += " b.linked_user = " + Convert.ToInt32(Session["uuid"]) + "  and tb.tid = " + Convert.ToInt32(Session["distid"]) + "   and tb.tid is not null and tf.first_name is not null ";
+
+
+
+        //    d = "select * from BeneficiaryDetails where tId = " + tid + "";
 
 
 
@@ -260,47 +258,49 @@ namespace WillAssure.Controllers
 
 
 
-            string data = "<option value=''>--Select--</option>";
-            con.Open();
-
-            SqlDataAdapter da1 = new SqlDataAdapter(d, con);
-            DataTable dt1 = new DataTable();
-            da1.Fill(dt1);
-            con.Close();
 
 
-            if (dt1.Rows.Count > 0)
-            {
+        //    string data = "<option value=''>--Select--</option>";
+        //    con.Open();
 
-                for (int i = 0; i < dt1.Rows.Count; i++)
-                {
-
-                    data = data + "<option value=" + dt1.Rows[i]["bpId"] + ">" + dt1.Rows[i]["First_Name"] + "</option>";
-
-                }
-
-            }
+        //    SqlDataAdapter da1 = new SqlDataAdapter(d, con);
+        //    DataTable dt1 = new DataTable();
+        //    da1.Fill(dt1);
+        //    con.Close();
 
 
+        //    if (dt1.Rows.Count > 0)
+        //    {
 
-            con.Open();
-            string query3 = "select count(*) as counter from AssetsCategory";
-            SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
-            DataTable dt3 = new DataTable();
-            da3.Fill(dt3);
-            con.Close();
-            int count = 0;
+        //        for (int i = 0; i < dt1.Rows.Count; i++)
+        //        {
 
-            if (dt3.Rows.Count > 0)
-            {
-                count = Convert.ToInt32(dt3.Rows[0]["counter"]);
-            }
+        //            data = data + "<option value=" + dt1.Rows[i]["bpId"] + ">" + dt1.Rows[i]["First_Name"] + "</option>";
 
-            final = data + "~" + count;
+        //        }
 
-            return final;
+        //    }
 
-        }
+
+
+        //    con.Open();
+        //    string query3 = "select count(*) as counter from AssetsCategory";
+        //    SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
+        //    DataTable dt3 = new DataTable();
+        //    da3.Fill(dt3);
+        //    con.Close();
+        //    int count = 0;
+
+        //    if (dt3.Rows.Count > 0)
+        //    {
+        //        count = Convert.ToInt32(dt3.Rows[0]["counter"]);
+        //    }
+
+        //    final = data + "~" + count;
+
+        //    return final;
+
+        //}
 
 
 
@@ -447,8 +447,8 @@ namespace WillAssure.Controllers
 
                                         structure = structure + "<div class='col-sm-3'>" +
                                             "<div class='form-group'>" +
-                                            "<label for='input-1'>" + second + "</label>" +
-                                            "<input type='text' id='" + count++ + "' class='form-control' style='width:150px;' value='" + kv.Value + "'   />" +
+                                            "<label for='input-1' readonly='true'>" + second + "</label>" +
+                                            "<input type='text' readonly='true' id='" + count++ + "' class='form-control' style='width:150px;' value='" + kv.Value + "'   />" +
                                             "</div>" +
                                             "</div>";
 
@@ -476,12 +476,111 @@ namespace WillAssure.Controllers
                     }
                     structure = structure + "</div>";
 
+
+
+
+
+                    // beneficiary dropdown bind
+
+
+                    string final11 = "";
+
+                    string ck11 = "select type from users where uId =" + Convert.ToInt32(Session["uuid"]) + "";
+                    SqlDataAdapter cda11 = new SqlDataAdapter(ck11, con);
+                    DataTable cdt11 = new DataTable();
+                    cda11.Fill(cdt11);
+                    string type = "";
+                    if (cdt11.Rows.Count > 0)
+                    {
+                        type = cdt11.Rows[0]["type"].ToString();
+
+                    }
+
+
+
+                    int tid = 0;
+                    string ck22 = "select tId from TestatorDetails where uId =" + Convert.ToInt32(Session["uuid"]) + "";
+                    SqlDataAdapter cda22 = new SqlDataAdapter(ck22, con);
+                    DataTable cdt22 = new DataTable();
+                    cda22.Fill(cdt22);
+
+                    if (cdt22.Rows.Count > 0)
+                    {
+                        tid = Convert.ToInt32(cdt22.Rows[0]["tId"]);
+
+                    }
+
+
+
+
+
+                    string d = "";
+
+                    d = "select * from BeneficiaryDetails where tId = " + tid + "";
+
+                    string data11 = "<option value=''>--Select--</option>";
+                    con.Open();
+
+                    SqlDataAdapter da11 = new SqlDataAdapter(d, con);
+                    DataTable dt11 = new DataTable();
+                    da11.Fill(dt11);
+                    con.Close();
+
+
+                    if (dt11.Rows.Count > 0)
+                    {
+
+                        for (int k = 0; k < dt11.Rows.Count; k++)
+                        {
+
+                            data11 = data11 + "<option value=" + dt11.Rows[k]["bpId"] + ">" + dt11.Rows[k]["First_Name"] + "</option>";
+
+                        }
+
+                    }
+
+
+
+                    con.Open();
+                    string query33 = "select count(*) as counter from AssetsCategory";
+                    SqlDataAdapter da33 = new SqlDataAdapter(query33, con);
+                    DataTable dt33 = new DataTable();
+                    da33.Fill(dt33);
+                    con.Close();
+                    int count11 = 0;
+
+                    if (dt33.Rows.Count > 0)
+                    {
+                        count11 = Convert.ToInt32(dt33.Rows[0]["counter"]);
+                    }
+
+                    final11 = data11 + "~" + count11;
+
+                 
+
+
+
+
+
+
+                    //end
+
+
+
+
+
+
+
+
+
+
                     assetcatdata.assetcatid = Convert.ToInt32(dt3.Rows[i]["aiid"]);
                     assetcatdata.atId = Convert.ToInt32(dt3.Rows[i]["atId"]);
                     assetcatdata.AssetsType = dt3.Rows[i]["AssetsType"].ToString();
                     assetcatdata.AssetsCategory = dt3.Rows[i]["AssetsCategory"].ToString();
                     assetcatdata.AssetsCategoryId = Convert.ToInt32(dt3.Rows[i]["amId"].ToString());
                     assetcatdata.htmlcontent = structure;
+                    assetcatdata.DDLbeneficiarycontent = final11;
                     assetcatlist.Add(assetcatdata);
 
 
@@ -1281,8 +1380,7 @@ namespace WillAssure.Controllers
             //string assettype = response.Split('~')[0];
             //string assetcat = response.Split('~')[1];
             string beneficiary = response.Split('~')[2];
-            string schemename = response.Split('~')[3];
-            string instrument = response.Split('~')[4];
+            
             string proportion = response.Split('~')[5];
             tid = Convert.ToString(response.Split('~')[6]);
 
@@ -1309,7 +1407,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID , SchemeName , InstrumentName , Proportion , tid , doctype) values   (  " + assettype + " , " + assetcat + ", " + beneficiary + " , '" + schemename + "' , '" + instrument + "' , '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "') ";
+            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID , SchemeName , InstrumentName , Proportion , tid , doctype) values   (  " + assettype + " , " + assetcat + ", " + beneficiary + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "') ";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.ExecuteNonQuery();
             con.Close();

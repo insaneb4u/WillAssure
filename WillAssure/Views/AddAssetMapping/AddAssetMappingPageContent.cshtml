@@ -542,19 +542,29 @@
 
 
 
+                               
+
+
+
+
+
+
+                                 res += "</div>";
+                                 res += "</div>";
+
                                  res += "<div class='col-sm-2'>";
-                                 res += "<div class='form-group' id='benetempddl" + data[i].assetcatid+"'>";
+                                 res += "<div class='form-group' id='benetempddl" + data[i].assetcatid + "'>";
                                  res += "<label for='input-1'>single Beneficiary</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
                                  res += "<select id='tempddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id)' name='contentList' class='form-control beneficiaryclass validate[required]'></select>";
                                  res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                                  res += "</div>";
-                                 res += "</div>"; 
+                                 res += "</div>";
 
 
-                                 res += "<div class='col-sm-2' id='singlepropo"+data[i].assetcatid+"' style='display:none;'>";
+                                 res += "<div class='col-sm-2' id='singlepropo" + data[i].assetcatid + "' style='display:none;'>";
                                  res += "<div class='form-group start'>";
                                  res += "<label for='input-1'>single Proportion</label>";
-                                 res += "<input type='text' id='txtsingleproportion"+data[i].assetcatid+"' Value='100'  class='form-control totalinput' readonly />";
+                                 res += "<input type='text' id='txtsingleproportion" + data[i].assetcatid + "' Value='100'  class='form-control totalinput' readonly />";
                                  res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-198px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
                                  res += "</div>";
                                  res += "</div>";
@@ -562,10 +572,6 @@
 
 
 
-
-
-                                 res += "</div>";
-                                 res += "</div>";
                                  res += "<div class='form-group'>";
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' id='btnmappingsubmit' value=" + data[i].assetcatid + "  class='btn btn-primary shadow-primary px-5 btn" + data[i].assetcatid + "'><i class='icon-lock'></i>Submit</button>";
                                  res += "<button type='button' id='btnadd'   value='" + data[i].assetcatid + "' style='display:none;' disabled='disabled'    class='btn btn-success shadow-primary px-5 btnadd"+data[i].assetcatid+"'><i class='icon-lock'></i>Add Multiple</button>";
@@ -1193,7 +1199,10 @@
 
             $("#appendselection").empty().append("<input type='text' class='form-control' placeholder='Certificate No.' /> ");
 
-            $(".btnadd"+myClass).hide();
+            $(".btnadd" + myClass).hide();
+
+
+            $("#parentdiv" + myClass + "").find('.rowdiv').remove();
         });
 
         $(document).on("change", "#getvaltwo", function () {

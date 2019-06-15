@@ -546,6 +546,13 @@ namespace WillAssure.Controllers
                 {
                     ViewBag.collapse = "true";
                     Session["doctype"] = "POA";
+
+
+
+                  
+
+
+
                     return RedirectToAction("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) });
                 }
 
@@ -554,6 +561,7 @@ namespace WillAssure.Controllers
                 {
                     ViewBag.collapse = "true";
                     Session["doctype"] = "GiftDeeds";
+
                     return RedirectToAction("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) });
                 }
 

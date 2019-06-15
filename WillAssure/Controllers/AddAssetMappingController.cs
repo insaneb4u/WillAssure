@@ -386,6 +386,100 @@ namespace WillAssure.Controllers
             con.Close();
 
 
+
+            // beneficiary dropdown bind
+
+
+            string final11 = "";
+
+            string ck11 = "select type from users where uId =" + Convert.ToInt32(Session["uuid"]) + "";
+            SqlDataAdapter cda11 = new SqlDataAdapter(ck11, con);
+            DataTable cdt11 = new DataTable();
+            cda11.Fill(cdt11);
+            string type = "";
+            if (cdt11.Rows.Count > 0)
+            {
+                type = cdt11.Rows[0]["type"].ToString();
+
+            }
+
+
+
+            int tid = 0;
+            string ck22 = "select tId from TestatorDetails where uId =" + Convert.ToInt32(Session["uuid"]) + "";
+            SqlDataAdapter cda22 = new SqlDataAdapter(ck22, con);
+            DataTable cdt22 = new DataTable();
+            cda22.Fill(cdt22);
+
+            if (cdt22.Rows.Count > 0)
+            {
+                tid = Convert.ToInt32(cdt22.Rows[0]["tId"]);
+
+            }
+
+
+
+
+
+            string d = "";
+
+            d = "select * from BeneficiaryDetails where tId = " + tid + "";
+
+            string data11 = "<option value=''>--Select--</option>";
+            con.Open();
+
+            SqlDataAdapter da11 = new SqlDataAdapter(d, con);
+            DataTable dt11 = new DataTable();
+            da11.Fill(dt11);
+            con.Close();
+
+
+            if (dt11.Rows.Count > 0)
+            {
+
+                for (int k = 0; k < dt11.Rows.Count; k++)
+                {
+
+                    data11 = data11 + "<option value=" + dt11.Rows[k]["bpId"] + ">" + dt11.Rows[k]["First_Name"] + "</option>";
+
+                }
+
+            }
+
+
+
+            con.Open();
+            string query33 = "select count(*) as counter from AssetsCategory";
+            SqlDataAdapter da33 = new SqlDataAdapter(query33, con);
+            DataTable dt33 = new DataTable();
+            da33.Fill(dt33);
+            con.Close();
+            int count11 = 0;
+
+            if (dt33.Rows.Count > 0)
+            {
+                count11 = Convert.ToInt32(dt33.Rows[0]["counter"]);
+            }
+
+            final11 = data11 + "~" + count11;
+
+
+
+
+
+
+
+
+            //end
+
+
+
+
+
+
+
+
+
             if (dt3.Rows.Count > 0)
             {
 
@@ -480,90 +574,7 @@ namespace WillAssure.Controllers
 
 
 
-                    // beneficiary dropdown bind
-
-
-                    string final11 = "";
-
-                    string ck11 = "select type from users where uId =" + Convert.ToInt32(Session["uuid"]) + "";
-                    SqlDataAdapter cda11 = new SqlDataAdapter(ck11, con);
-                    DataTable cdt11 = new DataTable();
-                    cda11.Fill(cdt11);
-                    string type = "";
-                    if (cdt11.Rows.Count > 0)
-                    {
-                        type = cdt11.Rows[0]["type"].ToString();
-
-                    }
-
-
-
-                    int tid = 0;
-                    string ck22 = "select tId from TestatorDetails where uId =" + Convert.ToInt32(Session["uuid"]) + "";
-                    SqlDataAdapter cda22 = new SqlDataAdapter(ck22, con);
-                    DataTable cdt22 = new DataTable();
-                    cda22.Fill(cdt22);
-
-                    if (cdt22.Rows.Count > 0)
-                    {
-                        tid = Convert.ToInt32(cdt22.Rows[0]["tId"]);
-
-                    }
-
-
-
-
-
-                    string d = "";
-
-                    d = "select * from BeneficiaryDetails where tId = " + tid + "";
-
-                    string data11 = "<option value=''>--Select--</option>";
-                    con.Open();
-
-                    SqlDataAdapter da11 = new SqlDataAdapter(d, con);
-                    DataTable dt11 = new DataTable();
-                    da11.Fill(dt11);
-                    con.Close();
-
-
-                    if (dt11.Rows.Count > 0)
-                    {
-
-                        for (int k = 0; k < dt11.Rows.Count; k++)
-                        {
-
-                            data11 = data11 + "<option value=" + dt11.Rows[k]["bpId"] + ">" + dt11.Rows[k]["First_Name"] + "</option>";
-
-                        }
-
-                    }
-
-
-
-                    con.Open();
-                    string query33 = "select count(*) as counter from AssetsCategory";
-                    SqlDataAdapter da33 = new SqlDataAdapter(query33, con);
-                    DataTable dt33 = new DataTable();
-                    da33.Fill(dt33);
-                    con.Close();
-                    int count11 = 0;
-
-                    if (dt33.Rows.Count > 0)
-                    {
-                        count11 = Convert.ToInt32(dt33.Rows[0]["counter"]);
-                    }
-
-                    final11 = data11 + "~" + count11;
-
                  
-
-
-
-
-
-
-                    //end
 
 
 
@@ -1374,31 +1385,39 @@ namespace WillAssure.Controllers
             //end
 
             string tid = "";
-            string assetcat = "";
-            string assettype = "";
+            string assetcategorytxt = "";
+            string beneficiaryid = "";
+            string assetcatid = "";
+            string assettypeid = "";
+            int proportion = 100;
+            int btnid = 0; 
             string response = Request["send"];
             //string assettype = response.Split('~')[0];
             //string assetcat = response.Split('~')[1];
-            string beneficiary = response.Split('~')[2];
+            assetcategorytxt = response.Split('~')[0];
             
-            string proportion = response.Split('~')[5];
-            tid = Convert.ToString(response.Split('~')[6]);
+             beneficiaryid = response.Split('~')[1];
+            tid = Convert.ToString(response.Split('~')[2]);
+            btnid = Convert.ToInt32(response.Split('~')[3]);
+
+          
 
             if (tid == "" || tid == null || tid == "undefined")
             {
                 tid = Session["distid"].ToString();
             }
 
-            assetcat = Convert.ToString(response.Split('~')[7]);
+            
 
             con.Open();
-            string getassettype = "select atId from AssetsCategory where amId = " + assetcat + " ";
+            string getassettype = "select amId , atId from AssetsCategory where AssetsCategory =  '" + assetcategorytxt + "' ";
             SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
             DataTable atdt = new DataTable();
             atda.Fill(atdt);
             if (atdt.Rows.Count > 0)
             {
-                assettype = atdt.Rows[0]["atId"].ToString();
+                assetcatid = atdt.Rows[0]["amId"].ToString();
+                assettypeid = atdt.Rows[0]["atId"].ToString();
 
             }
             con.Close();
@@ -1407,7 +1426,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID , SchemeName , InstrumentName , Proportion , tid , doctype) values   (  " + assettype + " , " + assetcat + ", " + beneficiary + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "') ";
+            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID  , Proportion , tid , doctype) values   (  " + assettypeid + " , " + assetcatid + ", " + beneficiaryid + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "') ";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -1417,13 +1436,15 @@ namespace WillAssure.Controllers
 
 
             ModelState.Clear();
-            return RedirectToAction("AddAssetMappingIndex", "AddAssetMapping", new { success = "true" });
+            return Json(btnid);
         }
 
 
 
-        public ActionResult InsertMultipleAssetMappeddata(string data, string assettype, string assetcat, string tid, string btnidentify)
+        public JsonResult InsertMultipleAssetMappeddata(string data, string assetcat, string tid, string btnidentify)
         {
+            
+
             ViewBag.collapse = "true";
             // roleassignment
             List<LoginModel> Lmlist = new List<LoginModel>();
@@ -1460,20 +1481,23 @@ namespace WillAssure.Controllers
 
 
             //end
+            string assetcatid = "";
+            string assettypeid = "";
 
 
-            string assettyp = "";
             con.Open();
-            string getassettype = "select atId from AssetsCategory where amId = " + btnidentify + " ";
+            string getassettype = "select amId , atId from AssetsCategory where AssetsCategory =  '" + assetcat + "' ";
             SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
             DataTable atdt = new DataTable();
             atda.Fill(atdt);
             if (atdt.Rows.Count > 0)
             {
-                assettyp = atdt.Rows[0]["atId"].ToString();
+                assetcatid = atdt.Rows[0]["amId"].ToString();
+                assettypeid = atdt.Rows[0]["atId"].ToString();
 
             }
             con.Close();
+          
 
 
             string response = data;
@@ -1486,7 +1510,7 @@ namespace WillAssure.Controllers
                 {
                     con.Open();
                     result[i].ToString();
-                    string query = "insert into BeneficiaryAssets (Beneficiary_ID,SchemeName,InstrumentName,Proportion , tid , AssetType_ID , AssetCategory_ID , doctype) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettyp + " , " + btnidentify + " , '" + Session["doctype"].ToString() + "')";
+                    string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , tid , AssetType_ID , AssetCategory_ID , doctype) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettypeid + " , " + assetcatid + " , '" + Session["doctype"].ToString() + "')";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -1500,7 +1524,7 @@ namespace WillAssure.Controllers
 
             con.Close();
             ModelState.Clear();
-            return RedirectToAction("AddAssetMappingIndex", "AddAssetMapping", new { success = "true" });
+            return Json(btnidentify);
         }
 
 

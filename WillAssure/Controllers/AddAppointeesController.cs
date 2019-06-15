@@ -342,7 +342,9 @@ namespace WillAssure.Controllers
             }
             else
             {
-              return  RedirectToAction("LoginPageIndex", "LoginPage");
+                //return  RedirectToAction("LoginPageIndex", "LoginPage");
+
+                return View("/Views/AddAppointees/AddAppointeesPageContent.cshtml", Am);
             }
 
 

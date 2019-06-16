@@ -542,25 +542,6 @@
 
 
 
-                               
-
-
-
-
-
-
-                                 res += "</div>";
-                                 res += "</div>";
-
-                                 res += "<div class='col-sm-2'>";
-                                 res += "<div class='form-group' id='benetempddl" + data[i].assetcatid + "'>";
-                                 res += "<label for='input-1'>single Beneficiary</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
-                                 res += "<select id='tempddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id)' name='contentList' class='form-control beneficiaryclass validate[required]'></select>";
-                                 res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
-                                 res += "</div>";
-                                 res += "</div>";
-
-
                                  res += "<div class='col-sm-2' id='singlepropo" + data[i].assetcatid + "' style='display:none;'>";
                                  res += "<div class='form-group start'>";
                                  res += "<label for='input-1'>single Proportion</label>";
@@ -569,6 +550,27 @@
                                  res += "</div>";
                                  res += "</div>";
 
+
+
+
+
+
+                                 res += "</div>";
+                                 res += "</div>";
+
+
+                                 //res += "<div class='row'>";
+                                 //res += "<div class='col-sm-2'>";
+                                 //res += "<div class='form-group' id='benetempddl" + data[i].assetcatid + "'>";
+                                 //res += "<label for='input-1'>single Beneficiary</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
+                                 //res += "<select id='tempddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id)' name='contentList' class='form-control beneficiaryclass validate[required]'></select>";
+                                 //res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
+                                 //res += "</div>";
+                                 //res += "</div>";
+
+
+                             
+                                 //res += "</div>";
 
 
 
@@ -603,12 +605,14 @@
 
                                  if ($("#getvalone").prop("checked", true)) {
 
-                                     $("#totaldiv"+data[i].assetcatid+"").hide();
+                                     $("#totaldiv" + data[i].assetcatid + "").hide();
                                      $("#singlepropo" + data[i].assetcatid + "").show();
 
                                      $(".btn" + data[i].assetcatid + "").removeAttr("disabled");
 
-                                     $("#mainbeneddl" + data[i].assetcatid + "").hide();
+                                     
+
+                                     $("#mainbeneddl" + data[i].assetcatid + "").show();
                                  
 
                                  }
@@ -1177,11 +1181,14 @@
         });
 
 
-        $(document).on("change", "#getvalone", function () {
+        $(document).on("change", "#getvalone", function (e) {
+
+            location.reload();
+
             var myClass = $(this).attr("class");
             $(".grandparent").hide();
-            $(".totaldiv" + myClass + "").hide();
-            $("#singlepropo" + myClass + "").show();
+            $("#totaldiv" + data[i].assetcatid + "").hide();
+            $("#singlepropo" + data[i].assetcatid + "").show();
             $(".btn"+myClass+"").removeAttr("disabled");
 
             $("#totaldiv" + myClass + "").hide();
@@ -1193,7 +1200,7 @@
 
             $(".btn" + myClass + "").removeAttr("disabled");
 
-            $("#mainbeneddl" + myClass+ "").hide();
+            $("#mainbeneddl" + myClass+ "").show();
 
 
 
@@ -1201,11 +1208,18 @@
 
             $(".btnadd" + myClass).hide();
 
+            $("#benetempddl" + myClass).show();
 
-            $("#parentdiv" + myClass + "").find('.rowdiv').remove();
+           
+
+            
+            
         });
 
         $(document).on("change", "#getvaltwo", function () {
+
+           
+
             var myClass = $(this).attr("class");
 
             $(".btnadd" + myClass).show();
@@ -1231,7 +1245,9 @@
 
 
 
-            $("#parentdiv" + btnnum + "").find('.rowdiv:last').remove();
+            //$("#parentdiv" + myClass + "").find('.rowdiv:last').show();
+
+
 
         });
 

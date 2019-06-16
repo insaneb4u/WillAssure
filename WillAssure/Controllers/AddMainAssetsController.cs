@@ -188,7 +188,7 @@ namespace WillAssure.Controllers
             if (dt44.Rows.Count > 0)
             {
 
-                if (dt44.Rows[0]["aiid"].ToString() == "")
+                if (dt44.Rows[0]["aiid"].ToString() != "")
                 {
                     aaid = Convert.ToInt32(dt44.Rows[0]["aiid"]);
                 }
@@ -257,12 +257,15 @@ namespace WillAssure.Controllers
 
                                 if (kv.Value != "")
                                 {
-                                    structure = structure + "<div class='col-sm-3'>" +
+                                    structure = structure + "<form>"+
+                                 "<div class='col-sm-3'>" +
                                   "<div class='form-group'>" +
                                   "<label for='input-1'>" + second + "</label>" +
-                                  "<input type='text' id=" + count++ + " class='form-control' style='width:150px;' value=" + kv.Value + "   />" +
+                                  "<input type='text' id=" + count++ + " name='inputtxt' class='form-control' style='width:150px;' value=" + kv.Value + "   />" +
                                   "</div>" +
-                                  "</div>";
+                                  "</div>"+
+                                  "</form>";
+                                 
                                 }
 
                               
@@ -1731,6 +1734,21 @@ namespace WillAssure.Controllers
 
             return check;
 
+        }
+
+
+
+
+
+
+
+
+        [HttpPost]
+        public ActionResult UpdateAssetInformation(MainAssetsModel data)
+        {
+            string fname = data.inputtxt;
+
+            return RedirectToAction("AddMainAssetsIndex", "AddMainAssets", new { success = "true" });
         }
 
 

@@ -29,74 +29,82 @@
                         <hr class="div_rd">
                         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "RoleForm" }))
                         {
-                        <div class="row" id="bindata">
+
+                            <textarea id="assetinfodata" style="display:none;">
+                             @ViewBag.assetdata
+                            </textarea>
+
+
+                            <div class="row" id="bindata">
 
 
 
-                            @Html.HiddenFor(m => m.aiid, new { id = "getid" })
-
-
-
-
-
-
-
-
-
-
+                                @Html.HiddenFor(m => m.aiid, new { id = "getid" })
 
 
 
 
 
-                        </div>
 
-                            
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
                             <div class="form-group">
                                 <button type="submit" id="btnRoleformUpdate" formaction="UpdatingMainAsset" class="btn btn-success shadow-success px-5"><i class="icon-lock"></i>Update Asset Information</button>
-                                <button type="button" style="display:none;" id="btnassetinfoupdate"  class="btn btn-success shadow-success px-5"><i class="icon-lock"></i></button>
+                                <button type="button" style="display:none;" id="btnassetinfoupdate" class="btn btn-success shadow-success px-5"><i class="icon-lock"></i></button>
                             </div>
-                      
-                   
+
+
                         }
+                    </div>
+
                 </div>
-                       
+
             </div>
 
         </div>
 
     </div>
-
-</div>
-@*end*@
-<!--Start Back To Top Button-->
-<a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
-<!--End Back To Top Button-->
-<script>$(document).ready(function () {
-        $("#RoleForm").validationEngine();
-    });</script>
-
-@if (ViewBag.Message == "Verified")
-{
-    <script>$(document).ready(function () {
-
-
-            $("#btnRoleDataUpdate").on("click", function () { });
-
-            $("#btnRoleDataUpdate").click(); //trigger event after listening to it.
-
-
-
-
+    @*end*@
+    <!--Start Back To Top Button-->
+    <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
+    <!--End Back To Top Button-->
+    <script>
+    $(document).ready(function () {
+            $("#RoleForm").validationEngine();
         });</script>
 
-}
+    @if (ViewBag.Message == "Verified")
+    {
+        <script>
+    $(document).ready(function () {
+
+
+                $("#btnRoleDataUpdate").on("click", function () { });
+
+                $("#btnRoleDataUpdate").click(); //trigger event after listening to it.
+
+
+
+
+            });</script>
+
+    }
 
     <script>
 
         $(document).ready(function () {
 
-           
+
             getDataForUpdate();
 
 
@@ -122,4 +130,26 @@
 
 
 
+
+
+
     </script>
+
+
+    @if (ViewBag.assetdata != null)
+    {
+        <script>
+
+            $(document).ready(function () {
+
+                var data = $("#assetinfodata").val();
+
+                $("#updatedata").empty().append(data);
+
+               
+
+            });
+
+
+        </script>
+    }

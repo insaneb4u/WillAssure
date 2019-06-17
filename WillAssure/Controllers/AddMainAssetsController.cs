@@ -23,6 +23,12 @@ namespace WillAssure.Controllers
         public ActionResult AddMainAssetsIndex(string success, string NestId)
         {
 
+            if (NestId != null)
+            {
+                TempData["NestedId"] = NestId;
+            }
+
+            
             if (success == "true")
             {
                 ViewBag.Message = "Verified";
@@ -244,6 +250,7 @@ namespace WillAssure.Controllers
 
                             var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
                             int count = 0;
+                            int index = 0;
                             foreach (var kv in dict)
                             {
                                 string removecomma = kv.Key;
@@ -257,11 +264,15 @@ namespace WillAssure.Controllers
 
                                 if (kv.Value != "")
                                 {
+                                    index = count++;
+
                                     structure = structure + "<form>"+
                                  "<div class='col-sm-3'>" +
                                   "<div class='form-group'>" +
+                                  "<input type='hidden' id='col"+ index + "' value='" + first+ "'  />" +
+                                  "<input type='hidden' id='c"+ index + "' value='" + second + "'  />" +
                                   "<label for='input-1'>" + second + "</label>" +
-                                  "<input type='text' id=" + count++ + " name='inputtxt' class='form-control' style='width:150px;' value=" + kv.Value + "   />" +
+                                  "<input type='text' id=" + index + " name='inputtxt' class='form-control' style='width:150px;' value='" + kv.Value + "'   />" +
                                   "</div>" +
                                   "</div>"+
                                   "</form>";
@@ -282,6 +293,10 @@ namespace WillAssure.Controllers
                         }
 
                         ViewBag.assetdata = structure;
+                    }
+                    else
+                    {
+                        ViewBag.check = "Blank";
                     }
 
 
@@ -1743,12 +1758,84 @@ namespace WillAssure.Controllers
 
 
 
-        [HttpPost]
-        public ActionResult UpdateAssetInformation(MainAssetsModel data)
-        {
-            string fname = data.inputtxt;
 
-            return RedirectToAction("AddMainAssetsIndex", "AddMainAssets", new { success = "true" });
+        public string UpdateAssetInformation(string column1, string value2)
+        {
+            //MainAssetsModel MAM = new MainAssetsModel();
+            //string response = Request["send"];
+
+
+            //string jsondata = "";
+
+
+
+            ArrayList Column = new ArrayList(column1.Split(','));
+            ArrayList Values = new ArrayList(value2.Split(','));
+
+
+
+
+            ArrayList NewList = new ArrayList();
+            NewList.AddRange(Column);
+            NewList.AddRange(Values);
+
+            Dictionary<string, string> dd = new Dictionary<string, string>();
+            for (int i = 0; i <= Column.Count - 1; i++)
+            {
+                string abc = Column[i].ToString();
+                if(abc.Contains("undefined~undefined"))
+                {
+                    continue;
+                }
+
+
+                if (Column[i].ToString() != "" || Column[i].ToString() != "undefined~undefined" || Column[i].ToString() != "undefined" || Column[i].ToString() != null)
+                {
+                    dd.Add(Column[i].ToString(), Values[i].ToString());
+                }
+                else
+                {
+                    break;
+                }
+
+            }
+
+
+
+            string jdata = JsonConvert.SerializeObject(dd);
+
+
+            string assetid = "";
+
+            if (TempData["NestedId"] != null)
+            {
+                assetid = TempData["NestedId"].ToString();
+            }
+
+            //string j = "{" + filterdata + "}";
+
+
+            con.Open();
+            string queryup = "update AssetInformation set Json = '" + jdata + "' where  aiid = " + assetid + "";
+            SqlCommand cmd = new SqlCommand(queryup, con);
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return "";
         }
 
 

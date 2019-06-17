@@ -171,6 +171,101 @@ namespace WillAssure.Controllers
             }
 
             con.Close();
+
+
+
+            string queryt = "";
+            string final = "";
+            string structure = "";
+
+            con.Open();
+
+      
+            queryt  = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = 1";
+           
+            
+
+
+
+            SqlDataAdapter da = new SqlDataAdapter(queryt, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+
+
+            if (dt.Rows.Count > 0)
+            {
+                ViewBag.disablefield = "true";
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    string getjson = dt.Rows[i]["Json"].ToString();
+
+                    ViewBag.assettype = dt.Rows[0]["AssetsType"].ToString();
+                    ViewBag.assetcategory = dt.Rows[0]["AssetsCategory"].ToString();
+
+
+                    var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
+                    int count = 0;
+                    int index = 0;
+                    foreach (var kv in dict)
+                    {
+                        string removecomma = kv.Key;
+                        string first = removecomma.Split('~')[0];
+                        string second = removecomma.Split('~')[1];
+
+                        final = final + kv.Key + ":" + kv.Value;
+
+
+
+
+                        if (kv.Value != "")
+                        {
+                            index = count++;
+
+                            structure = structure + "<form>" +
+                         "<div class='col-sm-3'>" +
+                          "<div class='form-group'>" +
+                          "<input type='hidden' id='col" + index + "' value='" + first + "'  />" +
+                          "<input type='hidden' id='c" + index + "' value='" + second + "'  />" +
+                          "<label for='input-1'>" + second + "</label>" +
+                          "<input type='text' id=" + index + " name='inputtxt' class='form-control' style='width:150px;' value='" + kv.Value + "'   />" +
+                          "</div>" +
+                          "</div>" +
+                          "</form>";
+
+                        }
+
+
+
+
+
+
+
+
+
+                    }
+
+
+                }
+
+                ViewBag.assetdata = structure;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             MainAssetsModel mam = new MainAssetsModel();
             mam.aiid = NestId;
             return View("~/Views/UpdateMainAssets/UpdateMainAssetsPageContent.cshtml", mam);

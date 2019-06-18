@@ -334,6 +334,7 @@ namespace WillAssure.Controllers
                 qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + roleid + " ,'Testators','Add Testators~AddTestatorsFormIndex~AddTestatorsForm','View Testators~EditTestatorIndex~EditTestator')";
                 qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + roleid + " ,'TestatorsFamily','Add Testator Family~AddTestatorFamilyIndex~AddTestatorFamily','View Testator Family~EditTestatorFamilyIndex~EditTestatorFamily')";
                 qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + roleid + " ,'Beneficiary','Add Beneficiary~AddBeneficiaryIndex~AddBeneficiary','View Beneficiary~EditBeneficiaryIndex~EditBeneficiary')";
+                qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + roleid + " ,'BeneficiaryInstitution','Add Institution~AddBeneficiaryInstituteIndex~AddBeneficiaryInstitute','View Institution~EditBeneficiaryInstitutionIndex~EditBeneficiaryInstitution')";
                 qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + roleid + " ,'AssetInformation','Add Assets~AddMainAssetsIndex~AddMainAssets','View Assets~EditMainAssetsIndex~EditMainAssets')";
                 qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + roleid + " ,'Mapping','Mapping~AddAssetMappingIndex~AddAssetMapping','NULL~NULL~NULL')";
 
@@ -496,6 +497,7 @@ namespace WillAssure.Controllers
 
                     qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + response + " ,'Testators','Add Testators~AddTestatorsFormIndex~AddTestatorsForm','View Testators~EditTestatorIndex~EditTestator')";
                     qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + response + " ,'TestatorsFamily','Add Testator Family~AddTestatorFamilyIndex~AddTestatorFamily','View Testator Family~EditTestatorFamilyIndex~EditTestatorFamily')";
+                    qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + response + " ,'BeneficiaryInstitution','Add Institution~AddBeneficiaryInstituteIndex~AddBeneficiaryInstitute','View Institution~EditBeneficiaryInstitutionIndex~EditBeneficiaryInstitution')";
                     qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + response + " ,'Beneficiary','Add Beneficiary~AddBeneficiaryIndex~AddBeneficiary','View Beneficiary~EditBeneficiaryIndex~EditBeneficiary')";
                     qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + response + " ,'AssetInformation','Add Assets~AddMainAssetsIndex~AddMainAssets','View Assets~EditMainAssetsIndex~EditMainAssets')";
                     qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + response + " ,'Mapping','Mapping~AddAssetMappingIndex~AddAssetMapping','NULL~NULL~NULL')";

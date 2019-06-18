@@ -193,6 +193,7 @@
     <Compile Include="Controllers\AddAssetMappingController.cs" />
     <Compile Include="Controllers\AddAssetsController.cs" />
     <Compile Include="Controllers\AddBeneficiaryController.cs" />
+    <Compile Include="Controllers\AddBeneficiaryInstituteController.cs" />
     <Compile Include="Controllers\AddCompanydetailsController.cs" />
     <Compile Include="Controllers\AddCouponsController.cs" />
     <Compile Include="Controllers\AddDistributorController.cs" />
@@ -231,6 +232,7 @@
     <Compile Include="Controllers\EditAssetsController.cs" />
     <Compile Include="Controllers\EditAssetTypeController.cs" />
     <Compile Include="Controllers\EditBeneficiaryController.cs" />
+    <Compile Include="Controllers\EditBeneficiaryInstitutionController.cs" />
     <Compile Include="Controllers\EditBeneficiaryMappingController.cs" />
     <Compile Include="Controllers\EditCompanyDetailsController.cs" />
     <Compile Include="Controllers\EditCouponsController.cs" />
@@ -326,6 +328,7 @@
     <Compile Include="Models\AssetMappingModel.cs" />
     <Compile Include="Models\AssetsModel.cs" />
     <Compile Include="Models\AssetTypeModel.cs" />
+    <Compile Include="Models\BeneficiaryInstitutionModel.cs" />
     <Compile Include="Models\BeneficiaryModel.cs" />
     <Compile Include="Models\CodocilModel.cs" />
     <Compile Include="Models\CouponAllotementModel.cs" />
@@ -365,6 +368,13 @@
     </Compile>
     <Compile Include="page\Report.aspx.designer.cs">
       <DependentUpon>Report.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddAssetMapping\Mapping.aspx.cs">
+      <DependentUpon>Mapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Views\AddAssetMapping\Mapping.aspx.designer.cs">
+      <DependentUpon>Mapping.aspx</DependentUpon>
     </Compile>
     <Compile Include="WillAssureFrontend\WillAssure.Master.cs">
       <DependentUpon>WillAssure.Master</DependentUpon>
@@ -1419,6 +1429,7 @@
     <Content Include="assets\plugins\summernote\dist\font\summernote291f291f.woff" />
     <Content Include="assets\plugins\summernote\dist\font\summernoted41dd41d.eot" />
     <Content Include="Documents\WillDocument.docx" />
+    <Content Include="Views\AddAssetMapping\Mapping.aspx" />
     <Content Include="WillAssureFrontend\about-us.html" />
     <Content Include="WillAssureFrontend\ch1.png" />
     <Content Include="WillAssureFrontend\ch2.png" />
@@ -1853,6 +1864,8 @@
     <Content Include="Views\Frontend\Regn.cshtml" />
     <Content Include="Views\Frontend\Services.cshtml" />
     <Content Include="Views\CompletedDocument\Completeddocumentpagecontent.cshtml" />
+    <Content Include="Views\AddBeneficiaryInstitute\AddBeneficiaryInstitute.cshtml" />
+    <Content Include="Views\EditBeneficiaryInstitution\EditBeneficiaryInstitution.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -214,6 +214,93 @@ namespace WillAssure.Controllers
 
             }
 
+            // asset category of selected asset
+            string queryt = "";
+            string final = "";
+            string structure = "";
+
+            queryt = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = 1  ";
+            
+
+
+
+            SqlDataAdapter da1 = new SqlDataAdapter(queryt, con);
+            DataTable dt1 = new DataTable();
+            da1.Fill(dt1);
+            con.Close();
+
+
+            if (dt1.Rows.Count > 0)
+            {
+                ViewBag.disablefield = "true";
+
+                for (int i = 0; i < dt1.Rows.Count; i++)
+                {
+                    string getjson = dt1.Rows[i]["Json"].ToString();
+
+                    ViewBag.assettype = dt1.Rows[0]["AssetsType"].ToString();
+                    ViewBag.assetcategory = dt1.Rows[0]["AssetsCategory"].ToString();
+
+
+                    var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
+                    int count = 0;
+                    int index = 0;
+                    foreach (var kv in dict)
+                    {
+                        string removecomma = kv.Key;
+                        string first = removecomma.Split('~')[0];
+                        string second = removecomma.Split('~')[1];
+
+                        final = final + kv.Key + ":" + kv.Value;
+
+
+
+
+                        if (kv.Value != "")
+                        {
+                            index = count++;
+
+                            structure = structure + "<form>" +
+                         "<div class='col-sm-3'>" +
+                          "<div class='form-group'>" +
+                          "<input type='hidden' id='col" + index + "' value='" + first + "'  />" +
+                          "<input type='hidden' id='c" + index + "' value='" + second + "'  />" +
+                          "<label for='input-1'>" + second + "</label>" +
+                          "<input type='text' id=" + index + " name='inputtxt' class='form-control' style='width:150px;' value='" + kv.Value + "'   />" +
+                          "</div>" +
+                          "</div>" +
+                          "</form>";
+
+                        }
+
+
+
+
+
+
+
+
+
+                    }
+
+
+                }
+
+                ViewBag.assetdata = structure;
+            }
+            else
+            {
+                ViewBag.check = "Blank";
+            }
+
+
+
+
+
+
+
+            //end
+
 
 
 
@@ -393,7 +480,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string update = "update BeneficiaryAssets set AssetType_ID = "+M.assettypeid+ " , AssetCategory_ID ="+ M.assetcatid + " , SchemeName = '"+ M.SchemeName+ "'  , InstrumentName = '"+ M.InstrumentName+ "' ,  Beneficiary_ID = "+M.Beneficiaryid+"   ,Proportion =" + M.Proportion+ " where Beneficiary_Asset_ID = "+ M.Beneficiary_Asset_ID+" ";
+            string update = "update BeneficiaryAssets set AssetType_ID = "+M.assettypeid+ " , AssetCategory_ID ="+ M.assetcatid + " ,   Beneficiary_ID = "+M.Beneficiaryid+"   ,Proportion =" + M.Proportion+ " where Beneficiary_Asset_ID = "+ M.Beneficiary_Asset_ID+" ";
             SqlCommand cmd = new SqlCommand(update,con);
             cmd.ExecuteNonQuery();
 

@@ -41,7 +41,8 @@
                                     <ul id="menu" style="font-weight:bold;">
 
                                         <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li>Testator Family ></li></a>
+                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li>TestatorFamily ></li></a>
+                                        <li style="color:#e1e1e1">Institution ></li>
                                         <li style="color:#e1e1e1">Beneficiary ></li>
                                         <li style="color:#e1e1e1">AssetInformation ></li>
                                         <li style="color:#e1e1e1">Liabilites></li>
@@ -60,6 +61,7 @@
 
                                         <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
                                         <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li>Testator Family ></li></a>
+                                        <li style="color:#e1e1e1">Institution ></li>
                                         <li style="color:#e1e1e1">Beneficiary ></li>
                                         <li style="color:#e1e1e1">AssetInformation ></li>
                                         <li style="color:#e1e1e1">Liabilites></li>
@@ -502,7 +504,7 @@
                             <div class="form-group" style="float:right;">
                                 <button type="submit" id="btntestatorsubmit" formaction="InsertTestatorFamilyFormData" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> SUBMIT</button>
                                 <button type="submit" id="btnupdate" style="display:none;" formaction="updatetestatorfamily" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
-                                <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><button type="button" id="btnnext" style="display:none;" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                <a href="@Url.Action("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute")"><button type="button" id="btnnext" style="display:none;" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                             </div>
                         }
 

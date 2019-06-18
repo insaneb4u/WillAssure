@@ -65,6 +65,9 @@
                                             <ul id="menu" style="font-weight:bold;">
                                                 <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
                                                 <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                    <li style="color:black;">Institution ></li>
+                                                </a>
                                                 <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
                                                 <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
                                                 <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
@@ -82,6 +85,9 @@
                                             <ul id="menu" style="font-weight:bold;">
                                                 <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
                                                 <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                    <li style="color:black;">Institution ></li>
+                                                </a>
                                                 <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
                                                 <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
                                                 <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
@@ -213,6 +219,16 @@
 
 
                             <div class="row">
+
+                                <div id="lastrecords">
+
+
+
+                                </div>
+
+
+
+
                                 <div class="col-lg-12">
                                     <div id="accordion8">
 
@@ -506,7 +522,7 @@
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;";
                                  res += "<div class='col-sm-2'>";
                                  res += "<div class='form-group' id='mainbeneddl" + data[i].assetcatid+"'>";
-                                 res += "<label for='input-1'>Beneficiary</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
+                                 res += "<label for='input-1'>Beneficiary single</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
                                  res += "<select id='ddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id)' name='contentList' class='form-control beneficiaryclass validate[required]'></select>";
                                  res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                                  res += "</div>";
@@ -1183,7 +1199,7 @@
 
         $(document).on("change", "#getvalone", function (e) {
 
-            location.reload();
+          //  location.reload();
 
             var myClass = $(this).attr("class");
             $(".grandparent").hide();
@@ -1806,3 +1822,19 @@ function getDDLTestator(value) {
         }*@
 
 
+    <script>
+
+
+             $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("LastAssetsRecords", "AddAssetMapping")",
+            success: function (data) {
+
+            
+
+            }
+    });
+
+
+    </script>

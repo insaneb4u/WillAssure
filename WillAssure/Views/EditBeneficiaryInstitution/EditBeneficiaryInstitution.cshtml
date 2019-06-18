@@ -1,0 +1,203 @@
+﻿
+@{
+    ViewBag.Title = "EditBeneficiaryInstitution";
+}
+
+<h2>EditBeneficiaryInstitution</h2>
+
+
+@*Main Content*@
+<div class="content-wrapper">
+    <div class="container-fluid">
+
+        <div class="row pt-2 pb-2">
+
+            <div class="col-sm-3">
+                <div class="btn-group float-sm-right">
+
+                    <div class="dropdown-menu">
+                        <a href="javaScript:void();" class="dropdown-item">Action</a>
+                        <a href="javaScript:void();" class="dropdown-item">Another action</a>
+                        <a href="javaScript:void();" class="dropdown-item">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javaScript:void();" class="dropdown-item">Separated link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Breadcrumb-->
+
+
+
+
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header"><i class="fa fa-table"></i>Role Data</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table id="default-datatable" class="table table-bordered">
+                                <thead>
+                                    <tr class="ui-widget-header">
+                                        <th>BiId</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Registration No</th>
+                                        <th>Address</th>
+                                        <th>City</th>
+                                        <th>State</th>
+
+                                        <th id="title">Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="InstituteData"></tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End Row-->
+
+        <input type="button" style="display:none" id="btndeleteroles" name="name" value="" />
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+@*end*@
+
+
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindInstitutionFormData", "EditBeneficiaryInstitution")",
+            success: function (data) {
+                $('#InstituteData').empty().append(data);
+            }
+        });
+
+
+    });
+
+
+
+
+</script>
+
+<script>
+
+
+    function Edit(id) {
+
+
+        var id = id;
+
+
+
+            $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("UpdateRoles", "EditBeneficiaryInstitution")",
+            data: {  "send": "" + id + ""   },
+            success: function (data) {
+
+
+                var NestId = data
+                var url = "/AddBeneficiaryInstitute/AddBeneficiaryInstituteIndex?NestId=" + NestId;
+                window.location.href = url;
+
+
+            }
+
+
+
+        });
+
+    }
+
+
+
+    $(document).on('click', '.deletenotification', function () {
+
+        var $tr = $(this).closest('tr');
+        var id = $(this).attr('id');
+
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this record!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then(name => {
+                if (!name) throw null;
+
+                  $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("DeleteRolesRecords", "EditBeneficiaryInstitution")",
+            data: {  "send": "" + id + ""   },
+            success: function (data) {
+                $("#btndeleteroles").on("click", function () { });
+
+                $("#btndeleteroles").click(); //trigger event after listening to it.
+
+                $('#RolesData').empty().append(data).reload();
+               }
+                 });
+            })
+            .then(results => {
+                return results.json();
+            })
+            .then(json => {
+                const message = json.message;
+                const response = json.response;
+                if (response == 0) {
+                    $tr.fadeOut();
+                    swal({
+                        title: 'Deleted',
+                        text: message,
+                        icon: "success",
+                    })
+                        .then(willDelete => {
+
+                        })
+                }
+            })
+            //.catch(err => {
+            //    if (err) {
+            //        swal("Oh noes!", "The AJAX request failed!", "error");
+            //    } else {
+            //        swal.stopLoading();
+            //        swal.close();
+            //    }
+            //});
+    });
+
+
+
+
+
+</script>
+
+
+

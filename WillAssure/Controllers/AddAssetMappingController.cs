@@ -1906,5 +1906,37 @@ namespace WillAssure.Controllers
 
             return structure;
         }
+
+
+        public string LastAssetsRecords()
+        {
+            string structure = "";
+            con.Open();
+            string query = "select top 1 * from BeneficiaryAssets order by Beneficiary_Asset_ID desc";
+            SqlDataAdapter da = new SqlDataAdapter(query,con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+
+
+
+            }
+
+            con.Close();
+
+
+
+            return "";
+        }
+
+
+
+
+
+
     }
 }

@@ -54,6 +54,9 @@
                                         <ul id="menu" style="font-weight:bold;">
                                             <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Testator></li></a>
                                             <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                <li style="color:black;">Institution ></li>
+                                            </a>
                                             <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
                                             <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
                                             <a href="@Url.Action("AddLiabilitiesIndex","AddLiabilities")"><li style="color:black;">Liabilites></li></a>
@@ -71,6 +74,9 @@
                                         <ul id="menu" style="font-weight:bold;">
                                             <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
                                             <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                <li style="color:black;">Institution ></li>
+                                            </a>
                                             <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
                                             <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
                                             <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Liabilites></li></a>
@@ -183,6 +189,35 @@
                             </div>
 
                             <hr class="div_rd">
+
+                    
+                                <div class="row">
+                                    <div class="col-sm-5"></div>
+                                    <div class="col-sm-2">
+                                        <div class="form-group">
+                                            <center><label for="input-1">Type</label></center>
+                                            @Html.HiddenFor(m => m.ddltid, new { id = "ddltid" })
+                                            @Html.HiddenFor(m => m.ddltestatorname, new { id = "ddltestatorname" })
+                                            @Html.HiddenFor(m => m.check, new { @id = "txtcheck" })
+                                            @Html.HiddenFor(m => m.ddltid, new { @id = "ddltid" })
+                                            @Html.HiddenFor(m => m.ddltestatorname, new { id = "ddltestatorname" })
+                                            @Html.DropDownListFor(x => x.Typetxt, new SelectListItem[]{
+                                             new SelectListItem() {Text = "--Select--", Value=""},
+                                             new SelectListItem() {Text = "Executor", Value="1"},
+                                             new SelectListItem() {Text = "Guardian", Value="2"},
+                                             new SelectListItem() {Text = "Witness", Value="3"},
+                                             new SelectListItem() {Text = "Agent", Value="4"},
+                                             new SelectListItem() {Text = "Donee", Value="5"}}, new { @class = "form-control input-shadow validate[required]", @id="ddltype" })
+                                            @Html.HiddenFor(m => m.TypeId, new { id = "TypeId" })
+                                            @Html.HiddenFor(m => m.Typetxt, new { id = "Typetxt" })
+                                        </div>
+                                    </div>
+                                </div>
+                           
+                            
+                                
+                         
+
 
 
                             <div class="row">
@@ -502,7 +537,7 @@
                                     <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label for="input-1">Alternate Guardian</label>
+                                            <label for="input-1">Type</label>
                                             @Html.DropDownListFor(x => x.altguardian, new SelectListItem[]{
                               new SelectListItem() {Text = "--Select--", Value=""},
                               new SelectListItem() {Text = "Executor", Value="Executor"},
@@ -514,7 +549,7 @@
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
-                                            <label for="input-1">Alt Executor</label>
+                                            <label for="input-1">Sub Type</label>
                                             @Html.DropDownListFor(x => x.altexecutor, new SelectListItem[]{
                                 new SelectListItem() {Text = "--Select--", Value=""},
                                 new SelectListItem() {Text = "Single", Value="Single"},

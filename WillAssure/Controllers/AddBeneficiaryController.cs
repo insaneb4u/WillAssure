@@ -524,7 +524,7 @@ namespace WillAssure.Controllers
                 DateTime dat = DateTime.ParseExact(BM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 cmd.Parameters.AddWithValue("@DOB", dat);
                 cmd.Parameters.AddWithValue("@Mobile", BM.Mobile);
-                cmd.Parameters.AddWithValue("@Relationship", BM.RelationshipTxt);
+                cmd.Parameters.AddWithValue("@Relationship", "None");
                 cmd.Parameters.AddWithValue("@Marital_Status", "none");
                 cmd.Parameters.AddWithValue("@Religion", "none");
                 cmd.Parameters.AddWithValue("@Identity_proof", BM.Identity_proof);
@@ -629,7 +629,7 @@ namespace WillAssure.Controllers
                 DateTime dat = DateTime.ParseExact(BM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 cmd.Parameters.AddWithValue("@DOB", dat);
                 cmd.Parameters.AddWithValue("@Mobile", BM.Mobile);
-                cmd.Parameters.AddWithValue("@Relationship", BM.RelationshipTxt);
+                cmd.Parameters.AddWithValue("@Relationship", "None");
                 cmd.Parameters.AddWithValue("@Marital_Status", "none");
                 cmd.Parameters.AddWithValue("@Religion", "none");
                 cmd.Parameters.AddWithValue("@Identity_proof", BM.Identity_proof);
@@ -1237,7 +1237,7 @@ namespace WillAssure.Controllers
 
             cmd.Parameters.AddWithValue("@DOB", Convert.ToDateTime(BM.Dob));
             cmd.Parameters.AddWithValue("@Mobile", BM.Mobile);
-            cmd.Parameters.AddWithValue("@Relationship", BM.RelationshipTxt);
+            cmd.Parameters.AddWithValue("@Relationship", "None");
             cmd.Parameters.AddWithValue("@Marital_Status", "none");
             cmd.Parameters.AddWithValue("@Religion", "none");
             cmd.Parameters.AddWithValue("@Identity_proof", BM.Identity_proof);
@@ -1276,7 +1276,7 @@ namespace WillAssure.Controllers
                 //DateTime dat2 = DateTime.ParseExact(BM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 cmd2.Parameters.AddWithValue("@DOB", Convert.ToDateTime(BM.altDob));
                 cmd2.Parameters.AddWithValue("@Mobile", BM.altMobile);
-                cmd2.Parameters.AddWithValue("@Relationship", BM.altRelationshipTxt);
+                cmd2.Parameters.AddWithValue("@Relationship", "None");
                 cmd2.Parameters.AddWithValue("@Marital_Status", "none");
                 cmd2.Parameters.AddWithValue("@Religion", "none");
                 cmd2.Parameters.AddWithValue("@Identity_Proof", BM.altIdentity_Proof);

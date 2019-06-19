@@ -1337,8 +1337,8 @@ namespace WillAssure.Controllers
                 //{
 
                     con.Open();
-                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + ")";
-                    SqlCommand cmd = new SqlCommand(query, con);
+                string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted')";
+                SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();
 
@@ -1400,7 +1400,7 @@ namespace WillAssure.Controllers
                 else
                 {
                     con.Open();
-                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + ")";
+                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted')";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -1454,7 +1454,7 @@ namespace WillAssure.Controllers
                 else
                 {
                     con.Open();
-                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + ")";
+                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted')";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();

@@ -368,7 +368,7 @@ namespace WillAssure.Controllers
             {
                 if (Session["Type"].ToString() != "Testator" || Session["Type"].ToString() != "DistributorAdmin")
                 {
-                    query3 = "select ac.*, d.aiid ,at.AssetsType as AssetsType,ac.amId as amId from AssetsCategory ac left join assetstype at on at.atId=ac.atId inner join AssetInformation d on d.amId=ac.amId where d.uId = " + Session["uuid"] + " ";
+                    query3 = "select ac.*, d.aiid ,at.AssetsType as AssetsType,ac.amId as amId from AssetsCategory ac left join assetstype at on at.atId=ac.atId inner join AssetInformation d on d.amId=ac.amId where d.uId = " + Session["uuid"] + " and d.Remark = 'Incompleted' ";
                 }
 
             }
@@ -1407,7 +1407,7 @@ namespace WillAssure.Controllers
                 tid = Session["distid"].ToString();
             }
 
-            
+            string combine = "";
 
             con.Open();
             string getassettype = "select amId , atId from AssetsCategory where AssetsCategory =  '" + assetcategorytxt + "' ";
@@ -1422,17 +1422,23 @@ namespace WillAssure.Controllers
             }
             con.Close();
 
-
+            combine = assetcategorytxt + assetcatid;
 
 
             con.Open();
-            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID  , Proportion , tid , doctype) values   (  " + assettypeid + " , " + assetcatid + ", " + beneficiaryid + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "') ";
+            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID  , Proportion , tid , doctype ,Type , Category) values   (  " + assettypeid + " , " + assetcatid + ", " + beneficiaryid + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "',1,'"+combine+"') ";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.ExecuteNonQuery();
             con.Close();
 
 
-
+            // if records submitted change status for assetinformation
+            con.Open();
+            string query2 = "update assetinformation set Remark ='Completed' where amId = " + assetcatid + "";
+            SqlCommand cmd2 = new SqlCommand(query2, con);
+            cmd2.ExecuteNonQuery();
+            con.Close();
+            //end
 
 
             ModelState.Clear();
@@ -1483,7 +1489,7 @@ namespace WillAssure.Controllers
             //end
             string assetcatid = "";
             string assettypeid = "";
-
+            string combine = "";
 
             con.Open();
             string getassettype = "select amId , atId from AssetsCategory where AssetsCategory =  '" + assetcat + "' ";
@@ -1497,8 +1503,8 @@ namespace WillAssure.Controllers
 
             }
             con.Close();
-          
 
+            combine = assetcat + assetcatid;
 
             string response = data;
             string filter = response.Replace(" ", string.Empty).Replace("\n", string.Empty);
@@ -1510,19 +1516,22 @@ namespace WillAssure.Controllers
                 {
                     con.Open();
                     result[i].ToString();
-                    string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , tid , AssetType_ID , AssetCategory_ID , doctype) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettypeid + " , " + assetcatid + " , '" + Session["doctype"].ToString() + "')";
+                    string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , tid , AssetType_ID , AssetCategory_ID , doctype,Type,Category) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettypeid + " , " + assetcatid + " , '" + Session["doctype"].ToString() + "',2,'"+combine+"')";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();
                 }
             }
 
-
+            // if records submitted change status for assetinformation
             con.Open();
-
-
-
+            string query2 = "update assetinformation set Remark ='Completed' where amId = "+ assetcatid + "";
+            SqlCommand cmd2 = new SqlCommand(query2,con);
+            cmd2.ExecuteNonQuery();
             con.Close();
+            //end
+
+
             ModelState.Clear();
             return Json(btnidentify);
         }
@@ -1928,6 +1937,32 @@ namespace WillAssure.Controllers
 
             con.Close();
 
+
+
+            return "";
+        }
+
+
+
+        public string BindLastFinancialRecords()
+        {
+            con.Open();
+            string query = "";
+
+
+            con.Close();
+
+
+
+            return "";
+        }
+
+
+
+
+
+        public string BindNonFinancialRecords()
+        {
 
 
             return "";

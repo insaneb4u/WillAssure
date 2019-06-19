@@ -357,7 +357,7 @@
                                 <div class="col-sm-9">
                                     <div class="form-group">
                                         <label for="input-1">Address 2</label>
-                                        @Html.TextAreaFor(m => m.Address2, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtaddress2", @placeholder = "Enter Address 2", @autocomplete = "off" })
+                                        @Html.TextAreaFor(m => m.Address2, new { @class = "form-control input-shadow  text-input", @id = "txtaddress2", @placeholder = "Enter Address 2", @autocomplete = "off" })
                                     </div>
                                 </div>
 
@@ -365,7 +365,7 @@
                                 <div class="col-sm-9">
                                     <div class="form-group">
                                         <label for="input-1">Address 3</label>
-                                        @Html.TextAreaFor(m => m.Address3, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtaddress3", @placeholder = "Enter Address 3", @autocomplete = "off" })
+                                        @Html.TextAreaFor(m => m.Address3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3", @placeholder = "Enter Address 3", @autocomplete = "off" })
                                     </div>
                                 </div>
 
@@ -410,7 +410,7 @@
                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                    new SelectListItem() {Text = "Passport", Value="Passport"},
                                    new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow validate[required] ddalternate", @id="ddlidentityproof1" , @style="display:;" , @onchange= "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ddalternate", @id="ddlidentityproof1" , @style="display:;" , @onchange= "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
                                         @Html.HiddenFor(m => m.Alt_Identity_Proof, new { id = "Alt_Identity_Proof" })
                                         @*@Html.TextBoxFor(m => m.Alt_Identity_Proof, new { id = "txtAlt_Identity_Proof" , @class="form-control input-shadow" })
 
@@ -427,7 +427,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Alt Identity Proof Value</label>
-                                        <div id="appendtxt2">  @Html.TextBoxFor(m => m.Alt_Identity_proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
+                                        <div id="appendtxt2">  @Html.TextBoxFor(m => m.Alt_Identity_proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
 
                                     </div>
                                 </div>

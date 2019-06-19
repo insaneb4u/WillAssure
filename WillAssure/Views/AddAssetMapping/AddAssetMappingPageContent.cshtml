@@ -220,7 +220,15 @@
 
                             <div class="row">
 
-                                <div id="lastrecords">
+                                <div id="lastfinancialrecords">
+
+
+
+                                </div>
+
+
+
+                                <div id="lastnonfinancialrecords">
 
 
 
@@ -359,32 +367,28 @@
 
 
 
-              @*$.ajax({
+              $.ajax({
 
                 type: "POST",
 
-                url: "@Url.Action("BindBeneficiaryDDL", "AddAssetMapping")",
+                url: "@Url.Action("BindLastFinancialRecords", "AddAssetMapping")",
                 success: function (data) {
 
-                    var response = data;
-                    var md = data.split("~")[0];
-                    var count = data.split("~")[1];
-                    alert(count);
-                    $("#txtcount").val(count);
-                    for (var i = 1; i < count; i++) {
-
-
-                      var x =  $("#ddlbeneficiary" + i + "").append(md);
-
-                        //alert(x);
-
-                    }
+                            }      
+            });
 
 
 
 
-                }
-            });*@
+            $.ajax({
+
+                type: "POST",
+
+                url: "@Url.Action("BindNonFinancialRecords", "AddAssetMapping")",
+                success: function (data) {
+
+                            }      
+            });
 
 
 
@@ -416,6 +420,7 @@
                  url: "@Url.Action("bindassetcatDDL", "AddAssetMapping")",
 
                      success: function (response1) {
+                      
                          //console.log(JSON.stringify(data));
                          var totalval = 100;
                          var response = groupArrayMain(response1, "atId", "AssetsType");
@@ -495,14 +500,16 @@
                                  res += "</button>";
                                  res += "</div>";
                                  res += "<div id='accordio" + data[i].assetcatid + "' class='collapse  accordiondiv' data-parent='#accordion8'>";
-                                 //res +="<div id='test'></div>";
+                                
 
                                  res += "<div class='card-body'>";
+                                 res += "<div id='main-body"+data[i].assetcatid+"'>";
                                  res += htmlcontent;
                                  res += "<input type='hidden' id='liability_proportion_" + data[i].assetcatid + " ' name='name' value='" + liability_proportion + "' />";
                                  res += "<input type='hidden' id='petcare_proportion_" + data[i].assetcatid + "' name='name' value='" + petcare_proportion + "' />";
                                  res += "<input type='hidden' class='total_liability_petcare_proportion' id='total_liability_petcare_proportion_" + data[i].assetcatid + "' name='name' value='" + total_liability_petcare_proportion + "' />";
-                                 res += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class='col-sm-3' id='type'>";
+                                 res += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class='col-sm-3' id='type" + data[i].assetcatid + "'>";
+                               
                                  res += "<div class='form-group'>";
                                  res += "<label for='input-1'>Type</label>";
                                  res += "<br />";
@@ -526,20 +533,9 @@
                                  res += "<select id='ddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id)' name='contentList' class='form-control beneficiaryclass validate[required]'></select>";
                                  res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                                  res += "</div>";
-                                 res += "</div>";   // new
-                                 //res += "<div class='col-sm-2'>";
-                                 //res += "<div class='form-group'>";
-                                 ////res += "<label for='input-1'>SchemeName<span id='errscheme' style='color:red;display:;' >(*)</span></label>";
-                                 ////res += "<select id='schemename" + data[i].assetcatid + "' onchange='getschemename(this.id)' name='contentList' class='form-control schemenameclass validate[required]'></select>";
-                                 //res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
-                                 //res += "</div>";
-                                 //res += "</div>";
-                                 //res += "<div class='col-sm-3'>";
-                                 //res += "<label for='input-1'>Instruments</label><span id='errinstrument' style='color:red;display:;'>(*)</span>";
-                                 //res += "<select id='DDLAssetColumn" + data[i].assetcatid + "' onchange='getDDLAssetColumn(this.id)' name='contentList' class='form-control instrumentclass validate[required]'></select>";
-                                 //res += "</div>";
+                                 res += "</div>";  
+                                 
                                  res += "<div class='col-sm-2 grandparent'>";
-                                 //res += "<div id='bindcategorydata'></div>";
                                  res += "<div class='form-group parent'>";
                                  res += "<label for='input-1'>Proportion</label><span id='errproportion' style='color:red;display:;'>(*)</span>";
                                  res += "<input type='text' autocomplete='off' class='form-control proportioninput validate[required]'  onkeypress='return isNumberKey(event)'   onchange='gettxtproportion(this.id,this.value)' name='rank' id='txtproportion" + data[i].assetcatid + "' />";
@@ -561,7 +557,7 @@
                                  res += "<div class='col-sm-2' id='singlepropo" + data[i].assetcatid + "' style='display:none;'>";
                                  res += "<div class='form-group start'>";
                                  res += "<label for='input-1'>single Proportion</label>";
-                                 res += "<input type='text' id='txtsingleproportion" + data[i].assetcatid + "' Value='100'  class='form-control totalinput' readonly />";
+                                 res += "<input type='text' id='txtsingleproportion" + data[i].assetcatid + "' Value='100'  class='form-control' readonly />";
                                  res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-198px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
                                  res += "</div>";
                                  res += "</div>";
@@ -575,21 +571,6 @@
                                  res += "</div>";
 
 
-                                 //res += "<div class='row'>";
-                                 //res += "<div class='col-sm-2'>";
-                                 //res += "<div class='form-group' id='benetempddl" + data[i].assetcatid + "'>";
-                                 //res += "<label for='input-1'>single Beneficiary</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
-                                 //res += "<select id='tempddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id)' name='contentList' class='form-control beneficiaryclass validate[required]'></select>";
-                                 //res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
-                                 //res += "</div>";
-                                 //res += "</div>";
-
-
-                             
-                                 //res += "</div>";
-
-
-
                                  res += "<div class='form-group'>";
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' id='btnmappingsubmit' value=" + data[i].assetcatid + "  class='btn btn-primary shadow-primary px-5 btn" + data[i].assetcatid + "'><i class='icon-lock'></i>Submit</button>";
                                  res += "<button type='button' id='btnadd'   value='" + data[i].assetcatid + "' style='display:none;' disabled='disabled'    class='btn btn-success shadow-primary px-5 btnadd"+data[i].assetcatid+"'><i class='icon-lock'></i>Add Multiple</button>";
@@ -597,25 +578,8 @@
                                  res += " </div>";
                                  res += " </div>";
                                  res += " </div>";
-
-
-                                 /*var res = "<div class='card mb-2 border border - success'>";
-                                 res += "<div class='card-header'>";
-                                 res += "<button type='button' class='btn btn-link shadow-none text-success' data-toggle='collapse' data-target='#collapse-" + data[i].assetcatid +"' aria-expanded='true' aria-controls='collapse-22'>";
-                                 res += "Accordion Group Item #1";
-                                 res += "</button>";
-                                 res += "</div>";
-
-                                 res += "<div id='collapse-" + data[i].assetcatid +"' class='collapse show' data-parent='#accordion8'>";
-                                 res += " <div class='card-body'>";
-                                 res += data[i].assetcatid +" Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably havent heard of them accusamus labore sustainable VHS.";
                                  res += " </div>";
-                                 res += "   </div>";
-                                 res +="</div >"; */
 
-                                 //  var res = '<div class="card mb-2 border border-success"> <div class="card-header"> <button class="btn btn-link shadow-none text-success" data-toggle="collapse" data-target="#collapse-22" aria-expanded="true" aria-controls="collapse-22"> Accordion Group Item #1 </button> </div><div id="collapse-22" class="collapse show" data-parent="#accordion8"> <div class="card-body"> Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven heard of them accusamus labore sustainable VHS. </div ></div ></div >';
-
-                                 //  console.log(res);
 
                                  $("#accordion8").append(res);
 
@@ -848,7 +812,7 @@
 
             var $rowdiv = $(this).closest('.rowdiv');
             var $prevdiv = $rowdiv.prev('.rowdiv');
-            var parentaccordionid = $rowdiv.parent('div').parent('div').parent('div').attr('id');
+            var parentaccordionid = $rowdiv.parent('div').parent('div').parent('div').parent('div').attr('id');
 
 
 
@@ -868,7 +832,7 @@
                 prevtotalinputval = temp;
             }
             var proportionvalue = $(this).val();
-
+           
             if (prevtotalinputval != "") {
                 if (parseInt(prevtotalinputval) > parseInt(proportionvalue) || parseInt(prevtotalinputval) == parseInt(proportionvalue)  ) {
 
@@ -915,7 +879,8 @@
 
                     }
 
-
+                    
+               
                     if (temp == "100") {
                         // alert('2nd');
 
@@ -1199,20 +1164,21 @@
 
         $(document).on("change", "#getvalone", function (e) {
 
-          //  location.reload();
 
             var myClass = $(this).attr("class");
+
+            $("#parentdiv" + myClass + "").find(".rowdiv").not(':first').last().remove();
+
             $(".grandparent").hide();
-            $("#totaldiv" + data[i].assetcatid + "").hide();
-            $("#singlepropo" + data[i].assetcatid + "").show();
+           
+            $("#singlepropo" + myClass + "").show();
             $(".btn"+myClass+"").removeAttr("disabled");
 
             $("#totaldiv" + myClass + "").hide();
-            $("#singlepropo" + myClass + "").show();
+       
 
 
-            $("#totaldiv" + myClass + "").hide();
-            $("#singlepropo" + myClass + "").show();
+        
 
             $(".btn" + myClass + "").removeAttr("disabled");
 
@@ -1234,9 +1200,13 @@
 
         $(document).on("change", "#getvaltwo", function () {
 
-           
+
+
 
             var myClass = $(this).attr("class");
+
+         
+
 
             $(".btnadd" + myClass).show();
             $(".btn" + myClass + "").attr("disabled","disabled");
@@ -1245,7 +1215,15 @@
 
             $("#singlepropo" + myClass + "").hide();
             $("#mainbeneddl" + myClass + "").show();
-            $("#benetempddl"+myClass+"").hide();
+            $("#benetempddl" + myClass + "").hide();
+
+
+            $("#txtproportion" + myClass + "").val("");
+
+
+            $("#txttotal" + myClass + "").val("100");
+            $("#txttotalval").val("100");
+
         });
 
         $(document).on("click", "#btnremove", function () {
@@ -1261,7 +1239,7 @@
 
 
 
-            //$("#parentdiv" + myClass + "").find('.rowdiv:last').show();
+            $("#parentdiv" + myClass + "").find('.rowdiv:last');
 
 
 
@@ -1277,7 +1255,7 @@
             $("#txttotalval").val("");
 
 
-            var $clone = $("#parentdiv"+btnnum+"").find('.rowdiv:last').clone();
+            var $clone = $("#parentdiv"+btnnum+"").find('.rowdiv').clone();
 
 
 
@@ -1492,7 +1470,7 @@
 
                             $(".btn" + data + "").hide();
                             
-
+                            $("#main-body" + data + "").hide();
 
                         }
                     });
@@ -1542,6 +1520,8 @@
                           
                           
                             $(".btn" + data + "").hide();
+
+                            $("#main-body" + data + "").hide();
 
 
                         }

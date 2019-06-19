@@ -208,42 +208,42 @@ namespace WillAssure.Controllers
                 if (dt.Rows.Count > 0)
                 {
 
-                    // testator details
-                    //for (int i = 0; i < dt.Rows.Count; i++)
-                    //{
-                        WillDetailModel WDM1 = new WillDetailModel();
+                // testator details
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    WillDetailModel WDM1 = new WillDetailModel();
 
-                        ViewBag.tid = Convert.ToInt32(dt.Rows[0]["tId"]);
-                        WDM1.TestatorName = dt.Rows[0]["First_Name"].ToString();
-                        WDM1.TestatorLastName = dt.Rows[0]["Last_Name"].ToString();
-                        WDM1.TestatorMiddleName = dt.Rows[0]["Middle_Name"].ToString();
-                        WDM1.TestatorDOB = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
-                        WDM1.TestatorOccupation = dt.Rows[0]["Occupation"].ToString();
-                        WDM1.TestatorMobile = dt.Rows[0]["Mobile"].ToString();
-                        WDM1.TestatorEmail = dt.Rows[0]["Email"].ToString();
-                        WDM1.TestatorMaritalStatus = dt.Rows[0]["maritalStatus"].ToString();
-                        WDM1.TestatorRelationship = dt.Rows[0]["RelationShip"].ToString();
-                        WDM1.TestatorReligion = dt.Rows[0]["Religion"].ToString();
-                        WDM1.TestatorIdentityProof = dt.Rows[0]["Identity_Proof"].ToString();
-                        WDM1.TestatorIdentityProofValue = dt.Rows[0]["Identity_proof_Value"].ToString();
-                        WDM1.TestatorAltIdentityProof = dt.Rows[0]["Alt_Identity_Proof"].ToString();
-                        WDM1.TestatorAltIdentityProofValue = dt.Rows[0]["Alt_Identity_proof_Value"].ToString();
-                        WDM1.TestatorGender = dt.Rows[0]["Gender"].ToString();
-                        WDM1.TestatorAddress1 = dt.Rows[0]["Address1"].ToString();
-                        WDM1.TestatorAddress2 = dt.Rows[0]["Address2"].ToString();
-                        WDM1.TestatorAddress3 = dt.Rows[0]["Address3"].ToString();
-                        WDM1.TestatorCity = dt.Rows[0]["City"].ToString();
-                        WDM1.TestatorState = dt.Rows[0]["State"].ToString();
-                        WDM1.TestatorCountry = dt.Rows[0]["Country"].ToString();
-                        WDM1.TestatorPin = dt.Rows[0]["Pin"].ToString();
+                        ViewBag.tid = Convert.ToInt32(dt.Rows[i]["tId"]);
+                        WDM1.TestatorName = dt.Rows[i]["First_Name"].ToString();
+                        WDM1.TestatorLastName = dt.Rows[i]["Last_Name"].ToString();
+                        WDM1.TestatorMiddleName = dt.Rows[i]["Middle_Name"].ToString();
+                        WDM1.TestatorDOB = Convert.ToDateTime(dt.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
+                        WDM1.TestatorOccupation = dt.Rows[i]["Occupation"].ToString();
+                        WDM1.TestatorMobile = dt.Rows[i]["Mobile"].ToString();
+                        WDM1.TestatorEmail = dt.Rows[i]["Email"].ToString();
+                        WDM1.TestatorMaritalStatus = dt.Rows[i]["maritalStatus"].ToString();
+                        WDM1.TestatorRelationship = dt.Rows[i]["RelationShip"].ToString();
+                        WDM1.TestatorReligion = dt.Rows[i]["Religion"].ToString();
+                        WDM1.TestatorIdentityProof = dt.Rows[i]["Identity_Proof"].ToString();
+                        WDM1.TestatorIdentityProofValue = dt.Rows[i]["Identity_proof_Value"].ToString();
+                        WDM1.TestatorAltIdentityProof = dt.Rows[i]["Alt_Identity_Proof"].ToString();
+                        WDM1.TestatorAltIdentityProofValue = dt.Rows[i]["Alt_Identity_proof_Value"].ToString();
+                        WDM1.TestatorGender = dt.Rows[i]["Gender"].ToString();
+                        WDM1.TestatorAddress1 = dt.Rows[i]["Address1"].ToString();
+                        WDM1.TestatorAddress2 = dt.Rows[i]["Address2"].ToString();
+                        WDM1.TestatorAddress3 = dt.Rows[i]["Address3"].ToString();
+                        WDM1.TestatorCity = dt.Rows[i]["City"].ToString();
+                        WDM1.TestatorState = dt.Rows[i]["State"].ToString();
+                        WDM1.TestatorCountry = dt.Rows[i]["Country"].ToString();
+                        WDM1.TestatorPin = dt.Rows[i]["Pin"].ToString();
                         //end
 
                         list1.Add(WDM1);
 
-                    //}
+                }
 
 
-                    ViewBag.TestatorDetails = list1;
+                ViewBag.TestatorDetails = list1;
 
                 }
            
@@ -267,30 +267,32 @@ namespace WillAssure.Controllers
                 {
 
                    
-                        WillDetailModel WDM2 = new WillDetailModel();
+                       
+                for (int i = 0; i < dt2.Rows.Count; i++)
+                {
+                    WillDetailModel WDM2 = new WillDetailModel();
+                    WDM2.BeneficiaryName = dt2.Rows[i]["First_Name"].ToString();
 
-                        WDM2.BeneficiaryName = dt2.Rows[0]["First_Name"].ToString();
+                    WDM2.BeneficiaryLastName = dt2.Rows[i]["Last_Name"].ToString();
+                    WDM2.BeneficiaryMiddleName = dt2.Rows[i]["Middle_Name"].ToString();
+                    WDM2.BeneficiaryDOB = Convert.ToDateTime(dt2.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
+                    WDM2.BeneficiaryMobile = dt2.Rows[i]["Mobile"].ToString();
+                    WDM2.BeneficiaryRelationship = dt2.Rows[i]["Relationship"].ToString();
+                    WDM2.BeneficiaryMartialStatus = dt2.Rows[i]["Marital_Status"].ToString();
+                    WDM2.BeneficiaryReligion = dt2.Rows[i]["Religion"].ToString();
+                    WDM2.BeneficiaryIdentityProof = dt2.Rows[i]["Identity_proof"].ToString();
+                    WDM2.BeneficiaryIdentityProofValue = dt2.Rows[i]["Identity_proof_value"].ToString();
+                    WDM2.BeneficiaryaltidentityProof = dt2.Rows[i]["Alt_Identity_proof"].ToString();
+                    WDM2.beneficiaryaltidentityproofvalue = dt2.Rows[i]["Alt_Identity_proof_value"].ToString();
+                    WDM2.beneficiaryaddress1 = dt2.Rows[i]["Address1"].ToString();
+                    WDM2.beneficiaryaddress2 = dt2.Rows[i]["Address2"].ToString();
+                    WDM2.beneficiaryaddress3 = dt2.Rows[i]["Address3"].ToString();
+                    WDM2.beneficiarycity = dt2.Rows[i]["City"].ToString();
+                    WDM2.beneficiarystate = dt2.Rows[i]["State"].ToString();
+                    WDM2.beneficiarypin = dt2.Rows[i]["Pin"].ToString();
 
-                        WDM2.BeneficiaryLastName = dt2.Rows[0]["Last_Name"].ToString();
-                        WDM2.BeneficiaryMiddleName = dt2.Rows[0]["Middle_Name"].ToString();
-                        WDM2.BeneficiaryDOB = Convert.ToDateTime(dt2.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
-                WDM2.BeneficiaryMobile = dt2.Rows[0]["Mobile"].ToString();
-                        WDM2.BeneficiaryRelationship = dt2.Rows[0]["Relationship"].ToString();
-                        WDM2.BeneficiaryMartialStatus = dt2.Rows[0]["Marital_Status"].ToString();
-                        WDM2.BeneficiaryReligion = dt2.Rows[0]["Religion"].ToString();
-                        WDM2.BeneficiaryIdentityProof = dt2.Rows[0]["Identity_proof"].ToString();
-                        WDM2.BeneficiaryIdentityProofValue = dt2.Rows[0]["Identity_proof_value"].ToString();
-                        WDM2.BeneficiaryaltidentityProof = dt2.Rows[0]["Alt_Identity_proof"].ToString();
-                        WDM2.beneficiaryaltidentityproofvalue = dt2.Rows[0]["Alt_Identity_proof_value"].ToString();
-                        WDM2.beneficiaryaddress1 = dt2.Rows[0]["Address1"].ToString();
-                        WDM2.beneficiaryaddress2 = dt2.Rows[0]["Address2"].ToString();
-                        WDM2.beneficiaryaddress3 = dt2.Rows[0]["Address3"].ToString();
-                        WDM2.beneficiarycity = dt2.Rows[0]["City"].ToString();
-                        WDM2.beneficiarystate = dt2.Rows[0]["State"].ToString();
-                        WDM2.beneficiarypin = dt2.Rows[0]["Pin"].ToString();
-
-                        list2.Add(WDM2);
-
+                    list2.Add(WDM2);
+                }
                     
 
                     ViewBag.beneficiary = list2;
@@ -325,32 +327,34 @@ namespace WillAssure.Controllers
 
                 if (dt4.Rows.Count > 0)
                 {
-                    
-                        WillDetailModel WDM4 = new WillDetailModel();
+                for (int i = 0; i < dt4.Rows.Count; i++)
+                {
+                    WillDetailModel WDM4 = new WillDetailModel();
 
 
-                        WDM4.appointeesType = dt4.Rows[0]["Type"].ToString();
+                    WDM4.appointeesType = dt4.Rows[i]["Type"].ToString();
 
-                        WDM4.appointeesSubtype = dt4.Rows[0]["subType"].ToString();
-                        WDM4.appointeesName = dt4.Rows[0]["Name"].ToString();
-                        WDM4.appointeesmiddle = dt4.Rows[0]["middleName"].ToString();
-                        WDM4.appointeessurname = dt4.Rows[0]["Surname"].ToString();
-                        WDM4.appointeesidentityproof = dt4.Rows[0]["Identity_Proof"].ToString();
-                        WDM4.appointeesIdentityproofvalue = dt4.Rows[0]["Identity_Proof_Value"].ToString();
-                        WDM4.appointeesaltidentityproof = dt4.Rows[0]["Alt_Identity_Proof"].ToString();
-                        WDM4.appointeesaltidentityproofvalue = dt4.Rows[0]["Alt_Identity_Proof_Value"].ToString();
-                        WDM4.appointeesDOB = Convert.ToDateTime(dt4.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
-                        WDM4.appointeesGender = dt4.Rows[0]["Gender"].ToString();
-                        WDM4.appointeesOccupation = dt4.Rows[0]["Occupation"].ToString();
-                        WDM4.appointeesrelationship = dt4.Rows[0]["Relationship"].ToString();
-                        WDM4.appointeesaddress1 = dt4.Rows[0]["Address1"].ToString();
-                        WDM4.appointeesaddress2 = dt4.Rows[0]["Address2"].ToString();
-                        WDM4.appointeesaddress3 = dt4.Rows[0]["Address3"].ToString();
-                        WDM4.appointeescity = dt4.Rows[0]["City"].ToString();
-                        WDM4.appointeesstate = dt4.Rows[0]["State"].ToString();
-                        WDM4.appointeespin = dt4.Rows[0]["Pin"].ToString();
+                    WDM4.appointeesSubtype = dt4.Rows[i]["subType"].ToString();
+                    WDM4.appointeesName = dt4.Rows[i]["Name"].ToString();
+                    WDM4.appointeesmiddle = dt4.Rows[i]["middleName"].ToString();
+                    WDM4.appointeessurname = dt4.Rows[i]["Surname"].ToString();
+                    WDM4.appointeesidentityproof = dt4.Rows[i]["Identity_Proof"].ToString();
+                    WDM4.appointeesIdentityproofvalue = dt4.Rows[i]["Identity_Proof_Value"].ToString();
+                    WDM4.appointeesaltidentityproof = dt4.Rows[i]["Alt_Identity_Proof"].ToString();
+                    WDM4.appointeesaltidentityproofvalue = dt4.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                    //WDM4.appointeesDOB = Convert.ToDateTime(dt4.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
+                    WDM4.appointeesGender = dt4.Rows[i]["Gender"].ToString();
+                    WDM4.appointeesOccupation = dt4.Rows[i]["Occupation"].ToString();
+                    WDM4.appointeesrelationship = dt4.Rows[i]["Relationship"].ToString();
+                    WDM4.appointeesaddress1 = dt4.Rows[i]["Address1"].ToString();
+                    WDM4.appointeesaddress2 = dt4.Rows[i]["Address2"].ToString();
+                    WDM4.appointeesaddress3 = dt4.Rows[i]["Address3"].ToString();
+                    WDM4.appointeescity = dt4.Rows[i]["City"].ToString();
+                    WDM4.appointeesstate = dt4.Rows[i]["State"].ToString();
+                    WDM4.appointeespin = dt4.Rows[i]["Pin"].ToString();
 
-                        list5.Add(WDM4);
+                    list5.Add(WDM4);
+                }
                  }
                     ViewBag.appointees = list5;
 
@@ -379,30 +383,31 @@ namespace WillAssure.Controllers
                 if (dt5.Rows.Count > 0)
                 {
 
-                   
-                        WillDetailModel WDM3 = new WillDetailModel();
-                        WDM3.tffirstname = dt5.Rows[0]["First_Name"].ToString();
+                for (int i = 0; i < dt5.Rows.Count; i++)
+                {
+                    WillDetailModel WDM3 = new WillDetailModel();
+                    WDM3.tffirstname = dt5.Rows[i]["First_Name"].ToString();
 
-                        WDM3.tflastname = dt5.Rows[0]["Last_Name"].ToString();
-                        WDM3.tfmiddlename = dt5.Rows[0]["Middle_Name"].ToString();
-                        WDM3.tfdob = Convert.ToDateTime(dt5.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
-                        WDM3.tfmaritalstatus = dt5.Rows[0]["Marital_Status"].ToString();
-                        WDM3.tfreligion = dt5.Rows[0]["Religion"].ToString();
-                        WDM3.tfrelationship = dt5.Rows[0]["Relationship"].ToString();
-                        WDM3.tfaddress1 = dt5.Rows[0]["Address1"].ToString();
-                        WDM3.tfaddress2 = dt5.Rows[0]["Address2"].ToString();
-                        WDM3.tfaddress3 = dt5.Rows[0]["Address3"].ToString();
-                        WDM3.tfcity = dt5.Rows[0]["City"].ToString();
-                        WDM3.tfstate = dt5.Rows[0]["State"].ToString();
-                        WDM3.tfpin = dt5.Rows[0]["Pin"].ToString();
-                        WDM3.tfidentityproof = dt5.Rows[0]["Identity_Proof"].ToString();
-                        WDM3.tfidentityproofvalue = dt5.Rows[0]["Identity_Proof_Value"].ToString();
-                        WDM3.tfaltidentityproof = dt5.Rows[0]["Alt_Identity_Proof"].ToString();
-                        WDM3.tfaltidentityproofvalue = dt5.Rows[0]["Alt_Identity_Proof_Value"].ToString();
-                        WDM3.tfisinformedperson = dt5.Rows[0]["Is_Informed_Person"].ToString();
+                    WDM3.tflastname = dt5.Rows[i]["Last_Name"].ToString();
+                    WDM3.tfmiddlename = dt5.Rows[i]["Middle_Name"].ToString();
+                    WDM3.tfdob = Convert.ToDateTime(dt5.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
+                    WDM3.tfmaritalstatus = dt5.Rows[i]["Marital_Status"].ToString();
+                    WDM3.tfreligion = dt5.Rows[i]["Religion"].ToString();
+                    WDM3.tfrelationship = dt5.Rows[i]["Relationship"].ToString();
+                    WDM3.tfaddress1 = dt5.Rows[i]["Address1"].ToString();
+                    WDM3.tfaddress2 = dt5.Rows[i]["Address2"].ToString();
+                    WDM3.tfaddress3 = dt5.Rows[i]["Address3"].ToString();
+                    WDM3.tfcity = dt5.Rows[i]["City"].ToString();
+                    WDM3.tfstate = dt5.Rows[i]["State"].ToString();
+                    WDM3.tfpin = dt5.Rows[i]["Pin"].ToString();
+                    WDM3.tfidentityproof = dt5.Rows[i]["Identity_Proof"].ToString();
+                    WDM3.tfidentityproofvalue = dt5.Rows[i]["Identity_Proof_Value"].ToString();
+                    WDM3.tfaltidentityproof = dt5.Rows[i]["Alt_Identity_Proof"].ToString();
+                    WDM3.tfaltidentityproofvalue = dt5.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                    WDM3.tfisinformedperson = dt5.Rows[i]["Is_Informed_Person"].ToString();
 
-                        list3.Add(WDM3);
-
+                    list3.Add(WDM3);
+                }
                     
                     ViewBag.testatorFamily = list3;
 
@@ -413,7 +418,7 @@ namespace WillAssure.Controllers
 
                 // Beneficiary Mapping
                 con.Open();
-                string query6 = "select c.AssetsType , b.AssetsCategory , a.SchemeName , a.InstrumentName , a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId where a.tid =  " + NestId + "";
+                string query6 = "select e.First_Name , c.AssetsType , b.AssetsCategory ,  a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId  inner join BeneficiaryDetails e on e.tId=a.tid where a.tid =  " + NestId + "";
                 SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
                 DataTable dt6 = new DataTable();
                 da6.Fill(dt6);
@@ -427,11 +432,11 @@ namespace WillAssure.Controllers
                 for (int i = 0; i < dt6.Rows.Count; i++)
                 {
                     WillDetailModel WDM5 = new WillDetailModel();
+                    WDM5.BeneficiaryName = dt6.Rows[i]["First_Name"].ToString();
                     WDM5.bmassettype = dt6.Rows[i]["AssetsType"].ToString();
 
                     WDM5.bmassetcat = dt6.Rows[i]["AssetsCategory"].ToString();
-                    WDM5.bmschemename = dt6.Rows[i]["SchemeName"].ToString();
-                    WDM5.bminstrumentname = dt6.Rows[i]["InstrumentName"].ToString();
+             
                     WDM5.bmproportion = dt6.Rows[i]["Proportion"].ToString();
                     list6.Add(WDM5);
                 }
@@ -471,31 +476,32 @@ namespace WillAssure.Controllers
 
                 if (dt7.Rows.Count > 0)
                 {
-                 
-                        WillDetailModel ABM = new WillDetailModel();
-                        ABM.altbenefirstname = dt7.Rows[0]["First_Name"].ToString();
-                        ABM.altbenelastname = dt7.Rows[0]["Last_Name"].ToString();
-                        ABM.altbenemiddlename = dt7.Rows[0]["Middle_Name"].ToString();
+                for (int i = 0; i < dt7.Rows.Count; i++)
+                {
+                    WillDetailModel ABM = new WillDetailModel();
+                    ABM.altbenefirstname = dt7.Rows[i]["First_Name"].ToString();
+                    ABM.altbenelastname = dt7.Rows[i]["Last_Name"].ToString();
+                    ABM.altbenemiddlename = dt7.Rows[i]["Middle_Name"].ToString();
 
-                        ABM.altbenedob = Convert.ToDateTime(dt7.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
-                ABM.altbenemobile = dt7.Rows[0]["Mobile"].ToString();
-                        ABM.altbenerelationship = dt7.Rows[0]["Relationship"].ToString();
-                        ABM.altbenemaritalstatus = dt7.Rows[0]["Marital_Status"].ToString();
-                        ABM.altbenereligion = dt7.Rows[0]["Religion"].ToString();
-                        ABM.altbeneidentityproof = dt7.Rows[0]["Identity_Proof"].ToString();
-                        ABM.altbeneidentityproofvalue = dt7.Rows[0]["Identity_Proof_Value"].ToString();
-                        ABM.altbenealtidentityproof = dt7.Rows[0]["Alt_Identity_Proof"].ToString();
-                        ABM.altbenealtidentityproofvalue = dt7.Rows[0]["Alt_Identity_Proof_Value"].ToString();
-                        ABM.altbeneaddress1 = dt7.Rows[0]["Address1"].ToString();
-                        ABM.altbeneaddress2 = dt7.Rows[0]["Address2"].ToString();
-                        ABM.altbeneaddress3 = dt7.Rows[0]["Address3"].ToString();
-                        ABM.altbenecity = dt7.Rows[0]["City"].ToString();
-                        ABM.altbenestate = dt7.Rows[0]["State"].ToString();
-                        ABM.altbenepin = dt7.Rows[0]["Pin"].ToString();
+                    ABM.altbenedob = Convert.ToDateTime(dt7.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
+                    ABM.altbenemobile = dt7.Rows[i]["Mobile"].ToString();
+                    ABM.altbenerelationship = dt7.Rows[i]["Relationship"].ToString();
+                    ABM.altbenemaritalstatus = dt7.Rows[i]["Marital_Status"].ToString();
+                    ABM.altbenereligion = dt7.Rows[i]["Religion"].ToString();
+                    ABM.altbeneidentityproof = dt7.Rows[i]["Identity_Proof"].ToString();
+                    ABM.altbeneidentityproofvalue = dt7.Rows[i]["Identity_Proof_Value"].ToString();
+                    ABM.altbenealtidentityproof = dt7.Rows[i]["Alt_Identity_Proof"].ToString();
+                    ABM.altbenealtidentityproofvalue = dt7.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                    ABM.altbeneaddress1 = dt7.Rows[i]["Address1"].ToString();
+                    ABM.altbeneaddress2 = dt7.Rows[i]["Address2"].ToString();
+                    ABM.altbeneaddress3 = dt7.Rows[i]["Address3"].ToString();
+                    ABM.altbenecity = dt7.Rows[i]["City"].ToString();
+                    ABM.altbenestate = dt7.Rows[i]["State"].ToString();
+                    ABM.altbenepin = dt7.Rows[i]["Pin"].ToString();
 
-                        list7.Add(ABM);
+                    list7.Add(ABM);
 
-                    
+                }
 
                     ViewBag.altbene = list7;
 
@@ -517,34 +523,35 @@ namespace WillAssure.Controllers
                 if (dt8.Rows.Count > 0)
                 {
 
+                for (int i = 0; i < dt8.Rows.Count; i++)
+                {
 
-                   
-                        WillDetailModel NM = new WillDetailModel();
+                    WillDetailModel NM = new WillDetailModel();
 
-                        NM.nomfirstname = dt8.Rows[0]["First_Name"].ToString();
-                        NM.nomlastname = dt8.Rows[0]["Last_Name"].ToString();
-                        NM.nommiddlename = dt8.Rows[0]["Middle_Name"].ToString();
-                        NM.nomdob = Convert.ToDateTime(dt8.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
-                NM.nommobile = dt8.Rows[0]["Mobile"].ToString();
-                        NM.nomrelationship = dt8.Rows[0]["Relationship"].ToString();
-                        NM.nommaritalstatus = dt8.Rows[0]["Marital_Status"].ToString();
-                        NM.nomreligion = dt8.Rows[0]["Religion"].ToString();
-                        NM.nomidentityproof = dt8.Rows[0]["Identity_Proof"].ToString();
-                        NM.nomidentityproofvalue = dt8.Rows[0]["Identity_Proof_Value"].ToString();
-                        NM.nomaltidentityproof = dt8.Rows[0]["Alt_Identity_Proof"].ToString();
-                        NM.nomaltidentityproofvalue = dt8.Rows[0]["Alt_Identity_Proof_Value"].ToString();
-                        NM.nomaddress1 = dt8.Rows[0]["Address1"].ToString();
-                        NM.nomaddress2 = dt8.Rows[0]["Address2"].ToString();
-                        NM.nomaddress3 = dt8.Rows[0]["Address3"].ToString();
-                        NM.nomcity = dt8.Rows[0]["City"].ToString();
-                        NM.nomstate = dt8.Rows[0]["State"].ToString();
-                        NM.nompin = dt8.Rows[0]["Pin"].ToString();
-
+                    NM.nomfirstname = dt8.Rows[i]["First_Name"].ToString();
+                    NM.nomlastname = dt8.Rows[i]["Last_Name"].ToString();
+                    NM.nommiddlename = dt8.Rows[i]["Middle_Name"].ToString();
+                    NM.nomdob = Convert.ToDateTime(dt8.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
+                    NM.nommobile = dt8.Rows[i]["Mobile"].ToString();
+                    NM.nomrelationship = dt8.Rows[i]["Relationship"].ToString();
+                    NM.nommaritalstatus = dt8.Rows[i]["Marital_Status"].ToString();
+                    NM.nomreligion = dt8.Rows[i]["Religion"].ToString();
+                    NM.nomidentityproof = dt8.Rows[i]["Identity_Proof"].ToString();
+                    NM.nomidentityproofvalue = dt8.Rows[i]["Identity_Proof_Value"].ToString();
+                    NM.nomaltidentityproof = dt8.Rows[i]["Alt_Identity_Proof"].ToString();
+                    NM.nomaltidentityproofvalue = dt8.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                    NM.nomaddress1 = dt8.Rows[i]["Address1"].ToString();
+                    NM.nomaddress2 = dt8.Rows[i]["Address2"].ToString();
+                    NM.nomaddress3 = dt8.Rows[i]["Address3"].ToString();
+                    NM.nomcity = dt8.Rows[i]["City"].ToString();
+                    NM.nomstate = dt8.Rows[i]["State"].ToString();
+                    NM.nompin = dt8.Rows[i]["Pin"].ToString();
 
 
-                        list8.Add(NM);
-                    
 
+                    list8.Add(NM);
+
+                }
 
                     ViewBag.nominee = list8;
                 }
@@ -573,36 +580,37 @@ namespace WillAssure.Controllers
                 {
 
 
-                  
-                        WillDetailModel Am = new WillDetailModel();
+                for (int i = 0; i < dt9.Rows.Count; i++)
+                {
+                    WillDetailModel Am = new WillDetailModel();
 
 
-                        Am.altappname = dt9.Rows[0]["Name"].ToString();
-                        Am.altappmiddlename = dt9.Rows[0]["middleName"].ToString();
-                        Am.altappsurname = dt9.Rows[0]["Surname"].ToString();
-                        Am.altappidentityproof = dt9.Rows[0]["Identity_Proof"].ToString();
-                        Am.altappidentityproofvalue = dt9.Rows[0]["Identity_Proof_Value"].ToString();
-                        Am.altappaltidentityproof = dt9.Rows[0]["Alt_Identity_Proof"].ToString();
-                        Am.altappaltidentityproofvalue = dt9.Rows[0]["Alt_Identity_Proof_Value"].ToString();
+                    Am.altappname = dt9.Rows[i]["Name"].ToString();
+                    Am.altappmiddlename = dt9.Rows[i]["middleName"].ToString();
+                    Am.altappsurname = dt9.Rows[i]["Surname"].ToString();
+                    Am.altappidentityproof = dt9.Rows[i]["Identity_Proof"].ToString();
+                    Am.altappidentityproofvalue = dt9.Rows[i]["Identity_Proof_Value"].ToString();
+                    Am.altappaltidentityproof = dt9.Rows[i]["Alt_Identity_Proof"].ToString();
+                    Am.altappaltidentityproofvalue = dt9.Rows[i]["Alt_Identity_Proof_Value"].ToString();
 
-                        Am.altappdob = Convert.ToDateTime(dt9.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+                    //Am.altappdob = Convert.ToDateTime(dt9.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
 
-                Am.altappgender = dt9.Rows[0]["Gender"].ToString();
-                        Am.altappoccupation = dt9.Rows[0]["Occupation"].ToString();
-                        Am.altapprelationship = dt9.Rows[0]["Relationship"].ToString();
-                        Am.altappaddress1 = dt9.Rows[0]["Address1"].ToString();
-                        Am.altappaddress2 = dt9.Rows[0]["Address2"].ToString();
-                        Am.altappaddress3 = dt9.Rows[0]["Address3"].ToString();
-                        Am.altappcity = dt9.Rows[0]["City"].ToString();
-                        Am.altappstate = dt9.Rows[0]["State"].ToString();
-                        Am.altapppin = dt9.Rows[0]["Pin"].ToString();
-                        Am.altappaltguardian = dt9.Rows[0]["altguardian"].ToString();
-                        Am.altappaltexec = dt9.Rows[0]["altexec"].ToString();
+                    Am.altappgender = dt9.Rows[i]["Gender"].ToString();
+                    Am.altappoccupation = dt9.Rows[i]["Occupation"].ToString();
+                    Am.altapprelationship = dt9.Rows[i]["Relationship"].ToString();
+                    Am.altappaddress1 = dt9.Rows[i]["Address1"].ToString();
+                    Am.altappaddress2 = dt9.Rows[i]["Address2"].ToString();
+                    Am.altappaddress3 = dt9.Rows[i]["Address3"].ToString();
+                    Am.altappcity = dt9.Rows[i]["City"].ToString();
+                    Am.altappstate = dt9.Rows[i]["State"].ToString();
+                    Am.altapppin = dt9.Rows[i]["Pin"].ToString();
+                    Am.altappaltguardian = dt9.Rows[i]["altguardian"].ToString();
+                    Am.altappaltexec = dt9.Rows[i]["altexec"].ToString();
 
 
-                        list9.Add(Am);
+                    list9.Add(Am);
 
-                    
+                }
 
                     ViewBag.altappointment = list9;
                 }

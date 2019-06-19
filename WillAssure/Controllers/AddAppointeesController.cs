@@ -322,7 +322,7 @@ namespace WillAssure.Controllers
                             Am.Identity_Proof_Value = dt.Rows[i]["Identity_Proof_Value"].ToString();
                             Am.Alt_Identity_Proof = dt.Rows[i]["Alt_Identity_Proof"].ToString();
                             Am.Alt_Identity_Proof_Value = dt.Rows[i]["Alt_Identity_Proof_Value"].ToString();
-                            Am.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+                            //Am.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
                             Am.Gender = dt.Rows[i]["Gender"].ToString();
                             Am.Occupation = dt.Rows[i]["Occupation"].ToString();
                             Am.RelationshipTxt = dt.Rows[i]["Relationship"].ToString();
@@ -399,7 +399,7 @@ namespace WillAssure.Controllers
                     Am.altAlt_Identity_Proof = dt2.Rows[i]["Alt_Identity_Proof"].ToString();
                     Am.altAlt_Identity_Proof_Value = dt2.Rows[i]["Alt_Identity_Proof_Value"].ToString();
 
-                    Am.altDob = Convert.ToDateTime(dt2.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
+                    //Am.altDob = Convert.ToDateTime(dt2.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
 
                     Am.altGender = dt2.Rows[i]["Gender"].ToString();
                     Am.altOccupation = dt2.Rows[i]["Occupation"].ToString();
@@ -689,7 +689,21 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@condition", "insert");
                 cmd.Parameters.AddWithValue("@documentId", AM.documentId);
                 cmd.Parameters.AddWithValue("@Type", AM.Typetxt);
-                cmd.Parameters.AddWithValue("@subType", AM.subTypetxt);
+
+                if (AM.subTypetxt != null || AM.subTypetxt != "" )
+                {
+                    cmd.Parameters.AddWithValue("@subType", AM.subTypetxt);
+                }
+                else
+                {
+                    cmd.Parameters.AddWithValue("@subType", "None");
+                }
+
+                
+
+
+
+
                 cmd.Parameters.AddWithValue("@Name", AM.Name);
                 cmd.Parameters.AddWithValue("@middleName", AM.middleName);
                 cmd.Parameters.AddWithValue("@Surname", AM.Surname);
@@ -726,11 +740,11 @@ namespace WillAssure.Controllers
 
 
 
-                DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                cmd.Parameters.AddWithValue("@DOB", dat);
+                //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                //cmd.Parameters.AddWithValue("@DOB", "None");
                 cmd.Parameters.AddWithValue("@Gender", AM.Gender);
-                cmd.Parameters.AddWithValue("@Occupation", AM.Occupation);
-                cmd.Parameters.AddWithValue("@Relationship", AM.RelationshipTxt);
+                cmd.Parameters.AddWithValue("@Occupation", "None");
+                cmd.Parameters.AddWithValue("@Relationship", "None");
                 cmd.Parameters.AddWithValue("@Address1", AM.Address1);
                 if (AM.Address2 != null || AM.Address2 == "")
                 {
@@ -804,14 +818,13 @@ namespace WillAssure.Controllers
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@condition", "insert");
                 cmd.Parameters.AddWithValue("@documentId", AM.documentId);
-                cmd.Parameters.AddWithValue("@Type", AM.Typetxt);
-                cmd.Parameters.AddWithValue("@subType", AM.subTypetxt);
+                cmd.Parameters.AddWithValue("@Type", "None");
+                cmd.Parameters.AddWithValue("@subType", "None");
                 cmd.Parameters.AddWithValue("@Name", AM.Name);
                 cmd.Parameters.AddWithValue("@middleName", AM.middleName);
                 cmd.Parameters.AddWithValue("@Surname", AM.Surname);
                 cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);
                 cmd.Parameters.AddWithValue("@Identity_proof_value", AM.Identity_Proof_Value);
-
 
 
                 if (AM.Alt_Identity_Proof != null)
@@ -836,18 +849,18 @@ namespace WillAssure.Controllers
                 }
 
 
-                
-               
 
 
 
 
 
-                DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                cmd.Parameters.AddWithValue("@DOB", dat);
+
+
+                //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                //cmd.Parameters.AddWithValue("@DOB", "None");
                 cmd.Parameters.AddWithValue("@Gender", AM.Gender);
-                cmd.Parameters.AddWithValue("@Occupation", AM.Occupation);
-                cmd.Parameters.AddWithValue("@Relationship", AM.RelationshipTxt);
+                cmd.Parameters.AddWithValue("@Occupation", "None");
+                cmd.Parameters.AddWithValue("@Relationship", "None");
                 cmd.Parameters.AddWithValue("@Address1", AM.Address1);
                 if (AM.Address2 != null || AM.Address2 == "")
                 {
@@ -879,7 +892,7 @@ namespace WillAssure.Controllers
                 con.Close();
 
 
-               
+
                 con.Open();
                 string query = "select top 1 * from Appointees order by apId desc";
                 SqlDataAdapter da2 = new SqlDataAdapter(query, con);
@@ -924,13 +937,42 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@Surname", AM.Surname);
                 cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);
                 cmd.Parameters.AddWithValue("@Identity_proof_value", AM.Identity_Proof_Value);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
-                DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                cmd.Parameters.AddWithValue("@DOB", dat);
+
+
+                if (AM.Alt_Identity_Proof != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+                }
+                else
+                {
+                    AM.Alt_Identity_Proof = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+                }
+
+
+                if (AM.Alt_Identity_Proof_Value != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+                }
+                else
+                {
+                    AM.Alt_Identity_Proof_Value = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+                }
+
+
+
+
+
+
+
+
+
+                //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                //cmd.Parameters.AddWithValue("@DOB", "None");
                 cmd.Parameters.AddWithValue("@Gender", AM.Gender);
-                cmd.Parameters.AddWithValue("@Occupation", AM.Occupation);
-                cmd.Parameters.AddWithValue("@Relationship", AM.RelationshipTxt);
+                cmd.Parameters.AddWithValue("@Occupation", "None");
+                cmd.Parameters.AddWithValue("@Relationship", "None");
                 cmd.Parameters.AddWithValue("@Address1", AM.Address1);
                 if (AM.Address2 != null || AM.Address2 == "")
                 {
@@ -962,7 +1004,7 @@ namespace WillAssure.Controllers
                 con.Close();
 
 
-               
+
                 con.Open();
                 string query = "select top 1 * from Appointees order by apId desc";
                 SqlDataAdapter da2 = new SqlDataAdapter(query, con);
@@ -1104,11 +1146,11 @@ namespace WillAssure.Controllers
                 }
                
                
-                DateTime dat2 = DateTime.ParseExact(AM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                cmdd.Parameters.AddWithValue("@DOB", dat2);
+                //DateTime dat2 = DateTime.ParseExact(AM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                //cmdd.Parameters.AddWithValue("@DOB", dat2);
                 cmdd.Parameters.AddWithValue("@Gender", AM.altGender);
-                cmdd.Parameters.AddWithValue("@Occupation", AM.altOccupation);
-                cmdd.Parameters.AddWithValue("@Relationship", AM.altRelationshipTxt);
+                cmdd.Parameters.AddWithValue("@Occupation", "None");
+                cmdd.Parameters.AddWithValue("@Relationship", "None");
                 cmdd.Parameters.AddWithValue("@Address1", AM.altAddress1);
                 if (AM.altAddress2 != null || AM.altAddress2 == "")
                 {

@@ -71,7 +71,7 @@
                                             <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
                                                 <li style="color:black;">Institution ></li>
                                             </a>
-                                           
+
                                             <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
                                             <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li>AssetInformation ></li></a>
                                             <li style="color:#e1e1e1">Liabilites></li>
@@ -238,7 +238,7 @@
                                         <label for="input-1">Asset Category</label>
 
                                         <select id="ddlassetcat11" class="form-control input-shadow validate[required]">
-                                            <option value="">@ViewBag.assetcategory</option>
+                                            <option value="@ViewBag.assetcategory">@ViewBag.assetcategory</option>
                                         </select>
 
                                     </div>
@@ -273,9 +273,9 @@
 
 
                             </div>
-
+                          
                             <div class="row" id="binddata">
-
+                                
                             </div>
 
 

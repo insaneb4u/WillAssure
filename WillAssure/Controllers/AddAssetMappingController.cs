@@ -487,7 +487,7 @@ namespace WillAssure.Controllers
                 {
                     LoginModel assetcatdata = new LoginModel();
 
-                    int assetcatid=Convert.ToInt32(dt3.Rows[i]["aiid"].ToString());
+                    int assetcatid = Convert.ToInt32(dt3.Rows[i]["aiid"].ToString());
                     string final = "";
                     string structure = "<div class='row'>";
                     string data = "";
@@ -574,7 +574,7 @@ namespace WillAssure.Controllers
 
 
 
-                 
+
 
 
 
@@ -1390,17 +1390,17 @@ namespace WillAssure.Controllers
             string assetcatid = "";
             string assettypeid = "";
             int proportion = 100;
-            int btnid = 0; 
+            int btnid = 0;
             string response = Request["send"];
             //string assettype = response.Split('~')[0];
             //string assetcat = response.Split('~')[1];
             assetcategorytxt = response.Split('~')[0];
-            
-             beneficiaryid = response.Split('~')[1];
+
+            beneficiaryid = response.Split('~')[1];
             tid = Convert.ToString(response.Split('~')[2]);
             btnid = Convert.ToInt32(response.Split('~')[3]);
 
-          
+
 
             if (tid == "" || tid == null || tid == "undefined")
             {
@@ -1426,7 +1426,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID  , Proportion , tid , doctype ,Type , Category) values   (  " + assettypeid + " , " + assetcatid + ", " + beneficiaryid + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "',1,'"+combine+"') ";
+            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID  , Proportion , tid , doctype ,Type , Category) values   (  " + assettypeid + " , " + assetcatid + ", " + beneficiaryid + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "',1,'" + combine + "') ";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -1449,7 +1449,7 @@ namespace WillAssure.Controllers
 
         public JsonResult InsertMultipleAssetMappeddata(string data, string assetcat, string tid, string btnidentify)
         {
-            
+
 
             ViewBag.collapse = "true";
             // roleassignment
@@ -1516,7 +1516,7 @@ namespace WillAssure.Controllers
                 {
                     con.Open();
                     result[i].ToString();
-                    string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , tid , AssetType_ID , AssetCategory_ID , doctype,Type,Category) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettypeid + " , " + assetcatid + " , '" + Session["doctype"].ToString() + "',2,'"+combine+"')";
+                    string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , tid , AssetType_ID , AssetCategory_ID , doctype,Type,Category) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettypeid + " , " + assetcatid + " , '" + Session["doctype"].ToString() + "',2,'" + combine + "')";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -1525,8 +1525,8 @@ namespace WillAssure.Controllers
 
             // if records submitted change status for assetinformation
             con.Open();
-            string query2 = "update assetinformation set Remark ='Completed' where amId = "+ assetcatid + "";
-            SqlCommand cmd2 = new SqlCommand(query2,con);
+            string query2 = "update assetinformation set Remark ='Completed' where amId = " + assetcatid + "";
+            SqlCommand cmd2 = new SqlCommand(query2, con);
             cmd2.ExecuteNonQuery();
             con.Close();
             //end
@@ -1814,8 +1814,8 @@ namespace WillAssure.Controllers
         public string BindCategorydata()
         {
             con.Open();
-            string query1 = "select amId from AssetInformation where tid = "+ Convert.ToInt32(Session["distid"]) + " ";
-            SqlDataAdapter da1 = new SqlDataAdapter(query1,con);
+            string query1 = "select amId from AssetInformation where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+            SqlDataAdapter da1 = new SqlDataAdapter(query1, con);
             DataTable dt1 = new DataTable();
             da1.Fill(dt1);
             int assetcatid = 0;
@@ -1824,7 +1824,7 @@ namespace WillAssure.Controllers
                 assetcatid = Convert.ToInt32(dt1.Rows[0]["amId"]);
             }
 
-        
+
 
             con.Close();
 
@@ -1900,7 +1900,7 @@ namespace WillAssure.Controllers
 
                         }
 
-                       
+
                     }
 
                 }
@@ -1917,17 +1917,396 @@ namespace WillAssure.Controllers
         }
 
 
-        public string LastAssetsRecords()
-        {
-            string structure = "";
-            con.Open();
-            string query = "select top 1 * from BeneficiaryAssets order by Beneficiary_Asset_ID desc";
-            SqlDataAdapter da = new SqlDataAdapter(query,con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
 
-            if (dt.Rows.Count > 0)
+
+
+
+        public string BindLastSingleFinancialRecords()
+        {
+            // last financial records
+            string financialstructure = "";
+            con.Open();
+            string checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 1 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1  ";
+            SqlDataAdapter chkfinancialda = new SqlDataAdapter(checkfinancial, con);
+            DataTable chkfinancialdt = new DataTable();
+            chkfinancialda.Fill(chkfinancialdt);
+            string assetcat = "";
+            string assettype = "";
+            if (chkfinancialdt.Rows.Count > 0)
             {
+
+
+
+
+
+
+
+
+
+
+
+
+
+                for (int i = 0; i < chkfinancialdt.Rows.Count; i++)
+                {
+
+
+                    string getassettype = "select b.AssetsType , a.AssetsCategory from AssetsCategory a inner join AssetsType b on a.atId=b.atId  where a.amId = " + Convert.ToInt32(chkfinancialdt.Rows[i]["AssetCategory_ID"]) + "";
+                    SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
+                    DataTable atdt = new DataTable();
+                    atda.Fill(atdt);
+                    if (atdt.Rows.Count > 0)
+                    {
+                        assetcat = atdt.Rows[0]["AssetsCategory"].ToString();
+                        assettype = atdt.Rows[0]["AssetsType"].ToString();
+
+
+                        financialstructure = financialstructure + "<div class='row'>" +
+                       "<div class='col-lg-12'>" +
+                       "<div id='accordion001'>" +
+                       "<div class='card mb-2 border border-success'>" +
+                       "<div class='card-header'>" +
+                       "<button type='button' class='btn btn-link shadow - none text - success' data-toggle='collapse' data-target='#collapsesingleFA-" + Convert.ToInt32(chkfinancialdt.Rows[i]["Beneficiary_Asset_ID"]) + "' aria-expanded='true' aria-controls='collapse-22'>" +
+                       "" + assetcat + " -  (Single)" +
+                       "</button>" +
+                       "</div>" +
+                       "<div id='collapsesingleFA-" + Convert.ToInt32(chkfinancialdt.Rows[i]["Beneficiary_Asset_ID"]) + "' class='collapse' data-parent='#accordion001'>" +
+                       "<div class='card-body'>" +
+                       "<div class='row'>" +
+                       "<div class='col-sm-3'>" +
+                       "<label for='input-1'>Beneficiary</label>" +
+                       "<input type='text' value='" + chkfinancialdt.Rows[i]["First_Name"].ToString() + "'  readonly='true' class='form-control' id='' />" +
+                       "</div>" +
+                       "<div class='col-sm-3'>" +
+                       "<label for='input-1'>Asset Type</label>" +
+                       "<input type='text' value='" + assettype + "' id='' readonly='true' class='form-control'/>" +
+                       "</div>" +
+                       "<div class='col-sm-3'>" +
+                       "<label for='input-1'>Asset Category</label>" +
+                       "<input type='text' value='" + assetcat + "' id='' readonly='true' class='form-control' />" +
+                       "</div>" +
+                       "<div class='col-sm-3'>" +
+                       "<label for='input-1'>Proportion</label>" +
+                       "<input type='text' value='" + chkfinancialdt.Rows[i]["Proportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>";
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+            }
+            con.Close();
+
+
+
+            //end
+
+
+
+
+
+            return financialstructure;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public string BindLastSingleNonFinancialRecords()
+        {
+            // last financial records
+            string financialstructure = "";
+            con.Open();
+            string checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 2 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1  ";
+            SqlDataAdapter chkfinancialda = new SqlDataAdapter(checkfinancial, con);
+            DataTable chkfinancialdt = new DataTable();
+            chkfinancialda.Fill(chkfinancialdt);
+            string assetcat = "";
+            string assettype = "";
+            if (chkfinancialdt.Rows.Count > 0)
+            {
+
+
+
+
+
+
+
+
+
+
+
+
+
+                for (int i = 0; i < chkfinancialdt.Rows.Count; i++)
+                {
+
+
+                    string getassettype = "select b.AssetsType , a.AssetsCategory from AssetsCategory a inner join AssetsType b on a.atId=b.atId  where a.amId = " + Convert.ToInt32(chkfinancialdt.Rows[i]["AssetCategory_ID"]) + "";
+                    SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
+                    DataTable atdt = new DataTable();
+                    atda.Fill(atdt);
+                    if (atdt.Rows.Count > 0)
+                    {
+                        assetcat = atdt.Rows[0]["AssetsCategory"].ToString();
+                        assettype = atdt.Rows[0]["AssetsType"].ToString();
+
+
+                        financialstructure = financialstructure + "<div class='row'>" +
+                       "<div class='col-lg-12'>" +
+                       "<div id='accordion001'>" +
+                       "<div class='card mb-2 border border-success'>" +
+                       "<div class='card-header'>" +
+                       "<button type='button' class='btn btn-link shadow - none text - success' data-toggle='collapse' data-target='#collapsesingleNFA-" + Convert.ToInt32(chkfinancialdt.Rows[i]["Beneficiary_Asset_ID"]) + "' aria-expanded='true' aria-controls='collapse-22'>" +
+                       "" + assetcat + " -  (Single)" +
+                       "</button>" +
+                       "</div>" +
+                       "<div id='collapsesingleNFA-" + Convert.ToInt32(chkfinancialdt.Rows[i]["Beneficiary_Asset_ID"]) + "' class='collapse' data-parent='#accordion001'>" +
+                       "<div class='card-body'>" +
+                       "<div class='row'>" +
+                       "<div class='col-sm-3'>" +
+                       "<label for='input-1'>Beneficiary</label>" +
+                       "<input type='text' value='" + chkfinancialdt.Rows[i]["First_Name"].ToString() + "'  readonly='true' class='form-control' id='' />" +
+                       "</div>" +
+                       "<div class='col-sm-3'>" +
+                       "<label for='input-1'>Asset Type</label>" +
+                       "<input type='text' value='" + assettype + "' id='' readonly='true' class='form-control'/>" +
+                       "</div>" +
+                       "<div class='col-sm-3'>" +
+                       "<label for='input-1'>Asset Category</label>" +
+                       "<input type='text' value='" + assetcat + "' id='' readonly='true' class='form-control' />" +
+                       "</div>" +
+                       "<div class='col-sm-3'>" +
+                       "<label for='input-1'>Proportion</label>" +
+                       "<input type='text' value='" + chkfinancialdt.Rows[i]["Proportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>" +
+                       "</div>";
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+            }
+            con.Close();
+
+
+
+            //end
+
+
+
+
+
+            return financialstructure;
+
+        }
+
+
+
+
+
+
+
+
+
+        public string BindLastMultipleFinancialRecords()
+        {
+            // last financial records
+            string financialstructure = "";
+
+            string body = "";
+            con.Open();
+            string checkfinancial = "select f.AssetCategory_ID,ac.AssetsCategory from (select AssetCategory_ID from BeneficiaryAssets ba ";
+            checkfinancial += " inner join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
+            checkfinancial += " where ba.AssetType_ID = 1 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 group by ba.AssetCategory_ID) f ";
+            checkfinancial += " left join AssetsCategory ac on ac.amId = f.AssetCategory_ID";
+
+            SqlDataAdapter chkfinancialda = new SqlDataAdapter(checkfinancial, con);
+            DataTable chkfinancialdt = new DataTable();
+            chkfinancialda.Fill(chkfinancialdt);
+            con.Close();
+            string assetcat = "";
+
+            int assetcatid;
+            if (chkfinancialdt.Rows.Count > 0)
+            {
+
+                for (int j = 0; j < chkfinancialdt.Rows.Count; j++)
+                {
+                    assetcatid = Convert.ToInt32(chkfinancialdt.Rows[j]["AssetCategory_ID"]);
+                    assetcat = chkfinancialdt.Rows[j]["AssetsCategory"].ToString();
+                    financialstructure += "<div class='row'>" +
+          "<div class='col-lg-12'>" +
+          "<div id='accordion001'>" +
+          "<div class='card mb-2 border border-success'>" +
+          "<div class='card-header'>" +
+         "<button type='button' class='btn btn-link shadow - none text - success' data-toggle='collapse' data-target='#multipleaccordion-" + assetcatid + "' aria-expanded='true' aria-controls='collapse-22'>" +
+          "" + assetcat + " -  (Multiple)" +
+          "</button>" +
+          "</div>" +
+           "<div id='multipleaccordion-" + assetcatid + "' class='collapse' data-parent='#accordion001'>" +
+          "<div class='card-body'>";
+
+
+
+                    string getassettype = "select distinct ba.Beneficiary_Asset_ID,bd.First_Name,at.AssetsType,ba.Proportion from BeneficiaryAssets ba ";
+                    getassettype += " left join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
+                    getassettype += " left join BeneficiaryDetails bd on bd.bpId = ba.Beneficiary_ID ";
+                    getassettype += " left join AssetsType at on at.atId = ba.AssetType_ID ";
+                    getassettype += " where ba.AssetType_ID = 1 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 and ba.AssetCategory_ID = " + Convert.ToInt32(assetcatid);
+
+                    SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
+                    DataTable atdt = new DataTable();
+                    atda.Fill(atdt);
+                    if (atdt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < atdt.Rows.Count; i++)
+                        {
+                            string First_Name = "";
+                            string Proportion = "";
+                            string assettype = "";
+                            First_Name = atdt.Rows[i]["First_Name"].ToString();
+                            assettype = atdt.Rows[i]["AssetsType"].ToString();
+                            Proportion = atdt.Rows[i]["Proportion"].ToString();
+
+
+
+
+
+                            financialstructure += "<div class='row'>" +
+                    "<div class='col-sm-3'>" +
+                    "<label for='input-1'>Beneficiary</label>" +
+                    "<input type='text' value='" + First_Name + "'  readonly='true' class='form-control' id='' />" +
+                    "</div>" +
+                    "<div class='col-sm-3'>" +
+                    "<label for='input-1'>Asset Type</label>" +
+                    "<input type='text' value='" + assettype + "' id='' readonly='true' class='form-control'/>" +
+                    "</div>" +
+                    "<div class='col-sm-3'>" +
+                    "<label for='input-1'>Asset Category</label>" +
+                    "<input type='text' value='" + assetcat + "' id='' readonly='true' class='form-control' />" +
+                    "</div>" +
+                    "<div class='col-sm-3'>" +
+                    "<label for='input-1'>Proportion</label>" +
+                    "<input type='text' value='" + Proportion + "' id=''  readonly='true' class='form-control' />" +
+                    "</div>" +
+                    "</div>";
+
+
+
+
+
+
+
+
+                        }
+                    }
+                    financialstructure += "</div>" +
+          "</div>" +
+          "</div>" +
+          "</div>";
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1935,37 +2314,149 @@ namespace WillAssure.Controllers
 
             }
 
-            con.Close();
+
+
+            return financialstructure;
 
 
 
-            return "";
         }
 
 
 
-        public string BindLastFinancialRecords()
+
+
+
+
+
+        public string BindLastMultipleNonFinancialRecords()
         {
+            // last financial records
+            string financialstructure = "";
+
+            string body = "";
             con.Open();
-            string query = "";
+            string checkfinancial = "select f.AssetCategory_ID,ac.AssetsCategory from (select AssetCategory_ID from BeneficiaryAssets ba ";
+            checkfinancial += " inner join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
+            checkfinancial += " where ba.AssetType_ID = 2 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 group by ba.AssetCategory_ID) f ";
+            checkfinancial += " left join AssetsCategory ac on ac.amId = f.AssetCategory_ID";
 
-
+            SqlDataAdapter chkfinancialda = new SqlDataAdapter(checkfinancial, con);
+            DataTable chkfinancialdt = new DataTable();
+            chkfinancialda.Fill(chkfinancialdt);
             con.Close();
+            string assetcat = "";
+
+            int assetcatid;
+            if (chkfinancialdt.Rows.Count > 0)
+            {
+
+                for (int j = 0; j < chkfinancialdt.Rows.Count; j++)
+                {
+                    assetcatid = Convert.ToInt32(chkfinancialdt.Rows[j]["AssetCategory_ID"]);
+                    assetcat = chkfinancialdt.Rows[j]["AssetsCategory"].ToString();
+                    financialstructure += "<div class='row'>" +
+          "<div class='col-lg-12'>" +
+          "<div id='accordion001'>" +
+          "<div class='card mb-2 border border-success'>" +
+          "<div class='card-header'>" +
+         "<button type='button' class='btn btn-link shadow - none text - success' data-toggle='collapse' data-target='#multipleaccordion-" + assetcatid + "' aria-expanded='true' aria-controls='collapse-22'>" +
+          "" + assetcat + " -  (Multiple)" +
+          "</button>" +
+          "</div>" +
+           "<div id='multipleaccordion-" + assetcatid + "' class='collapse' data-parent='#accordion001'>" +
+          "<div class='card-body'>";
 
 
 
-            return "";
-        }
+                    string getassettype = "select distinct ba.Beneficiary_Asset_ID,bd.First_Name,at.AssetsType,ba.Proportion from BeneficiaryAssets ba ";
+                    getassettype += " left join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
+                    getassettype += " left join BeneficiaryDetails bd on bd.bpId = ba.Beneficiary_ID ";
+                    getassettype += " left join AssetsType at on at.atId = ba.AssetType_ID ";
+                    getassettype += " where ba.AssetType_ID = 2 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 and ba.AssetCategory_ID = " + Convert.ToInt32(assetcatid);
+
+                    SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
+                    DataTable atdt = new DataTable();
+                    atda.Fill(atdt);
+                    if (atdt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < atdt.Rows.Count; i++)
+                        {
+                            string First_Name = "";
+                            string Proportion = "";
+                            string assettype = "";
+                            First_Name = atdt.Rows[i]["First_Name"].ToString();
+                            assettype = atdt.Rows[i]["AssetsType"].ToString();
+                            Proportion = atdt.Rows[i]["Proportion"].ToString();
 
 
 
 
 
-        public string BindNonFinancialRecords()
-        {
+                            financialstructure += "<div class='row'>" +
+                    "<div class='col-sm-3'>" +
+                    "<label for='input-1'>Beneficiary</label>" +
+                    "<input type='text' value='" + First_Name + "'  readonly='true' class='form-control' id='' />" +
+                    "</div>" +
+                    "<div class='col-sm-3'>" +
+                    "<label for='input-1'>Asset Type</label>" +
+                    "<input type='text' value='" + assettype + "' id='' readonly='true' class='form-control'/>" +
+                    "</div>" +
+                    "<div class='col-sm-3'>" +
+                    "<label for='input-1'>Asset Category</label>" +
+                    "<input type='text' value='" + assetcat + "' id='' readonly='true' class='form-control' />" +
+                    "</div>" +
+                    "<div class='col-sm-3'>" +
+                    "<label for='input-1'>Proportion</label>" +
+                    "<input type='text' value='" + Proportion + "' id=''  readonly='true' class='form-control' />" +
+                    "</div>" +
+                    "</div>";
 
 
-            return "";
+
+
+
+
+
+
+                        }
+                    }
+                    financialstructure += "</div>" +
+          "</div>" +
+          "</div>" +
+          "</div>";
+
+
+
+                }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            }
+
+
+
+            return financialstructure;
+
+
+
         }
 
 

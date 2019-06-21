@@ -594,7 +594,7 @@
                                  res += "<div class='col-sm-2'>";
                                  res += "<div class='form-group' id='mainbeneddl" + data[i].assetcatid+"'>";
                                  res += "<label for='input-1'>Beneficiary single</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
-                                 res += "<select id='ddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id)' name='contentList' class='form-control beneficiaryclass validate[required]'></select>";
+                                 res += "<select id='ddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control beneficiaryclass validate[required]'></select>";
                                  res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                                  res += "</div>";
                                  res += "</div>";  
@@ -637,7 +637,8 @@
 
                                  res += "<div class='form-group'>";
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' id='btnmappingsubmit' value=" + data[i].assetcatid + "  class='btn btn-primary shadow-primary px-5 btn" + data[i].assetcatid + "'><i class='icon-lock'></i>Submit</button>";
-                                 res += "<button type='button' id='btnadd'   value='" + data[i].assetcatid + "' style='display:none;' disabled='disabled'    class='btn btn-success shadow-primary px-5 btnadd"+data[i].assetcatid+"'><i class='icon-lock'></i>Add Multiple</button>";
+                                 res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' id='btnadd'   value='" + data[i].assetcatid + "' style='display:none;' disabled='disabled'    class='btn btn-success shadow-primary px-5 btnadd"+data[i].assetcatid+"'><i class='icon-lock'></i>Add Multiple</button>";
+                                 res += "&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' value='Reset' class='btn btn-danger' id='btnreset' />";
                                  res += " </div>";
                                  res += " </div>";
                                  res += " </div>";
@@ -889,7 +890,10 @@
 
             var prevtotalinputval = $prevdiv.find('.totalinput').val();
 
+            $prevdiv.find('.proportioninput').attr("disabled","disabled");
 
+            
+            
 
 
             if (typeof prevtotalinputval === "undefined") {
@@ -1123,8 +1127,8 @@
 
 
 
-        function checkbeneficiaryduplicate(id) {
-
+        function checkbeneficiaryduplicate(id, value) {
+         
             var dt = '';
             var lang_name = $('#' + id).val();
             var selectedtext = $("#" + id + " option:selected").text();
@@ -1158,7 +1162,7 @@
                 $("#Beneficiarytxt").val(id).attr("disabled", "disabled");
 
 
-                $("#query").append(v2 + ",");
+                $("#query").append(value + ",");
 
             }
 
@@ -1888,7 +1892,16 @@ function getDDLTestator(value) {
             
 
             }
-    });
+        });
+
+
+        $(document).on("click", "#btnreset", function () {
+
+
+            location.reload();
+            
+
+        });
 
 
     </script>

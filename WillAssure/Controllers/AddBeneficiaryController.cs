@@ -806,7 +806,7 @@ namespace WillAssure.Controllers
                 DateTime altdat = DateTime.ParseExact(BM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 altcmd.Parameters.AddWithValue("@DOB", altdat);
                 altcmd.Parameters.AddWithValue("@Mobile", BM.altMobile);
-                altcmd.Parameters.AddWithValue("@Relationship", BM.altRelationshipTxt);
+                altcmd.Parameters.AddWithValue("@Relationship", "None");
                 altcmd.Parameters.AddWithValue("@Marital_Status", BM.altMarital_Status_Txt);
                 altcmd.Parameters.AddWithValue("@Religion", "none");
                 altcmd.Parameters.AddWithValue("@Identity_Proof", BM.altIdentity_Proof);

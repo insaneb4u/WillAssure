@@ -84,8 +84,16 @@ namespace WillAssure.Controllers
             string query = "insert into BeneficiaryInstitutions (Name,Type,registrationNo,Address,City,State,tid) values ('"+BIM.FirstName+"' , '"+BIM.TypeText+"' , "+BIM.RegistrationNo+" , '"+BIM.Address+"' , '"+BIM.CityText+"' , '"+BIM.StateText+"',"+Convert.ToInt32(Session["distid"])+")";
             SqlCommand cmd = new SqlCommand(query,con);
             cmd.ExecuteNonQuery();
-         
+
+
+            string query2 = "insert into BeneficiaryDetails (First_Name,Address1,State,City,tId) values ('"+BIM.FirstName+"', '"+BIM.Address+"' , '"+BIM.StateText+"' , '"+BIM.CityText+ "'," + Convert.ToInt32(Session["distid"]) + ")";
+            SqlCommand cmd2 = new SqlCommand(query2,con);
+            cmd2.ExecuteNonQuery();
             con.Close();
+
+
+
+           
 
 
 

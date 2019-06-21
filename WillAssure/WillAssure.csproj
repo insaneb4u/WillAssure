@@ -259,6 +259,7 @@
     <Compile Include="Controllers\LoginPageController.cs" />
     <Compile Include="Controllers\RoleAddController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
+    <Compile Include="Controllers\TestatorHomePageController.cs" />
     <Compile Include="Controllers\UpdateAlternateAppointeesController.cs" />
     <Compile Include="Controllers\UpdateAlternateBeneficiaryController.cs" />
     <Compile Include="Controllers\UpdateAppointeesController.cs" />
@@ -1866,6 +1867,7 @@
     <Content Include="Views\CompletedDocument\Completeddocumentpagecontent.cshtml" />
     <Content Include="Views\AddBeneficiaryInstitute\AddBeneficiaryInstitute.cshtml" />
     <Content Include="Views\EditBeneficiaryInstitution\EditBeneficiaryInstitution.cshtml" />
+    <Content Include="Views\TestatorHomePage\TestatorHomePageContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

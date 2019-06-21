@@ -170,6 +170,8 @@ namespace WillAssure.Controllers
                             {
                                 //  return RedirectToAction("EnableDocumentLinks", "DashBoard");
                                 return RedirectToAction("Index", "Frontend", new { displayname = Session["displayname"].ToString() });
+
+                              //  return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage", new { displayname = Session["displayname"].ToString() });
                             }
                             else
                             {

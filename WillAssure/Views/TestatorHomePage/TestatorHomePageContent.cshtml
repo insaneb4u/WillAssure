@@ -1,14 +1,13 @@
 ﻿﻿@model WillAssure.Models.TestatorFormModel
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "TestatorHomePageContent";
+    ViewBag.Title = "TestatorHomePageContent";
 }
 <style>
     a:focus {
         color: #40a97b;
     }
-
 </style>
 
 <h6 class="text-uppercase">Vertical Nav Tabs</h6>
@@ -29,14 +28,17 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#tabe-25"><i class="icon-doc"></i> <span class="hidden-xs">Create Document</span></a>
                                 </li>
+                                
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabe-26"><i class="icon-check"></i> <span class="hidden-xs">Completed Document</span></a>
                                 </li>
+                
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tabe-27"><i class="icon-info"></i> <span class="hidden-xs">Incompleted Document</span></a>
+                                    </li>
+                           
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tabe-27"><i class="icon-info"></i> <span class="hidden-xs">Incompleted Document</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" id="rzp-button1" ><i class="icon-badge"></i> <span class="hidden-xs">Payment</span></a>
+                                    <a class="nav-link" id="rzp-button1"><i class="icon-badge"></i> <span class="hidden-xs">Payment</span></a>
                                 </li>
 
                             </ul>
@@ -107,13 +109,82 @@
 
                             </div>
                             <div id="tabe-26" class="container tab-pane fade">
-                               
+
+                                @if (ViewBag.empty == "true")
+                                {
+                                    <center><h4 style="color:darkred;">Currently No Document Has Been Completed...!</h4></center>
+                                }
+
+
+
+                                @if (ViewBag.documentbtn1 == "true")
+                                {
+
+                                    <script>
+
+                                        $("#documentbtn1").removeAttr("style");
+
+                                    </script>
+
+                                }
+                                @if (ViewBag.documentbtn2 == "true")
+                                {
+
+                                    <script>
+
+                                        $("#documentbtn2").removeAttr("style");
+
+                                    </script>
+
+                                }
+                                @if (ViewBag.documentbtn3 == "true")
+                                {
+
+                                    <script>
+
+                                        $("#documentbtn3").removeAttr("style");
+
+                                    </script>
+
+                                }
+                                @if (ViewBag.documentbtn4 == "true")
+                                {
+
+                                    <script>
+
+                                        $("#documentbtn4").removeAttr("style");
+
+                                    </script>
+
+                                }
+
+                                @if (ViewBag.documentbtn5 == "true")
+                                {
+
+                                    <script>
+
+                                        $("#documentbtn5").removeAttr("style");
+
+                                    </script>
+
+                                }
+
+
+
+
+
                             </div>
 
-                           
 
-                            <div id="tabe-28" class="container tab-pane fade">
-                                <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+
+                            <div id="tabe-27" class="container tab-pane fade">
+                                <center>
+                                    <a href="@Url.Action("EnableDocumentLinks","DashBoard", new { doctype = "Will" })" id="documentbtn1" style="display:none;"><button type="button" class="btn btn-primary btn-round waves-effect waves-light m-1">Will</button></a>
+                                    <a href="@Url.Action("CodocilIndex","Codocil")" id="documentbtn2" style="display:none;"> <button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">Codocil</button></a>
+                                    <a href="@Url.Action("EnableDocumentLinks","DashBoard", new { doctype = "POA" } )" id="documentbtn3" style="display:none;"><button type="button" class="btn btn-info btn-round waves-effect waves-light m-1">POA</button></a>
+                                    <a href="@Url.Action("EnableDocumentLinks","DashBoard", new { doctype = "GiftDeeds" })" id="documentbtn4" style="display:none;"><button type="button" class="btn btn-danger btn-round waves-effect waves-light m-1">Gift Deeds</button></a>
+                                    <a href="@Url.Action("LivingWillIndex","LivingWill", new { doctype = "LivingWill" })" id="documentbtn5" style="display:none;"><button type="button" class="btn btn-warning btn-round waves-effect waves-light m-1">Living Will</button></a>
+                                </center>
                             </div>
                         </div>
 
@@ -123,14 +194,6 @@
         </div>
     </div>
 </div><!--End Row-->
-
-
-
-
-
-
-
-
 @*payment integration script*@
 
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
@@ -217,7 +280,7 @@
 
 
 @*end*@
-   
+
 
 <script>
 
@@ -230,7 +293,7 @@
             success: function (data) {
 
             }
-            
+
         });
 
 
@@ -240,3 +303,149 @@
 
 
 </script>
+
+
+
+
+
+@if (ViewBag.Willbtn == "true")
+{
+    <script>
+        $(document).ready(function () {
+            $("#documentbtn1").hide();
+        });
+
+    </script>
+}
+
+@if (ViewBag.POAbtn == "true")
+{
+    <script>
+        $(document).ready(function () {
+            $("#documentbtn3").hide();
+        });
+
+    </script>
+}
+
+
+@if (ViewBag.Giftdeedsbtn == "true")
+{
+    <script>
+        $(document).ready(function () {
+            $("#documentbtn4").hide();
+        });
+
+    </script>
+}
+
+
+@if (ViewBag.LivingWillbtn == "true")
+{
+    <script>
+        $(document).ready(function () {
+            $("#documentbtn5").hide();
+        });
+
+    </script>
+}
+
+
+@if (ViewBag.Codocilbtn == "true")
+{
+    <script>
+        $(document).ready(function () {
+            $("#documentbtn2").hide();
+        });
+
+    </script>
+}
+
+
+@if (ViewBag.documentbtn1 == "true")
+{
+
+    <script>
+
+        $("#documentbtn1").removeAttr("style");
+
+    </script>
+
+}
+@if (ViewBag.documentbtn2 == "true")
+{
+
+    <script>
+
+        $("#documentbtn2").removeAttr("style");
+
+    </script>
+
+}
+@if (ViewBag.documentbtn3 == "true")
+{
+
+    <script>
+
+        $("#documentbtn3").removeAttr("style");
+
+    </script>
+
+}
+@if (ViewBag.documentbtn4 == "true")
+{
+
+    <script>
+
+        $("#documentbtn4").removeAttr("style");
+
+    </script>
+
+}
+
+@if (ViewBag.documentbtn5 == "true")
+{
+
+    <script>
+
+        $("#documentbtn5").removeAttr("style");
+
+    </script>
+
+}
+
+
+@if (ViewBag.Testatorpopup == "true")
+{
+    <script>
+
+        $(document).ready(function () {
+            $("#btnotp").on("click", function () { });
+
+            $("#btnotp").click(); //trigger event after listening to it.
+
+        });
+    </script>
+
+
+}
+
+
+
+
+
+
+@if (ViewBag.Message == "Failed")
+{
+    <script>
+
+        $(document).ready(function () {
+            $("#lblerror").html("Invalid OTP Number");
+
+        });
+    </script>
+
+}
+
+
+

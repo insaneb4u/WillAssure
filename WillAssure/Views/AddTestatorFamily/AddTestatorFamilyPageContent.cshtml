@@ -67,7 +67,7 @@
                                         <li style="color:#e1e1e1">Liabilites></li>
                                         <li style="color:#e1e1e1">PetCare ></li>
                                         <li style="color:#e1e1e1">Mapping ></li>
-                                        <li style="color:#e1e1e1">Nominee ></li>
+
                                         <li style="color:#e1e1e1">Appointees > </li>
                                         <li style="color:#e1e1e1">Document</li>
 
@@ -105,8 +105,8 @@
                                 </div>
                             </div>
                         </div>
-                       
-                       
+
+
                         <div class="row">
                             <div class="col-sm-3">  <div class="card-title text-primary">Add Testators Family</div></div>
                             <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Testator Family Details )</h6></div></div>
@@ -143,7 +143,7 @@
 
                             </div>
                             <hr class="div_rd">
-                            <input type="hidden" id="txtcheck" value="" name="name" />
+                          
 
 
 
@@ -183,7 +183,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Date Of Birth</label>
-                                            <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                                            <div id="datepicker1" class="input-group date" data-date-format="dd-mm-yyyy">
                                                 <input class="form-control input-shadow validate[required]" value="@Model.Dob" type="text" id="DOB" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
@@ -197,7 +197,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Date Of Birth</label>
-                                            <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                                            <div id="datepicker1" class="input-group date" data-date-format="dd-mm-yyyy">
                                                 <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
@@ -374,40 +374,6 @@
 
 
 
-                            @*<div class="col-sm-6">
-                <div class="form-group">
-                    <label for="input-3">Marital Status</label>
-                    @Html.DropDownListFor(x => x.Marital_Status, new SelectListItem[]{
-                    new SelectListItem() {Text = "--Select--", Value=""},
-                   new SelectListItem() {Text = "Married", Value="Married"},
-                   new SelectListItem() {Text = "UnMarried", Value="Married"}}, new { @class = "form-control input-shadow validate[required]" , @id="ddlmaritalstatus" })
-
-
-                </div>
-            </div>
-
-
-
-            <div class="col-sm-6">
-
-                <div class="form-group">
-                    <label for="input-1">Religion</label>
-                    @Html.DropDownListFor(x => x.Religion, new SelectListItem[]{
-             new SelectListItem() {Text = "--Select--", Value=""},
-             new SelectListItem() {Text = "Buddhism", Value="Buddhism"},
-             new SelectListItem() {Text = "Christians", Value="Christians"},
-             new SelectListItem() {Text = "Hinduism", Value="Hinduism"},
-             new SelectListItem() {Text = "Islam", Value="Islam"},
-             new SelectListItem() {Text = "Jainism", Value="Jainism"},
-             new SelectListItem() {Text = "Sikhism", Value="Sikhism"},
-
-             new SelectListItem() {Text = "Zoroastrian", Value="Zoroastrian"}}, new { @class = "form-control input-shadow validate[required]" , @id="ddlreligion" })
-
-
-
-                </div>
-            </div>*@
-
 
 
 
@@ -497,6 +463,403 @@
                                 }
 
                             </div>
+
+
+
+
+
+                        
+
+
+                            // add alternate testator family
+                            <div class="row">
+                                <div class="col-sm-1"></div>
+                                <div class="col-sm-2"> <label for="input-1" style="white-space:nowrap;">Add Alternate Testator Family</label></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                @Html.HiddenFor(m => m.altchek, new { @id = "txtcheck" })
+
+                                <div class="col-sm-6" id="showcompany">
+
+                                    <div class="form-group">
+
+                                        <br />
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" value="Yes" class="altradio validate[required]" name="radio1">Yes
+                                        </label>
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" value="No" class="altradio validate[required]" name="radio1">No
+                                        </label>
+
+
+
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
+                            <div id="alttestatorfamily" style="display:none;">
+
+
+                                @Html.HiddenFor(m => m.fId)
+
+
+                                <hr class="div_rd">
+                               
+
+
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">First Name</label>
+                                            @Html.TextBoxFor(m => m.altFirst_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtFirstName", @placeholder = "Enter First Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Middle Name</label>
+                                            @Html.TextBoxFor(m => m.altMiddle_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtMiddle_Name", @placeholder = "Enter Middle Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Last Name</label>
+                                            @Html.TextBoxFor(m => m.altLast_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtLastName", @placeholder = "Enter Last Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3"></div>
+
+
+
+                                    @if (Model.altDob != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Date Of Birth</label>
+                                                <div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">
+                                                    <input class="form-control input-shadow validate[required]" value="@Model.altDob" type="text" id="DOB" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                                <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
+
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Date Of Birth</label>
+                                                <div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">
+                                                    <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                                <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
+
+                                            </div>
+                                        </div>
+                                    }
+
+
+
+
+
+                                    @if (Model.altRelationshipTxt != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Relation</label>
+                                                <select id="altddlrelation" class="form-control input-shadow validate[required]">
+                                                    <option value="@Model.altRelationshipTxt">@Model.altRelationshipTxt</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altRelationshipId, new { id = "altrelationid" })
+                                                @Html.HiddenFor(m => m.altRelationshipTxt, new { id = "altrelationtext" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Relation</label>
+                                                <select id="altddlrelation" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                                                @Html.HiddenFor(m => m.altRelationshipId, new { id = "altrelationid" })
+                                                @Html.HiddenFor(m => m.altRelationshipTxt, new { id = "altrelationtext" })
+                                            </div>
+                                        </div>
+
+                                    }
+
+
+
+
+                                </div>
+
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2">
+                                        <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label>
+                                        <label class="radio-inline">
+                                            <input type="checkbox" name="optradio" id="testchk">Same As Testator
+                                        </label>
+                                    </div>
+
+
+                                    @if (Model.altState_txt != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">State</label>
+                                                <select id="altddlstate" class="form-control input-shadow validate[required]">
+                                                    <option value="@Model.altState_txt">@Model.altState_txt</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altState_id, new { id = "altstateid" })
+                                                @Html.HiddenFor(m => m.altState_txt, new { id = "altstatetext" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">State</label>
+                                                <select id="altddlstate" class="form-control input-shadow validate[required]">
+                                                    <option value="">--Select State--</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altState_id, new { id = "altstateid" })
+                                                @Html.HiddenFor(m => m.altState_txt, new { id = "altstatetext" })
+                                            </div>
+                                        </div>
+                                    }
+
+
+
+
+
+
+                                    @if (Model.altCity_txt != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">City</label>
+                                                <select id="altddlcity" class="form-control input-shadow validate[required]">
+                                                    <option value="@Model.altCity_txt">@Model.City_txt</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altCity_id, new { id = "altcityid" })
+                                                @Html.HiddenFor(m => m.altCity_txt, new { id = "altcitytext" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">City</label>
+                                                <select id="altddlcity" class="form-control input-shadow validate[required]">
+                                                    <option value="">--Select City--</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altCity_id, new { id = "altcityid" })
+                                                @Html.HiddenFor(m => m.altCity_txt, new { id = "altcitytext" })
+                                            </div>
+                                        </div>
+                                    }
+
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Pin</label>
+                                            @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "txtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <label for="input-1">Address 1</label>
+                                            @Html.TextAreaFor(m => m.altAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtAddress1", @placeholder = "Enter Address1", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <label for="input-1">Address 2</label>
+                                            @Html.TextAreaFor(m => m.altAddress2, new { @class = "form-control input-shadow text-input", @id = "txtAddress2", @placeholder = "Enter Address2", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <label for="input-1">Address 3</label>
+                                            @Html.TextAreaFor(m => m.altAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtAddress3", @placeholder = "Enter Address3", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Identity Proof</label>
+                                            @Html.DropDownListFor(x => x.altIdentity_Proof, new SelectListItem[]{
+                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Identity Proof Value</label>
+                                            <div id="appendtxt"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Alt Identity Proof</label>
+                                            @Html.DropDownListFor(x => x.altIdentity_Proof, new SelectListItem[]{
+                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow ", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                            @Html.HiddenFor(m => m.Alt_Identity_Proof, new { id = "Alt_Identity_Proof" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Alt Identity Proof Value</label>
+                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.altAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
+
+                                        </div>
+                                    </div>
+
+                                    @*<div class="col-sm-6">
+
+                        <div class="form-group">
+                            <label for="input-1">Is Informed Person</label>
+
+                            @Html.TextBoxFor(m => m.Is_Informed_Person, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtRole", @placeholder = "Enter Is Informed Person", @autocomplete = "off", alert = "LabourCost is requried" })
+                        </div>
+                    </div>*@
+
+
+
+
+                                </div>
+
+                                <hr />
+
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+
+                                    @if (Session["Type"].ToString() != "Testator")
+                                    {
+                                        <div class="col-sm-2"> <label for="input-1">Status</label></div>
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                @Html.DropDownListFor(x => x.altactive, new SelectListItem[]{
+                                               new SelectListItem() {Text = "--Select--", Value=""},
+                                               new SelectListItem() {Text = "Active", Value="Active"},
+                                               new SelectListItem() {Text = "Inactive", Value="2"}}, new { @class = "form-control input-shadow validate[required]" })
+                                            </div>
+                                        </div>
+
+                                    }
+
+                                </div>
+
+
+
+
+
+
+                            </div>
+
+
 
 
 
@@ -669,6 +1032,68 @@
         $("#cityid").val(value);
     });
 
+
+
+
+                        // alternate state and city
+
+
+                           $("#altddlstate").change(function () {
+        var value = $(this).children(":selected").attr("value");
+        var text = $("#altddlstate option:selected").html();
+
+        $("#altstatetext").val(text);
+        $("#altstateid").val(value);
+
+
+        $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("altOnChangeBindCity", "AddTestatorFamily")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#altddlcity').append(data);
+            }
+
+
+
+        });
+
+
+
+    });
+
+
+    $("#altddlcity").change(function () {
+        var value = $(this).children(":selected").attr("value");
+        var text = $("#altddlcity option:selected").html();
+
+        $("#altcitytext").val(text);
+        $("#altcityid").val(value);
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        //en
+
+
+
+
+
+
     $(document).ready(function () {
 
         $.ajax({
@@ -677,6 +1102,17 @@
             url:"@Url.Action("BindStateDDL", "AddTestatorFamily")",
             success: function (data) {
                 $('#ddlstate').append(data);
+            }
+        });
+
+
+
+            $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("altBindStateDDL", "AddTestatorFamily")",
+            success: function (data) {
+                $('#altddlstate').append(data);
             }
         });
 
@@ -694,7 +1130,20 @@
         $("#relationid").val(value);
 
 
-    });
+                        });
+
+
+
+
+                        $("#altddlrelation").change(function () {
+                            var value = $(this).children(":selected").attr("value");
+                            var text = $("#altddlrelation option:selected").html();
+
+                            $("#altrelationtext").val(text);
+                            $("#altrelationid").val(value);
+
+
+                        });
 
 
 
@@ -708,6 +1157,24 @@
                 $('#ddlrelation').append(data);
             }
           });
+
+
+          // alternate relation drop down
+
+
+            $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("AltBindRelationDDL", "AddTestatorFamily")",
+            success: function (data) {
+                $('#altddlrelation').append(data);
+            }
+          });
+
+
+
+
+          //end
 
 
 
@@ -1147,7 +1614,91 @@
 
 
 
-                       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        $(function () {
+
+                            var now = new Date();
+                            var sDate = new Date(now.getFullYear() - 18, now.getMonth(), 1);
+
+
+
+                            var endDate = new Date(sDate.getFullYear + '-' + sDate.getMonth() + '-' + sDate.getDay());
+                            var startDate = new Date('1930-01-01');
+
+                            $('#datepicker1').datepicker({
+                                //other option
+                                startDate: startDate, //set start date
+                                endDate: sDate //set end date
+                            });
+                        });
+
+
+
+
+
+                        $(function () {
+
+                            var now = new Date();
+                            var sDate = new Date(now.getFullYear() - 18, now.getMonth(), 1);
+
+
+
+                            var endDate = new Date(sDate.getFullYear + '-' + sDate.getMonth() + '-' + sDate.getDay());
+                            var startDate = new Date('1930-01-01');
+
+                            $('#datepicker2').datepicker({
+                                //other option
+                                startDate: startDate, //set start date
+                                endDate: sDate //set end date
+                            });
+                        });
+
+
+
+
+                        $('.altradio').on('change', function () {
+
+                            $('.altradio').not(this).prop('checked', false);
+                            var val = $("input[name=radio1]:checked").val()
+
+                            if (val == "Yes") {
+
+                                $("#showcompany").removeAttr("style");
+                                $("#alttestatorfamily").removeAttr("style");
+                                $("#txtcheck").val("true");
+
+                            }
+
+                            if (val == "No") {
+
+                                $("#alttestatorfamily").css("display", "none");
+                                $("#txtcheck").val("false");
+
+                            }
+
+
+                        });
+
+
+
+
+
+
+
 
 
                     </script>

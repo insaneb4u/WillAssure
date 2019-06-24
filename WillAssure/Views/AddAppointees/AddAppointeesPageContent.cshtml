@@ -62,7 +62,7 @@
                                             <a href="@Url.Action("AddLiabilitiesIndex","AddLiabilities")"><li style="color:black;">Liabilites></li></a>
                                             <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
                                             <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
-                                            <a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>
+                                            @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
                                             <a href="@Url.Action("AddAppointeesIndex","AddAppointees")"><li style="">Appointees > </li></a>
                                             <li style="color:#e1e1e1">Document ></li>
                                         </ul>
@@ -82,7 +82,7 @@
                                             <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Liabilites></li></a>
                                             <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
                                             <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
-                                            <a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>
+                                            @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
                                             <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="">Appointees ></li></a>
                                             <li style="color:#e1e1e1">Document ></li>
                                         </ul>
@@ -1411,6 +1411,21 @@
                         $("#ddlsubtype").change(function () {
                             var value = $(this).children(":selected").attr("value");
                             var text = $("#ddlsubtype option:selected").html();
+
+
+
+                            if (text == "Many Joint") {
+
+                            }
+
+
+                            if (text == "Many Independent") {
+
+                            }
+
+
+
+
 
                             $("#subTypetxt").val(text);
                             $("#subTypeId").val(value);

@@ -508,5 +508,16 @@ namespace WillAssure.Views.ViewDocument
             int tempid = Convert.ToInt32(ViewState["tid"]);
             Response.Redirect("/ChangeTemplate/ChangeTemplateIndex?tempid=" + tempid+"");
         }
+
+        protected void btnback_Click(object sender, EventArgs e)
+        {
+
+            int testatorid = Convert.ToInt32(ViewState["TemplateID"]);
+
+
+            Response.Redirect("/WillDetails/WillDetailsIndex?NestId=" + testatorid + "");
+
+
+        }
     }
 }

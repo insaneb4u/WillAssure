@@ -216,6 +216,7 @@ namespace WillAssure.Controllers
             da.Fill(dt);
             con.Close();
             string data = "";
+            int alternatetfid = 0;
 
             if (dt.Rows.Count > 0)
             {
@@ -224,6 +225,7 @@ namespace WillAssure.Controllers
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     TFM.fId = Convert.ToInt32(dt.Rows[i]["fId"]);
+                    alternatetfid = Convert.ToInt32(dt.Rows[i]["fId"]);
                     TFM.First_Name = dt.Rows[i]["First_Name"].ToString();
                     TFM.Last_Name = dt.Rows[i]["Last_Name"].ToString();
                     TFM.Middle_Name = dt.Rows[i]["Middle_Name"].ToString();
@@ -251,9 +253,62 @@ namespace WillAssure.Controllers
             }
 
 
-         
 
 
+
+
+
+            string query4 = "";
+
+            con.Open();
+
+      
+            query4 = "select * from alttestatorFamily where testatorfamilyid = " + alternatetfid + "";
+        
+            
+
+
+
+
+
+            SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
+            DataTable dt4 = new DataTable();
+            da4.Fill(dt4);
+            con.Close();
+            string data4 = "";
+
+            if (dt4.Rows.Count > 0)
+            {
+                ViewBag.disablefield = "true";
+
+                for (int i = 0; i < dt4.Rows.Count; i++)
+                {
+                    TFM.altfId = Convert.ToInt32(dt4.Rows[i]["altfId"]);
+                    TFM.altFirst_Name = dt4.Rows[i]["altFirst_Name"].ToString();
+                    TFM.altLast_Name = dt4.Rows[i]["altLast_Name"].ToString();
+                    TFM.altMiddle_Name = dt4.Rows[i]["altMiddle_Name"].ToString();
+                    TFM.altDob = Convert.ToDateTime(dt4.Rows[0]["altDOB"]).ToString("dd-MM-yyyy");
+                    TFM.altMarital_Status = dt4.Rows[i]["altMarital_Status"].ToString();
+                    TFM.altReligion = dt4.Rows[i]["altReligion"].ToString();
+                    TFM.altRelationshipTxt = dt4.Rows[i]["altRelationship"].ToString();
+                    TFM.altAddress1 = dt4.Rows[i]["altAddress1"].ToString();
+                    TFM.altAddress2 = dt4.Rows[i]["altAddress2"].ToString();
+                    TFM.altAddress3 = dt4.Rows[i]["altAddress3"].ToString();
+                    TFM.altCity_txt = dt4.Rows[i]["altCity"].ToString();
+                    TFM.altState_txt = dt4.Rows[i]["altState"].ToString();
+                    TFM.altPin = dt4.Rows[i]["altPin"].ToString();
+
+                    TFM.altactive = dt.Rows[i]["altactive"].ToString();
+                    TFM.altIdentity_Proof = dt.Rows[i]["altIdentity_Proof"].ToString();
+                    TFM.altIdentity_Proof_Value = dt.Rows[i]["altIdentity_Proof_Value"].ToString();
+                    TFM.Alt_Identity_Proof = dt.Rows[i]["Alt_Identity_Proof"].ToString();
+                    TFM.Alt_Identity_Proof_Value = dt.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                    TFM.Is_Informed_Person = dt.Rows[i]["altIs_Informed_Person"].ToString();
+
+
+
+                }
+            }
 
 
 
@@ -303,8 +358,42 @@ namespace WillAssure.Controllers
 
 
 
-     
 
+        public String AltBindRelationDDL()
+        {
+
+            con.Open();
+            string query = "select * from relationship";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["Rid"].ToString() + " >" + dt.Rows[i]["MemberName"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
 
 
 
@@ -646,6 +735,78 @@ namespace WillAssure.Controllers
 
 
 
+            // alternate testator family
+            if (TFM.altchek == "true")
+            {
+
+                con.Open();
+                SqlCommand cmd3 = new SqlCommand("SP_CRUDalttestatorfamily", con);
+                cmd3.CommandType = System.Data.CommandType.StoredProcedure;
+                cmd3.Parameters.AddWithValue("@condition", "insert");
+                cmd3.Parameters.AddWithValue("@altFirst_Name", TFM.altFirst_Name);
+                cmd3.Parameters.AddWithValue("@altLast_Name", TFM.altLast_Name);
+                cmd3.Parameters.AddWithValue("@altMiddle_Name", TFM.altMiddle_Name);
+                DateTime dat3 = DateTime.ParseExact(TFM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                cmd3.Parameters.AddWithValue("@DOB", dat3);
+                cmd3.Parameters.AddWithValue("@altMarital_Status", "none");
+                cmd3.Parameters.AddWithValue("@altReligion", "none");
+                cmd3.Parameters.AddWithValue("@altRelationship", TFM.altRelationshipTxt);
+                cmd3.Parameters.AddWithValue("@altAddress1", TFM.altAddress1);
+                cmd3.Parameters.AddWithValue("@altAddress2", TFM.altAddress2);
+                cmd3.Parameters.AddWithValue("@altAddress3", TFM.altAddress3);
+                cmd3.Parameters.AddWithValue("@altCity", TFM.altCity_txt);
+                cmd3.Parameters.AddWithValue("@altState", TFM.altState_txt);
+                cmd3.Parameters.AddWithValue("@altPin", TFM.altPin);
+                cmd3.Parameters.AddWithValue("@alttId", TFM.altddltid);
+
+                if (TFM.altactive != null && TFM.altactive != "")
+                {
+                    cmd3.Parameters.AddWithValue("@altactive", TFM.altactive);
+                }
+                else
+                {
+                    TFM.active = "Active";
+                    cmd3.Parameters.AddWithValue("@altactive", TFM.altactive);
+                }
+
+
+
+
+
+                cmd3.Parameters.AddWithValue("@altIdentity_Proof", TFM.altIdentity_Proof);
+                cmd3.Parameters.AddWithValue("@altIdentity_Proof_Value", TFM.altIdentity_Proof_Value);
+                cmd3.Parameters.AddWithValue("@altAlt_Identity_Proof", TFM.altAlt_Identity_Proof);
+
+                if (TFM.altAlt_Identity_Proof_Value != null)
+                {
+                    cmd3.Parameters.AddWithValue("@altAlt_Identity_Proof_Value", TFM.altAlt_Identity_Proof_Value);
+                }
+                else
+                {
+                    TFM.altAlt_Identity_Proof_Value = "None";
+                    cmd3.Parameters.AddWithValue("@altAlt_Identity_Proof_Value", TFM.altAlt_Identity_Proof_Value);
+                }
+
+
+
+
+
+                cmd3.Parameters.AddWithValue("@altIs_Informed_Person", "none");
+                cmd3.ExecuteNonQuery();
+                con.Close();
+
+
+
+            }
+
+
+
+
+
+            //end
+
+
+
             int bpid = 0;
             con.Open();
             string qcheck = "select max(bpId) as bpId from BeneficiaryDetails ";
@@ -984,6 +1145,86 @@ namespace WillAssure.Controllers
             ViewBag.disablefield = "true";
 
             return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily");
+        }
+
+
+
+
+
+
+
+
+        public String altBindStateDDL()
+        {
+
+            con.Open();
+            string query = "select distinct * from tbl_state where country_id = 101 order by statename asc   ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
+
+
+
+        public string altOnChangeBindCity()
+        {
+            string response = Request["send"];
+            con.Open();
+            string query = "select distinct * from tbl_city where state_id = '" + response + "' order by city_name asc ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["id"].ToString() + " >" + dt.Rows[i]["city_name"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
         }
 
 

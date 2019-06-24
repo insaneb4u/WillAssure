@@ -55,6 +55,71 @@ namespace WillAssure.Models
 
 
 
+
+        // alternate testator family
+        public int altfId { get; set; }
+        public string altFirst_Name { get; set; }
+        public string altLast_Name { get; set; }
+        public string altMiddle_Name { get; set; }
+        public string altDob { get; set; }
+        public string altMarital_Status { get; set; }
+        public string altReligion { get; set; }
+        public string altRelationship { get; set; }
+        public string altAddress1 { get; set; }
+        public string altAddress2 { get; set; }
+        public string altAddress3 { get; set; }
+
+        public string altCity { get; set; }
+        public int altCity_id { get; set; }
+        public string altCity_txt { get; set; }
+
+
+        public string altState { get; set; }
+        public int altState_id { get; set; }
+        public string altState_txt { get; set; }
+
+
+        public int altRelationshipId { get; set; }
+        public string altRelationshipTxt { get; set; }
+
+        public string altPin { get; set; }
+        public int alttId { get; set; }
+        public string altactive { get; set; }
+        public string altIdentity_Proof { get; set; }
+        public string altIdentity_Proof_Value { get; set; }
+        public string altAlt_Identity_Proof { get; set; }
+        public string altAlt_Identity_Proof_Value { get; set; }
+        public string altIs_Informed_Person { get; set; }
+
+
+
+        public int altddltid { get; set; }
+
+        public string altddltestatorname { get; set; }
+
+
+
+        public string altchek { get; set; }
+
+
+
+
+
+
+
+
+
+
+        //end
+
+
+
+
+
+
+
+
+
         // beneficiary property
 
 

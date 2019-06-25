@@ -1033,7 +1033,8 @@
                                 @if (Session["distid"] != null)
                                 {
                                     <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() } )">
-                                        <button type="button" id="btnnext" style="display:none;" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
+                                        <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                        <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
 
                                     </a>
                                 }
@@ -1816,6 +1817,7 @@
 
 
                             $("#btnmore").show();
+                            $("#btnmore2").show();
                             $("#btnfieldedit").show();
 
 
@@ -2125,7 +2127,108 @@
 
 
 
+                        $("#btnmore2").click(function () {
 
+                            $("#btnupdate").hide();
+
+                            $("#btnDistributorformsubmit").show();
+
+
+                            $("#btnfieldedit").hide();
+
+                            $("#ddltype").removeAttr("disabled");
+                            $("#ddlsubtype").removeAttr("disabled");
+                            $("#txtname").removeAttr("disabled");
+                            $("#txtmiddlename").removeAttr("disabled");
+                            $("#txtsurname").removeAttr("disabled");
+                            $("#DOB").removeAttr("disabled");
+                            $("#Gender").removeAttr("disabled");
+                            $("#txtoccupation").removeAttr("disabled");
+                            $("#ddlrelation").removeAttr("disabled");
+                            $("#ddlstate").removeAttr("disabled");
+                            $("#ddlcity").removeAttr("disabled");
+                            $("#txtpin").removeAttr("disabled");
+                            $("#txtaddress1").removeAttr("disabled");
+                            $("#txtaddress2").removeAttr("disabled");
+                            $("#txtaddress3").removeAttr("disabled");
+                            $("#Identity_Proof").removeAttr("disabled");
+                            $("#txtidentityproof").removeAttr("disabled");
+                            $("#ddlidentityproof11").removeAttr("disabled");
+                            $("#txtIdentityProofValue").removeAttr("disabled");
+
+
+                            $("#ddltypealt2").removeAttr("disabled");
+                            $("#ddlsubtypealt2").removeAttr("disabled");
+                            $("#txtname2").removeAttr("disabled");
+                            $("#txtmiddlename2").removeAttr("disabled");
+                            $("#txtsurname2").removeAttr("disabled");
+                            $("#altGender").removeAttr("disabled");
+                            $("#txtoccupation2").removeAttr("disabled");
+                            $("#altddlrelation").removeAttr("disabled");
+                            $("#DOB2").removeAttr("disabled");
+                            $("#altddlstate").removeAttr("disabled");
+                            $("#altddlcity").removeAttr("disabled");
+                            $("#txtpin2").removeAttr("disabled");
+                            $("#txtaddress2alt1").removeAttr("disabled");
+                            $("#txtaddress2alt2").removeAttr("disabled");
+                            $("#txtaddress3alt3").removeAttr("disabled");
+                            $("#altIdentity_Proof").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt").removeAttr("disabled");
+                            $("#ddlidentityproof22alt").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt2").removeAttr("disabled");
+
+
+
+
+
+
+
+
+
+                            $("#ddltype").val("");
+                            $("#ddlsubtype").val("");
+                            $("#txtname").val("");
+                            $("#txtmiddlename").val("");
+                            $("#txtsurname").val("");
+                            $("#DOB").val("");
+                            $("#Gender").val("");
+                            $("#txtoccupation").val("");
+
+
+                            $("#txtpin").val("");
+                            $("#txtaddress1").val("");
+                            $("#txtaddress2").val("");
+                            $("#txtaddress3").val("");
+                            $("#Identity_Proof").val("");
+                            $("#txtidentityproof").val("");
+                            $("#ddlidentityproof11").val("");
+                            $("#txtIdentityProofValue").val("");
+
+
+                            $("#ddltypealt2").val("");
+                            $("#ddlsubtypealt2").val("");
+                            $("#txtname2").val("");
+                            $("#txtmiddlename2").val("");
+                            $("#txtsurname2").val("");
+                            $("#altGender").val("");
+                            $("#txtoccupation2").val("");
+
+                            $("#DOB2").val("");
+
+                            $("#txtpin2").val("");
+                            $("#txtaddress2alt1").val("");
+                            $("#txtaddress2alt2").val("");
+                            $("#txtaddress3alt3").val("");
+                            $("#altIdentity_Proof").val("");
+                            $("#txtIdentityProofValuealt").val("");
+                            $("#ddlidentityproof22alt").val("");
+                            $("#txtIdentityProofValuealt2").val("");
+
+
+
+
+
+                        });
 
 
                     </script>

@@ -472,9 +472,10 @@
 
 
                             // add alternate testator family
-                            <div class="row">
-                                <div class="col-sm-1"></div>
-                                <div class="col-sm-2"> <label for="input-1" style="white-space:nowrap;">Add Alternate Testator Family</label></div>
+                            <center>
+                                
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2"> <p style="white-space:nowrap">Add Alternate Testator Family</p></div>
 
 
 
@@ -488,24 +489,24 @@
 
 
 
-                                @Html.HiddenFor(m => m.altchek, new { @id = "txtcheck" })
+                                    @Html.HiddenFor(m => m.altchek, new { @id = "txtcheck" })
 
-                                <div class="col-sm-6" id="showcompany">
+                                    <div class="col-sm-6" id="showcompany">
 
-                                    <div class="form-group">
+                                        <div class="form-group">
 
-                                        <br />
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Yes" class="altradio validate[required]" name="radio1">Yes
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="No" class="altradio validate[required]" name="radio1">No
-                                        </label>
+                                            <br />
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" value="Yes" class="altradio validate[required]" name="radio1">Yes
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" value="No" class="altradio validate[required]" name="radio1">No
+                                            </label>
 
 
 
+                                        </div>
                                     </div>
-                                </div>
 
 
 
@@ -523,7 +524,8 @@
 
 
 
-                            </div>
+                             
+                            </center>
                             <div id="alttestatorfamily" style="display:none;">
 
 
@@ -572,7 +574,7 @@
                                             <div class="form-group">
                                                 <label for="input-1">Date Of Birth</label>
                                                 <div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                    <input class="form-control input-shadow validate[required]" value="@Model.altDob" type="text" id="DOB" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                    <input class="form-control input-shadow validate[required]" value="@Model.altDob" type="text" id="DOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                                 </div>
                                                 <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
@@ -586,7 +588,7 @@
                                             <div class="form-group">
                                                 <label for="input-1">Date Of Birth</label>
                                                 <div id="datepicker2" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                    <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                    <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                                 </div>
                                                 <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
@@ -867,7 +869,8 @@
                             <div class="form-group" style="float:right;">
                                 <button type="submit" id="btntestatorsubmit" formaction="InsertTestatorFamilyFormData" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> SUBMIT</button>
                                 <button type="submit" id="btnupdate" style="display:none;" formaction="updatetestatorfamily" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
-                                <a href="@Url.Action("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute")"><button type="button" id="btnnext" style="display:none;" class="btn btn-danger shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                <a href="@Url.Action("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute")"><button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                             </div>
                         }
 
@@ -1464,6 +1467,7 @@
 
                             
                             $("#btnmore").show();
+                            $("#btnmore2").show();
                             $("#btnview").show();
 
                             $("#btnfieldedit").show();
@@ -1614,6 +1618,53 @@
 
 
 
+
+                        $("#btnmore2").click(function () {
+
+                            $("#btnupdate").hide();
+
+                            $("#btntestatorsubmit").show();
+
+                            $("#btnfieldedit").hide();
+
+
+                            $("#txtFirstName").removeAttr("disabled");
+                            $("#txtMiddle_Name").removeAttr("disabled");
+                            $("#txtLastName").removeAttr("disabled");
+                            $("#DOB").removeAttr("disabled");
+                            $("#ddlrelation").removeAttr("disabled");
+                            $("#ddlstate").removeAttr("disabled");
+                            $("#ddlcity").removeAttr("disabled");
+                            $("#txtPin").removeAttr("disabled");
+                            $("#txtAddress1").removeAttr("disabled");
+                            $("#txtAddress2").removeAttr("disabled");
+                            $("#txtAddress3").removeAttr("disabled");
+                            $("#ddlidentityproof").removeAttr("disabled");
+                            $("#Alt_Identity_Proof_Value").removeAttr("disabled");
+                            $("#ddlidentityproof1").removeAttr("disabled");
+                            $("#Identity_Proof_Value").removeAttr("disabled");
+
+
+
+
+                            $("#txtFirstName").val("");
+                            $("#txtMiddle_Name").val("");
+                            $("#txtLastName").val("");
+                            $("#DOB").val("");
+
+
+
+                            $("#txtPin").val("");
+                            $("#txtAddress1").val("");
+                            $("#txtAddress2").val("");
+                            $("#txtAddress3").val("");
+                            $("#ddlidentityproof").val("");
+                            $("#Alt_Identity_Proof_Value").val("");
+                            $("#ddlidentityproof1").val("");
+                            $("#Identity_Proof_Value").val("");
+
+
+                        });
 
 
 

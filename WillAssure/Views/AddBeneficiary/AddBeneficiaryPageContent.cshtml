@@ -940,7 +940,8 @@
                                 <div class="form-group" style="float:right">
                                     <button type="submit" id="btnBeneficiaryformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
                                     <button type="submit" id="btnupdate" style="display:none;" formaction="updateBeneficiary" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
-                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><button type="button" id="btnnext" style="display:none" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                    <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><button type="button" id="btnnext" style="display:none" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                                 </div>
                                 @*}
                     else
@@ -1733,6 +1734,7 @@
     <script>
 
         $("#btnmore").show();
+        $("#btnmore2").show();
 
         $("#btnfieldedit").show();
 
@@ -1993,6 +1995,94 @@
 
 
 
+    $("#btnmore2").click(function () {
+
+        $("#btnupdate").hide();
+
+        $("#btnBeneficiaryformsubmit").show();
+
+
+
+        $("#btnfieldedit").hide();
+
+        $("#txtFirst_Name").removeAttr("disabled");
+        $("#txtMiddle_Name").removeAttr("disabled");
+        $("#txtLast_Name").removeAttr("disabled");
+        $("#DOB").removeAttr("disabled");
+        $("#txtMobile").removeAttr("disabled");
+        $("#ddlrelation").removeAttr("disabled");
+        $("#ddlstate").removeAttr("disabled");
+        $("#ddlcity").removeAttr("disabled");
+        $("#txtPin").removeAttr("disabled");
+        $("#txtAddress1").removeAttr("disabled");
+        $("#txtAddress2").removeAttr("disabled");
+        $("#txtAddress3").removeAttr("disabled");
+        $("#altddlidentityproof").removeAttr("disabled");
+        $("#txtIdentityProofValue").removeAttr("disabled");
+        $("#ddlidentityproof22").removeAttr("disabled");
+        $("#txtIdentityProofValue22").removeAttr("disabled");
+
+
+        $("#altfirstname").removeAttr("disabled");
+        $("#altmiddlename").removeAttr("disabled");
+        $("#altlastname").removeAttr("disabled");
+        $("#DOB").removeAttr("disabled");
+        $("#altmobile").removeAttr("disabled");
+        $("#altddlrelation").removeAttr("disabled");
+        $("#altddlstate").removeAttr("disabled");
+        $("#altddlcity").removeAttr("disabled");
+        $("#altpin").removeAttr("disabled");
+        $("#altaddress1").removeAttr("disabled");
+        $("#altaddress2").removeAttr("disabled");
+        $("#altaddress3").removeAttr("disabled");
+        $("#seconddl").removeAttr("disabled");
+        $("#txtidentityproof").removeAttr("disabled");
+        $("#altddlidentityproof1").removeAttr("disabled");
+        $("#alttxtIdentityProofValue").removeAttr("disabled");
+
+
+
+
+
+
+
+
+        $("#txtFirst_Name").val("");
+        $("#txtMiddle_Name").val("");
+        $("#txtLast_Name").val("");
+        $("#DOB").val("");
+        $("#txtMobile").val("");
+
+
+        $("#txtPin").val("");
+        $("#txtAddress1").val("");
+        $("#txtAddress2").val("");
+        $("#txtAddress3").val("");
+        $("#altddlidentityproof").val("");
+        $("#txtIdentityProofValue").val("");
+        $("#ddlidentityproof22").val("");
+        $("#txtIdentityProofValue22").val("");
+
+
+        $("#altfirstname").val("");
+        $("#altmiddlename").val("");
+        $("#altlastname").val("");
+        $("#DOB").val("");
+        $("#altmobile").val("");
+
+
+        $("#altpin").val("");
+        $("#altaddress1").val("");
+        $("#altaddress2").val("");
+        $("#altaddress3").val("");
+        $("#seconddl").val("");
+        $("#txtidentityproof").val("");
+        $("#altddlidentityproof1").val("");
+        $("#alttxtIdentityProofValue").val("");
+        $("#alttxtIdentityProofValue").val("");
+
+
+    });
 
 
 </script>

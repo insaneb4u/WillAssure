@@ -30,5 +30,40 @@ namespace WillAssure.Models
 
 
 
+        /////////////////////////////////////////////////////////////
+        // alternate institution
+
+
+        public int altBiId { get; set; }
+
+        public string altFirstName { get; set; }
+
+        public int altTypeId { get; set; }
+
+        public string altTypeText { get; set; }
+
+        public int altRegistrationNo { get; set; }
+
+        public string altAddress { get; set; }
+
+        public string altStateText { get; set; }
+        public int altStateId { get; set; }
+
+
+        public string altCityText { get; set; }
+        public int altCityId { get; set; }
+
+
+
+        public string altchek { get; set; }
+
+
+        //end
+
+
+
+
+
+
     }
 }

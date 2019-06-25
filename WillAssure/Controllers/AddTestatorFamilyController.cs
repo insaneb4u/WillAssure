@@ -298,12 +298,12 @@ namespace WillAssure.Controllers
                     TFM.altState_txt = dt4.Rows[i]["altState"].ToString();
                     TFM.altPin = dt4.Rows[i]["altPin"].ToString();
 
-                    TFM.altactive = dt.Rows[i]["altactive"].ToString();
-                    TFM.altIdentity_Proof = dt.Rows[i]["altIdentity_Proof"].ToString();
-                    TFM.altIdentity_Proof_Value = dt.Rows[i]["altIdentity_Proof_Value"].ToString();
-                    TFM.Alt_Identity_Proof = dt.Rows[i]["Alt_Identity_Proof"].ToString();
-                    TFM.Alt_Identity_Proof_Value = dt.Rows[i]["Alt_Identity_Proof_Value"].ToString();
-                    TFM.Is_Informed_Person = dt.Rows[i]["altIs_Informed_Person"].ToString();
+                    
+                    TFM.altIdentity_Proof = dt4.Rows[i]["altIdentity_Proof"].ToString();
+                    TFM.altIdentity_Proof_Value = dt4.Rows[i]["altIdentity_Proof_Value"].ToString();
+                    TFM.Alt_Identity_Proof = dt4.Rows[i]["altAlt_Identity_Proof"].ToString();
+                    TFM.Alt_Identity_Proof_Value = dt4.Rows[i]["altAlt_Identity_Proof_Value"].ToString();
+                    TFM.Is_Informed_Person = dt4.Rows[i]["altIs_Informed_Person"].ToString();
 
 
 
@@ -735,63 +735,100 @@ namespace WillAssure.Controllers
 
 
 
+            con.Open();
+            string QUERY = "select top 1 fId from testatorfamily order by fId desc";
+            SqlDataAdapter DA = new SqlDataAdapter(QUERY,con);
+            DataTable DT = new DataTable();
+            DA.Fill(DT);
+            int tfid = 0;
+            if (DT.Rows.Count > 0)
+            {
+                tfid = Convert.ToInt32(DT.Rows[0]["fId"]);
+            }
+
+            con.Close();
+
+
+
+
+
+
             // alternate testator family
             if (TFM.altchek == "true")
             {
 
-                con.Open();
-                SqlCommand cmd3 = new SqlCommand("SP_CRUDalttestatorfamily", con);
-                cmd3.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd3.Parameters.AddWithValue("@condition", "insert");
-                cmd3.Parameters.AddWithValue("@altFirst_Name", TFM.altFirst_Name);
-                cmd3.Parameters.AddWithValue("@altLast_Name", TFM.altLast_Name);
-                cmd3.Parameters.AddWithValue("@altMiddle_Name", TFM.altMiddle_Name);
                 DateTime dat3 = DateTime.ParseExact(TFM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                cmd3.Parameters.AddWithValue("@DOB", dat3);
-                cmd3.Parameters.AddWithValue("@altMarital_Status", "none");
-                cmd3.Parameters.AddWithValue("@altReligion", "none");
-                cmd3.Parameters.AddWithValue("@altRelationship", TFM.altRelationshipTxt);
-                cmd3.Parameters.AddWithValue("@altAddress1", TFM.altAddress1);
-                cmd3.Parameters.AddWithValue("@altAddress2", TFM.altAddress2);
-                cmd3.Parameters.AddWithValue("@altAddress3", TFM.altAddress3);
-                cmd3.Parameters.AddWithValue("@altCity", TFM.altCity_txt);
-                cmd3.Parameters.AddWithValue("@altState", TFM.altState_txt);
-                cmd3.Parameters.AddWithValue("@altPin", TFM.altPin);
-                cmd3.Parameters.AddWithValue("@alttId", TFM.altddltid);
 
-                if (TFM.altactive != null && TFM.altactive != "")
+
+                if (TFM.altMarital_Status == null)
                 {
-                    cmd3.Parameters.AddWithValue("@altactive", TFM.altactive);
-                }
-                else
-                {
-                    TFM.active = "Active";
-                    cmd3.Parameters.AddWithValue("@altactive", TFM.altactive);
+                    TFM.altMarital_Status = "None";
                 }
 
 
-
-
-
-                cmd3.Parameters.AddWithValue("@altIdentity_Proof", TFM.altIdentity_Proof);
-                cmd3.Parameters.AddWithValue("@altIdentity_Proof_Value", TFM.altIdentity_Proof_Value);
-                cmd3.Parameters.AddWithValue("@altAlt_Identity_Proof", TFM.altAlt_Identity_Proof);
-
-                if (TFM.altAlt_Identity_Proof_Value != null)
+                if (TFM.altReligion == null)
                 {
-                    cmd3.Parameters.AddWithValue("@altAlt_Identity_Proof_Value", TFM.altAlt_Identity_Proof_Value);
+                    TFM.altReligion = "None";
                 }
-                else
+
+
+                if (TFM.altAddress2 == null)
+                {
+                    TFM.altAddress2 = "None";
+                }
+
+                if (TFM.altAddress3 == null)
+                {
+                    TFM.altAddress3 = "None";
+                }
+
+
+                if (TFM.altactive == null)
+                {
+                    TFM.altactive = "None";
+                }
+
+
+                if (TFM.altIdentity_Proof == null)
+                {
+                    TFM.altIdentity_Proof = "None";
+                }
+
+
+
+
+                if (TFM.altIdentity_Proof_Value == null)
+                {
+                    TFM.altIdentity_Proof_Value = "None";
+                }
+
+
+
+                if (TFM.altAlt_Identity_Proof == null)
+                {
+                    TFM.altAlt_Identity_Proof = "None";
+                }
+
+
+
+
+                if (TFM.altAlt_Identity_Proof_Value == null)
                 {
                     TFM.altAlt_Identity_Proof_Value = "None";
-                    cmd3.Parameters.AddWithValue("@altAlt_Identity_Proof_Value", TFM.altAlt_Identity_Proof_Value);
+                }
+
+
+                if (TFM.altIs_Informed_Person == null)
+                {
+                    TFM.altIs_Informed_Person = "None";
                 }
 
 
 
 
-
-                cmd3.Parameters.AddWithValue("@altIs_Informed_Person", "none");
+                con.Open();
+                string query = "insert into alttestatorFamily (altFirst_Name , altLast_Name , altMiddle_Name , altDOB , altMarital_Status , altReligion , altRelationship , altAddress1 , altAddress2 , altAddress3 , altCity , altState , altPin  , altactive , altIdentity_Proof , altIdentity_Proof_Value , altAlt_Identity_Proof , altAlt_Identity_Proof_Value , altIs_Informed_Person , testatorfamilyid , alttId) values ('" + TFM.altFirst_Name+"' , '"+TFM.altLast_Name+"' , '"+TFM.Middle_Name+"' , '"+ dat3 + "' , '"+TFM.altMarital_Status+"' , '"+TFM.altReligion+"' , '"+TFM.RelationshipTxt+"' , '"+TFM.altAddress1+ "' , '" + TFM.altAddress2 + "' , '"+TFM.altAddress3+"' , '"+TFM.City_txt+"' , '"+TFM.altState_txt+"' , '"+TFM.altPin+"'  ,  '"+TFM.altactive+ "' , '"+TFM.altIdentity_Proof+ "' , '"+TFM.altIdentity_Proof_Value+"' , '"+TFM.altAlt_Identity_Proof + "' , '"+TFM.altAlt_Identity_Proof_Value + "' , '"+TFM.altIs_Informed_Person + "' , "+tfid+ " ,  "+TFM.ddltid+"  )  ";
+                SqlCommand cmd3 = new SqlCommand(query,con);
                 cmd3.ExecuteNonQuery();
                 con.Close();
 

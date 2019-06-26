@@ -257,7 +257,14 @@
                 $('#MappedData').empty().append(data);
                       
 
-
+                var seen = {};
+                $('table tr').each(function () {
+                    var txt = $(this).text();
+                    if (seen[txt])
+                        $(this).remove();
+                    else
+                        seen[txt] = true;
+                });
 
                 
             }

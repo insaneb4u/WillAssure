@@ -341,7 +341,7 @@ namespace WillAssure.Controllers
 
             Session["displayname"] = "";
 
-
+            Session["nomineeform"] = "";
 
 
             return View("~/Views/LoginPage/LoginPageContent.cshtml");

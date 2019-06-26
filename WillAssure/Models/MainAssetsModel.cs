@@ -191,41 +191,39 @@ namespace WillAssure.Models
         /// nominee details
         /// 
 
-        public int nomnId { get; set; }
-        public string First_Name { get; set; }
-        public string Last_Name { get; set; }
-        public string Middle_Name { get; set; }
-        public string Dob { get; set; }
+
+        public string nomFirst_Name { get; set; }
+        public string nomLast_Name { get; set; }
+        public string nomMiddle_Name { get; set; }
+        public string nomDob { get; set; }
         public string nomMobile { get; set; }
-        public string Relationship { get; set; }
-        public int RelationshipId { get; set; }
-        public string RelationshipTxt { get; set; }
-        public string Marital_Status { get; set; }
-        public string Religion { get; set; }
-        public string Identity_Proof { get; set; }
-        public string Identity_Proof_Value { get; set; }
-        public string Alt_Identity_Proof { get; set; }
-        public string Alt_Identity_Proof_Value { get; set; }
-        public string Address1 { get; set; }
-        public string Address2 { get; set; }
-        public string Address3 { get; set; }
-        public string City { get; set; }
-        public int cityid { get; set; }
-        public string citytext { get; set; }
-        public string State { get; set; }
-        public int stateid { get; set; }
-        public string statetext { get; set; }
+        public string nomRelationship { get; set; }
+        public int nomRelationshipId { get; set; }
+        public string nomRelationshipTxt { get; set; }
+        public string nomMarital_Status { get; set; }
+        public string nomReligion { get; set; }
+        public string nomIdentity_Proof { get; set; }
+        public string nomIdentity_Proof_Value { get; set; }
+        public string nomAlt_Identity_Proof { get; set; }
+        public string nomAlt_Identity_Proof_Value { get; set; }
+        public string nomAddress1 { get; set; }
+        public string nomAddress2 { get; set; }
+        public string nomAddress3 { get; set; }
+        public string nomCity { get; set; }
+        public int nomcityid { get; set; }
+        public string nomcitytext { get; set; }
+        public string nomState { get; set; }
+        public int nomstateid { get; set; }
+        public string nomstatetext { get; set; }
 
-        public string Pin { get; set; }
-        public int aid { get; set; }
-        public int tId { get; set; }
-        public string createdBy { get; set; }
-        public int documentId { get; set; }
-        public string Description_of_Assets { get; set; }
+        public string nomPin { get; set; }
+
+        public string nomcreatedBy { get; set; }
+        public int nomdocumentId { get; set; }
+        public string nomDescription_of_Assets { get; set; }
 
 
-        public int nomddltid { get; set; }
-        public string nomddltestatorname { get; set; }
+
 
 
 

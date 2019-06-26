@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
 using Newtonsoft.Json;
+using System.Collections;
 
 namespace WillAssure.Controllers
 {
@@ -689,6 +690,10 @@ namespace WillAssure.Controllers
                 da.Fill(dt);
                 con.Close();
 
+                string keydata = "";
+                string key = "";
+                string values = "";
+                string jstructure = "";
 
                 if (dt.Rows.Count > 0)
                 {
@@ -696,20 +701,53 @@ namespace WillAssure.Controllers
                     {
                         string getjson = dt.Rows[i]["Json"].ToString();
 
-
+                         keydata = "";
+                         key = "";
+                         values = "";
+                         jstructure = "";
                         var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
                         foreach (var kv in dict)
                         {
-                            final = final + kv.Key + ":" + kv.Value;
+                            keydata = kv.Key.Split('~')[1];
+                            key = key + keydata + "~";
+                            values = values + kv.Value + "~";
+
+
+                            
+
+                         
+
+
+                            
+                        }
+
+
+                        ArrayList result1 = new ArrayList(key.Split('~'));
+                        ArrayList result2 = new ArrayList(values.Split('~'));
+
+                        ArrayList result3 = new ArrayList();
+                        result3.AddRange(result1);
+                        result3.AddRange(result2);
+                        jstructure = "";
+                        for (int k = 0; k < result1.Count; k++)
+                        {
+                            if (result1[k].ToString() != "")
+                            {
+                                jstructure = jstructure + "<p>" + result1[k].ToString() + ":" + result2[k].ToString() + "</p></br>";
+                            }
+
+                           
                         }
 
 
 
                         if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
                         {
+                            
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
                             data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
                             data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+ 
                             data += "<td>" + final + "</td>";
                             data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
 
@@ -740,10 +778,14 @@ namespace WillAssure.Controllers
 
                         if (testString == "0,0,0")
                         {
+
+                            
+
+
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
                             data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
                             data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                            data += "<td>" + final + "</td>";
+                            data += "<td>" + jstructure + "</td>";
 
 
                         }

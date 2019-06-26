@@ -11,6 +11,7 @@ using System.Data;
 using System.Collections;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace WillAssure.Controllers
 {
@@ -20,8 +21,19 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
         string json = "";
         // GET: AddMainAssets
-        public ActionResult AddMainAssetsIndex(string success, string NestId)
+        public ActionResult AddMainAssetsIndex(string success, string NestId, string nomineestate)
         {
+
+            if (nomineestate == "true")
+            {
+                ViewBag.NomineeForm = "True";
+
+                nomineestate = "false";
+            }
+
+    
+            
+
 
             if (NestId != null)
             {
@@ -1120,8 +1132,19 @@ namespace WillAssure.Controllers
             var radio1 = Convert.ToString(Request.Form["Currentradio"]);
             var radio2 = Convert.ToString(Request.Form["ownershipRadio"]);
             var radio3 = Convert.ToString(Request.Form["nominationradio"]);
+
+            string nomineestate = "";
+
+            if (radio3 == "Yes")
+            {
+                nomineestate = "true";
+            }
+
+
+
             var tid = Convert.ToString(collection["ddlTid"]);
-            string ttid = tid.Replace("true", "");
+            //string ttid = tid.Replace("true", "");
+            string ttid = Session["distid"].ToString();
             string c = "";
 
             if (obj.dueDate != null)
@@ -1510,7 +1533,7 @@ namespace WillAssure.Controllers
 
 
 
-            return RedirectToAction("AddMainAssetsIndex", "AddMainAssets", new { success = "true" });
+            return RedirectToAction("AddMainAssetsIndex", "AddMainAssets", new { success = "true" , nomineestate = nomineestate });
         }
 
 
@@ -1838,6 +1861,255 @@ namespace WillAssure.Controllers
             return "";
         }
 
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        public String BindStateDDL()
+        {
+
+            con.Open();
+            string query = "select distinct * from tbl_state where country_id = 101 order by statename asc  ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "<option value=''>--Select State--</option>";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
+
+
+
+
+
+
+        public string OnChangeBindCity()
+        {
+            string response = Request["send"];
+            con.Open();
+            string query = "select distinct * from tbl_city where state_id = '" + response + "' order by city_name asc";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "<option value=''>--Select City--</option>";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["id"].ToString() + " >" + dt.Rows[i]["city_name"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+        }
+
+
+
+        public String BindRelationDDL()
+        {
+
+            con.Open();
+            string query = "select * from relationship";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["Rid"].ToString() + " >" + dt.Rows[i]["MemberName"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
+
+
+
+
+
+
+
+        public ActionResult InsertNomineeData()
+        {
+
+            string getdata = Request["send"];
+            var txtfirstname = getdata.Split('~')[0];
+            var txtmiddlename = getdata.Split('~')[1];
+            var txtlastname = getdata.Split('~')[2];
+            var DOB = getdata.Split('~')[3];
+            var txtmobile = getdata.Split('~')[4];
+            var RelationshipTxt = getdata.Split('~')[5];
+            var nommaritalstatus = getdata.Split('~')[6];
+            var nomreligion = getdata.Split('~')[7];
+            var statetext = getdata.Split('~')[8];
+            var citytext = getdata.Split('~')[9];
+            var txtpin = getdata.Split('~')[10];
+            var txtaddress1 = getdata.Split('~')[11];
+            var txtaddress2 = getdata.Split('~')[12];
+            var txtaddress3 = getdata.Split('~')[13];
+            var identityproof = getdata.Split('~')[14];
+            var txtidentityproof = getdata.Split('~')[15];
+            var Alt_Identity_Proof = getdata.Split('~')[16];
+            var txtIdentityProofValue = getdata.Split('~')[17];
+            var txtdescriptionofasset = getdata.Split('~')[18];
+
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SP_CRUDNominee", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@action", "insert");
+            cmd.Parameters.AddWithValue("@First_Name", txtfirstname);
+            cmd.Parameters.AddWithValue("@Last_Name", txtlastname);
+            cmd.Parameters.AddWithValue("@Middle_Name", txtmiddlename);
+            DateTime dat = DateTime.ParseExact(DOB, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            cmd.Parameters.AddWithValue("@DOB", dat);
+            cmd.Parameters.AddWithValue("@Mobile", txtmobile);
+            cmd.Parameters.AddWithValue("@Relationship", RelationshipTxt);
+            cmd.Parameters.AddWithValue("@Marital_Status", nommaritalstatus);
+            cmd.Parameters.AddWithValue("@Religion", nomreligion);
+            cmd.Parameters.AddWithValue("@Identity_Proof", identityproof);
+            cmd.Parameters.AddWithValue("@Identity_Proof_Value", txtidentityproof);
+
+            if (Alt_Identity_Proof != "")
+            {
+                cmd.Parameters.AddWithValue("@Alt_Identity_Proof", Alt_Identity_Proof);
+            }
+            else
+            {
+                Alt_Identity_Proof = "None";
+                cmd.Parameters.AddWithValue("@Alt_Identity_Proof", Alt_Identity_Proof);
+            }
+
+
+            if (txtIdentityProofValue != "undefined")
+            {
+                cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", txtIdentityProofValue);
+            }
+            else
+            {
+                txtIdentityProofValue = "None";
+                cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", txtIdentityProofValue);
+            }
+
+
+            cmd.Parameters.AddWithValue("@Address1", txtaddress1);
+            if (txtaddress2 != "")
+            {
+                cmd.Parameters.AddWithValue("@Address2", txtaddress2);
+            }
+            else
+            {
+                txtaddress2 = "None";
+                cmd.Parameters.AddWithValue("@Address2", txtaddress2);
+            }
+
+            if (txtaddress3 != "")
+            {
+                cmd.Parameters.AddWithValue("@Address3", txtaddress3);
+            }
+            else
+            {
+                txtaddress3 = "None";
+                cmd.Parameters.AddWithValue("@Address3", txtaddress3);
+            }
+
+
+            cmd.Parameters.AddWithValue("@City", citytext);
+            cmd.Parameters.AddWithValue("@State", statetext);
+            cmd.Parameters.AddWithValue("@Pin", txtpin);
+            //cmd.Parameters.AddWithValue("@aid", NM.nomaid);
+            //cmd.Parameters.AddWithValue("@tId", NM.nomddltid);
+            cmd.Parameters.AddWithValue("@createdBy", Convert.ToInt32(Session["uuid"]));
+            cmd.Parameters.AddWithValue("@documentId", "0");
+            cmd.Parameters.AddWithValue("@Description_of_Assets", txtdescriptionofasset);
+            cmd.Parameters.AddWithValue("@aid", "0");
+            cmd.Parameters.AddWithValue("@tId", Convert.ToInt32(Session["distid"]));
+            
+            cmd.ExecuteNonQuery();
+            con.Close();
+            ModelState.Clear();
+            ViewBag.Message = "Verified";
+            //}
+            //else
+            //{
+
+
+            //    ViewBag.Message = "link";
+
+            //}
+
+            ViewBag.disablefield = "true";
+
+
+            return RedirectToAction("AddNomineeIndex", "AddNominee", new { success = "true" });
+        }
 
 
 

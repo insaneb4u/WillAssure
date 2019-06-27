@@ -118,7 +118,7 @@ namespace WillAssure.Controllers
             return View("~/Views/AddBeneficiaryInstitute/AddBeneficiaryInstitute.cshtml",BIM);
         }
 
-
+        
 
         public ActionResult InsertBeneficiaryInstitute(BeneficiaryInstitutionModel BIM)
         {

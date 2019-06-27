@@ -20,13 +20,44 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddTestatorFamily
-        public ActionResult AddTestatorFamilyIndex(string success , string NestId)
+        public ActionResult AddTestatorFamilyIndex(string success , string NestId , string date , string guardian)
         {
+
+
+            if (guardian == "true")
+            {
+                ViewBag.guaMessage = "Verified";
+            }
+
+
+            if (date != null)
+            {
+                // identify if guardian or not
+               
+                date = date.Substring(6, date.Length - 6);
+                var today = DateTime.Now.Year;
+                int age = today - int.Parse(date);
+                if (age != 0)
+                {
+                    if (age <= 18)
+                    {
+                        ViewBag.guardianform = "true";
+                    }
+                }
+             
+
+                //end
+
+            }
+
+
+
 
             if (success == "true")
             {
                 ViewBag.Message = "Verified";
-            
+             
+
             }
 
             ViewBag.view = "Will";
@@ -311,6 +342,60 @@ namespace WillAssure.Controllers
             }
 
 
+
+
+
+
+
+
+            
+
+            string query33 = "select * from Appointees where tid = " + Convert.ToInt32(Session["distid"]) + "";
+        
+
+
+
+
+
+        SqlDataAdapter da33 = new SqlDataAdapter(query33, con);
+        DataTable dt33 = new DataTable();
+        da33.Fill(dt33);
+                    con.Close();
+                   
+
+                    if (dt33.Rows.Count > 0)
+                    {
+
+
+                        for (int i = 0; i< dt33.Rows.Count; i++)
+                        {
+                            ViewBag.disablefield = "true";
+                            TFM.guaapId = Convert.ToInt32(dt33.Rows[i]["apId"]);
+                            TFM.guaTypetxt = dt33.Rows[i]["Type"].ToString();
+        TFM.guasubTypetxt = dt33.Rows[i]["subType"].ToString();
+        TFM.guaName = dt33.Rows[i]["Name"].ToString();
+        TFM.guamiddleName = dt33.Rows[i]["middleName"].ToString();
+        TFM.guaSurname = dt33.Rows[i]["Surname"].ToString();
+        TFM.guaIdentity_Proof = dt33.Rows[i]["Identity_Proof"].ToString();
+        TFM.guaIdentity_Proof_Value = dt33.Rows[i]["Identity_Proof_Value"].ToString();
+        TFM.guaAlt_Identity_Proof = dt33.Rows[i]["Alt_Identity_Proof"].ToString();
+        TFM.guaAlt_Identity_Proof_Value = dt33.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+        //TFM.Dob = Convert.ToDateTime(dt33.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+        TFM.guaGender = dt33.Rows[i]["Gender"].ToString();
+        TFM.guaOccupation = dt33.Rows[i]["Occupation"].ToString();
+        TFM.guaRelationshipTxt = dt33.Rows[i]["Relationship"].ToString();
+        TFM.guaAddress1 = dt33.Rows[i]["Address1"].ToString();
+        TFM.guaAddress2 = dt33.Rows[i]["Address2"].ToString();
+        TFM.guaAddress3 = dt33.Rows[i]["Address3"].ToString();
+        TFM.guacitytext = dt33.Rows[i]["City"].ToString();
+        TFM.guastatetext = dt33.Rows[i]["State"].ToString();
+        TFM.guaPin = dt33.Rows[i]["Pin"].ToString();
+
+
+
+
+    }
+}
 
 
 
@@ -600,6 +685,17 @@ namespace WillAssure.Controllers
 
             //if (Session["tid"] != null)
             //{
+
+
+
+      
+
+
+
+
+
+
+
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SP_CRUDtestatorfamily", con);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -607,8 +703,8 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@First_Name", TFM.First_Name);
                 cmd.Parameters.AddWithValue("@Last_Name", TFM.Last_Name);
                 cmd.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
-                DateTime dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                cmd.Parameters.AddWithValue("@DOB", dat);
+                //DateTime dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                cmd.Parameters.AddWithValue("@DOB", Convert.ToDateTime(TFM.Dob));
                 cmd.Parameters.AddWithValue("@Marital_Status", "none");
                 cmd.Parameters.AddWithValue("@Religion", "none");
                 cmd.Parameters.AddWithValue("@Relationship", TFM.RelationshipTxt);
@@ -667,7 +763,7 @@ namespace WillAssure.Controllers
             cmd2.Parameters.AddWithValue("@Last_Name", TFM.Last_Name);
             cmd2.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
             
-            cmd2.Parameters.AddWithValue("@DOB", dat);
+            cmd2.Parameters.AddWithValue("@DOB", Convert.ToDateTime(TFM.Dob));
             cmd2.Parameters.AddWithValue("@Mobile", "None");
             cmd2.Parameters.AddWithValue("@Relationship", "none");
             cmd2.Parameters.AddWithValue("@Marital_Status", "none");
@@ -880,11 +976,16 @@ namespace WillAssure.Controllers
             //cmdv.ExecuteNonQuery();
             //con.Close();
 
-            
+
+            string date = TFM.Dob;
+
+     
+
+
 
             ModelState.Clear();
 
-            return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily" , new { success = "true" });
+            return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily" , new { success = "true" , date= date });
         }
 
 
@@ -1265,6 +1366,186 @@ namespace WillAssure.Controllers
         }
 
 
+
+
+
+        public  ActionResult Insertguardiandetails(TestatorFamilyModel AM)
+        {
+
+            con.Open();
+            SqlCommand cmd = new SqlCommand("SP_CRUDAppointees", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@condition", "insert");
+            cmd.Parameters.AddWithValue("@documentId", AM.guadocumentId);
+            cmd.Parameters.AddWithValue("@Type", AM.guaTypetxt);
+
+            if (AM.guasubTypetxt != null || AM.guasubTypetxt != "")
+            {
+                cmd.Parameters.AddWithValue("@subType", AM.guasubTypetxt);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@subType", "None");
+            }
+
+
+
+
+
+
+            cmd.Parameters.AddWithValue("@Name", AM.guaName);
+            cmd.Parameters.AddWithValue("@middleName", AM.guamiddleName);
+            cmd.Parameters.AddWithValue("@Surname", AM.guaSurname);
+            cmd.Parameters.AddWithValue("@Identity_proof", AM.guaIdentity_Proof);
+            cmd.Parameters.AddWithValue("@Identity_proof_value", AM.guaIdentity_Proof_Value);
+
+
+            if (AM.Alt_Identity_Proof != null)
+            {
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.guaAlt_Identity_Proof);
+            }
+            else
+            {
+                AM.Alt_Identity_Proof = "None";
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.guaAlt_Identity_Proof);
+            }
+
+
+            if (AM.Alt_Identity_Proof_Value != null)
+            {
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.guaAlt_Identity_Proof_Value);
+            }
+            else
+            {
+                AM.Alt_Identity_Proof_Value = "None";
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.guaAlt_Identity_Proof_Value);
+            }
+
+
+
+
+
+
+
+
+
+            //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            //cmd.Parameters.AddWithValue("@DOB", "None");
+            cmd.Parameters.AddWithValue("@Gender", AM.guaGender);
+            cmd.Parameters.AddWithValue("@Occupation", "None");
+            cmd.Parameters.AddWithValue("@Relationship", "None");
+            cmd.Parameters.AddWithValue("@Address1", AM.guaAddress1);
+            if (AM.guaAddress2 != null || AM.guaAddress2 == "")
+            {
+                cmd.Parameters.AddWithValue("@Address2", AM.guaAddress2);
+            }
+            else
+            {
+                AM.guaAddress2 = "None";
+                cmd.Parameters.AddWithValue("@Address2", AM.guaAddress2);
+            }
+
+
+            if (AM.guaAddress3 != null || AM.guaAddress3 == "")
+            {
+                cmd.Parameters.AddWithValue("@Address3", AM.guaAddress3);
+            }
+            else
+            {
+                AM.guaAddress3 = "None";
+                cmd.Parameters.AddWithValue("@Address3", AM.guaAddress3);
+            }
+
+
+            cmd.Parameters.AddWithValue("@City", AM.guacitytext);
+            cmd.Parameters.AddWithValue("@State", AM.guastatetext);
+            cmd.Parameters.AddWithValue("@Pin", AM.guaPin);
+            cmd.Parameters.AddWithValue("@tid", AM.ddltid);
+          
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+
+
+            return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily", new { guardian = "true" });
+
+        }
+
+
+
+
+        public String guaBindStateDDL()
+        {
+
+            con.Open();
+            string query = "select distinct * from tbl_state where country_id = 101 order by statename asc   ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
+
+
+
+        public string guaOnChangeBindCity()
+        {
+            string response = Request["send"];
+            con.Open();
+            string query = "select distinct * from tbl_city where state_id = '" + response + "' order by city_name asc ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["id"].ToString() + " >" + dt.Rows[i]["city_name"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+        }
 
 
 

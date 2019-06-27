@@ -207,5 +207,59 @@ namespace WillAssure.Models
 
 
 
+
+
+        //guardian property
+
+
+        public int guaapId { get; set; }
+        public int guadocumentId { get; set; }
+        public string gauType { get; set; }
+        public int guaTypeId { get; set; }
+        public string guaTypetxt { get; set; }
+        public string guasubType { get; set; }
+        public int guasubTypeId { get; set; }
+        public string guasubTypetxt { get; set; }
+        public string guaName { get; set; }
+        public string guamiddleName { get; set; }
+        public string guaSurname { get; set; }
+        public string guaIdentity_Proof { get; set; }
+        public string guaIdentity_Proof_Value { get; set; }
+        public string guaAlt_Identity_Proof { get; set; }
+        public string guaAlt_Identity_Proof_Value { get; set; }
+        public string guaDob { get; set; }
+        public string guaGender { get; set; }
+        public string guaOccupation { get; set; }
+
+        public string guaRelationship { get; set; }
+        public int guaRelationshipId { get; set; }
+        public string guaRelationshipTxt { get; set; }
+
+        public string guaAddress1 { get; set; }
+        public string guaAddress2 { get; set; }
+        public string guaAddress3 { get; set; }
+
+        public string guaCity { get; set; }
+        public int guacityid { get; set; }
+        public string guacitytext { get; set; }
+
+        public string guaState { get; set; }
+        public int guastateid { get; set; }
+        public string guastatetext { get; set; }
+
+        public string guaPin { get; set; }
+        public int guarid { get; set; }
+        
+
+
+
+
+        //end
+
+
+
+
+
+
     };
 };

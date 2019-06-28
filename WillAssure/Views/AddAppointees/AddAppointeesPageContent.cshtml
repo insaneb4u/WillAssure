@@ -269,7 +269,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">First Name</label>
-                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control input-shadow required validate[required]", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
+                                            @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control input-shadow required validate[required]", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
                                         </div>
                                     </div>
 
@@ -572,6 +572,9 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
+                                            <label for="input-1">Number Of Executor</label>
+                                            <select class="form-control" id="executorcount" onchange="getexecutorval(this.value)"></select>
+
                                         </div>
                                         @*<div class="col-sm-3">
                                 <div class="form-group">
@@ -871,6 +874,18 @@
 
                     }
 
+
+                    @using (Html.BeginForm("InsertAlternateDynamicData", null, FormMethod.Post, new { id = "DistributorForm" }))
+                    {
+
+                        <div id="alternatedynamiccontrol">
+
+
+
+                        </div>
+
+                    }
+
                     @*end*@
                     @*end*@
                     <!--Start Back To Top Button-->
@@ -924,7 +939,21 @@
                         //}
 
 
-    $(document).ready(function () {
+                        $(document).ready(function () {
+
+                              $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindNumberOfExecutor", "AddAppointees")",
+                                  success: function (data) {
+                                      $('#executorcount').empty().append(data);
+
+                                  }
+        });
+
+
+
+
 
         $.ajax({
 
@@ -1241,6 +1270,10 @@
 
 
                         });
+
+
+
+
 
 
 
@@ -2084,5 +2117,29 @@
 
                     </script>
 
+
+
+
+
+                    <script>
+                        function getexecutorval(value) {
+
+                                $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("AlternateAppointeesControls", "AddAppointees")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#alternatedynamiccontrol').empty().append(data + "<br><center><input type='submit' class='btn btn-primary' value='Submit' /></center> ");
+            }
+
+
+
+        });
+
+                        }
+                    </script>
+
                     @*end*@
-                    
+

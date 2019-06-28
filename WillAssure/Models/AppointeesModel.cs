@@ -16,7 +16,7 @@ namespace WillAssure.Models
         public string subType  { get; set;}
         public int subTypeId { get; set; }
         public string subTypetxt { get; set; }
-        public string Name  { get; set;}
+        public string Firstname  { get; set;}
       public string middleName  { get; set;}
       public string Surname  { get; set;}
       public string Identity_Proof  { get; set;}

@@ -190,7 +190,7 @@ namespace WillAssure.Controllers
                        
                         Am.Typetxt =dt.Rows[i]["Type"].ToString();
                         Am.subTypetxt=dt.Rows[i]["subType"].ToString();
-                        Am.Name =dt.Rows[i]["Name"].ToString();
+                        Am.Firstname = dt.Rows[i]["Name"].ToString();
                         Am.middleName=dt.Rows[i]["middleName"].ToString();
                         Am.Surname=dt.Rows[i]["Surname"].ToString();
                         Am.Identity_Proof=dt.Rows[i]["Identity_Proof"].ToString();
@@ -526,7 +526,7 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@documentId", AM.documentId);
             cmd.Parameters.AddWithValue("@Type", AM.Typetxt);
             cmd.Parameters.AddWithValue("@subType", AM.subTypetxt);
-            cmd.Parameters.AddWithValue("@Name", AM.Name);
+            cmd.Parameters.AddWithValue("@Name", AM.Firstname);
             cmd.Parameters.AddWithValue("@middleName", AM.middleName);
             cmd.Parameters.AddWithValue("@Surname", AM.Surname);
             cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);

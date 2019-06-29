@@ -117,58 +117,13 @@
 
 
 
-                                @if (ViewBag.documentbtn1 == "true")
-                                {
-
-                                    <script>
-
-                                        $("#documentbtn1").removeAttr("style");
-
-                                    </script>
-
-                                }
-                                @if (ViewBag.documentbtn2 == "true")
-                                {
-
-                                    <script>
-
-                                        $("#documentbtn2").removeAttr("style");
-
-                                    </script>
-
-                                }
-                                @if (ViewBag.documentbtn3 == "true")
-                                {
-
-                                    <script>
-
-                                        $("#documentbtn3").removeAttr("style");
-
-                                    </script>
-
-                                }
-                                @if (ViewBag.documentbtn4 == "true")
-                                {
-
-                                    <script>
-
-                                        $("#documentbtn4").removeAttr("style");
-
-                                    </script>
-
-                                }
-
-                                @if (ViewBag.documentbtn5 == "true")
-                                {
-
-                                    <script>
-
-                                        $("#documentbtn5").removeAttr("style");
-
-                                    </script>
-
-                                }
-
+                                <center>
+                                    <a href="@Url.Action("Report.aspx", "page" , new { NestId = ViewBag.testatorid })" id="compdocumentbtn1" style="display:none;"><button type="button" class="btn btn-primary btn-round waves-effect waves-light m-1">Will</button></a>
+                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn2" style="display:none;"> <button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">Codocil</button></a>
+                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid } )" id="compdocumentbtn3" style="display:none;"><button type="button" class="btn btn-info btn-round waves-effect waves-light m-1">POA</button></a>
+                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn4" style="display:none;"><button type="button" class="btn btn-danger btn-round waves-effect waves-light m-1">Gift Deeds</button></a>
+                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn5" style="display:none;"><button type="button" class="btn btn-warning btn-round waves-effect waves-light m-1">Living Will</button></a>
+                                </center>
 
 
 
@@ -367,7 +322,7 @@
 
     <script>
 
-        $("#documentbtn1").removeAttr("style");
+        $("#compdocumentbtn1").show();
 
     </script>
 
@@ -377,7 +332,7 @@
 
     <script>
 
-        $("#documentbtn2").removeAttr("style");
+        $("#compdocumentbtn2").show();
 
     </script>
 
@@ -387,7 +342,7 @@
 
     <script>
 
-        $("#documentbtn3").removeAttr("style");
+        $("#compdocumentbtn3").show();
 
     </script>
 
@@ -397,7 +352,7 @@
 
     <script>
 
-        $("#documentbtn4").removeAttr("style");
+        $("#compdocumentbtn4").show();
 
     </script>
 
@@ -408,7 +363,7 @@
 
     <script>
 
-        $("#documentbtn5").removeAttr("style");
+        $("#compdocumentbtn5").show();
 
     </script>
 
@@ -449,3 +404,154 @@
 
 
 
+
+
+    <script>
+
+
+
+            $(".checkone").click(function () {
+
+
+                if ($(".checkone").is(":checked")) {
+                    $("#documentmsg2").hide();
+                    $("#documentmsg3").hide();
+                     $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("checkwilldocument", "TestatorHomePage")",
+            success: function (data) {
+                var x = $(".checkone").val();
+                if (data == "false") {
+
+                    $("#documentmsg1").show();
+                    $('.checkone').prop('checked', false);
+                }
+                else {
+                    $("#documentmsg1").hide();
+                    $("#documenttype").empty().append(x);
+                }
+
+
+                }
+        });
+
+
+
+
+
+
+
+                    $('#DDLAmtPaidBY2').prop('disabled', false);
+                }
+                else {
+
+                    $('#DDLAmtPaidBY2').prop('disabled', true);
+                }
+
+
+
+            });
+
+
+
+
+            $(".checktwo").click(function () {
+                var x = $(".checktwo").val();
+                $("#documentmsg1").hide();
+ $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("checkcodocildocument", "TestatorHomePage")",
+            success: function (data) {
+
+                if (data == "false") {
+
+                    $("#documentmsg2").show();
+                    $("#documentmsg3").hide();
+                    $('.checktwo').prop('checked', false);
+                }
+                else {
+                    $("#documentmsg2").hide();
+                    $("#documenttype").empty().append(x);
+                }
+
+
+                }
+        });
+
+
+
+
+            });
+
+
+
+            $(".checkthree").click(function () {
+                $("#documentmsg2").hide();
+                if ($(".checkthree").is(":checked")) {
+                    $("#documentmsg1").hide();
+                    $("#documentmsg3").hide();
+                    var x = $(".checkthree").val();
+                    $("#documenttype").append(x);
+                    $('#DDLAmtPaidBY2').prop('disabled', false);
+                }
+
+
+
+
+            });
+
+            $(".checkfour").click(function () {
+                $("#documentmsg2").hide();
+                $("#documentmsg1").hide();
+                $("#documentmsg3").hide();
+                if ($(".checkfour").is(":checked")) {
+                    $("#documentmsg1").hide();
+                    var x = $(".checkfour").val();
+                    $("#documenttype").append(x);
+                    $('#DDLAmtPaidBY2').prop('disabled', false);
+                }
+
+
+
+
+            });
+
+
+            $(".checkfive").click(function () {
+                $("#documentmsg1").hide();
+                $("#documentmsg2").hide();
+                var x = $(".checkfive").val();
+              $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("checklivindocument", "TestatorHomePage")",
+            success: function (data) {
+
+                if (data == "false") {
+
+                    $("#documentmsg3").show();
+                    $('.checkfive').prop('checked', false);
+                }
+                else {
+                    $("#documentmsg3").hide();
+                    $("#documenttype").empty().append(x);
+                }
+
+
+                }
+        });
+
+
+
+
+            });
+
+
+
+
+
+
+
+    </script>

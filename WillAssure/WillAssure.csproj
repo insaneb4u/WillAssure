@@ -212,6 +212,7 @@
     <Compile Include="Controllers\AddTestatorsFormController.cs" />
     <Compile Include="Controllers\AddVisitorPageContentController.cs" />
     <Compile Include="Controllers\AddWillEmployeeController.cs" />
+    <Compile Include="Controllers\AddwitnessController.cs" />
     <Compile Include="Controllers\AlternateBeneficiaryController.cs" />
     <Compile Include="Controllers\AssetTypeController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
@@ -1868,6 +1869,7 @@
     <Content Include="Views\AddBeneficiaryInstitute\AddBeneficiaryInstitute.cshtml" />
     <Content Include="Views\EditBeneficiaryInstitution\EditBeneficiaryInstitution.cshtml" />
     <Content Include="Views\TestatorHomePage\TestatorHomePageContent.cshtml" />
+    <Content Include="Views\Addwitness\AddWitnessPageContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

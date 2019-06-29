@@ -175,7 +175,7 @@ namespace WillAssure.Controllers
                             }
                             else
                             {
-                                return RedirectToAction("Index", "Frontend" , new { displayname = Session["displayname"].ToString() });
+                                return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage", new { displayname = Session["displayname"].ToString() });
                             }
 
 

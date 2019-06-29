@@ -1592,7 +1592,7 @@ namespace WillAssure.Controllers
             // for appointees 
 
             con.Open();
-            string qchk008 = "select * from Appointees where tid = " + NestId + " ";
+            string qchk008 = "select * from Appointees where tid = " + NestId + " and Type='Executor' ";
             SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
             DataTable chk008dt = new DataTable();
             chk008da.Fill(chk008dt);
@@ -1612,6 +1612,27 @@ namespace WillAssure.Controllers
 
 
 
+
+
+            // for Addwitness 
+
+            con.Open();
+            string qchk0082 = "select * from Appointees where tid = " + NestId + " and Type='Witness' ";
+            SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
+            DataTable chk008dt2 = new DataTable();
+            chk008da2.Fill(chk008dt2);
+            con.Close();
+
+            if (chk008dt2.Rows.Count > 0)
+            {
+
+            }
+            else
+            {
+                return RedirectToAction("AddwitnessIndex", "Addwitness");
+            }
+
+            //end
 
 
             //end

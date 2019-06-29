@@ -1139,6 +1139,10 @@ namespace WillAssure.Controllers
             {
                 nomineestate = "true";
             }
+            else
+            {
+                nomineestate = "false";
+            }
 
 
 

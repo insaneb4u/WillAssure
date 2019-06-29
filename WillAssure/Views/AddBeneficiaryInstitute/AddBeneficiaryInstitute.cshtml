@@ -204,7 +204,15 @@
                                     <div class="form-group">
 
                                         <label for="input-1">Registration No</label>
-                                        @Html.TextBoxFor(m => m.RegistrationNo, new { @class = "form-control input-shadow validate[required,custom[onlyNumberSp]] text-input", @id = "txtmiddlename", @placeholder = "Registration No", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        @if (Model.RegistrationNo != 0)
+                                        {
+                                            @Html.TextBoxFor(m => m.RegistrationNo, new { @class = "form-control input-shadow validate[custom[onlyNumberSp]]  text-input", @id = "txtmiddlename", @placeholder = "Registration No", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        }
+                                        else
+                                        {
+                                            <input type="text"  class = "form-control input-shadow validate[custom[onlyNumberSp]] text-input" name="RegistrationNo" />
+                                        }
+
                                     </div>
                                 </div>
 
@@ -424,7 +432,22 @@
                                         <div class="form-group">
 
                                             <label for="input-1">Registration No</label>
-                                            @Html.TextBoxFor(m => m.altRegistrationNo, new { @class = "form-control input-shadow validate[required,custom[onlyNumberSp]] text-input", @id = "txtmiddlename", @placeholder = "Registration No", @autocomplete = "off", alert = "LabourCost is requried" })
+
+
+                                            @if (Model.altRegistrationNo != 0)
+                                            {
+                                                @Html.TextBoxFor(m => m.altRegistrationNo, new { @class = "form-control input-shadow validate[custom[onlyNumberSp]] text-input", @id = "txtmiddlename", @placeholder = "Registration No", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            }
+                                            else
+                                            {
+                                            <input type="text" name="altRegistrationNo" value=""  class="form-control input-shadow validate[custom[onlyNumberSp]] text-input" />
+                                            }
+
+
+
+
+
+
                                         </div>
                                     </div>
 

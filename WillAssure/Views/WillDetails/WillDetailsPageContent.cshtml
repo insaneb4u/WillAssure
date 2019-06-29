@@ -74,7 +74,10 @@
                         <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
                         <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
                         @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
-                        <a href="@Url.Action("AddAppointeesIndex","AddAppointees")"><li style="color:black">Appointees > </li></a>
+                        <a href="@Url.Action("AddAppointeesIndex","AddAppointees")"><li style="color:black">Executor > </li></a>
+                        <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")">
+                            <li style="color:black">Witness > </li>
+                        </a>
                         <a href="@Url.Action("WillDetailsIndex","WillDetails")"> <li style="color:">Document</li></a>
 
 
@@ -136,8 +139,9 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div id="tabe-1" class="container tab-pane active">
+                                
+                                <center><a href="@Url.Action("EditTestatorIndex","EditTestator")"><input type="button" class="btn btn-primary" name="name" value="Edit TestatorDetails" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
 
-                                <center><a href="@Url.Action("EditTestatorIndex","EditTestator")"><input type="button" class="btn btn-primary" name="name" value="Edit TestatorDetails" /></a></center>
                                 <div class="row">
                                     @if (ViewBag.TestatorDetails != null)
                                     {
@@ -647,6 +651,7 @@
                             <div id="tabe-3" class="container tab-pane fade">
 
                                 <center><a href="@Url.Action("EditBeneficiaryIndex","EditBeneficiary")"><input type="button" class="btn btn-primary" name="name" value="Edit Beneficiary" /></a></center>
+                                
                                 <div class="row">
                                     @if (ViewBag.beneficiary != null)
                                     {
@@ -1327,6 +1332,7 @@
                             </div>
                             <div id="tabe-7" class="container tab-pane fade">
                                 <center><a href="@Url.Action("EditAppointeesIndex","EditAppointees")"><input type="button" class="btn btn-primary" name="name" value="Edit Appointees" /></a></center>
+                           
                                 <div class="row">
                                     @if (ViewBag.appointees != null)
                                     {
@@ -1749,7 +1755,7 @@
                             </div>
                             <div class="form-group">
 
-                                <center><a href="@Url.Action("Report.aspx","page", new {NestId=ViewBag.tid})"><button type="button" id="btnwilldetails" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>View In Document</button></a></center>
+                                @*<center><a href="@Url.Action("Report.aspx","page", new {NestId=Convert.ToInt32(Session["distid"])})"><button type="button" id="btnwilldetails" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>View In Document</button></a></center>*@
 
 
                                 <button type="button" id="btnsenddocument" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
@@ -1791,6 +1797,43 @@
 
     });
 
+</script>
+
+
+
+<script>
+    $("#btnend").click(function () {
+     
+        swal({
+
+            text: 'Do You Like To End Document If Yes Document Will Get Completed If No You Can Still Modify Details',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+            buttons: ['No', 'Yes']
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+
+                    var url = "/TestatorHomePage/TestatorHomePageIndex/";
+                    window.location.href = url;
+
+
+                } else {
+
+
+
+
+
+                  
+
+
+
+
+                }
+            });
+
+    });
 </script>
 
 

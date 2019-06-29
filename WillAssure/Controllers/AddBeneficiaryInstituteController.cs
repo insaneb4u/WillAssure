@@ -64,6 +64,7 @@ namespace WillAssure.Controllers
                 BIM.FirstName = dt.Rows[0]["Name"].ToString();
                 BIM.TypeText = dt.Rows[0]["Type"].ToString();
                 BIM.RegistrationNo = Convert.ToInt32(dt.Rows[0]["registrationNo"]);
+               
                 BIM.Address = dt.Rows[0]["Address"].ToString();
                 BIM.CityText = dt.Rows[0]["City"].ToString();
                 BIM.StateText = dt.Rows[0]["State"].ToString();

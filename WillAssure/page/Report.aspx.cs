@@ -31,7 +31,7 @@ namespace WillAssure.Views.ViewDocument
         {
 
             int documentId = Convert.ToInt32(Request.QueryString["NestId"]);
-
+            ViewState["tid"] = documentId;
 
             con.Open();
 
@@ -512,10 +512,28 @@ namespace WillAssure.Views.ViewDocument
         protected void btnback_Click(object sender, EventArgs e)
         {
 
-            int testatorid = Convert.ToInt32(ViewState["TemplateID"]);
+            int testatorid = Convert.ToInt32(ViewState["tid"]);
+
+            if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+            }
+            con.Open();
+            string query3 = "select uId from TestatorDetails where tId = "+ testatorid + " ";
+            SqlDataAdapter da = new SqlDataAdapter(query3, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+
+            if (dt.Rows.Count > 0)
+            {
+               Session["uuid"]  = Convert.ToInt32(dt.Rows[0]["uId"]);
+
+            }
 
 
-            Response.Redirect("/WillDetails/WillDetailsIndex?NestId=" + testatorid + "");
+
+            Response.Redirect("/TestatorHomePage/TestatorHomePageIndex/");
 
 
         }

@@ -838,10 +838,10 @@
 
                                         <br />
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" value="Yes" class="altradio validate[required]" name="radio1">Yes
+                                            <input type="checkbox" value="Yes" class="altradio validate[required] chkone" name="radio1">Yes
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" value="No" class="altradio validate[required]" name="radio1">No
+                                            <input type="checkbox" value="No" class="altradio validate[required] chktwo" name="radio1">No
                                         </label>
 
 
@@ -886,7 +886,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">First Name</label>
-                                            @Html.TextBoxFor(m => m.altFirst_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtFirstName", @placeholder = "Enter First Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextBoxFor(m => m.altFirst_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtFirstName", @placeholder = "Enter First Name", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
 
@@ -894,14 +894,14 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Middle Name</label>
-                                            @Html.TextBoxFor(m => m.altMiddle_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtMiddle_Name", @placeholder = "Enter Middle Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextBoxFor(m => m.altMiddle_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtMiddle_Name", @placeholder = "Enter Middle Name", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Last Name</label>
-                                            @Html.TextBoxFor(m => m.altLast_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtLastName", @placeholder = "Enter Last Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextBoxFor(m => m.altLast_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtLastName", @placeholder = "Enter Last Name", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
 
@@ -915,7 +915,7 @@
                                             <div class="form-group">
                                                 <label for="input-1">Date Of Birth</label>
                                                 <div id="datepicker22" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                    <input class="form-control input-shadow validate[required]" value="@Model.altDob" type="text" id="DOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                    <input class="form-control input-shadow validate[required]" value="@Model.altDob" type="text" id="altDOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                                 </div>
                                                 <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
@@ -929,7 +929,7 @@
                                             <div class="form-group">
                                                 <label for="input-1">Date Of Birth</label>
                                                 <div id="datepicker22" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                    <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                    <input class="form-control input-shadow validate[required]" type="text" id="altDOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
                                                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                                 </div>
                                                 <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
@@ -1048,7 +1048,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Pin</label>
-                                            @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "txtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                            @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "alttxtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
                                         </div>
                                     </div>
 
@@ -1060,7 +1060,7 @@
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 1</label>
-                                            @Html.TextAreaFor(m => m.altAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtAddress1", @placeholder = "Enter Address1", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextAreaFor(m => m.altAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtAddress1", @placeholder = "Enter Address1", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
                                 </div>
@@ -1072,7 +1072,7 @@
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 2</label>
-                                            @Html.TextAreaFor(m => m.altAddress2, new { @class = "form-control input-shadow text-input", @id = "txtAddress2", @placeholder = "Enter Address2", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextAreaFor(m => m.altAddress2, new { @class = "form-control input-shadow text-input", @id = "alttxtAddress2", @placeholder = "Enter Address2", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
                                 </div>
@@ -1083,7 +1083,7 @@
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 3</label>
-                                            @Html.TextAreaFor(m => m.altAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtAddress3", @placeholder = "Enter Address3", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextAreaFor(m => m.altAddress3, new { @class = "form-control input-shadow  text-input", @id = "alttxtAddress3", @placeholder = "Enter Address3", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
                                 </div>
@@ -1123,7 +1123,7 @@
                                        new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required] altproof", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
 
                                         </div>
                                     </div>
@@ -1131,7 +1131,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof Value</label>
-                                            <div id="appendtxt"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+                                            <div id="appendtxt"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input altvalue", @id = "Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
 
                                         </div>
                                     </div>
@@ -1144,7 +1144,7 @@
                                        new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow ", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow altproof2", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
                                             @Html.HiddenFor(m => m.Alt_Identity_Proof, new { id = "Alt_Identity_Proof" })
                                         </div>
                                     </div>
@@ -1153,7 +1153,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.altAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
+                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.altAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altvalue2", @id = "Alt_Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
 
                                         </div>
                                     </div>
@@ -1999,6 +1999,26 @@
                     $("#Identity_Proof_Value").attr("disabled", "disabled");
 
 
+
+
+
+                    $("#alttxtFirstName").attr("disabled", "disabled");
+                    $("#alttxtMiddle_Name").attr("disabled", "disabled");
+                    $("#alttxtLastName").attr("disabled", "disabled");
+                    $("#altDOB").attr("disabled", "disabled");
+                    $("#altddlrelation").attr("disabled", "disabled");
+                    $("#altddlstate").attr("disabled", "disabled");
+                    $("#altddlcity").attr("disabled", "disabled");
+                    $("#alttxtPin").attr("disabled", "disabled");
+                    $("#alttxtAddress1").attr("disabled", "disabled");
+                    $("#alttxtAddress2").attr("disabled", "disabled");
+                    $("#alttxtAddress3").attr("disabled", "disabled");
+                    $(".altproof").attr("disabled", "disabled");
+                    $(".altvalue").attr("disabled", "disabled");
+                    $(".altproof2").attr("disabled", "disabled");
+                    $(".altvalue2").attr("disabled", "disabled");
+
+
                 });
 
 
@@ -2033,6 +2053,22 @@
 
 
 
+                $("#alttxtFirstName").attr("disabled", "disabled");
+                $("#alttxtMiddle_Name").attr("disabled", "disabled");
+                $("#alttxtLastName").attr("disabled", "disabled");
+                $("#altDOB").attr("disabled", "disabled");
+                $("#altddlrelation").attr("disabled", "disabled");
+                $("#altddlstate").attr("disabled", "disabled");
+                $("#altddlcity").attr("disabled", "disabled");
+                $("#alttxtPin").attr("disabled", "disabled");
+                $("#alttxtAddress1").attr("disabled", "disabled");
+                $("#alttxtAddress2").attr("disabled", "disabled");
+                $("#alttxtAddress3").attr("disabled", "disabled");
+                $(".altproof").attr("disabled", "disabled");
+                $(".altvalue").attr("disabled", "disabled");
+                $(".altproof2").attr("disabled", "disabled");
+                $(".altvalue2").attr("disabled", "disabled");
+
             });
 
 
@@ -2056,6 +2092,25 @@
                 $("#Alt_Identity_Proof_Value").removeAttr("disabled");
                 $("#ddlidentityproof1").removeAttr("disabled");
                 $("#Identity_Proof_Value").removeAttr("disabled");
+
+
+
+
+                $("#alttxtFirstName").removeAttr("disabled");
+                $("#alttxtMiddle_Name").removeAttr("disabled");
+                $("#alttxtLastName").removeAttr("disabled");
+                $("#altDOB").removeAttr("disabled");
+                $("#altddlrelation").removeAttr("disabled");
+                $("#altddlstate").removeAttr("disabled");
+                $("#altddlcity").removeAttr("disabled");
+                $("#alttxtPin").removeAttr("disabled");
+                $("#alttxtAddress1").removeAttr("disabled");
+                $("#alttxtAddress2").removeAttr("disabled");
+                $("#alttxtAddress3").removeAttr("disabled");
+                $(".altproof").removeAttr("disabled");
+                $(".altvalue").removeAttr("disabled");
+                $(".altproof2").removeAttr("disabled");
+                $(".altvalue2").removeAttr("disabled");
 
                 $("#btnupdate").show();
                 $("#btntestatorsubmit").hide();
@@ -2097,15 +2152,29 @@
                 $("#Identity_Proof_Value").removeAttr("disabled");
 
 
+                $("#alttxtFirstName").removeAttr("disabled");
+                $("#alttxtMiddle_Name").removeAttr("disabled");
+                $("#alttxtLastName").removeAttr("disabled");
+                $("#altDOB").removeAttr("disabled");
+                $("#altddlrelation").removeAttr("disabled");
+                $("#altddlstate").removeAttr("disabled");
+                $("#altddlcity").removeAttr("disabled");
+                $("#alttxtPin").removeAttr("disabled");
+                $("#alttxtAddress1").removeAttr("disabled");
+                $("#alttxtAddress2").removeAttr("disabled");
+                $("#alttxtAddress3").removeAttr("disabled");
+                $(".altproof").removeAttr("disabled");
+                $(".altvalue").removeAttr("disabled");
+                $(".altproof1").removeAttr("disabled");
+                $(".altvalue1").removeAttr("disabled");
+
+
 
 
                 $("#txtFirstName").val("");
                 $("#txtMiddle_Name").val("");
                 $("#txtLastName").val("");
                 $("#DOB").val("");
-
-
-
                 $("#txtPin").val("");
                 $("#txtAddress1").val("");
                 $("#txtAddress2").val("");
@@ -2114,7 +2183,39 @@
                 $("#Alt_Identity_Proof_Value").val("");
                 $("#ddlidentityproof1").val("");
                 $("#Identity_Proof_Value").val("");
+                $("#alttxtFirstName").val("");
+                $("#alttxtMiddle_Name").val("");
+                $("#alttxtLastName").val("");
+                $("#altDOB").val("");
+                $("#alttxtPin").val("");
+                $("#alttxtAddress1").val("");
+                $("#alttxtAddress2").val("");
+                $("#alttxtAddress3").val("");
+                $("#ddlidentityproof").val("");
+                $("#Alt_Identity_Proof_Value").val("");
+                $("#ddlidentityproof1").val("");
+                $("#Identity_Proof_Value").val("");
 
+
+
+
+
+                $("#alttxtFirstName").val("");
+                $("#alttxtMiddle_Name").val("");
+                $("#alttxtLastName").val("");
+                $("#altDOB").val("");
+            
+                $("#alttxtPin").val("");
+                $("#alttxtAddress1").val("");
+                $("#alttxtAddress2").val("");
+                $("#alttxtAddress3").val("");
+                $(".altproof").val("");
+                $(".altvalue").val("");
+                $(".altproof1").val("");
+                $(".altvalue1").val("");
+
+                $(".chkone").prop('checked', false);
+                $("#alttestatorfamily").hide();
 
             });
 
@@ -2147,15 +2248,29 @@
                 $("#Identity_Proof_Value").removeAttr("disabled");
 
 
+                $("#alttxtFirstName").removeAttr("disabled");
+                $("#alttxtMiddle_Name").removeAttr("disabled");
+                $("#alttxtLastName").removeAttr("disabled");
+                $("#altDOB").removeAttr("disabled");
+                $("#altddlrelation").removeAttr("disabled");
+                $("#altddlstate").removeAttr("disabled");
+                $("#altddlcity").removeAttr("disabled");
+                $("#alttxtPin").removeAttr("disabled");
+                $("#alttxtAddress1").removeAttr("disabled");
+                $("#alttxtAddress2").removeAttr("disabled");
+                $("#alttxtAddress3").removeAttr("disabled");
+                $(".altproof").removeAttr("disabled");
+                $(".altvalue").removeAttr("disabled");
+                $(".altproof1").removeAttr("disabled");
+                $(".altvalue1").removeAttr("disabled");
+
+
 
 
                 $("#txtFirstName").val("");
                 $("#txtMiddle_Name").val("");
                 $("#txtLastName").val("");
                 $("#DOB").val("");
-
-
-
                 $("#txtPin").val("");
                 $("#txtAddress1").val("");
                 $("#txtAddress2").val("");
@@ -2164,7 +2279,39 @@
                 $("#Alt_Identity_Proof_Value").val("");
                 $("#ddlidentityproof1").val("");
                 $("#Identity_Proof_Value").val("");
+                $("#alttxtFirstName").val("");
+                $("#alttxtMiddle_Name").val("");
+                $("#alttxtLastName").val("");
+                $("#altDOB").val("");
+                $("#alttxtPin").val("");
+                $("#alttxtAddress1").val("");
+                $("#alttxtAddress2").val("");
+                $("#alttxtAddress3").val("");
+                $("#ddlidentityproof").val("");
+                $("#Alt_Identity_Proof_Value").val("");
+                $("#ddlidentityproof1").val("");
+                $("#Identity_Proof_Value").val("");
 
+
+
+
+
+                $("#alttxtFirstName").val("");
+                $("#alttxtMiddle_Name").val("");
+                $("#alttxtLastName").val("");
+                $("#altDOB").val("");
+                $("#alttxtPin").val("");
+                $("#alttxtAddress1").val("");
+                $("#alttxtAddress2").val("");
+                $("#alttxtAddress3").val("");
+                $(".altproof").val("");
+                $(".altvalue").val("");
+                $(".altproof1").val("");
+                $(".altvalue1").val("");
+
+
+                $(".chkone").prop('checked', false);
+                $("#alttestatorfamily").hide();
 
             });
 
@@ -2348,3 +2495,21 @@
 
 
         </script>
+
+
+
+
+
+        @if (ViewBag.alternate == "true")
+        {
+            <script>
+                $(document).ready(function () {
+                    $(".chkone").prop('checked', true);
+                    $("#alttestatorfamily").show();
+
+                });
+             
+
+            </script>
+
+        }

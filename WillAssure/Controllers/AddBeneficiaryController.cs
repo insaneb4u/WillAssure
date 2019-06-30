@@ -19,11 +19,14 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddBeneficiary
-        public ActionResult AddBeneficiaryIndex(string success, string NestId)
+        public ActionResult AddBeneficiaryIndex(string NestId)
         {
-            if (success == "true")
+            if (TempData["Message"] != null)
             {
-                ViewBag.Message = "RecordsInsert";
+                if (TempData["Message"].ToString() == "true")
+                {
+                    ViewBag.Message = "Verified";
+                }
             }
 
 
@@ -270,6 +273,8 @@ namespace WillAssure.Controllers
             con.Close();
             if (dt2.Rows.Count > 0)
             {
+                ViewBag.alternate = "true";
+
                 ViewBag.disablefield = "true";
 
                 BM.altbpId = Convert.ToInt32(dt2.Rows[0]["lnk_bd_id"]);
@@ -927,9 +932,9 @@ namespace WillAssure.Controllers
 
 
             ModelState.Clear();
-           
 
 
+            TempData["Message"] = "true";
 
 
 
@@ -943,7 +948,7 @@ namespace WillAssure.Controllers
 
 
 
-            return RedirectToAction("AddBeneficiaryIndex", "AddBeneficiary", new { success = "true" });
+            return RedirectToAction("AddBeneficiaryIndex", "AddBeneficiary");
         }
 
 

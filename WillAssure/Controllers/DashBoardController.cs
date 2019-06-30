@@ -478,48 +478,55 @@ namespace WillAssure.Controllers
                 RedirectToAction("LoginPageIndex", "LoginPage");
             }
 
-
-
-            if (Session["Type"].ToString() != "Testator")
+            if (Session["Type"] != null)
             {
-                if (doctype == "Will")
+                if (Session["Type"].ToString() != "Testator")
                 {
-                    ViewBag.collapse = "true";
-                    Session["doctype"] = "Will";
-                    return RedirectToAction("EditTestatorIndex", "EditTestator", new { doctype = doctype });
-                }
+                    if (doctype == "Will")
+                    {
+                        ViewBag.collapse = "true";
+                        Session["doctype"] = "Will";
+                        return RedirectToAction("EditTestatorIndex", "EditTestator", new { doctype = doctype });
+                    }
 
-                if (doctype == "Codocil")
-                {
-                    ViewBag.collapse = "true";
-                    Session["doctype"] = "Codocil";
-                    return RedirectToAction("EditTestatorIndex", "EditTestator", new { doctype = doctype });
-                }
-
-
-                if (doctype == "POA")
-                {
-                    ViewBag.collapse = "true";
-                    Session["doctype"] = "POA";
-                    return RedirectToAction("EditTestatorIndex", "EditTestator", new { doctype = doctype });
-                }
+                    if (doctype == "Codocil")
+                    {
+                        ViewBag.collapse = "true";
+                        Session["doctype"] = "Codocil";
+                        return RedirectToAction("EditTestatorIndex", "EditTestator", new { doctype = doctype });
+                    }
 
 
-                if (doctype == "GiftDeeds")
-                {
-                    ViewBag.collapse = "true";
-                    Session["doctype"] = "GiftDeeds";
-                    return RedirectToAction("EditTestatorIndex", "EditTestator", new { doctype = doctype });
-                }
+                    if (doctype == "POA")
+                    {
+                        ViewBag.collapse = "true";
+                        Session["doctype"] = "POA";
+                        return RedirectToAction("EditTestatorIndex", "EditTestator", new { doctype = doctype });
+                    }
 
 
-                if (doctype == "LivingWill")
-                {
-                    ViewBag.collapse = "true";
-                    Session["doctype"] = "LivingWill";
-                    return RedirectToAction("EditTestatorIndex", "EditTestator", new { doctype = doctype });
+                    if (doctype == "GiftDeeds")
+                    {
+                        ViewBag.collapse = "true";
+                        Session["doctype"] = "GiftDeeds";
+                        return RedirectToAction("EditTestatorIndex", "EditTestator", new { doctype = doctype });
+                    }
+
+
+                    if (doctype == "LivingWill")
+                    {
+                        ViewBag.collapse = "true";
+                        Session["doctype"] = "LivingWill";
+                        return RedirectToAction("EditTestatorIndex", "EditTestator", new { doctype = doctype });
+                    }
                 }
             }
+            else
+            {
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+           
 
 
 

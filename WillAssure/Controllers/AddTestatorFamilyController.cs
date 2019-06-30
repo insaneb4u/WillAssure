@@ -53,12 +53,14 @@ namespace WillAssure.Controllers
 
 
 
-            if (success == "true")
+            if (TempData["Message"] != null)
             {
-                ViewBag.Message = "Verified";
-             
-
+                if (TempData["Message"].ToString() == "true")
+                {
+                    ViewBag.Message = "Verified";
+                }
             }
+
 
             ViewBag.view = "Will";
             ViewBag.collapse = "true";
@@ -311,6 +313,7 @@ namespace WillAssure.Controllers
             if (dt4.Rows.Count > 0)
             {
                 ViewBag.disablefield = "true";
+                ViewBag.alternate = "true";
 
                 for (int i = 0; i < dt4.Rows.Count; i++)
                 {
@@ -978,14 +981,14 @@ namespace WillAssure.Controllers
 
 
             string date = TFM.Dob;
+            TempData["Message"] = "true";
 
-     
 
 
 
             ModelState.Clear();
 
-            return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily" , new { success = "true" , date= date });
+            return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily" , new {date= date });
         }
 
 
@@ -1275,8 +1278,19 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@Alt_Identity_Proof", TFM.Alt_Identity_Proof);
             cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", TFM.Alt_Identity_Proof_Value);
             cmd.Parameters.AddWithValue("@Is_Informed_Person", "none");
-            
             cmd.ExecuteNonQuery();
+
+
+
+
+
+
+            string upaltquery = "update alttestatorFamily set altFirst_Name = '"+TFM.altFirst_Name+"'  , altLast_Name = '"+TFM.altLast_Name+"'  , altMiddle_Name = '"+TFM.altMiddle_Name+"'  , altDOB = '"+Convert.ToDateTime(TFM.altDob).ToString("yyyy-MM-dd")+"' , altMarital_Status = '"+TFM.altMarital_Status+"'   , altReligion = '"+TFM.altReligion+"' , altRelationship = '"+TFM.altRelationshipTxt+"' , altAddress1 = '"+TFM.altAddress1+"' , altAddress2 = '"+TFM.altAddress2+"' , altAddress3 = '"+TFM.altAddress3+"' , altCity = '"+TFM.altCity_txt+"'  , altState = '"+TFM.altState_txt+"'  , altPin = '"+TFM.altPin+"'  , altIdentity_Proof = '"+TFM.altIdentity_Proof+"'  , altIdentity_Proof_Value = '"+TFM.altIdentity_Proof_Value+"' , altAlt_Identity_Proof = '"+TFM.altAlt_Identity_Proof+"'  , altAlt_Identity_Proof_Value = '"+TFM.altAlt_Identity_Proof_Value+ "'  where testatorfamilyid = "+ TFM.fId + " ";
+            SqlCommand altcmd = new SqlCommand(upaltquery,con);
+            altcmd.ExecuteNonQuery();
+
+
+
             con.Close();
 
             ViewBag.message = "Verified";

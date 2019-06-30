@@ -21,14 +21,17 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddBeneficiaryInstitute
-        public ActionResult AddBeneficiaryInstituteIndex(string success, string NestId)
+        public ActionResult AddBeneficiaryInstituteIndex(string NestId)
         {
 
-            if (success == "true")
+            if (TempData["Message"] != null)
             {
-                ViewBag.Message = "Verified";
-
+                if (TempData["Message"].ToString() == "true")
+                {
+                    ViewBag.Message = "Verified";
+                }
             }
+
 
             string query = "";
             BeneficiaryInstitutionModel BIM = new BeneficiaryInstitutionModel();
@@ -42,7 +45,7 @@ namespace WillAssure.Controllers
             }
             else
             {
-                query = "select * from BeneficiaryInstitutions where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                query = "select * from BeneficiaryInstitutions where tid = " + Convert.ToInt32(Session["distid"]) + " order by biId desc ";
             }
            
 
@@ -76,7 +79,7 @@ namespace WillAssure.Controllers
             // alternate beneficiary institute
 
 
-            string query2 = "select * from alternate_BeneficiaryInstitutions where biId = "+ BIM.BiId + "  ";
+            string query2 = "select * from alternate_BeneficiaryInstitutions where biId = "+ BIM.BiId + " order by lnk_bi_id desc ";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -86,7 +89,7 @@ namespace WillAssure.Controllers
             if (dt2.Rows.Count > 0)
             {
                 ViewBag.disablefield = "true";
-                
+                ViewBag.alternate = "true";
 
 
                 BIM.altFirstName = dt2.Rows[0]["Name"].ToString();
@@ -164,13 +167,13 @@ namespace WillAssure.Controllers
 
             }
 
-           
 
 
+            TempData["Message"] = "true";
 
             ModelState.Clear();
 
-            return RedirectToAction("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute",new { success = "true" });
+            return RedirectToAction("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute");
         }
 
 

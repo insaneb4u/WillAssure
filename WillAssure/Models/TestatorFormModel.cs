@@ -125,6 +125,9 @@ namespace WillAssure.Models
 
         public string tempemailotp { get; set; }
         public string tempmobileotp { get; set; }
+
+
+        public string successmessage { get; set; }
     }
 
 

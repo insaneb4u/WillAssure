@@ -24,13 +24,14 @@
 
         
             <br />
-        <asp:Button CssClass="btn btn-success" ID="btnverify" Text="Verify" runat="server" OnClick="btnverify_Click" />
+        <asp:Button CssClass="btn btn-success" ID="btnverify" Text="Email PDF" runat="server" OnClick="btnverify_Click" />
         <asp:Button CssClass="btn btn-danger" ID="btncancel" Text="Cancel" runat="server" OnClick="btncancel_Click" />
-        <asp:Button CssClass="btn btn-primary" ID="btnChangeTemplate" Text="ChangeTemplate" runat="server" OnClick="btnChangeTemplate_Click"  />
+            <asp:button text="Dashboard" ID="btnback" CssClass="btn btn-info" runat="server" OnClick="btnback_Click"  />
+       <%-- <asp:Button CssClass="btn btn-primary" ID="btnChangeTemplate" Text="ChangeTemplate" runat="server" OnClick="btnChangeTemplate_Click"  />--%>
             <br />
             <br />
            
-              <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" EnableDatabaseLogonPrompt="False" EnableParameterPrompt="False" ReportSourceID="CrystalReportSource1" Visible="true" ToolPanelView="None" />
+              <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" EnableDatabaseLogonPrompt="False" EnableParameterPrompt="False" ReportSourceID="CrystalReportSource1" Visible="true" ToolPanelView="None" HasCrystalLogo="False" HasDrilldownTabs="False" HasDrillUpButton="False" HasExportButton="False" HasGotoPageButton="False" HasPrintButton="False" HasSearchButton="False" HasToggleGroupTreeButton="False" HasToggleParameterPanelButton="False" HasZoomFactorList="False" PrintMode="ActiveX" />
        <CR:CrystalReportSource ID="CrystalReportSource1" runat="server" Visible="true">
             <Report FileName="~/CrystalReports/WillTestator1.rpt">
             </Report>

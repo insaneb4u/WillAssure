@@ -560,10 +560,10 @@
 
                                             <br />
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" value="Yes" class="radio validate[required]" name="radio1">Yes
+                                                <input type="checkbox" value="Yes" class="radio validate[required] altone" name="radio1">Yes
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" value="No" class="radio validate[required]" name="radio1">No
+                                                <input type="checkbox" value="No" class="radio validate[required] alttwo" name="radio1">No
                                             </label>
 
 
@@ -597,7 +597,7 @@
 
 
 
-                                <div class=" altbeneficiaryclass" style="display:none;">
+                                <div class="altbeneficiaryclass" style="display:none;">
 
 
                                     <div class="row">
@@ -1990,7 +1990,8 @@
         $("#altddlidentityproof1").val("");
         $("#alttxtIdentityProofValue").val("");
         $("#alttxtIdentityProofValue").val("");
-
+        $(".altone").prop('checked', false);
+        $(".altbeneficiaryclass").hide();
 
     });
 
@@ -2084,7 +2085,26 @@
         $("#alttxtIdentityProofValue").val("");
 
 
+
+        $(".altone").prop('checked', false);
+        $(".altbeneficiaryclass").hide();
+
+
     });
 
 
 </script>
+
+
+@if (ViewBag.alternate =="true")
+{
+    <script>
+        $(document).ready(function () {
+
+            $(".altone").prop('checked', true);
+            $(".altbeneficiaryclass").show();
+
+        });
+      
+    </script>
+}

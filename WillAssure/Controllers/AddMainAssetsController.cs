@@ -21,7 +21,7 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
         string json = "";
         // GET: AddMainAssets
-        public ActionResult AddMainAssetsIndex(string success, string NestId, string nomineestate)
+        public ActionResult AddMainAssetsIndex(string NestId, string nomineestate)
         {
 
             if (nomineestate == "true")
@@ -40,11 +40,15 @@ namespace WillAssure.Controllers
                 TempData["NestedId"] = NestId;
             }
 
-            
-            if (success == "true")
+
+            if (TempData["Message"] != null)
             {
-                ViewBag.Message = "Verified";
+                if (TempData["Message"].ToString() == "true")
+                {
+                    ViewBag.Message = "Verified";
+                }
             }
+
 
             ViewBag.view = "Will";
             ViewBag.collapse = "true";
@@ -1509,7 +1513,7 @@ namespace WillAssure.Controllers
                     con.Close();
 
 
-                    ViewBag.Message = "Verified";
+                    
                 }
 
 
@@ -1524,7 +1528,7 @@ namespace WillAssure.Controllers
             con.Close();
                 ModelState.Clear();
 
-
+            TempData["Message"] = "true";
             //}
             //else
             //{
@@ -1537,7 +1541,7 @@ namespace WillAssure.Controllers
 
 
 
-            return RedirectToAction("AddMainAssetsIndex", "AddMainAssets", new { success = "true" , nomineestate = nomineestate });
+            return RedirectToAction("AddMainAssetsIndex", "AddMainAssets", new {nomineestate = nomineestate });
         }
 
 
@@ -2099,7 +2103,7 @@ namespace WillAssure.Controllers
             cmd.ExecuteNonQuery();
             con.Close();
             ModelState.Clear();
-            ViewBag.Message = "Verified";
+            TempData["Message"] = "true";
             //}
             //else
             //{
@@ -2112,7 +2116,7 @@ namespace WillAssure.Controllers
             ViewBag.disablefield = "true";
 
 
-            return RedirectToAction("AddNomineeIndex", "AddNominee", new { success = "true" });
+            return RedirectToAction("AddNomineeIndex", "AddNominee");
         }
 
 

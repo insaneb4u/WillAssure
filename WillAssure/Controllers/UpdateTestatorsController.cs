@@ -26,8 +26,15 @@ namespace WillAssure.Controllers
             ViewBag.collapse = "true";
             ViewBag.cod = "true";
 
+            if (TempData["Message"] != null)
+            {
+                if (TempData["Message"].ToString() == "true")
+                {
+                    ViewBag.Message = "Verified";
+                }
+            }
 
-
+          
 
 
 
@@ -1146,10 +1153,10 @@ namespace WillAssure.Controllers
 
 
 
-            ViewBag.Message = "Verified";
+            TempData["Message"] = "true";
 
 
-            return View("~/Views/UpdateTestators/UpdateTestatorPageContent.cshtml");
+            return RedirectToAction("UpdateTestatorsIndex", "UpdateTestators" , new { NestId = TFM.uId});
         }
 
 

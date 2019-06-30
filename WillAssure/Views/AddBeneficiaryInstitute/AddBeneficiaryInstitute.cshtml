@@ -210,7 +210,7 @@
                                         }
                                         else
                                         {
-                                            <input type="text"  class = "form-control input-shadow validate[custom[onlyNumberSp]] text-input" name="RegistrationNo" />
+                                            <input type="text" class="form-control input-shadow validate[custom[onlyNumberSp]] text-input" name="RegistrationNo" />
                                         }
 
                                     </div>
@@ -356,10 +356,10 @@
                                         <br />
                                         <p>Alternate Beneficiary Institution</p>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" value="Yes" class="altradio validate[required]" name="radio1">Yes
+                                            <input type="checkbox" value="Yes" class="altradio validate[required] altone" name="radio1">Yes
                                         </label>
                                         <label class="checkbox-inline">
-                                            <input type="checkbox" value="No" class="altradio validate[required]" name="radio1">No
+                                            <input type="checkbox" value="No" class="altradio validate[required] alttwo" name="radio1">No
                                         </label>
 
 
@@ -401,7 +401,7 @@
                                         <div class="form-group">
                                             <label for="input-1">Name Of Institute</label>
 
-                                            @Html.TextBoxFor(m => m.altFirstName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtfirstname", @placeholder = "First Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextBoxFor(m => m.altFirstName, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtfirstname", @placeholder = "First Name", @autocomplete = "off", alert = "LabourCost is requried" })
 
 
                                         </div>
@@ -440,7 +440,7 @@
                                             }
                                             else
                                             {
-                                            <input type="text" name="altRegistrationNo" value=""  class="form-control input-shadow validate[custom[onlyNumberSp]] text-input" />
+                                                <input type="text" name="altRegistrationNo" value="" class="form-control input-shadow validate[custom[onlyNumberSp]] text-input" />
                                             }
 
 
@@ -485,7 +485,7 @@
                                         <div class="form-group">
 
                                             <label for="input-1">Address</label>
-                                            @Html.TextAreaFor(m => m.altAddress, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtaddress1", @placeholder = "Enter Address ", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextAreaFor(m => m.altAddress, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtaddress1", @placeholder = "Enter Address ", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
 
@@ -741,7 +741,12 @@
                                     $("#ddlcity").attr("disabled", "disabled");
 
 
-
+                                    $("#alttxtfirstname").attr("disabled", "disabled");
+                                    $("#altTypeText").attr("disabled", "disabled");
+                                    $("#alttxtmiddlename").attr("disabled", "disabled");
+                                    $("#alttxtaddress1").attr("disabled", "disabled");
+                                    $("#altddlstate").attr("disabled", "disabled");
+                                    $("#altddlcity").attr("disabled", "disabled");
 
 
                                 });
@@ -775,6 +780,16 @@
 
 
 
+                                $("#alttxtfirstname").removeAttr("disabled");
+                                $("#altTypeText").removeAttr("disabled");
+                                $("#alttxtmiddlename").removeAttr("disabled");
+                                $("#alttxtaddress1").removeAttr("disabled");
+                                $("#altddlstate").removeAttr("disabled");
+                                $("#altddlcity").removeAttr("disabled");
+
+
+
+
 
                                 $("#btneditmsg").show();
 
@@ -794,14 +809,30 @@
 
                                 $("#btnupdate").hide();
 
-                                $("#btnBeneficiaryformsubmit").show();
+                                $("#btnnomineeformsubmit").show();
 
-
+                                $("#altinstitution").hide();
+                                $(".altone").prop('checked', false);
+                             
 
                                 $("#btnfieldedit").hide();
 
+                                $("#txtfirstname").removeAttr("disabled");
+                                $("#TypeText").removeAttr("disabled");
+                                $("#txtmiddlename").removeAttr("disabled");
+                                $("#txtaddress1").removeAttr("disabled");
+                                $("#ddlstate").removeAttr("disabled");
+                                $("#ddlcity").removeAttr("disabled");
 
 
+
+
+                                $("#alttxtfirstname").removeAttr("disabled");
+                                $("#altTypeText").removeAttr("disabled");
+                                $("#alttxtmiddlename").removeAttr("disabled");
+                                $("#alttxtaddress1").removeAttr("disabled");
+                                $("#altddlstate").removeAttr("disabled");
+                                $("#altddlcity").removeAttr("disabled");
 
 
 
@@ -812,8 +843,15 @@
                                 $("#TypeText").val("");
                                 $("#txtmiddlename").val("");
                                 $("#txtaddress1").val("");
-                                $("#ddlstate").val("");
-                                $("#ddlcity").val("");
+
+
+
+
+                                $("#alttxtfirstname").val("");
+                                $("#altTypeText").val("");
+                                $("#alttxtmiddlename").val("");
+                                $("#alttxtaddress1").val("");
+
 
 
 
@@ -823,16 +861,32 @@
 
                                 $("#btnupdate").hide();
 
-                                $("#btnBeneficiaryformsubmit").show();
+                                $("#btnnomineeformsubmit").show();
 
 
 
                                 $("#btnfieldedit").hide();
 
+                                $("#altinstitution").hide();
+                                $(".altone").prop('checked', false);
+
+
+                                $("#txtfirstname").removeAttr("disabled");
+                                $("#TypeText").removeAttr("disabled");
+                                $("#txtmiddlename").removeAttr("disabled");
+                                $("#txtaddress1").removeAttr("disabled");
+                                $("#ddlstate").removeAttr("disabled");
+                                $("#ddlcity").removeAttr("disabled");
 
 
 
 
+                                $("#alttxtfirstname").removeAttr("disabled");
+                                $("#altTypeText").removeAttr("disabled");
+                                $("#alttxtmiddlename").removeAttr("disabled");
+                                $("#alttxtaddress1").removeAttr("disabled");
+                                $("#altddlstate").removeAttr("disabled");
+                                $("#altddlcity").removeAttr("disabled");
 
 
 
@@ -841,8 +895,12 @@
                                 $("#TypeText").val("");
                                 $("#txtmiddlename").val("");
                                 $("#txtaddress1").val("");
-                                $("#ddlstate").val("");
-                                $("#ddlcity").val("");
+
+                                $("#alttxtfirstname").val("");
+                                $("#altTypeText").val("");
+                                $("#alttxtmiddlename").val("");
+                                $("#alttxtaddress1").val("");
+
 
 
 
@@ -876,14 +934,14 @@
 
 
 
-                            
+
                         $("#altddlstate").change(function () {
                         var value = $(this).children(":selected").attr("value");
                         var text = $("#altddlstate option:selected").html();
 
                             $("#altStateText").val(text);
                             $("#altStateId").val(value);
-                           
+
 
 
                         $.ajax({
@@ -911,17 +969,29 @@
                         $("#altddlcity").change(function () {
                         var value = $(this).children(":selected").attr("value");
                         var text = $("#altddlcity option:selected").html();
-                      
+
                             $("#altCityText").val(text);
                             $("#altCityId").val(value);
 
 
                         });
-                     
+
 
 
                         </script>
 
+
+                        @if (ViewBag.alternate == "true")
+                        {
+                            <script>
+                                $(document).ready(function () {
+                                    $(".altone").prop('checked', true);
+                                    $("#altinstitution").show();
+                                });
+                              
+
+                            </script>
+                        }
 
 
 

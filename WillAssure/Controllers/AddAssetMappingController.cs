@@ -22,11 +22,14 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddAssetMapping
-        public ActionResult AddAssetMappingIndex(string success)
+        public ActionResult AddAssetMappingIndex()
         {
-            if (success == "true")
+            if (TempData["Message"] != null)
             {
-                ViewBag.Message = "Verified";
+                if (TempData["Message"].ToString() == "true")
+                {
+                    ViewBag.Message = "Verified";
+                }
             }
 
 

@@ -887,6 +887,7 @@ namespace WillAssure.Controllers
 
         public JsonResult checkOTP()
         {
+            string message = "";
             int response = Convert.ToInt32(Request["send"]);
             string email = "";
             int userid = 0;
@@ -1015,7 +1016,7 @@ namespace WillAssure.Controllers
 
 
 
-
+                         message = "true";
                     }
                     else
                     {
@@ -1024,6 +1025,7 @@ namespace WillAssure.Controllers
                         SqlCommand cmd3 = new SqlCommand(query3, con);
                         cmd3.ExecuteNonQuery();
                         con.Close();
+                        message = "false";
                         
                     }
 
@@ -1058,7 +1060,7 @@ namespace WillAssure.Controllers
 
 
            
-            string message = "Please Check Your Email ID For Credentials";
+            
 
 
 

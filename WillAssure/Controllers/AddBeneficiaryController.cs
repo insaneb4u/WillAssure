@@ -191,7 +191,36 @@ namespace WillAssure.Controllers
             }
             else
             {
-                query = "select * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' ";
+                if (Session["doctype"] != null)
+                {
+
+                    if (Session["doctype"].ToString() == "Will")
+                    {
+                        query = "select * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' and doctype = 'Will' ";
+                    }
+
+                    if (Session["doctype"].ToString() == "POA")
+                    {
+                        query = "select * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' and doctype = 'POA' ";
+                    }
+
+
+                    if (Session["doctype"].ToString() == "GiftDeeds")
+                    {
+                        query = "select * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' and doctype = 'Giftdeeds' ";
+                    }
+
+
+
+
+
+                }
+                else
+                {
+                    return RedirectToAction("LoginPageIndex", "LoginPage");
+                }
+
+                
             }
 
           
@@ -639,8 +668,34 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@Religion", "none");
                 cmd.Parameters.AddWithValue("@Identity_proof", BM.Identity_proof);
                 cmd.Parameters.AddWithValue("@Identity_proof_value", BM.Identity_proof_value);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof", BM.Alt_Identity_proof);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+
+
+
+                if (BM.Alt_Identity_proof != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", BM.Alt_Identity_proof);
+                }
+                else
+                {
+                    BM.Alt_Identity_proof = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", BM.Alt_Identity_proof);
+                }
+
+                if (BM.Alt_Identity_proof_value != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+                }
+                else
+                {
+                    BM.Alt_Identity_proof_value = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+                }
+
+
+
+
+
+               
 
                 cmd.Parameters.AddWithValue("@Address1", BM.Address1);
                 if (BM.Address2 != null || BM.Address2 == "")

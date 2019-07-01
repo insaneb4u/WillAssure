@@ -50,7 +50,7 @@
                                 <h5>
                                     <ul id="menu" style="font-weight:bold;">
 
-                                        <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Donor ></li></a>
+                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Donor ></li></a>
                                         <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Donee ></li></a>
                                         <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:">Gift  ></li></a>
                                         <li style="color:#e1e1e1">Asset Mapping ></li>
@@ -71,7 +71,7 @@
                                     <h5>
                                         <ul id="menu" style="font-weight:bold;">
 
-                                            <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Testator></li></a>
+                                            <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
                                             <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
                                             <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
                                                 <li style="color:black;">Institution ></li>
@@ -346,7 +346,23 @@
 
                                 <button type="submit" id="btnnomineeformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> Submit</button>
                                 <button type="submit" id="btnupdate" style="display:none;" formaction="@Url.Action("updateNominee","AddNominee")" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
-                                <a href="@Url.Action("AddLiabilitiesIndex","AddLiabilities")"><button type="button" id="btnnext" style="display:none" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+
+                                @if (Session["doctype"] != null)
+                                {
+                                    if (Session["doctype"].ToString() != "Will")
+                                    {
+                                        <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><button type="button" id="btnnext" style="display:none" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("AddLiabilitiesIndex","AddLiabilities")"><button type="button" id="btnnext" style="display:none" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                    }
+                                }
+
+
+
+
+
                             </div>
 
 

@@ -241,7 +241,38 @@ namespace WillAssure.Controllers
                     }
                     else
                     {
-                        query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = "+aaid+"  ";
+
+                        if (Session["doctype"] != null)
+                        {
+
+                            if (Session["doctype"].ToString() == "Will")
+                            {
+                                query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = " + aaid + "  and a.doctype = 'Will'  ";
+                            }
+
+                            if (Session["doctype"].ToString() == "POA")
+                            {
+                                query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = " + aaid + " and a.doctype = 'POA'   ";
+                            }
+
+
+                            if (Session["doctype"].ToString() == "GiftDeeds")
+                            {
+                                query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = " + aaid + " and a.doctype = 'Giftdeeds'   ";
+                            }
+
+
+
+
+
+                        }
+                        else
+                        {
+                            return RedirectToAction("LoginPageIndex", "LoginPage");
+                        }
+
+
+                        
                     }
 
 

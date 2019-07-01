@@ -18,13 +18,17 @@ namespace WillAssure.Controllers
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         SqlConnection con = new SqlConnection(connectionString);
         // GET: Addwitness
-        public ActionResult AddwitnessIndex(string success, string NestId)
+        public ActionResult AddwitnessIndex(string NestId)
         {
-            if (success == "true")
+            if (TempData["Message"] != null)
             {
-                ViewBag.Message = "Verified";
-
+                if (TempData["Message"].ToString() == "true")
+                {
+                    ViewBag.Message = "Verified";
+                }
             }
+
+        
 
             ViewBag.collapse = "true";
             if (Session["rId"] == null || Session["uuid"] == null)
@@ -292,7 +296,42 @@ namespace WillAssure.Controllers
                     }
                     else
                     {
-                        query = "select * from Appointees where tid = " + distid + "  and  Type = 'Witness'";
+
+
+                        if (Session["doctype"] != null)
+                        {
+
+                            if (Session["doctype"].ToString() == "Will")
+                            {
+                                query = "select * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Will'  order by apId desc ";
+                            }
+
+                            if (Session["doctype"].ToString() == "POA")
+                            {
+                                query = "select * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='POA'  order by apId desc ";
+                            }
+
+
+                            if (Session["doctype"].ToString() == "GiftDeeds")
+                            {
+                                query = "select * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Giftdeeds' order by apId desc ";
+                            }
+
+
+
+
+
+                        }
+                        else
+                        {
+                            return RedirectToAction("LoginPageIndex", "LoginPage");
+                        }
+
+
+
+
+
+                 
                     }
 
 
@@ -823,6 +862,7 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@State", AM.statetext);
                 cmd.Parameters.AddWithValue("@Pin", AM.Pin);
                 cmd.Parameters.AddWithValue("@tid", AM.ddltid);
+                cmd.Parameters.AddWithValue("@ExecutorType", "None");
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -1140,10 +1180,10 @@ namespace WillAssure.Controllers
             //end
 
 
-
+            TempData["Message"] = "true";
             ModelState.Clear();
 
-            return RedirectToAction("AddwitnessIndex", "Addwitness", new { success = "true" });
+            return RedirectToAction("AddwitnessIndex", "Addwitness");
         }
 
 

@@ -28,15 +28,15 @@
                                 <li class="nav-item">
                                     <a class="nav-link active" data-toggle="tab" href="#tabe-25"><i class="icon-doc"></i> <span class="hidden-xs">Create Document</span></a>
                                 </li>
-                                
+
                                 <li class="nav-item">
                                     <a class="nav-link" data-toggle="tab" href="#tabe-26"><i class="icon-check"></i> <span class="hidden-xs">Completed Document</span></a>
                                 </li>
-                
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#tabe-27"><i class="icon-info"></i> <span class="hidden-xs">Incompleted Document</span></a>
-                                    </li>
-                           
+
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#tabe-27"><i class="icon-info"></i> <span class="hidden-xs">Incompleted Document</span></a>
+                                </li>
+
                                 <li class="nav-item">
                                     <a class="nav-link" id="rzp-button1"><i class="icon-badge"></i> <span class="hidden-xs">Payment</span></a>
                                 </li>
@@ -110,19 +110,19 @@
                             </div>
                             <div id="tabe-26" class="container tab-pane fade">
 
-                                @if (ViewBag.empty == "true")
-                                {
-                                    <center><h4 style="color:darkred;">Currently No Document Has Been Completed...!</h4></center>
-                                }
+                                @*@if (ViewBag.empty == "true")
+                                {*@
+                                    <center id="title"><h4 style="color:darkred;">Currently No Document Has Been Completed...!</h4></center>
+                                @*}*@
 
 
 
                                 <center>
                                     <a href="@Url.Action("Report.aspx", "page" , new { NestId = ViewBag.testatorid })" id="compdocumentbtn1" style="display:none;"><button type="button" class="btn btn-primary btn-round waves-effect waves-light m-1">Will</button></a>
-                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn2" style="display:none;"> <button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">Codocil</button></a>
-                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid } )" id="compdocumentbtn3" style="display:none;"><button type="button" class="btn btn-info btn-round waves-effect waves-light m-1">POA</button></a>
-                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn4" style="display:none;"><button type="button" class="btn btn-danger btn-round waves-effect waves-light m-1">Gift Deeds</button></a>
-                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn5" style="display:none;"><button type="button" class="btn btn-warning btn-round waves-effect waves-light m-1">Living Will</button></a>
+                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn2" style="display:none;"> <button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">POA</button></a>
+                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid } )" id="compdocumentbtn3" style="display:none;"><button type="button" class="btn btn-info btn-round waves-effect waves-light m-1">Gift Deeds</button></a>
+                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn4" style="display:none;"><button type="button" class="btn btn-danger btn-round waves-effect waves-light m-1">Living Will</button></a>
+                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn5" style="display:none;"><button type="button" class="btn btn-warning btn-round waves-effect waves-light m-1">Codocil</button></a>
                                 </center>
 
 
@@ -261,13 +261,15 @@
 
 
 
-
+@*FOR COMPLETED DOCUMENT*@
 
 @if (ViewBag.Willbtn == "true")
 {
     <script>
         $(document).ready(function () {
+            $("#compdocumentbtn1").show();
             $("#documentbtn1").hide();
+            $("#title").hide();
         });
 
     </script>
@@ -277,7 +279,10 @@
 {
     <script>
         $(document).ready(function () {
+            $("#compdocumentbtn2").show();
             $("#documentbtn3").hide();
+            $("#title").hide();
+
         });
 
     </script>
@@ -288,7 +293,9 @@
 {
     <script>
         $(document).ready(function () {
+            $("#compdocumentbtn3").show();
             $("#documentbtn4").hide();
+            $("#title").hide();
         });
 
     </script>
@@ -299,7 +306,9 @@
 {
     <script>
         $(document).ready(function () {
+            $("#compdocumentbtn4").show();
             $("#documentbtn5").hide();
+            $("#title").hide();
         });
 
     </script>
@@ -310,11 +319,19 @@
 {
     <script>
         $(document).ready(function () {
+            $("#compdocumentbtn5").show();
             $("#documentbtn2").hide();
+            $("#title").hide();
         });
 
     </script>
 }
+
+        @*END*@
+
+
+
+@*FOR INCOMPLETED DOCUMENT*@
 
 
 @if (ViewBag.documentbtn1 == "true")
@@ -370,6 +387,10 @@
 }
 
 
+
+@*END*@
+
+
 @if (ViewBag.Testatorpopup == "true")
 {
     <script>
@@ -406,7 +427,7 @@
 
 
 
-    <script>
+<script>
 
 
 
@@ -554,4 +575,4 @@
 
 
 
-    </script>
+</script>

@@ -22,6 +22,9 @@ namespace WillAssure.Controllers
         // GET: EditTestator
         public ActionResult EditTestatorIndex(string doctype)
         {
+
+         
+
             // check type 
             string typ5 = "";
             con.Open();
@@ -960,8 +963,8 @@ namespace WillAssure.Controllers
 
             string data = Request["send"].ToString();
 
-         
-           
+
+            
 
             //if (Session["doctype"].ToString() == "Will")
             //{

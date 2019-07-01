@@ -1474,193 +1474,430 @@ namespace WillAssure.Controllers
 
 
 
-
-
-
-            //////////// check document completion /////////////
-
-
-
-            // for testator family
-            con.Open();
-            string qchk001 = "select a.fId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Marital_Status , a.Religion , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.tId , a.active , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.Is_Informed_Person from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where b.tId =   " + NestId + " ";
-            SqlDataAdapter chk001da = new SqlDataAdapter(qchk001, con);
-            DataTable chk001dt = new DataTable();
-            chk001da.Fill(chk001dt);
-            con.Close();
-
-            if (chk001dt.Rows.Count > 0)
+            if (Session["doctype"] != null)
             {
+                if (Session["doctype"].ToString() == "Will")
+                {
+                    //////////// check document completion /////////////
+
+
+
+                    // for testator family
+                    con.Open();
+                    string qchk001 = "select a.fId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Marital_Status , a.Religion , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.tId , a.active , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.Is_Informed_Person from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where b.tId =   " + NestId + " ";
+                    SqlDataAdapter chk001da = new SqlDataAdapter(qchk001, con);
+                    DataTable chk001dt = new DataTable();
+                    chk001da.Fill(chk001dt);
+                    con.Close();
+
+                    if (chk001dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily");
+                    }
+                    //end
+
+
+                    // for beneficiary
+                    con.Open();
+                    string qchk002 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId and a.fetchid not in ('TF') where b.tId = " + NestId + "";
+                    SqlDataAdapter chk002da = new SqlDataAdapter(qchk002, con);
+                    DataTable chk002dt = new DataTable();
+                    chk002da.Fill(chk002dt);
+                    con.Close();
+                    if (chk002dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddBeneficiaryIndex", "AddBeneficiary");
+                    }
+                    //end
+
+
+
+
+
+
+
+                    // for beneficiary institution
+                    con.Open();
+                    string qchk0020 = "select * from [BeneficiaryInstitutions] where tid = " + NestId + "";
+                    SqlDataAdapter chk002da0 = new SqlDataAdapter(qchk0020, con);
+                    DataTable chk002dt0 = new DataTable();
+                    chk002da0.Fill(chk002dt0);
+                    con.Close();
+                    if (chk002dt0.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute");
+                    }
+                    //end
+
+
+
+
+                    // for assetinformation
+                    con.Open();
+                    string qchk003 = "select a.aiid , a.atId , a.amId , a.tid , a.docid , a.Json from AssetInformation a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "   ";
+                    SqlDataAdapter chk003da = new SqlDataAdapter(qchk003, con);
+                    DataTable chk003dt = new DataTable();
+                    chk003da.Fill(chk003dt);
+                    con.Close();
+                    if (chk003dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddMainAssetsIndex", "AddMainAssets");
+                    }
+
+                    //end
+
+
+
+
+
+
+
+
+
+                    // for asset mapping 
+
+                    con.Open();
+                    string qchk006 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID , a.SchemeName , a.InstrumentName , a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "";
+                    SqlDataAdapter chk006da = new SqlDataAdapter(qchk006, con);
+                    DataTable chk006dt = new DataTable();
+                    chk006da.Fill(chk006dt);
+                    con.Close();
+
+                    if (chk006dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddAssetMappingIndex", "AddAssetMapping");
+                    }
+
+                    //end
+
+
+                    // for appointees 
+
+                    con.Open();
+                    string qchk008 = "select * from Appointees where tid = " + NestId + " and Type='Executor' ";
+                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                    DataTable chk008dt = new DataTable();
+                    chk008da.Fill(chk008dt);
+                    con.Close();
+
+                    if (chk008dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddAppointeesIndex", "AddAppointees");
+                    }
+
+                    //end
+
+
+
+
+
+
+                    // for Addwitness 
+
+                    con.Open();
+                    string qchk0082 = "select * from Appointees where tid = " + NestId + " and Type='Witness' ";
+                    SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
+                    DataTable chk008dt2 = new DataTable();
+                    chk008da2.Fill(chk008dt2);
+                    con.Close();
+
+                    if (chk008dt2.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddwitnessIndex", "Addwitness");
+                    }
+
+                    //end
+
+
+                    //end
+
+
+
+
+
+
+
+
+                    // end
+                }
+
+
+                if (Session["doctype"].ToString() == "POA")
+                {
+
+
+                 
+
+
+                    // for beneficiary
+                    con.Open();
+                    string qchk002 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId and a.fetchid not in ('TF') where b.tId = " + NestId + "  and a.doctype = 'POA'";
+                    SqlDataAdapter chk002da = new SqlDataAdapter(qchk002, con);
+                    DataTable chk002dt = new DataTable();
+                    chk002da.Fill(chk002dt);
+                    con.Close();
+                    if (chk002dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddBeneficiaryIndex", "AddBeneficiary");
+                    }
+                    //end
+
+
+
+
+
+
+
+                
+
+
+
+
+                    // for assetinformation
+                    con.Open();
+                    string qchk003 = "select a.aiid , a.atId , a.amId , a.tid , a.docid , a.Json from AssetInformation a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + " and a.doctype = 'POA'  ";
+                    SqlDataAdapter chk003da = new SqlDataAdapter(qchk003, con);
+                    DataTable chk003dt = new DataTable();
+                    chk003da.Fill(chk003dt);
+                    con.Close();
+                    if (chk003dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddMainAssetsIndex", "AddMainAssets");
+                    }
+
+                    //end
+
+
+
+
+
+
+
+
+
+                    // for asset mapping 
+
+                    con.Open();
+                    string qchk006 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID , a.SchemeName , a.InstrumentName , a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "  and a.doctype = 'POA'";
+                    SqlDataAdapter chk006da = new SqlDataAdapter(qchk006, con);
+                    DataTable chk006dt = new DataTable();
+                    chk006da.Fill(chk006dt);
+                    con.Close();
+
+                    if (chk006dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddAssetMappingIndex", "AddAssetMapping");
+                    }
+
+                    //end
+
+
+          
+
+
+
+
+
+
+                    // for Addwitness 
+
+                    con.Open();
+                    string qchk0082 = "select * from Appointees where tid = " + NestId + " and Type='Witness' and doctype='POA' ";
+                    SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
+                    DataTable chk008dt2 = new DataTable();
+                    chk008da2.Fill(chk008dt2);
+                    con.Close();
+
+                    if (chk008dt2.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddwitnessIndex", "Addwitness");
+                    }
+
+                    //end
+
+
+                   
+
+
+
+                }
+
+
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+
+
+
+                    // for beneficiary
+                    con.Open();
+                    string qchk002 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId and a.fetchid not in ('TF') where b.tId = " + NestId + "  and a.doctype = 'Giftdeeds'";
+                    SqlDataAdapter chk002da = new SqlDataAdapter(qchk002, con);
+                    DataTable chk002dt = new DataTable();
+                    chk002da.Fill(chk002dt);
+                    con.Close();
+                    if (chk002dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddBeneficiaryIndex", "AddBeneficiary");
+                    }
+                    //end
+
+
+
+
+
+
+
+
+
+
+
+
+                    // for assetinformation
+                    con.Open();
+                    string qchk003 = "select a.aiid , a.atId , a.amId , a.tid , a.docid , a.Json from AssetInformation a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + " and a.doctype = 'Giftdeeds'  ";
+                    SqlDataAdapter chk003da = new SqlDataAdapter(qchk003, con);
+                    DataTable chk003dt = new DataTable();
+                    chk003da.Fill(chk003dt);
+                    con.Close();
+                    if (chk003dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddMainAssetsIndex", "AddMainAssets");
+                    }
+
+                    //end
+
+
+
+
+
+
+
+
+
+                    // for asset mapping 
+
+                    con.Open();
+                    string qchk006 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID , a.SchemeName , a.InstrumentName , a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "  and a.doctype = 'Giftdeeds'";
+                    SqlDataAdapter chk006da = new SqlDataAdapter(qchk006, con);
+                    DataTable chk006dt = new DataTable();
+                    chk006da.Fill(chk006dt);
+                    con.Close();
+
+                    if (chk006dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddAssetMappingIndex", "AddAssetMapping");
+                    }
+
+                    //end
+
+
+
+
+
+
+
+
+
+                    // for Addwitness 
+
+                    con.Open();
+                    string qchk0082 = "select * from Appointees where tid = " + NestId + " and Type='Witness' and doctype='Giftdeeds' ";
+                    SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
+                    DataTable chk008dt2 = new DataTable();
+                    chk008da2.Fill(chk008dt2);
+                    con.Close();
+
+                    if (chk008dt2.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddwitnessIndex", "Addwitness");
+                    }
+
+                    //end
+
+                }
 
             }
             else
             {
-                return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily");
-            }
-            //end
 
+                return RedirectToAction("LoginPageIndex", "LoginPage");
 
-            // for beneficiary
-            con.Open();
-            string qchk002 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId and a.fetchid not in ('TF') where b.tId = " + NestId + "";
-            SqlDataAdapter chk002da = new SqlDataAdapter(qchk002, con);
-            DataTable chk002dt = new DataTable();
-            chk002da.Fill(chk002dt);
-            con.Close();
-            if (chk002dt.Rows.Count > 0)
-            {
 
             }
-            else
-            {
-                return RedirectToAction("AddBeneficiaryIndex", "AddBeneficiary");
-            }
-            //end
 
 
 
+            
 
-            // for assetinformation
-            con.Open();
-            string qchk003 = "select a.aiid , a.atId , a.amId , a.tid , a.docid , a.Json from AssetInformation a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "   ";
-            SqlDataAdapter chk003da = new SqlDataAdapter(qchk003, con);
-            DataTable chk003dt = new DataTable();
-            chk003da.Fill(chk003dt);
-            con.Close();
-            if (chk003dt.Rows.Count > 0)
-            {
 
-            }
-            else
-            {
-                return RedirectToAction("AddMainAssetsIndex", "AddMainAssets");
-            }
 
-            //end
 
 
 
 
 
-
-
-
-
-            // for asset mapping 
-
-            con.Open();
-            string qchk006 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID , a.SchemeName , a.InstrumentName , a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "";
-            SqlDataAdapter chk006da = new SqlDataAdapter(qchk006, con);
-            DataTable chk006dt = new DataTable();
-            chk006da.Fill(chk006dt);
-            con.Close();
-
-            if (chk006dt.Rows.Count > 0)
-            {
-
-            }
-            else
-            {
-                return RedirectToAction("AddAssetMappingIndex", "AddAssetMapping");
-            }
-
-            //end
-
-
-
-
-
-
-            // for nominee
-
-
-            //con.Open();
-            //string qchk007 = " select a.nId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.Description_of_Assets from Nominee a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + " ";
-            //SqlDataAdapter chk007da = new SqlDataAdapter(qchk007, con);
-            //DataTable chk007dt = new DataTable();
-            //chk007da.Fill(chk007dt);
-            //con.Close();
-
-            //if (chk007dt.Rows.Count > 0)
-            //{
-
-            //}
-            //else
-            //{
-            //    return RedirectToAction("AddNomineeIndex", "AddNominee");
-            //}
-
-            //end
-
-
-
-
-
-            // for appointees 
-
-            con.Open();
-            string qchk008 = "select * from Appointees where tid = " + NestId + " and Type='Executor' ";
-            SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-            DataTable chk008dt = new DataTable();
-            chk008da.Fill(chk008dt);
-            con.Close();
-
-            if (chk008dt.Rows.Count > 0)
-            {
-
-            }
-            else
-            {
-                return RedirectToAction("AddAppointeesIndex", "AddAppointees");
-            }
-
-            //end
-
-
-
-
-
-
-            // for Addwitness 
-
-            con.Open();
-            string qchk0082 = "select * from Appointees where tid = " + NestId + " and Type='Witness' ";
-            SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
-            DataTable chk008dt2 = new DataTable();
-            chk008da2.Fill(chk008dt2);
-            con.Close();
-
-            if (chk008dt2.Rows.Count > 0)
-            {
-
-            }
-            else
-            {
-                return RedirectToAction("AddwitnessIndex", "Addwitness");
-            }
-
-            //end
-
-
-            //end
-
-
-
-
-
-
-
-
-            // end
-
-
-
-
-
-
-
-
-            return View("");
+            return RedirectToAction("WillDetailsIndex", "WillDetails", new { NestId = NestId, doctype = Session["doctype"].ToString() });
         }
 
 

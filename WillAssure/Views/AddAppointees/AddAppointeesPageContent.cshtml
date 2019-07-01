@@ -412,7 +412,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof Value</label>
-                                            <div id="appendtxt">  @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Identity Proof Number", @autocomplete = "off" })</div>
+                                            <div id="appendtxt">  @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Identity Proof Number", @autocomplete = "off", @readonly = "true" })</div>
                                         </div>
                                     </div>
 
@@ -432,7 +432,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
                                         </div>
                                     </div>
                                 </div>
@@ -441,7 +441,8 @@
 
 
 
-
+                                <input type="hidden" name="check" id="txtcheck" value="" />
+                 
 
                                 <hr style="border:1px solid black; border-color:lightgray">
                                 <div class="row">
@@ -450,10 +451,10 @@
                                     <div class="col-sm-3" id="showcompany">
                                         <div class="form-group">
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" value="Yes" class="radio validate[required]" name="radio">Yes
+                                                <input type="checkbox" value="Yes" class="radio validate[required] altone" name="radio">Yes
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" value="No" class="radio validate[required]" name="radio">No
+                                                <input type="checkbox" value="No" class="radio validate[required] alttwo" name="radio">No
                                             </label>
                                         </div>
                                     </div>
@@ -774,7 +775,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1"> Identity Proof Value</label>
-                                                <div id="altappendtxt"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValuealt", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })</div>
+                                                <div id="altappendtxt"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValuealt", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" ,  @readonly = "true" })</div>
 
                                             </div>
                                         </div>
@@ -795,7 +796,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Alt Identity Proof Value</label>
-                                                <div id="altappendtxt2"> @Html.TextBoxFor(m => m.altAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValuealt2", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+                                                <div id="altappendtxt2"> @Html.TextBoxFor(m => m.altAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValuealt2", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
                                             </div>
                                         </div>
                                     </div>
@@ -824,7 +825,7 @@
                                 <button type="submit" id="btnupdate" style="display:none;" formaction="UpdateAppointees" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
                                 @if (Session["distid"] != null)
                                 {
-                                    <a href="@Url.Action("AddwitnessIndex","Addwitness" , new { NestId = Session["distid"].ToString() } )">
+                                    <a href="@Url.Action("AddwitnessIndex","Addwitness")">
                                         <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
                                         <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
 
@@ -2007,123 +2008,133 @@
 
 
 
+                 
 
+                            $(".altone").prop('checked', false);
+                            $(".appointeesclass").hide();
 
-                        });
-
-
-
-                        $("#btnmore2").click(function () {
-
-                            $("#btnupdate").hide();
-
-                            $("#btnDistributorformsubmit").show();
-
-
-                            $("#btnfieldedit").hide();
-
-                            $("#ddltype").removeAttr("disabled");
-                            $("#ddlsubtype").removeAttr("disabled");
-                            $("#txtname").removeAttr("disabled");
-                            $("#txtmiddlename").removeAttr("disabled");
-                            $("#txtsurname").removeAttr("disabled");
-                            $("#DOB").removeAttr("disabled");
-                            $("#Gender").removeAttr("disabled");
-                            $("#txtoccupation").removeAttr("disabled");
-                            $("#ddlrelation").removeAttr("disabled");
-                            $("#ddlstate").removeAttr("disabled");
-                            $("#ddlcity").removeAttr("disabled");
-                            $("#txtpin").removeAttr("disabled");
-                            $("#txtaddress1").removeAttr("disabled");
-                            $("#txtaddress2").removeAttr("disabled");
-                            $("#txtaddress3").removeAttr("disabled");
-                            $("#Identity_Proof").removeAttr("disabled");
-                            $("#txtidentityproof").removeAttr("disabled");
-                            $("#ddlidentityproof11").removeAttr("disabled");
-                            $("#txtIdentityProofValue").removeAttr("disabled");
-
-
-                            $("#ddltypealt2").removeAttr("disabled");
-                            $("#ddlsubtypealt2").removeAttr("disabled");
-                            $("#txtname2").removeAttr("disabled");
-                            $("#txtmiddlename2").removeAttr("disabled");
-                            $("#txtsurname2").removeAttr("disabled");
-                            $("#altGender").removeAttr("disabled");
-                            $("#txtoccupation2").removeAttr("disabled");
-                            $("#altddlrelation").removeAttr("disabled");
-                            $("#DOB2").removeAttr("disabled");
-                            $("#altddlstate").removeAttr("disabled");
-                            $("#altddlcity").removeAttr("disabled");
-                            $("#txtpin2").removeAttr("disabled");
-                            $("#txtaddress2alt1").removeAttr("disabled");
-                            $("#txtaddress2alt2").removeAttr("disabled");
-                            $("#txtaddress3alt3").removeAttr("disabled");
-                            $("#altIdentity_Proof").removeAttr("disabled");
-                            $("#txtIdentityProofValuealt").removeAttr("disabled");
-                            $("#ddlidentityproof22alt").removeAttr("disabled");
-                            $("#txtIdentityProofValuealt2").removeAttr("disabled");
+              
 
 
 
+                });
 
 
 
+                $("#btnmore2").click(function () {
+
+                $("#btnupdate").hide();
+
+                $("#btnDistributorformsubmit").show();
 
 
+                $("#btnfieldedit").hide();
 
-                            $("#ddltype").val("");
-                            $("#ddlsubtype").val("");
-                            $("#txtname").val("");
-                            $("#txtmiddlename").val("");
-                            $("#txtsurname").val("");
-                            $("#DOB").val("");
-                            $("#Gender").val("");
-                            $("#txtoccupation").val("");
+                $("#ddltype").removeAttr("disabled");
+                $("#ddlsubtype").removeAttr("disabled");
+                $("#txtname").removeAttr("disabled");
+                $("#txtmiddlename").removeAttr("disabled");
+                $("#txtsurname").removeAttr("disabled");
+                $("#DOB").removeAttr("disabled");
+                $("#Gender").removeAttr("disabled");
+                $("#txtoccupation").removeAttr("disabled");
+                $("#ddlrelation").removeAttr("disabled");
+                $("#ddlstate").removeAttr("disabled");
+                $("#ddlcity").removeAttr("disabled");
+                $("#txtpin").removeAttr("disabled");
+                $("#txtaddress1").removeAttr("disabled");
+                $("#txtaddress2").removeAttr("disabled");
+                $("#txtaddress3").removeAttr("disabled");
+                $("#Identity_Proof").removeAttr("disabled");
+                $("#txtidentityproof").removeAttr("disabled");
+                $("#ddlidentityproof11").removeAttr("disabled");
+                $("#txtIdentityProofValue").removeAttr("disabled");
 
 
-                            $("#txtpin").val("");
-                            $("#txtaddress1").val("");
-                            $("#txtaddress2").val("");
-                            $("#txtaddress3").val("");
-                            $("#Identity_Proof").val("");
-                            $("#txtidentityproof").val("");
-                            $("#ddlidentityproof11").val("");
-                            $("#txtIdentityProofValue").val("");
-
-
-                            $("#ddltypealt2").val("");
-                            $("#ddlsubtypealt2").val("");
-                            $("#txtname2").val("");
-                            $("#txtmiddlename2").val("");
-                            $("#txtsurname2").val("");
-                            $("#altGender").val("");
-                            $("#txtoccupation2").val("");
-
-                            $("#DOB2").val("");
-
-                            $("#txtpin2").val("");
-                            $("#txtaddress2alt1").val("");
-                            $("#txtaddress2alt2").val("");
-                            $("#txtaddress3alt3").val("");
-                            $("#altIdentity_Proof").val("");
-                            $("#txtIdentityProofValuealt").val("");
-                            $("#ddlidentityproof22alt").val("");
-                            $("#txtIdentityProofValuealt2").val("");
+                $("#ddltypealt2").removeAttr("disabled");
+                $("#ddlsubtypealt2").removeAttr("disabled");
+                $("#txtname2").removeAttr("disabled");
+                $("#txtmiddlename2").removeAttr("disabled");
+                $("#txtsurname2").removeAttr("disabled");
+                $("#altGender").removeAttr("disabled");
+                $("#txtoccupation2").removeAttr("disabled");
+                $("#altddlrelation").removeAttr("disabled");
+                $("#DOB2").removeAttr("disabled");
+                $("#altddlstate").removeAttr("disabled");
+                $("#altddlcity").removeAttr("disabled");
+                $("#txtpin2").removeAttr("disabled");
+                $("#txtaddress2alt1").removeAttr("disabled");
+                $("#txtaddress2alt2").removeAttr("disabled");
+                $("#txtaddress3alt3").removeAttr("disabled");
+                $("#altIdentity_Proof").removeAttr("disabled");
+                $("#txtIdentityProofValuealt").removeAttr("disabled");
+                $("#ddlidentityproof22alt").removeAttr("disabled");
+                $("#txtIdentityProofValuealt2").removeAttr("disabled");
 
 
 
 
 
-                        });
-
-
-                    </script>
 
 
 
 
+                $("#ddltype").val("");
+                $("#ddlsubtype").val("");
+                $("#txtname").val("");
+                $("#txtmiddlename").val("");
+                $("#txtsurname").val("");
+                $("#DOB").val("");
+                $("#Gender").val("");
+                $("#txtoccupation").val("");
 
-                    <script>
+
+                $("#txtpin").val("");
+                $("#txtaddress1").val("");
+                $("#txtaddress2").val("");
+                $("#txtaddress3").val("");
+                $("#Identity_Proof").val("");
+                $("#txtidentityproof").val("");
+                $("#ddlidentityproof11").val("");
+                $("#txtIdentityProofValue").val("");
+
+
+                $("#ddltypealt2").val("");
+                $("#ddlsubtypealt2").val("");
+                $("#txtname2").val("");
+                $("#txtmiddlename2").val("");
+                $("#txtsurname2").val("");
+                $("#altGender").val("");
+                $("#txtoccupation2").val("");
+
+                $("#DOB2").val("");
+
+                $("#txtpin2").val("");
+                $("#txtaddress2alt1").val("");
+                $("#txtaddress2alt2").val("");
+                $("#txtaddress3alt3").val("");
+                $("#altIdentity_Proof").val("");
+                $("#txtIdentityProofValuealt").val("");
+                $("#ddlidentityproof22alt").val("");
+                $("#txtIdentityProofValuealt2").val("");
+
+
+
+                    $(".altone").prop('checked', false);
+                    $(".appointeesclass").hide();
+
+
+
+                });
+
+
+                </script>
+
+
+
+
+
+                <script>
                         function getexecutorval(value) {
 
                                 $.ajax({
@@ -2141,7 +2152,24 @@
         });
 
                         }
+                </script>
+
+                @*end*@
+
+
+
+
+
+
+                @if (ViewBag.alternate == "true")
+                {
+                    <script>
+                                                    $(document).ready(function () {
+
+                                            $(".altone").prop('checked', true);
+                                                        $(".appointeesclass").show();
+
+                                    });
+
                     </script>
-
-                    @*end*@
-
+                }

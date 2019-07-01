@@ -1929,7 +1929,44 @@ namespace WillAssure.Controllers
             // last financial records
             string financialstructure = "";
             con.Open();
-            string checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 1 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1  ";
+            string checkfinancial = "";
+
+
+
+
+
+            if (Session["doctype"] != null)
+            {
+
+                if (Session["doctype"].ToString() == "Will")
+                {
+                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 1 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1  and a.doctype  = 'Will' ";
+                }
+
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 1 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype  = 'POA'  ";
+                }
+
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 1 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1  and a.doctype = 'Giftdeeds' ";
+                }
+
+
+
+
+
+            }
+            else
+            {
+                 RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+
+
+
             SqlDataAdapter chkfinancialda = new SqlDataAdapter(checkfinancial, con);
             DataTable chkfinancialdt = new DataTable();
             chkfinancialda.Fill(chkfinancialdt);
@@ -2078,7 +2115,47 @@ namespace WillAssure.Controllers
             // last financial records
             string financialstructure = "";
             con.Open();
-            string checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 2 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1  ";
+            string checkfinancial = "";
+
+
+
+
+
+            if (Session["doctype"] != null)
+            {
+
+                if (Session["doctype"].ToString() == "Will")
+                {
+                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 2 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype = 'Will' ";
+                }
+
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 2 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype = 'POA'  ";
+                }
+
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 2 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype = 'Giftdeeds'   ";
+                }
+
+
+
+
+
+            }
+            else
+            {
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+
+
+
+
+
+
             SqlDataAdapter chkfinancialda = new SqlDataAdapter(checkfinancial, con);
             DataTable chkfinancialdt = new DataTable();
             chkfinancialda.Fill(chkfinancialdt);
@@ -2202,10 +2279,57 @@ namespace WillAssure.Controllers
 
             string body = "";
             con.Open();
-            string checkfinancial = "select f.AssetCategory_ID,ac.AssetsCategory from (select AssetCategory_ID from BeneficiaryAssets ba ";
-            checkfinancial += " inner join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
-            checkfinancial += " where ba.AssetType_ID = 1 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 group by ba.AssetCategory_ID) f ";
-            checkfinancial += " left join AssetsCategory ac on ac.amId = f.AssetCategory_ID";
+            string checkfinancial = "";
+
+
+
+
+            if (Session["doctype"] != null)
+            {
+
+                if (Session["doctype"].ToString() == "Will")
+                {
+                    checkfinancial = "select f.AssetCategory_ID,ac.AssetsCategory from (select AssetCategory_ID from BeneficiaryAssets ba ";
+                    checkfinancial += " inner join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
+                    checkfinancial += " where ba.AssetType_ID = 1 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 and ba.doctype = 'Will' group by ba.AssetCategory_ID) f ";
+                    checkfinancial += " left join AssetsCategory ac on ac.amId = f.AssetCategory_ID";
+                }
+
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    checkfinancial = "select f.AssetCategory_ID,ac.AssetsCategory from (select AssetCategory_ID from BeneficiaryAssets ba ";
+                    checkfinancial += " inner join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
+                    checkfinancial += " where ba.AssetType_ID = 1 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2  and ba.doctype = 'POA' group by ba.AssetCategory_ID) f ";
+                    checkfinancial += " left join AssetsCategory ac on ac.amId = f.AssetCategory_ID";
+                }
+
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    checkfinancial = "select f.AssetCategory_ID,ac.AssetsCategory from (select AssetCategory_ID from BeneficiaryAssets ba ";
+                    checkfinancial += " inner join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
+                    checkfinancial += " where ba.AssetType_ID = 1 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 and ba.doctype = 'Giftdeeds' group by ba.AssetCategory_ID) f ";
+                    checkfinancial += " left join AssetsCategory ac on ac.amId = f.AssetCategory_ID";
+                }
+
+
+
+
+
+            }
+            else
+            {
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+
+
+
+
+
+
+
+
 
             SqlDataAdapter chkfinancialda = new SqlDataAdapter(checkfinancial, con);
             DataTable chkfinancialdt = new DataTable();
@@ -2339,10 +2463,56 @@ namespace WillAssure.Controllers
 
             string body = "";
             con.Open();
-            string checkfinancial = "select f.AssetCategory_ID,ac.AssetsCategory from (select AssetCategory_ID from BeneficiaryAssets ba ";
-            checkfinancial += " inner join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
-            checkfinancial += " where ba.AssetType_ID = 2 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 group by ba.AssetCategory_ID) f ";
-            checkfinancial += " left join AssetsCategory ac on ac.amId = f.AssetCategory_ID";
+            string checkfinancial = "";
+
+
+
+
+
+            if (Session["doctype"] != null)
+            {
+
+                if (Session["doctype"].ToString() == "Will")
+                {
+                    checkfinancial = "select f.AssetCategory_ID,ac.AssetsCategory from (select AssetCategory_ID from BeneficiaryAssets ba ";
+                    checkfinancial += " inner join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
+                    checkfinancial += " where ba.AssetType_ID = 2 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2  and ba.doctype = 'Will'   group by ba.AssetCategory_ID) f ";
+                    checkfinancial += " left join AssetsCategory ac on ac.amId = f.AssetCategory_ID";
+                }
+
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    checkfinancial = "select f.AssetCategory_ID,ac.AssetsCategory from (select AssetCategory_ID from BeneficiaryAssets ba ";
+                    checkfinancial += " inner join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
+                    checkfinancial += " where ba.AssetType_ID = 2 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 and ba.doctype = 'POA' group by ba.AssetCategory_ID) f ";
+                    checkfinancial += " left join AssetsCategory ac on ac.amId = f.AssetCategory_ID";
+                }
+
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    checkfinancial = "select f.AssetCategory_ID,ac.AssetsCategory from (select AssetCategory_ID from BeneficiaryAssets ba ";
+                    checkfinancial += " inner join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
+                    checkfinancial += " where ba.AssetType_ID = 2 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 and ba.doctype = 'Giftdeeds' group by ba.AssetCategory_ID) f ";
+                    checkfinancial += " left join AssetsCategory ac on ac.amId = f.AssetCategory_ID";
+                }
+
+
+
+
+
+            }
+            else
+            {
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+
+
+
+
+
+
 
             SqlDataAdapter chkfinancialda = new SqlDataAdapter(checkfinancial, con);
             DataTable chkfinancialdt = new DataTable();

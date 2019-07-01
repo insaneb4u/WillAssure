@@ -41,7 +41,7 @@
                             {
                                 <h5>
                                     <ul id="menu" style="font-weight:bold;">
-                                        <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:;">Donor ></li></a>
+                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:;">Donor ></li></a>
                                         <li style="color:#e1e1e1">Donee ></li>
                                         <li style="color:#e1e1e1">Gift ></li>
                                         <li style="color:#e1e1e1">Asset Mapping ></li>
@@ -406,7 +406,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Identity Proof Value</label>
-                                        <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+                                        <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" , @readonly="true" })  </div>
 
                                     </div>
                                 </div>
@@ -435,7 +435,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Alt Identity Proof Value</label>
-                                        <div id="appendtxt2">  @Html.TextBoxFor(m => m.Alt_Identity_proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
+                                        <div id="appendtxt2">  @Html.TextBoxFor(m => m.Alt_Identity_proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off"  ,  @readonly = "true" }) </div>
 
                                     </div>
                                 </div>
@@ -487,12 +487,12 @@
                             {
                                 if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
                                 {
-                                    <div class="form-group" style="float:right">
-                                        <br />
-                                        <button type="submit" id="alert-success" formaction="UpdatingTestatorFormData" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update Testator</button>
-                                        <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><button type="button" class="btn btn-danger shadow-primary px-5">Last Remaining Form&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
-                                        <button type="button" style="display:none;" id="btnTestatorformsubmitUPDATE" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-                                    </div>
+                            <div class="form-group" style="float:right">
+                                <br />
+                                <button type="submit" id="alert-success" formaction="UpdatingTestatorFormData" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update Testator</button>
+                                <a href="@Url.Action("Checkforcompletedpage","UpdateTestators")"><button type="button" class="btn btn-danger shadow-primary px-5">Last Remaining Form&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                <button type="button" style="display:none;" id="btnTestatorformsubmitUPDATE" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                            </div>
                                 }
                                 else
                                 {

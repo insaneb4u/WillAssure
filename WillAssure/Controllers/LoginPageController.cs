@@ -20,9 +20,11 @@ namespace WillAssure.Controllers
         {
             if (Request.QueryString["Type"] != null)
             {
-                string q = Request.QueryString["Type"].ToString();
-                q = q.Replace("/", "");
-                ViewBag.type = q;
+                if (Request.QueryString["Type"].ToString() == "message")
+                {
+                    ViewBag.type = "(Please Check Email-ID For Credentials)";
+                }
+                
             }
             
 

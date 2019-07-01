@@ -37,7 +37,7 @@
                             {
                                 <h5>
                                     <ul id="menu" style="font-weight:bold;">
-                                        <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Donor ></li></a>
+                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Donor ></li></a>
                                         <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Donee ></li></a>
                                         <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black">Gift ></li></a>
                                         <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Asset Mapping ></li></a>
@@ -52,7 +52,7 @@
                                 {
                                     <h5>
                                         <ul id="menu" style="font-weight:bold;">
-                                            <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Testator></li></a>
+                                            <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
                                             <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
                                             <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
                                                 <li style="color:black;">Institution ></li>
@@ -404,7 +404,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof Value</label>
-                                            <div id="appendtxt">  @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Identity Proof Number", @autocomplete = "off" })</div>
+                                            <div id="appendtxt">  @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Identity Proof Number", @autocomplete = "off" , @readonly="true" })</div>
                                         </div>
                                     </div>
 
@@ -424,7 +424,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" , @readonly = "true" })  </div>
                                         </div>
                                     </div>
                                 </div>
@@ -497,7 +497,7 @@
                                 <button type="submit" id="btnupdate" style="display:none;" formaction="UpdateAppointees" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
                                 @if (Session["distid"] != null)
                                 {
-                                    <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() } )">
+                                    <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )">
                                         <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
                                         <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
 
@@ -1352,6 +1352,7 @@
                             $("#btnmore").show();
                             $("#btnmore2").show();
                             $("#btnfieldedit").show();
+                            $("#btnnext").show();
 
 
 
@@ -1401,8 +1402,8 @@
                                 $("#txtIdentityProofValuealt").attr("disabled", "disabled");
                                 $("#ddlidentityproof22alt").attr("disabled", "disabled");
                                 $("#txtIdentityProofValuealt2").attr("disabled", "disabled");
-
-
+                                $("#Alt_Identity_proof_Value").attr("disabled", "disabled");
+                                
                             });
 
 
@@ -1469,11 +1470,11 @@
                             $("#txtIdentityProofValuealt").removeAttr("disabled");
                             $("#ddlidentityproof22alt").removeAttr("disabled");
                             $("#txtIdentityProofValuealt2").removeAttr("disabled");
+                            $("#Alt_Identity_proof_Value").removeAttr("disabled");
 
 
 
-
-
+                            
 
                             $("#btnupdate").show();
 
@@ -1557,6 +1558,8 @@
 
                         $("#btnmore").click(function () {
 
+
+
                             $("#btnupdate").hide();
 
                             $("#btnDistributorformsubmit").show();
@@ -1608,8 +1611,7 @@
 
 
 
-
-
+                          $("#Alt_Identity_proof_Value").removeAttr("disabled");
 
 
 
@@ -1652,7 +1654,9 @@
                             $("#ddlidentityproof22alt").val("");
                             $("#txtIdentityProofValuealt2").val("");
 
+                            $("#Alt_Identity_proof_Value").val("");
 
+                            
 
 
 
@@ -1757,7 +1761,7 @@
                             $("#ddlidentityproof22alt").val("");
                             $("#txtIdentityProofValuealt2").val("");
 
-
+                            $("#Alt_Identity_proof_Value").val("");
 
 
 

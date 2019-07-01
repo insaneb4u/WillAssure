@@ -15,7 +15,7 @@ namespace WillAssure.Controllers
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         SqlConnection con = new SqlConnection(connectionString);
         // GET: WillDetails
-        public ActionResult WillDetailsIndex(int NestId)
+        public ActionResult WillDetailsIndex(int NestId , string doctype)
         {
             ViewBag.Collapse = "true";
             //if (Session["Type"].ToString() != "DistributorAdmin")
@@ -33,7 +33,19 @@ namespace WillAssure.Controllers
             //    }
             //}
 
+            if (Session["doctype"] != null)
+            {
+
+                Session["doctype"] = doctype;
+
+            }
+            else
+            {
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
             
+
+
             // check type 
             string typ = "";
             con.Open();
@@ -197,6 +209,7 @@ namespace WillAssure.Controllers
 
         
                 con.Open();
+
                 string query = "select * from TestatorDetails where tId = "+NestId+" ";
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
@@ -255,8 +268,40 @@ namespace WillAssure.Controllers
           
 
                 con.Open();
-                string query2 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + " and a.doctype = 'Will'   ";
-                SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+                string query2 = "";
+
+            if (Session["doctype"] != null)
+            {
+
+                if (Session["doctype"].ToString() == "Will")
+                {
+                    query2 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + " and a.doctype = 'Will'   ";
+                }
+
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    query2 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + " and a.doctype = 'POA'   ";
+                }
+
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    query2 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + " and a.doctype = 'GiftDeeds'   ";
+                }
+
+
+
+
+
+            }
+            else
+            {
+                return RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+
+
+            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
                 DataTable dt2 = new DataTable();
                 da2.Fill(dt2);
                 con.Close();
@@ -317,8 +362,42 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string query3 = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = " + NestId + "  ";
-                SqlDataAdapter da4 = new SqlDataAdapter(query3, con);
+                string query3 = "";
+
+
+            if (Session["doctype"] != null)
+            {
+
+                if (Session["doctype"].ToString() == "Will")
+                {
+                    query3 = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = " + NestId + "  and a.doctype = 'Will' ";
+                }
+
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    query3 = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = " + NestId + " and a.doctype = 'POA'  ";
+                }
+
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    query3 = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = " + NestId + " and a.doctype = 'Giftdeeds' ";
+                }
+
+
+
+
+
+            }
+            else
+            {
+                return RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+
+
+
+            SqlDataAdapter da4 = new SqlDataAdapter(query3, con);
                 DataTable dt4 = new DataTable();
                 da4.Fill(dt4);
                 con.Close();
@@ -418,8 +497,44 @@ namespace WillAssure.Controllers
 
                 // Beneficiary Mapping
                 con.Open();
-                string query6 = "select e.First_Name , c.AssetsType , b.AssetsCategory ,  a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId  inner join BeneficiaryDetails e on e.tId=a.tid where a.tid =  " + NestId + "";
-                SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
+
+
+                string query6 = "";
+
+            if (Session["doctype"] != null)
+            {
+
+                if (Session["doctype"].ToString() == "Will")
+                {
+                    query6 = "select e.First_Name , c.AssetsType , b.AssetsCategory ,  a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId  inner join BeneficiaryDetails e on e.tId=a.tid where a.tid =  " + NestId + " and a.doctype = 'Will'";
+                }
+
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    query6 = "select e.First_Name , c.AssetsType , b.AssetsCategory ,  a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId  inner join BeneficiaryDetails e on e.tId=a.tid where a.tid =  " + NestId + " and a.doctype = 'POA'";
+                }
+
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    query6 = "select e.First_Name , c.AssetsType , b.AssetsCategory ,  a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId  inner join BeneficiaryDetails e on e.tId=a.tid where a.tid =  " + NestId + " and a.doctype = 'GiftDeeds'";
+                }
+
+
+
+
+
+            }
+            else
+            {
+                return RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+
+
+
+
+            SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
                 DataTable dt6 = new DataTable();
                 da6.Fill(dt6);
                 con.Close();

@@ -19,13 +19,16 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddAppointees
-        public ActionResult AddAppointeesIndex(string success, string NestId)
+        public ActionResult AddAppointeesIndex(string NestId)
         {
-            if (success == "true")
+            if (TempData["Message"] != null)
             {
-                ViewBag.Message = "Verified";
-       
+                if (TempData["Message"].ToString() == "true")
+                {
+                    ViewBag.Message = "Verified";
+                }
             }
+
 
             ViewBag.collapse = "true";
             if (Session["rId"] == null || Session["uuid"] == null)
@@ -386,6 +389,8 @@ namespace WillAssure.Controllers
 
                 for (int i = 0; i < dt2.Rows.Count; i++)
                 {
+
+                    ViewBag.alternate = "true";
                     ViewBag.disablefield = "true";
                     Am.altapId = Convert.ToInt32(dt2.Rows[i]["id"]);
                     Am.altguardian = dt2.Rows[i]["altguardian"].ToString();
@@ -1075,11 +1080,11 @@ namespace WillAssure.Controllers
 
             //end
 
-
+            TempData["Message"] = "true";
 
             ModelState.Clear();
 
-            return RedirectToAction("AddAppointeesIndex", "AddAppointees", new { success = "true" });
+            return RedirectToAction("AddAppointeesIndex", "AddAppointees");
         }
 
 
@@ -1570,9 +1575,9 @@ namespace WillAssure.Controllers
             }
             con.Close();
 
+            TempData["Message"] = "true";
 
-
-            return RedirectToAction("AddAppointeesIndex", "AddAppointees", new { success = "true" });
+            return RedirectToAction("AddAppointeesIndex", "AddAppointees");
         }
 
 
@@ -1655,8 +1660,8 @@ namespace WillAssure.Controllers
             con.Close();
 
 
-
-            return RedirectToAction("AddAppointeesIndex", "AddAppointees", new { success = "true" });
+            TempData["Message"] = "true";
+            return RedirectToAction("AddAppointeesIndex", "AddAppointees");
         }
 
 

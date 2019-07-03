@@ -178,7 +178,7 @@
 
 
 
-
+    //NW
     function checkotpentered(value) {
     
         var data = $("#txtotp").val();
@@ -191,21 +191,7 @@
             success: function (data) {
                 //alert(data);
                  
-                if (data == "true") {
-                    $("#lblsuccess").show();
-                    $("#lblfailed").hide();
-                    $("#btnverifyotp").removeAttr("disabled");
-
-                    var url = "/LoginPage/LoginPageIndex?Type=message";
-                    window.location.href = url;
-                }
-
-                if (data == "false") {
-                    $("#lblfailed").show();
-                    $("#lblsuccess").hide();
-                    $("#btnverifyotp").attr("disabled", true);
-                }
-
+             
 
             }
         });
@@ -447,10 +433,24 @@
             data: { "send": "" + x + "" },
             success: function (data) {
 
-                alert(data);
+                if (data == "true") {
+                    $("#lblsuccess").show();
+                    $("#lblfailed").hide();
+                    $("#btnverifyotp").removeAttr("disabled");
 
-                $('#primarymodal').modal('hide');
-                $("#txtotp").val("");
+                    var url = "/LoginPage/LoginPageIndex?Type=message";
+                    window.location.href = url;
+                }
+
+                if (data == "false") {
+                    $("#lblfailed").show();
+                    $("#lblsuccess").hide();
+                
+                }
+
+
+                //$('#primarymodal').modal('hide');
+                //$("#txtotp").val("");
 
              
 

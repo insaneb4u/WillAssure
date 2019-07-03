@@ -849,6 +849,57 @@ namespace WillAssure.Controllers
 
 
 
+            // set document status
+            con.Open();
+            string querye = "update testatorfamily set documentstatus = 'incompleted'  where  fId = "+tfid+"";
+            SqlCommand cmd3e = new SqlCommand(querye, con);
+            cmd3e.ExecuteNonQuery();
+            con.Close();
+
+
+
+            //end
+
+
+
+            //  for beneficiary details
+
+
+            con.Open();
+            string QUERYe = "select top 1 bpId from BeneficiaryDetails order by bpId desc";
+            SqlDataAdapter DAe = new SqlDataAdapter(QUERYe, con);
+            DataTable DTe = new DataTable();
+            DAe.Fill(DTe);
+            int tfide = 0;
+            if (DTe.Rows.Count > 0)
+            {
+                tfide = Convert.ToInt32(DTe.Rows[0]["bpId"]);
+            }
+
+            con.Close();
+
+
+
+            // set document status
+            con.Open();
+            string queryee = "update BeneficiaryDetails set documentstatus = 'incompleted'  where  bpId = " + tfide + "";
+            SqlCommand cmd3ee = new SqlCommand(queryee, con);
+            cmd3ee.ExecuteNonQuery();
+            con.Close();
+
+
+
+            //end
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1391,7 +1442,7 @@ namespace WillAssure.Controllers
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@condition", "insert");
             cmd.Parameters.AddWithValue("@documentId", AM.guadocumentId);
-            cmd.Parameters.AddWithValue("@Type", AM.guaTypetxt);
+            cmd.Parameters.AddWithValue("@Type", "Guardian");
 
             if (AM.guasubTypetxt != null || AM.guasubTypetxt != "")
             {
@@ -1474,11 +1525,28 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@City", AM.guacitytext);
             cmd.Parameters.AddWithValue("@State", AM.guastatetext);
             cmd.Parameters.AddWithValue("@Pin", AM.guaPin);
-            cmd.Parameters.AddWithValue("@tid", AM.ddltid);
+            cmd.Parameters.AddWithValue("@tid", Convert.ToInt32(Session["distid"]));
             cmd.Parameters.AddWithValue("@ExecutorType", "None");
             cmd.ExecuteNonQuery();
             con.Close();
 
+            // lastest app id
+            int appid = 0;
+            con.Open();
+            string qchecke = "select max(apId) as apId from Appointees ";
+            SqlDataAdapter dachke = new SqlDataAdapter(qchecke, con);
+            DataTable dtchke = new DataTable();
+            dachke.Fill(dtchke);
+            if (dtchke.Rows.Count > 0)
+            {
+                appid = Convert.ToInt32(dtchke.Rows[0]["apId"]);
+            }
+
+
+            string qt = "update Appointees set documentstatus='incompleted' where apId = "+appid+"";
+            SqlCommand cmd3e = new SqlCommand(qt,con);
+            cmd3e.ExecuteNonQuery();
+            con.Close();
 
 
             return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily", new { guardian = "true" });

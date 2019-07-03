@@ -644,7 +644,11 @@ namespace WillAssure.Controllers
                 cmdup.ExecuteNonQuery();
                 con.Close();
 
-
+                con.Open();
+                string spupe = "update BeneficiaryDetails set documentstatus = 'incompleted'  where  bpid = " + bpid + " ";
+                SqlCommand cmdupe = new SqlCommand(spupe, con);
+                cmdupe.ExecuteNonQuery();
+                con.Close();
                 //end
                 ViewBag.disablefield = "true";
             }

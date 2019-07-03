@@ -762,6 +762,17 @@ namespace WillAssure.Controllers
 
                     //end
 
+                    // update document status
+
+                    con.Open();
+                    string qte = "update Appointees set documentstatus = 'Incompleted' where apId =" + appid + " ";
+                    SqlCommand cmdte = new SqlCommand(qte, con);
+                    cmdte.ExecuteNonQuery();
+                    con.Close();
+
+
+                    //end
+
 
                     con.Open();
                     string qt = "update Appointees set doctype = 'Will'  where  apId = " + Convert.ToInt32(dt2.Rows[0]["apId"]) + "";

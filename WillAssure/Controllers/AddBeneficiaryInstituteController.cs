@@ -128,7 +128,7 @@ namespace WillAssure.Controllers
         {
 
             con.Open();
-            string query = "insert into BeneficiaryInstitutions (Name,Type,registrationNo,Address,City,State,tid) values ('"+BIM.FirstName+"' , '"+BIM.TypeText+"' , "+BIM.RegistrationNo+" , '"+BIM.Address+"' , '"+BIM.CityText+"' , '"+BIM.StateText+"',"+Convert.ToInt32(Session["distid"])+")";
+            string query = "insert into BeneficiaryInstitutions (Name,Type,registrationNo,Address,City,State,tid,documentstatus) values ('"+BIM.FirstName+"' , '"+BIM.TypeText+"' , "+BIM.RegistrationNo+" , '"+BIM.Address+"' , '"+BIM.CityText+"' , '"+BIM.StateText+"',"+Convert.ToInt32(Session["distid"])+" , 'incompleted')";
             SqlCommand cmd = new SqlCommand(query,con);
             cmd.ExecuteNonQuery();
 
@@ -152,6 +152,38 @@ namespace WillAssure.Controllers
             }
 
             con.Close();
+
+
+
+
+            //  for beneficiary details
+
+
+            con.Open();
+            string QUERYe = "select top 1 bpId from BeneficiaryDetails order by bpId desc";
+            SqlDataAdapter DAe = new SqlDataAdapter(QUERYe, con);
+            DataTable DTe = new DataTable();
+            DAe.Fill(DTe);
+            int tfide = 0;
+            if (DTe.Rows.Count > 0)
+            {
+                tfide = Convert.ToInt32(DTe.Rows[0]["bpId"]);
+            }
+
+            con.Close();
+
+
+
+            // set document status
+            con.Open();
+            string queryee = "update BeneficiaryDetails set documentstatus = 'incompleted'  where  bpId = " + tfide + "";
+            SqlCommand cmd3ee = new SqlCommand(queryee, con);
+            cmd3ee.ExecuteNonQuery();
+            con.Close();
+
+
+
+            //end
 
 
 

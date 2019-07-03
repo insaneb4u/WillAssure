@@ -410,22 +410,22 @@ namespace WillAssure.Views.ViewDocument
 
         protected void btnverify_Click(object sender, EventArgs e)
         {
-           
+
+            ClientScript.RegisterStartupScript(this.GetType(),"randomtext","alertme()",true);
 
 
+            //con.Open();
+            //string query= "update DocumentVerification set Verification_Status = 'Active' where Tid= "+ Convert.ToInt32(ViewState["tid"]) + "  ";
+            //SqlCommand cmd = new SqlCommand(query,con);
+            //cmd.ExecuteNonQuery();
+            //con.Close();
 
-            con.Open();
-            string query= "update DocumentVerification set Verification_Status = 'Active' where Tid= "+ Convert.ToInt32(ViewState["tid"]) + "  ";
-            SqlCommand cmd = new SqlCommand(query,con);
-            cmd.ExecuteNonQuery();
-            con.Close();
 
-
-            con.Open();
-            string query2 = "update documentMaster set adminVerification = 1 where tId =  " + Convert.ToInt32(ViewState["tid"]) + "  ";
-            SqlCommand cmd2 = new SqlCommand(query2, con);
-            cmd2.ExecuteNonQuery();
-            con.Close();
+            //con.Open();
+            //string query2 = "update documentMaster set adminVerification = 1 where tId =  " + Convert.ToInt32(ViewState["tid"]) + "  ";
+            //SqlCommand cmd2 = new SqlCommand(query2, con);
+            //cmd2.ExecuteNonQuery();
+            //con.Close();
 
 
 
@@ -436,48 +436,48 @@ namespace WillAssure.Views.ViewDocument
 
             // new mail code
 
-            con.Open();
-            string query3 = "select Email  from testatordetails where tId =  " + Convert.ToInt32(ViewState["tid"]) + "  ";
-            SqlDataAdapter da = new SqlDataAdapter(query3,con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            string mailto = "";
-            if (dt.Rows.Count > 0)
-            {
-                mailto = dt.Rows[0]["Email"].ToString();
-            }
+            //con.Open();
+            //string query3 = "select Email  from testatordetails where tId =  " + Convert.ToInt32(ViewState["tid"]) + "  ";
+            //SqlDataAdapter da = new SqlDataAdapter(query3,con);
+            //DataTable dt = new DataTable();
+            //da.Fill(dt);
+            //con.Close();
+            //string mailto = "";
+            //if (dt.Rows.Count > 0)
+            //{
+            //    mailto = dt.Rows[0]["Email"].ToString();
+            //}
 
 
             
            
-            string subject = "Will Assure";
+            //string subject = "Will Assure";
            
-            string body = "As Per Your Details Will Has Been Generated Please Check The Attachment Below";
+            //string body = "As Per Your Details Will Has Been Generated Please Check The Attachment Below";
 
-            var path = Server.MapPath("~/GeneratedPdf/file.pdf");
-            MailMessage msg = new MailMessage();
-            Attachment data = new Attachment(path, MediaTypeNames.Application.Octet);
+            //var path = Server.MapPath("~/GeneratedPdf/file.pdf");
+            //MailMessage msg = new MailMessage();
+            //Attachment data = new Attachment(path, MediaTypeNames.Application.Octet);
 
-            msg.Attachments.Add(data);
-            msg.From = new MailAddress("info@drinco.in");
-            msg.To.Add(mailto);
-            msg.Subject = subject;
-            msg.Body = body;
+            //msg.Attachments.Add(data);
+            //msg.From = new MailAddress("info@drinco.in");
+            //msg.To.Add(mailto);
+            //msg.Subject = subject;
+            //msg.Body = body;
 
-            msg.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient("216.10.240.149", 25);
-            smtp.Credentials = new NetworkCredential("info@drinco.in", "95Bzf%s7");
-            smtp.EnableSsl = false;
-            smtp.Send(msg);
-            smtp.Dispose();
+            //msg.IsBodyHtml = true;
+            //SmtpClient smtp = new SmtpClient("216.10.240.149", 25);
+            //smtp.Credentials = new NetworkCredential("info@drinco.in", "95Bzf%s7");
+            //smtp.EnableSsl = false;
+            //smtp.Send(msg);
+            //smtp.Dispose();
 
 
 
             //end
 
 
-            btnverify.Visible = false;
+            //btnverify.Visible = false;
 
 
         }

@@ -52,20 +52,29 @@
                                 <input type="text" id="lw" name="name" width="50" style="display:none;" />
 
                                 @*<textarea id="documenttype" name="documenttype" style="display:none;"></textarea>*@
+                                <div class="row">
+                                    <div class="form-group col-sm-12">
+                                        <div class="col-sm-2"><label for="email" style="font-weight: 700; font-size: 16px">Name:</label></div>
+                                        <div class="col-sm-3" style="float: left;"><input type="text" class="form-control input-shadow" id="txtfirstname" onchange="clearlblerror1()" placeholder="First Name"><span style="color:red; display:none" id="lblerror1">*Required</span></div>
+                                        <div class="col-sm-3" style="float: left;"><input type="text" class="form-control input-shadow" id="txtmiddlename" onchange="lblerror12()" placeholder="Middle Name"><span style="color:red; display:none" id="lblerror12">*Required</span></div>
+                                        <div class="col-sm-3" style="float: left;"><input type="text" class="form-control input-shadow" id="txtlastname" onchange="lblerror13()" placeholder="Last Name"><span style="color:red; display:none" id="lblerror13">*Required</span></div>
+
+                                    </div>
+
+                                </div>
+
+
                                 <div class="form-group col-sm-12">
-                                    <div class="col-sm-12"><label for="email" style="font-weight: 700; font-size: 16px">Name:</label></div>
-                                    <div class="col-sm-3" style="float: left;"><input type="text" class="form-control input-shadow" id="txtfirstname" onchange="clearlblerror1()" placeholder="First Name"><span style="color:red; display:none" id="lblerror1">*Required</span></div>
-                                    <div class="col-sm-4" style="float: left;"><input type="text" class="form-control input-shadow" id="txtmiddlename" onchange="lblerror12()" placeholder="Middle Name"><span style="color:red; display:none" id="lblerror12">*Required</span></div>
-                                    <div class="col-sm-4" style="float: left;"><input type="text" class="form-control input-shadow" id="txtlastname" onchange="lblerror13()" placeholder="Last Name"><span style="color:red; display:none" id="lblerror13">*Required</span></div>
-                                </div>
-                                <div class="form-group col-sm-6" style="float: left;">
                                     <div class="col-sm-12"><label for="email" style="font-weight: 700; font-size: 16px">Contact No:</label></div>
-                                    <div class="col-sm-12" style="float: left;"><input type="text" class="form-control input-shadow" id="txtcontact" onchange="check()" placeholder="Mobile No"><span style="color:red;display:none" id="lblerror2">*Required</span><span id="error" style="color: Red; display: none">*Invalid Mobile</span></div>
+                                    <div class="col-sm-3" style="float: left;"><input type="text" class="form-control input-shadow" id="txtcontact" onchange="check()" placeholder="Mobile No"><span style="color:red;display:none" id="lblerror2">*Required</span><span id="error" style="color: Red; display: none">*Invalid Mobile</span></div>
+                                    <div class="col-sm-4" style="float: left;"><input type="text" class="form-control input-shadow" id="txtemail" onchange="lblerror3()" placeholder="Email Id" required><span style="color:red;display:none" id="lblerror3">*Required</span><span style="color:red;display:none" id="lblemailerr">*Invalid Email</span><span style="color:red;display:none" id="lbldup">*Email ID Already Register</span></div>
+                                    <div class="col-sm-4" style="float: left;"><input type="date" class="form-control input-shadow" id="txtdob" onchange="lblerrordob(this.value)" placeholder="Date Of Birth"><span style="color:red; display:none" id="lblerrordate">*Required</span><span style="color:red; display:none" id="validatedob">*should be 18+ Year</span></div>
                                 </div>
-                                <div class="form-group col-sm-6" style="float: left;">
-                                    <div class="col-sm-12"><label for="email" style="font-weight: 700; font-size: 16px">Email Id:</label></div>
-                                    <div class="col-sm-12" style="float: left;"><input type="text" class="form-control input-shadow" id="txtemail" onchange="lblerror3()" placeholder="Email Id" required><span style="color:red;display:none" id="lblerror3">*Required</span><span style="color:red;display:none" id="lblemailerr">*Invalid Email</span><span style="color:red;display:none" id="lbldup">*Email ID Already Register</span></div>
-                                </div>
+
+
+
+                               
+                             
                                 <div class="form-group col-sm-12" style="float: left;">
                                     <div class="col-sm-12"><label for="email" id="lblrefdist" style="font-weight: 700; font-size: 16px; ">Ref Distributer:</label></div>
                                     <form>
@@ -111,7 +120,7 @@
                                 </div>
                                 <!--<div class="col-sm-12" style="float: left;" id="documentpricing">
 
-                                </div>-->
+    </div>-->
 
 
                                 <div class="col-sm-12 text-right" style="float: left;">
@@ -212,6 +221,39 @@
 
     }
 
+    function lblerrordob(value) {
+
+
+       $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("validatedate", "VisitorData")",
+           data: { "send": "" + value + "" },
+            success: function (data) {
+
+
+                if (data == "true") {
+                    $("#validatedob").hide()
+                }
+                 
+                if (data == "false") {
+
+                    $("#validatedob").show()
+                    $("#txtdob").val("");
+                }
+
+            }
+        });
+
+
+
+
+        $("#lblerrordate").hide();
+        $("#error").hide();
+
+
+    }
+
     function lblerror3() {
 
         $("#lblerror3").hide();
@@ -277,7 +319,7 @@
         $("#lblerror4").hide();
         $("#lblerror12").hide();
         $("#lblerror13").hide();
-
+        $("#lblerrordate").hide();
 
     });
 
@@ -321,6 +363,16 @@
             $("#lblerror2").show();
             i = 1;
         }
+
+
+
+        if ($("#txtdob").val() == "") {
+            $("#lblerrordate").show();
+            i = 1;
+        }
+
+
+
         if ($("#txtemail").val() == "") {
             $("#lblerror3").show();
             i = 1;
@@ -332,7 +384,7 @@
         //  else {
 
         //      var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + $("#documenttype").val();
-        var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + getValuesSelected;
+        var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + getValuesSelected + "~" + $("#txtdob").val();
 
 
         $.ajax({

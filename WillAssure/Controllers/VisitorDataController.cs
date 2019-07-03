@@ -32,6 +32,11 @@ namespace WillAssure.Controllers
             string emailid = response.Split('~')[4];
             string refdistributor = response.Split('~')[5];
             string documenttype = response.Split('~')[6];
+            string dateofbirth = response.Split('~')[7];
+
+
+
+
 
             if (refdistributor == null)
             {
@@ -56,7 +61,7 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string query2 = "insert into users (First_Name , Last_Name , Middle_Name , eMail , Mobile  , Type , active, rId , compId , Linked_user , Designation , Address1 , Address2 , Address3 , City , State , Pin , DOB , userID , userPwd) values ('" + name + "' , '" + lastname + "' , '" + middlename + "' , '" + emailid + "' , '" + contactno + "'  , 'Testator','Active' , 5 , 0 , '" + refdistributor + "' , 2 , 'none' , 'none' , 'none' , 'none', 'none' , 'none' , GETDATE() , 'none' , 'none' )";
+                string query2 = "insert into users (First_Name , Last_Name , Middle_Name , eMail , Mobile  , Type , active, rId , compId , Linked_user , Designation , Address1 , Address2 , Address3 , City , State , Pin , DOB , userID , userPwd) values ('" + name + "' , '" + lastname + "' , '" + middlename + "' , '" + emailid + "' , '" + contactno + "'  , 'Testator','Active' , 5 , 0 , '" + refdistributor + "' , 2 , 'none' , 'none' , 'none' , 'none', 'none' , 'none' , '"+ Convert.ToDateTime(dateofbirth).ToString("yyyy-MM-dd") + "' , 'none' , 'none' )";
                 SqlCommand cmd2 = new SqlCommand(query2, con);
                 cmd2.ExecuteNonQuery();
                 con.Close();
@@ -1183,6 +1188,35 @@ namespace WillAssure.Controllers
             string getname = ViewBag.name;
 
             return View("");
+        }
+
+
+
+
+        public string validatedate()
+        {
+            string date = Convert.ToDateTime(Request["send"]).ToString("dd-MM-yyyy");
+            string msg = "";
+            date = date.Substring(6, date.Length - 6);
+            var today = DateTime.Now.Year;
+            int age = today - int.Parse(date);
+           
+                if (age == 0)
+                {
+                    msg = "false";
+                }
+                if (age >= 18)
+                {
+                    msg = "true";
+                }
+                else
+                {
+                    msg = "false";
+                }
+            
+
+
+            return msg;
         }
 
 

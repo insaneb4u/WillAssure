@@ -11,6 +11,11 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+     <script src="~/assets/js/jquery.min.js"></script>
+     <script src="~/assets/plugins/alerts-boxes/js/sweetalert.min.js"></script>
+    <script src="~/assets/plugins/alerts-boxes/js/sweet-alert-script.js"></script>
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -46,5 +51,46 @@
 
 
     </form>
+
+
+    <script>
+
+        function alertme() {
+
+
+               swal({
+
+            text: 'DO you Like To Save Information Or Delete If Yes Document Will Get Saved In Completed Document If No Infomation Get Deleted',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+            buttons: ['No', 'Yes']
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+
+
+
+                } else {
+
+
+
+
+                    
+
+
+
+
+                }
+            });
+
+
+        }
+
+
+
+    </script>
+
+
 </body>
 </html>

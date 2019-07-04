@@ -111,8 +111,8 @@
                             <div id="tabe-26" class="container tab-pane fade">
 
                                 @*@if (ViewBag.empty == "true")
-                                {*@
-                                    <center id="title"><h4 style="color:darkred;">Currently No Document Has Been Completed...!</h4></center>
+                                    {*@
+                                <center id="title"><h4 style="color:darkred;">Currently No Document Has Been Completed...!</h4></center>
                                 @*}*@
 
 
@@ -165,7 +165,7 @@
         "image": "/assets/images/logo-icon.png",
         "handler": function (response) {
             //alert(response.razorpay_payment_id);
-
+            $("#rzp-button1").hide();
             var url = "/Frontend/Makepayment";
             window.location.href = url;
         },
@@ -198,6 +198,24 @@
     });
 
 </script>
+
+
+@if (ViewBag.hidepayment == "true")
+{
+    <script>
+
+        $(document).ready(function () {
+
+
+            $("#rzp-button1").hide()
+
+
+        })
+
+    </script>
+
+
+}
 
 
 
@@ -327,7 +345,7 @@
     </script>
 }
 
-        @*END*@
+@*END*@
 
 
 

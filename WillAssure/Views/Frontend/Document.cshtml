@@ -64,15 +64,15 @@
                             @Html.HiddenFor(m => m.Document_Created_By_txt, new { id = "Document_Created_By_txt" })
                         </div>
 
-                       
+
 
 
                     </div>
                     <hr class="div_rd">
-                    
-               
-                 
-                    
+
+
+
+
                     <div class="form-group">
                         <button type="submit" id="alert-success" formaction="insertDocumentDetails" class="btn btn-primary shadow-primary px-5 btnpop"><i class="icon-lock"></i>Submit</button>
                     </div>
@@ -233,26 +233,28 @@
 
 
 
-        @if (ViewBag.create == "true")
-    {
-        <script>
+@if (ViewBag.create == "true")
+{
+    <script>
 
-            $(document).ready(function () {
-
-
-                $("#btncreate").on("click", function () { });
-
-                $("#btncreate").click(); //trigger event after listening to it.
-            })
-
-      </script>
-
-    
-    }
+        $(document).ready(function () {
 
 
+            $("#btncreate").on("click", function () { });
 
-        <script>
+            $("#btncreate").click(); //trigger event after listening to it.
+        })
+
+    </script>
+
+
+}
+
+
+
+
+
+<script>
 
 
 
@@ -285,8 +287,8 @@
 
 
 
-                    
-                   
+
+
 
                     $('#DDLAmtPaidBY2').prop('disabled', false);
                 }
@@ -400,7 +402,7 @@
 
 
 
-        </script>
+</script>
 
 
 

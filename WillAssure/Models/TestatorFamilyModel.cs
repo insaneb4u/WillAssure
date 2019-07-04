@@ -7,7 +7,7 @@ namespace WillAssure.Models
 {
     public class TestatorFamilyModel
     {
-
+        public string guardiancheck { get; set; }
         public int fId { get; set;}
       public string First_Name{ get; set; }
       public string Last_Name{ get; set; }

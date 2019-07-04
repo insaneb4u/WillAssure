@@ -7,6 +7,9 @@ namespace WillAssure.Models
 {
     public class MainAssetsModel
     {
+
+        public string nomineecheck { get; set; }
+
         public string inputtxt { get; set; }
         public int assettypeid { get; set; }
         public string assettypetext { get; set; }

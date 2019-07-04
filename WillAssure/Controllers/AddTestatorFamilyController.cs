@@ -20,35 +20,14 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
 
         // GET: AddTestatorFamily
-        public ActionResult AddTestatorFamilyIndex(string success , string NestId , string date , string guardian)
+        public ActionResult AddTestatorFamilyIndex(string success , string NestId)
         {
 
 
-            if (guardian == "true")
-            {
-                ViewBag.guaMessage = "Verified";
-            }
+       
 
 
-            if (date != null)
-            {
-                // identify if guardian or not
-               
-                date = date.Substring(6, date.Length - 6);
-                var today = DateTime.Now.Year;
-                int age = today - int.Parse(date);
-                if (age != 0)
-                {
-                    if (age <= 18)
-                    {
-                        ViewBag.guardianform = "true";
-                    }
-                }
-             
-
-                //end
-
-            }
+         
 
 
 
@@ -353,7 +332,7 @@ namespace WillAssure.Controllers
 
             
 
-            string query33 = "select * from Appointees where tid = " + Convert.ToInt32(Session["distid"]) + "";
+            string query33 = "select * from Appointees where tfId = " + Convert.ToInt32(Session["distid"]) + "";
         
 
 
@@ -404,6 +383,50 @@ namespace WillAssure.Controllers
 
 
             return View("~/Views/AddTestatorFamily/AddTestatorFamilyPageContent.cshtml", TFM);
+        }
+
+
+
+
+
+        public string dateofbirth()
+        {
+
+            string date = Request["send"].ToString();
+            string msg = "";
+            if (date != null)
+            {
+                // identify if guardian or not
+
+                date = date.Substring(6, date.Length - 6);
+                var today = DateTime.Now.Year;
+                int age = today - int.Parse(date);
+                if (age != 0)
+                {
+                    if (age <= 18)
+                    {
+                        ViewBag.guardianform = "true";
+                        msg = "true";
+                    }
+                    else
+                    {
+                        msg = "false";
+                    }
+
+                }
+                else
+                {
+                    msg = "false";
+                }
+
+
+
+                //end
+
+            }
+
+
+            return msg;
         }
 
 
@@ -755,7 +778,149 @@ namespace WillAssure.Controllers
                 cmd.ExecuteNonQuery();
                 con.Close();
 
-                ViewBag.message = "Verified";
+
+            // lastest tfid 
+            int fid = 0;
+            con.Open();
+            string qchecke = "select max(fId) as fId from testatorFamily ";
+            SqlDataAdapter dachke = new SqlDataAdapter(qchecke, con);
+            DataTable dtchke = new DataTable();
+            dachke.Fill(dtchke);
+            if (dtchke.Rows.Count > 0)
+            {
+                fid = Convert.ToInt32(dtchke.Rows[0]["fId"]);
+            }
+
+            ViewBag.message = "Verified";
+            con.Close();
+
+
+            // guardian form details
+            if (TFM.guardiancheck == "true")
+            {
+
+                con.Open();
+                SqlCommand cmd3 = new SqlCommand("SP_CRUDAppointees", con);
+                cmd3.CommandType = CommandType.StoredProcedure;
+                cmd3.Parameters.AddWithValue("@condition", "insert");
+                cmd3.Parameters.AddWithValue("@documentId", TFM.guadocumentId);
+                cmd3.Parameters.AddWithValue("@Type", "Guardian");
+
+                if (TFM.guasubTypetxt != null || TFM.guasubTypetxt != "")
+                {
+                    cmd3.Parameters.AddWithValue("@subType", TFM.guasubTypetxt);
+                }
+                else
+                {
+                    cmd3.Parameters.AddWithValue("@subType", "None");
+                }
+
+
+
+
+
+
+                cmd3.Parameters.AddWithValue("@Name", TFM.guaName);
+                cmd3.Parameters.AddWithValue("@middleName", TFM.guamiddleName);
+                cmd3.Parameters.AddWithValue("@Surname", TFM.guaSurname);
+                cmd3.Parameters.AddWithValue("@Identity_proof", TFM.guaIdentity_Proof);
+                cmd3.Parameters.AddWithValue("@Identity_proof_value", TFM.guaIdentity_Proof_Value);
+
+
+                if (TFM.Alt_Identity_Proof != null)
+                {
+                    cmd3.Parameters.AddWithValue("@Alt_Identity_proof", TFM.guaAlt_Identity_Proof);
+                }
+                else
+                {
+                    TFM.Alt_Identity_Proof = "None";
+                    cmd3.Parameters.AddWithValue("@Alt_Identity_proof", TFM.guaAlt_Identity_Proof);
+                }
+
+
+                if (TFM.Alt_Identity_Proof_Value != null)
+                {
+                    cmd3.Parameters.AddWithValue("@Alt_Identity_proof_value", TFM.guaAlt_Identity_Proof_Value);
+                }
+                else
+                {
+                    TFM.Alt_Identity_Proof_Value = "None";
+                    cmd3.Parameters.AddWithValue("@Alt_Identity_proof_value", TFM.guaAlt_Identity_Proof_Value);
+                }
+
+
+
+
+
+
+
+
+
+                //DateTime dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                //cmd.Parameters.AddWithValue("@DOB", "None");
+                cmd3.Parameters.AddWithValue("@Gender", TFM.guaGender);
+                cmd3.Parameters.AddWithValue("@Occupation", "None");
+                cmd3.Parameters.AddWithValue("@Relationship", "None");
+                cmd3.Parameters.AddWithValue("@Address1", TFM.guaAddress1);
+                if (TFM.guaAddress2 != null || TFM.guaAddress2 == "")
+                {
+                    cmd3.Parameters.AddWithValue("@Address2", TFM.guaAddress2);
+                }
+                else
+                {
+                    TFM.guaAddress2 = "None";
+                    cmd3.Parameters.AddWithValue("@Address2", TFM.guaAddress2);
+                }
+
+
+                if (TFM.guaAddress3 != null || TFM.guaAddress3 == "")
+                {
+                    cmd3.Parameters.AddWithValue("@Address3", TFM.guaAddress3);
+                }
+                else
+                {
+                    TFM.guaAddress3 = "None";
+                    cmd3.Parameters.AddWithValue("@Address3", TFM.guaAddress3);
+                }
+
+
+                cmd3.Parameters.AddWithValue("@City", TFM.guacitytext);
+                cmd3.Parameters.AddWithValue("@State", TFM.guastatetext);
+                cmd3.Parameters.AddWithValue("@Pin", TFM.guaPin);
+                cmd3.Parameters.AddWithValue("@tid", Convert.ToInt32(Session["distid"]));
+                cmd3.Parameters.AddWithValue("@ExecutorType", "None");
+                cmd3.ExecuteNonQuery();
+                con.Close();
+
+                // lastest app id
+                int appid = 0;
+                con.Open();
+                string qcheckee = "select max(apId) as apId from Appointees ";
+                SqlDataAdapter dachkee = new SqlDataAdapter(qcheckee, con);
+                DataTable dtchkee = new DataTable();
+                dachkee.Fill(dtchkee);
+                if (dtchkee.Rows.Count > 0)
+                {
+                    appid = Convert.ToInt32(dtchkee.Rows[0]["apId"]);
+                }
+
+
+                string qt = "update Appointees set documentstatus='incompleted' , tfid="+ fid + " where apId = " + appid + "";
+                SqlCommand cmd33e = new SqlCommand(qt, con);
+                cmd33e.ExecuteNonQuery();
+                con.Close();
+
+
+
+            }
+
+
+
+
+            //end
+
+
+
 
 
             con.Open();
@@ -977,10 +1142,95 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string query = "insert into alttestatorFamily (altFirst_Name , altLast_Name , altMiddle_Name , altDOB , altMarital_Status , altReligion , altRelationship , altAddress1 , altAddress2 , altAddress3 , altCity , altState , altPin  , altactive , altIdentity_Proof , altIdentity_Proof_Value , altAlt_Identity_Proof , altAlt_Identity_Proof_Value , altIs_Informed_Person , testatorfamilyid , alttId) values ('" + TFM.altFirst_Name+"' , '"+TFM.altLast_Name+"' , '"+TFM.Middle_Name+"' , '"+ Convert.ToDateTime(TFM.altDob).ToString("yyyy-MM-dd") + "' , '"+TFM.altMarital_Status+"' , '"+TFM.altReligion+"' , '"+TFM.RelationshipTxt+"' , '"+TFM.altAddress1+ "' , '" + TFM.altAddress2 + "' , '"+TFM.altAddress3+"' , '"+TFM.City_txt+"' , '"+TFM.altState_txt+"' , '"+TFM.altPin+"'  ,  '"+TFM.altactive+ "' , '"+TFM.altIdentity_Proof+ "' , '"+TFM.altIdentity_Proof_Value+"' , '"+TFM.altAlt_Identity_Proof + "' , '"+TFM.altAlt_Identity_Proof_Value + "' , '"+TFM.altIs_Informed_Person + "' , "+tfid+ " ,  "+TFM.ddltid+"  )  ";
+                string query = "insert into alttestatorFamily (altFirst_Name , altLast_Name , altMiddle_Name , altDOB , altMarital_Status , altReligion , altRelationship , altAddress1 , altAddress2 , altAddress3 , altCity , altState , altPin  , altactive , altIdentity_Proof , altIdentity_Proof_Value , altAlt_Identity_Proof , altAlt_Identity_Proof_Value , altIs_Informed_Person , testatorfamilyid , alttId) values ('" + TFM.altFirst_Name+"' , '"+TFM.altLast_Name+"' , '"+TFM.Middle_Name+"' , '"+ Convert.ToDateTime(TFM.altDob).ToString("yyyy-MM-dd") + "' , '"+TFM.altMarital_Status+"' , '"+TFM.altReligion+"' , '"+TFM.RelationshipTxt+"' , '"+TFM.altAddress1+ "' , '" + TFM.altAddress2 + "' , '"+TFM.altAddress3+"' , '"+TFM.City_txt+"' , '"+TFM.altState_txt+"' , '"+TFM.altPin+"'  ,  '"+TFM.altactive+ "' , '"+TFM.altIdentity_Proof + "' , '"+TFM.altIdentity_Proof_Value + "' , '"+TFM.altAlt_Identity_Proof + "' , '"+TFM.altAlt_Identity_Proof_Value + "' , '"+TFM.altIs_Informed_Person + "' , "+tfid+ " ,  "+TFM.ddltid+"  )  ";
                 SqlCommand cmd3 = new SqlCommand(query,con);
                 cmd3.ExecuteNonQuery();
                 con.Close();
+
+
+
+                // alternate beneficiary 
+                con.Open();
+                SqlCommand altcmd = new SqlCommand("SP_CRUD_alternate_Beneficiary", con);
+                altcmd.CommandType = CommandType.StoredProcedure;
+                altcmd.Parameters.AddWithValue("@condition", "insert");
+            
+                    altcmd.Parameters.AddWithValue("@bpId", "0");
+                
+
+                altcmd.Parameters.AddWithValue("@First_Name", TFM.altFirst_Name);
+                altcmd.Parameters.AddWithValue("@Last_Name", TFM.altLast_Name);
+                altcmd.Parameters.AddWithValue("@Middle_Name", TFM.altMiddle_Name);
+                DateTime altdat = DateTime.ParseExact(TFM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                altcmd.Parameters.AddWithValue("@DOB", altdat);
+                altcmd.Parameters.AddWithValue("@Mobile", "None");
+                altcmd.Parameters.AddWithValue("@Relationship", "None");
+                altcmd.Parameters.AddWithValue("@Marital_Status", TFM.altMarital_Status);
+                altcmd.Parameters.AddWithValue("@Religion", "none");
+                altcmd.Parameters.AddWithValue("@Identity_Proof", TFM.altIdentity_Proof);
+                altcmd.Parameters.AddWithValue("@Identity_Proof_Value", TFM.altIdentity_Proof_Value);
+
+
+
+
+
+                if (TFM.altAlt_Identity_Proof != null)
+                {
+                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof", TFM.altAlt_Identity_Proof);
+                }
+                else
+                {
+                    TFM.altAlt_Identity_Proof = "None";
+                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof", TFM.altAlt_Identity_Proof);
+                }
+
+                if (TFM.altAlt_Identity_Proof_Value != null)
+                {
+                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", TFM.altAlt_Identity_Proof_Value);
+                }
+                else
+                {
+                    TFM.altAlt_Identity_Proof_Value = "None";
+                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", TFM.altAlt_Identity_Proof_Value);
+                }
+
+
+
+                altcmd.Parameters.AddWithValue("@Address1", TFM.altAddress1);
+                if (TFM.altAddress2 != null || TFM.altAddress2 == "")
+                {
+                    altcmd.Parameters.AddWithValue("@Address2", TFM.altAddress2);
+
+                }
+                else
+                {
+                    TFM.altAddress2 = "None";
+                    altcmd.Parameters.AddWithValue("@Address2", TFM.altAddress2);
+                }
+
+
+                if (TFM.altAddress3 != null || TFM.altAddress3 == "")
+                {
+                    altcmd.Parameters.AddWithValue("@Address3", TFM.altAddress3);
+
+                }
+                else
+                {
+                    TFM.altAddress3 = "None";
+                    altcmd.Parameters.AddWithValue("@Address3", TFM.altAddress3);
+                }
+                altcmd.Parameters.AddWithValue("@City", TFM.altCity_txt);
+                altcmd.Parameters.AddWithValue("@State", TFM.altState_txt);
+                altcmd.Parameters.AddWithValue("@Pin", TFM.altPin);
+                altcmd.Parameters.AddWithValue("@tid", Convert.ToInt32(Session["distid"]));
+
+                altcmd.ExecuteNonQuery();
+                con.Close();
+
+
+
+
+                //end
 
 
 
@@ -1344,6 +1594,15 @@ namespace WillAssure.Controllers
 
             con.Close();
 
+
+
+
+           
+
+
+
+
+
             ViewBag.message = "Verified";
             ViewBag.disablefield = "true";
 
@@ -1434,124 +1693,7 @@ namespace WillAssure.Controllers
 
 
 
-        public  ActionResult Insertguardiandetails(TestatorFamilyModel AM)
-        {
-
-            con.Open();
-            SqlCommand cmd = new SqlCommand("SP_CRUDAppointees", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@condition", "insert");
-            cmd.Parameters.AddWithValue("@documentId", AM.guadocumentId);
-            cmd.Parameters.AddWithValue("@Type", "Guardian");
-
-            if (AM.guasubTypetxt != null || AM.guasubTypetxt != "")
-            {
-                cmd.Parameters.AddWithValue("@subType", AM.guasubTypetxt);
-            }
-            else
-            {
-                cmd.Parameters.AddWithValue("@subType", "None");
-            }
-
-
-
-
-
-
-            cmd.Parameters.AddWithValue("@Name", AM.guaName);
-            cmd.Parameters.AddWithValue("@middleName", AM.guamiddleName);
-            cmd.Parameters.AddWithValue("@Surname", AM.guaSurname);
-            cmd.Parameters.AddWithValue("@Identity_proof", AM.guaIdentity_Proof);
-            cmd.Parameters.AddWithValue("@Identity_proof_value", AM.guaIdentity_Proof_Value);
-
-
-            if (AM.Alt_Identity_Proof != null)
-            {
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.guaAlt_Identity_Proof);
-            }
-            else
-            {
-                AM.Alt_Identity_Proof = "None";
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.guaAlt_Identity_Proof);
-            }
-
-
-            if (AM.Alt_Identity_Proof_Value != null)
-            {
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.guaAlt_Identity_Proof_Value);
-            }
-            else
-            {
-                AM.Alt_Identity_Proof_Value = "None";
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.guaAlt_Identity_Proof_Value);
-            }
-
-
-
-
-
-
-
-
-
-            //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            //cmd.Parameters.AddWithValue("@DOB", "None");
-            cmd.Parameters.AddWithValue("@Gender", AM.guaGender);
-            cmd.Parameters.AddWithValue("@Occupation", "None");
-            cmd.Parameters.AddWithValue("@Relationship", "None");
-            cmd.Parameters.AddWithValue("@Address1", AM.guaAddress1);
-            if (AM.guaAddress2 != null || AM.guaAddress2 == "")
-            {
-                cmd.Parameters.AddWithValue("@Address2", AM.guaAddress2);
-            }
-            else
-            {
-                AM.guaAddress2 = "None";
-                cmd.Parameters.AddWithValue("@Address2", AM.guaAddress2);
-            }
-
-
-            if (AM.guaAddress3 != null || AM.guaAddress3 == "")
-            {
-                cmd.Parameters.AddWithValue("@Address3", AM.guaAddress3);
-            }
-            else
-            {
-                AM.guaAddress3 = "None";
-                cmd.Parameters.AddWithValue("@Address3", AM.guaAddress3);
-            }
-
-
-            cmd.Parameters.AddWithValue("@City", AM.guacitytext);
-            cmd.Parameters.AddWithValue("@State", AM.guastatetext);
-            cmd.Parameters.AddWithValue("@Pin", AM.guaPin);
-            cmd.Parameters.AddWithValue("@tid", Convert.ToInt32(Session["distid"]));
-            cmd.Parameters.AddWithValue("@ExecutorType", "None");
-            cmd.ExecuteNonQuery();
-            con.Close();
-
-            // lastest app id
-            int appid = 0;
-            con.Open();
-            string qchecke = "select max(apId) as apId from Appointees ";
-            SqlDataAdapter dachke = new SqlDataAdapter(qchecke, con);
-            DataTable dtchke = new DataTable();
-            dachke.Fill(dtchke);
-            if (dtchke.Rows.Count > 0)
-            {
-                appid = Convert.ToInt32(dtchke.Rows[0]["apId"]);
-            }
-
-
-            string qt = "update Appointees set documentstatus='incompleted' where apId = "+appid+"";
-            SqlCommand cmd3e = new SqlCommand(qt,con);
-            cmd3e.ExecuteNonQuery();
-            con.Close();
-
-
-            return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily", new { guardian = "true" });
-
-        }
+    
 
 
 

@@ -49,7 +49,7 @@
 
     @*Master Style Links*@
 
-   
+    <script src="~/assets/js/jquery.min.js"></script>
     <!--Sweet Alerts -->
     <script src="~/assets/plugins/alerts-boxes/js/sweetalert.min.js"></script>
     <script src="~/assets/plugins/alerts-boxes/js/sweet-alert-script.js"></script>
@@ -157,7 +157,7 @@
         <nav class="navbar navbar-expand fixed-top bg-dark border-bottom border-light-3">
             <ul class="navbar-nav mr-auto align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link toggle-menu" href="javascript:void();">
+                    <a class="" href="@Url.Action("TestatorHomePageIndex","TestatorHomePage")">
                         <img src="~/assets/images/logo-icon.png" style="width:200px;" class="logo-icon" alt="logo icon">  <i class="icon-menu menu-icon text-white"></i>
                     </a>
                 </li>
@@ -312,7 +312,7 @@
         <!--Start sidebar-wrapper-->
         <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true" class="shadow-none">
             <div class="brand-logo">
-                <a href="#">
+                <a href="@Url.Action("TestatorHomePageIndex","TestatorHomePage")">
                     <img src="~/assets/images/logo-icon.png" style="width:200px;" class="logo-icon" alt="logo icon">
                     @*<h5 class="logo-text">Will Assure</h5>*@
 
@@ -772,151 +772,151 @@
 
                         @*<li>
 
-                            <a href="javaScript:void();" class="waves-effect">
+                                <a href="javaScript:void();" class="waves-effect">
 
-                                <i class="zmdi zmdi-format-list-bulleted"></i> <span>Testator</span>
-                                <i class="fa fa-angle-left pull-right"></i>
+                                    <i class="zmdi zmdi-format-list-bulleted"></i> <span>Testator</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
 
-                            </a>
+                                </a>
 
 
 
-                            <ul class="sidebar-submenu">
-                                <li><a href="/EditTestator/EditTestatorIndex"><i class="zmdi zmdi-star-outline"></i>View Testator</a></li>
+                                <ul class="sidebar-submenu">
+                                    <li><a href="/EditTestator/EditTestatorIndex"><i class="zmdi zmdi-star-outline"></i>View Testator</a></li>
 
 
-                            </ul>
+                                </ul>
 
-                        </li>
+                            </li>
 
 
-                        <li>
+                            <li>
 
-                            <a href="javaScript:void();" class="waves-effect">
+                                <a href="javaScript:void();" class="waves-effect">
 
-                                <i class="zmdi zmdi-format-list-bulleted"></i> <span>TestatorsFamily</span>
-                                <i class="fa fa-angle-left pull-right"></i>
+                                    <i class="zmdi zmdi-format-list-bulleted"></i> <span>TestatorsFamily</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
 
-                            </a>
+                                </a>
 
 
 
-                            <ul class="sidebar-submenu">
-                                <li><a href="/EditTestatorFamily/EditTestatorFamilyIndex"><i class="zmdi zmdi-star-outline"></i>View Testator Family</a></li>
+                                <ul class="sidebar-submenu">
+                                    <li><a href="/EditTestatorFamily/EditTestatorFamilyIndex"><i class="zmdi zmdi-star-outline"></i>View Testator Family</a></li>
 
 
-                            </ul>
+                                </ul>
 
-                        </li>
-                        <li>
+                            </li>
+                            <li>
 
-                            <a href="javaScript:void();" class="waves-effect">
+                                <a href="javaScript:void();" class="waves-effect">
 
-                                <i class="zmdi zmdi-format-list-bulleted"></i> <span>Beneficiary</span>
-                                <i class="fa fa-angle-left pull-right"></i>
+                                    <i class="zmdi zmdi-format-list-bulleted"></i> <span>Beneficiary</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
 
-                            </a>
+                                </a>
 
 
 
-                            <ul class="sidebar-submenu">
-                                <li><a href="/EditBeneficiary/EditBeneficiaryIndex"><i class="zmdi zmdi-star-outline"></i>View Beneficiary</a></li>
+                                <ul class="sidebar-submenu">
+                                    <li><a href="/EditBeneficiary/EditBeneficiaryIndex"><i class="zmdi zmdi-star-outline"></i>View Beneficiary</a></li>
 
 
-                            </ul>
+                                </ul>
 
-                        </li>
-                        <li>
+                            </li>
+                            <li>
 
-                            <a href="javaScript:void();" class="waves-effect">
+                                <a href="javaScript:void();" class="waves-effect">
 
-                                <i class="zmdi zmdi-format-list-bulleted"></i> <span>AssetInformation</span>
-                                <i class="fa fa-angle-left pull-right"></i>
+                                    <i class="zmdi zmdi-format-list-bulleted"></i> <span>AssetInformation</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
 
-                            </a>
+                                </a>
 
 
 
-                            <ul class="sidebar-submenu">
-                                <li><a href="/EditMainAssets/EditMainAssetsIndex"><i class="zmdi zmdi-star-outline"></i>View Assets</a></li>
+                                <ul class="sidebar-submenu">
+                                    <li><a href="/EditMainAssets/EditMainAssetsIndex"><i class="zmdi zmdi-star-outline"></i>View Assets</a></li>
 
 
-                            </ul>
+                                </ul>
 
-                        </li>
-                        <li>
+                            </li>
+                            <li>
 
-                            <a href="javaScript:void();" class="waves-effect">
+                                <a href="javaScript:void();" class="waves-effect">
 
-                                <i class="zmdi zmdi-format-list-bulleted"></i> <span>Mapping</span>
-                                <i class="fa fa-angle-left pull-right"></i>
+                                    <i class="zmdi zmdi-format-list-bulleted"></i> <span>Mapping</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
 
-                            </a>
+                                </a>
 
-                            <ul class="sidebar-submenu">
+                                <ul class="sidebar-submenu">
 
-                                <li><a href="/AddAssetMapping/AddAssetMappingIndex"><i class="zmdi zmdi-star-outline"></i>Mapping</a></li>
+                                    <li><a href="/AddAssetMapping/AddAssetMappingIndex"><i class="zmdi zmdi-star-outline"></i>Mapping</a></li>
 
-                            </ul>
+                                </ul>
 
-                            <ul class="sidebar-submenu"></ul>
+                                <ul class="sidebar-submenu"></ul>
 
-                        </li>
+                            </li>
 
-                        <li>
+                            <li>
 
-                            <a href="javaScript:void();" class="waves-effect">
+                                <a href="javaScript:void();" class="waves-effect">
 
-                                <i class="zmdi zmdi-format-list-bulleted"></i> <span>Nominee</span>
-                                <i class="fa fa-angle-left pull-right"></i>
+                                    <i class="zmdi zmdi-format-list-bulleted"></i> <span>Nominee</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
 
-                            </a>
+                                </a>
 
 
 
-                            <ul class="sidebar-submenu">
-                                <li><a href="/EditNominee/EditNomineeIndex"><i class="zmdi zmdi-star-outline"></i>View Nominee</a></li>
+                                <ul class="sidebar-submenu">
+                                    <li><a href="/EditNominee/EditNomineeIndex"><i class="zmdi zmdi-star-outline"></i>View Nominee</a></li>
 
 
-                            </ul>
+                                </ul>
 
-                        </li>
-                        <li>
+                            </li>
+                            <li>
 
-                            <a href="javaScript:void();" class="waves-effect">
+                                <a href="javaScript:void();" class="waves-effect">
 
-                                <i class="zmdi zmdi-format-list-bulleted"></i> <span>Appointees</span>
-                                <i class="fa fa-angle-left pull-right"></i>
+                                    <i class="zmdi zmdi-format-list-bulleted"></i> <span>Appointees</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
 
-                            </a>
+                                </a>
 
 
 
-                            <ul class="sidebar-submenu">
-                                <li><a href="/EditAppointees/EditAppointeesIndex"><i class="zmdi zmdi-star-outline"></i>View Appointees</a></li>
+                                <ul class="sidebar-submenu">
+                                    <li><a href="/EditAppointees/EditAppointeesIndex"><i class="zmdi zmdi-star-outline"></i>View Appointees</a></li>
 
 
-                            </ul>
+                                </ul>
 
-                        </li>
-                        <li>
+                            </li>
+                            <li>
 
-                            <a href="javaScript:void();" class="waves-effect">
+                                <a href="javaScript:void();" class="waves-effect">
 
-                                <i class="zmdi zmdi-format-list-bulleted"></i> <span>Document</span>
-                                <i class="fa fa-angle-left pull-right"></i>
+                                    <i class="zmdi zmdi-format-list-bulleted"></i> <span>Document</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
 
-                            </a>
+                                </a>
 
-                            <ul class="sidebar-submenu">
+                                <ul class="sidebar-submenu">
 
-                                <li><a href="/ViewDocument/ViewDocumentIndex"><i class="zmdi zmdi-star-outline"></i>View Document</a></li>
+                                    <li><a href="/ViewDocument/ViewDocumentIndex"><i class="zmdi zmdi-star-outline"></i>View Document</a></li>
 
-                            </ul>
+                                </ul>
 
-                            <ul class="sidebar-submenu"></ul>
+                                <ul class="sidebar-submenu"></ul>
 
-                        </li>*@
+                            </li>*@
 
 
 
@@ -1502,15 +1502,15 @@
 
 
     $(function () {
-       
+
         var now = new Date();
         var sDate = new Date(now.getFullYear() - 18, now.getMonth(), 1);
 
-       
+
 
         var endDate = new Date(sDate.getFullYear + '-' + sDate.getMonth() + '-' + sDate.getDay());
         var startDate = new Date('1930-01-01');
-    
+
         $('#datepicker').datepicker({
             //other option
             startDate: startDate, //set start date

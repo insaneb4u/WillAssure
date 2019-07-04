@@ -123,24 +123,7 @@
 
 
                         <br />
-                        <div class="col-12 12">
-                            <div class="card bg-transparent shadow-none border border-light-3">
-                                <div class="card-header text-white border-light-3" style="background: #199d4b">
-                                    Instructions
-
-                                </div>
-                                <div class="card-body" style="background: #fff; border:1px solid #199d4b">
-                                    <ul>
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+               
 
 
                         @if (Session["doctype"] != null)
@@ -150,7 +133,7 @@
 
 
                                 <div class="row">
-                                    <div class="col-sm-3">  <div class="card-title text-primary">Add Donee Details</div></div>
+                                    
                                     <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Donee Details )</h6></div></div>
                                 </div>
 
@@ -159,7 +142,7 @@
                             {
 
                                 <div class="row">
-                                    <div class="col-sm-3">  <div class="card-title text-primary">Add Beneficiary Details</div></div>
+                                 
                                     <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Beneficiary Details )</h6></div></div>
                                 </div>
 
@@ -538,7 +521,7 @@
 
 
 
-                            <div class="row">
+                            @*<div class="row">
                                 <div class="col-sm-1"></div>
 
                                 @if (Session["doctype"] != null)
@@ -671,31 +654,6 @@
 
 
 
-                                @*@if (Model.RelationshipTxt != null)
-                {
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="input-1">Relation</label>
-                            <select id="altddlrelation" class="form-control input-shadow validate[required]">
-                                <option value="@Model.RelationshipTxt">@Model.RelationshipTxt</option>
-                            </select>
-                            @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid" })
-                            @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext", @name = "altRelationshipTxt" })
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="input-1">Relation</label>
-                            <select id="altddlrelation" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
-                            @Html.HiddenFor(m => m.altRelationshipId, new { id = "altRelationshipId" })
-                            @Html.HiddenFor(m => m.altRelationshipTxt, new { id = "altRelationshipTxt", @name = "altRelationshipTxt" })
-                        </div>
-                    </div>
-
-                }*@
 
 
 
@@ -903,7 +861,7 @@
 
 
 
-                        </div>
+                        </div>*@
 
 
 

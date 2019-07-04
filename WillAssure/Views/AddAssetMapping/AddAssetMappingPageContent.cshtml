@@ -112,24 +112,8 @@
                                 }
                             }
                             <br>
-                            <div class="col-12 12">
-                                <div class="card bg-transparent shadow-none border border-light-3">
-                                    <div class="card-header text-white border-light-3" style="background: #199d4b">
-                                        Instructions
-
-                                    </div>
-                                    <div class="card-body" style="background: #fff; border:1px solid #199d4b">
-                                        <ul>
-                                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                            <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card-title text-primary">Asset Mapping</div>
+                   
+                            
                             <div class="row">
                                 <div class='col-sm-1'><label for='input-1' style="line-height:40px;">Testator <span id='errproportion' style='color:red;display:;'>(*)</span></label></div>
                                 <div class="col-sm-3">
@@ -364,7 +348,7 @@
 
         </div>*@
 
-                            <textarea id="query" style="display:none;" class="form-control">
+                            <textarea id="query" style="display:;" class="form-control">
                                
                            </textarea>
                         </div>
@@ -595,7 +579,7 @@
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;";
                                  res += "<div class='col-sm-2'>";
                                  res += "<div class='form-group' id='mainbeneddl" + data[i].assetcatid+"'>";
-                                 res += "<label for='input-1'>Beneficiary single</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
+                                 res += "<label for='input-1'>Beneficiary</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
                                  res += "<select id='ddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control beneficiaryclass validate[required]'></select>";
                                  res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                                  res += "</div>";
@@ -611,11 +595,18 @@
                                  res += "<div class='form-group start'>";
                                  res += "<label for='input-1'>Balance Proportion</label>";
                                  res += "<input type='text' id='txttotal"+data[i].assetcatid+"' min=0  class='form-control totalinput' readonly />";
-                                 res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-198px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
+                                 res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-378px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
                                  res += "</div>";
                                  res += "</div>";
 
 
+                                 res += "<div class='col-sm-2'>";
+                                 res += "<div class='form-group' id='mainbeneddl" + data[i].assetcatid + "'>";
+                                 res += "<label for='input-1' style='white-space:nowrap'>Alternate Beneficiary</label>";
+                                 res += "<select id='ddlbeneficiaryalt" + data[i].assetcatid + "' onchange='altcheckbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control altbeneficiaryclass '></select>";
+                                 res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
+                                 res += "</div>";
+                                 res += "</div>";  
 
 
 
@@ -627,6 +618,10 @@
                                
                                  res += "</div>";
                                  res += "</div>";
+
+
+
+
 
 
 
@@ -673,12 +668,24 @@
 
                              var md = data.split("~")[0];
                              var count = data.split("~")[1];
-
+                             var alterbene = data.split("~")[2];
+                         
                              $("#txtcount").val(count);
                              for (var i = 1; i < count; i++) {
 
 
                                  var x = $("#ddlbeneficiary" + i + "").empty().append(md);
+
+                                 //alert(x);
+
+                             }
+
+
+
+                             for (var i = 1; i < count; i++) {
+
+
+                                 var x = $("#ddlbeneficiaryalt" + i + "").empty().append(md);
 
                                  //alert(x);
 
@@ -1175,6 +1182,56 @@
 
 
 
+
+
+        function altcheckbeneficiaryduplicate(id, value) {
+
+
+
+            var dt = '';
+            var lang_name = $('#' + id).val();
+            var selectedtext = $("#" + id + " option:selected").text();
+            var check = 'active';
+            $(".altbeneficiaryclass").each(function () {
+                var myid = $(this).attr('id');
+                var myval = $('#' + myid).val();
+                if (id != myid) {
+                    if (lang_name == myval && lang_name != '') {
+                        alert(selectedtext + ' already exists');
+                        $("#" + id).val('0');
+                        check = 'inactive';
+                        return false;
+                    }
+
+                }
+
+
+            });
+
+
+
+
+
+            if (check == 'active') {
+                var v1 = id;
+                var v2 = v1.replace("ddlbeneficiary", "");
+
+
+
+                $("#Beneficiarytxt").val(id).attr("disabled", "disabled");
+
+
+                $("#query").append(value + "~");
+
+            }
+
+
+
+        }
+
+
+
+
         function getDDLAssetColumn(id) {
 
             var conceptName = $("#"+id+"").find(":selected").text();
@@ -1367,6 +1424,37 @@
 
 
 
+
+            // for alternate beneficiary ddl id auto generate  getidentifier
+
+            $clone.find('.altbeneficiaryclass').each(function () {
+                var el = $(this);
+
+                var id = el.attr('id') || null;
+
+                if (id) {
+
+                    //  var i = id.substr(id.length - 1);
+
+                    //code for geting only number from alphanumer string
+                    number = id.replace(/\D/g, ''); // a string of only digits, or the empty string
+                    var i = parseInt(number, 10); // now it's a numeric value
+
+                    //code for getting only alpha character from alphanumer string
+                    var prefix = id.replace(/[^a-zA-Z]/g, '');
+                    //var prefix = id.substr(0, (id.length - 1));
+
+                    el.attr('id', prefix + (+i + 1));
+
+                }
+            });
+
+            // end
+
+
+
+
+
             // for scheme ddl id auto generate
 
             $clone.find('.schemenameclass').each(function () {
@@ -1461,7 +1549,7 @@
         function gettxtproportion(id,value) {
 
 
-            $("#query").append(value + "~");
+            $("#query").append(value + ",");
         }
 
         function calculatefun(value) {

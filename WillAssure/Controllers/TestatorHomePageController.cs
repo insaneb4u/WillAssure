@@ -56,7 +56,7 @@ namespace WillAssure.Controllers
                 {
                     if (Convert.ToInt32(dt2.Rows[0]["Will"]) == 1)
                     {
-
+                        ViewBag.PaymentLink = "true";
                         // for appointees 
 
                         con.Open();
@@ -71,7 +71,7 @@ namespace WillAssure.Controllers
 
 
                             ViewBag.Willbtn = "true";
-
+                           
 
 
                         }
@@ -88,7 +88,7 @@ namespace WillAssure.Controllers
 
                     if (Convert.ToInt32(dt2.Rows[0]["POA"]) == 1)
                     {
-
+                        ViewBag.PaymentLink = "true";
                         // for appointees 
 
                         con.Open();
@@ -119,7 +119,7 @@ namespace WillAssure.Controllers
 
                     if (Convert.ToInt32(dt2.Rows[0]["Giftdeeds"]) == 1)
                     {
-
+                        ViewBag.PaymentLink = "true";
                         // for appointees 
 
                         con.Open();
@@ -134,6 +134,7 @@ namespace WillAssure.Controllers
 
 
                             ViewBag.Giftdeedsbtn = "true";
+                     
 
 
                         }
@@ -149,7 +150,7 @@ namespace WillAssure.Controllers
 
                     if (Convert.ToInt32(dt2.Rows[0]["LivingWill"]) == 1)
                     {
-
+                        ViewBag.PaymentLink = "true";
                         // for appointees 
 
                         con.Open();
@@ -164,6 +165,7 @@ namespace WillAssure.Controllers
 
 
                             ViewBag.LivingWillbtn = "true";
+                            ViewBag.PaymentLink = "true";
 
                         }
 
@@ -175,7 +177,7 @@ namespace WillAssure.Controllers
 
                     if (Convert.ToInt32(dt2.Rows[0]["Codocil"]) == 1)
                     {
-
+                        ViewBag.PaymentLink = "true";
                         // for appointees 
 
                         con.Open();
@@ -190,6 +192,7 @@ namespace WillAssure.Controllers
 
 
                             ViewBag.Codocilbtn = "true";
+                            ViewBag.PaymentLink = "true";
 
 
 
@@ -222,7 +225,7 @@ namespace WillAssure.Controllers
                 {
                     if (Convert.ToInt32(paydtt.Rows[0]["PaymentStatus"]) == 1)
                     {
-
+                        ViewBag.hidepayment = "true";
 
                         // check will status
                         con.Open();
@@ -630,7 +633,7 @@ namespace WillAssure.Controllers
                     if (Convert.ToInt32(dtt43.Rows[0]["Giftdeeds"]) == 1)
                     {
 
-                        string quer1 = "select Document_Price from documentpricing  where Document_Name = 'Giftdeeds' ";
+                        string quer1 = "select Document_Price from documentpricing  where Document_Name = 'Gift Deeds' ";
                         SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
                         DataTable daat = new DataTable();
                         daa1.Fill(daat);

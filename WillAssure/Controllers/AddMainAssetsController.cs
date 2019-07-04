@@ -21,15 +21,8 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
         string json = "";
         // GET: AddMainAssets
-        public ActionResult AddMainAssetsIndex(string NestId, string nomineestate)
+        public ActionResult AddMainAssetsIndex(string NestId)
         {
-
-            if (nomineestate == "true")
-            {
-                ViewBag.NomineeForm = "True";
-
-                nomineestate = "false";
-            }
 
     
             
@@ -363,7 +356,7 @@ namespace WillAssure.Controllers
 
 
 
-            
+
 
 
 
@@ -377,6 +370,63 @@ namespace WillAssure.Controllers
 
             //end
 
+            string query22 = "";
+
+            MainAssetsModel NM = new MainAssetsModel();
+            con.Open();
+
+            if (NestId != null)
+            {
+                query22 = "select * from Nominee where nId = " + NestId + " ";
+            }
+            else
+            {
+                query22 = "select * from Nominee where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+            }
+
+
+            SqlDataAdapter da22 = new SqlDataAdapter(query22, con);
+            DataTable dt22 = new DataTable();
+            da22.Fill(dt22);
+            con.Close();
+
+
+            if (dt22.Rows.Count > 0)
+            {
+
+                ViewBag.nomineedata = "true";
+                for (int i = 0; i < dt22.Rows.Count; i++)
+                {
+                    ViewBag.disablefield = "true";
+                    NM.nId = Convert.ToInt32(dt22.Rows[i]["nId"]);
+                    NM.nomFirst_Name = dt22.Rows[i]["First_Name"].ToString();
+                    NM.nomLast_Name = dt22.Rows[i]["Last_Name"].ToString();
+                    NM.nomMiddle_Name = dt22.Rows[i]["Middle_Name"].ToString();
+                    NM.nomDob = Convert.ToDateTime(dt22.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+                    NM.nomMobile = dt22.Rows[i]["Mobile"].ToString();
+                    NM.nomRelationshipTxt = dt22.Rows[i]["Relationship"].ToString();
+                    NM.nomMarital_Status = dt22.Rows[i]["Marital_Status"].ToString();
+                    NM.nomReligion = dt22.Rows[i]["Religion"].ToString();
+                    NM.nomIdentity_Proof = dt22.Rows[i]["Identity_Proof"].ToString();
+                    NM.nomIdentity_Proof_Value = dt22.Rows[i]["Identity_Proof_Value"].ToString();
+                    NM.nomAlt_Identity_Proof = dt22.Rows[i]["Alt_Identity_Proof"].ToString();
+                    NM.nomAlt_Identity_Proof_Value = dt22.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                    NM.nomAddress1 = dt22.Rows[i]["Address1"].ToString();
+                    NM.nomAddress2 = dt22.Rows[i]["Address2"].ToString();
+                    NM.nomAddress3 = dt22.Rows[i]["Address3"].ToString();
+                    NM.nomcitytext = dt22.Rows[i]["City"].ToString();
+                    NM.nomstatetext = dt22.Rows[i]["State"].ToString();
+                    NM.nomPin = dt22.Rows[i]["Pin"].ToString();
+                    
+
+                    NM.nomcreatedBy = dt22.Rows[i]["createdBy"].ToString();
+                    
+                    NM.nomDescription_of_Assets = dt22.Rows[i]["Description_of_Assets"].ToString();
+
+
+
+                }
+            }
 
 
 
@@ -386,8 +436,7 @@ namespace WillAssure.Controllers
 
 
 
-
-            return View("~/Views/AddMainAssets/AddMainAssetsPageContent.cshtml");
+            return View("~/Views/AddMainAssets/AddMainAssetsPageContent.cshtml",NM);
         }
 
 
@@ -1035,6 +1084,7 @@ namespace WillAssure.Controllers
         public ActionResult InsertMainAsset(FormCollection collection)
         {
             ViewBag.collapse = "true";
+            int nomineeid = 0;
             // check type 
             string typ = "";
             con.Open();
@@ -1428,15 +1478,105 @@ namespace WillAssure.Controllers
                 //}
 
 
+                if (collection["nomineecheck"] == "true")
+                {
+
+                    con.Open();
+                    SqlCommand cmd2 = new SqlCommand("SP_CRUDNominee", con);
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.AddWithValue("@action", "insert");
+                    cmd2.Parameters.AddWithValue("@First_Name", collection["nomFirst_Name"]);
+                    cmd2.Parameters.AddWithValue("@Last_Name", collection["nomLast_Name"]);
+                    cmd2.Parameters.AddWithValue("@Middle_Name", collection["nomMiddle_Name"]);
+                    DateTime dat = DateTime.ParseExact(collection["nomDob"], "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                    cmd2.Parameters.AddWithValue("@DOB", dat);
+                    cmd2.Parameters.AddWithValue("@Mobile", collection["nomMobile"]);
+                    cmd2.Parameters.AddWithValue("@Relationship", collection["nomRelationshipTxt"]);
+                    cmd2.Parameters.AddWithValue("@Marital_Status", collection["nomMarital_Status"]);
+                    cmd2.Parameters.AddWithValue("@Religion", collection["nomReligion"]);
+                    cmd2.Parameters.AddWithValue("@Identity_Proof", collection["nomIdentity_Proof"]);
+                    cmd2.Parameters.AddWithValue("@Identity_Proof_Value", collection["Identity_Proof_Value"]);
+
+                    if (collection["nomAlt_Identity_Proof"] != "")
+                    {
+                        cmd2.Parameters.AddWithValue("@Alt_Identity_Proof", collection["nomAlt_Identity_Proof"]);
+                    }
+                    else
+                    {
+                        collection["nomAlt_Identity_Proof"] = "None";
+                        cmd2.Parameters.AddWithValue("@Alt_Identity_Proof", collection["nomAlt_Identity_Proof"]);
+                    }
 
 
-                
+                    if (collection["nomAlt_Identity_Proof_Value"] != "undefined")
+                    {
+                        cmd2.Parameters.AddWithValue("@Alt_Identity_Proof_Value", collection["nomAlt_Identity_Proof_Value"]);
+                    }
+                    else
+                    {
+                        collection["nomAlt_Identity_Proof_Value"] = "None";
+                        cmd2.Parameters.AddWithValue("@Alt_Identity_Proof_Value", collection["nomAlt_Identity_Proof_Value"]);
+                    }
 
-              
+
+                    cmd2.Parameters.AddWithValue("@Address1", collection["nomAddress1"]);
+                    if (collection["nomAddress2"] != "")
+                    {
+                        cmd2.Parameters.AddWithValue("@Address2", collection["nomAddress2"]);
+                    }
+                    else
+                    {
+                        collection["nomAddress2"] = "None";
+                        cmd2.Parameters.AddWithValue("@Address2", collection["nomAddress2"]);
+                    }
+
+                    if (collection["nomAddress3"] != "")
+                    {
+                        cmd2.Parameters.AddWithValue("@Address3", collection["nomAddress3"]);
+                    }
+                    else
+                    {
+                        collection["nomAddress3"] = "None";
+                        cmd2.Parameters.AddWithValue("@Address3", collection["nomAddress3"]);
+                    }
+
+
+                    cmd2.Parameters.AddWithValue("@City", collection["nomcitytext"]);
+                    cmd2.Parameters.AddWithValue("@State", collection["nomstatetext"]);
+                    cmd2.Parameters.AddWithValue("@Pin", collection["nomPin"]);
+                    //cmd.Parameters.AddWithValue("@aid", NM.nomaid);
+                    //cmd.Parameters.AddWithValue("@tId", NM.nomddltid);
+                    cmd2.Parameters.AddWithValue("@createdBy", Convert.ToInt32(Session["uuid"]));
+                    cmd2.Parameters.AddWithValue("@documentId", "0");
+                    cmd2.Parameters.AddWithValue("@Description_of_Assets", collection["nomDescription_of_Assets"]);
+                    cmd2.Parameters.AddWithValue("@aid", Convert.ToInt32(dt.Rows[0]["aiid"]));
+                    cmd2.Parameters.AddWithValue("@tId", Convert.ToInt32(Session["distid"]));
+
+                    cmd2.ExecuteNonQuery();
+                    con.Close();
+                    ModelState.Clear();
+                    TempData["Message"] = "true";
+                    //}
+                    //else
+                    //{
+
+
+                    //    ViewBag.Message = "link";
+
+                    //}
+
+                    ViewBag.disablefield = "true";
+
+
+                }
 
 
 
-               
+
+
+
+
+
             }
 
 
@@ -1487,6 +1627,105 @@ namespace WillAssure.Controllers
                     cmd22.ExecuteNonQuery();
                     con.Close();
                     ViewBag.Message = "Verified";
+
+
+
+                    if (collection["nomineecheck"] == "true")
+                    {
+
+                        con.Open();
+                        SqlCommand cmd2 = new SqlCommand("SP_CRUDNominee", con);
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.Parameters.AddWithValue("@action", "insert");
+                        cmd2.Parameters.AddWithValue("@First_Name", collection["nomFirst_Name"]);
+                        cmd2.Parameters.AddWithValue("@Last_Name", collection["nomLast_Name"]);
+                        cmd2.Parameters.AddWithValue("@Middle_Name", collection["nomMiddle_Name"]);
+                        DateTime dat = DateTime.ParseExact(collection["nomDob"], "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                        cmd2.Parameters.AddWithValue("@DOB", dat);
+                        cmd2.Parameters.AddWithValue("@Mobile", collection["nomMobile"]);
+                        cmd2.Parameters.AddWithValue("@Relationship", collection["nomRelationshipTxt"]);
+                        cmd2.Parameters.AddWithValue("@Marital_Status", collection["nomMarital_Status"]);
+                        cmd2.Parameters.AddWithValue("@Religion", collection["nomReligion"]);
+                        cmd2.Parameters.AddWithValue("@Identity_Proof", collection["nomIdentity_Proof"]);
+                        cmd2.Parameters.AddWithValue("@Identity_Proof_Value", collection["nomIdentity_Proof_Value"]);
+
+                        if (collection["nomAlt_Identity_Proof"] != "")
+                        {
+                            cmd2.Parameters.AddWithValue("@Alt_Identity_Proof", collection["nomAlt_Identity_Proof"]);
+                        }
+                        else
+                        {
+                            collection["nomAlt_Identity_Proof"] = "None";
+                            cmd2.Parameters.AddWithValue("@Alt_Identity_Proof", collection["nomAlt_Identity_Proof"]);
+                        }
+
+
+                        if (collection["nomAlt_Identity_Proof_Value"] != "undefined")
+                        {
+                            cmd2.Parameters.AddWithValue("@Alt_Identity_Proof_Value", collection["nomAlt_Identity_Proof_Value"]);
+                        }
+                        else
+                        {
+                            collection["nomAlt_Identity_Proof_Value"] = "None";
+                            cmd2.Parameters.AddWithValue("@Alt_Identity_Proof_Value", collection["nomAlt_Identity_Proof_Value"]);
+                        }
+
+
+                        cmd2.Parameters.AddWithValue("@Address1", collection["nomAddress1"]);
+                        if (collection["nomAddress2"] != "")
+                        {
+                            cmd2.Parameters.AddWithValue("@Address2", collection["nomAddress2"]);
+                        }
+                        else
+                        {
+                            collection["nomAddress2"] = "None";
+                            cmd2.Parameters.AddWithValue("@Address2", collection["nomAddress2"]);
+                        }
+
+                        if (collection["nomAddress3"] != "")
+                        {
+                            cmd2.Parameters.AddWithValue("@Address3", collection["nomAddress3"]);
+                        }
+                        else
+                        {
+                            collection["nomAddress3"] = "None";
+                            cmd2.Parameters.AddWithValue("@Address3", collection["nomAddress3"]);
+                        }
+
+
+                        cmd2.Parameters.AddWithValue("@City", collection["nomcitytext"]);
+                        cmd2.Parameters.AddWithValue("@State", collection["nomstatetext"]);
+                        cmd2.Parameters.AddWithValue("@Pin", collection["nomPin"]);
+                        //cmd.Parameters.AddWithValue("@aid", NM.nomaid);
+                        //cmd.Parameters.AddWithValue("@tId", NM.nomddltid);
+                        cmd2.Parameters.AddWithValue("@createdBy", Convert.ToInt32(Session["uuid"]));
+                        cmd2.Parameters.AddWithValue("@documentId", "0");
+                        cmd2.Parameters.AddWithValue("@Description_of_Assets", collection["nomDescription_of_Assets"]);
+                        cmd2.Parameters.AddWithValue("@aid", Convert.ToInt32(dt.Rows[0]["aiid"]));
+                        cmd2.Parameters.AddWithValue("@tId", Convert.ToInt32(Session["distid"]));
+
+                        cmd2.ExecuteNonQuery();
+                        con.Close();
+                        ModelState.Clear();
+                        TempData["Message"] = "true";
+                        //}
+                        //else
+                        //{
+
+
+                        //    ViewBag.Message = "link";
+
+                        //}
+
+                        ViewBag.disablefield = "true";
+
+
+                    }
+
+
+
+
+
                 }
 
                
@@ -1544,7 +1783,117 @@ namespace WillAssure.Controllers
                     con.Close();
 
 
-                    
+
+                    if (collection["nomineecheck"] == "true")
+                    {
+
+                        con.Open();
+                        SqlCommand cmd2 = new SqlCommand("SP_CRUDNominee", con);
+                        cmd2.CommandType = CommandType.StoredProcedure;
+                        cmd2.Parameters.AddWithValue("@action", "insert");
+                        cmd2.Parameters.AddWithValue("@First_Name", collection["nomFirst_Name"]);
+                        cmd2.Parameters.AddWithValue("@Last_Name", collection["nomLast_Name"]);
+                        cmd2.Parameters.AddWithValue("@Middle_Name", collection["nomMiddle_Name"]);
+                        DateTime dat = DateTime.ParseExact(collection["nomDob"], "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                        cmd2.Parameters.AddWithValue("@DOB", dat);
+                        cmd2.Parameters.AddWithValue("@Mobile", collection["nomMobile"]);
+                        cmd2.Parameters.AddWithValue("@Relationship", collection["nomRelationshipTxt"]);
+                        cmd2.Parameters.AddWithValue("@Marital_Status", collection["nomMarital_Status"]);
+                        cmd2.Parameters.AddWithValue("@Religion", collection["nomReligion"]);
+                        cmd2.Parameters.AddWithValue("@Identity_Proof", collection["nomIdentity_Proof"]);
+                        cmd2.Parameters.AddWithValue("@Identity_Proof_Value", collection["nomIdentity_Proof_Value"]);
+
+                        if (collection["nomAlt_Identity_Proof"] != "")
+                        {
+                            cmd2.Parameters.AddWithValue("@Alt_Identity_Proof", collection["nomAlt_Identity_Proof"]);
+                        }
+                        else
+                        {
+                            collection["nomAlt_Identity_Proof"] = "None";
+                            cmd2.Parameters.AddWithValue("@Alt_Identity_Proof", collection["nomAlt_Identity_Proof"]);
+                        }
+
+
+                        if (collection["nomAlt_Identity_Proof_Value"] != "undefined")
+                        {
+                            cmd2.Parameters.AddWithValue("@Alt_Identity_Proof_Value", collection["nomAlt_Identity_Proof_Value"]);
+                        }
+                        else
+                        {
+                            collection["nomAlt_Identity_Proof_Value"] = "None";
+                            cmd2.Parameters.AddWithValue("@Alt_Identity_Proof_Value", collection["nomAlt_Identity_Proof_Value"]);
+                        }
+
+
+                        cmd2.Parameters.AddWithValue("@Address1", collection["nomAddress1"]);
+                        if (collection["nomAddress2"] != "")
+                        {
+                            cmd2.Parameters.AddWithValue("@Address2", collection["nomAddress2"]);
+                        }
+                        else
+                        {
+                            collection["nomAddress2"] = "None";
+                            cmd2.Parameters.AddWithValue("@Address2", collection["nomAddress2"]);
+                        }
+
+                        if (collection["nomAddress3"] != "")
+                        {
+                            cmd2.Parameters.AddWithValue("@Address3", collection["nomAddress3"]);
+                        }
+                        else
+                        {
+                            collection["nomAddress3"] = "None";
+                            cmd2.Parameters.AddWithValue("@Address3", collection["nomAddress3"]);
+                        }
+
+
+                        cmd2.Parameters.AddWithValue("@City", collection["nomcitytext"]);
+                        cmd2.Parameters.AddWithValue("@State", collection["nomstatetext"]);
+                        cmd2.Parameters.AddWithValue("@Pin", collection["nomPin"]);
+                        //cmd.Parameters.AddWithValue("@aid", NM.nomaid);
+                        //cmd.Parameters.AddWithValue("@tId", NM.nomddltid);
+                        cmd2.Parameters.AddWithValue("@createdBy", Convert.ToInt32(Session["uuid"]));
+                        cmd2.Parameters.AddWithValue("@documentId", "0");
+                        cmd2.Parameters.AddWithValue("@Description_of_Assets", collection["nomDescription_of_Assets"]);
+                        cmd2.Parameters.AddWithValue("@aid", Convert.ToInt32(dt.Rows[0]["aiid"]));
+                        cmd2.Parameters.AddWithValue("@tId", Convert.ToInt32(Session["distid"]));
+
+                        cmd2.ExecuteNonQuery();
+                        con.Close();
+                        ModelState.Clear();
+                        TempData["Message"] = "true";
+                        //}
+                        //else
+                        //{
+
+
+                        //    ViewBag.Message = "link";
+
+                        //}
+
+                        ViewBag.disablefield = "true";
+
+
+
+                        con.Open();
+                        string querycheck = "select top 1 nId from Nominee order by nId desc";
+                        SqlDataAdapter dachk = new SqlDataAdapter(querycheck,con);
+                        DataTable dtchkr = new DataTable();
+                        dachk.Fill(dtchkr);
+                        if (dtchkr.Rows.Count > 0)
+                        {
+                            nomineeid = Convert.ToInt32(dtchkr.Rows[0]["nId"]);
+
+                        }
+                        con.Close();
+
+
+
+
+                    }
+
+
+
                 }
 
 
@@ -1572,7 +1921,7 @@ namespace WillAssure.Controllers
 
 
 
-            return RedirectToAction("AddMainAssetsIndex", "AddMainAssets", new {nomineestate = nomineestate });
+            return RedirectToAction("AddMainAssetsIndex", "AddMainAssets");
         }
 
 
@@ -2060,92 +2409,7 @@ namespace WillAssure.Controllers
             var txtdescriptionofasset = getdata.Split('~')[18];
 
 
-            con.Open();
-            SqlCommand cmd = new SqlCommand("SP_CRUDNominee", con);
-            cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@action", "insert");
-            cmd.Parameters.AddWithValue("@First_Name", txtfirstname);
-            cmd.Parameters.AddWithValue("@Last_Name", txtlastname);
-            cmd.Parameters.AddWithValue("@Middle_Name", txtmiddlename);
-            DateTime dat = DateTime.ParseExact(DOB, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            cmd.Parameters.AddWithValue("@DOB", dat);
-            cmd.Parameters.AddWithValue("@Mobile", txtmobile);
-            cmd.Parameters.AddWithValue("@Relationship", RelationshipTxt);
-            cmd.Parameters.AddWithValue("@Marital_Status", nommaritalstatus);
-            cmd.Parameters.AddWithValue("@Religion", nomreligion);
-            cmd.Parameters.AddWithValue("@Identity_Proof", identityproof);
-            cmd.Parameters.AddWithValue("@Identity_Proof_Value", txtidentityproof);
-
-            if (Alt_Identity_Proof != "")
-            {
-                cmd.Parameters.AddWithValue("@Alt_Identity_Proof", Alt_Identity_Proof);
-            }
-            else
-            {
-                Alt_Identity_Proof = "None";
-                cmd.Parameters.AddWithValue("@Alt_Identity_Proof", Alt_Identity_Proof);
-            }
-
-
-            if (txtIdentityProofValue != "undefined")
-            {
-                cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", txtIdentityProofValue);
-            }
-            else
-            {
-                txtIdentityProofValue = "None";
-                cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", txtIdentityProofValue);
-            }
-
-
-            cmd.Parameters.AddWithValue("@Address1", txtaddress1);
-            if (txtaddress2 != "")
-            {
-                cmd.Parameters.AddWithValue("@Address2", txtaddress2);
-            }
-            else
-            {
-                txtaddress2 = "None";
-                cmd.Parameters.AddWithValue("@Address2", txtaddress2);
-            }
-
-            if (txtaddress3 != "")
-            {
-                cmd.Parameters.AddWithValue("@Address3", txtaddress3);
-            }
-            else
-            {
-                txtaddress3 = "None";
-                cmd.Parameters.AddWithValue("@Address3", txtaddress3);
-            }
-
-
-            cmd.Parameters.AddWithValue("@City", citytext);
-            cmd.Parameters.AddWithValue("@State", statetext);
-            cmd.Parameters.AddWithValue("@Pin", txtpin);
-            //cmd.Parameters.AddWithValue("@aid", NM.nomaid);
-            //cmd.Parameters.AddWithValue("@tId", NM.nomddltid);
-            cmd.Parameters.AddWithValue("@createdBy", Convert.ToInt32(Session["uuid"]));
-            cmd.Parameters.AddWithValue("@documentId", "0");
-            cmd.Parameters.AddWithValue("@Description_of_Assets", txtdescriptionofasset);
-            cmd.Parameters.AddWithValue("@aid", "0");
-            cmd.Parameters.AddWithValue("@tId", Convert.ToInt32(Session["distid"]));
             
-            cmd.ExecuteNonQuery();
-            con.Close();
-            ModelState.Clear();
-            TempData["Message"] = "true";
-            //}
-            //else
-            //{
-
-
-            //    ViewBag.Message = "link";
-
-            //}
-
-            ViewBag.disablefield = "true";
-
 
             return RedirectToAction("AddNomineeIndex", "AddNominee");
         }

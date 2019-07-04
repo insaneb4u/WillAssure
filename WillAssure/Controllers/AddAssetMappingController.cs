@@ -451,6 +451,14 @@ namespace WillAssure.Controllers
 
 
 
+     
+
+
+
+
+
+
+
             con.Open();
             string query33 = "select count(*) as counter from AssetsCategory";
             SqlDataAdapter da33 = new SqlDataAdapter(query33, con);
@@ -1519,7 +1527,7 @@ namespace WillAssure.Controllers
                 {
                     con.Open();
                     result[i].ToString();
-                    string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , tid , AssetType_ID , AssetCategory_ID , doctype,Type,Category,documentstatus) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettypeid + " , " + assetcatid + " , '" + Session["doctype"].ToString() + "',2,'" + combine + "' , 'incompleted')";
+                    string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , alternatebid , tid , AssetType_ID , AssetCategory_ID , doctype,Type,Category,documentstatus) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettypeid + " , " + assetcatid + " , '" + Session["doctype"].ToString() + "',2,'" + combine + "' , 'incompleted')";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();

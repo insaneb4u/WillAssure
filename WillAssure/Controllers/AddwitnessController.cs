@@ -18,15 +18,15 @@ namespace WillAssure.Controllers
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         SqlConnection con = new SqlConnection(connectionString);
         // GET: Addwitness
-        public ActionResult AddwitnessIndex(string NestId)
+        static int btncount = 0;
+        public ActionResult AddwitnessIndex(string NestId,string send)
         {
-            if (TempData["Message"] != null)
+
+            if (Convert.ToInt32(send) == 2 || Convert.ToInt32(send) >= 2)
             {
-                if (TempData["Message"].ToString() == "true")
-                {
-                    ViewBag.Message = "Verified";
-                }
+                ViewBag.skip = "true";
             }
+          
 
         
 
@@ -1191,10 +1191,20 @@ namespace WillAssure.Controllers
             //end
 
 
+
+
+
+            int setcount = 0;
+
+            setcount = btncount++;
+
+            string send = setcount.ToString();
+
+
             TempData["Message"] = "true";
             ModelState.Clear();
 
-            return RedirectToAction("AddwitnessIndex", "Addwitness");
+            return RedirectToAction("AddwitnessIndex", "Addwitness" , new { send = send });
         }
 
 

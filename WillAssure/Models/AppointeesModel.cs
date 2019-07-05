@@ -100,5 +100,8 @@ namespace WillAssure.Models
         public string altexecutor { get; set; }
 
 
+        public string companyname { get; set; }
+        public string registrationno { get; set; }
+
     }
 }

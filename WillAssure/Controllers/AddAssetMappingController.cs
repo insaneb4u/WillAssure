@@ -428,7 +428,7 @@ namespace WillAssure.Controllers
 
             d = "select * from BeneficiaryDetails where tId = " + tid + "";
 
-            string data11 = "<option value=''>--Select--</option>";
+            string data11 = "<option value='0'>--Select--</option>";
             con.Open();
 
             SqlDataAdapter da11 = new SqlDataAdapter(d, con);
@@ -1402,6 +1402,7 @@ namespace WillAssure.Controllers
             string assettypeid = "";
             int proportion = 100;
             int btnid = 0;
+            int altbeneid = 0;
             string response = Request["send"];
             //string assettype = response.Split('~')[0];
             //string assetcat = response.Split('~')[1];
@@ -1410,8 +1411,16 @@ namespace WillAssure.Controllers
             beneficiaryid = response.Split('~')[1];
             tid = Convert.ToString(response.Split('~')[2]);
             btnid = Convert.ToInt32(response.Split('~')[3]);
-
-
+            if (response.Split('~')[4] != "")
+            {
+                altbeneid = Convert.ToInt32(response.Split('~')[4]);
+            }
+            else
+            {
+                altbeneid = 0;
+            }
+            
+         
 
             if (tid == "" || tid == null || tid == "undefined")
             {
@@ -1437,7 +1446,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID  , Proportion , tid , doctype ,Type , Category , documentstatus) values   (  " + assettypeid + " , " + assetcatid + ", " + beneficiaryid + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "',1,'" + combine + "' , 'incompleted') ";
+            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID  , Proportion , tid , doctype ,Type , Category , documentstatus , alternatebid) values   (  " + assettypeid + " , " + assetcatid + ", " + beneficiaryid + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "',1,'" + combine + "' , 'incompleted' , "+altbeneid+") ";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.ExecuteNonQuery();
             con.Close();

@@ -14,7 +14,20 @@
 <hr>
 <br />
 
-<input type="hidden" name="name" id="test" value="@Session["documentamount"]" />
+
+@if (Session["documentamount"] != null)
+{
+    <input type="hidden" name="name" id="test" value="@Session["documentamount"]" />
+}
+else
+{
+    if (!Response.IsRequestBeingRedirected)
+    {
+        Response.Redirect("/LoginPage/LoginPageIndex");
+    }
+}
+
+
 
 <div class="row">
 

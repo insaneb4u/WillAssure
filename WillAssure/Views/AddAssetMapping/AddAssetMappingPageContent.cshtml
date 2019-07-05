@@ -348,7 +348,7 @@
 
         </div>*@
 
-                            <textarea id="query" style="display:;" class="form-control">
+                            <textarea id="query" style="display:none;" class="form-control">
                                
                            </textarea>
                         </div>
@@ -1384,6 +1384,8 @@
             $(this).attr("disabled", "disabled");
             var btnnum = $(this).val();
 
+            
+
             //get parentdiv last div element whose class name is rowdiv
 
             $("#txttotalval").val("");
@@ -1391,7 +1393,11 @@
 
             var $clone = $("#parentdiv"+btnnum+"").find('.rowdiv:last').clone();
 
+            var alternatebene = $("#parentdiv" + btnnum + "").find(".altbeneficiaryclass:last").val();
 
+            if (alternatebene == "0") {
+                $("#query").append("0~")
+            }
 
 
             // for beneficiary ddl id auto generate  getidentifier
@@ -1583,7 +1589,7 @@
             var instrument = $("#DDLAssetColumn" + btnidentify + "").find(":selected").text();
             var proportion = $("#txtproportion" + btnidentify + "").val();
             var tid = $("#tid").val();
-
+            var altbene = $("#ddlbeneficiaryalt" + btnidentify + "").find(":selected").val();
 
 
             if (radioValue == "Single") {
@@ -1602,7 +1608,7 @@
                 }
                 else {
 
-                    var data = assetcat + "~" + beneficiary + "~" + tid + "~" + btnidentify;
+                    var data = assetcat + "~" + beneficiary + "~" + tid + "~" + btnidentify + "~" + altbene;
 
                     $.ajax({
 

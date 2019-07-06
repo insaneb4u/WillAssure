@@ -517,6 +517,88 @@ namespace WillAssure.Controllers
 
 
 
+
+
+
+
+        public string DYNAMICOnChangeBindCity()
+        {
+            string response = Request["send"];
+            con.Open();
+            string query = "select distinct * from tbl_city where state_id ='" + response + "' order by city_name asc ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "<option value='0'>--Select--</option>";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["id"].ToString() + " >" + dt.Rows[i]["city_name"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+        }
+
+
+
+
+
+
+        public string ALTDYNAMICOnChangeBindCity()
+        {
+            string response = Request["send"];
+            con.Open();
+            string query = "select distinct * from tbl_city where state_id ='" + response + "' order by city_name asc ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "<option value='0'>--Select--</option>";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["id"].ToString() + " >" + dt.Rows[i]["city_name"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+        }
+
+
+
+
         public String BindRelationDDL()
         {
 
@@ -1465,13 +1547,13 @@ namespace WillAssure.Controllers
             {
 
 
-                for (int i = 0; i < dt.Rows.Count; i++)
+                for (int j = 0; j < dt.Rows.Count; j++)
                 {
 
 
 
 
-                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
+                    data = data + "<option value=" + dt.Rows[j]["state_id"].ToString() + " >" + dt.Rows[j]["statename"].ToString() + "</option>";
 
 
 
@@ -1482,237 +1564,480 @@ namespace WillAssure.Controllers
 
             }
 
-            
 
 
 
 
 
 
-
-            for (int i = 0; i < response; i++)
+            int count = 2;
+            int i = 0;
+            for (int j = 0; j < response - 1; j++)
             {
+                i = count++;
 
                 structure = structure + "<div id='executorform' style='border:2px solid #8f2b2b; border-radius:18px; padding:25px;'>" +
-                    "<center>Executor : "+i+"</center>" +
+                    "<center>Executor : " + i + "</center>" +
 
-     "<div class='row'>"+
-     "&nbsp;&nbsp;&nbsp;&nbsp"+
-     "<div class='col-sm-1'></div>"+
-     "<div class='col-sm-2'>"+
-     "<label for='input-1' style='line-height:40px;'><i class='fa fa-tasks' aria-hidden='true'></i>Subtype</label>"+
-     "</div>"+
+     "<div class='row'>" +
+     "&nbsp;&nbsp;&nbsp;&nbsp" +
+     "<div class='col-sm-1'></div>" +
 
-     "<div class='form-group' style='line-height:42px'>"+
 
-     "<div class='form-group'>"+
+     "<div class='form-group' style='line-height:42px'>" +
 
-     "<select class='form-control input-shadow validate[required]' id='ddlsubtype' name='subTypetxt' >"+
-     "<option value = '' >--Select--</ option >"+
-     "<option value='Single'>Single</option>"+
-     "<option value = 'Many Joint' >Many Joint</option>"+
-     "<option value = 'Many Independent' >Many Independent</option>"+
-     "</select>"+
-     "<input data-val='true' data-val-number='The field subTypeId must be a number.' data-val-required='The subTypeId field is required.' id='subTypeId' name='subTypeId' type='hidden' value='0'>"+
-     "<input id = 'subTypetxt' name='subTypetxt' type='hidden' value='Single'>"+
-     "</div>"+
+     "<div class='form-group'>" +
 
-     "<input type = 'text' style='width:245px; display:none;' id='txtnumber' class='form-control' placeholder='Enter Number Of Executor You Want' name='name' value=''>"+
-     "</div>"+
 
-     "</div>"+
+     "</div>" +
 
-     "<div class='row'>"+
+     "<input type = 'text' style='width:245px; display:none;' id='txtnumber" + i + "' class='form-control' placeholder='Enter Number Of Executor You Want' name='name' value=''>" +
+     "</div>" +
 
-     "<div class='col-sm-1'></div>"+
-     "<div class='col-sm-2'>"+
-     "<label for='input-1' style='white-space:nowrap'><i class='fa fa-user-circle-o' aria-hidden='true'></i>Personal Details</label>"+
-     "</div>"+
+     "</div>" +
 
-     "<div class='col-sm-3' style='padding-bottom:15px;'>"+
-     "<div class='form-group'>"+
-     "<label for='input-1'>Type</label>"+
-     "<br>"+
-     "<label class='checkbox-inline'>"+
-     "<input type = 'checkbox' value='Individual' class='radio validate[required] typeone' onchange='ddtypeone(this.value)' name='radio'>Individual</label>"+
-     "<label class='checkbox-inline'>"+
-     "<input type = 'checkbox' value='Company' class='radio validate[required] typetwo' onchange='ddtypetwo(this.value)' name='radio'>Company</label>"+
-     "</div>"+
-     "<input type = 'text' style='width:245px; display:none;' id='txtnumber' class='form-control' placeholder='Enter Number Of Executor You Want' name='name' value=''>"+
-     "</div>"+
-     "<div class='col-sm-3'>"+
-     "<div class='form-group'>"+
-     "<label for='input-1'>First Name</label>"+
-     "<input autocomplete = 'off' class='form-control input-shadow required validate[required]' id='txtname' name='Firstname' placeholder='Enter Name' type='text' value='' >"+
-     "</div>"+
-     "</div>"+
+     "<div class='row'>" +
 
-     "<div class='col-sm-3'>"+
-     "<div class='form-group'>"+
-     "<label for='input-1'>Middle Name</label>"+
-     "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtmiddlename' name='middleName' placeholder='Enter Middle Name' type='text' value='' >"+
-     "</div>"+
-     "</div>"+
-        "<div class='col-sm-3'>"+"</div>"+
-        "<div class='col-sm-2'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>Last Name</label>"+
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtsurname' name='Surname' placeholder='Surname' type='text' value='' >"+
-            "</div>"+
-        "</div>"+
+     "<div class='col-sm-1'></div>" +
+     "<div class='col-sm-2'>" +
+     "<label for='input-1' style='white-space:nowrap'><i class='fa fa-user-circle-o' aria-hidden='true'></i>Personal Details</label>" +
+     "</div>" +
 
-        "<div class='col-sm-2'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>Gender</label>"+
-                "<select class='form-control input-shadow  validate[required]' id='Gender' name='Gender' >"+
-                    "<option value =''>Select</option>"+
-                    "<option value='Male'>Male</option>"+
-                    "<option value='Female'>Female</option>"+
-                    "<option value='Transgender'>Transgender</option>"+
-                "</select>"+
-            "</div>"+
-        "</div>"+
+     "<div class='col-sm-3' style='padding-bottom:15px;'>" +
+     "<div class='form-group'>" +
+     "<label for='input-1'>Type</label>" +
+     "<br>" +
+     "<label class='checkbox-inline'>" +
+     "<input type = 'checkbox' value='Individual' class='radio validate[required] typeonedd' id='typecheckone"+i+"' onchange='dydtypeone(this.value,this.id)' name='radio" + i + "'>Individual</label>" +
+     "<label class='checkbox-inline'>" +
+     "<input type = 'checkbox' value='Company' class='radio validate[required] typetwodd' id='typechecktwo"+i+"' onchange='dydtypetwo(this.value,this.id)' name='radio" + i + "'>Company</label>" +
+     "</div>" +
+     "<input type = 'text' style='width:245px; display:none;' id='txtnumber" + i + "' class='form-control' placeholder='Enter Number Of Executor You Want' name='name' value=''>" +
+     "</div>" +
+     "<div class='col-sm-3' id='Firsttxthide" + i+"'>" +
+     "<div class='form-group'>" +
+     "<label for='input-1'>First Name</label>" +
+     "<input autocomplete = 'off' class='form-control input-shadow required validate[required]' id='txtname" + i + "' name='inputfield' placeholder='Enter Name' type='text' value='' >" +
+     "</div>" +
+     "</div>" +
 
-        "<div class='col-sm-2' id='compone' style='display:none'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>Company</label>"+
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='companyname' name='companyname' placeholder='Company ' type='text' value=''>"+
-            "</div>"+
-        "</div>"+
+     "<div class='col-sm-3' id='Middletxthide" + i + "'>" +
+     "<div class='form-group'>" +
+     "<label for='input-1'>Middle Name</label>" +
+     "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtmiddlename" + i + "' name='inputfield' placeholder='Enter Middle Name' type='text' value='' >" +
+     "</div>" +
+     "</div>" +
+        "<div class='col-sm-3'></div>" +
+        "<div class='col-sm-2' id='Lasttxthide" + i + "'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Last Name</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtsurname" + i + "' name='inputfield' placeholder='Surname' type='text' value='' >" +
+            "</div>" +
+        "</div>" +
 
-        "<div class='col-sm-3' id='comptwo' style='display:none'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1' style='white-space:nowrap;'>Registration No</label>"+
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='registrationno' name='registrationno' placeholder='Registration No' type='text' value=''>"+
-            "</div>"+
-        "</div>"+
+        "<div class='col-sm-2' id='Gendertxthide" + i + "'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Gender</label>" +
+                "<select class='form-control input-shadow  validate[required]' id='Gender" + i + "' name='inputfield' >" +
+                    "<option value =''>Select</option>" +
+                    "<option value='Male'>Male</option>" +
+                    "<option value='Female'>Female</option>" +
+                    "<option value='Transgender'>Transgender</option>" +
+                "</select>" +
+            "</div>" +
+        "</div>" +
 
-    "</div>"+
+        "<div class='col-sm-2' id='compone" + i + "' style='display:none'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Company</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='companyname" + i + "' name='inputfield' placeholder='Company ' type='text' value=''>" +
+            "</div>" +
+        "</div>" +
 
-    "<hr>"+
-
-    "<div class='row'>"+
-        "<div class='col-sm-1'>"+"</div>"+
-        "<div class='col-sm-2'>"+
-            "<label for='input-1'>"+"<i class='fa fa-map-marker' aria-hidden='true'></i>Contact Details</label>"+
-        "</div>"+
-        "<div class='col-sm-3'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>State</label>"+
-                "<select id ='ddlstate"+i+"'  onchange='dynamicstate(this.id)' class='form-control input-shadow validate[required] stateddl' >"+
-                    data +
-                "</select>"+
-                "<input data-val= 'true' data-val-number= 'The field stateid must be a number.' data-val-required= 'The stateid field is required.' id= 'stateid' name= 'stateid' type= 'hidden' value= '0' >"+
-               "<input id= 'statetext' name='statetext' type='hidden' value='Jharkhand' >"+
-    
-                "</div>"+
-    
-            "</div>"+
-    
-
-            "<div class='col-sm-3'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>City</label>"+
-                "<select id='ddlcity"+i+"' class='form-control input-shadow validate[required] cityddl' >"+
-                    "<option value='0'>--Select City--</option>"+
-                "</select>"+
-               
-                "<input id='citytext' name='citytext' type='hidden' value='Basaria'>"+
-            "</div>"+
-        "</div>"+
-
-        "<div class='col-sm-3'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>Pin</label>"+
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[PinCode]]  text-input' id='txtpin' name='Pin' placeholder='Enter Pin' type='text' value='' >"+
-            "</div>"+
-        "</div>"+
-    "</div>"+
-
-    "<div class='row'>"+
-        "<div class='col-sm-3'>"+"</div>"+
-        "<div class='col-sm-9'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>Address 1</label>"+
-                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input validate[required]' cols='20' id='txtaddress1' name='Address1' placeholder='Enter Address1' rows='2' ></textarea>"+
-            "</div>"+
-        "</div>"+
-        "<div class='col-sm-3'>"+"</div>"+
-        "<div class='col-sm-9'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>Address 2</label>"+
-                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input ' cols='20' id='txtaddress2' name='Address2' placeholder='Enter Address2' rows='2' ></textarea>"+
-            "</div>"+
-        "</div>"+
-        "<div class='col-sm-3'>"+"</div>"+
-        "<div class='col-sm-9'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>Address 3</label>"+
-                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input' cols='20' id='txtaddress3' name='Address3' placeholder='Enter Address3' rows='2' ></textarea>"+
-            "</div>"+
-        "</div>"+
-    "</div>"+
-
-    "<div class='row'>"+
-        "<div class='col-sm-1'>"+"</div>"+
-        "<div class='col-sm-2'>"+
-            "<label for='input-1'>"+"<i class='fa fa-id-card-o' aria-hidden='true'>"+"</i>Identity Proof</label>"+
-        "</div>"+
-        "<div class='col-sm-3'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>Identity Proof</label>"+
-                "<select class='form-control input-shadow validate[required]' id='Identity_Proof' name='Identity_Proof' onchange='getIdentityselection(this.options[this.selectedIndex].innerHTML)' >"+
-                    "<option value=''>--Select Identity Proof--</option>"+
-                    "<option value='Aadhaar Card'>Aadhaar Card</option>"+
-                    "<option value='Passport' >Passport</option >"+
-                    "<option value='Driving Licences'>Driving Licences</option>"+
-                      "<option value='Pan Card'>Pan Card</option>"+
-                 "</select>"+
-            "</div>"+
-        "</div>"+
-        "<div class='col-sm-3'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>Identity Proof Value</label>"+
-                "<div id='appendtxt' >"+
-                    "<input autocomplete='off' class='form-control input-shadow validate[required] text-input' id='txtidentityproof' name='Identity_Proof_Value' placeholder='Enter Identity Proof Number'  type='text' value='' >"+
-                "</div>"+
-            "</div>"+
-        "</div>"+
-
-        "<div class='col-sm-3'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>Alt Identity Proof</label>"+
-                "<select class='form-control input-shadow' id='ddlidentityproof11' name='Alt_Identity_Proof' onchange='getAltIdentityselection(this.options[this.selectedIndex].innerHTML)' >"+
-                    "<option value ='' >--Select Identity Proof--</option>"+
-                    "<option value ='Aadhaar Card' >Aadhaar Card</option>"+
-                    "<option value ='Passport' >Passport</option>"+
-                    "<option value='Driving Licences'>Driving Licences</option>"+
-                    "<option value ='Pan Card'>Pan Card</option>"+
-                 "</select>"+
-                "<input id = 'Alt_Identity_Proof' name= 'Alt_Identity_Proof_Value' type= 'hidden' value= 'None' >"+
- 
-             "</div>"+
- 
-         "</div>"+
- 
-         "<div class='col-sm-3'></div>"+
-        "<div class='col-sm-3'>"+
-            "<div class='form-group'>"+
-                "<label for='input-1'>Alt Identity Proof Value</label>"+
-                "<div id='appendtxt2'>"+
-                "<input autocomplete='off' class='form-control input-shadow  text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_Proof_Value' placeholder='Enter Identity Proof Value'  type='text' value=''>"+ "</div>"+
-            "</div>"+
-        "</div>"+
-    "</div>"+
-
-    "<hr style='border:1px solid black; border-color:lightgray'>"+
-
-    "<input type='hidden' name='check' id='txtcheck' value=''>"+
-
+        "<div class='col-sm-3' id='comptwo" + i + "' style='display:none'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1' style='white-space:nowrap;'>Registration No</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='registrationno" + i + "' name='inputfield' placeholder='Registration No' type='text' value=''>" +
+            "</div>" +
+        "</div>" +
 
     "</div>" +
-    "<br>";
+
+    "<hr>" +
+
+    "<div class='row'>" +
+        "<div class='col-sm-1'>" + "</div>" +
+        "<div class='col-sm-2'>" +
+            "<label for='input-1'>" + "<i class='fa fa-map-marker' aria-hidden='true'></i>Contact Details</label>" +
+        "</div>" +
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>State</label>" +
+                "<select id ='ddlstate" + i + "'  onchange='dynamicstate(this.value,this.id)' name='inputfield' class='form-control input-shadow validate[required] stateddl' >" +
+                    data +
+                "</select>" +
+                "<input data-val= 'true' data-val-number= 'The field stateid must be a number.' data-val-required= 'The stateid field is required.' id='stateid' name= 'stateid' type= 'hidden' value= '0' >" +
+          
+
+                "</div>" +
+
+            "</div>" +
+
+
+            "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>City</label>" +
+                "<select id='ddlcity" + i + "' class='form-control input-shadow validate[required] cityddl'  name='inputfield' >" +
+                    "<option value='0'>--Select City--</option>" +
+                "</select>" +
+
              
+            "</div>" +
+        "</div>" +
+
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Pin</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[PinCode]]  text-input' id='txtpin" + i + "' name='inputfield' placeholder='Enter Pin' type='text' value='' >" +
+            "</div>" +
+        "</div>" +
+    "</div>" +
+
+    "<div class='row'>" +
+        "<div class='col-sm-3'>" + "</div>" +
+        "<div class='col-sm-9'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Address 1</label>" +
+                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input validate[required]' cols='20' id='txtaddress1" + i + "' name='inputfield' placeholder='Enter Address1' rows='2' ></textarea>" +
+            "</div>" +
+        "</div>" +
+        "<div class='col-sm-3'>" + "</div>" +
+        "<div class='col-sm-9'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Address 2</label>" +
+                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input ' cols='20' id='txtaddress2" + i + "' name='inputfield' placeholder='Enter Address2' rows='2' ></textarea>" +
+            "</div>" +
+        "</div>" +
+        "<div class='col-sm-3'>" + "</div>" +
+        "<div class='col-sm-9'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Address 3</label>" +
+                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input' cols='20' id='txtaddress3" + i + "' name='inputfield' placeholder='Enter Address3' rows='2' ></textarea>" +
+            "</div>" +
+        "</div>" +
+    "</div>" +
+
+    "<div class='row'>" +
+        "<div class='col-sm-1'>" + "</div>" +
+        "<div class='col-sm-2'>" +
+            "<label for='input-1'>" + "<i class='fa fa-id-card-o' aria-hidden='true'>" + "</i>Identity Proof</label>" +
+        "</div>" +
+    "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Identity Proof</label>" +
+                "<select class='form-control input-shadow validate[required]' id='firstproof" + i + "' name='inputfield' onchange='firstproofselection(this.options[this.selectedIndex].innerHTML,this.id)' >" +
+                    "<option value=''>--Select Identity Proof--</option>" +
+                    "<option value='Aadhaar Card'>Aadhaar Card</option>" +
+                    "<option value='Passport' >Passport</option >" +
+                    "<option value='Driving Licences'>Driving Licences</option>" +
+                      "<option value='Pan Card'>Pan Card</option>" +
+                 "</select>" +
+            "</div>" +
+        "</div>" +
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Identity Proof Value</label>" +
+                "<div id='firstappendtxt" + i + "' >" +
+                    "<input autocomplete='off' class='form-control input-shadow validate[required] text-input' id='txtfirstproof" + i + "' name='inputfield' placeholder='Enter Identity Proof Number'  type='text' value='' >" +
+                "</div>" +
+            "</div>" +
+        "</div>" +
+
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Alt Identity Proof</label>" +
+                "<select class='form-control input-shadow' id='secondproof" + i + "' name='inputfield' onchange='secondproofselection(this.options[this.selectedIndex].innerHTML,this.id)' >" +
+                    "<option value ='' >--Select Identity Proof--</option>" +
+                    "<option value ='Aadhaar Card' >Aadhaar Card</option>" +
+                    "<option value ='Passport' >Passport</option>" +
+                    "<option value='Driving Licences'>Driving Licences</option>" +
+                    "<option value ='Pan Card'>Pan Card</option>" +
+                 "</select>" +
+                "<input id = 'Alt_Identity_Proof' name= 'Alt_Identity_Proof_Value' type= 'hidden' value= 'None' >" +
+
+             "</div>" +
+
+         "</div>" +
+
+         "<div class='col-sm-3'></div>" +
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Alt Identity Proof Value</label>" +
+                "<div id='secondappendtxt" + i + "'>" +
+                "<input autocomplete='off' class='form-control input-shadow  text-input' id='txtsecondproof" + i + "' name='inputfield' placeholder='Enter Identity Proof Value'  type='text' value=''>" + "</div>" +
+            "</div>" +
+        "</div>" +
+    "</div>" +
+
+    "<hr style='border:1px solid black; border-color:lightgray'>" +
+
+    "<input type='hidden' name='checking' id='txtcheck" + i + "' value=''>" +
+
+
+       "<br>" +
+
+    "<div class='row'>" +
+    " <div class='col-sm-1'></div>" +
+    "<div class='col-sm-2'><label for='input-1'>Add Alternate Appointees</label></div>" +
+    "<div class='col-sm-3' id='showcompany'" +
+    "<div class='form-group'>" +
+    "<label class='checkbox-inline'>" +
+    "<input type='checkbox' value='Yes' class='radio validate[required] dynamicaltone' id='dyradioone"+i+"'  onchange='getdradio1(this.value,this.id)' name='radio'>Yes" +
+    "</label>" +
+    "<label class='checkbox-inline'>" +
+    "<input type='checkbox' value='No' class='radio validate[required] dynamicalttwo' id='dyradiotwo"+i+"'   onchange='getdradio2(this.value,this.id)' name='radio'>No" +
+    "</label>" +
+    "</div>" +
+    "</div>" +
+
+
+
+
+
+     // alternate appointees
+
+
+
+
+
+     "<div id='alternateform"+i+"' style='display:none;'  > " +
+
+
+     "<div class='row'>" +
+     "&nbsp;&nbsp;&nbsp;&nbsp" +
+     "<div class='col-sm-1'></div>" +
+
+
+     "<div class='form-group' style='line-height:42px'>" +
+
+     "<div class='form-group'>" +
+
+
+     "</div>" +
+
+     "<input type = 'text' style='width:245px; display:none;' id='txtnumber" + i + "' class='form-control' placeholder='Enter Number Of Executor You Want' name='name' value=''>" +
+     "</div>" +
+
+     "</div>" +
+
+     "<div class='row'>" +
+
+     "<div class='col-sm-1'></div>" +
+     "<div class='col-sm-2'>" +
+     "<label for='input-1' style='white-space:nowrap'><i class='fa fa-user-circle-o' aria-hidden='true'></i>Personal Details</label>" +
+     "</div>" +
+
+
+     
+     "<div class='col-sm-3' style='padding-bottom:15px;'>" +
+     "<div class='form-group'>" +
+     "<label for='input-1'>Type</label>" +
+     "<br>" +
+     "<label class='checkbox-inline'>" +
+     "<input type = 'checkbox' value='Individual' class='radio validate[required] typeonedd' id='alttypecheckone" + i + "' onchange='altdydtypeone(this.value,this.id)' name='radio" + i + "'>Individual</label>" +
+     "<label class='checkbox-inline'>" +
+     "<input type = 'checkbox' value='Company' class='radio validate[required] typetwodd' id='alttypechecktwo" + i + "' onchange='altdydtypetwo(this.value,this.id)' name='radio" + i + "'>Company</label>" +
+     "</div>" +
+     "<input type = 'text' style='width:245px; display:none;' id='txtnumber" + i + "' class='form-control' placeholder='Enter Number Of Executor You Want' name='name' value=''>" +
+     "</div>" +
+     "<div class='col-sm-3' id='altFirsttxthide" + i + "'>" +
+     "<div class='form-group'>" +
+     "<label for='input-1'>First Name</label>" +
+     "<input autocomplete = 'off' class='form-control input-shadow required validate[required]' id='txtname" + i + "' name='altinputfield' placeholder='Enter Name' type='text' value='' >" +
+     "</div>" +
+     "</div>" +
+
+     "<div class='col-sm-3' id='altMiddletxthide'>" +
+     "<div class='form-group'>" +
+     "<label for='input-1'>Middle Name</label>" +
+     "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtmiddlename" + i + "' name='altinputfield' placeholder='Enter Middle Name' type='text' value='' >" +
+     "</div>" +
+     "</div>" +
+     "<div class='col-sm-3'></div>" +
+       "<div class='col-sm-2' id='altLasttxthide" + i + "'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Last Name</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtsurname" + i + "' name='altinputfield' placeholder='Surname' type='text' value='' >" +
+            "</div>" +
+        "</div>" +
+
+
+
+        "<div class='col-sm-2' id='altGendertxthide" + i + "'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Gender</label>" +
+                "<select class='form-control input-shadow  validate[required]' id='Gender" + i + "' name='altinputfield' >" +
+                    "<option value =''>Select</option>" +
+                    "<option value='Male'>Male</option>" +
+                    "<option value='Female'>Female</option>" +
+                    "<option value='Transgender'>Transgender</option>" +
+                "</select>" +
+            "</div>" +
+        "</div>" +
+
+        "<div class='col-sm-2' id='altcompone" + i + "' style='display:none'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Company</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='altcompanyname" + i + "' name='altinputfield' placeholder='Company ' type='text' value=''>" +
+            "</div>" +
+        "</div>" +
+
+        "<div class='col-sm-3' id='altcomptwo" + i + "' style='display:none'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1' style='white-space:nowrap;'>Registration No</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='altregistrationno" + i + "' name='altinputfield' placeholder='Registration No' type='text' value=''>" +
+            "</div>" +
+        "</div>" +
+
+    "</div>" +
+
+    "<hr>" +
+
+    "<div class='row'>" +
+        "<div class='col-sm-1'>" + "</div>" +
+        "<div class='col-sm-2'>" +
+            "<label for='input-1'>" + "<i class='fa fa-map-marker' aria-hidden='true'></i>Contact Details</label>" +
+        "</div>" +
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>State</label>" +
+                "<select id ='altddlstate" + i + "'  onchange='altdynamicstate(this.value,this.id)' class='form-control input-shadow validate[required] stateddl' name='altinputfield' >" +
+                    data +
+                "</select>" +
+               
+
+                "</div>" +
+
+            "</div>" +
+
+
+            "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>City</label>" +
+                "<select id='altddlcity" + i + "' class='form-control input-shadow validate[required] cityddl' name='altinputfield' >" +
+                    "<option value='0'>--Select City--</option>" +
+                "</select>" +
+
+                
+            "</div>" +
+        "</div>" +
+
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Pin</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[PinCode]]  text-input' id='txtpin" + i + "' name='altinputfield' placeholder='Enter Pin' type='text' value='' >" +
+            "</div>" +
+        "</div>" +
+    "</div>" +
+
+    "<div class='row'>" +
+        "<div class='col-sm-3'>" + "</div>" +
+        "<div class='col-sm-9'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Address 1</label>" +
+                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input validate[required]' cols='20' id='txtaddress1" + i + "' name='altinputfield' placeholder='Enter Address1' rows='2' ></textarea>" +
+            "</div>" +
+        "</div>" +
+        "<div class='col-sm-3'>" + "</div>" +
+        "<div class='col-sm-9'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Address 2</label>" +
+                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input ' cols='20' id='txtaddress2" + i + "' name='altinputfield' placeholder='Enter Address2' rows='2' ></textarea>" +
+            "</div>" +
+        "</div>" +
+        "<div class='col-sm-3'>" + "</div>" +
+        "<div class='col-sm-9'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Address 3</label>" +
+                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input' cols='20' id='txtaddress3" + i + "' name='altinputfield' placeholder='Enter Address3' rows='2' ></textarea>" +
+            "</div>" +
+        "</div>" +
+    "</div>" +
+
+    "<div class='row'>" +
+        "<div class='col-sm-1'>" + "</div>" +
+        "<div class='col-sm-2'>" +
+            "<label for='input-1'>" + "<i class='fa fa-id-card-o' aria-hidden='true'>" + "</i>Identity Proof</label>" +
+        "</div>" +
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Identity Proof</label>" +
+                "<select class='form-control input-shadow validate[required]' id='altfirstproof" + i + "' name='altinputfield' onchange='altfirstproofselection(this.options[this.selectedIndex].innerHTML,this.id)' >" +
+                    "<option value=''>--Select Identity Proof--</option>" +
+                    "<option value='Aadhaar Card'>Aadhaar Card</option>" +
+                    "<option value='Passport' >Passport</option >" +
+                    "<option value='Driving Licences'>Driving Licences</option>" +
+                      "<option value='Pan Card'>Pan Card</option>" +
+                 "</select>" +
+            "</div>" +
+        "</div>" +
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Identity Proof Value</label>" +
+                "<div id='altfirstappendtxt" + i + "' >" +
+                    "<input autocomplete='off' class='form-control input-shadow validate[required] text-input' id='alttxtfirstproof" + i + "' name='altinputfield' placeholder='Enter Identity Proof Number'  type='text' value='' >" +
+                "</div>" +
+            "</div>" +
+        "</div>" +
+
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Alt Identity Proof</label>" +
+                "<select class='form-control input-shadow' id='altsecondproof" + i + "' name='altinputfield' onchange='altsecondproofselection(this.options[this.selectedIndex].innerHTML,this.id)' >" +
+                    "<option value ='' >--Select Identity Proof--</option>" +
+                    "<option value ='Aadhaar Card' >Aadhaar Card</option>" +
+                    "<option value ='Passport' >Passport</option>" +
+                    "<option value='Driving Licences'>Driving Licences</option>" +
+                    "<option value ='Pan Card'>Pan Card</option>" +
+                 "</select>" +
+                "<input id = 'Alt_Identity_Proof' name= 'Alt_Identity_Proof_Value' type= 'hidden' value= 'None' >" +
+
+             "</div>" +
+
+         "</div>" +
+
+         "<div class='col-sm-3'></div>" +
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Alt Identity Proof Value</label>" +
+                "<div id='altsecondappendtxt" + i + "'>" +
+                "<input autocomplete='off' class='form-control input-shadow  text-input' id='alttxtsecondproof" + i + "' name='altinputfield' placeholder='Enter Identity Proof Value'  type='text' value=''>" + "</div>" +
+            "</div>" +
+        "</div>" +
+    "</div>" +
+
+    "</div>"+
+
+                "</div>";
+
+     
+
+
+
+     
+
+
+  
+
+ 
+
+
+
+
+
+
+
+
 
             }
 
@@ -2022,6 +2347,25 @@ namespace WillAssure.Controllers
 
 
             return structure2;
+        }
+
+
+
+
+        public ActionResult GetDynamicdata(FormCollection collection)
+        {
+
+            string value = Convert.ToString(collection["inputfield"]);
+
+            string altvalue = Convert.ToString(collection["altinputfield"]);
+
+            var state = Convert.ToInt16(Request.Form["inputstate"]);
+            var city = Convert.ToInt16(Request.Form["inputcity"]);
+
+            var altstate = Convert.ToInt16(Request.Form["altinputstate"]);
+            var altcity = Convert.ToInt16(Request.Form["altinputcity"]);
+
+            return RedirectToAction("AddAppointeesIndex", "AddAppointees");
         }
 
 

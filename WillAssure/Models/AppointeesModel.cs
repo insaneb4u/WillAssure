@@ -103,5 +103,8 @@ namespace WillAssure.Models
         public string companyname { get; set; }
         public string registrationno { get; set; }
 
+
+
+
     }
 }

@@ -255,38 +255,6 @@
                                     </div>
 
 
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">First Name</label>
-                                            @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control input-shadow required validate[required]", @name="inputfield" , @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Middle Name</label>
-                                            @Html.TextBoxFor(m => m.middleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="input-1">Last Name</label>
-                                            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname", @placeholder = "Surname", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-2">
-                                        <div class="form-group">
-                                            <label for="input-1">Gender</label>
-                                            @Html.DropDownListFor(x => x.Gender, new SelectListItem[]{
-                                            new SelectListItem() {Text = "Select", Value=""},
-                                            new SelectListItem() {Text = "Male", Value="Male"},
-                                            new SelectListItem() {Text = "Female", Value="Female"},
-                                            new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow  validate[required]" })
-                                        </div>
-                                    </div>
-
                                     <div class="col-sm-2" id="compone" style="display:none">
                                         <div class="form-group">
                                             <label for="input-1">Company</label>
@@ -300,6 +268,41 @@
                                             @Html.TextBoxFor(m => m.registrationno, new { @class = "form-control input-shadow validate[required]  text-input", @id = "registrationno", @placeholder = "Registration No", @autocomplete = "off" })
                                         </div>
                                     </div>
+
+
+                                    <div class="col-sm-3" id="ftxtname">
+                                        <div class="form-group">
+                                            <label for="input-1">First Name</label>
+                                            @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control input-shadow required validate[required]", @name = "inputfield", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3" id="ftxtmiddlename">
+                                        <div class="form-group">
+                                            <label for="input-1">Middle Name</label>
+                                            @Html.TextBoxFor(m => m.middleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-2" id="ftxtsurname">
+                                        <div class="form-group">
+                                            <label for="input-1">Last Name</label>
+                                            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname", @placeholder = "Surname", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-2" id="ftxtgender">
+                                        <div class="form-group">
+                                            <label for="input-1">Gender</label>
+                                            @Html.DropDownListFor(x => x.Gender, new SelectListItem[]{
+                                            new SelectListItem() {Text = "Select", Value=""},
+                                            new SelectListItem() {Text = "Male", Value="Male"},
+                                            new SelectListItem() {Text = "Female", Value="Female"},
+                                            new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow  validate[required]" ,@id="txtgender"})
+                                        </div>
+                                    </div>
+
+
 
 
                                 </div>
@@ -535,7 +538,39 @@
                                     <div class="col-sm-1"></div>
                                     <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
 
-                                    <div class="col-sm-3">
+
+                                    <div class="col-sm-3" style="padding-bottom:15px;">
+                                        <div class="form-group">
+                                            <label for="input-1">Type</label>
+                                            <br />
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" value="Individual" class="radio validate[required] typeone" onchange="sddtypeone(this.value)" name="radio">Individual
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" value="Company" class="radio validate[required] typetwo" onchange="sddtypetwo(this.value)" name="radio">Company
+                                            </label>
+                                        </div>
+
+                                        <input type="text" style="width:245px; display:none;" id="txtnumber" class="form-control" placeholder="Enter Number Of Executor You Want" name="name" value="" />
+                                    </div>
+
+
+                                    <div class="col-sm-2" id="scompone" style="display:none">
+                                        <div class="form-group">
+                                            <label for="input-1">Company</label>
+                                            @Html.TextBoxFor(m => m.companyname, new { @class = "form-control input-shadow validate[required]  text-input", @id = "companyname", @placeholder = "Company ", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3" id="scomptwo" style="display:none">
+                                        <div class="form-group">
+                                            <label for="input-1" style="white-space:nowrap;">Registration No</label>
+                                            @Html.TextBoxFor(m => m.registrationno, new { @class = "form-control input-shadow validate[required]  text-input", @id = "registrationno", @placeholder = "Registration No", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3" id="stxtname2">
                                         <div class="form-group">
                                             <label for="input-1">First Name</label>
                                             @Html.TextBoxFor(m => m.altName, new { @class = "form-control input-shadow required validate[required]", @id = "txtname2", @placeholder = "Enter Name", @autocomplete = "off" })
@@ -543,33 +578,34 @@
                                     </div>
 
                                     <div class="col-sm-3">
-                                        <div class="form-group">
+                                        <div class="form-group" id="stxtmiddlename2">
                                             <label for="input-1">Middle Name</label>
                                             @Html.TextBoxFor(m => m.altmiddleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename2", @placeholder = "Enter Middle Name", @autocomplete = "off" })
                                         </div>
                                     </div>
+                                    <div class="col-sm-3"></div>
                                     <div class="col-sm-3">
-                                        <div class="form-group">
+                                        <div class="form-group" id="stxtsurname2">
                                             <label for="input-1">Last Name</label>
                                             @Html.TextBoxFor(m => m.altSurname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname2", @placeholder = "Enter Surname", @autocomplete = "off" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-3">
+                                    
+                                    <div class="col-sm-3" id="stxtgender2">
                                         <div class="form-group">
                                             <label for="input-1">Gender</label>
                                             @Html.DropDownListFor(x => x.altGender, new SelectListItem[]{
                                             new SelectListItem() {Text = "--Select--", Value=""},
                                             new SelectListItem() {Text = "Male", Value="Male"},
                                             new SelectListItem() {Text = "Female", Value="Female"},
-                                            new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow validate[required]" })
+                                            new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow validate[required]" , @id="txtgender2" })
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <label for="input-1">Number Of Executor</label>
-                                        <select class="form-control" id="executorcount" onchange="getexecutorval(this.value)"></select>
+                                    @*<div class="col-sm-3">
+            <label for="input-1">Number Of Executor</label>
+            <select class="form-control" id="executorcount" onchange="getexecutorval(this.value)"></select>
 
-                                    </div>
+        </div>*@
 
 
 
@@ -833,6 +869,12 @@
                                 $("#compone" + x + "").hide();
                                 $("#comptwo" + x + "").hide();
 
+
+                                $("#Firsttxthide" + x + "").show();
+                                $("#Middletxthide" + x + "").show();
+                                $("#Lasttxthide" + x + "").show();
+                                $("#Gendertxthide" + x + "").show();
+
                             }
 
                             function dydtypetwo(value, id) {
@@ -867,6 +909,14 @@
 
                                 $("#altcompone" + x + "").hide();
                                 $("#altcomptwo" + x + "").hide();
+
+
+
+
+                                $("#altFirsttxthide" + x + "").show();
+                                $("#altMiddletxthide" + x + "").show();
+                                $("#altLasttxthide" + x + "").show();
+                                $("#altGendertxthide" + x + "").show();
 
                             }
 
@@ -1007,6 +1057,12 @@
                                 $("#compone").hide();
                                 $("#comptwo").hide();
 
+
+                                $("#ftxtname").show();
+                                $("#ftxtmiddlename").show();
+                                $("#ftxtsurname").show();
+                                $("#ftxtgender").show();
+
                             }
 
                         }
@@ -1018,9 +1074,58 @@
 
                                 $("#compone").show();
                                 $("#comptwo").show();
+
+
+                                $("#ftxtname").hide();
+                                $("#ftxtmiddlename").hide();
+                                $("#ftxtsurname").hide();
+                                $("#ftxtgender").hide();
+
                             }
                         }
 
+
+
+
+
+
+
+
+
+
+                            function sddtypeone(value) {
+
+                                if (value == "Individual") {
+
+                                    $("#scompone").hide();
+                                    $("#scomptwo").hide();
+
+
+                                    $("#stxtname2").show();
+                                    $("#stxtmiddlename2").show();
+                                    $("#stxtsurname2").show();
+                                    $("#stxtgender2").show();
+
+                                }
+
+                            }
+
+
+                            function sddtypetwo(value) {
+
+                                if (value == "Company") {
+
+                                    $("#scompone").show();
+                                    $("#scomptwo").show();
+
+
+                                    $("#stxtname2").hide();
+                                    $("#stxtmiddlename2").hide();
+                                    $("#stxtsurname2").hide();
+                                    $("#stxtgender2").hide();
+
+                                }
+                            }
 
                         //function validateDOB(value) {
 

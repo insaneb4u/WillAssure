@@ -1614,6 +1614,19 @@ namespace WillAssure.Controllers
      "</div>" +
      "<input type = 'text' style='width:245px; display:none;' id='txtnumber" + i + "' class='form-control' placeholder='Enter Number Of Executor You Want' name='name' value=''>" +
      "</div>" +
+          "<div class='col-sm-2' id='compone" + i + "' style='display:none'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Company</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='companyname" + i + "' name='inputfield' placeholder='Company ' type='text' value=''>" +
+            "</div>" +
+        "</div>" +
+
+        "<div class='col-sm-3' id='comptwo" + i + "' style='display:none'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1' style='white-space:nowrap;'>Registration No</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='registrationno" + i + "' name='inputfield' placeholder='Registration No' type='text' value=''>" +
+            "</div>" +
+        "</div>" +
      "<div class='col-sm-3' id='Firsttxthide" + i+"'>" +
      "<div class='form-group'>" +
      "<label for='input-1'>First Name</label>" +
@@ -1647,19 +1660,7 @@ namespace WillAssure.Controllers
             "</div>" +
         "</div>" +
 
-        "<div class='col-sm-2' id='compone" + i + "' style='display:none'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1'>Company</label>" +
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='companyname" + i + "' name='inputfield' placeholder='Company ' type='text' value=''>" +
-            "</div>" +
-        "</div>" +
-
-        "<div class='col-sm-3' id='comptwo" + i + "' style='display:none'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1' style='white-space:nowrap;'>Registration No</label>" +
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='registrationno" + i + "' name='inputfield' placeholder='Registration No' type='text' value=''>" +
-            "</div>" +
-        "</div>" +
+   
 
     "</div>" +
 
@@ -1711,20 +1712,20 @@ namespace WillAssure.Controllers
                 "<textarea autocomplete = 'off' class='form-control input-shadow  text-input validate[required]' cols='20' id='txtaddress1" + i + "' name='inputfield' placeholder='Enter Address1' rows='2' ></textarea>" +
             "</div>" +
         "</div>" +
-        "<div class='col-sm-3'>" + "</div>" +
-        "<div class='col-sm-9'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1'>Address 2</label>" +
-                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input ' cols='20' id='txtaddress2" + i + "' name='inputfield' placeholder='Enter Address2' rows='2' ></textarea>" +
-            "</div>" +
-        "</div>" +
-        "<div class='col-sm-3'>" + "</div>" +
-        "<div class='col-sm-9'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1'>Address 3</label>" +
-                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input' cols='20' id='txtaddress3" + i + "' name='inputfield' placeholder='Enter Address3' rows='2' ></textarea>" +
-            "</div>" +
-        "</div>" +
+        //"<div class='col-sm-3'>" + "</div>" +
+        //"<div class='col-sm-9'>" +
+        //    "<div class='form-group'>" +
+        //        "<label for='input-1'>Address 2</label>" +
+        //        "<textarea autocomplete = 'off' class='form-control input-shadow  text-input ' cols='20' id='txtaddress2" + i + "' name='inputfield' placeholder='Enter Address2' rows='2' ></textarea>" +
+        //    "</div>" +
+        //"</div>" +
+        //"<div class='col-sm-3'>" + "</div>" +
+        //"<div class='col-sm-9'>" +
+        //    "<div class='form-group'>" +
+        //        "<label for='input-1'>Address 3</label>" +
+        //        "<textarea autocomplete = 'off' class='form-control input-shadow  text-input' cols='20' id='txtaddress3" + i + "' name='inputfield' placeholder='Enter Address3' rows='2' ></textarea>" +
+        //    "</div>" +
+        //"</div>" +
     "</div>" +
 
     "<div class='row'>" +
@@ -1753,30 +1754,30 @@ namespace WillAssure.Controllers
             "</div>" +
         "</div>" +
 
-        "<div class='col-sm-3'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1'>Alt Identity Proof</label>" +
-                "<select class='form-control input-shadow' id='secondproof" + i + "' name='inputfield' onchange='secondproofselection(this.options[this.selectedIndex].innerHTML,this.id)' >" +
-                    "<option value ='' >--Select Identity Proof--</option>" +
-                    "<option value ='Aadhaar Card' >Aadhaar Card</option>" +
-                    "<option value ='Passport' >Passport</option>" +
-                    "<option value='Driving Licences'>Driving Licences</option>" +
-                    "<option value ='Pan Card'>Pan Card</option>" +
-                 "</select>" +
-                "<input id = 'Alt_Identity_Proof' name= 'Alt_Identity_Proof_Value' type= 'hidden' value= 'None' >" +
+        //"<div class='col-sm-3'>" +
+        //    "<div class='form-group'>" +
+        //        "<label for='input-1'>Alt Identity Proof</label>" +
+        //        "<select class='form-control input-shadow' id='secondproof" + i + "' name='inputfield' onchange='secondproofselection(this.options[this.selectedIndex].innerHTML,this.id)' >" +
+        //            "<option value ='' >--Select Identity Proof--</option>" +
+        //            "<option value ='Aadhaar Card' >Aadhaar Card</option>" +
+        //            "<option value ='Passport' >Passport</option>" +
+        //            "<option value='Driving Licences'>Driving Licences</option>" +
+        //            "<option value ='Pan Card'>Pan Card</option>" +
+        //         "</select>" +
+        //        "<input id = 'Alt_Identity_Proof' name= 'Alt_Identity_Proof_Value' type= 'hidden' value= 'None' >" +
 
-             "</div>" +
+        //     "</div>" +
 
-         "</div>" +
+        // "</div>" +
 
-         "<div class='col-sm-3'></div>" +
-        "<div class='col-sm-3'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1'>Alt Identity Proof Value</label>" +
-                "<div id='secondappendtxt" + i + "'>" +
-                "<input autocomplete='off' class='form-control input-shadow  text-input' id='txtsecondproof" + i + "' name='inputfield' placeholder='Enter Identity Proof Value'  type='text' value=''>" + "</div>" +
-            "</div>" +
-        "</div>" +
+        // "<div class='col-sm-3'></div>" +
+        //"<div class='col-sm-3'>" +
+        //    "<div class='form-group'>" +
+        //        "<label for='input-1'>Alt Identity Proof Value</label>" +
+        //        "<div id='secondappendtxt" + i + "'>" +
+        //        "<input autocomplete='off' class='form-control input-shadow  text-input' id='txtsecondproof" + i + "' name='inputfield' placeholder='Enter Identity Proof Value'  type='text' value=''>" + "</div>" +
+        //    "</div>" +
+        //"</div>" +
     "</div>" +
 
     "<hr style='border:1px solid black; border-color:lightgray'>" +
@@ -1850,6 +1851,19 @@ namespace WillAssure.Controllers
      "</div>" +
      "<input type = 'text' style='width:245px; display:none;' id='txtnumber" + i + "' class='form-control' placeholder='Enter Number Of Executor You Want' name='name' value=''>" +
      "</div>" +
+        "<div class='col-sm-2' id='altcompone" + i + "' style='display:none'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Company</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='altcompanyname" + i + "' name='altinputfield' placeholder='Company ' type='text' value=''>" +
+            "</div>" +
+        "</div>" +
+
+        "<div class='col-sm-3' id='altcomptwo" + i + "' style='display:none'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1' style='white-space:nowrap;'>Registration No</label>" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='altregistrationno" + i + "' name='altinputfield' placeholder='Registration No' type='text' value=''>" +
+            "</div>" +
+        "</div>" +
      "<div class='col-sm-3' id='altFirsttxthide" + i + "'>" +
      "<div class='form-group'>" +
      "<label for='input-1'>First Name</label>" +
@@ -1857,7 +1871,7 @@ namespace WillAssure.Controllers
      "</div>" +
      "</div>" +
 
-     "<div class='col-sm-3' id='altMiddletxthide'>" +
+     "<div class='col-sm-3' id='altMiddletxthide"+i+"'>" +
      "<div class='form-group'>" +
      "<label for='input-1'>Middle Name</label>" +
      "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtmiddlename" + i + "' name='altinputfield' placeholder='Enter Middle Name' type='text' value='' >" +
@@ -1885,19 +1899,7 @@ namespace WillAssure.Controllers
             "</div>" +
         "</div>" +
 
-        "<div class='col-sm-2' id='altcompone" + i + "' style='display:none'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1'>Company</label>" +
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='altcompanyname" + i + "' name='altinputfield' placeholder='Company ' type='text' value=''>" +
-            "</div>" +
-        "</div>" +
-
-        "<div class='col-sm-3' id='altcomptwo" + i + "' style='display:none'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1' style='white-space:nowrap;'>Registration No</label>" +
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='altregistrationno" + i + "' name='altinputfield' placeholder='Registration No' type='text' value=''>" +
-            "</div>" +
-        "</div>" +
+     
 
     "</div>" +
 

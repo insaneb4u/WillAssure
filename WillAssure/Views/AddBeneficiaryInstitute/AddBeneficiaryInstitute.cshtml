@@ -23,78 +23,113 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        @if (Session["doctype"] != null)
+
+
+                        @if (Session["WillType"] != null)
                         {
-                            if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
+                            if (Session["WillType"].ToString() == "Quick")
                             {
                                 <h5>
                                     <ul id="menu" style="font-weight:bold;">
-                                        <a href="@Url.Action("AddTestatorsFormIndex", "AddTestatorsForm")"><li style="color:black;">Donor ></li></a>
-                                        <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black">Donee ></li></a>
-                                        <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black">Gift ></li></a>
-                                        <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
-                                            <li style="color:">Asset Mapping ></li>
-                                            <li style="color:#e1e1e1">Witness Appointment ></li>
+                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:black;">TestatorFamily ></li></a>
+                                        <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                            <li style="color:;">Institution ></li>
+                                        </a>
+                                        <li style="color:#e1e1e1">Beneficiary ></li>
 
+
+                                        <li style="color:#e1e1e1">Executor > </li>
+                                        <li style="color:#e1e1e1">Witness > </li>
+                                        <li style="color:#e1e1e1">Mapping </li>
 
                                     </ul>
                                 </h5>
                             }
                             else
                             {
-                                if (Session["Type"].ToString() != "Testator")
+                                if (Session["doctype"] != null)
                                 {
-                                    <h5>
-                                        <ul id="menu" style="font-weight:bold;">
+                                    if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
+                                    {
+                                        <h5>
+                                            <ul id="menu" style="font-weight:bold;">
+                                                <a href="@Url.Action("AddTestatorsFormIndex", "AddTestatorsForm")"><li style="color:black;">Donor ></li></a>
+                                                <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black">Donee ></li></a>
+                                                <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black">Gift ></li></a>
+                                                <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
+                                                    <li style="color:">Asset Mapping ></li>
+                                                    <li style="color:#e1e1e1">Witness Appointment ></li>
 
 
-                                            <a href="@Url.Action("AddTestatorsFormIndex", "AddTestatorsForm", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                            <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                <li style="color:black;">Institution ></li>
-                                            </a>
-                                            <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                            <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black">AssetInformation ></li></a>
-                                            <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
-                                            <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:black">PetCare ></li></a>
-                                            <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="color:black">Mapping ></li></a>
-                                            <a href="@Url.Action("AddNomineeIndex", "AddNominee")"><li style="">Nominee ></li></a>
-                                            <li style="color:#e1e1e1">Executor > </li>
-                                            <li style="color:#e1e1e1">Witness > </li>
-                                            <li style="color:#e1e1e1">Document</li>
+                                            </ul>
+                                        </h5>
+                                    }
+                                    else
+                                    {
+                                        if (Session["Type"].ToString() != "Testator")
+                                        {
+                                            <h5>
+                                                <ul id="menu" style="font-weight:bold;">
 
 
-                                        </ul>
-                                    </h5>
+                                                    <a href="@Url.Action("AddTestatorsFormIndex", "AddTestatorsForm", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                                    <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                    <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                        <li style="color:black;">Institution ></li>
+                                                    </a>
+                                                    <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                                    <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black">AssetInformation ></li></a>
+                                                    <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
+                                                    <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:black">PetCare ></li></a>
+                                                    <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="color:black">Mapping ></li></a>
+                                                    <a href="@Url.Action("AddNomineeIndex", "AddNominee")"><li style="">Nominee ></li></a>
+                                                    <li style="color:#e1e1e1">Executor > </li>
+                                                    <li style="color:#e1e1e1">Witness > </li>
+                                                    <li style="color:#e1e1e1">Document</li>
 
+
+                                                </ul>
+                                            </h5>
+
+                                        }
+                                        else
+
+                                        {
+                                            <h5>
+                                                <ul id="menu" style="font-weight:bold;">
+
+
+                                                    <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                                    <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                    <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                        <li style="color:;">Institution ></li>
+                                                    </a>
+                                                    <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:#e1e1e1;">Beneficiary ></li></a>
+                                                    <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:#e1e1e1">AssetInformation ></li></a>
+                                                    <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:#e1e1e1;">Liabilites></li></a>
+                                                    <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:#e1e1e1">PetCare ></li></a>
+                                                    <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="color:#e1e1e1">Mapping ></li></a>
+
+                                                    <li style="color:#e1e1e1">Executor > </li>
+                                                    <li style="color:#e1e1e1">Witness > </li>
+                                                    <li style="color:#e1e1e1">Document</li>
+
+
+                                                </ul>
+                                            </h5>
+                                        }
+
+                                    }
                                 }
                                 else
-
                                 {
-                                    <h5>
-                                        <ul id="menu" style="font-weight:bold;">
 
-
-                                            <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                            <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                <li style="color:;">Institution ></li>
-                                            </a>
-                                            <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:#e1e1e1;">Beneficiary ></li></a>
-                                            <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:#e1e1e1">AssetInformation ></li></a>
-                                            <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:#e1e1e1;">Liabilites></li></a>
-                                            <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:#e1e1e1">PetCare ></li></a>
-                                            <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="color:#e1e1e1">Mapping ></li></a>
-
-                                            <li style="color:#e1e1e1">Executor > </li>
-                                            <li style="color:#e1e1e1">Witness > </li>
-                                            <li style="color:#e1e1e1">Document</li>
-
-
-                                        </ul>
-                                    </h5>
+                                    if (!Response.IsRequestBeingRedirected)
+                                    {
+                                        Response.Redirect("/LoginPage/LoginPageIndex");
+                                    }
                                 }
-
                             }
                         }
                         else
@@ -105,12 +140,16 @@
                                 Response.Redirect("/LoginPage/LoginPageIndex");
                             }
                         }
+
+
+
+
                         <br />
-              
+
 
                         <div class="row">
-                      
-                            
+
+
                             <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Institution Details )</h6></div></div>
                         </div>
 
@@ -333,24 +372,24 @@
 
                             @Html.HiddenFor(m => m.altchek, new { @id = "txtcheck" })
                             @*<center>
-                                <div class="col-sm-6" id="showcompany">
+                <div class="col-sm-6" id="showcompany">
 
-                                    <div class="form-group">
+                    <div class="form-group">
 
-                                        <br />
-                                        <p>Alternate Beneficiary Institution</p>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Yes" class="altradio validate[required] altone" name="radio1">Yes
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="No" class="altradio validate[required] alttwo" name="radio1">No
-                                        </label>
+                        <br />
+                        <p>Alternate Beneficiary Institution</p>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="Yes" class="altradio validate[required] altone" name="radio1">Yes
+                        </label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="No" class="altradio validate[required] alttwo" name="radio1">No
+                        </label>
 
 
 
-                                    </div>
-                                </div>
-                            </center>*@
+                    </div>
+                </div>
+            </center>*@
 
 
 
@@ -364,76 +403,76 @@
                             @*<div id="altinstitution" style="display:none;">
 
 
-                                @Html.HiddenFor(m => m.altBiId)
+                @Html.HiddenFor(m => m.altBiId)
 
 
 
-                                <hr class="div_rd">
+                <hr class="div_rd">
 
 
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Institute Details</label></div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Institute Details</label></div>
 
 
-                                    <div class="col-sm-3">
+                    <div class="col-sm-3">
 
 
 
 
 
-                                        <div class="form-group">
-                                            <label for="input-1">Name Of Institute</label>
+                        <div class="form-group">
+                            <label for="input-1">Name Of Institute</label>
 
-                                            @Html.TextBoxFor(m => m.altFirstName, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtfirstname", @placeholder = "First Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                            @Html.TextBoxFor(m => m.altFirstName, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtfirstname", @placeholder = "First Name", @autocomplete = "off", alert = "LabourCost is requried" })
 
 
-                                        </div>
-                                    </div>
+                        </div>
+                    </div>
 
 
-                                    <div class="col-sm-3">
+                    <div class="col-sm-3">
 
-                                        <div class="form-group">
+                        <div class="form-group">
 
-                                            <label for="input-1">Type</label>
-                                            @Html.DropDownListFor(x => x.altTypeText, new SelectListItem[]{
-                                            new SelectListItem() {Text = "--Select--", Value=""},
-                                            new SelectListItem() {Text = "LLP", Value="LLP"},
-                                            new SelectListItem() {Text = "Company", Value="Company"},
-                                            new SelectListItem() {Text = "NGO", Value="NGO"},
-                                            new SelectListItem() {Text = "Association", Value="Association"},
-                                            new SelectListItem() {Text = "HUF", Value="HUF"},
-                                            new SelectListItem() {Text = "Association of Person", Value="Association of Person"},
-                                            new SelectListItem() {Text = "Society", Value="Society"}}, new { @class = "form-control input-shadow validate[required]" })
+                            <label for="input-1">Type</label>
+                            @Html.DropDownListFor(x => x.altTypeText, new SelectListItem[]{
+                            new SelectListItem() {Text = "--Select--", Value=""},
+                            new SelectListItem() {Text = "LLP", Value="LLP"},
+                            new SelectListItem() {Text = "Company", Value="Company"},
+                            new SelectListItem() {Text = "NGO", Value="NGO"},
+                            new SelectListItem() {Text = "Association", Value="Association"},
+                            new SelectListItem() {Text = "HUF", Value="HUF"},
+                            new SelectListItem() {Text = "Association of Person", Value="Association of Person"},
+                            new SelectListItem() {Text = "Society", Value="Society"}}, new { @class = "form-control input-shadow validate[required]" })
 
-                                        </div>
-                                    </div>
+                        </div>
+                    </div>
 
 
-                                    <div class="col-sm-3">
+                    <div class="col-sm-3">
 
-                                        <div class="form-group">
+                        <div class="form-group">
 
-                                            <label for="input-1">Registration No</label>
+                            <label for="input-1">Registration No</label>
 
 
-                                            @if (Model.altRegistrationNo != 0)
-                                            {
-                                                @Html.TextBoxFor(m => m.altRegistrationNo, new { @class = "form-control input-shadow validate[custom[onlyNumberSp]] text-input", @id = "txtmiddlename", @placeholder = "Registration No", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            }
-                                            else
-                                            {
-                                                <input type="text" name="altRegistrationNo" value="" class="form-control input-shadow validate[custom[onlyNumberSp]] text-input" />
-                                            }
+                            @if (Model.altRegistrationNo != 0)
+                            {
+                                @Html.TextBoxFor(m => m.altRegistrationNo, new { @class = "form-control input-shadow validate[custom[onlyNumberSp]] text-input", @id = "txtmiddlename", @placeholder = "Registration No", @autocomplete = "off", alert = "LabourCost is requried" })
+                            }
+                            else
+                            {
+                                <input type="text" name="altRegistrationNo" value="" class="form-control input-shadow validate[custom[onlyNumberSp]] text-input" />
+                            }
 
 
 
 
 
 
-                                        </div>
-                                    </div>
+                        </div>
+                    </div>
 
 
 
@@ -447,12 +486,12 @@
 
 
 
-                                </div>
-                                <hr />
+                </div>
+                <hr />
 
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
 
 
 
@@ -464,77 +503,77 @@
 
 
 
-                                    <div class="col-sm-3">
+                    <div class="col-sm-3">
 
-                                        <div class="form-group">
+                        <div class="form-group">
 
-                                            <label for="input-1">Address</label>
-                                            @Html.TextAreaFor(m => m.altAddress, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtaddress1", @placeholder = "Enter Address ", @autocomplete = "off", alert = "LabourCost is requried" })
-                                        </div>
-                                    </div>
+                            <label for="input-1">Address</label>
+                            @Html.TextAreaFor(m => m.altAddress, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtaddress1", @placeholder = "Enter Address ", @autocomplete = "off", alert = "LabourCost is requried" })
+                        </div>
+                    </div>
 
-                                    @if (Model.altStateText != null)
-                                    {
-                                        <div class="col-sm-3">
+                    @if (Model.altStateText != null)
+                    {
+                        <div class="col-sm-3">
 
-                                            <div class="form-group">
+                            <div class="form-group">
 
-                                                <label for="input-1">State</label>
-                                                <select id="altddlstate" class="form-control input-shadow validate[required]">
-                                                    <option value="@Model.altStateText">@Model.altStateText</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altStateId, new { id = "altStateId" })
-                                                @Html.HiddenFor(m => m.altStateText, new { id = "altStateText" })
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="col-sm-3">
+                                <label for="input-1">State</label>
+                                <select id="altddlstate" class="form-control input-shadow validate[required]">
+                                    <option value="@Model.altStateText">@Model.altStateText</option>
+                                </select>
+                                @Html.HiddenFor(m => m.altStateId, new { id = "altStateId" })
+                                @Html.HiddenFor(m => m.altStateText, new { id = "altStateText" })
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-3">
 
-                                            <div class="form-group">
+                            <div class="form-group">
 
-                                                <label for="input-1">State</label>
-                                                <select id="altddlstate" class="form-control input-shadow validate[required]">
-                                                    <option value="">--Select State--</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altStateId, new { id = "altStateId" })
-                                                @Html.HiddenFor(m => m.altStateText, new { id = "altStateText" })
-                                            </div>
-                                        </div>
-                                    }
+                                <label for="input-1">State</label>
+                                <select id="altddlstate" class="form-control input-shadow validate[required]">
+                                    <option value="">--Select State--</option>
+                                </select>
+                                @Html.HiddenFor(m => m.altStateId, new { id = "altStateId" })
+                                @Html.HiddenFor(m => m.altStateText, new { id = "altStateText" })
+                            </div>
+                        </div>
+                    }
 
 
 
 
-                                    @if (Model.altCityText != null)
-                                    {
-                                        <div class="col-sm-3">
+                    @if (Model.altCityText != null)
+                    {
+                        <div class="col-sm-3">
 
-                                            <div class="form-group">
-                                                <label for="input-1">City</label>
-                                                <select id="altddlcity" class="form-control input-shadow validate[required]">
-                                                    <option value="@Model.altCityText">@Model.altCityText</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altCityId, new { id = "altCityId" })
-                                                @Html.HiddenFor(m => m.altCityText, new { id = "altCityText" })
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="input-1">City</label>
+                                <select id="altddlcity" class="form-control input-shadow validate[required]">
+                                    <option value="@Model.altCityText">@Model.altCityText</option>
+                                </select>
+                                @Html.HiddenFor(m => m.altCityId, new { id = "altCityId" })
+                                @Html.HiddenFor(m => m.altCityText, new { id = "altCityText" })
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-3">
 
-                                            <div class="form-group">
-                                                <label for="input-1">City</label>
-                                                <select id="altddlcity" class="form-control input-shadow validate[required]">
-                                                    <option value="">--Select City--</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altCityId, new { id = "altCityId" })
-                                                @Html.HiddenFor(m => m.altCityText, new { id = "altCityText" })
-                                            </div>
-                                        </div>
-                                    }
+                            <div class="form-group">
+                                <label for="input-1">City</label>
+                                <select id="altddlcity" class="form-control input-shadow validate[required]">
+                                    <option value="">--Select City--</option>
+                                </select>
+                                @Html.HiddenFor(m => m.altCityId, new { id = "altCityId" })
+                                @Html.HiddenFor(m => m.altCityText, new { id = "altCityText" })
+                            </div>
+                        </div>
+                    }
 
 
 
@@ -560,14 +599,14 @@
 
 
 
-                                </div>
+                </div>
 
 
 
 
 
 
-                            </div>*@
+            </div>*@
 
 
 
@@ -797,7 +836,7 @@
 
                                 $("#altinstitution").hide();
                                 $(".altone").prop('checked', false);
-                             
+
 
                                 $("#btnfieldedit").hide();
 
@@ -972,7 +1011,7 @@
                                     $(".altone").prop('checked', true);
                                     $("#altinstitution").show();
                                 });
-                              
+
 
                             </script>
                         }

@@ -33,6 +33,7 @@ namespace WillAssure.Controllers
             string refdistributor = response.Split('~')[5];
             string documenttype = response.Split('~')[6];
             string dateofbirth = response.Split('~')[7];
+            string willtype = response.Split('~')[8];
 
 
 
@@ -61,7 +62,7 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string query2 = "insert into users (First_Name , Last_Name , Middle_Name , eMail , Mobile  , Type , active, rId , compId , Linked_user , Designation , Address1 , Address2 , Address3 , City , State , Pin , DOB , userID , userPwd) values ('" + name + "' , '" + lastname + "' , '" + middlename + "' , '" + emailid + "' , '" + contactno + "'  , 'Testator','Active' , 5 , 0 , '" + refdistributor + "' , 2 , 'none' , 'none' , 'none' , 'none', 'none' , 'none' , '"+ Convert.ToDateTime(dateofbirth).ToString("yyyy-MM-dd") + "' , 'none' , 'none' )";
+                string query2 = "insert into users (First_Name , Last_Name , Middle_Name , eMail , Mobile  , Type , active, rId , compId , Linked_user , Designation , Address1 , Address2 , Address3 , City , State , Pin , DOB , userID , userPwd , WillType) values ('" + name + "' , '" + lastname + "' , '" + middlename + "' , '" + emailid + "' , '" + contactno + "'  , 'Testator','Active' , 5 , 0 , '" + refdistributor + "' , 2 , 'none' , 'none' , 'none' , 'none', 'none' , 'none' , '"+ Convert.ToDateTime(dateofbirth).ToString("yyyy-MM-dd") + "' , 'none' , 'none' , '"+willtype+"')";
                 SqlCommand cmd2 = new SqlCommand(query2, con);
                 cmd2.ExecuteNonQuery();
                 con.Close();

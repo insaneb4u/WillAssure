@@ -29,84 +29,7 @@
         </div>
         <!-- End Breadcrumb-->
 
-        <div class="row" style="display:none;">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-body">
-
-                        <h5>
-                            @if (Session["Type"] != null)
-                            {
-
-                                if (Session["Type"].ToString() != "Testator")
-                                {
-                                    <ul id="menu" style="font-weight:bold;">
-
-                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li>TestatorFamily ></li></a>
-                                        <li style="color:#e1e1e1">Institution ></li>
-                                        <li style="color:#e1e1e1">Beneficiary ></li>
-                                        <li style="color:#e1e1e1">AssetInformation ></li>
-                                        <li style="color:#e1e1e1">Liabilites></li>
-                                        <li style="color:#e1e1e1">PetCare ></li>
-                                        <li style="color:#e1e1e1">Mapping ></li>
-                                        <li style="color:#e1e1e1">Nominee ></li>
-                                        <li style="color:#e1e1e1">Executor > </li>
-                                        <li style="color:#e1e1e1">Witness > </li>
-                                        <li style="color:#e1e1e1">Document</li>
-
-                                    </ul>
-                                }
-                                else
-
-                                {
-                                    <ul id="menu" style="font-weight:bold;">
-
-                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li>Testator Family ></li></a>
-                                        <li style="color:#e1e1e1">Institution ></li>
-                                        <li style="color:#e1e1e1">Beneficiary ></li>
-                                        <li style="color:#e1e1e1">AssetInformation ></li>
-                                        <li style="color:#e1e1e1">Liabilites></li>
-                                        <li style="color:#e1e1e1">PetCare ></li>
-                                        <li style="color:#e1e1e1">Mapping ></li>
-
-                                        <li style="color:#e1e1e1">Executor > </li>
-                                        <li style="color:#e1e1e1">Witness > </li>
-                                        <li style="color:#e1e1e1">Document</li>
-
-                                    </ul>
-                                }
-
-
-
-
-                            }
-                            else
-                            {
-                                if (!Response.IsRequestBeingRedirected)
-                                {
-                                    Response.Redirect("/LoginPage/LoginPageIndex");
-                                }
-                            }
-
-                        </h5>
-                        <br />
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
 
 
@@ -124,60 +47,94 @@
                 <div class="card">
                     <div class="card-body">
                         <h5>
-                            @if (Session["Type"] != null)
+
+
+                            @if (Session["WillType"] != null)
                             {
-
-                                if (Session["Type"].ToString() != "Testator")
+                                if (Session["WillType"].ToString() == "Quick")
                                 {
-                                    <ul id="menu" style="font-weight:bold;">
+                                    <h5>
+                                        <ul id="menu" style="font-weight:bold;">
+                                            <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li>TestatorFamily ></li></a>
+                                            <li style="color:#e1e1e1">Institution ></li>
+                                            <li style="color:#e1e1e1">Beneficiary ></li>
 
-                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li>TestatorFamily ></li></a>
-                                        <li style="color:#e1e1e1">Institution ></li>
-                                        <li style="color:#e1e1e1">Beneficiary ></li>
-                                        <li style="color:#e1e1e1">AssetInformation ></li>
-                                        <li style="color:#e1e1e1">Liabilites></li>
-                                        <li style="color:#e1e1e1">PetCare ></li>
-                                        <li style="color:#e1e1e1">Mapping ></li>
-                                        <li style="color:#e1e1e1">Nominee ></li>
-                                        <li style="color:#e1e1e1">Executor > </li>
-                                        <li style="color:#e1e1e1">Witness > </li>
-                                        <li style="color:#e1e1e1">Document</li>
 
-                                    </ul>
+                                            <li style="color:#e1e1e1">Executor > </li>
+                                            <li style="color:#e1e1e1">Witness >  </li>
+                                            <li style="color:#e1e1e1">Mapping ></li>
+
+
+                                        </ul>
+                                    </h5>
+
                                 }
-                                else
-
-                                {
-                                    <ul id="menu" style="font-weight:bold;">
-
-                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li>Testator Family ></li></a>
-                                        <li style="color:#e1e1e1">Institution ></li>
-                                        <li style="color:#e1e1e1">Beneficiary ></li>
-                                        <li style="color:#e1e1e1">AssetInformation ></li>
-                                        <li style="color:#e1e1e1">Liabilites></li>
-                                        <li style="color:#e1e1e1">PetCare ></li>
-                                        <li style="color:#e1e1e1">Mapping ></li>
-
-                                        <li style="color:#e1e1e1">Executor > </li>
-                                        <li style="color:#e1e1e1">Witness > </li>
-                                        <li style="color:#e1e1e1">Document</li>
-
-                                    </ul>
-                                }
-
-
-
-
                             }
                             else
                             {
-                                if (!Response.IsRequestBeingRedirected)
+                                if (Session["Type"] != null)
                                 {
-                                    Response.Redirect("/LoginPage/LoginPageIndex");
+
+                                    if (Session["Type"].ToString() != "Testator")
+                                    {
+                                        <ul id="menu" style="font-weight:bold;">
+
+                                            <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li>TestatorFamily ></li></a>
+                                            <li style="color:#e1e1e1">Institution ></li>
+                                            <li style="color:#e1e1e1">Beneficiary ></li>
+                                            <li style="color:#e1e1e1">AssetInformation ></li>
+                                            <li style="color:#e1e1e1">Liabilites></li>
+                                            <li style="color:#e1e1e1">PetCare ></li>
+                                            <li style="color:#e1e1e1">Mapping ></li>
+                                            <li style="color:#e1e1e1">Nominee ></li>
+                                            <li style="color:#e1e1e1">Executor > </li>
+                                            <li style="color:#e1e1e1">Witness > </li>
+                                            <li style="color:#e1e1e1">Document</li>
+
+                                        </ul>
+                                    }
+                                    else
+
+                                    {
+                                        <ul id="menu" style="font-weight:bold;">
+
+                                            <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li>Testator Family ></li></a>
+                                            <li style="color:#e1e1e1">Institution ></li>
+                                            <li style="color:#e1e1e1">Beneficiary ></li>
+                                            <li style="color:#e1e1e1">AssetInformation ></li>
+                                            <li style="color:#e1e1e1">Liabilites></li>
+                                            <li style="color:#e1e1e1">PetCare ></li>
+                                            <li style="color:#e1e1e1">Mapping ></li>
+
+                                            <li style="color:#e1e1e1">Executor > </li>
+                                            <li style="color:#e1e1e1">Witness > </li>
+                                            <li style="color:#e1e1e1">Document</li>
+
+                                        </ul>
+                                    }
+
+
+
+
                                 }
+                                else
+                                {
+                                    if (!Response.IsRequestBeingRedirected)
+                                    {
+                                        Response.Redirect("/LoginPage/LoginPageIndex");
+                                    }
+                                }
+
                             }
+
+
+
+
+
+
 
                         </h5>
                         <br />

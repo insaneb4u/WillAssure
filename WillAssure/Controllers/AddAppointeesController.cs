@@ -636,7 +636,7 @@ namespace WillAssure.Controllers
         }
 
 
-        public ActionResult InsertAppointeesFormData(AppointeesModel AM)
+        public ActionResult InsertAppointeesFormData(FormCollection collection)
         {
             ViewBag.collapse = "true";
             // check type 
@@ -764,22 +764,23 @@ namespace WillAssure.Controllers
 
 
 
-            AM.documentId = 0;
+            int documentId = 0;
             int appid = 0;
             // latest appointees
             int apid = 0;
 
             ViewBag.disablefield = "true";
+            // appointees 
             con.Open();
             SqlCommand cmd = new SqlCommand("SP_CRUDAppointees", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@condition", "insert");
-            cmd.Parameters.AddWithValue("@documentId", AM.documentId);
+            cmd.Parameters.AddWithValue("@documentId", "0");
             cmd.Parameters.AddWithValue("@Type", "Executor");
 
-            if (AM.subTypetxt != null || AM.subTypetxt != "")
+            if (collection["subTypetxt"] != null || collection["subTypetxt"] != "")
             {
-                cmd.Parameters.AddWithValue("@subType", AM.subTypetxt);
+                cmd.Parameters.AddWithValue("@subType", collection["subTypetxt"]);
             }
             else
             {
@@ -791,32 +792,32 @@ namespace WillAssure.Controllers
 
 
 
-            cmd.Parameters.AddWithValue("@Name", AM.Firstname);
-            cmd.Parameters.AddWithValue("@middleName", AM.middleName);
-            cmd.Parameters.AddWithValue("@Surname", AM.Surname);
-            cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);
-            cmd.Parameters.AddWithValue("@Identity_proof_value", AM.Identity_Proof_Value);
+            cmd.Parameters.AddWithValue("@Name", collection["Firstname"]);
+            cmd.Parameters.AddWithValue("@middleName", collection["middleName"]);
+            cmd.Parameters.AddWithValue("@Surname", collection["Surname"]);
+            cmd.Parameters.AddWithValue("@Identity_proof", collection["Identity_Proof"]);
+            cmd.Parameters.AddWithValue("@Identity_proof_value", collection["Identity_Proof_Value"]);
 
 
-            if (AM.Alt_Identity_Proof != null)
+            if (collection["Alt_Identity_Proof"] != null || collection["Alt_Identity_Proof"] != "")
             {
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof", collection["Alt_Identity_Proof"]);
             }
             else
             {
-                AM.Alt_Identity_Proof = "None";
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof", "None");
             }
 
 
-            if (AM.Alt_Identity_Proof_Value != null)
+            if (collection["Alt_Identity_Proof_Value"] != null)
             {
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", collection["Alt_Identity_Proof_Value"]);
             }
             else
             {
-                AM.Alt_Identity_Proof_Value = "None";
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", "None");
             }
 
 
@@ -829,39 +830,70 @@ namespace WillAssure.Controllers
 
             //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             //cmd.Parameters.AddWithValue("@DOB", "None");
-            cmd.Parameters.AddWithValue("@Gender", AM.Gender);
+            cmd.Parameters.AddWithValue("@Gender", collection["Gender"]);
             cmd.Parameters.AddWithValue("@Occupation", "None");
             cmd.Parameters.AddWithValue("@Relationship", "None");
-            cmd.Parameters.AddWithValue("@Address1", AM.Address1);
-            if (AM.Address2 != null || AM.Address2 == "")
+            cmd.Parameters.AddWithValue("@Address1", collection["Address1"]);
+            if (collection["Address2"] != null || collection["Address2"] == "")
             {
-                cmd.Parameters.AddWithValue("@Address2", AM.Address2);
+                cmd.Parameters.AddWithValue("@Address2", collection["Address2"]);
             }
             else
             {
-                AM.Address2 = "None";
-                cmd.Parameters.AddWithValue("@Address2", AM.Address2);
+                collection["Address2"] = "None";
+                cmd.Parameters.AddWithValue("@Address2", collection["Address2"]);
             }
 
 
-            if (AM.Address3 != null || AM.Address3 == "")
+            if (collection["Address3"] != null || collection["Address3"] == "")
             {
-                cmd.Parameters.AddWithValue("@Address3", AM.Address3);
+                cmd.Parameters.AddWithValue("@Address3", collection["Address3"]);
             }
             else
             {
-                AM.Address3 = "None";
-                cmd.Parameters.AddWithValue("@Address3", AM.Address3);
+                collection["Address3"] = "None";
+                cmd.Parameters.AddWithValue("@Address3", collection["Address3"]);
             }
 
 
-            cmd.Parameters.AddWithValue("@City", AM.citytext);
-            cmd.Parameters.AddWithValue("@State", AM.statetext);
-            cmd.Parameters.AddWithValue("@Pin", AM.Pin);
-            cmd.Parameters.AddWithValue("@tid", AM.ddltid);
+            string cityquery = "select city_name from tbl_city where id = " + collection["ddlcity"] + " ";
+            SqlDataAdapter citda = new SqlDataAdapter(cityquery,con);
+            DataTable citdata = new DataTable();
+            citda.Fill(citdata);
+            string cityname = "";
+            if (citdata.Rows.Count > 0)
+            {
+                cityname = citdata.Rows[0]["city_name"].ToString();
+            }
+            cmd.Parameters.AddWithValue("@City",cityname);
+
+
+
+
+
+
+            string statequery = "select statename from tbl_state where state_id = " + collection["ddlstate"] + " ";
+            SqlDataAdapter stateda = new SqlDataAdapter(statequery, con);
+            DataTable statedata = new DataTable();
+            stateda.Fill(statedata);
+            string statename = "";
+            if (statedata.Rows.Count > 0)
+            {
+                statename = statedata.Rows[0]["statename"].ToString();
+            }
+            cmd.Parameters.AddWithValue("@State", statename);
+
+
+
+
+
+            cmd.Parameters.AddWithValue("@Pin", collection["Pin"]);
+            cmd.Parameters.AddWithValue("@tid", Convert.ToInt32(Session["distid"]));
             cmd.Parameters.AddWithValue("@ExecutorType", "Single");
             cmd.ExecuteNonQuery();
             con.Close();
+
+            // end
 
 
 
@@ -909,29 +941,29 @@ namespace WillAssure.Controllers
 
 
             // dropdown selection
-            int AppointmentofGuardian = 0;
-            if (AM.Typetxt == "Guardian")
-            {
-                AppointmentofGuardian = 1;    //yes
-            }
-            else
-            {
-                AppointmentofGuardian = 2;    // no
-            }
+            //int AppointmentofGuardian = 0;
+            //if (AM.Typetxt == "Guardian")
+            //{
+            //    AppointmentofGuardian = 1;    //yes
+            //}
+            //else
+            //{
+            //    AppointmentofGuardian = 2;    // no
+            //}
 
-            int Numberofexecutors = 0;
-            if (AM.subTypetxt == "Single")
-            {
-                Numberofexecutors = 1;
-            }
-            if (AM.subTypetxt == "Many Joint")
-            {
-                Numberofexecutors = 2;
-            }
-            if (AM.subTypetxt == "Many Independent")
-            {
-                Numberofexecutors = 3;
-            }
+            //int Numberofexecutors = 0;
+            //if (AM.subTypetxt == "Single")
+            //{
+            //    Numberofexecutors = 1;
+            //}
+            //if (AM.subTypetxt == "Many Joint")
+            //{
+            //    Numberofexecutors = 2;
+            //}
+            //if (AM.subTypetxt == "Many Independent")
+            //{
+            //    Numberofexecutors = 3;
+            //}
 
             //end
 
@@ -954,11 +986,11 @@ namespace WillAssure.Controllers
 
 
 
-            con.Open();
-            string rulequery = "update documentRules set guardian = " + AppointmentofGuardian + " ,executors_category = " + Numberofexecutors + " where tid = " + AM.ddltid + " ";
-            SqlCommand cmd2 = new SqlCommand(rulequery, con);
-            cmd2.ExecuteNonQuery();
-            con.Close();
+            //con.Open();
+            //string rulequery = "update documentRules set guardian = " + AppointmentofGuardian + " ,executors_category = " + Numberofexecutors + " where tid = " + AM.ddltid + " ";
+            //SqlCommand cmd2 = new SqlCommand(rulequery, con);
+            //cmd2.ExecuteNonQuery();
+            //con.Close();
             //end
 
 
@@ -971,8 +1003,10 @@ namespace WillAssure.Controllers
 
 
 
-            if (AM.check == "true")
+            if (collection["check"] == "true")
             {
+                
+
                 // alternate appointees
 
                 con.Open();
@@ -992,77 +1026,104 @@ namespace WillAssure.Controllers
 
 
 
-                cmdd.Parameters.AddWithValue("@Name", AM.altName);
-                cmdd.Parameters.AddWithValue("@middleName", AM.altmiddleName);
-                cmdd.Parameters.AddWithValue("@Surname", AM.altSurname);
-                cmdd.Parameters.AddWithValue("@Identity_proof", AM.altIdentity_Proof);
-                cmdd.Parameters.AddWithValue("@Identity_proof_value", AM.altIdentity_Proof_Value);
+                cmdd.Parameters.AddWithValue("@Name", collection["altName"]);
+                cmdd.Parameters.AddWithValue("@middleName", collection["altmiddleName"]);
+                cmdd.Parameters.AddWithValue("@Surname", collection["altSurname"]);
+                cmdd.Parameters.AddWithValue("@Identity_proof", collection["altIdentity_Proof"]);
+                cmdd.Parameters.AddWithValue("@Identity_proof_value", collection["altIdentity_Proof_Value"]);
 
-
-                if (AM.altAlt_Identity_Proof != null)
+                if (collection["altAlt_Identity_Proof"] != null)
                 {
 
-                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof", AM.altAlt_Identity_Proof);
+                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof", collection["altAlt_Identity_Proof"]);
                 }
                 else
                 {
-                    AM.altAlt_Identity_Proof = "None";
-                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof", AM.altAlt_Identity_Proof);
+                    collection["altAlt_Identity_Proof"] = "None";
+                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof", collection["altAlt_Identity_Proof"]);
                 }
 
 
-                if (AM.altAlt_Identity_Proof_Value != null)
+                if (collection["altAlt_Identity_Proof_Value"] != null)
                 {
-                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.altAlt_Identity_Proof_Value);
+                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof_value", collection["altAlt_Identity_Proof_Value"]);
                 }
                 else
                 {
-                    AM.altAlt_Identity_Proof_Value = "None";
-                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.altAlt_Identity_Proof_Value);
+                    collection["altAlt_Identity_Proof_Value"] = "None";
+                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof_value", collection["altAlt_Identity_Proof_Value"]);
                 }
 
 
                 //DateTime dat2 = DateTime.ParseExact(AM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 //cmdd.Parameters.AddWithValue("@DOB", dat2);
-                cmdd.Parameters.AddWithValue("@Gender", AM.altGender);
+                cmdd.Parameters.AddWithValue("@Gender", collection["altGender"]);
                 cmdd.Parameters.AddWithValue("@Occupation", "None");
                 cmdd.Parameters.AddWithValue("@Relationship", "None");
-                cmdd.Parameters.AddWithValue("@Address1", AM.altAddress1);
-                if (AM.altAddress2 != null || AM.altAddress2 == "")
+                cmdd.Parameters.AddWithValue("@Address1", collection["altAddress1"]);
+                if (collection["altAddress2"] != null || collection["altAddress2"] == "")
                 {
-                    cmdd.Parameters.AddWithValue("@Address2", AM.altAddress2);
+                    cmdd.Parameters.AddWithValue("@Address2", collection["altAddress2"]);
                 }
                 else
                 {
-                    AM.altAddress2 = "None";
-                    cmdd.Parameters.AddWithValue("@Address2", AM.altAddress2);
+                    collection["altAddress2"] = "None";
+                    cmdd.Parameters.AddWithValue("@Address2", collection["altAddress2"]);
                 }
 
 
-                if (AM.altAddress3 != null || AM.altAddress3 == "")
+                if (collection["altAddress3"] != null || collection["altAddress3"] != "")
                 {
-                    cmdd.Parameters.AddWithValue("@Address3", AM.altAddress3);
+                    cmdd.Parameters.AddWithValue("@Address3", collection["altAddress3"]);
                 }
                 else
                 {
-                    AM.altAddress3 = "None";
-                    cmdd.Parameters.AddWithValue("@Address3", AM.altAddress3);
+                    collection["altAddress3"] = "None";
+                    cmdd.Parameters.AddWithValue("@Address3", collection["altAddress3"]);
                 }
 
-                cmdd.Parameters.AddWithValue("@City", AM.altcitytext);
-                cmdd.Parameters.AddWithValue("@State", AM.altstatetext);
-                cmdd.Parameters.AddWithValue("@Pin", AM.altPin);
-                cmdd.Parameters.AddWithValue("@tid", AM.ddltid);
-                cmdd.Parameters.AddWithValue("@altguardian", AM.altguardian);
-                if (AM.altexecutor != null)
+
+                string altcityquery = "select city_name from tbl_city where id = " + collection["altddlcity"] + " ";
+                SqlDataAdapter altcitda = new SqlDataAdapter(altcityquery, con);
+                DataTable altcitdata = new DataTable();
+                altcitda.Fill(altcitdata);
+                string altcityname = "";
+                if (altcitdata.Rows.Count > 0)
                 {
-                    cmdd.Parameters.AddWithValue("@altexecutor", AM.altexecutor);
+                    altcityname = altcitdata.Rows[0]["city_name"].ToString();
                 }
-                else
+                cmdd.Parameters.AddWithValue("@City", altcityname);
+
+
+
+                string altstatequery = "select statename from tbl_state where state_id = " + collection["altddlstate"] + " ";
+                SqlDataAdapter altstateda = new SqlDataAdapter(altstatequery, con);
+                DataTable altstatedata = new DataTable();
+                altstateda.Fill(altstatedata);
+                string altstatename = "";
+                if (altstatedata.Rows.Count > 0)
                 {
-                    AM.altexecutor = "None";
-                    cmdd.Parameters.AddWithValue("@altexecutor", AM.altexecutor);
+                    altstatename = altstatedata.Rows[0]["statename"].ToString();
                 }
+                cmdd.Parameters.AddWithValue("@State", altstatename);
+
+
+
+
+
+
+                cmdd.Parameters.AddWithValue("@Pin", collection["altPin"]);
+                cmdd.Parameters.AddWithValue("@tid", Convert.ToInt32(Session["distid"]));
+                //cmdd.Parameters.AddWithValue("@altguardian", AM.altguardian);
+                //if (AM.altexecutor != null)
+                //{
+                //    cmdd.Parameters.AddWithValue("@altexecutor", AM.altexecutor);
+                //}
+                //else
+                //{
+                //    AM.altexecutor = "None";
+                //    cmdd.Parameters.AddWithValue("@altexecutor", AM.altexecutor);
+                //}
 
 
                 cmdd.ExecuteNonQuery();
@@ -1070,9 +1131,12 @@ namespace WillAssure.Controllers
 
 
 
-
-
                 //end
+
+
+
+
+                
 
             }
 
@@ -1087,6 +1151,7 @@ namespace WillAssure.Controllers
             SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
             DataTable dt4 = new DataTable();
             da4.Fill(dt4);
+            
             if (dt4.Rows.Count > 0)
             {
 
@@ -1105,29 +1170,29 @@ namespace WillAssure.Controllers
 
 
             // dropdown selection
-            int AppointmentofaltGuardian = 0;
-            if (AM.altguardian == "Guardian")
-            {
-                AppointmentofaltGuardian = 1;    //yes
-            }
-            else
-            {
-                AppointmentofaltGuardian = 2;    // no
-            }
+            //int AppointmentofaltGuardian = 0;
+            //if (AM.altguardian == "Guardian")
+            //{
+            //    AppointmentofaltGuardian = 1;    //yes
+            //}
+            //else
+            //{
+            //    AppointmentofaltGuardian = 2;    // no
+            //}
 
-            int altNumberofexecutors = 2;
-            if (AM.altexecutor == "Single")
-            {
-                altNumberofexecutors = 1;
-            }
-            if (AM.altexecutor == "Many Joint")
-            {
-                altNumberofexecutors = 1;
-            }
-            if (AM.altexecutor == "Many Independent")
-            {
-                altNumberofexecutors = 1;
-            }
+            //int altNumberofexecutors = 2;
+            //if (AM.altexecutor == "Single")
+            //{
+            //    altNumberofexecutors = 1;
+            //}
+            //if (AM.altexecutor == "Many Joint")
+            //{
+            //    altNumberofexecutors = 1;
+            //}
+            //if (AM.altexecutor == "Many Independent")
+            //{
+            //    altNumberofexecutors = 1;
+            //}
 
             //end
 
@@ -1150,26 +1215,331 @@ namespace WillAssure.Controllers
 
 
 
-            con.Open();
-            string rulequery2 = "update documentRules set AlternateGaurdian = " + AppointmentofaltGuardian + " , AlternateExecutors = " + altNumberofexecutors + " where tid = " + AM.ddltid + " ";
-            SqlCommand cmd6 = new SqlCommand(rulequery2, con);
-            cmd6.ExecuteNonQuery();
-            con.Close();
+            //con.Open();
+            //string rulequery2 = "update documentRules set AlternateGaurdian = " + AppointmentofaltGuardian + " , AlternateExecutors = " + altNumberofexecutors + " where tid = " + AM.ddltid + " ";
+            //SqlCommand cmd6 = new SqlCommand(rulequery2, con);
+            //cmd6.ExecuteNonQuery();
+            //con.Close();
             //end
 
 
             // update document master with latest rule id
 
-            con.Open();
-            string rquery2 = "update documentMaster set wdId = " + getruleid2 + " where tId =  " + AM.ddltid + "  ";
-            SqlCommand rcmd2 = new SqlCommand(rquery2, con);
-            rcmd2.ExecuteNonQuery();
-            con.Close();
+            //con.Open();
+            //string rquery2 = "update documentMaster set wdId = " + getruleid2 + " where tId =  " + AM.ddltid + "  ";
+            //SqlCommand rcmd2 = new SqlCommand(rquery2, con);
+            //rcmd2.ExecuteNonQuery();
+            //con.Close();
 
 
 
 
             //end
+
+
+
+
+
+            // dynamic data
+            string querydy = "";
+            string value = Convert.ToString(collection["inputfield"]);
+
+
+            ArrayList result = new ArrayList(value.Split(','));
+            string data = "";
+            
+            int getcount = 0;
+            
+            con.Open();
+            for (int i = 0; i <= result.Count; i++)
+            {
+                //getcount = count++;
+                try
+                {
+                    if (result[i].ToString() == "")
+                    {
+                        continue;
+                    }
+                }
+                catch (Exception)
+                {
+
+
+                }
+               
+
+
+                //if (getcount == change)
+
+                // dynamic appointees
+                if (getcount == 8)
+                {
+
+
+
+                    data = data.Remove(data.Length - 2, 2);
+                    data = data + "'";
+                    querydy = "insert into Appointees (Name,middleName,Surname,Gender,Pin,Address1,Identity_Proof,Identity_Proof_Value,tid,doctype,ExecutorType,Type,documentstatus) values (" + data + " , " + Convert.ToInt32(Session["distid"]) + " , '" + Session["doctype"].ToString() + "' , 'Multiple' , 'Executor' , 'Incompleted') ";
+                    SqlCommand cmdy = new SqlCommand(querydy, con);
+                    cmdy.ExecuteNonQuery();
+                    getcount = 1;
+
+                    data = "";
+                    //  change = 10;
+                    // count = 3;
+
+                    try
+                    {
+                        data = "'" + result[i].ToString() + "',";
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+
+
+
+
+
+                    continue;
+                }
+                else
+                {
+
+                    data += "'" + result[i].ToString() + "',";
+
+
+
+                }
+                getcount++;
+                //end
+
+
+
+                
+
+              
+
+                //end
+
+
+
+            }
+            con.Close();
+
+
+
+
+            int dyapid = 0;
+            con.Open();
+            string idquery = "select top 1 * from Appointees order by apId desc";
+            SqlDataAdapter idda2 = new SqlDataAdapter(idquery, con);
+            DataTable iddt2 = new DataTable();
+            idda2.Fill(iddt2);
+            if (iddt2.Rows.Count > 0)
+            {
+                dyapid = Convert.ToInt32(iddt2.Rows[0]["apId"]);
+            
+            }
+
+
+            string cq = "select city_name from tbl_city where id = " + collection["inputcity"] + " ";
+            SqlDataAdapter cda = new SqlDataAdapter(cq, con);
+            DataTable cdt = new DataTable();
+            cda.Fill(cdt);
+            string dcityname = "";
+            if (cdt.Rows.Count > 0)
+            {
+                dcityname = cdt.Rows[0]["city_name"].ToString();
+            }
+          
+
+
+
+            string sq = "select statename from tbl_state where state_id = " + collection["inputstate"] + " ";
+            SqlDataAdapter sqda = new SqlDataAdapter(sq, con);
+            DataTable sqdt = new DataTable();
+            sqda.Fill(sqdt);
+            string dstatename = "";
+            if (sqdt.Rows.Count > 0)
+            {
+                dstatename = sqdt.Rows[0]["statename"].ToString();
+            }
+
+
+
+            string updatelocation = "update Appointees set City = '"+cityname+"'  , State='"+statename+"' where apId = "+dyapid+"";
+            SqlCommand uplcmd = new SqlCommand(updatelocation,con);
+            uplcmd.ExecuteNonQuery();
+            con.Close();
+
+
+
+
+
+
+
+
+            //end
+
+
+
+
+
+
+
+
+            // dynamic alternate  data
+
+            string querydy2 = "";
+            string value2 = Convert.ToString(collection["altinputfield"]);
+
+
+            ArrayList result2 = new ArrayList(value2.Split(','));
+            string data2 = "";
+
+            int getcount2 = 0;
+
+            con.Open();
+            for (int i = 0; i <= result2.Count; i++)
+            {
+                //getcount = count++;
+                try
+                {
+                    if (result2[i].ToString() == "")
+                    {
+                        continue;
+                    }
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+
+
+                //if (getcount == change)
+
+                // dynamic alternate appointees
+                if (getcount2 == 8)
+                {
+
+
+
+                    data2 = data2.Remove(data2.Length - 2, 2);
+                    data2 = data2 + "'";
+                    querydy2 = "insert into alternate_Appointees (Name,MiddleName,Surname,Gender,Pin,Address1,Identity_Proof,Identity_Proof_Value,tid,apId) values (" + data2 + " , " + Convert.ToInt32(Session["distid"]) + " , " + appid + " )";
+                    SqlCommand cmdy2 = new SqlCommand(querydy2, con);
+                    cmdy2.ExecuteNonQuery();
+                    getcount2 = 1;
+
+                    data2 = "";
+                    //  change = 10;
+                    // count = 3;
+
+                    try
+                    {
+                        data2 = "'" + result2[i].ToString() + "',";
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+
+
+
+
+
+                    continue;
+                }
+                else
+                {
+
+                    data2 += "'" + result2[i].ToString() + "',";
+
+
+
+                }
+                getcount2++;
+                //end
+
+
+
+
+
+
+
+                //end
+
+
+
+            }
+            con.Close();
+
+
+
+
+            int dyapid2 = 0;
+            con.Open();
+            string idquery2 = "select top 1 * from alternate_Appointees order by apId desc";
+            SqlDataAdapter idda22 = new SqlDataAdapter(idquery2, con);
+            DataTable iddt22 = new DataTable();
+            idda22.Fill(iddt22);
+            if (iddt22.Rows.Count > 0)
+            {
+                dyapid2 = Convert.ToInt32(iddt22.Rows[0]["id"]);
+
+            }
+
+
+            string cq2 = "select city_name from tbl_city where id = " + collection["altinputcity"] + " ";
+            SqlDataAdapter cda2 = new SqlDataAdapter(cq2, con);
+            DataTable cdt2 = new DataTable();
+            cda2.Fill(cdt2);
+            string dcityname2 = "";
+            if (cdt2.Rows.Count > 0)
+            {
+                dcityname2 = cdt2.Rows[0]["city_name"].ToString();
+            }
+
+
+
+
+            string sq2 = "select statename from tbl_state where state_id = " + collection["inputstate"] + " ";
+            SqlDataAdapter sqda2 = new SqlDataAdapter(sq2, con);
+            DataTable sqdt2 = new DataTable();
+            sqda2.Fill(sqdt2);
+            string dstatename2 = "";
+            if (sqdt2.Rows.Count > 0)
+            {
+                dstatename2 = sqdt2.Rows[0]["statename"].ToString();
+            }
+
+
+
+            string updatelocation2 = "update alternate_Appointees set City = '" + dcityname2 + "'  , State='" + dstatename2 + "' where id = " + dyapid2 + "";
+            SqlCommand uplcmd2 = new SqlCommand(updatelocation2, con);
+            uplcmd2.ExecuteNonQuery();
+            con.Close();
+
+
+
+
+
+            //end
+
+
+
+
+
+
+
+
 
             TempData["Message"] = "true";
 
@@ -1442,6 +1812,8 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@Address1", AM.Address1);
             cmd.Parameters.AddWithValue("@Address2", AM.Address2);
             cmd.Parameters.AddWithValue("@Address3", AM.Address3);
+
+
             cmd.Parameters.AddWithValue("@City", AM.citytext);
             cmd.Parameters.AddWithValue("@State", AM.statetext);
             cmd.Parameters.AddWithValue("@Pin", AM.Pin);
@@ -1608,7 +1980,7 @@ namespace WillAssure.Controllers
      "<label for='input-1'>Type</label>" +
      "<br>" +
      "<label class='checkbox-inline'>" +
-     "<input type = 'checkbox' value='Individual' class='radio validate[required] typeonedd' id='typecheckone"+i+"' onchange='dydtypeone(this.value,this.id)' name='radio" + i + "'>Individual</label>" +
+     "<input type = 'checkbox' value='Individual' class='radio validate[required] typeonedd' id='typecheckone"+i+"' onchange='dydtypeone(this.value,this.id)' name='radio" + i + "' checked>Individual</label>" +
      "<label class='checkbox-inline'>" +
      "<input type = 'checkbox' value='Company' class='radio validate[required] typetwodd' id='typechecktwo"+i+"' onchange='dydtypetwo(this.value,this.id)' name='radio" + i + "'>Company</label>" +
      "</div>" +
@@ -1674,7 +2046,7 @@ namespace WillAssure.Controllers
         "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>State</label>" +
-                "<select id ='ddlstate" + i + "'  onchange='dynamicstate(this.value,this.id)' name='inputfield' class='form-control input-shadow validate[required] stateddl' >" +
+                "<select id ='ddlstate" + i + "'  onchange='dynamicstate(this.value,this.id)' name='inputstate' class='form-control input-shadow validate[required] stateddl' >" +
                     data +
                 "</select>" +
                 "<input data-val= 'true' data-val-number= 'The field stateid must be a number.' data-val-required= 'The stateid field is required.' id='stateid' name= 'stateid' type= 'hidden' value= '0' >" +
@@ -1688,7 +2060,7 @@ namespace WillAssure.Controllers
             "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>City</label>" +
-                "<select id='ddlcity" + i + "' class='form-control input-shadow validate[required] cityddl'  name='inputfield' >" +
+                "<select id='ddlcity" + i + "' class='form-control input-shadow validate[required] cityddl'  name='inputcity' >" +
                     "<option value='0'>--Select City--</option>" +
                 "</select>" +
 
@@ -1782,28 +2154,29 @@ namespace WillAssure.Controllers
 
     "<hr style='border:1px solid black; border-color:lightgray'>" +
 
-    "<input type='hidden' name='checking' id='txtcheck" + i + "' value=''>" +
+    
 
 
        "<br>" +
-
-    "<div class='row'>" +
-    " <div class='col-sm-1'></div>" +
-    "<div class='col-sm-2'><label for='input-1'>Add Alternate Appointees</label></div>" +
-    "<div class='col-sm-3' id='showcompany'" +
-    "<div class='form-group'>" +
+       "<center>"+
+    "<div>" +
+   "<label for='input-1' style='white-space:nowrap;'>Add Alternate Appointees For Executor : " + i + "</label>" +
+   "<br>"+
+   
+   
     "<label class='checkbox-inline'>" +
-    "<input type='checkbox' value='Yes' class='radio validate[required] dynamicaltone' id='dyradioone"+i+"'  onchange='getdradio1(this.value,this.id)' name='radio'>Yes" +
+    "<input type='checkbox' value='Yes' class='radio validate[required] dynamicaltone' id='dyradioone" + i + "'  onchange='getdradio1(this.value,this.id)' name='radio'>Yes" +
     "</label>" +
-    "<label class='checkbox-inline'>" +
-    "<input type='checkbox' value='No' class='radio validate[required] dynamicalttwo' id='dyradiotwo"+i+"'   onchange='getdradio2(this.value,this.id)' name='radio'>No" +
+    "&nbsp;&nbsp;<label class='checkbox-inline'>" +
+    "<input type='checkbox' value='No' class='radio validate[required] dynamicalttwo' id='dyradiotwo" + i + "'   onchange='getdradio2(this.value,this.id)' name='radio'>No" +
     "</label>" +
+    
+
     "</div>" +
-    "</div>" +
+"</center>"+
 
 
-
-
+    "<input type='hidden' name='checking' id='txtcheck" + i + "' >" +
 
      // alternate appointees
 
@@ -1811,7 +2184,7 @@ namespace WillAssure.Controllers
 
 
 
-     "<div id='alternateform"+i+"' style='display:none;'  > " +
+     "<div id='alternateform" +i+"' style='display:none;'  > " +
 
 
      "<div class='row'>" +
@@ -1845,7 +2218,7 @@ namespace WillAssure.Controllers
      "<label for='input-1'>Type</label>" +
      "<br>" +
      "<label class='checkbox-inline'>" +
-     "<input type = 'checkbox' value='Individual' class='radio validate[required] typeonedd' id='alttypecheckone" + i + "' onchange='altdydtypeone(this.value,this.id)' name='radio" + i + "'>Individual</label>" +
+     "<input type = 'checkbox' value='Individual' class='radio validate[required] typeonedd' id='alttypecheckone" + i + "' onchange='altdydtypeone(this.value,this.id)' name='radio" + i + "' checked>Individual</label>" +
      "<label class='checkbox-inline'>" +
      "<input type = 'checkbox' value='Company' class='radio validate[required] typetwodd' id='alttypechecktwo" + i + "' onchange='altdydtypetwo(this.value,this.id)' name='radio" + i + "'>Company</label>" +
      "</div>" +
@@ -1913,7 +2286,7 @@ namespace WillAssure.Controllers
         "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>State</label>" +
-                "<select id ='altddlstate" + i + "'  onchange='altdynamicstate(this.value,this.id)' class='form-control input-shadow validate[required] stateddl' name='altinputfield' >" +
+                "<select id ='altddlstate" + i + "'  onchange='altdynamicstate(this.value,this.id)' class='form-control input-shadow validate[required] stateddl' name='altinputstate' >" +
                     data +
                 "</select>" +
                
@@ -1926,7 +2299,7 @@ namespace WillAssure.Controllers
             "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>City</label>" +
-                "<select id='altddlcity" + i + "' class='form-control input-shadow validate[required] cityddl' name='altinputfield' >" +
+                "<select id='altddlcity" + i + "' class='form-control input-shadow validate[required] cityddl' name='altinputcity' >" +
                     "<option value='0'>--Select City--</option>" +
                 "</select>" +
 
@@ -1950,20 +2323,20 @@ namespace WillAssure.Controllers
                 "<textarea autocomplete = 'off' class='form-control input-shadow  text-input validate[required]' cols='20' id='txtaddress1" + i + "' name='altinputfield' placeholder='Enter Address1' rows='2' ></textarea>" +
             "</div>" +
         "</div>" +
-        "<div class='col-sm-3'>" + "</div>" +
-        "<div class='col-sm-9'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1'>Address 2</label>" +
-                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input ' cols='20' id='txtaddress2" + i + "' name='altinputfield' placeholder='Enter Address2' rows='2' ></textarea>" +
-            "</div>" +
-        "</div>" +
-        "<div class='col-sm-3'>" + "</div>" +
-        "<div class='col-sm-9'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1'>Address 3</label>" +
-                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input' cols='20' id='txtaddress3" + i + "' name='altinputfield' placeholder='Enter Address3' rows='2' ></textarea>" +
-            "</div>" +
-        "</div>" +
+        //"<div class='col-sm-3'>" + "</div>" +
+        //"<div class='col-sm-9'>" +
+        //    "<div class='form-group'>" +
+        //        "<label for='input-1'>Address 2</label>" +
+        //        "<textarea autocomplete = 'off' class='form-control input-shadow  text-input ' cols='20' id='txtaddress2" + i + "' name='altinputfield' placeholder='Enter Address2' rows='2' ></textarea>" +
+        //    "</div>" +
+        //"</div>" +
+        //"<div class='col-sm-3'>" + "</div>" +
+        //"<div class='col-sm-9'>" +
+        //    "<div class='form-group'>" +
+        //        "<label for='input-1'>Address 3</label>" +
+        //        "<textarea autocomplete = 'off' class='form-control input-shadow  text-input' cols='20' id='txtaddress3" + i + "' name='altinputfield' placeholder='Enter Address3' rows='2' ></textarea>" +
+        //    "</div>" +
+        //"</div>" +
     "</div>" +
 
     "<div class='row'>" +
@@ -1992,30 +2365,30 @@ namespace WillAssure.Controllers
             "</div>" +
         "</div>" +
 
-        "<div class='col-sm-3'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1'>Alt Identity Proof</label>" +
-                "<select class='form-control input-shadow' id='altsecondproof" + i + "' name='altinputfield' onchange='altsecondproofselection(this.options[this.selectedIndex].innerHTML,this.id)' >" +
-                    "<option value ='' >--Select Identity Proof--</option>" +
-                    "<option value ='Aadhaar Card' >Aadhaar Card</option>" +
-                    "<option value ='Passport' >Passport</option>" +
-                    "<option value='Driving Licences'>Driving Licences</option>" +
-                    "<option value ='Pan Card'>Pan Card</option>" +
-                 "</select>" +
-                "<input id = 'Alt_Identity_Proof' name= 'Alt_Identity_Proof_Value' type= 'hidden' value= 'None' >" +
+        //"<div class='col-sm-3'>" +
+        //    "<div class='form-group'>" +
+        //        "<label for='input-1'>Alt Identity Proof</label>" +
+        //        "<select class='form-control input-shadow' id='altsecondproof" + i + "' name='altinputfield' onchange='altsecondproofselection(this.options[this.selectedIndex].innerHTML,this.id)' >" +
+        //            "<option value ='' >--Select Identity Proof--</option>" +
+        //            "<option value ='Aadhaar Card' >Aadhaar Card</option>" +
+        //            "<option value ='Passport' >Passport</option>" +
+        //            "<option value='Driving Licences'>Driving Licences</option>" +
+        //            "<option value ='Pan Card'>Pan Card</option>" +
+        //         "</select>" +
+        //        "<input id = 'Alt_Identity_Proof' name= 'Alt_Identity_Proof_Value' type= 'hidden' value= 'None' >" +
 
-             "</div>" +
+        //     "</div>" +
 
-         "</div>" +
+        // "</div>" +
 
-         "<div class='col-sm-3'></div>" +
-        "<div class='col-sm-3'>" +
-            "<div class='form-group'>" +
-                "<label for='input-1'>Alt Identity Proof Value</label>" +
-                "<div id='altsecondappendtxt" + i + "'>" +
-                "<input autocomplete='off' class='form-control input-shadow  text-input' id='alttxtsecondproof" + i + "' name='altinputfield' placeholder='Enter Identity Proof Value'  type='text' value=''>" + "</div>" +
-            "</div>" +
-        "</div>" +
+        // "<div class='col-sm-3'></div>" +
+        //"<div class='col-sm-3'>" +
+        //    "<div class='form-group'>" +
+        //        "<label for='input-1'>Alt Identity Proof Value</label>" +
+        //        "<div id='altsecondappendtxt" + i + "'>" +
+        //        "<input autocomplete='off' class='form-control input-shadow  text-input' id='alttxtsecondproof" + i + "' name='altinputfield' placeholder='Enter Identity Proof Value'  type='text' value=''>" + "</div>" +
+        //    "</div>" +
+        //"</div>" +
     "</div>" +
 
     "</div>"+
@@ -2349,25 +2722,6 @@ namespace WillAssure.Controllers
 
 
             return structure2;
-        }
-
-
-
-
-        public ActionResult GetDynamicdata(FormCollection collection)
-        {
-
-            string value = Convert.ToString(collection["inputfield"]);
-
-            string altvalue = Convert.ToString(collection["altinputfield"]);
-
-            var state = Convert.ToInt16(Request.Form["inputstate"]);
-            var city = Convert.ToInt16(Request.Form["inputcity"]);
-
-            var altstate = Convert.ToInt16(Request.Form["altinputstate"]);
-            var altcity = Convert.ToInt16(Request.Form["altinputcity"]);
-
-            return RedirectToAction("AddAppointeesIndex", "AddAppointees");
         }
 
 

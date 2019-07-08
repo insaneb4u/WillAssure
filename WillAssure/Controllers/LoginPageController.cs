@@ -77,6 +77,7 @@ namespace WillAssure.Controllers
                 Session["willchk"] = dt.Rows[0]["Will"].ToString();
                 Session["ComparerrId"] = Convert.ToInt32(dt.Rows[0]["rId"]);
                 Session["displayname"] = dt.Rows[0]["First_Name"].ToString();
+                Session["WillType"] = dt.Rows[0]["WillType"].ToString();
                 con.Open();
                string query2 = "select * from roles where rId = "+ Session["rId"] + " ";
                SqlDataAdapter da2 = new SqlDataAdapter(query2,con);

@@ -73,8 +73,8 @@
 
 
 
-                               
-                             
+
+
                                 <div class="form-group col-sm-12" style="float: left;">
                                     <div class="col-sm-12"><label for="email" id="lblrefdist" style="font-weight: 700; font-size: 16px; ">Ref Distributer:</label></div>
                                     <form>
@@ -118,14 +118,23 @@
                                     </div>
                                     <span style="color:red;display:none" id="lblcheck">*Required</span>
                                 </div>
-                                <!--<div class="col-sm-12" style="float: left;" id="documentpricing">
 
-    </div>-->
-
-
-                                <div class="col-sm-12 text-right" style="float: left;">
-                                    <button type="button" id="btnsubmit" class="btn btn-success ">Submit</button>
+                                <div id="willtype" style="display:none;">
+                                    <label class="radio-inline">
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="typeone" name="optone" value="Quick">Quick
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" id="typetwo" name="optone" value="Detailed">Detailed
+                                    </label>
                                 </div>
+                                    <!--<div class="col-sm-12" style="float: left;" id="documentpricing">
+
+        </div>-->
+
+
+                                    <div class="col-sm-12 text-right" style="float: left;">
+                                        <button type="button" id="btnsubmit" class="btn btn-success ">Submit</button>
+                                    </div>
                             </form>
                             <button style="display:none;" class="btn btn-outline-primary btn-block m-1" id="btnotp" data-toggle="modal" data-target="#primarymodal">Primary</button>
                             <div class="clearfix"></div>
@@ -381,10 +390,19 @@
             return;
         }
 
+        var willtype = "";
+        if ($('input[name=optone]:checked').val() == "Quick") {
+            willtype = "Quick";
+        }
+        else {
+            willtype = "Detailed";
+        }
+      
+
         //  else {
 
         //      var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + $("#documenttype").val();
-        var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + getValuesSelected + "~" + $("#txtdob").val();
+        var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + getValuesSelected + "~" + $("#txtdob").val() + "~" + willtype;
 
 
         $.ajax({
@@ -560,6 +578,8 @@
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#w").val(x);
 
+            $("#willtype").show();
+
 
         }
         else {
@@ -567,6 +587,9 @@
             //alert(a);
 
             $("#w").val('');
+
+
+            $("#willtype").hide();
 
         }
 
@@ -587,7 +610,7 @@
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#c").val(x);
 
-
+           
         }
         else {
 
@@ -607,6 +630,7 @@
             //  $("#documenttype").append(x);
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#p").val(x);
+          
         }
         else {
 
@@ -622,7 +646,9 @@
             //$("#documenttype").append(x);
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#g").val(x);
+           
         }
+
         else {
             $("#g").val('');
         }
@@ -640,6 +666,7 @@
             //$("#documenttype").append(x);
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#lw").val(x);
+            
         }
         else {
 

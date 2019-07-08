@@ -35,71 +35,116 @@
                 <div class="card">
                     <div class="card-body">
 
-                        @if (Session["doctype"] != null)
+                        @if (Session["WillType"] != null)
                         {
-                            if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
+                            if (Session["WillType"].ToString() == "Quick")
                             {
-                                <h5>
-                                    <ul id="menu" style="font-weight:bold;">
-                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Donor ></li></a>
-                                        <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Donee ></li></a>
-                                        <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black">Gift ></li></a>
-                                        <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Asset Mapping ></li></a>
-                                        <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:">Witness Appointment ></li></a>
-                                        <li style="color:#e1e1e1">Document</li>
-                                    </ul>
-                                </h5>
+
+                        <h5>
+                            <ul id="menu" style="font-weight:bold;">
+                                <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:black;">TestatorFamily ></li></a>
+                                <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                    <li style="color:black;">Institution ></li>
+                                </a>
+                                <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+
+
+                                <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:black">Executor ></li></a>
+                                <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                    <li style="">Witness > </li>
+                                </a>
+
+                                <li style="color:#e1e1e1">Mapping </li>
+
+
+                            </ul>
+                        </h5>
+
                             }
                             else
                             {
-                                if (Session["Type"].ToString() != "Testator")
-                                {
-                                    <h5>
-                                        <ul id="menu" style="font-weight:bold;">
-                                            <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                <li style="color:black;">Institution ></li>
-                                            </a>
-                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                            <a href="@Url.Action("AddLiabilitiesIndex","AddLiabilities")"><li style="color:black;">Liabilites></li></a>
-                                            <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
-                                            <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
-                                            @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
-                                            <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="">Executor ></li></a>
 
-                                            <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")">
-                                                <li style="">Witness > </li>
-                                            </a>
-                                            <li style="color:#e1e1e1">Document ></li>
-                                        </ul>
-                                    </h5>
+
+                                if (Session["doctype"] != null)
+                                {
+                                    if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
+                                    {
+                                        <h5>
+                                            <ul id="menu" style="font-weight:bold;">
+                                                <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Donor ></li></a>
+                                                <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Donee ></li></a>
+                                                <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black">Gift ></li></a>
+                                                <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Asset Mapping ></li></a>
+                                                <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:">Witness Appointment ></li></a>
+                                                <li style="color:#e1e1e1">Document</li>
+                                            </ul>
+                                        </h5>
+                                    }
+                                    else
+                                    {
+                                        if (Session["Type"].ToString() != "Testator")
+                                        {
+                                            <h5>
+                                                <ul id="menu" style="font-weight:bold;">
+                                                    <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                                    <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                    <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                        <li style="color:black;">Institution ></li>
+                                                    </a>
+                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
+                                                    <a href="@Url.Action("AddLiabilitiesIndex","AddLiabilities")"><li style="color:black;">Liabilites></li></a>
+                                                    <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
+                                                    <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
+                                                    @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
+                                                    <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="">Executor ></li></a>
+
+                                                    <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")">
+                                                        <li style="">Witness > </li>
+                                                    </a>
+                                                    <li style="color:#e1e1e1">Document ></li>
+                                                </ul>
+                                            </h5>
+                                        }
+                                        else
+                                        {
+                                            <h5>
+                                                <ul id="menu" style="font-weight:bold;">
+                                                    <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                                    <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                    <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                        <li style="color:black;">Institution ></li>
+                                                    </a>
+                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
+                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Liabilites></li></a>
+                                                    <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
+                                                    <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
+                                                    @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
+                                                    <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="color:black;">Executor ></li></a>
+
+                                                    <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")">
+                                                        <li style="">Witness > </li>
+                                                    </a>
+                                                    <li style="color:#e1e1e1">Document ></li>
+                                                </ul>
+                                            </h5>
+                                        }
+
+                                    }
                                 }
                                 else
-                                {
-                                    <h5>
-                                        <ul id="menu" style="font-weight:bold;">
-                                            <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                <li style="color:black;">Institution ></li>
-                                            </a>
-                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Liabilites></li></a>
-                                            <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
-                                            <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
-                                            @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
-                                            <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="color:black;">Executor ></li></a>
 
-                                            <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")">
-                                                <li style="">Witness > </li>
-                                            </a>
-                                                <li style="color:#e1e1e1">Document ></li>
-</ul>
-                                    </h5>
+                                {
+                                    if (!Response.IsRequestBeingRedirected)
+                                    {
+                                        Response.Redirect("/LoginPage/LoginPageIndex");
+                                    }
                                 }
+
+
+
 
                             }
                         }
@@ -111,8 +156,11 @@
                                 Response.Redirect("/LoginPage/LoginPageIndex");
                             }
                         }
+
+
+
                         <br />
-              
+
                         @if (Session["doctype"] != null)
                         {
                             if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
@@ -131,9 +179,9 @@
 
 
                                 <div class="row">
-                             
-                                        <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Appointees Family Details )</h6></div></div>
-                                    </div>
+
+                                    <div class="col-sm-5" id="btneditmsg" style="display:none;"> <div class="card-title text-primary"> <h6 style="color:darkred">( You Can Now Update Appointees Family Details )</h6></div></div>
+                                </div>
 
                             }
                         }
@@ -177,32 +225,32 @@
 
 
                             @*<div class="row">
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-1"><label for="input-1" style="line-height:40px">Type</label></div>
+                <div class="col-sm-3"></div>
+                <div class="col-sm-1"><label for="input-1" style="line-height:40px">Type</label></div>
 
-                                    <div class="col-sm-3">
+                <div class="col-sm-3">
 
-                                        @if (Session["doctype"].ToString() == "Will")
-                                        {
+                    @if (Session["doctype"].ToString() == "Will")
+                    {
 
-                                            @Html.HiddenFor(m => m.ddltid, new { id = "ddltid" })
-                                            @Html.HiddenFor(m => m.ddltestatorname, new { id = "ddltestatorname" })
-                                            @Html.HiddenFor(m => m.check, new { @id = "txtcheck" })
-                                            @Html.HiddenFor(m => m.ddltid, new { @id = "ddltid" })
-                                            @Html.HiddenFor(m => m.ddltestatorname, new { id = "ddltestatorname" })
-                                            @Html.DropDownListFor(x => x.Typetxt, new SelectListItem[]{
-                                             new SelectListItem() {Text = "--Select--", Value=""},
-                                             new SelectListItem() {Text = "Executor", Value="1"},
-                                             new SelectListItem() {Text = "Guardian", Value="2"},
+                        @Html.HiddenFor(m => m.ddltid, new { id = "ddltid" })
+                        @Html.HiddenFor(m => m.ddltestatorname, new { id = "ddltestatorname" })
+                        @Html.HiddenFor(m => m.check, new { @id = "txtcheck" })
+                        @Html.HiddenFor(m => m.ddltid, new { @id = "ddltid" })
+                        @Html.HiddenFor(m => m.ddltestatorname, new { id = "ddltestatorname" })
+                        @Html.DropDownListFor(x => x.Typetxt, new SelectListItem[]{
+                         new SelectListItem() {Text = "--Select--", Value=""},
+                         new SelectListItem() {Text = "Executor", Value="1"},
+                         new SelectListItem() {Text = "Guardian", Value="2"},
 
 
-                                             new SelectListItem() {Text = "Witness", Value="5"}}, new { @class = "form-control input-shadow validate[required]", @id="ddltype" })
-                                            @Html.HiddenFor(m => m.TypeId, new { id = "TypeId" })
-                                            @Html.HiddenFor(m => m.Typetxt, new { id = "Typetxt" })
-                                        }
+                         new SelectListItem() {Text = "Witness", Value="5"}}, new { @class = "form-control input-shadow validate[required]", @id="ddltype" })
+                        @Html.HiddenFor(m => m.TypeId, new { id = "TypeId" })
+                        @Html.HiddenFor(m => m.Typetxt, new { id = "Typetxt" })
+                    }
 
-                                    </div>
-                                </div>*@
+                </div>
+            </div>*@
 
                             <hr class="div_rd">
                             /////////////////////////////////////////////////////////////////////////////////////////
@@ -392,7 +440,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof Value</label>
-                                            <div id="appendtxt">  @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Identity Proof Number", @autocomplete = "off" , @readonly="true" })</div>
+                                            <div id="appendtxt">  @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Identity Proof Number", @autocomplete = "off", @readonly = "true" })</div>
                                         </div>
                                     </div>
 
@@ -412,18 +460,18 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" , @readonly = "true" })  </div>
+                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
                                         </div>
                                     </div>
                                 </div>
 
-  
 
 
 
 
 
-                         
+
+
 
 
                             </div>
@@ -483,13 +531,52 @@
                             <div class="form-group" style="float:right">
                                 <button type="submit" id="btnDistributorformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
                                 <button type="submit" id="btnupdate" style="display:none;" formaction="UpdateAppointees" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
-                                @if (Session["distid"] != null)
-                                {
-                                    <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )">
-                                        <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
-                                        <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
 
-                                    </a>
+
+                                @if (Session["WillType"] != null)
+                                {
+                                    if (Session["WillType"].ToString() == "Quick")
+                                    {
+
+                                        if (Session["distid"] != null)
+                                        {
+                                            <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )">
+                                                <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                                <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
+
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            if (!Response.IsRequestBeingRedirected)
+                                            {
+                                                Response.Redirect("/LoginPage/LoginPageIndex");
+                                            }
+                                        }
+
+
+
+                                    }
+                                    else
+                                    {
+
+                                        if (Session["distid"] != null)
+                                        {
+                                            <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )">
+                                                <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                                <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
+
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            if (!Response.IsRequestBeingRedirected)
+                                            {
+                                                Response.Redirect("/LoginPage/LoginPageIndex");
+                                            }
+                                        }
+
+                                    }
                                 }
                                 else
                                 {
@@ -498,6 +585,10 @@
                                         Response.Redirect("/LoginPage/LoginPageIndex");
                                     }
                                 }
+
+
+
+
 
 
                                 @*<button type="button" style="display:none;" id="confirmtestatorfamily"></button>*@

@@ -31,78 +31,115 @@
                 <div class="card">
                     <div class="card-body">
 
-                        @if (Session["doctype"] != null)
+
+                        @if (Session["WillType"] != null)
                         {
-                            if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
+                            if (Session["WillType"].ToString() == "Quick")
                             {
+
                                 <h5>
                                     <ul id="menu" style="font-weight:bold;">
-                                        <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Donor ></li></a>
-                                        <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Donee ></li></a>
-                                        <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black">Gift ></li></a>
-                                        <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Asset Mapping ></li></a>
-                                        <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:">Witness Appointment ></li></a>
-                                        <li style="color:#e1e1e1">Document</li>
+                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:black;">TestatorFamily ></li></a>
+                                        <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                            <li style="color:black;">Institution ></li>
+                                        </a>
+                                        <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+
+
+                                        <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:">Executor ></li></a>
+                                        <li style="color:#e1e1e1">Witness >  </li>
+                                        <li style="color:#e1e1e1">Mapping </li>
+
                                     </ul>
                                 </h5>
                             }
                             else
                             {
-                                if (Session["Type"].ToString() != "Testator")
+                                if (Session["doctype"] != null)
                                 {
-                                    <h5>
-                                        <ul id="menu" style="font-weight:bold;">
-                                            <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Testator></li></a>
-                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                <li style="color:black;">Institution ></li>
-                                            </a>
-                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                            <a href="@Url.Action("AddLiabilitiesIndex","AddLiabilities")"><li style="color:black;">Liabilites></li></a>
-                                            <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
-                                            <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
-                                            @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
-                                            <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="">Executor ></li></a>
+                                    if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
+                                    {
+                                        <h5>
+                                            <ul id="menu" style="font-weight:bold;">
+                                                <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Donor ></li></a>
+                                                <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Donee ></li></a>
+                                                <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black">Gift ></li></a>
+                                                <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Asset Mapping ></li></a>
+                                                <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:">Witness Appointment ></li></a>
+                                                <li style="color:#e1e1e1">Document</li>
+                                            </ul>
+                                        </h5>
+                                    }
+                                    else
+                                    {
+                                        if (Session["Type"].ToString() != "Testator")
+                                        {
+                                            <h5>
+                                                <ul id="menu" style="font-weight:bold;">
+                                                    <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Testator></li></a>
+                                                    <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                    <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                        <li style="color:black;">Institution ></li>
+                                                    </a>
+                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
+                                                    <a href="@Url.Action("AddLiabilitiesIndex","AddLiabilities")"><li style="color:black;">Liabilites></li></a>
+                                                    <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
+                                                    <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
+                                                    @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
+                                                    <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="">Executor ></li></a>
 
-                                            <li style="color:#e1e1e1">Witness > </li>
-                                            <li style="color:#e1e1e1">Document ></li>
-                                        </ul>
-                                    </h5>
+                                                    <li style="color:#e1e1e1">Witness > </li>
+                                                    <li style="color:#e1e1e1">Document ></li>
+                                                </ul>
+                                            </h5>
+                                        }
+                                        else
+                                        {
+                                            <h5>
+                                                <ul id="menu" style="font-weight:bold;">
+                                                    <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                                    <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                    <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                        <li style="color:black;">Institution ></li>
+                                                    </a>
+                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
+                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Liabilites></li></a>
+                                                    <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
+                                                    <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
+                                                    @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
+                                                    <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="">Executor ></li></a>
+
+                                                    <li style="color:#e1e1e1">Witness > </li>
+                                                    <li style="color:#e1e1e1">Document ></li>
+                                                </ul>
+                                            </h5>
+                                        }
+
+                                    }
                                 }
                                 else
+
                                 {
-                                    <h5>
-                                        <ul id="menu" style="font-weight:bold;">
-                                            <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                <li style="color:black;">Institution ></li>
-                                            </a>
-                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Liabilites></li></a>
-                                            <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
-                                            <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
-                                            @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
-                                            <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="">Executor ></li></a>
-
-                                            <li style="color:#e1e1e1">Witness > </li>
-                                            <li style="color:#e1e1e1">Document ></li>
-                                        </ul>
-                                    </h5>
+                                    if (!Response.IsRequestBeingRedirected)
+                                    {
+                                        Response.Redirect("/LoginPage/LoginPageIndex");
+                                    }
                                 }
-
                             }
                         }
                         else
-
                         {
                             if (!Response.IsRequestBeingRedirected)
                             {
                                 Response.Redirect("/LoginPage/LoginPageIndex");
                             }
                         }
+
+
+
                         <br />
 
                         @if (Session["doctype"] != null)
@@ -145,7 +182,7 @@
 
 
 
-                        @using (Html.BeginForm("GetDynamicdata", null, FormMethod.Post, new { id = "DistributorForm" }))
+                        @using (Html.BeginForm("InsertAppointeesFormData", null, FormMethod.Post, new { id = "DistributorForm" }))
                         {
 
 
@@ -224,8 +261,8 @@
                                             new SelectListItem() {Text = "Single", Value="Single"},
                                             new SelectListItem() {Text = "Many Joint", Value="Many Joint"},
                                             new SelectListItem() {Text = "Many Independent", Value="Many Independent"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlsubtype" })
-                                            @Html.HiddenFor(m => m.subTypeId, new { id = "subTypeId" })
-                                            @Html.HiddenFor(m => m.subTypetxt, new { id = "subTypetxt" })
+                                            @*@Html.HiddenFor(m => m.subTypeId, new { id = "subTypeId" })
+                            @Html.HiddenFor(m => m.subTypetxt, new { id = "subTypetxt" })*@
                                         </div>
 
                                         <input type="text" style="width:245px; display:none;" id="txtnumber" class="form-control" placeholder="Enter Number Of Executor You Want" name="name" value="" />
@@ -244,7 +281,7 @@
                                             <label for="input-1">Type</label>
                                             <br />
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" value="Individual" class="radio validate[required] typeone" onchange="ddtypeone(this.value)" name="radio">Individual
+                                                <input type="checkbox" value="Individual" class="radio validate[required] typeone" onchange="ddtypeone(this.value)" name="radio" checked>Individual
                                             </label>
                                             <label class="checkbox-inline">
                                                 <input type="checkbox" value="Company" class="radio validate[required] typetwo" onchange="ddtypetwo(this.value)" name="radio">Company
@@ -273,7 +310,7 @@
                                     <div class="col-sm-3" id="ftxtname">
                                         <div class="form-group">
                                             <label for="input-1">First Name</label>
-                                            @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control input-shadow required validate[required]", @name = "inputfield", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
+                                            @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control input-shadow required validate[required]", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
                                         </div>
                                     </div>
 
@@ -319,7 +356,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">State</label>
-                                                <select id="ddlstate" class="form-control input-shadow validate[required]">
+                                                <select id="ddlstate" name="ddlstate" class="form-control input-shadow validate[required]">
                                                     <option value="@Model.statetext">@Model.statetext</option>
                                                 </select>
                                                 @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
@@ -332,7 +369,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">State</label>
-                                                <select id="ddlstate" class="form-control input-shadow validate[required]">
+                                                <select id="ddlstate" name="ddlstate" class="form-control input-shadow validate[required]">
                                                     <option value="">--Select State--</option>
                                                 </select>
                                                 @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
@@ -346,7 +383,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">City</label>
-                                                <select id="ddlcity" class="form-control input-shadow validate[required]">
+                                                <select id="ddlcity" name="ddlcity" class="form-control input-shadow validate[required]">
                                                     <option value="@Model.citytext">@Model.citytext</option>
                                                 </select>
                                                 @Html.HiddenFor(m => m.cityid, new { id = "cityid" })
@@ -359,7 +396,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">City</label>
-                                                <select id="ddlcity" class="form-control input-shadow validate[required]">
+                                                <select id="ddlcity" name="ddlcity" class="form-control input-shadow validate[required]">
                                                     <option value="">--Select City--</option>
                                                 </select>
                                                 @Html.HiddenFor(m => m.cityid, new { id = "cityid" })
@@ -512,100 +549,265 @@
 
                             <button id="btnappointeeSuccess" style="display:none;"></button>
 
-                        
 
-                        <hr style="border:1px solid black; border-color:lightgray">
-                        <div class="row">
-                            <div class="col-sm-1"></div>
-                            <div class="col-sm-2"> <label for="input-1">Add Alternate Appointees</label></div>
-                            <div class="col-sm-3" id="showcompany">
-                                <div class="form-group">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" value="Yes" class="radio validate[required] altone" name="radio">Yes
-                                    </label>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" value="No" class="radio validate[required] alttwo" name="radio">No
-                                    </label>
+
+                            <hr style="border:1px solid black; border-color:lightgray">
+                       <br />
+
+             <center>
+                 <div>
+                     <label for='input-1' style='white-space:nowrap;'>Add Alternate Executor</label>
+                     <br>
+
+
+                     <label class="checkbox-inline">
+                         <input type="checkbox" value="Yes" class="f1radio validate[required] faltone" name="fradio">Yes
+                     </label>
+                     &nbsp;&nbsp; <label class="checkbox-inline">
+                         <input type="checkbox" value="No" class="f2radio validate[required] falttwo" name="fradio">No
+                     </label>
+
+                 </div> 
+            </center> 
+
+                            @*alternate appointees*@
+                            <div id="alternateappointees">
+                                <div class="appointeesclass" style="display:none;">
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
+
+
+                                        <div class="col-sm-3" style="padding-bottom:15px;">
+                                            <div class="form-group">
+                                                <label for="input-1">Type</label>
+                                                <br />
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" value="Individual" class="radio validate[required] alttypeone" onchange="sddtypeone(this.value)" name="radio" checked>Individual
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" value="Company" class="radio validate[required] alttypetwo" onchange="sddtypetwo(this.value)" name="radio">Company
+                                                </label>
+                                            </div>
+
+                                            <input type="text" style="width:245px; display:none;" id="txtnumber" class="form-control" placeholder="Enter Number Of Executor You Want" name="name" value="" />
+                                        </div>
+
+
+                                        <div class="col-sm-2" id="scompone" style="display:none">
+                                            <div class="form-group">
+                                                <label for="input-1">Company</label>
+                                                @Html.TextBoxFor(m => m.companyname, new { @class = "form-control input-shadow validate[required]  text-input", @id = "companyname", @placeholder = "Company ", @autocomplete = "off" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3" id="scomptwo" style="display:none">
+                                            <div class="form-group">
+                                                <label for="input-1" style="white-space:nowrap;">Registration No</label>
+                                                @Html.TextBoxFor(m => m.registrationno, new { @class = "form-control input-shadow validate[required]  text-input", @id = "registrationno", @placeholder = "Registration No", @autocomplete = "off" })
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-3" id="stxtname2">
+                                            <div class="form-group">
+                                                <label for="input-1">First Name</label>
+                                                @Html.TextBoxFor(m => m.altName, new { @class = "form-control input-shadow required validate[required]", @id = "txtname2", @placeholder = "Enter Name", @autocomplete = "off" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group" id="stxtmiddlename2">
+                                                <label for="input-1">Middle Name</label>
+                                                @Html.TextBoxFor(m => m.altmiddleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename2", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group" id="stxtsurname2">
+                                                <label for="input-1">Last Name</label>
+                                                @Html.TextBoxFor(m => m.altSurname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname2", @placeholder = "Enter Surname", @autocomplete = "off" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3" id="stxtgender2">
+                                            <div class="form-group">
+                                                <label for="input-1">Gender</label>
+                                                @Html.DropDownListFor(x => x.altGender, new SelectListItem[]{
+                                                new SelectListItem() {Text = "--Select--", Value=""},
+                                                new SelectListItem() {Text = "Male", Value="Male"},
+                                                new SelectListItem() {Text = "Female", Value="Female"},
+                                                new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow validate[required]" , @id="txtgender2" })
+                                            </div>
+                                        </div>
+                                        @*<div class="col-sm-3">
+                            <label for="input-1">Number Of Executor</label>
+                            <select class="form-control" id="executorcount" onchange="getexecutorval(this.value)"></select>
+
+                        </div>*@
+
+
+
+
+
+
+
+
+
+
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
+
+
+
+
+                                        @if (Model.statetext != null)
+                                        {
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">State</label>
+                                                    <select id="altddlstate" name="altddlstate" class="form-control input-shadow validate[required]">
+                                                        <option value="@Model.statetext">@Model.statetext</option>
+                                                    </select>
+                                                    @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
+                                                    @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">State</label>
+                                                    <select id="altddlstate" name="altddlstate" class="form-control input-shadow validate[required]">
+                                                        <option value="">--Select State--</option>
+                                                    </select>
+                                                    @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
+                                                    @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
+                                                </div>
+                                            </div>
+                                        }
+
+
+
+
+                                        @if (Model.altcitytext != null)
+                                        {
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">City</label>
+                                                    <select id="altddlcity" name="altddlcity" class="form-control input-shadow validate[required]">
+                                                        <option value="@Model.altcitytext">@Model.altcitytext</option>
+                                                    </select>
+                                                    @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
+                                                    @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">City</label>
+                                                    <select id="altddlcity" name="altddlcity" class="form-control input-shadow validate[required]">
+                                                        <option value="">--Select City--</option>
+                                                    </select>
+                                                    @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
+                                                    @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
+                                                </div>
+                                            </div>
+                                        }
+
+
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Pin</label>
+                                                @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]]  text-input", @id = "txtpin2", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="input-1">Address 1</label>
+                                                @Html.TextAreaFor(m => m.altAddress1, new { @class = "form-control input-shadow validate[required]  text-input", @id = "txtaddress2alt1", @placeholder = "Enter Address1", @autocomplete = "off" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="input-1">Address 2</label>
+                                                @Html.TextAreaFor(m => m.altAddress2, new { @class = "form-control input-shadow   text-input", @id = "txtaddress2alt2", @placeholder = "Enter Address2", @autocomplete = "off" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9">
+                                            <div class="form-group">
+                                                <label for="input-1">Address 3</label>
+                                                @Html.TextAreaFor(m => m.altAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3alt3", @placeholder = "Enter Address3", @autocomplete = "off" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Identity Proof</label>
+                                                @Html.DropDownListFor(x => x.altIdentity_Proof, new SelectListItem[]{
+                                           new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                           new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                           new SelectListItem() {Text = "Passport", Value="Passport"},
+                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @onchange= "altgetIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1"> Identity Proof Value</label>
+                                                <div id="altappendtxt"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValuealt", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })</div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Alt Identity Proof</label>
+                                                @Html.DropDownListFor(x => x.altAlt_Identity_Proof, new SelectListItem[]{
+                                                new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                                  new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                           new SelectListItem() {Text = "Passport", Value="Passport"},
+                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow", @id="ddlidentityproof22alt" , @onchange= "altgetAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                                @Html.HiddenFor(m => m.altIdentity_Proof_Value, new { id = "ddlidentityproof22alt" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Alt Identity Proof Value</label>
+                                                <div id="altappendtxt2"> @Html.TextBoxFor(m => m.altAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValuealt2", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+
+
+
+
                                 </div>
                             </div>
 
-                        </div>
-
-                        @*alternate appointees*@
-                        <div id="alternateappointees">
-                            <div class="appointeesclass" style="display:none;">
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
-
-
-                                    <div class="col-sm-3" style="padding-bottom:15px;">
-                                        <div class="form-group">
-                                            <label for="input-1">Type</label>
-                                            <br />
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" value="Individual" class="radio validate[required] typeone" onchange="sddtypeone(this.value)" name="radio">Individual
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" value="Company" class="radio validate[required] typetwo" onchange="sddtypetwo(this.value)" name="radio">Company
-                                            </label>
-                                        </div>
-
-                                        <input type="text" style="width:245px; display:none;" id="txtnumber" class="form-control" placeholder="Enter Number Of Executor You Want" name="name" value="" />
-                                    </div>
-
-
-                                    <div class="col-sm-2" id="scompone" style="display:none">
-                                        <div class="form-group">
-                                            <label for="input-1">Company</label>
-                                            @Html.TextBoxFor(m => m.companyname, new { @class = "form-control input-shadow validate[required]  text-input", @id = "companyname", @placeholder = "Company ", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3" id="scomptwo" style="display:none">
-                                        <div class="form-group">
-                                            <label for="input-1" style="white-space:nowrap;">Registration No</label>
-                                            @Html.TextBoxFor(m => m.registrationno, new { @class = "form-control input-shadow validate[required]  text-input", @id = "registrationno", @placeholder = "Registration No", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-sm-3" id="stxtname2">
-                                        <div class="form-group">
-                                            <label for="input-1">First Name</label>
-                                            @Html.TextBoxFor(m => m.altName, new { @class = "form-control input-shadow required validate[required]", @id = "txtname2", @placeholder = "Enter Name", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group" id="stxtmiddlename2">
-                                            <label for="input-1">Middle Name</label>
-                                            @Html.TextBoxFor(m => m.altmiddleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename2", @placeholder = "Enter Middle Name", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group" id="stxtsurname2">
-                                            <label for="input-1">Last Name</label>
-                                            @Html.TextBoxFor(m => m.altSurname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname2", @placeholder = "Enter Surname", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="col-sm-3" id="stxtgender2">
-                                        <div class="form-group">
-                                            <label for="input-1">Gender</label>
-                                            @Html.DropDownListFor(x => x.altGender, new SelectListItem[]{
-                                            new SelectListItem() {Text = "--Select--", Value=""},
-                                            new SelectListItem() {Text = "Male", Value="Male"},
-                                            new SelectListItem() {Text = "Female", Value="Female"},
-                                            new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow validate[required]" , @id="txtgender2" })
-                                        </div>
-                                    </div>
-                                    @*<div class="col-sm-3">
-            <label for="input-1">Number Of Executor</label>
-            <select class="form-control" id="executorcount" onchange="getexecutorval(this.value)"></select>
-
-        </div>*@
 
 
 
@@ -613,240 +815,77 @@
 
 
 
+                            @*end*@
+
+                            @*dynamic control*@
 
 
+                            @*@using (Html.BeginForm("InsertDynamicData", null, FormMethod.Post, new { id = "DistributorForm1" }))
+            {*@
 
-                                </div>
-                                <hr />
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
-
-
-
-
-                                    @if (Model.statetext != null)
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">State</label>
-                                                <select id="altddlstate" class="form-control input-shadow validate[required]">
-                                                    <option value="@Model.statetext">@Model.statetext</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
-                                                @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">State</label>
-                                                <select id="altddlstate" class="form-control input-shadow validate[required]">
-                                                    <option value="">--Select State--</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
-                                                @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
-                                            </div>
-                                        </div>
-                                    }
-
-
-
-
-                                    @if (Model.altcitytext != null)
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">City</label>
-                                                <select id="altddlcity" class="form-control input-shadow validate[required]">
-                                                    <option value="@Model.altcitytext">@Model.altcitytext</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
-                                                @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">City</label>
-                                                <select id="altddlcity" class="form-control input-shadow validate[required]">
-                                                    <option value="">--Select City--</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
-                                                @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
-                                            </div>
-                                        </div>
-                                    }
-
-
-
-
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Pin</label>
-                                            @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]]  text-input", @id = "txtpin2", @placeholder = "Enter Pin", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-9">
-                                        <div class="form-group">
-                                            <label for="input-1">Address 1</label>
-                                            @Html.TextAreaFor(m => m.altAddress1, new { @class = "form-control input-shadow validate[required]  text-input", @id = "txtaddress2alt1", @placeholder = "Enter Address1", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-9">
-                                        <div class="form-group">
-                                            <label for="input-1">Address 2</label>
-                                            @Html.TextAreaFor(m => m.altAddress2, new { @class = "form-control input-shadow   text-input", @id = "txtaddress2alt2", @placeholder = "Enter Address2", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-9">
-                                        <div class="form-group">
-                                            <label for="input-1">Address 3</label>
-                                            @Html.TextAreaFor(m => m.altAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3alt3", @placeholder = "Enter Address3", @autocomplete = "off" })
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr />
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Identity Proof</label>
-                                            @Html.DropDownListFor(x => x.altIdentity_Proof, new SelectListItem[]{
-                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                       new SelectListItem() {Text = "Passport", Value="Passport"},
-                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @onchange= "altgetIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1"> Identity Proof Value</label>
-                                            <div id="altappendtxt"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtIdentityProofValuealt", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })</div>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Alt Identity Proof</label>
-                                            @Html.DropDownListFor(x => x.altAlt_Identity_Proof, new SelectListItem[]{
-                                            new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                              new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                       new SelectListItem() {Text = "Passport", Value="Passport"},
-                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow", @id="ddlidentityproof22alt" , @onchange= "altgetAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-                                            @Html.HiddenFor(m => m.altIdentity_Proof_Value, new { id = "ddlidentityproof22alt" })
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="altappendtxt2"> @Html.TextBoxFor(m => m.altAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValuealt2", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-
-
+                            <div id="dynamiccontrol">
 
 
 
                             </div>
-                        </div>
+
+                            @*}*@
 
 
-
-
-
-
-
-
-                        @*end*@
-
-                        @*dynamic control*@
-
-
-                        @*@using (Html.BeginForm("InsertDynamicData", null, FormMethod.Post, new { id = "DistributorForm1" }))
+                            @*@using (Html.BeginForm("InsertAlternateDynamicData", null, FormMethod.Post, new { id = "DistributorForm2" }))
             {*@
 
-                        <div id="dynamiccontrol">
+                            <div id="alternatedynamiccontrol">
 
 
 
-                        </div>
+                            </div>
 
-                        @*}*@
-
-
-                        @*@using (Html.BeginForm("InsertAlternateDynamicData", null, FormMethod.Post, new { id = "DistributorForm2" }))
-            {*@
-
-                        <div id="alternatedynamiccontrol">
-
-
-
-                        </div>
-
-                        @*}*@
+                            @*}*@
 
 
 
 
-                        <div class="form-group" style="float:right">
-                            @if (Session["distid"] != null)
-                            {
-
-                                <button type="submit" id="btnDistributorformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
-                                <button type="submit" id="btnupdate" style="display:none;" formaction="UpdateAppointees" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
-
-                                <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
-                                <a href="@Url.Action("AddwitnessIndex","Addwitness")">
-                                    <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
-                                </a>
-                            }
-                            else
-                            {
-                                if (!Response.IsRequestBeingRedirected)
+                            <div class="form-group" style="float:right">
+                                @if (Session["distid"] != null)
                                 {
-                                    Response.Redirect("/LoginPage/LoginPageIndex");
+
+                                    <button type="submit" id="btnDistributorformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
+                                    <button type="submit" id="btnupdate" style="display:none;" formaction="UpdateAppointees" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
+
+                                    <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                    <a href="@Url.Action("AddwitnessIndex","Addwitness")">
+                                        <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
+                                    </a>
                                 }
-                            }
-
-
-                            @*<button type="button" style="display:none;" id="confirmtestatorfamily"></button>*@
-                            @if (Session["distid"] != null)
-                            {
-                                <input type="hidden" name="name" id="testid" value="@Session["distid"]" />
-                            }
-                            else
-                            {
-                                if (!Response.IsRequestBeingRedirected)
+                                else
                                 {
-                                    Response.Redirect("/LoginPage/LoginPageIndex");
+                                    if (!Response.IsRequestBeingRedirected)
+                                    {
+                                        Response.Redirect("/LoginPage/LoginPageIndex");
+                                    }
                                 }
-                            }
+
+
+                                @*<button type="button" style="display:none;" id="confirmtestatorfamily"></button>*@
+                                @if (Session["distid"] != null)
+                                {
+                                    <input type="hidden" name="name" id="testid" value="@Session["distid"]" />
+                                }
+                                else
+                                {
+                                    if (!Response.IsRequestBeingRedirected)
+                                    {
+                                        Response.Redirect("/LoginPage/LoginPageIndex");
+                                    }
+                                }
 
 
 
-                        </div>
+                            </div>
 
 
-                    }
+                        }
                         @*end*@
                         @*end*@
                         <!--Start Back To Top Button-->
@@ -863,7 +902,7 @@
                             function dydtypeone(value, id) {
                                 var x = id.substring(12);
 
-                                
+
                                 $("#typechecktwo" + x + "").prop("checked", false);
 
                                 $("#compone" + x + "").hide();
@@ -903,7 +942,7 @@
 
                             function altdydtypeone(value, id) {
                                 var x = id.substring(15);
-                                
+
 
                                 $("#alttypechecktwo" + x + "").prop("checked", false);
 
@@ -921,9 +960,9 @@
                             }
 
                             function altdydtypetwo(value, id) {
-                                
+
                                 var x = id.substring(15);
-                           
+
                                 $("#alttypecheckone" + x + "").prop("checked", false);
 
 
@@ -935,7 +974,7 @@
                                 $("#altMiddletxthide" + x + "").hide();
                                 $("#altLasttxthide" + x + "").hide();
                                 $("#altGendertxthide" + x + "").hide();
-                               
+
 
                             }
 
@@ -950,6 +989,9 @@
 
 
                             var x = id.substring(10);
+
+                            $("#txtcheck"+x+"").val("true");
+
 
 
                             $("#dyradiotwo" + x + "").prop("checked", false);
@@ -969,9 +1011,14 @@
 
                             var x = id.substring(10);
 
+                            $("#txtcheck" + x + "").val("false");
+
                             $("#dyradioone" + x + "").prop("checked", false);
 
                             $("#alternateform" + x + "").hide();
+
+
+                            $("#txtcheck " + x + "").val("false");
 
 
                             }
@@ -1022,7 +1069,7 @@
                                function altdynamicstate(value,id) {
 
 
-                                
+
 
 
 
@@ -1056,7 +1103,7 @@
 
                                 $("#compone").hide();
                                 $("#comptwo").hide();
-
+                                $(".typetwo").prop("checked", false);
 
                                 $("#ftxtname").show();
                                 $("#ftxtmiddlename").show();
@@ -1075,6 +1122,7 @@
                                 $("#compone").show();
                                 $("#comptwo").show();
 
+                                $(".typeone").prop("checked", false);
 
                                 $("#ftxtname").hide();
                                 $("#ftxtmiddlename").hide();
@@ -1099,7 +1147,7 @@
 
                                     $("#scompone").hide();
                                     $("#scomptwo").hide();
-
+                                    $(".alttypetwo").prop("checked", false);
 
                                     $("#stxtname2").show();
                                     $("#stxtmiddlename2").show();
@@ -1117,7 +1165,7 @@
 
                                     $("#scompone").show();
                                     $("#scomptwo").show();
-
+                                    $(".alttypeone").prop("checked", false);
 
                                     $("#stxtname2").hide();
                                     $("#stxtmiddlename2").hide();
@@ -1631,16 +1679,17 @@
 
                         }
                         <script>
-                            $('.radio').on('change', function () {
+                            $('.f1radio').on('change', function () {
 
-                                $('.radio').not(this).prop('checked', false);
-                                var val = $("input[name=radio]:checked").val()
+                                $('.f1radio').not(this).prop('checked', false);
+                                var val = $("input[name=fradio]:checked").val()
 
                                 if (val == "Yes") {
 
                                     $("#showcompany").removeAttr("style");
                                     $(".appointeesclass").removeAttr("style");
                                     $("#txtcheck").val("true");
+                                    $(".f2radio").prop("checked", false);
 
                                 }
 
@@ -1648,9 +1697,20 @@
 
                                     $(".appointeesclass").css("display", "none");
                                     $("#txtcheck").val("false");
-
+                                    $(".f1radio").prop("checked", false);
                                 }
 
+
+                            });
+
+
+
+                            $('.f2radio').on('change', function () {
+
+                                $(".f1radio").prop("checked", false);
+                                $(".appointeesclass").css("display", "none");
+                                $("#txtcheck").val("false");
+                                $(".f1radio").prop("checked", false);
 
                             });
                         </script>
@@ -2241,7 +2301,7 @@
 
 
 
-                                $(".altone").prop('checked', false);
+                                $(".faltone").prop('checked', false);
                                 $(".appointeesclass").hide();
 
 
@@ -2351,7 +2411,7 @@
 
 
 
-                                $(".altone").prop('checked', false);
+                                $(".faltone").prop('checked', false);
                                 $(".appointeesclass").hide();
 
 
@@ -2397,7 +2457,7 @@
                             <script>
                                 $(document).ready(function () {
 
-                                    $(".altone").prop('checked', true);
+                                    $(".faltone").prop('checked', true);
                                     $(".appointeesclass").show();
 
                                 });
@@ -2413,93 +2473,93 @@
 
 
 
-    @*dynamic field code for identity proof*@
-    
-
-                            <script>
+                        @*dynamic field code for identity proof*@
 
 
-                                function firstproofselection(value, id) {
+                        <script>
 
 
-                                  
-
-                                    var x = id.substring(10)
+                            function firstproofselection(value, id) {
 
 
 
-                                    var st = "<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='txtfirstproof" + x + "' name='Alt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />";
-                                   
 
-
-                                    $("#firstproof").val(value);
-
-
-                                    if (value == "Aadhaar Card") {
-                                        $("#firstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='txtfirstproof' name='inputfield' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
-                                    }
-
-
-                                    if (value == "Passport") {
-                                        $("#firstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='txtfirstproof' name='inputfield'  placeholder='Enter Passport Number' autocomplete='off'  />");
-                                    }
+                                var x = id.substring(10)
 
 
 
-                                    if (value == "Driving Licences") {
-                                        $("#firstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='txtfirstproof' name='inputfield' placeholder='Enter Driving Licences' autocomplete='off'  />");
-                                    }
+                                var st = "<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='txtfirstproof" + x + "' name='Alt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />";
 
 
 
-                                    if (value == "Pan Card") {
-                                        $("#firstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='txtfirstproof' name='inputfield' placeholder='Enter Pan Card' autocomplete='off'  />");
-                                    }
+                                $("#firstproof").val(value);
 
 
+                                if (value == "Aadhaar Card") {
+                                    $("#firstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='txtfirstproof' name='inputfield' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                                }
+
+
+                                if (value == "Passport") {
+                                    $("#firstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='txtfirstproof' name='inputfield'  placeholder='Enter Passport Number' autocomplete='off'  />");
                                 }
 
 
 
-
-
-                                function secondproofselection(value, id) {
-
-
-                                    var x = id.substring(11)
-
-                               
-
-
-                                    $("#secondproof" + x + "").val(value);
-
-
-                                    if (value == "Aadhaar Card") {
-                                        $("#secondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='txtsecondproof' name='inputfield' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
-                                    }
-
-
-                                    if (value == "Passport") {
-                                        $("#secondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='txtsecondproof' name='inputfield'  placeholder='Enter Passport Number' autocomplete='off'  />");
-                                    }
-
-
-
-                                    if (value == "Driving Licences") {
-                                        $("#secondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='txtsecondproof' name='inputfield' placeholder='Enter Driving Licences' autocomplete='off'  />");
-                                    }
-
-
-
-                                    if (value == "Pan Card") {
-                                        $("#secondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='txtsecondproof' name='inputfield' placeholder='Enter Pan Card' autocomplete='off'  />");
-                                    }
-
-
+                                if (value == "Driving Licences") {
+                                    $("#firstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='txtfirstproof' name='inputfield' placeholder='Enter Driving Licences' autocomplete='off'  />");
                                 }
 
 
-                            </script>
+
+                                if (value == "Pan Card") {
+                                    $("#firstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='txtfirstproof' name='inputfield' placeholder='Enter Pan Card' autocomplete='off'  />");
+                                }
+
+
+                            }
+
+
+
+
+
+                            function secondproofselection(value, id) {
+
+
+                                var x = id.substring(11)
+
+
+
+
+                                $("#secondproof" + x + "").val(value);
+
+
+                                if (value == "Aadhaar Card") {
+                                    $("#secondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='txtsecondproof' name='inputfield' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                                }
+
+
+                                if (value == "Passport") {
+                                    $("#secondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='txtsecondproof' name='inputfield'  placeholder='Enter Passport Number' autocomplete='off'  />");
+                                }
+
+
+
+                                if (value == "Driving Licences") {
+                                    $("#secondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='txtsecondproof' name='inputfield' placeholder='Enter Driving Licences' autocomplete='off'  />");
+                                }
+
+
+
+                                if (value == "Pan Card") {
+                                    $("#secondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='txtsecondproof' name='inputfield' placeholder='Enter Pan Card' autocomplete='off'  />");
+                                }
+
+
+                            }
+
+
+                        </script>
 
 
 
@@ -2510,92 +2570,92 @@
 
 
 
-    <script>
+                        <script>
 
 
-        function altfirstproofselection(value,id) {
-
-         
-           
-
-            var x = id.substring(13)
-
-           
-
-            var st = "<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='alttxtfirstproof" + x +"' name='altinputfield' placeholder='Enter Aadhaar Card' autocomplete='off'  />";
-            alert(st);
-
-
-            $("#altfirstproof").val(value);
-
-
-            if (value == "Aadhaar Card") {
-                $("#altfirstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='alttxtfirstproof' name='altinputfield' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
-            }
-
-
-            if (value == "Passport") {
-                $("#altfirstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='alttxtfirstproof' name='altinputfield'  placeholder='Enter Passport Number' autocomplete='off'  />");
-            }
-
-
-
-            if (value == "Driving Licences") {
-                $("#altfirstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='alttxtfirstproof' name='altinputfield' placeholder='Enter Driving Licences' autocomplete='off'  />");
-            }
-
-
-
-            if (value == "Pan Card") {
-                $("#altfirstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='alttxtfirstproof' name='altinputfield' placeholder='Enter Pan Card' autocomplete='off'  />");
-            }
-
-
-        }
+                            function altfirstproofselection(value, id) {
 
 
 
 
-
-        function altsecondproofselection(value, id) {
-
-
-            var x = id.substring(14)
-
-         
-
-
-            $("#altsecondproof"+x+"").val(value);
-
-
-            if (value == "Aadhaar Card") {
-                $("#altsecondappendtxt" + x +"").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='alttxtsecondproof' name='Alt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
-            }
-
-
-            if (value == "Passport") {
-                $("#altsecondappendtxt" + x +"").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='alttxtsecondproof' name='Alt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off'  />");
-            }
+                                var x = id.substring(13)
 
 
 
-            if (value == "Driving Licences") {
-                $("#altsecondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='alttxtsecondproof' name='Alt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  />");
-            }
+                                var st = "<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='alttxtfirstproof" + x + "' name='altinputfield' placeholder='Enter Aadhaar Card' autocomplete='off'  />";
+                                alert(st);
+
+
+                                $("#altfirstproof").val(value);
+
+
+                                if (value == "Aadhaar Card") {
+                                    $("#altfirstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='alttxtfirstproof' name='altinputfield' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                                }
+
+
+                                if (value == "Passport") {
+                                    $("#altfirstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='alttxtfirstproof' name='altinputfield'  placeholder='Enter Passport Number' autocomplete='off'  />");
+                                }
 
 
 
-            if (value == "Pan Card") {
-                $("#altsecondappendtxt" + x +"").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='alttxtsecondproof' name='Alt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off'  />");
-            }
+                                if (value == "Driving Licences") {
+                                    $("#altfirstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='alttxtfirstproof' name='altinputfield' placeholder='Enter Driving Licences' autocomplete='off'  />");
+                                }
 
 
-        }
+
+                                if (value == "Pan Card") {
+                                    $("#altfirstappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='alttxtfirstproof' name='altinputfield' placeholder='Enter Pan Card' autocomplete='off'  />");
+                                }
 
 
-    </script>
+                            }
 
 
 
 
-    @*end*@
+
+                            function altsecondproofselection(value, id) {
+
+
+                                var x = id.substring(14)
+
+
+
+
+                                $("#altsecondproof" + x + "").val(value);
+
+
+                                if (value == "Aadhaar Card") {
+                                    $("#altsecondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='alttxtsecondproof' name='Alt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                                }
+
+
+                                if (value == "Passport") {
+                                    $("#altsecondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='alttxtsecondproof' name='Alt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off'  />");
+                                }
+
+
+
+                                if (value == "Driving Licences") {
+                                    $("#altsecondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='alttxtsecondproof' name='Alt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  />");
+                                }
+
+
+
+                                if (value == "Pan Card") {
+                                    $("#altsecondappendtxt" + x + "").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='alttxtsecondproof' name='Alt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off'  />");
+                                }
+
+
+                            }
+
+
+                        </script>
+
+
+
+
+                        @*end*@

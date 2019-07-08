@@ -111,13 +111,13 @@
                         </div>
 
 
-                        <textarea class="form-control input-shadow" style="display:none;" id="appendquery"></textarea>
+                        <textarea class="form-control input-shadow" style="display:;" id="appendquery"></textarea>
 
                         <br />
 
                         <div class="form-group">
-                            <button class="btn btn btn-danger" id="btnadd"><i class="fa fa-plus"></i>Add</button>
-                            <button class="btn btn btn-danger" id="btnremove"><i class="fa fa-trash"></i>Remove</button>
+                            <button class="btn btn btn-danger" id="btnadd"><i class="fa fa-plus" style="color:white;"></i>Add</button>
+                            <button class="btn btn btn-danger" id="btnremove"><i class="fa fa-trash"  style="color:white;"></i>Remove</button>
                             <button type="submit" id="btnsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
 
                         </div>
@@ -160,13 +160,13 @@
 
     function getselectionval(value) {
 
-        $("#appendquery").append("insert into Codocil (" + value + "_olddetails ," + value +"_newdetails , uId ) values (")
+        $("#appendquery").append("" + value + "_olddetails ," + value +"_newdetails" + ",")
         
 
     }
 
     function getolddetails(value) {
-        $("#appendquery").append("'" + value + "',")
+        //$("#appendquery").append("'" + value + "',")
     }
 
 
@@ -174,7 +174,7 @@
 
         var x = $("#userid").val();
 
-        $("#appendquery").append("'"+value+"'" + " , "+x+" ) ~")
+        //$("#appendquery").append("'"+value+"'" + " , "+x+" ) ~")
     }
 
 

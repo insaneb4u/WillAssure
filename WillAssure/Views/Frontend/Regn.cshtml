@@ -348,9 +348,15 @@
             }
 
         }
-        if ($(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false) {
+        //if ($(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false) {
+        //    $("#lblcheck").show();
+        //    i = 1;
+        //}
+
+
+        if (!$('.chk').is(':checked')) {
             $("#lblcheck").show();
-            i = 1;
+            return false;
         }
         if ($("#txtfirstname").val() == "") {
             $("#lblerror1").show();

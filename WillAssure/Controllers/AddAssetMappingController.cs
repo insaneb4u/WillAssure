@@ -1766,7 +1766,7 @@ namespace WillAssure.Controllers
                         if (value != null)
                         {
                             con.Open();
-                            string query1 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID , a.SchemeName , a.InstrumentName , a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + value + "";
+                            string query1 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID  , a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + value + "";
                             SqlDataAdapter da = new SqlDataAdapter(query1, con);
                             DataTable dt = new DataTable();
                             da.Fill(dt);

@@ -351,7 +351,7 @@ namespace WillAssure.Controllers
 
                         for (int i = 0; i< dt33.Rows.Count; i++)
                         {
-                            ViewBag.disablefield = "true";
+                            ViewBag.guardian = "true";
                             TFM.guaapId = Convert.ToInt32(dt33.Rows[i]["apId"]);
                             TFM.guaTypetxt = dt33.Rows[i]["Type"].ToString();
         TFM.guasubTypetxt = dt33.Rows[i]["subType"].ToString();

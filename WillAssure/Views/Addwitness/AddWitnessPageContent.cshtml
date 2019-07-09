@@ -35,31 +35,46 @@
                 <div class="card">
                     <div class="card-body">
 
+                        @if (Session["doctype"] != null)
+                        {
+                            if (Session["doctype"].ToString() != "")
+                            {
+                                <h5 style="float:right; color:#199d4b;">DocumentType  : <span class="icon-doc" style="color:#199d4b;"><b>@Session["doctype"].ToString()</b></span> </h5>
+                            }
+                        }
+                        else
+                        {
+                            if (!Response.IsRequestBeingRedirected)
+                            {
+                                Response.Redirect("/LoginPage/LoginPageIndex");
+                            }
+                        }
+
                         @if (Session["WillType"] != null)
                         {
                             if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
                             {
 
-                        <h5>
-                            <ul id="menu" style="font-weight:bold;">
-                                <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:black;">TestatorFamily ></li></a>
-                                <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                    <li style="color:black;">Institution ></li>
-                                </a>
-                                <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                <h5>
+                                    <ul id="menu" style="font-weight:bold;">
+                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:black;">TestatorFamily ></li></a>
+                                        <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                            <li style="color:black;">Institution ></li>
+                                        </a>
+                                        <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
 
 
-                                <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:black">Executor ></li></a>
-                                <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
-                                    <li style="">Witness > </li>
-                                </a>
+                                        <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:black">Executor ></li></a>
+                                        <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                            <li style="">Witness > </li>
+                                        </a>
 
-                                <li style="color:#e1e1e1">Mapping </li>
+                                        <li style="color:#e1e1e1">Mapping </li>
 
 
-                            </ul>
-                        </h5>
+                                    </ul>
+                                </h5>
 
                             }
                             else
@@ -540,7 +555,7 @@
 
                                         if (Session["distid"] != null)
                                         {
-                                            <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )">
+                                            <a href="@Url.Action("Index","QuickMapping" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )">
                                                 <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
                                                 <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
 

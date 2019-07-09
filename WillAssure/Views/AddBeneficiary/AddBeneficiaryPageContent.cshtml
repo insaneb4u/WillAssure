@@ -37,6 +37,22 @@
                     <div class="card-body">
 
 
+                        @if (Session["doctype"] != null)
+                        {
+                            if (Session["doctype"].ToString() != "")
+                            {
+                                <h5 style="float:right; color:#199d4b;">DocumentType  : <span class="icon-doc" style="color:#199d4b;"><b>@Session["doctype"].ToString()</b></span> </h5>
+                            }
+                        }
+                        else
+                        {
+                            if (!Response.IsRequestBeingRedirected)
+                            {
+                                Response.Redirect("/LoginPage/LoginPageIndex");
+                            }
+                        }
+
+
                         @if (Session["WillType"] != null)
                         {
                             if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")

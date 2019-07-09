@@ -153,6 +153,9 @@ else
                                     <a href="@Url.Action("EnableDocumentLinks","DashBoard", new { doctype = "GiftDeeds" })" id="documentbtn4" style="display:none;"><button type="button" class="btn btn-danger btn-round waves-effect waves-light m-1">Gift Deeds</button></a>
                                     <a href="@Url.Action("LivingWillIndex","LivingWill", new { doctype = "LivingWill" })" id="documentbtn5" style="display:none;"><button type="button" class="btn btn-warning btn-round waves-effect waves-light m-1">Living Will</button></a>
                                 </center>
+
+
+                                <center id="paymenttitle" style="display:;"><h4 style="color:darkred;">Please Make Payment To View Document...!</h4></center>
                             </div>
                         </div>
 
@@ -300,6 +303,7 @@ else
         $(document).ready(function () {
             $("#compdocumentbtn1").show();
             $("#documentbtn1").hide();
+       
             $("#title").hide();
         });
 
@@ -312,6 +316,7 @@ else
         $(document).ready(function () {
             $("#compdocumentbtn2").show();
             $("#documentbtn3").hide();
+          
             $("#title").hide();
 
         });
@@ -326,6 +331,7 @@ else
         $(document).ready(function () {
             $("#compdocumentbtn3").show();
             $("#documentbtn4").hide();
+      
             $("#title").hide();
         });
 
@@ -339,6 +345,7 @@ else
         $(document).ready(function () {
             $("#compdocumentbtn4").show();
             $("#documentbtn5").hide();
+        
             $("#title").hide();
         });
 
@@ -352,6 +359,7 @@ else
         $(document).ready(function () {
             $("#compdocumentbtn5").show();
             $("#documentbtn2").hide();
+         
             $("#title").hide();
         });
 
@@ -365,22 +373,26 @@ else
 @*FOR INCOMPLETED DOCUMENT*@
 
 
+
 @if (ViewBag.documentbtn1 == "true")
 {
 
     <script>
 
         $("#documentbtn1").show();
+        $("#paymenttitle").hide();
 
     </script>
 
 }
+
 @if (ViewBag.documentbtn2 == "true")
 {
 
     <script>
 
         $("#documentbtn2").show();
+        $("#paymenttitle").hide();
 
     </script>
 
@@ -391,6 +403,7 @@ else
     <script>
 
         $("#documentbtn3").show();
+        $("#paymenttitle").hide();
 
     </script>
 
@@ -401,6 +414,7 @@ else
     <script>
 
         $("#documentbtn4").show();
+        $("#paymenttitle").hide();
 
     </script>
 
@@ -412,7 +426,7 @@ else
     <script>
 
         $("#documentbtn5").show();
-
+        $("#paymenttitle").hide();
     </script>
 
 }

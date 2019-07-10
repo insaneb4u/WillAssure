@@ -22,6 +22,18 @@ namespace WillAssure.Controllers
         public ActionResult AddwitnessIndex(string NestId,string send)
         {
 
+            if (TempData["Message"] != null)
+            {
+                if (TempData["Message"].ToString() == "true")
+                {
+                    ViewBag.Message = "Verified";
+                }
+            }
+
+
+
+
+
             if (Convert.ToInt32(send) == 2 || Convert.ToInt32(send) >= 2)
             {
                 ViewBag.skip = "true";
@@ -765,7 +777,7 @@ namespace WillAssure.Controllers
                     // update document status
 
                     con.Open();
-                    string qte = "update Appointees set documentstatus = 'Incompleted' where apId =" + appid + " ";
+                    string qte = "update Appointees set documentstatus = 'Incompleted' , WillType='"+Session["WillType"].ToString()+"' where apId =" + appid + " ";
                     SqlCommand cmdte = new SqlCommand(qte, con);
                     cmdte.ExecuteNonQuery();
                     con.Close();
@@ -1028,7 +1040,7 @@ namespace WillAssure.Controllers
                 RedirectToAction("LoginPageIndex", "LoginPage");
             }
 
-           
+            TempData["Message"] = "true";
 
             // dropdown selection
             int AppointmentofGuardian = 0;

@@ -1446,7 +1446,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID  , Proportion , tid , doctype ,Type , Category , documentstatus , alternatebid) values   (  " + assettypeid + " , " + assetcatid + ", " + beneficiaryid + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "',1,'" + combine + "' , 'incompleted' , "+altbeneid+") ";
+            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID  , Proportion , tid , doctype ,Type , Category , documentstatus , alternatebid , WillType) values   (  " + assettypeid + " , " + assetcatid + ", " + beneficiaryid + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "',1,'" + combine + "' , 'incompleted' , "+altbeneid+" , '"+Session["WillType"].ToString()+"') ";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -1534,16 +1534,26 @@ namespace WillAssure.Controllers
             {
                 if (result[i].ToString() != "")
                 {
-                    con.Open();
-                    result[i].ToString();
-                    string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , alternatebid , tid , AssetType_ID , AssetCategory_ID , doctype,Type,Category,documentstatus) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettypeid + " , " + assetcatid + " , '" + Session["doctype"].ToString() + "',2,'" + combine + "' , 'incompleted')";
-                    SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                    try
+                    {
+                        con.Open();
+                        result[i].ToString();
+                        string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , alternatebid , tid , AssetType_ID , AssetCategory_ID , doctype,Type,Category,documentstatus,WillType) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettypeid + " , " + assetcatid + " , '" + Session["doctype"].ToString() + "',2,'" + combine + "' , 'incompleted','" + Session["WillType"].ToString() + "')";
+                        SqlCommand cmd = new SqlCommand(query, con);
+                        cmd.ExecuteNonQuery();
+                        con.Close();
+                    }
+                    catch (Exception)
+                    {
+
+                       
+                    }
+                
                 }
             }
 
             // if records submitted change status for assetinformation
+            con.Close();
             con.Open();
             string query2 = "update assetinformation set Remark ='Completed' where amId = " + assetcatid + "";
             SqlCommand cmd2 = new SqlCommand(query2, con);

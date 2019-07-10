@@ -619,7 +619,7 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@Pin", BM.Pin);
                 cmd.Parameters.AddWithValue("@aid", BM.aid);
                 cmd.Parameters.AddWithValue("@tid", BM.ddltid);
-                cmd.Parameters.AddWithValue("@beneficiary_type", "none");
+                cmd.Parameters.AddWithValue("@beneficiary_type", "Beneficiary");
                 cmd.ExecuteNonQuery();
                 con.Close();
 
@@ -645,7 +645,7 @@ namespace WillAssure.Controllers
                 con.Close();
 
                 con.Open();
-                string spupe = "update BeneficiaryDetails set documentstatus = 'incompleted'  where  bpid = " + bpid + " ";
+                string spupe = "update BeneficiaryDetails set documentstatus = 'incompleted' , WillType='"+Session["WillType"].ToString()+"'  where  bpid = " + bpid + " ";
                 SqlCommand cmdupe = new SqlCommand(spupe, con);
                 cmdupe.ExecuteNonQuery();
                 con.Close();
@@ -751,7 +751,7 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string spup = "update BeneficiaryDetails set fetchid = " + Convert.ToInt32(Session["uuid"]) + "  , doctype = 'POA' where  bpid = " + bpid + " ";
+                string spup = "update BeneficiaryDetails set fetchid = " + Convert.ToInt32(Session["uuid"]) + "  , doctype = 'POA' , WillType='" + Session["WillType"].ToString() + "' where  bpid = " + bpid + " ";
                 SqlCommand cmdup = new SqlCommand(spup, con);
                 cmdup.ExecuteNonQuery();
                 con.Close();
@@ -834,7 +834,7 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string spup = "update BeneficiaryDetails set fetchid = " + Convert.ToInt32(Session["uuid"]) + "  , doctype = 'Giftdeeds' where  bpid = " + bpid + " ";
+                string spup = "update BeneficiaryDetails set fetchid = " + Convert.ToInt32(Session["uuid"]) + "  , doctype = 'Giftdeeds' , WillType='" + Session["WillType"].ToString() + "' where  bpid = " + bpid + " ";
                 SqlCommand cmdup = new SqlCommand(spup, con);
                 cmdup.ExecuteNonQuery();
                 con.Close();

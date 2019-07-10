@@ -1449,7 +1449,7 @@ namespace WillAssure.Controllers
                 //{
 
                     con.Open();
-                string query = "insert into AssetInformation (atId,amId,Json,tid,uId,documentstatus,Remark) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'incompleted' , 'Incompleted' )";
+                string query = "insert into AssetInformation (atId,amId,Json,tid,uId,documentstatus,Remark,WillType) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'incompleted' , 'Incompleted' , '"+Session["WillType"].ToString()+"' )";
                 SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -1602,7 +1602,7 @@ namespace WillAssure.Controllers
                 else
                 {
                     con.Open();
-                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted')";
+                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark,WillType) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted' , '"+Session["WillType"].ToString()+"')";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -1755,7 +1755,7 @@ namespace WillAssure.Controllers
                 else
                 {
                     con.Open();
-                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted')";
+                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark,WillType) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted' , '"+Session["WillType"].ToString()+"')";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();

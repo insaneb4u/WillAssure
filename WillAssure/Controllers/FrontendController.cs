@@ -443,7 +443,7 @@ namespace WillAssure.Controllers
             //end
 
 
-            return RedirectToAction("DashBoardIndex", "DashBoard");
+             return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage");
 
 
         }

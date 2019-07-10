@@ -8,6 +8,18 @@
     ul#menu li {
         display: inline;
     }
+
+
+
+    /* Hide HTML5 Up and Down arrows. */
+    input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
 </style>
 @*Main Content*@
 <div class="content-wrapper">
@@ -278,7 +290,9 @@
                             @Html.HiddenFor(m => m.subTypetxt, new { id = "subTypetxt" })*@
                                         </div>
 
-                                        <input type="text" style="width:245px; display:none;" id="txtnumber" class="form-control" placeholder="Enter Number Of Executor You Want" name="name" value="" />
+                                        <input type="number" style="width:245px; display:none;" id="txtnumber" class="form-control" placeholder="Enter Number Of Executor You Want" name="name" value="" />
+                                        <label style="color:red; display:none;"  id="countlbl">* Min 2 Maximum 5</label>
+                                        <input type="hidden" name="counter" id="txtcounter" value="false" />
                                     </div>
 
 
@@ -481,7 +495,7 @@
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
                                        new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ", @id="ddlidentityproof11" , @onchange= "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-                                            @Html.HiddenFor(m => m.Alt_Identity_Proof_Value, new { id = "Alt_Identity_Proof" })
+                                            @*@Html.HiddenFor(m => m.Alt_Identity_Proof_Value, new { id = "Alt_Identity_Proof" })*@
                                         </div>
                                     </div>
                                     <div class="col-sm-3"></div>
@@ -857,7 +871,8 @@
                             @*}*@
 
 
-
+                            <br />
+                            <br />
 
                             <div class="form-group" style="float:right">
                                 @if (Session["distid"] != null)
@@ -1579,20 +1594,46 @@
 
                         $(document).on("keyup", "#txtnumber", function () {
 
+                            
+
+                            var reg = /^\d+$/;
+
                             var value = $("#txtnumber").val();
 
 
+                            if (reg.test(value)) {
+                                $("#countlbl").hide();
 
-                            	  $.ajax({
-                                      type: "POST",
-                                      url: "@Url.Action("DynamicControl", "AddAppointees")",
-                                      data: { "send": "" + value + "" },
-                                      success: function (data) {
+                                $("#txtcounter").val("true");
 
-                                          $("#dynamiccontrol").empty().append(data);
+                                if (value <= 5 && value >= 2) {
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "@Url.Action("DynamicControl", "AddAppointees")",
+                                        data: { "send": "" + value + "" },
+                                        success: function (data) {
 
-                                      }
-          });
+                                            $("#dynamiccontrol").empty().append(data);
+
+                                        }
+                                    });
+                                }
+                                else {
+                                    $("#countlbl").show();
+                                }
+
+      
+
+                             
+                            }
+                            else {
+                                
+                                return false;
+                            }
+
+
+
+           
 
 
 
@@ -2584,6 +2625,28 @@
 
 
                         <script>
+
+                            jQuery(document).ready(function ($) {
+
+                                // Disable scroll when focused on a number input.
+                                $('form').on('focus', 'input[type=number]', function (e) {
+                                    $(this).on('wheel', function (e) {
+                                        e.preventDefault();
+                                    });
+                                });
+
+                                // Restore scroll on number inputs.
+                                $('form').on('blur', 'input[type=number]', function (e) {
+                                    $(this).off('wheel');
+                                });
+
+                                // Disable up and down keys.
+                                $('form').on('keydown', 'input[type=number]', function (e) {
+                                    if (e.which == 38 || e.which == 40)
+                                        e.preventDefault();
+                                });
+
+                            });
 
 
                             function altfirstproofselection(value, id) {

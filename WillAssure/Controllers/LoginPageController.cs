@@ -186,25 +186,25 @@ namespace WillAssure.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("DashBoardIndex", "DashBoard");
+                            return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage");
                         }
 
 
                        
                         }
-                    
-                  
 
 
 
 
-                    return RedirectToAction("DashBoardIndex", "DashBoard");
+
+
+                    return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage");
 
 
                 }
                 else
                 {
-                    return RedirectToAction("DashBoardIndex", "DashBoard");
+                    return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage");
                 }
 
 
@@ -345,6 +345,12 @@ namespace WillAssure.Controllers
             Session["displayname"] = "";
 
             Session["nomineeform"] = "";
+
+
+            Session["typ"] = "";
+
+
+            Session["WillType"] = "";
 
 
             return View("~/Views/LoginPage/LoginPageContent.cshtml");

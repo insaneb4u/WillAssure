@@ -389,9 +389,22 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">City</label>
-                                        <select id="ddlcity" style="display:none;" class="form-control input-shadow validate[required]">
-                                            <option value="">--Select City--</option>
-                                        </select>
+
+                                        @if (Model.citytext != null)
+                                        {
+
+                                            <select id="ddlcity" style="display:none;" class="form-control input-shadow validate[required]">
+                                                <option value="@Model.citytext">@Model.citytext</option>
+                                            </select>
+                                        }
+                                        else
+                                        {
+                                            <select id="ddlcity" style="display:none;" class="form-control input-shadow validate[required]">
+                                                <option value="">--Select City--</option>
+                                            </select>
+                                        }
+
+
                                         @Html.HiddenFor(m => m.cityid, new { id = "cityid", @placeholder = "--Select City--" })
                                         @Html.TextBoxFor(m => m.citytext, new { id = "citytext", @class = "form-control input-shadow", @placeholder = "--Select City--" })
                                         <script>
@@ -555,7 +568,7 @@
                                     <div class="form-group" style="float:right">
                                         <br />
                                         <button type="submit" id="alert-success" formaction="UpdatingTestatorFormData" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update Testator</button>
-                                        <a href="@Url.Action("Checkforcompletedpage","UpdateTestators")"><button type="button" class="btn btn-danger shadow-primary px-5">Last Remaining Form&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                        <a href="@Url.Action("Checkforcompletedpage","UpdateTestators")"><button type="button" class="btn btn-danger shadow-primary px-5">Remaining Form&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                                         <button type="button" style="display:none;" id="btnTestatorformsubmitUPDATE" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
                                     </div>
                                 }
@@ -564,7 +577,7 @@
                                     <div class="form-group" style="float:right">
                                         <br />
                                         <button type="submit" id="alert-success" formaction="UpdatingTestatorFormData" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update Testator</button>
-                                        <a href="@Url.Action("Checkforcompletedpage","UpdateTestators")"><button type="button" class="btn btn-danger shadow-primary px-5">Last Remaining Form&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                        <a href="@Url.Action("Checkforcompletedpage","UpdateTestators")"><button type="button" class="btn btn-danger shadow-primary px-5">Remaining Form&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                                         <button type="button" style="display:none;" id="btnTestatorformsubmitUPDATE" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
                                     </div>
                                 }

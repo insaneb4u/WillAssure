@@ -128,12 +128,12 @@ namespace WillAssure.Controllers
         {
 
             con.Open();
-            string query = "insert into BeneficiaryInstitutions (Name,Type,registrationNo,Address,City,State,tid,documentstatus) values ('"+BIM.FirstName+"' , '"+BIM.TypeText+"' , "+BIM.RegistrationNo+" , '"+BIM.Address+"' , '"+BIM.CityText+"' , '"+BIM.StateText+"',"+Convert.ToInt32(Session["distid"])+" , 'incompleted')";
+            string query = "insert into BeneficiaryInstitutions (Name,Type,registrationNo,Address,City,State,tid,documentstatus,WillType) values ('"+BIM.FirstName+"' , '"+BIM.TypeText+"' , "+BIM.RegistrationNo+" , '"+BIM.Address+"' , '"+BIM.CityText+"' , '"+BIM.StateText+"',"+Convert.ToInt32(Session["distid"])+" , 'incompleted' , '"+Session["WillType"].ToString()+"')";
             SqlCommand cmd = new SqlCommand(query,con);
             cmd.ExecuteNonQuery();
 
 
-            string query2 = "insert into BeneficiaryDetails (First_Name,Address1,State,City,tId) values ('"+BIM.FirstName+"', '"+BIM.Address+"' , '"+BIM.StateText+"' , '"+BIM.CityText+ "'," + Convert.ToInt32(Session["distid"]) + ")";
+            string query2 = "insert into BeneficiaryDetails (First_Name,Address1,State,City,tId,beneficiary_type,WillType) values ('" + BIM.FirstName+"', '"+BIM.Address+"' , '"+BIM.StateText+"' , '"+BIM.CityText+ "'," + Convert.ToInt32(Session["distid"]) + ",'Institution','"+Session["WillType"].ToString()+"')";
             SqlCommand cmd2 = new SqlCommand(query2,con);
             cmd2.ExecuteNonQuery();
             con.Close();

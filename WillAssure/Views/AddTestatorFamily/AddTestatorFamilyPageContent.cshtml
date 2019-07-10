@@ -434,13 +434,13 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Alt Identity Proof</label>
-                                        @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
+                                        @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
                                    new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
                                    new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                    new SelectListItem() {Text = "Passport", Value="Passport"},
                                    new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
                                    new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow ", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-                                        @Html.HiddenFor(m => m.Alt_Identity_Proof, new { id = "Alt_Identity_Proof" })
+                                        
                                     </div>
                                 </div>
 
@@ -1132,7 +1132,7 @@
                                 <button type="submit" id="btntestatorsubmit" formaction="InsertTestatorFamilyFormData" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> SUBMIT</button>
                                 <button type="submit" id="btnupdate" style="display:none;" formaction="updatetestatorfamily" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
                                 <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
-                                <a href="@Url.Action("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute")"><button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                <a href="@Url.Action("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute")"><button type="button" id="btnnext" style="display:;" class="btn btn-success shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                             </div>
 
 

@@ -791,6 +791,13 @@ namespace WillAssure.Controllers
                 fid = Convert.ToInt32(dtchke.Rows[0]["fId"]);
             }
 
+
+            string qt2 = "update testatorFamily set WillType='"+Session["WillType"].ToString()+ "' where fId=" + fid + "";
+            SqlCommand cmd33e2 = new SqlCommand(qt2, con);
+            cmd33e2.ExecuteNonQuery();
+            con.Close();
+
+
             ViewBag.message = "Verified";
             con.Close();
 
@@ -993,7 +1000,7 @@ namespace WillAssure.Controllers
             cmd2.Parameters.AddWithValue("@Pin", TFM.Pin);
             cmd2.Parameters.AddWithValue("@aid", 0);
             cmd2.Parameters.AddWithValue("@tid", TFM.ddltid);
-            cmd2.Parameters.AddWithValue("@beneficiary_type", "none");
+            cmd2.Parameters.AddWithValue("@beneficiary_type", "TestatorFamily");
             cmd2.ExecuteNonQuery();
             con.Close();
 
@@ -1014,6 +1021,21 @@ namespace WillAssure.Controllers
 
 
 
+            con.Open();
+            string QUERY2 = "select top 1 bpId from BeneficiaryDetails order by bpId desc";
+            SqlDataAdapter DA2 = new SqlDataAdapter(QUERY2, con);
+            DataTable DT2 = new DataTable();
+            DA2.Fill(DT2);
+            int bpId = 0;
+            if (DT2.Rows.Count > 0)
+            {
+                bpId = Convert.ToInt32(DT2.Rows[0]["bpId"]);
+            }
+
+            con.Close();
+
+
+
             // set document status
             con.Open();
             string querye = "update testatorfamily set documentstatus = 'incompleted'  where  fId = "+tfid+"";
@@ -1021,7 +1043,11 @@ namespace WillAssure.Controllers
             cmd3e.ExecuteNonQuery();
             con.Close();
 
-
+            con.Open();
+            string querye2 = "update BeneficiaryDetails set doctype = '"+Session["doctype"].ToString()+ "'  where  bpId = " + bpId + "";
+            SqlCommand cmd3e2 = new SqlCommand(querye2, con);
+            cmd3e2.ExecuteNonQuery();
+            con.Close();
 
             //end
 
@@ -1047,7 +1073,7 @@ namespace WillAssure.Controllers
 
             // set document status
             con.Open();
-            string queryee = "update BeneficiaryDetails set documentstatus = 'incompleted'  where  bpId = " + tfide + "";
+            string queryee = "update BeneficiaryDetails set documentstatus = 'incompleted' , WillType='"+Session["WillType"].ToString()+"'  where  bpId = " + tfide + "";
             SqlCommand cmd3ee = new SqlCommand(queryee, con);
             cmd3ee.ExecuteNonQuery();
             con.Close();
@@ -1259,7 +1285,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string qu = "update BeneficiaryDetails set fetchid = 'TF' where  bpId = "+ bpid + "";
+            string qu = "update BeneficiaryDetails set fetchid = 'TF' where  bpId = "+ bpid.ToString() + "";
             SqlCommand cmdu = new SqlCommand(qu,con);
             cmdu.ExecuteNonQuery();
 

@@ -54,20 +54,21 @@
                         <br />
 
 
-                        <div id="main" style="border:1px solid green; padding:15px; border-radius:10px;">
+                        <div id='main' style='border:1px solid green; padding:15px; border-radius:10px;'>
 
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <div class="form-group">
-                                        <label for="input-1">Selection</label>
-                                        @Html.DropDownListFor(x => x.selection, new SelectListItem[]{
-                                    new SelectListItem() {Text = "--Select--", Value=""},
-                                   new SelectListItem() {Text = "beneficiary", Value="beneficiary"},
-                                   new SelectListItem() {Text = "assets", Value="assets"},
-                                   new SelectListItem() {Text = "executors", Value="executors"},
-                                    new SelectListItem() {Text = "guardian", Value="guardian"},
-                                   new SelectListItem() {Text = "liabilities", Value="liabilities"}}, new { @class = "form-control input-shadow validate[required]" , @id="ddlselection" , onchange="getselectionval(this.value)"  })
-
+                            <div class='row'>
+                                <div class='col-sm-2'>
+                                    <div class='form-group'>
+                                        <label for='input-1'>Selection</label>
+                                  
+                                        <select  class='form-control input-shadow validate[required] beneficiaryclass'  id='ddlselection0' onchange='checkbeneficiaryduplicate(this.id,this.value)' >
+                                            <option value='0'>--Select--</option>
+                                            <option value='1'>beneficiary</option>
+                                            <option value='2'>assets</option>
+                                            <option value='3'>executors</option>
+                                            <option value='4'>guardian</option>
+                                            <option value='5'>liabilities</option>
+                                        </select>
 
                                     </div>
                                 </div>
@@ -77,25 +78,24 @@
 
 
 
-                            <div class="row">
+                            <div class='row'>
 
 
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="input-1">Old Details</label>
+                                <div class='col-sm-6'>
+                                    <div class='form-group'>
+                                        <label for='input-1'>Old Details</label>
 
-                                        @Html.TextAreaFor(x => x.olddetails, new { @class = "form-control input-shadow", @id = "olddetails", onchange = "getolddetails(this.value)" })
-
+                                       
+                                        <textarea  class='form-control input-shadow'  id='olddetails0'  onchange='getolddetails(this.value)'></textarea>
                                     </div>
                                 </div>
 
 
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label for="input-1">New Details</label>
+                                <div class='col-sm-6'>
+                                    <div class='form-group'>
+                                        <label for='input-1'>New Details</label>
 
-                                        @Html.TextAreaFor(x => x.newdetails, new { @class = "form-control input-shadow", @id = "newdetails", onchange = "getnewdetails(this.value)" })
-
+                                        <textarea class='form-control input-shadow'  id ='newdetails0'  onchange='getnewdetails(this.value)'></textarea>
                                     </div>
                                 </div>
 
@@ -106,9 +106,8 @@
 
                         </div>
 
-                        <div id="cpydiv">
+                        <div id="getdata"></div>
 
-                        </div>
 
 
                         <textarea class="form-control input-shadow" style="display:;" id="appendquery"></textarea>
@@ -143,9 +142,24 @@
     var i = 0;
     $(document).on("click", "#btnadd", function () {
 
-        var x = i++;
+        //var x = i++;
 
-        $("#main").clone().find("#olddetails").val("").end().find("#newdetails").val("").end().appendTo("#cpydiv");
+        //$("#main").clone().find("#olddetails").val("").end().find("#newdetails").val("").end().appendTo("#cpydiv");
+
+
+           $.ajax({
+
+                type: "POST",
+
+                 url: "@Url.Action("getdatastructure", "Codocil")",
+                //data: { "send": "" + data + "" },
+                success: function (data) {
+
+                    $("#getdata").append(data);
+
+
+                }
+            });
 
 
     });
@@ -199,5 +213,59 @@
 
     });
 
+</script>
+
+
+
+
+
+
+
+<script>
+    function checkbeneficiaryduplicate(id, value) {
+        var fid = id.substring(12)
+        alert(fid);
+
+        
+        var dt = '';
+        var lang_name = $('#' + fid).val();
+        var selectedtext = $("#" + fid + " option:selected").text();
+        var check = 'active';
+        $(".beneficiaryclass").each(function () {
+            var myid = $(this).attr('id');
+            var myval = $('#' + myid).val();
+            if (id != myid) {
+                if (lang_name == myval && lang_name != '') {
+                    alert(selectedtext + ' already exists');
+                    $("#" + id).val('0');
+                    check = 'inactive';
+                    return false;
+                }
+
+            }
+
+
+        });
+
+
+
+
+
+        if (check == 'active') {
+            var v1 = id;
+            var v2 = v1.replace("ddlbeneficiary", "");
+
+
+
+            $("#Beneficiarytxt").val(id).attr("disabled", "disabled");
+
+
+            $("#query").append(value + ",");
+
+        }
+
+
+
+    }
 </script>
 @*end*@

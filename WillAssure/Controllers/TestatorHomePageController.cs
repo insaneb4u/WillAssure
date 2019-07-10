@@ -1568,7 +1568,7 @@ namespace WillAssure.Controllers
                     // for asset mapping 
 
 
-                    string qchk006 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID , a.SchemeName , a.InstrumentName , a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "  and a.doctype='Will'";
+                    string qchk006 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID ,  a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "  and a.doctype='Will'";
                     SqlDataAdapter chk006da = new SqlDataAdapter(qchk006, con);
                     DataTable chk006dt = new DataTable();
                     chk006da.Fill(chk006dt);

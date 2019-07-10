@@ -870,7 +870,7 @@ namespace WillAssure.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("DashBoardIndex", "DashBoard");
+                        return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage");
                     }
 
 

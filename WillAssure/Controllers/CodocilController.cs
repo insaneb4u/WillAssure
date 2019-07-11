@@ -17,16 +17,17 @@ namespace WillAssure.Controllers
 {
     public class CodocilController : Controller
     {
-        static int counter = 1; 
+         
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         SqlConnection con = new SqlConnection(connectionString);
         // GET: Codocil
+        static int counter = 1;
         public ActionResult CodocilIndex()
         {
             ViewBag.collapse = "true";
             ViewBag.cod = "true";
 
-
+            counter = 1;
             return View("~/Views/Codocil/CodocilPageContent.cshtml");
         }
 
@@ -36,21 +37,34 @@ namespace WillAssure.Controllers
             ViewBag.collapse = "true";
 
             string response = Request["send"];
-          
-            ArrayList result = new ArrayList(response.Split('~'));
 
-            for (int i = 0; i < result.Count; i++)
-            {
-                if (result[i].ToString() != "")
-                {
-                    con.Open();
-                    SqlCommand cmd = new SqlCommand(result[i].ToString(), con);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
+            string column = Request["send"].Split('~')[0];
+            column = column.Substring(0, column.Length - 1);
+
+            string value = Request["send"].Split('~')[1];
+            value = value.Substring(0,value.Length - 1);
+            //ArrayList result = new ArrayList(response.Split('~'));
+
+            //for (int i = 0; i < result.Count; i++)
+            //{
+            //    if (result[i].ToString() != "")
+            //    {
+            //        con.Open();
+            //        SqlCommand cmd = new SqlCommand(result[i].ToString(), con);
+            //        cmd.ExecuteNonQuery();
+            //        con.Close();
+            //    }
+            //}
 
 
+
+            con.Open();
+            string query = "insert into codocil  ("+column+",uId) values ("+value+","+Convert.ToInt32(Session["uuid"])+")";
+            SqlCommand cmd = new SqlCommand(query,con);
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            ViewBag.Message = "Verified";
 
             return View("~/Views/Codocil/CodocilPageContent.cshtml");
         }
@@ -68,7 +82,7 @@ namespace WillAssure.Controllers
             string structure = "";
 
 
-            structure = structure + "<div id='main"+ getcount + "' style='border:1px solid green; padding:15px; border-radius:10px;'>"+
+            structure = structure + "<div id='main"+ getcount + "' class='mainbody' style='border:1px solid green; padding:15px; border-radius:10px;'>" +
 
                             "<div class='row'>"+
                                 "<div class='col-sm-2'>"+
@@ -76,12 +90,12 @@ namespace WillAssure.Controllers
                                         "<label for='input-1'>Selection</label>"+
 
                                         "<select class='form-control input-shadow validate[required] beneficiaryclass'  id='ddlselection" + getcount + "'  onchange='checkbeneficiaryduplicate(this.id,this.value)' >" +
-                                            "<option value='1' >--Select--</ option >"+
-                                            "<option value='2'>beneficiary</option>" +
-                                            "<option value='3' >assets</ option >" +
-                                            "<option value='4'>executors</option>" +
-                                            "<option value='5' >guardian </ option >" +
-                                            "<option value='6'>liabilities</option>" +
+                                            "<option value='0' >--Select--</ option >"+
+                                            "<option value='beneficiary'>beneficiary</option>" +
+                                            "<option value='assets' >assets</ option >" +
+                                            "<option value='executors'>executors</option>" +
+                                            "<option value='guardian' >guardian </ option >" +
+                                            "<option value='liabilities'>liabilities</option>" +
                                         "</select>"+
 
                                     "</div>"+
@@ -100,7 +114,7 @@ namespace WillAssure.Controllers
                                         "<label for='input-1'>Old Details</label>"+
 
 
-                                        "<textarea  class='form-control input-shadow'  id='olddetails" + getcount + "'  onchange='getolddetails(this.value)'></textarea>" +
+                                        "<textarea  class='form-control input-shadow'  id='olddetails" + getcount + "'  onchange='getolddetails(this.value,this.id)'></textarea>" +
                                     "</div>"+
                                 "</div>"+
 
@@ -109,7 +123,7 @@ namespace WillAssure.Controllers
                                     "<div class='form-group'>"+
                                         "<label for='input-1'>New Details</label>"+
 
-                                        "<textarea class='form-control input-shadow'  id ='newdetails" + getcount + "'  onchange='getnewdetails(this.value)'></textarea>" +
+                                        "<textarea class='form-control input-shadow'  id ='newdetails" + getcount + "'  onchange='getnewdetails(this.value,this.id)'></textarea>" +
                                     "</div>"+
                                 "</div>"+
 

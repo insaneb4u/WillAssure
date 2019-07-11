@@ -31,10 +31,10 @@
                 <div class="card">
                     <div class="card-body">
 
-                 
-                                <h5 style="float:right; color:#199d4b;">DocumentType  : <span class="icon-doc" style="color:#199d4b;"><b>Codocil</b></span> </h5>
-                           
-                     
+
+                        <h5 style="float:right; color:#199d4b;">DocumentType  : <span class="icon-doc" style="color:#199d4b;"><b>Codocil</b></span> </h5>
+
+
 
 
                         <div class="card-title text-primary">Codocil</div>
@@ -54,20 +54,20 @@
                         <br />
 
 
-                        <div id='main0' style='border:1px solid green; padding:15px; border-radius:10px;'>
+                        <div id='main0' class='mainbody' style='border:1px solid green;   padding:15px; border-radius:10px;'>
 
                             <div class='row'>
                                 <div class='col-sm-2'>
                                     <div class='form-group'>
                                         <label for='input-1'>Selection</label>
-                                  
-                                        <select  class='form-control input-shadow validate[required] beneficiaryclass'  id='ddlselection0' onchange='checkbeneficiaryduplicate(this.id,this.value)' >
+
+                                        <select class='form-control input-shadow validate[required] beneficiaryclass' id='ddlselection0' onchange='checkbeneficiaryduplicate(this.id,this.value)'>
                                             <option value='0'>--Select--</option>
-                                            <option value='1'>beneficiary</option>
-                                            <option value='2'>assets</option>
-                                            <option value='3'>executors</option>
-                                            <option value='4'>guardian</option>
-                                            <option value='5'>liabilities</option>
+                                            <option value='beneficiary'>beneficiary</option>
+                                            <option value='assets'>assets</option>
+                                            <option value='executors'>executors</option>
+                                            <option value='guardian'>guardian</option>
+                                            <option value='liabilities'>liabilities</option>
                                         </select>
 
                                     </div>
@@ -85,8 +85,8 @@
                                     <div class='form-group'>
                                         <label for='input-1'>Old Details</label>
 
-                                       
-                                        <textarea  class='form-control input-shadow'  id='olddetails0'  onchange='getolddetails(this.value)'></textarea>
+
+                                        <textarea class='form-control input-shadow' id='olddetails0' onchange='getolddetails(this.value,this.id)'></textarea>
                                     </div>
                                 </div>
 
@@ -95,7 +95,7 @@
                                     <div class='form-group'>
                                         <label for='input-1'>New Details</label>
 
-                                        <textarea class='form-control input-shadow'  id ='newdetails0'  onchange='getnewdetails(this.value)'></textarea>
+                                        <textarea class='form-control input-shadow' id='newdetails0' onchange='getnewdetails(this.value,this.id)'></textarea>
                                     </div>
                                 </div>
 
@@ -110,13 +110,14 @@
 
 
 
-                        <textarea class="form-control input-shadow" style="display:;" id="appendquery"></textarea>
+                        <textarea class="form-control input-shadow" style="display:none;" id="appendquery"></textarea>
+                        <textarea class="form-control input-shadow" style="display:none;" id="appendquery2"></textarea>
 
                         <br />
 
                         <div class="form-group">
                             <button class="btn btn btn-danger" id="btnadd"><i class="fa fa-plus" style="color:white;"></i>Add</button>
-                            <button class="btn btn btn-danger" id="btnremove"><i class="fa fa-trash"  style="color:white;"></i>Remove</button>
+                            <button class="btn btn btn-danger" id="btnremove"><i class="fa fa-trash" style="color:white;"></i>Remove</button>
                             <button type="submit" id="btnsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
 
                         </div>
@@ -127,7 +128,7 @@
             </div>
             <button type="button" id="btnRoleformsubmitSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
             <button type="button" id="btnRoleformsubmitCHECK" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-
+            <button type="button" id="btntestatorfamilysubmitSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
         </div>
 
 
@@ -166,36 +167,39 @@
 
 
     $(document).on("click", "#btnremove", function () {
-        
-        $("#cpydiv").find("#main:last").remove();
+
+        $(".card-body").find(".mainbody:not(:first-child):last").remove();
         e.preventDefault();
+
+
+
 
     });
 
     function getselectionval(value) {
 
         $("#appendquery").append("" + value + "_olddetails ," + value +"_newdetails" + ",")
-        
+
 
     }
 
-    function getolddetails(value) {
-        //$("#appendquery").append("'" + value + "',")
+    function getolddetails(value,id) {
+        $("#appendquery2").append("'" + value + "',")
     }
 
 
-    function getnewdetails(value) {
+    function getnewdetails(value,id) {
 
         var x = $("#userid").val();
 
-        //$("#appendquery").append("'"+value+"'" + " , "+x+" ) ~")
+        $("#appendquery2").append("'" + value + "',")
     }
 
 
 
     $("#btnsubmit").click(function () {
 
-        var data = $("#appendquery").val();
+        var data = $("#appendquery").val() + "~" + $("#appendquery2").val();
 
            $.ajax({
 
@@ -204,7 +208,7 @@
                  url: "@Url.Action("InsertCodocilData", "Codocil")",
                 data: { "send": "" + data + "" },
                 success: function (data) {
-                   
+
 
 
                 }
@@ -224,50 +228,66 @@
 <script>
     function checkbeneficiaryduplicate(id, value) {
 
-        var fid = id.substring(12)
-        
-
-        
-        var dt = '';
-        var lang_name = $('#' + fid).val();
-        var selectedtext = $("#" + fid + " option:selected").text();
-        var check = 'active';
-        $(".beneficiaryclass").each(function () {
-            var myid = $(this).attr('id');
-            alert(selectedtext);
-            var myval = $('#' + myid).val();
-            if (id != myid) {
-                if (lang_name == myval && lang_name != '') {
-                    alert(selectedtext + ' already exists');
-                    $("#" + id).val('0');
-                    check = 'inactive';
-                    return false;
-                }
-
-            }
-
-
-        });
+        var fid = id.substring(12);
 
 
 
+        //var dt = '';
+        //var lang_name = $('#' + fid).val();
+        //var selectedtext = $("#" + fid + " option:selected").text();
+        //var check = 'active';
+        //$(".beneficiaryclass").each(function () {
+        //    var myid = $(this).attr('id').substring(12);
 
 
-        if (check == 'active') {
-            var v1 = id;
-            var v2 = v1.replace("ddlbeneficiary", "");
+        //    var myval = $('#' + myid).val();
+        //    if (id != myid) {
+        //        if (lang_name == myval && lang_name != '') {
+        //            alert(selectedtext + ' already exists');
+        //            $("#" + id).val('0');
+        //            check = 'inactive';
+        //            return false;
+        //        }
+
+        //    }
+
+
+        //});
 
 
 
-            $("#Beneficiarytxt").val(id).attr("disabled", "disabled");
 
 
-            $("#query").append(value + ",");
-
-        }
-
+        $("#appendquery").append(value + "_Olddetails," + value + "_newdetails,");
 
 
     }
 </script>
+
+
+
+@if (ViewBag.Message == "Verified")
+{
+    <script>
+
+        $(document).ready(function () {
+
+
+            $("#btntestatorfamilysubmitSUCCESS").on("click", function () { });
+
+            $("#btntestatorfamilysubmitSUCCESS").click(); //trigger event after listening to it.
+
+
+
+
+
+
+
+        });
+    </script>
+
+
+    ViewBag.Message = null;
+
+}
 @*end*@

@@ -258,6 +258,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LivingWillController.cs" />
     <Compile Include="Controllers\LoginPageController.cs" />
+    <Compile Include="Controllers\QuickMappingController.cs" />
     <Compile Include="Controllers\RoleAddController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\TestatorHomePageController.cs" />
@@ -1870,6 +1871,7 @@
     <Content Include="Views\EditBeneficiaryInstitution\EditBeneficiaryInstitution.cshtml" />
     <Content Include="Views\TestatorHomePage\TestatorHomePageContent.cshtml" />
     <Content Include="Views\Addwitness\AddWitnessPageContent.cshtml" />
+    <Content Include="Views\QuickMapping\QuickMappingPageContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

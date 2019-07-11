@@ -26,9 +26,9 @@
                 </div>
             </div>
         </div>
-        <div class="form-group col-3 text-capitalize">
+        @*<div class="form-group col-3 text-capitalize">
             <i class="fa fa-home text-dark"></i><a href="@Url.Action("TestatorHomePageIndex","TestatorHomePage")"> WillAssure</a>
-        </div>
+        </div>*@
 
         <!-- End Breadcrumb-->
         <center>
@@ -234,100 +234,6 @@
 @*end*@
 
 
-@*otp screen*@
-
-
-
-<!--Primary Modal -->
-
-<div class="modal fade" id="primarymodal">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content border-primary">
-            <div class="modal-header bg-primary">
-                <h5 class="modal-title text-white">Please Enter OTP For Login</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                @using (Html.BeginForm())
-                {
-
-
-                    <div class="row">
-                        <div class="col-sm-6">
-
-                            <div class="form-group">
-                                <label for="input-1">Enter OTP:</label>
-
-                                @Html.TextBoxFor(m => m.OTP, new { @class = "form-control input-shadow validate[required,custom[characteronly]] text-input", @id = "txtRole", @placeholder = "Enter OTP Number", @style = "width:241px;", @autocomplete = "off", alert = "LabourCost is requried" })
-                                <span style="color:red; white-space:nowrap;" id="lblerror">@Html.ValidationMessageFor(m => m.OTP)</span>
-                            </div>
-                        </div>
-
-
-
-
-                    </div>
-
-
-
-                    <div class="form-group">
-                        <input type="submit" formaction="@Url.Action("VerifyOTP","DashBoard")" name="name" class="btn btn-success" value="Verify OTP" />
-                        <a href="@Url.Action("Logout", "LoginPage")"> <button type="button" class="btn btn-danger"> Cancel</button></a>
-                    </div>
-
-                }
-
-            </div>
-
-        </div>
-    </div>
-</div><!--End Modal -->
-@*payment popup*@
-<div class="modal fade" id="primarymodal2">
-    <div class="modal-dialog">
-        <div class="modal-content border-primary">
-            <div class="modal-header bg-primary">
-                <h5 class="modal-title text-white">Payment</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-
-
-                <div class="row">
-                    <div class="col-sm-6">
-
-                        <div class="form-group">
-                            <label for="input-1" style="white-space: nowrap;">Click On The Below Button For Payment :</label>
-                            <button id="rzp-button1" class="btn btn-danger">Pay</button>
-
-                        </div>
-
-
-
-
-                    </div>
-
-
-
-
-
-
-
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-@*end*@
 
 
 

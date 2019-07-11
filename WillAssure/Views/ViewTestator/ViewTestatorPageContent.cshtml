@@ -193,10 +193,10 @@
             url: "@Url.Action("UpdateTestatorForm", "ViewTestator")",
             data: {  "send": "" + id + ""   },
             success: function (data) {
-
+               
 
                 var NestId = data
-                var url = "/WillDetails/WillDetailsIndex?NestId=" + NestId;
+                var url = "/page/Report.aspx?NestId=" + NestId;
                 window.location.href = url;
 
 

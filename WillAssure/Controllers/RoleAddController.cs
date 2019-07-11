@@ -124,35 +124,54 @@ namespace WillAssure.Controllers
 
             }
             // roleassignment
-            List<LoginModel> Lmlist = new List<LoginModel>();
-            string q = "select * from Assignment_Roles where RoleId = " + Convert.ToInt32(Session["rId"]) + "";
-            SqlDataAdapter da3 = new SqlDataAdapter(q, con);
-            DataTable dt3 = new DataTable();
-            da3.Fill(dt3);
-            if (dt3.Rows.Count > 0)
+            if (Session["Type"].ToString() == "SuperAdmin" || Session["Type"].ToString() == "Distributor")
             {
-
-                for (int i = 0; i < dt3.Rows.Count; i++)
+                List<LoginModel> Lmlist = new List<LoginModel>();
+                con.Open();
+                string q = "select * from Assignment_Roles where RoleId = " + Convert.ToInt32(Session["rId"]) + "";
+                SqlDataAdapter da3 = new SqlDataAdapter(q, con);
+                DataTable dt3 = new DataTable();
+                da3.Fill(dt3);
+                if (dt3.Rows.Count > 0)
                 {
-                    LoginModel lm = new LoginModel();
-                    lm.PageName = dt3.Rows[i]["PageName"].ToString();
-                    lm.PageStatus = dt3.Rows[i]["PageStatus"].ToString();
-                    lm.Action = dt3.Rows[i]["Action"].ToString();
-                    lm.Nav1 = dt3.Rows[i]["Nav1"].ToString();
-                    lm.Nav2 = dt3.Rows[i]["Nav2"].ToString();
+
+                    for (int i = 0; i < dt3.Rows.Count; i++)
+                    {
+                        LoginModel lm = new LoginModel();
+                        lm.PageName = dt3.Rows[i]["PageName"].ToString();
+                        lm.PageStatus = dt3.Rows[i]["PageStatus"].ToString();
+                        lm.Action = dt3.Rows[i]["Action"].ToString();
+                        lm.Nav1 = dt3.Rows[i]["Nav1"].ToString();
+                        lm.Nav2 = dt3.Rows[i]["Nav2"].ToString();
+
+                        Lmlist.Add(lm);
+                    }
 
 
-                    Lmlist.Add(lm);
+
+                    ViewBag.PageName = Lmlist;
+
+
+
+
                 }
 
 
 
-                ViewBag.PageName = Lmlist;
-                //end
 
 
 
             }
+            else
+            {
+
+                ViewBag.Testatorpopup = "true";
+
+            }
+
+
+
+        
             return View("~/Views/RoleAdd/AddRoleContentPage.cshtml");
         }
 

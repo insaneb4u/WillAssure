@@ -46,7 +46,7 @@
                 <h5>
                     <ul id="menu" style="font-weight:bold;">
 
-                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Donor ></li></a>
+                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Donor ></li></a>
                         <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Donee ></li></a>
                         <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black">Gift ></li></a>
                         <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Asset Mapping ></li></a>
@@ -63,7 +63,7 @@
                     <ul id="menu" style="font-weight:bold;">
 
 
-                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Testator></li></a>
                         <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
                         <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
                             <li style="color:black;">Institution ></li>
@@ -174,8 +174,20 @@
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div id="tabe-1" class="container tab-pane active">
-                                
-                                <center><a href="@Url.Action("EditTestatorIndex","EditTestator" , new { doctype = Session["doctype"].ToString()  })"><input type="button" class="btn btn-primary" name="name" value="Edit TestatorDetails" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+
+                                @if (Session["Type"] != null)
+                                {
+                                    if (Session["Type"].ToString() == "SuperAdmin" || Session["Type"].ToString() == "Distributor")
+                                    {
+                                        <center><a href="@Url.Action("ViewDocumentIndex","ViewDocument" , new { doctype = Session["doctype"].ToString()  })"><input type="button" class="btn btn-primary" name="name" value="Edit TestatorDetails" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                    }
+                                    else
+                                    {
+                                        <center><a href="@Url.Action("EditTestatorIndex","EditTestator" , new { doctype = Session["doctype"].ToString()  })"><input type="button" class="btn btn-primary" name="name" value="Edit TestatorDetails" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                    }
+                                }
+
+
 
                                 <div class="row">
                                     @if (ViewBag.TestatorDetails != null)

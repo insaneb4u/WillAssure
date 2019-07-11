@@ -204,7 +204,7 @@ namespace WillAssure.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage");
+                    return RedirectToAction("DashBoardIndex", "DashBoard");
                 }
 
 
@@ -351,6 +351,9 @@ namespace WillAssure.Controllers
 
 
             Session["WillType"] = "";
+
+
+            Session["testatorID"] = "";
 
 
             return View("~/Views/LoginPage/LoginPageContent.cshtml");

@@ -24,8 +24,8 @@ namespace WillAssure.Controllers
         public ActionResult AddMainAssetsIndex(string NestId)
         {
 
-    
-            
+
+
 
 
             if (NestId != null)
@@ -146,7 +146,7 @@ namespace WillAssure.Controllers
             if (Session["rId"] == null || Session["uuid"] == null)
             {
 
-               RedirectToAction("LoginPageIndex", "LoginPage");
+                RedirectToAction("LoginPageIndex", "LoginPage");
 
             }
             //if (Session["tid"] == null)
@@ -208,7 +208,7 @@ namespace WillAssure.Controllers
                     aaid = Convert.ToInt32(dt44.Rows[0]["aiid"]);
                 }
 
-             
+
 
             }
 
@@ -265,7 +265,7 @@ namespace WillAssure.Controllers
                         }
 
 
-                        
+
                     }
 
 
@@ -306,20 +306,20 @@ namespace WillAssure.Controllers
                                 {
                                     index = count++;
 
-                                    structure = structure + "<form>"+
+                                    structure = structure + "<form>" +
                                  "<div class='col-sm-3'>" +
                                   "<div class='form-group'>" +
-                                  "<input type='hidden' id='col"+ index + "' value='" + first+ "'  />" +
-                                  "<input type='hidden' id='c"+ index + "' value='" + second + "'  />" +
+                                  "<input type='hidden' id='col" + index + "' value='" + first + "'  />" +
+                                  "<input type='hidden' id='c" + index + "' value='" + second + "'  />" +
                                   "<label for='input-1'>" + second + "</label>" +
                                   "<input type='text' id=" + index + " name='inputtxt' class='form-control' style='width:150px;' value='" + kv.Value + "'   />" +
                                   "</div>" +
-                                  "</div>"+
+                                  "</div>" +
                                   "</form>";
-                                 
+
                                 }
 
-                              
+
 
 
 
@@ -417,10 +417,10 @@ namespace WillAssure.Controllers
                     NM.nomcitytext = dt22.Rows[i]["City"].ToString();
                     NM.nomstatetext = dt22.Rows[i]["State"].ToString();
                     NM.nomPin = dt22.Rows[i]["Pin"].ToString();
-                    
+
 
                     NM.nomcreatedBy = dt22.Rows[i]["createdBy"].ToString();
-                    
+
                     NM.nomDescription_of_Assets = dt22.Rows[i]["Description_of_Assets"].ToString();
 
 
@@ -436,7 +436,7 @@ namespace WillAssure.Controllers
 
 
 
-            return View("~/Views/AddMainAssets/AddMainAssetsPageContent.cshtml",NM);
+            return View("~/Views/AddMainAssets/AddMainAssetsPageContent.cshtml", NM);
         }
 
 
@@ -607,7 +607,7 @@ namespace WillAssure.Controllers
             int response = Convert.ToInt32(Request["send"]);
             TempData["atid"] = response;
             con.Open();
-            string query = "select * from AssetsCategory where atId = "+ response + "";
+            string query = "select * from AssetsCategory where atId = " + response + "";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -640,12 +640,12 @@ namespace WillAssure.Controllers
         }
 
 
-        public string  OnChangeDDLCat()
+        public string OnChangeDDLCat()
         {
             int response = Convert.ToInt32(Request["send"]);
             TempData["amid"] = response;
             con.Open();
-            string query = "select * from AssetsInfo where amId = "+response+" ";
+            string query = "select * from AssetsInfo where amId = " + response + " ";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt3 = new DataTable();
             da.Fill(dt3);
@@ -670,7 +670,7 @@ namespace WillAssure.Controllers
 
                     if (dt3.Rows[i]["DueDateControls"].ToString() != "")
                     {
-                     
+
                         column = column + "<input type=" + dt3.Rows[i]["DueDateControls"].ToString() + "   class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.dueDateControls = dt3.Rows[i]["DueDateControls"].ToString();
                     }
@@ -694,11 +694,11 @@ namespace WillAssure.Controllers
                             string testString = dt3.Rows[i]["CurrentStatusValues"].ToString();
                             ArrayList result = new ArrayList(testString.Split('/'));
 
-                            column = column + " <br> <label class='radio-inline' >  <input type='radio'  id='ddlrole' name='Currentradio' value=" + result[0]+" checked> " + result[0]+ "</label>  <label class='radio - inline'> <input type='radio' id='ddlrole' name='Currentradio'  value=" + result[1] + ">" + result[1]+ "</label></div></div>";
-                           
+                            column = column + " <br> <label class='radio-inline' >  <input type='radio'  id='ddlrole' name='Currentradio' value=" + result[0] + " checked> " + result[0] + "</label>  <label class='radio - inline'> <input type='radio' id='ddlrole' name='Currentradio'  value=" + result[1] + ">" + result[1] + "</label></div></div>";
+
 
                         }
-                      
+
                         MAM.CurrentStatusValues = dt3.Rows[i]["CurrentStatusValues"].ToString();
 
                     }
@@ -717,7 +717,7 @@ namespace WillAssure.Controllers
 
                     if (dt3.Rows[i]["IssuedByControls"].ToString() != "")
                     {
-                       
+
                         column = column + "<input type=" + dt3.Rows[i]["IssuedByControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.column = dt3.Rows[i]["IssuedByControls"].ToString();
 
@@ -739,16 +739,16 @@ namespace WillAssure.Controllers
                         if (dt3.Rows[i]["LocationControls"].ToString() == "TextArea")
                         {
 
-                            
+
 
                             column = column + "<textarea class='form-control input-shadow validate[required]' name='inputName'></textarea></div></div>";
-                         
+
 
                         }
                         else
                         {
                             column = column + "<input type=" + dt3.Rows[i]["LocationControls"].ToString() + " class='form-control input-shadow' /></div></div>";
-                            
+
                         }
                         MAM.LocationControls = dt3.Rows[i]["LocationControls"].ToString();
                     }
@@ -766,7 +766,7 @@ namespace WillAssure.Controllers
 
                     if (dt3.Rows[i]["IdentifierControls"].ToString() != "")
                     {
-                      
+
                         column = column + "<input type=" + dt3.Rows[i]["IdentifierControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName'/></div></div>";
                         MAM.IdentifierControls = dt3.Rows[i]["IdentifierControls"].ToString();
                     }
@@ -782,7 +782,7 @@ namespace WillAssure.Controllers
                     }
                     if (dt3.Rows[i]["assetsValueControls"].ToString() != "")
                     {
-                        
+
                         column = column + "<input type=" + dt3.Rows[i]["assetsValueControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.assetsValueControls = dt3.Rows[i]["assetsValueControls"].ToString();
                     }
@@ -796,7 +796,7 @@ namespace WillAssure.Controllers
                     }
                     if (dt3.Rows[i]["CertificateNumberControls"].ToString() != "")
                     {
-                    
+
                         column = column + "<input type=" + dt3.Rows[i]["CertificateNumberControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.CertificateNumberControls = dt3.Rows[i]["CertificateNumberControls"].ToString();
                     }
@@ -811,7 +811,7 @@ namespace WillAssure.Controllers
 
                     if (dt3.Rows[i]["PropertyDescriptionControls"].ToString() != "")
                     {
-                      
+
                         column = column + "<input type=" + dt3.Rows[i]["PropertyDescriptionControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName'/></div></div>";
                         MAM.PropertyDescriptionControls = dt3.Rows[i]["PropertyDescriptionControls"].ToString();
 
@@ -826,7 +826,7 @@ namespace WillAssure.Controllers
                     }
                     if (dt3.Rows[i]["QtyControls"].ToString() != "")
                     {
-                     
+
                         column = column + "<input type=" + dt3.Rows[i]["QtyControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.QtyControls = dt3.Rows[i]["QtyControls"].ToString();
                     }
@@ -840,7 +840,7 @@ namespace WillAssure.Controllers
                     }
                     if (dt3.Rows[i]["WeightControls"].ToString() != "")
                     {
-                       
+
                         column = column + "<input type=" + dt3.Rows[i]["WeightControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.WeightControls = dt3.Rows[i]["WeightControls"].ToString();
                     }
@@ -864,12 +864,12 @@ namespace WillAssure.Controllers
 
 
                         }
-                       
+
                         MAM.OwnerShipValues = dt3.Rows[i]["OwnerShipValues"].ToString();
 
 
                     }
-                   
+
                     if (dt3.Rows[i]["Remark"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["Remark"].ToString();
@@ -882,7 +882,7 @@ namespace WillAssure.Controllers
                         column = column + "<input type=" + dt3.Rows[i]["RemarkControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.RemarkControls = dt3.Rows[i]["RemarkControls"].ToString();
                     }
-                
+
                     if (dt3.Rows[i]["Nomination"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["Nomination"].ToString();
@@ -913,7 +913,7 @@ namespace WillAssure.Controllers
                         MAM.NominationControls = dt3.Rows[i]["NominationControls"].ToString();
 
                     }
-                  
+
                     if (dt3.Rows[i]["NomineeDetails"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["NomineeDetails"].ToString();
@@ -928,7 +928,7 @@ namespace WillAssure.Controllers
                         column = column + "<input type=" + dt3.Rows[i]["NomineeDetailsControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' id='txtnominee' /> </div></div>";
                         MAM.NomineeDetailsControls = dt3.Rows[i]["NomineeDetailsControls"].ToString();
                     }
-       
+
                     if (dt3.Rows[i]["Name"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["Name"].ToString();
@@ -942,7 +942,7 @@ namespace WillAssure.Controllers
                         column = column + "<input type=" + dt3.Rows[i]["NameControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.NameControls = dt3.Rows[i]["NameControls"].ToString();
                     }
-                   
+
                     if (dt3.Rows[i]["RegisteredAddress"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["RegisteredAddress"].ToString();
@@ -955,7 +955,7 @@ namespace WillAssure.Controllers
                         column = column + "<input type=" + dt3.Rows[i]["RegisteredAddressControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.RegisteredAddressControls = dt3.Rows[i]["RegisteredAddressControls"].ToString();
                     }
-                 
+
                     if (dt3.Rows[i]["PermanentAddress"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["PermanentAddress"].ToString();
@@ -968,7 +968,7 @@ namespace WillAssure.Controllers
                         column = column + "<input type=" + dt3.Rows[i]["PermanentAddressControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.PermanentAddressControls = dt3.Rows[i]["PermanentAddressControls"].ToString();
                     }
-                  
+
                     if (dt3.Rows[i]["Identity_proof"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["Identity_proof"].ToString();
@@ -981,7 +981,7 @@ namespace WillAssure.Controllers
                         column = column + "<input type=" + dt3.Rows[i]["Identity_proofControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.Identity_proofControls = dt3.Rows[i]["Identity_proofControls"].ToString();
                     }
-            
+
                     if (dt3.Rows[i]["Identity_proof_value"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["Identity_proof_value"].ToString();
@@ -994,7 +994,7 @@ namespace WillAssure.Controllers
                         column = column + "<input type=" + dt3.Rows[i]["Identity_proof_valueControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.Identity_proof_valueControls = dt3.Rows[i]["Identity_proof_valueControls"].ToString();
                     }
-                  
+
                     if (dt3.Rows[i]["Alt_Identity_proof"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["Alt_Identity_proof"].ToString();
@@ -1007,7 +1007,7 @@ namespace WillAssure.Controllers
                         column = column + "<input type=" + dt3.Rows[i]["Alt_Identity_proofControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.Alt_Identity_proofControls = dt3.Rows[i]["Alt_Identity_proofControls"].ToString();
                     }
-                 
+
                     if (dt3.Rows[i]["Alt_Identity_proof_value"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["Alt_Identity_proof_value"].ToString();
@@ -1020,7 +1020,7 @@ namespace WillAssure.Controllers
                         column = column + "<input type=" + dt3.Rows[i]["Alt_Identity_proof_valueControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.Alt_Identity_proof_valueControls = dt3.Rows[i]["Alt_Identity_proof_valueControls"].ToString();
                     }
-           
+
                     if (dt3.Rows[i]["Phone"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["Phone"].ToString();
@@ -1033,7 +1033,7 @@ namespace WillAssure.Controllers
                         column = column + "<input type=" + dt3.Rows[i]["PhoneControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' /></div></div>";
                         MAM.PhoneControls = dt3.Rows[i]["PhoneControls"].ToString();
                     }
-                   
+
                     if (dt3.Rows[i]["Mobile"].ToString() != "")
                     {
                         string testString = dt3.Rows[i]["Mobile"].ToString();
@@ -1210,7 +1210,7 @@ namespace WillAssure.Controllers
             // string response = Convert.ToString(Request["send"]);
             MainAssetsModel MAM = new MainAssetsModel();
             MainAssetsModel JSON = new MainAssetsModel();
-            List<MainAssetsModel> assetlist = new List<MainAssetsModel>(); 
+            List<MainAssetsModel> assetlist = new List<MainAssetsModel>();
             string data = TempData["mydata"].ToString();
             MainAssetsModel obj = JsonConvert.DeserializeObject<MainAssetsModel>(data);
             string value = Convert.ToString(collection["inputName"]);
@@ -1243,8 +1243,8 @@ namespace WillAssure.Controllers
 
                 c = c + obj.dueDate + ",";
             }
-           
-         
+
+
             if (obj.IssuedBy != null)
             {
                 string testString = obj.IssuedBy;
@@ -1281,14 +1281,14 @@ namespace WillAssure.Controllers
                 ArrayList result = new ArrayList(testString.Split('~'));
                 c = c + obj.PropertyDescription + ",";
             }
-            
+
             if (obj.Qty != null)
             {
                 string testString = obj.Qty;
                 ArrayList result = new ArrayList(testString.Split('~'));
                 c = c + obj.Qty + ",";
             }
-           
+
             if (obj.Weight != null)
             {
                 string testString = obj.Weight;
@@ -1302,7 +1302,7 @@ namespace WillAssure.Controllers
                 ArrayList result = new ArrayList(testString.Split('~'));
                 c = c + obj.Remark + ",";
             }
-        
+
             if (obj.NomineeDetails != null)
             {
                 string testString = obj.NomineeDetails;
@@ -1379,7 +1379,7 @@ namespace WillAssure.Controllers
             var itemToAdd = new JObject();
             ArrayList Column = new ArrayList(c.Split(','));
             ArrayList Values = new ArrayList(value.Split(','));
-            
+
             JArray jsonArray6 = new JArray();
 
 
@@ -1398,7 +1398,7 @@ namespace WillAssure.Controllers
                 {
                     break;
                 }
-                
+
             }
 
             if (obj.CurrentStatus != null)
@@ -1416,7 +1416,7 @@ namespace WillAssure.Controllers
 
             if (obj.Nomination != null)
             {
-                
+
                 dd.Add(obj.Nomination, radio3.ToString());
             }
             if (Session["aiid"] == null)
@@ -1429,7 +1429,7 @@ namespace WillAssure.Controllers
 
             if (Session["doctype"].ToString() == "Will")
             {
-                
+
                 string json = JsonConvert.SerializeObject(dd);
                 int amid = Convert.ToInt32(TempData["amid"]);
 
@@ -1448,33 +1448,33 @@ namespace WillAssure.Controllers
                 //else
                 //{
 
-                    con.Open();
-                string query = "insert into AssetInformation (atId,amId,Json,tid,uId,documentstatus,Remark,WillType) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'incompleted' , 'Incompleted' , '"+Session["WillType"].ToString()+"' )";
+                con.Open();
+                string query = "insert into AssetInformation (atId,amId,Json,tid,uId,documentstatus,Remark,WillType) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'incompleted' , 'Incompleted' , '" + Session["WillType"].ToString() + "' )";
                 SqlCommand cmd = new SqlCommand(query, con);
-                    cmd.ExecuteNonQuery();
-                    con.Close();
+                cmd.ExecuteNonQuery();
+                con.Close();
 
-                    con.Open();
-                    string query2 = "select top 1 * from AssetInformation order by aiid desc";
-                    SqlDataAdapter da = new SqlDataAdapter(query2, con);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
+                con.Open();
+                string query2 = "select top 1 * from AssetInformation order by aiid desc";
+                SqlDataAdapter da = new SqlDataAdapter(query2, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
 
-                    if (dt.Rows.Count > 0)
-                    {
+                if (dt.Rows.Count > 0)
+                {
 
-                        Session["aiid"] = Convert.ToInt32(dt.Rows[0]["aiid"]);
+                    Session["aiid"] = Convert.ToInt32(dt.Rows[0]["aiid"]);
 
-                    }
-                    con.Close();
+                }
+                con.Close();
 
-                    con.Open();
-                    string query22 = "update AssetInformation set doctype = 'Will' where aiid = " + Session["aiid"] + "  ";
-                    SqlCommand cmd22 = new SqlCommand(query22, con);
-                    cmd22.ExecuteNonQuery();
-                    con.Close();
-                    ViewBag.Message = "Verified";
-                    ViewBag.disablefield = "true";
+                con.Open();
+                string query22 = "update AssetInformation set doctype = 'Will' where aiid = " + Session["aiid"] + "  ";
+                SqlCommand cmd22 = new SqlCommand(query22, con);
+                cmd22.ExecuteNonQuery();
+                con.Close();
+                ViewBag.Message = "Verified";
+                ViewBag.disablefield = "true";
                 //}
 
 
@@ -1602,7 +1602,7 @@ namespace WillAssure.Controllers
                 else
                 {
                     con.Open();
-                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark,WillType) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted' , '"+Session["WillType"].ToString()+"')";
+                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark,WillType) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted' , '" + Session["WillType"].ToString() + "')";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -1728,7 +1728,7 @@ namespace WillAssure.Controllers
 
                 }
 
-               
+
 
             }
 
@@ -1755,7 +1755,7 @@ namespace WillAssure.Controllers
                 else
                 {
                     con.Open();
-                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark,WillType) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted' , '"+Session["WillType"].ToString()+"')";
+                    string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark,WillType) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted' , '" + Session["WillType"].ToString() + "')";
                     SqlCommand cmd = new SqlCommand(query, con);
                     cmd.ExecuteNonQuery();
                     con.Close();
@@ -1877,7 +1877,7 @@ namespace WillAssure.Controllers
 
                         con.Open();
                         string querycheck = "select top 1 nId from Nominee order by nId desc";
-                        SqlDataAdapter dachk = new SqlDataAdapter(querycheck,con);
+                        SqlDataAdapter dachk = new SqlDataAdapter(querycheck, con);
                         DataTable dtchkr = new DataTable();
                         dachk.Fill(dtchkr);
                         if (dtchkr.Rows.Count > 0)
@@ -1897,7 +1897,7 @@ namespace WillAssure.Controllers
                 }
 
 
-               
+
             }
 
 
@@ -1906,7 +1906,7 @@ namespace WillAssure.Controllers
 
 
             con.Close();
-                ModelState.Clear();
+            ModelState.Clear();
 
             TempData["Message"] = "true";
             //}
@@ -2118,7 +2118,7 @@ namespace WillAssure.Controllers
                             cmd.ExecuteNonQuery();
                         }
                     }
-                    
+
 
 
 
@@ -2152,7 +2152,7 @@ namespace WillAssure.Controllers
                 }
             }
 
-          
+
 
 
 
@@ -2194,7 +2194,7 @@ namespace WillAssure.Controllers
             for (int i = 0; i <= Column.Count - 1; i++)
             {
                 string abc = Column[i].ToString();
-                if(abc.Contains("undefined~undefined"))
+                if (abc.Contains("undefined~undefined"))
                 {
                     continue;
                 }
@@ -2255,7 +2255,7 @@ namespace WillAssure.Controllers
 
 
 
-        
+
 
 
 
@@ -2409,7 +2409,7 @@ namespace WillAssure.Controllers
             var txtdescriptionofasset = getdata.Split('~')[18];
 
 
-            
+
 
             return RedirectToAction("AddNomineeIndex", "AddNominee");
         }

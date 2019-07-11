@@ -58,7 +58,7 @@
 
 
 
-                        @if (Session["WillType"] != null)
+                        @if (Session["WillType"] != null || Session["doctype"] != null)
                         {
                             if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
                             {

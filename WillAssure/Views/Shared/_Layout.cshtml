@@ -157,9 +157,39 @@
         <nav class="navbar navbar-expand fixed-top bg-dark border-bottom border-light-3">
             <ul class="navbar-nav mr-auto align-items-center">
                 <li class="nav-item">
-                    <a class="" href="@Url.Action("TestatorHomePageIndex","TestatorHomePage")">
-                        <img src="~/assets/images/logo-icon.png" style="width:200px;" class="logo-icon" alt="logo icon">  <i class="icon-menu menu-icon text-white"></i>
-                    </a>
+
+                    @if (Session["Type"] != null)
+                    {
+                        if (Session["Type"].ToString() != "Testator")
+                        {
+                            <a class="" href="@Url.Action("DashBoardIndex","DashBoard")">
+                                <img src="~/assets/images/logo-icon.png" style="width:200px;" class="logo-icon" alt="logo icon">  <i class="icon-menu menu-icon text-white"></i>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="" href="@Url.Action("TestatorHomePageIndex","TestatorHomePage")">
+                                <img src="~/assets/images/logo-icon.png" style="width:200px;" class="logo-icon" alt="logo icon">  <i class="icon-menu menu-icon text-white"></i>
+                            </a>
+
+
+                        }
+                    }
+                    else
+                    {
+                        if (!Response.IsRequestBeingRedirected)
+                        {
+                            Response.Redirect("/LoginPage/LoginPageIndex");
+                        }
+                    }
+
+
+
+
+
+
+
+
                 </li>
 
             </ul>
@@ -312,11 +342,31 @@
         <!--Start sidebar-wrapper-->
         <div id="sidebar-wrapper" data-simplebar="" data-simplebar-auto-hide="true" class="shadow-none">
             <div class="brand-logo">
-                <a href="@Url.Action("TestatorHomePageIndex","TestatorHomePage")">
+              
+                @if (Session["Type"] != null)
+                {
+                    if (Session["Type"].ToString() != "Testator")
+                    {
+                <a class="" href="@Url.Action("DashBoardIndex","DashBoard")">
                     <img src="~/assets/images/logo-icon.png" style="width:200px;" class="logo-icon" alt="logo icon">
-                    @*<h5 class="logo-text">Will Assure</h5>*@
-
                 </a>
+                    }
+                    else
+                    {
+                <a class="" href="@Url.Action("TestatorHomePageIndex","TestatorHomePage")">
+                    <img src="~/assets/images/logo-icon.png" style="width:200px;" class="logo-icon" alt="logo icon">
+                </a>
+
+
+                    }
+                }
+                else
+                {
+                    if (!Response.IsRequestBeingRedirected)
+                    {
+                        Response.Redirect("/LoginPage/LoginPageIndex");
+                    }
+                }
             </div>
 
 
@@ -440,11 +490,10 @@
                 }
                 else
                 {
-                    <script>
-                        var NestId = data
-                        var url = "/LoginPage/LoginPageIndex/";
-                        window.location.href = url;
-                    </script>
+                    if (!Response.IsRequestBeingRedirected)
+                    {
+                        Response.Redirect("/LoginPage/LoginPageIndex");
+                    }
                 }
 
 
@@ -479,11 +528,10 @@
                 }
                 else
                 {
-                    <script>
-                        var NestId = data
-                        var url = "/LoginPage/LoginPageIndex/";
-                        window.location.href = url;
-                    </script>
+                    if (!Response.IsRequestBeingRedirected)
+                    {
+                        Response.Redirect("/LoginPage/LoginPageIndex");
+                    }
                 }
 
 
@@ -521,11 +569,10 @@
                 }
                 else
                 {
-                    <script>
-                        var NestId = data
-                        var url = "/LoginPage/LoginPageIndex/";
-                        window.location.href = url;
-                    </script>
+                    if (!Response.IsRequestBeingRedirected)
+                    {
+                        Response.Redirect("/LoginPage/LoginPageIndex");
+                    }
                 }
 
 
@@ -627,11 +674,10 @@
                     }
                     else
                     {
-                        <script>
-                            var NestId = data
-                            var url = "/LoginPage/LoginPageIndex/";
-                            window.location.href = url;
-                        </script>
+                        if (!Response.IsRequestBeingRedirected)
+                        {
+                            Response.Redirect("/LoginPage/LoginPageIndex");
+                        }
                     }
 
 

@@ -54,7 +54,7 @@
                         <br />
 
 
-                        <div id='main' style='border:1px solid green; padding:15px; border-radius:10px;'>
+                        <div id='main0' style='border:1px solid green; padding:15px; border-radius:10px;'>
 
                             <div class='row'>
                                 <div class='col-sm-2'>
@@ -223,8 +223,9 @@
 
 <script>
     function checkbeneficiaryduplicate(id, value) {
+
         var fid = id.substring(12)
-        alert(fid);
+        
 
         
         var dt = '';
@@ -233,6 +234,7 @@
         var check = 'active';
         $(".beneficiaryclass").each(function () {
             var myid = $(this).attr('id');
+            alert(selectedtext);
             var myval = $('#' + myid).val();
             if (id != myid) {
                 if (lang_name == myval && lang_name != '') {

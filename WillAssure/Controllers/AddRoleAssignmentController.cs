@@ -326,7 +326,7 @@ namespace WillAssure.Controllers
                 qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + roleid + " ,'Settings','ValidateDoc~SettingsIndex~Settings','View Setting~EditSettingIndex~EditSetting')";
                 qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + roleid + " ,'Liabilities','Add Liabilities~AddLiabilitiesIndex~AddLiabilities','View Liabilities~EditLiabilitiesIndex~EditLiabilities')";
                 qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + roleid + " ,'PetCare','Add PetCare~AddPetCareIndex~AddPetCare','View PetCare~EditPetCareIndex~EditPetCare')";
-                qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + roleid + " ,'Document','View Document~ViewDocumentIndex~ViewDocument','NULL~NULL~NULL')";
+                qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + roleid + " ,'Document','View Document~ViewTestatorIndex~ViewTestator','NULL~NULL~NULL')";
 
 
 
@@ -490,7 +490,7 @@ namespace WillAssure.Controllers
                     qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + response + " ,'Settings','ValidateDoc~SettingsIndex~Settings','View Setting~EditSettingIndex~EditSetting')";
                     qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + response + " ,'Liabilities','Add Liabilities~AddLiabilitiesIndex~AddLiabilities','View Liabilities~EditLiabilitiesIndex~EditLiabilities')";
                     qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + response + " ,'PetCare','Add PetCare~AddPetCareIndex~AddPetCare','View PetCare~EditPetCareIndex~EditPetCare')";
-                    qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + response + " ,'Document','View Document~ViewDocumentIndex~ViewDocument','NULL~NULL~NULL')";
+                    qry = qry + "insert into Assignment_Roles (RoleId,PageName,Nav1,Nav2) values (" + response + " ,'Document','View Document~ViewTestatorIndex~ViewTestator','NULL~NULL~NULL')";
 
 
 

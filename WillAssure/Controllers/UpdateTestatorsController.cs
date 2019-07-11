@@ -23,6 +23,9 @@ namespace WillAssure.Controllers
         // GET: UpdateTestators
         public ActionResult UpdateTestatorsIndex(int NestId)
         {
+
+            Session["testatorID"] = NestId;
+
             ViewBag.collapse = "true";
             ViewBag.cod = "true";
 
@@ -34,11 +37,11 @@ namespace WillAssure.Controllers
                 }
             }
 
-          
 
 
 
-       
+
+
 
 
 
@@ -247,7 +250,7 @@ namespace WillAssure.Controllers
                 {
                     TFM.Occupation = dt.Rows[0]["Occupation"].ToString();
                 }
-                
+
                 TFM.Mobile = dt.Rows[0]["Mobile"].ToString();
                 TFM.Email = dt.Rows[0]["Email"].ToString();
 
@@ -334,7 +337,7 @@ namespace WillAssure.Controllers
                     TFM.active = dt.Rows[0]["active"].ToString();
                 }
 
-                
+
                 TFM.uId = Convert.ToInt32(dt.Rows[0]["uId"]);
 
 
@@ -350,7 +353,7 @@ namespace WillAssure.Controllers
 
 
 
-          
+
 
 
 
@@ -689,7 +692,7 @@ namespace WillAssure.Controllers
 
 
 
-            return View("~/Views/UpdateTestators/UpdateTestatorPageContent.cshtml",TFM);
+            return View("~/Views/UpdateTestators/UpdateTestatorPageContent.cshtml", TFM);
         }
 
 
@@ -1029,13 +1032,13 @@ namespace WillAssure.Controllers
             DateTime dat;
             if (TFM.Dobb != null || TFM.Dobb == "")
             {
-                 dat = DateTime.ParseExact(TFM.Dobb, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                dat = DateTime.ParseExact(TFM.Dobb, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             }
             else
             {
-                 dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             }
-            
+
 
             SqlCommand cmd = new SqlCommand("SP_CRUDTestatorDetails", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -1156,7 +1159,7 @@ namespace WillAssure.Controllers
             TempData["Message"] = "true";
 
 
-            return RedirectToAction("UpdateTestatorsIndex", "UpdateTestators" , new { NestId = TFM.uId});
+            return RedirectToAction("UpdateTestatorsIndex", "UpdateTestators", new { NestId = TFM.uId });
         }
 
 
@@ -1452,13 +1455,13 @@ namespace WillAssure.Controllers
 
 
 
-        public  ActionResult Checkforcompletedpage()
+        public ActionResult Checkforcompletedpage()
         {
 
 
 
             con.Open();
-            string qtest001 = "select tId from TestatorDetails where uId = "+Convert.ToInt32(Session["uuid"])+" ";
+            string qtest001 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
             SqlDataAdapter test001da = new SqlDataAdapter(qtest001, con);
             DataTable test001dt = new DataTable();
             test001da.Fill(test001dt);
@@ -1476,10 +1479,10 @@ namespace WillAssure.Controllers
 
             if (Session["doctype"] != null)
             {
-              
 
 
-                if (Session["doctype"].ToString() == "Will"  && Session["WillType"].ToString() == "Detailed")
+
+                if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Detailed")
                 {
                     //////////// check document completion /////////////
 
@@ -1647,9 +1650,9 @@ namespace WillAssure.Controllers
                     //end
 
 
-                   
+
                 }
-                else
+                if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Quick")
                 {
 
                     // for testator family
@@ -1795,14 +1798,14 @@ namespace WillAssure.Controllers
                     //end
 
 
-                  
 
 
 
 
 
 
-                    
+
+
 
                 }
 
@@ -1811,7 +1814,7 @@ namespace WillAssure.Controllers
                 {
 
 
-                 
+
 
 
                     // for beneficiary
@@ -1837,7 +1840,7 @@ namespace WillAssure.Controllers
 
 
 
-                
+
 
 
 
@@ -1889,7 +1892,7 @@ namespace WillAssure.Controllers
                     //end
 
 
-          
+
 
 
 
@@ -1917,7 +1920,7 @@ namespace WillAssure.Controllers
                     //end
 
 
-                   
+
 
 
 
@@ -2045,7 +2048,7 @@ namespace WillAssure.Controllers
 
 
 
-            
+
 
 
 

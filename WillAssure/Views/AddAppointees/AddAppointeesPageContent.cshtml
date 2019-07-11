@@ -57,14 +57,21 @@
                                 Response.Redirect("/LoginPage/LoginPageIndex");
                             }
                         }
-                        @if (Session["WillType"] != null)
+
+
+
+
+
+
+
+                        @if (Session["WillType"] != null || Session["testatorID"] != null)
                         {
-                            if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                            if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will" )
                             {
 
                                 <h5>
                                     <ul id="menu" style="font-weight:bold;">
-                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Testator></li></a>
                                         <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:black;">TestatorFamily ></li></a>
                                         <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
                                             <li style="color:black;">Institution ></li>
@@ -81,13 +88,13 @@
                             }
                             else
                             {
-                                if (Session["doctype"] != null)
+                                if (Session["doctype"] != null || Session["testatorID"] != null)
                                 {
                                     if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
                                     {
                                         <h5>
                                             <ul id="menu" style="font-weight:bold;">
-                                                <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Donor ></li></a>
+                                                <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Testator></li></a>
                                                 <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Donee ></li></a>
                                                 <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black">Gift ></li></a>
                                                 <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Asset Mapping ></li></a>
@@ -102,7 +109,7 @@
                                         {
                                             <h5>
                                                 <ul id="menu" style="font-weight:bold;">
-                                                    <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:black;">Testator></li></a>
+                                                    <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Testator></li></a>
                                                     <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
                                                     <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
                                                         <li style="color:black;">Institution ></li>
@@ -124,7 +131,7 @@
                                         {
                                             <h5>
                                                 <ul id="menu" style="font-weight:bold;">
-                                                    <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                                    <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Testator></li></a>
                                                     <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
                                                     <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
                                                         <li style="color:black;">Institution ></li>
@@ -167,7 +174,7 @@
 
                         <br />
 
-                        @if (Session["doctype"] != null)
+                        @if (Session["doctype"] != null )
                         {
                             if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
                             {

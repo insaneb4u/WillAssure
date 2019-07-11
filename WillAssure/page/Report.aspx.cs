@@ -484,7 +484,7 @@ namespace WillAssure.Views.ViewDocument
 
         protected void btncancel_Click(object sender, EventArgs e)
         {
-
+            con.Close();
             con.Open();
             string query = "update DocumentVerification set Verification_Status = 'InActive' where Tid= " + Convert.ToInt32(ViewState["tid"]) + "  ";
             SqlCommand cmd = new SqlCommand(query, con);
@@ -518,6 +518,8 @@ namespace WillAssure.Views.ViewDocument
             {
                 con.Close();
             }
+            
+            
             con.Open();
             string query3 = "select uId from TestatorDetails where tId = "+ testatorid + " ";
             SqlDataAdapter da = new SqlDataAdapter(query3, con);
@@ -531,9 +533,18 @@ namespace WillAssure.Views.ViewDocument
 
             }
 
+            string type = Session["Type"].ToString();
 
+            if (type == "SuperAdmin" || type == "Distributor")
+            {
+                Response.Redirect("/ViewDocument/ViewDocumentIndex/");
+            }
+            else
+            {
+                Response.Redirect("/TestatorHomePage/TestatorHomePageIndex/");
+            }
 
-            Response.Redirect("/TestatorHomePage/TestatorHomePageIndex/");
+          
 
 
         }

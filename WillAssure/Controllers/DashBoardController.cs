@@ -19,7 +19,13 @@ namespace WillAssure.Controllers
         public ActionResult DashBoardIndex()
         {
 
+
+
+
             int testatorid = 0;
+
+
+
 
 
             con.Open();
@@ -314,7 +320,7 @@ namespace WillAssure.Controllers
             con.Close();
 
 
-            if (type != "2")
+            if (Session["Type"].ToString() == "SuperAdmin" || Session["Type"].ToString() == "Distributor")
             {
                 List<LoginModel> Lmlist = new List<LoginModel>();
                 con.Open();

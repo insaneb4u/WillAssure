@@ -451,7 +451,7 @@ namespace WillAssure.Controllers
 
 
 
-     
+
 
 
 
@@ -1419,8 +1419,8 @@ namespace WillAssure.Controllers
             {
                 altbeneid = 0;
             }
-            
-         
+
+
 
             if (tid == "" || tid == null || tid == "undefined")
             {
@@ -1446,7 +1446,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID  , Proportion , tid , doctype ,Type , Category , documentstatus , alternatebid , WillType) values   (  " + assettypeid + " , " + assetcatid + ", " + beneficiaryid + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "',1,'" + combine + "' , 'incompleted' , "+altbeneid+" , '"+Session["WillType"].ToString()+"') ";
+            string query = "insert into BeneficiaryAssets (AssetType_ID , AssetCategory_ID , Beneficiary_ID  , Proportion , tid , doctype ,Type , Category , documentstatus , alternatebid , WillType) values   (  " + assettypeid + " , " + assetcatid + ", " + beneficiaryid + " ,  '" + proportion + "' , " + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "',1,'" + combine + "' , 'incompleted' , " + altbeneid + " , '" + Session["WillType"].ToString() + "') ";
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.ExecuteNonQuery();
             con.Close();
@@ -1546,9 +1546,9 @@ namespace WillAssure.Controllers
                     catch (Exception)
                     {
 
-                       
+
                     }
-                
+
                 }
             }
 
@@ -1988,7 +1988,7 @@ namespace WillAssure.Controllers
             }
             else
             {
-                 RedirectToAction("LoginPageIndex", "LoginPage");
+                RedirectToAction("LoginPageIndex", "LoginPage");
             }
 
 

@@ -24,6 +24,8 @@ namespace WillAssure.Controllers
         public ActionResult AddBeneficiaryInstituteIndex(string NestId)
         {
 
+            ViewBag.Collapse = "true";
+
             if (TempData["Message"] != null)
             {
                 if (TempData["Message"].ToString() == "true")

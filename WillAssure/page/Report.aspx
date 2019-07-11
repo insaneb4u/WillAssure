@@ -30,8 +30,8 @@
         
             <br />
         <asp:Button CssClass="btn btn-success" ID="btnverify" Text="Email PDF" runat="server" OnClick="btnverify_Click" />
-        <asp:Button CssClass="btn btn-danger" ID="btncancel" Text="Cancel" runat="server" OnClick="btncancel_Click" />
-            <asp:button text="Dashboard" ID="btnback" CssClass="btn btn-info" runat="server" OnClick="btnback_Click"  />
+   <%--     <asp:Button CssClass="btn btn-danger" ID="btncancel" Text="Cancel" runat="server" OnClick="btncancel_Click" />--%>
+            <asp:button text="Back To Dashboard" ID="btnback" CssClass="btn btn-info" runat="server" OnClick="btnback_Click"  />
        <%-- <asp:Button CssClass="btn btn-primary" ID="btnChangeTemplate" Text="ChangeTemplate" runat="server" OnClick="btnChangeTemplate_Click"  />--%>
             <br />
             <br />

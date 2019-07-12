@@ -47,7 +47,7 @@
                                 <label for="input-1">Upload Old Will</label>
                             </div>
                             <div class="col-sm-3">
-                                <input type="file" name="name" value="" />
+                                <input type="file" name="name" id="resume" value="" />
                             </div>
                         </div>
 
@@ -119,7 +119,8 @@
                             <button class="btn btn btn-danger" id="btnadd"><i class="fa fa-plus" style="color:white;"></i>Add</button>
                             <button class="btn btn btn-danger" id="btnremove"><i class="fa fa-trash" style="color:white;"></i>Remove</button>
                             <button type="submit" id="btnsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
-
+                            <button type="button" id="btntestatorfamilysubmitSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                      
                         </div>
 
 
@@ -128,7 +129,7 @@
             </div>
             <button type="button" id="btnRoleformsubmitSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
             <button type="button" id="btnRoleformsubmitCHECK" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-            <button type="button" id="btntestatorfamilysubmitSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+          
         </div>
 
 
@@ -157,6 +158,39 @@
                 success: function (data) {
 
                     $("#getdata").append(data);
+
+
+
+                    // for beneficiary ddl id auto generate  getidentifier
+
+                    $clone.find('.beneficiaryclass').each(function () {
+                        var el = $(this);
+
+                        var id = el.attr('id') || null;
+                        alert(id);
+                        if (id) {
+
+                            //  var i = id.substr(id.length - 1);
+
+                            //code for geting only number from alphanumer string
+                            number = id.replace(/\D/g, ''); // a string of only digits, or the empty string
+                            var i = parseInt(number, 10); // now it's a numeric value
+
+                            //code for getting only alpha character from alphanumer string
+                            var prefix = id.replace(/[^a-zA-Z]/g, '');
+                            //var prefix = id.substr(0, (id.length - 1));
+
+                            el.attr('id', prefix + (+i + 1));
+
+                        }
+                    });
+
+            // end
+
+
+
+
+
 
 
                 }
@@ -209,12 +243,50 @@
                 data: { "send": "" + data + "" },
                 success: function (data) {
 
+                    $("#appendquery").val("");
+                    $("#appendquery2").val("");
 
+
+                    $("#btntestatorfamilysubmitSUCCESS").on("click", function () { });
+
+                    $("#btntestatorfamilysubmitSUCCESS").click(); //trigger event after listening to it.
+                    
+                    $(".card-body").find(".mainbody:not(:first-child):last").remove();
+
+
+                    $('#beneficiaryclass').prop('selected', function () {
+                        return this.defaultSelected;
+                    });
+
+                    $("#olddetails1").val("");
+                    $("#newdetails1").val("");
 
                 }
             });
 
 
+    });
+
+
+
+
+
+    var myfile = "";
+
+    $('#resume_link').click(function (e) {
+        e.preventDefault();
+        $('#resume').trigger('click');
+    });
+
+    $('#resume').on('change', function () {
+        myfile = $(this).val();
+        var ext = myfile.split('.').pop();
+        if (ext == "pdf" || ext == "docx" || ext == "doc") {
+            //alert('true');
+        } else {
+            alert('PDF , DOCX , DOC File Only..!');
+            $("#resume").val("");
+        }
     });
 
 </script>
@@ -232,62 +304,38 @@
 
 
 
-        //var dt = '';
-        //var lang_name = $('#' + fid).val();
-        //var selectedtext = $("#" + fid + " option:selected").text();
-        //var check = 'active';
-        //$(".beneficiaryclass").each(function () {
-        //    var myid = $(this).attr('id').substring(12);
+        var dt = '';
+        var lang_name = $('#' + id).val();
+        var selectedtext = $("#" + id + " option:selected").text();
+        var check = 'active';
+        $(".beneficiaryclass").each(function () {
+            var myid = $(this).attr('id');
+
+            var myval = $('#' + myid).val();
+            if (id != myid) {
+                if (lang_name == myval && lang_name != '') {
+                    alert(selectedtext + ' already exists');
+                    $("#" + id).val('0');
+                    check = 'inactive';
+                    return false;
+                }
+
+            }
+            else {
+                $("#appendquery").append(value + "_Olddetails," + value + "_newdetails,");
+            }
 
 
-        //    var myval = $('#' + myid).val();
-        //    if (id != myid) {
-        //        if (lang_name == myval && lang_name != '') {
-        //            alert(selectedtext + ' already exists');
-        //            $("#" + id).val('0');
-        //            check = 'inactive';
-        //            return false;
-        //        }
-
-        //    }
-
-
-        //});
+        });
 
 
 
 
 
-        $("#appendquery").append(value + "_Olddetails," + value + "_newdetails,");
+      
 
 
     }
 </script>
 
 
-
-@if (ViewBag.Message == "Verified")
-{
-    <script>
-
-        $(document).ready(function () {
-
-
-            $("#btntestatorfamilysubmitSUCCESS").on("click", function () { });
-
-            $("#btntestatorfamilysubmitSUCCESS").click(); //trigger event after listening to it.
-
-
-
-
-
-
-
-        });
-    </script>
-
-
-    ViewBag.Message = null;
-
-}
-@*end*@

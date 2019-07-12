@@ -1799,5 +1799,79 @@ namespace WillAssure.Controllers
 
 
 
+
+
+        public string Validateidentity()
+        {
+            string response = Request["send"].ToString();
+            string msg = "";
+            con.Open();
+            string query = "select Identity_proof_Value from TestatorDetails where uId = '"+Convert.ToInt32(Session["uuid"])+"'";
+            SqlDataAdapter da = new SqlDataAdapter(query,con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            
+            if (dt.Rows.Count > 0)
+            {
+
+                if (dt.Rows[0]["Identity_proof_Value"].ToString() == response)
+                {
+                    msg = "false";
+                }
+                else
+                {
+                    msg = "true";
+                }
+
+            }
+
+
+            con.Close();
+
+
+
+
+            return msg;
+        }
+
+
+
+
+
+        public string altValidateidentity()
+        {
+            string response = Request["send"].ToString();
+            string msg = "";
+            con.Open();
+            string query = "select Alt_Identity_proof_Value from TestatorDetails where uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            if (dt.Rows.Count > 0)
+            {
+
+                if (dt.Rows[0]["Alt_Identity_proof_Value"].ToString() == response)
+                {
+                    msg = "false";
+                }
+                else
+                {
+                    msg = "true";
+                }
+
+            }
+
+
+            con.Close();
+
+
+
+
+            return msg;
+        }
+
+
+
     }
 }

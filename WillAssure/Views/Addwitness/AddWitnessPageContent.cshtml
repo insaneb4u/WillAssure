@@ -456,6 +456,7 @@
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof Value</label>
                                             <div id="appendtxt">  @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Identity Proof Number", @autocomplete = "off", @readonly = "true" })</div>
+                                            <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
                                         </div>
                                     </div>
 

@@ -45,7 +45,7 @@
 
                         @if (Session["WillType"] != null || Session["doctype"] != null || Session["Type"] != null || Session["testatorID"] != null)
                         {
-                            if (Session["WillType"].ToString() == "Detailed" || Session["doctype"].ToString() == "Will" || Session["Type"].ToString() == "SuperAdmin" || Session["Type"].ToString() == "Distributor")
+                            if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will" || Session["Type"].ToString() == "SuperAdmin" || Session["Type"].ToString() == "Distributor")
                             {
 
                                 <h5>

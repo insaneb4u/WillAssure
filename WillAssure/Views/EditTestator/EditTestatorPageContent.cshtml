@@ -174,32 +174,35 @@
             url: "@Url.Action("UpdateTestatorForm", "EditTestator")",
             data: {  "send": "" + id + ""   },
             success: function (data) {
-
-                //var getdata = data;
-                //var type = getdata.split("~")[0];
-                //var id = getdata.split("~")[1];
+               
                 
-                //if (type == "Will") {
+                var id = data.split("~")[0];
+                var type = data.split("~")[1];
+
+          
+
+
+                if (type == "Will") {
                  
                 var url = "/UpdateTestators/UpdateTestatorsIndex?NestId=" + id;
                     window.location.href = url;
                     
-                //}
-                //if (data == "POA" || data =="GiftDeeds") {
+                }
+                if (type == "POA" || type =="GiftDeeds") {
 
-                //    var url = "/UpdateTestators/UpdateTestatorsIndex?NestId=" + id;
-                //    window.location.href = url;
-                //}
-                //if (data == "Codocil") {
-                //    var NestId = data
-                //    var url = "/Codocil/CodocilIndex/";
-                //    window.location.href = url;
-                //}
-                //if (data == "LivingWill") {
-                //    var NestId = data
-                //    var url = "/LivingWill/LivingWillIndex/";
-                //    window.location.href = url;
-                //}
+                    var url = "/UpdateTestators/UpdateTestatorsIndex?NestId=" + id;
+                    window.location.href = url;
+                }
+                if (type == "Codocil") {
+                    var NestId = data
+                    var url = "/Codocil/CodocilIndex?NestId="+ id;
+                    window.location.href = url;
+                }
+                if (type == "LivingWill") {
+                    var NestId = data
+                    var url = "/LivingWill/LivingWillIndex?NestId=" + id;
+                    window.location.href = url;
+                }
 
 
             }

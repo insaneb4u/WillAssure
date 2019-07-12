@@ -387,7 +387,7 @@ namespace WillAssure.Controllers
 
             ModelState.Clear();
 
-
+            ViewBag.Message = "Verified";
 
 
             return View("~/Views/CouponsAllotment/AddCouponsAllotmentPageContent.cshtml");

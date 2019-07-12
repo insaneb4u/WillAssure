@@ -39,6 +39,36 @@ namespace WillAssure.Controllers
 
 
 
+            // enable remaining form button
+
+            con.Open();
+
+            string querycou = "select Country from TestatorDetails where uId = "+Convert.ToInt32(Session["uuid"])+"";
+            SqlDataAdapter dacou = new SqlDataAdapter(querycou, con);
+            DataTable dtcou = new DataTable();
+            dacou.Fill(dtcou);
+
+            if (dtcou.Rows.Count > 0)
+            {
+                if (dtcou.Rows[0]["Country"].ToString() != "none")
+                {
+                    ViewBag.enablebtnremaining = "true";
+                }
+
+               
+
+            }
+
+
+            con.Close();
+
+
+
+
+
+            //end
+
+
 
 
 

@@ -678,8 +678,30 @@ namespace WillAssure.Controllers
             cm.Parameters.AddWithValue("@Mobile", TFM.Mobile);
             cm.Parameters.AddWithValue("@Email", TFM.Email);
             cm.Parameters.AddWithValue("@Address1", TFM.Address1);
-            cm.Parameters.AddWithValue("@Address2", TFM.Address2);
-            cm.Parameters.AddWithValue("@Address3", TFM.Address3);
+
+
+            if (TFM.Address2 != null || TFM.Address2 == "")
+            {
+                cm.Parameters.AddWithValue("@Address2", TFM.Address2);
+
+            }
+            else
+            {
+                TFM.Address2 = "None";
+                cm.Parameters.AddWithValue("@Address2", TFM.Address2);
+            }
+
+
+            if (TFM.Address3 != null || TFM.Address3 == "")
+            {
+                cm.Parameters.AddWithValue("@Address3", TFM.Address3);
+
+            }
+            else
+            {
+                TFM.Address3 = "None";
+                cm.Parameters.AddWithValue("@Address3", TFM.Address3);
+            }
             cm.Parameters.AddWithValue("@City", TFM.citytext);
             cm.Parameters.AddWithValue("@State ", TFM.statetext);
             cm.Parameters.AddWithValue("@Pin", TFM.Pin);

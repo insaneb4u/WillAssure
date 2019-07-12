@@ -533,6 +533,8 @@ namespace WillAssure.Views.ViewDocument
 
             }
 
+
+
             string type = Session["Type"].ToString();
 
             if (type == "SuperAdmin" || type == "Distributor")

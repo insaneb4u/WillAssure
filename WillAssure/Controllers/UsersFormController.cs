@@ -333,8 +333,31 @@ namespace WillAssure.Controllers
                     cmd.Parameters.AddWithValue("@Mobile", UFM.Mobile);
                     cmd.Parameters.AddWithValue("@Email", UFM.Email);
                     cmd.Parameters.AddWithValue("@Address1", UFM.Address1);
+
+
+                if (UFM.Address2 != null)
+                {
                     cmd.Parameters.AddWithValue("@Address2", UFM.Address2);
+                }
+                else
+                {
+                    UFM.Address2 = "None";
+                    cmd.Parameters.AddWithValue("@Address2", UFM.Address2);
+                }
+
+                if (UFM.Address3 != null)
+                {
                     cmd.Parameters.AddWithValue("@Address3", UFM.Address3);
+                }
+                else
+                {
+                    UFM.Address3 = "None";
+                    cmd.Parameters.AddWithValue("@Address3", UFM.Address3);
+                }
+
+
+
+                
                     cmd.Parameters.AddWithValue("@City", UFM.citytext);
                     cmd.Parameters.AddWithValue("@State ", UFM.statetext);
                     cmd.Parameters.AddWithValue("@Pin", UFM.Pin);

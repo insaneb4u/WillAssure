@@ -565,21 +565,37 @@
                             {
                                 if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
                                 {
-                                    <div class="form-group" style="float:right">
+                                    <div class="form-group" style="float:right;">
                                         <br />
                                         <button type="submit" id="alert-success" formaction="UpdatingTestatorFormData" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update Testator</button>
-                                        <a href="@Url.Action("Checkforcompletedpage","UpdateTestators")"><button type="button" class="btn btn-danger shadow-primary px-5">Remaining Form&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                        
+                                        @if (ViewBag.enablebtnremaining == "true")
+	                                    {
+                                        <a href="@Url.Action("Checkforcompletedpage","UpdateTestators")"><button type="button"  class="btn btn-danger shadow-primary px-5 btnremainingform">Remaining Form&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+	                                    }   
+                                        
+                                        
+                                       
+                                        
+                                        
                                         <button type="button" style="display:none;" id="btnTestatorformsubmitUPDATE" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
                                     </div>
                                 }
                                 else
                                 {
-                                    <div class="form-group" style="float:right">
+                                    <div class="form-group" style="float:right;">
                                         <br />
                                         <button type="submit" id="alert-success" formaction="UpdatingTestatorFormData" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update Testator</button>
-                                        <a href="@Url.Action("Checkforcompletedpage","UpdateTestators")"><button type="button" class="btn btn-danger shadow-primary px-5">Remaining Form&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
-                                        <button type="button" style="display:none;" id="btnTestatorformsubmitUPDATE" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-                                    </div>
+
+                                        @if (ViewBag.enablebtnremaining == "true")
+                                        {
+
+                                            <a href="@Url.Action("Checkforcompletedpage", "UpdateTestators")"><button type="button" class="btn btn-danger shadow-primary px-5 btnremainingform">Remaining Form&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+
+                                        }
+
+                                            <button type="button" style="display:none;" id="btnTestatorformsubmitUPDATE" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                                        </div>
                                 }
                             }
                             else
@@ -619,6 +635,7 @@
 
             $("#btnTestatorformsubmitUPDATE").click(); //trigger event after listening to it.
 
+            $(".btnremainingform").show();
         });
     </script>
 

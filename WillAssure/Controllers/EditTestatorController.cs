@@ -23,8 +23,8 @@ namespace WillAssure.Controllers
         public ActionResult EditTestatorIndex(string doctype)
         {
 
-         
 
+            TempData["selected"] = doctype;
             // check type 
             string typ5 = "";
             con.Open();
@@ -964,8 +964,8 @@ namespace WillAssure.Controllers
             string data = Request["send"].ToString();
 
 
-            
 
+            string type = TempData["selected"].ToString();
             //if (Session["doctype"].ToString() == "Will")
             //{
 
@@ -994,7 +994,7 @@ namespace WillAssure.Controllers
             //    data = "LivingWill";
             //}
 
-            return data;
+            return data+"~"+type;
         }
 
 

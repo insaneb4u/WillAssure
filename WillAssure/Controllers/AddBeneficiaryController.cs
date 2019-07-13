@@ -1421,7 +1421,7 @@ namespace WillAssure.Controllers
 
             
 
-            string query2 = "select Identity_proof_Value from BeneficiaryDetails  where tId = "+tid+"";
+            string query2 = "select Identity_proof_Value from TestatorDetails  where tId = " + tid+"";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -1486,7 +1486,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Alt_Identity_proof_value from BeneficiaryDetails  where tId = " + tid + "";
+            string query2 = "select Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);

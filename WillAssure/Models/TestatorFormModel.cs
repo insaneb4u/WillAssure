@@ -8,6 +8,18 @@ namespace WillAssure.Models
     public class TestatorFormModel
     {
 
+        public string typeofwill { get; set; }
+
+        public string will { get; set; }
+
+        public string codocil { get; set; }
+
+        public string livingwill { get; set; }
+
+        public string poa { get; set; }
+
+        public string giftdeeds { get; set; }
+
         public int tId { get; set; }
 
         public string First_Name { get; set; }

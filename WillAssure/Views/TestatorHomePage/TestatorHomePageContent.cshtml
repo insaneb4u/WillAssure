@@ -39,7 +39,7 @@ else
                         <div class="tabs-vertical tabs-vertical-dark">
                             <ul class="nav nav-tabs flex-column top-icon">
                                 <li class="nav-item">
-                                    <a class="nav-link active" data-toggle="tab" href="#tabe-25"><i class="icon-doc"></i> <span class="hidden-xs">Create Document</span></a>
+                                    <a class="nav-link active"  id="createddoc" data-toggle="tab" href="#tabe-25"><i class="icon-doc"></i> <span class="hidden-xs">Create Document</span></a>
                                 </li>
 
                                 <li class="nav-item">
@@ -47,12 +47,12 @@ else
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#tabe-27"><i class="icon-info"></i> <span class="hidden-xs">Incompleted Document</span></a>
+                                    <a class="nav-link"  id="incompleteddoc" data-toggle="tab" href="#tabe-27"><i class="icon-info"></i> <span class="hidden-xs">Incompleted Document</span></a>
                                 </li>
 
-                                <li class="nav-item">
-                                    <a class="nav-link" id="rzp-button1"><i class="icon-badge"></i> <span class="hidden-xs">Payment</span></a>
-                                </li>
+                                @*<li class="nav-item">*@
+                                    <a class="nav-link" id="rzp-button1" style="display:none;"><i class="icon-badge"></i> <span class="hidden-xs">payment</span></a>
+                                @*</li>*@
 
                             </ul>
                         </div>
@@ -64,11 +64,13 @@ else
 
                                 @using (Html.BeginForm(null, null, FormMethod.Post, new { name = "PopUp", id = "testatordocument" }))
                                 {
+                                   
                                     <textarea id="documenttype" name="documenttype" style="display:none;"></textarea>
                                     <div class="modal-body">
                                         @Html.HiddenFor(m => m.tId, new { @id = "tId" })
 
                                         <div class="row">
+                                            <div class="col-sm-12"> <h5 style="color:#19c082;">Select Document Type</h5></div>
 
                                             <div class="col-sm-3">
                                                 <label style="line-height:65px;">Document Type</label>
@@ -77,19 +79,27 @@ else
                                                 <div class="form-group">
                                                     <br />
                                                     <label class="checkbox-inline">
-                                                        <input type="radio" value="Will" class="checkone radio validate[required]" name="radio1">Will
+                                                        <input type="checkbox" value="Will" class="checkone radio validate[required]" name="will">Will
+                                                    </label>
+
+
+
+
+
+
+
+
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" value="Codocil" class="checktwo radio validate[required]" name="codocil">Codocil
                                                     </label>
                                                     <label class="checkbox-inline">
-                                                        <input type="radio" value="Codocil" class="checktwo radio validate[required]" name="radio1">Codocil
+                                                        <input type="checkbox" value="LivingWill" class="checkfive radio validate[required]" name="livingwill">Living Will
                                                     </label>
                                                     <label class="checkbox-inline">
-                                                        <input type="radio" value="LivingWill" class="checkfive radio validate[required]" name="radio1">Living Will
+                                                        <input type="checkbox" value="POA" class="checkthree radio validate[required]" name="poa">POA
                                                     </label>
                                                     <label class="checkbox-inline">
-                                                        <input type="checkbox" value="POA" class="checkthree radio validate[required]" name="radio1">POA
-                                                    </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" value="Giftdeeds" class="checkfour radio validate[required]" name="radio1">Giftdeeds
+                                                        <input type="checkbox" value="Giftdeeds" class="checkfour radio validate[required]" name="giftdeeds">Giftdeeds
                                                     </label>
 
 
@@ -97,22 +107,63 @@ else
                                                     <span style="color:red;display:none;" id="documentmsg1">Please Complete Will Document First...!</span>
                                                     <span style="color:red;display:none;" id="documentmsg2">Please Complete Codocil Document First...!</span>
                                                     <span style="color:red;display:none;" id="documentmsg3">Please Complete LivingWill Document First...!</span>
+
+                                                    <div id="willtype" style="display:none;">
+                                                        <label class="radio-inline">
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="typeone" name="typeofwill" value="Quick" checked>Quick
+                                                        </label>
+                                                        <label class="radio-inline">
+                                                            <input type="radio" id="typetwo" name="typeofwill" value="Detailed">Detailed
+                                                        </label>
+                                                    </div>
                                                 </div>
                                                 @Html.HiddenFor(m => m.Document_Created_By_ID, new { id = "Document_Created_By_ID" })
                                                 @Html.HiddenFor(m => m.Document_Created_By_txt, new { id = "Document_Created_By_txt" })
                                             </div>
 
+                                         
+
+
+                                            <div class="col-sm-6" id="paymentfields">
+                                                <div class="form-group">
+                                                    <label>Do You Like To Use Coupon Number</label>
+
+
+
+
+
+
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="getvalone" name="optradio">Yes
+                                                    </label>
+                                                    <label class="radio-inline">
+                                                        <input type="radio" id="getvaltwo" name="optradio">No
+                                                    </label>
+
+                                                    <input type="text" id="txtvoucher" placeholder="Enter A Coupon Number" class="form-control" style="width:215px; display:none;" name="name" value="" />
+                                                </div>
+
+                                            </div>
+
+
 
 
 
                                         </div>
+
+
                                         <hr class="div_rd">
 
-
+                                        @*<div style="float:right;">
+                                            <h4>Total Cost :</h4>
+                                        </div>*@
 
 
                                         <div class="form-group">
-                                            <button type="submit" id="alert-success" formaction="insertDocumentDetails" class="btn btn-primary shadow-primary px-5 btnpop"><i class="icon-lock"></i>Submit</button>
+                                            <button type="submit" id="alert-success" formaction="insertDocumentDetails" class="btn btn-danger shadow-primary px-5 btnpop"><i class="icon-lock"></i>Make A Payment</button>
                                         </div>
                                     </div>
 
@@ -216,22 +267,35 @@ else
 </script>
 
 
-@if (ViewBag.hidepayment == "true")
+
+@if (TempData["MakePayment"] != null)
 {
-    <script>
 
-        $(document).ready(function () {
+    if (TempData["MakePayment"].ToString() == "true")
+    {
+        <script>
+
+            $(document).ready(function () {
 
 
-            $("#rzp-button1").hide()
+                //$("#rzp-button1").hide()
+
+                $("#rzp-button1").on("click", function () { });
+
+                $("#rzp-button1").click(); //trigger event after listening to it.
 
 
-        })
 
-    </script>
+            })
 
+        </script>
+
+
+    }
 
 }
+
+
 
 
 
@@ -303,7 +367,7 @@ else
         $(document).ready(function () {
             $("#compdocumentbtn1").show();
             $("#documentbtn1").hide();
-       
+
             $("#title").hide();
         });
 
@@ -316,7 +380,7 @@ else
         $(document).ready(function () {
             $("#compdocumentbtn2").show();
             $("#documentbtn3").hide();
-          
+
             $("#title").hide();
 
         });
@@ -331,7 +395,7 @@ else
         $(document).ready(function () {
             $("#compdocumentbtn3").show();
             $("#documentbtn4").hide();
-      
+
             $("#title").hide();
         });
 
@@ -345,7 +409,7 @@ else
         $(document).ready(function () {
             $("#compdocumentbtn4").show();
             $("#documentbtn5").hide();
-        
+
             $("#title").hide();
         });
 
@@ -359,7 +423,7 @@ else
         $(document).ready(function () {
             $("#compdocumentbtn5").show();
             $("#documentbtn2").hide();
-         
+
             $("#title").hide();
         });
 
@@ -382,6 +446,8 @@ else
         $("#documentbtn1").show();
         $("#paymenttitle").hide();
 
+
+
     </script>
 
 }
@@ -393,7 +459,7 @@ else
 
         $("#documentbtn2").show();
         $("#paymenttitle").hide();
-
+      
     </script>
 
 }
@@ -404,7 +470,7 @@ else
 
         $("#documentbtn3").show();
         $("#paymenttitle").hide();
-
+      
     </script>
 
 }
@@ -427,6 +493,7 @@ else
 
         $("#documentbtn5").show();
         $("#paymenttitle").hide();
+
     </script>
 
 }
@@ -482,6 +549,7 @@ else
                 if ($(".checkone").is(":checked")) {
                     $("#documentmsg2").hide();
                     $("#documentmsg3").hide();
+                    $("#willtype").show();
                      $.ajax({
 
             type: "POST",
@@ -492,10 +560,12 @@ else
 
                     $("#documentmsg1").show();
                     $('.checkone').prop('checked', false);
+                 
                 }
                 else {
                     $("#documentmsg1").hide();
                     $("#documenttype").empty().append(x);
+                   
                 }
 
 
@@ -513,6 +583,7 @@ else
                 else {
 
                     $('#DDLAmtPaidBY2').prop('disabled', true);
+                    $("#willtype").hide();
                 }
 
 
@@ -618,6 +689,27 @@ else
 
 
 
+    $(document).on("change", "#getvalone", function () {
+
+       
+
+        $("#txtvoucher").show();
+
+
+    });
+
+    $(document).on("change", "#getvaltwo", function () {
+
+        $("#txtvoucher").hide();
+      
+
+    });
+
 
 
 </script>
+
+
+
+
+

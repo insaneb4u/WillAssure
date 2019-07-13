@@ -97,7 +97,7 @@
 
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-12" style="float: left;">
+                                @*<div class="form-group col-sm-12" style="float: left;">
                                     <div class="col-sm-12"><label for="email" style="font-weight: 700; font-size: 16px">Select Doument which you wants to create</label></div>
                                     <div class="col-sm-12" style="float: left;">
                                         <label class="checkbox-inline">
@@ -117,16 +117,16 @@
                                         </label>
                                     </div>
                                     <span style="color:red;display:none" id="lblcheck">*Required</span>
-                                </div>
+                                </div>*@
 
-                                <div id="willtype" style="display:none;">
+                                @*<div id="willtype" style="display:none;">
                                     <label class="radio-inline">
                                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="typeone" name="optone" value="Quick" checked>Quick
                                     </label>
                                     <label class="radio-inline">
                                         <input type="radio" id="typetwo" name="optone" value="Detailed">Detailed
                                     </label>
-                                </div>
+                                </div>*@
                                     <!--<div class="col-sm-12" style="float: left;" id="documentpricing">
 
         </div>-->
@@ -335,16 +335,19 @@
 
     $("#btnsubmit").click(function () {
 
-        var getValuesSelected = $("#w").val().trim() + $("#c").val().trim() + $("#p").val().trim() + $("#g").val().trim() + $("#lw").val().trim();
+
+   
+
+        //var getValuesSelected = $("#w").val().trim() + $("#c").val().trim() + $("#p").val().trim() + $("#g").val().trim() + $("#lw").val().trim();
         //  alert(getValuesSelected);
 
 
 
-        var i = 0;
+        //var i = 0;
         if ($("#getvalone").is(':checked')) {
             if ($("#ddlDistributor").val() == "") {
                 $("#lblerror4").show();
-                i = 1;
+                //i = 1;
             }
 
         }
@@ -356,60 +359,61 @@
 
         if (!$('.chk').is(':checked')) {
             $("#lblcheck").show();
-            return false;
+            //return false;
         }
         if ($("#txtfirstname").val() == "") {
             $("#lblerror1").show();
-            i = 1;
+            //i = 1;
         }
 
         if ($("#txtmiddlename").val() == "") {
             $("#lblerror12").show();
-            i = 1;
+            //i = 1;
         }
 
 
         if ($("#txtlastname").val() == "") {
             $("#lblerror13").show();
-            i = 1;
+            //i = 1;
         }
 
         if ($("#txtcontact").val() == "") {
             $("#lblerror2").show();
-            i = 1;
+            //i = 1;
         }
 
 
 
         if ($("#txtdob").val() == "") {
             $("#lblerrordate").show();
-            i = 1;
+            //i = 1;
         }
 
 
 
         if ($("#txtemail").val() == "") {
             $("#lblerror3").show();
-            i = 1;
+            //i = 1;
         }
-        if (i == 1) {
-            return;
-        }
+        //if (i == 1) {
+        //    return;
+        //}
 
-        var willtype = "";
-        if ($('input[name=optone]:checked').val() == "Quick") {
-            willtype = "Quick";
-        }
-        else {
-            willtype = "Detailed";
-        }
+        //var willtype = "";
+        //if ($('input[name=optone]:checked').val() == "Quick") {
+        //    willtype = "Quick";
+        //}
+        //else {
+        //    willtype = "Detailed";
+        //}
       
 
         //  else {
 
         //      var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + $("#documenttype").val();
-        var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + getValuesSelected + "~" + $("#txtdob").val() + "~" + willtype;
+        var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + $("#txtdob").val();
 
+       
 
         $.ajax({
 

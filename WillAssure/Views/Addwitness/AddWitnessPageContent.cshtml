@@ -240,32 +240,32 @@
 
 
                             @*<div class="row">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-1"><label for="input-1" style="line-height:40px">Type</label></div>
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-1"><label for="input-1" style="line-height:40px">Type</label></div>
 
-                <div class="col-sm-3">
+                    <div class="col-sm-3">
 
-                    @if (Session["doctype"].ToString() == "Will")
-                    {
+                        @if (Session["doctype"].ToString() == "Will")
+                        {
 
-                        @Html.HiddenFor(m => m.ddltid, new { id = "ddltid" })
-                        @Html.HiddenFor(m => m.ddltestatorname, new { id = "ddltestatorname" })
-                        @Html.HiddenFor(m => m.check, new { @id = "txtcheck" })
-                        @Html.HiddenFor(m => m.ddltid, new { @id = "ddltid" })
-                        @Html.HiddenFor(m => m.ddltestatorname, new { id = "ddltestatorname" })
-                        @Html.DropDownListFor(x => x.Typetxt, new SelectListItem[]{
-                         new SelectListItem() {Text = "--Select--", Value=""},
-                         new SelectListItem() {Text = "Executor", Value="1"},
-                         new SelectListItem() {Text = "Guardian", Value="2"},
+                            @Html.HiddenFor(m => m.ddltid, new { id = "ddltid" })
+                            @Html.HiddenFor(m => m.ddltestatorname, new { id = "ddltestatorname" })
+                            @Html.HiddenFor(m => m.check, new { @id = "txtcheck" })
+                            @Html.HiddenFor(m => m.ddltid, new { @id = "ddltid" })
+                            @Html.HiddenFor(m => m.ddltestatorname, new { id = "ddltestatorname" })
+                            @Html.DropDownListFor(x => x.Typetxt, new SelectListItem[]{
+                             new SelectListItem() {Text = "--Select--", Value=""},
+                             new SelectListItem() {Text = "Executor", Value="1"},
+                             new SelectListItem() {Text = "Guardian", Value="2"},
 
 
-                         new SelectListItem() {Text = "Witness", Value="5"}}, new { @class = "form-control input-shadow validate[required]", @id="ddltype" })
-                        @Html.HiddenFor(m => m.TypeId, new { id = "TypeId" })
-                        @Html.HiddenFor(m => m.Typetxt, new { id = "Typetxt" })
-                    }
+                             new SelectListItem() {Text = "Witness", Value="5"}}, new { @class = "form-control input-shadow validate[required]", @id="ddltype" })
+                            @Html.HiddenFor(m => m.TypeId, new { id = "TypeId" })
+                            @Html.HiddenFor(m => m.Typetxt, new { id = "Typetxt" })
+                        }
 
-                </div>
-            </div>*@
+                    </div>
+                </div>*@
 
                             <hr class="div_rd">
                             /////////////////////////////////////////////////////////////////////////////////////////
@@ -441,6 +441,7 @@
                                 <div class="row">
                                     <div class="col-sm-1"></div>
                                     <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
+
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof</label>
@@ -449,13 +450,16 @@
                                        new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @onchange= "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
                                         </div>
+
                                     </div>
+
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof Value</label>
-                                            <div id="appendtxt">  @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Identity Proof Number", @autocomplete = "off", @readonly = "true" })</div>
+                                            <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "Identity_Proof_Value", @onchange = "validateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
                                             <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
                                         </div>
                                     </div>
@@ -465,20 +469,27 @@
                                             <label for="input-1">Alt Identity Proof</label>
                                             @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
                                        new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                        new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ", @id="ddlidentityproof11" , @onchange= "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-                                            @Html.HiddenFor(m => m.Alt_Identity_Proof_Value, new { id = "Alt_Identity_Proof" })
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow ", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
                                         </div>
                                     </div>
+
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
+                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
+                                            <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                         </div>
                                     </div>
+
+
+
+
+
                                 </div>
 
 
@@ -558,6 +569,12 @@
                                         {
                                             <a href="@Url.Action("Index","QuickMapping" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )">
                                                 <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                               
+                                                @if (true)
+	                                            {
+		                                           
+	                                            }
+                                                
                                                 <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
 
                                             </a>
@@ -628,8 +645,8 @@
 
                     </div>
 
-                
-                 
+
+
                     <!--Start Back To Top Button-->
                     <a href="javaScript:void();" class="back-to-top"><i class="fa fa-angle-double-up"></i> </a>
                     <!--End Back To Top Button-->
@@ -794,7 +811,7 @@
 
                     $("#confirmtestatorfamily").click();
 
-                  
+
 
                 }
 
@@ -865,7 +882,7 @@
                         <script>
 
                             $(document).ready(function () {
-                    
+
 
 
                                 $("#txtComanyName").val("");
@@ -906,33 +923,32 @@
 
                     @*validation script*@
                     <script>
-
-
-
                         function getIdentityselection(id) {
+                            $("#ddlidentityproof1 option:disabled").removeAttr('disabled');
+                            //var a =  $("#Identity_Proof_txt").val(id);
 
-                            $("#ddlidentityproof11 option:disabled").removeAttr('disabled');
+                            //$("#ddlidentityproof1").find("option[value='" + a + "']").removeAttr("disabled");
 
 
                             if (id == "Aadhaar Card") {
-                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[adharCard]] text-input' id='Identity_Proof_Value' name='Identity_Proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[adharCard]] text-input' id='Identity_Proof_Value' , onchange='validateidentity(this.value)' , name='Identity_Proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
                             }
 
 
                             if (id == "Passport") {
-                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[Passport]] text-input' id='Identity_Proof_Value' name='Identity_Proof_Value'  placeholder='Enter Passport Number' autocomplete='off'  />");
+                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[Passport]] text-input' id='Identity_Proof_Value' name='Identity_Proof_Value' , onchange='validateidentity(this.value)' , placeholder='Enter Passport Number' autocomplete='off'  />");
                             }
 
 
 
                             if (id == "Driving Licences") {
-                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[carnumber]] text-input' id='Identity_Proof_Value' name='Identity_Proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  />");
+                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[carnumber]] text-input' id='Identity_Proof_Value' name='Identity_Proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='validateidentity(this.value)' />");
                             }
 
 
 
                             if (id == "Pan Card") {
-                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[pannumber]] text-input' id='Identity_Proof_Value' name='Identity_Proof_Value' placeholder='Enter Pan Card' autocomplete='off'  />");
+                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[pannumber]] text-input' id='Identity_Proof_Value' name='Identity_Proof_Value' placeholder='Enter Pan Card' autocomplete='off'  , onchange='validateidentity(this.value)' />");
                             }
 
 
@@ -940,157 +956,201 @@
 
 
 
-                            $("#ddlidentityproof11").find("option[value='" + previousid + "']").removeAttr("disabled");
-
-
-                        }
-
-
-
-
-                        $("#ddlrelation").change(function () {
-                            var value = $(this).children(":selected").attr("value");
-                            var text = $("#ddlrelation option:selected").html();
-
-                            $("#relationtext").val(text);
-                            $("#relationid").val(value);
-
-
-                        });
-
-
-
-                        $("#ddltype").change(function () {
-                            var value = $(this).children(":selected").attr("value");
-                            var text = $("#ddltype option:selected").html();
-
-                            if (text == "Executor") {
-
-                                $("#executorform").show();
-                                $("#guardianform").hide();
-                            }
-
-                            if (text == "Guardian") {
-
-                                $("#guardianform").show();
-                                $("#executorform").hide();
-                            }
-
-
-
-                            $("#Typetxt").val(text);
-                            $("#TypeId").val(value);
-
-
-                        });
-
-
-                        $("#ddlsubtype").change(function () {
-                            var value = $(this).children(":selected").attr("value");
-                            var text = $("#ddlsubtype option:selected").html();
-
-
-
-                            if (text == "Many Joint") {
-                                $("#txtnumber").show();
-                            }
-
-
-                            if (text == "Many Independent") {
-                                $("#txtnumber").show();
-                            }
-
-
-                            if (text == "Single") {
-                                $("#txtnumber").hide();
-                            }
-
-
-
-                            $("#subTypetxt").val(text);
-                            $("#subTypeId").val(value);
-
-
-                        });
-
-
-
-
-
-
-
-
-
-
-
-
-                        $(document).on("keyup", "#txtnumber", function () {
-
-                            var value = $("#txtnumber").val();
-
-
-
-                            	  $.ajax({
-                                      type: "POST",
-                                      url: "@Url.Action("DynamicControl", "Addwitness")",
-                                      data: { "send": "" + value + "" },
-                                      success: function (data) {
-
-                                          $("#dynamiccontrol").empty().append(data + "<br><center><input type='submit' class='btn btn-primary' value='Submit' /></center> ");
-
-                                      }
-          });
-
-
-
-
-
-
-
-
-                        });
-
-
-
-
-
-
-
-
-
-
-                    </script>
-                    <script>
-                        function getAltIdentityselection(id) {
-
-                            $("#Alt_Identity_Proof").val(id);
-
-
-                            if (id == "Aadhaar Card") {
-                                $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
-                            }
-
-
-                            if (id == "Passport") {
-                                $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off'  />");
-                            }
-
-
-
-                            if (id == "Driving Licences") {
-                                $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  />");
-                            }
-
-
-
-                            if (id == "Pan Card") {
-                                $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off'  />");
-                            }
-
+                            $("#ddlidentityproof1").find("option[value='" + previousid + "']").attr("disabled", "disabled");
 
                         }
                     </script>
+
                     <script>
+    function getAltIdentityselection(id) {
+
+        $("#Alt_Identity_Proof").val(id);
+
+
+        if (id == "Aadhaar Card") {
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  , onchange='altvalidateidentity(this.value)' />");
+        }
+
+
+        if (id == "Passport") {
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='altvalidateidentity(this.value)'   />");
+        }
+
+
+
+        if (id == "Driving Licences") {
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='altvalidateidentity(this.value)'  />");
+        }
+
+
+
+        if (id == "Pan Card") {
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='altvalidateidentity(this.value)'   />");
+        }
+
+
+    }
+
+
+
+    $('.radio').on('change', function () {
+        if (!$(this).is(':checked')) {
+            $('.radio').prop('checked', false);
+            $("#txtcheck").val("false");
+
+        } else {
+            $('.radio').prop('checked', true);
+            $("#txtcheck").val("true");
+        }
+    });
+
+
+
+
+
+
+      function getDDLTestator(value) {
+        //var value = $(this).children(":selected").attr("value");
+        var text = $("#DDLTestator option:selected").html();
+
+
+
+
+
+        $("#ddltestatorname").val(text);
+          $("#ddltid").val(value);
+
+
+
+        var checkstatus =  $("#txtcheck").val();
+
+             $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("CheckTestatorUsers", "AddTestatorFamily")",
+                 data: { value: value, checkstatus: checkstatus },
+            success: function (data) {
+
+                if (data == 2) {
+
+                    $("#confirmtestatorfamily").on("click", function () { });
+
+                    $("#confirmtestatorfamily").click();
+
+
+
+                }
+
+
+
+
+
+
+
+            }
+        });
+
+
+
+
+
+    };
+
+
+
+
+    $("#confirmtestatorfamily").click(function () {
+        $("#btnnext").show();
+        swal({
+
+            text: 'Your Testator Family Data Submitted Successfully Do You Want To Add More ?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+            buttons: ['No', 'Yes']
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+
+
+
+                } else {
+
+
+
+
+
+                        var url = "/AddBeneficiary/AddBeneficiaryIndex/";
+                        window.location.href = url;
+
+
+
+
+                }
+            });
+
+            });
+
+
+
+
+
+
+            // confirm guardian popup
+
+            $("#confirmguardian").click(function () {
+                $("#btnnext").show();
+                swal({
+
+                    text: 'Do You Like To Add Guardian Details ? ',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                    buttons: ['No', 'Yes']
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+
+                            $("#guardianform").show();
+
+                        } else {
+
+
+                            $("#guardianform").hide();
+                            $("#txtgchk").val("false");
+
+
+
+
+
+
+                        }
+                    });
+
+            });
+
+
+
+
+            //end
+
+
+                    </script>
+
+
+
+                    @*end*@
+
+
+
+
+
+
+
+                    <script>
+
+
+
     $("#ddlstate").change(function () {
         var value = $(this).children(":selected").attr("value");
         var text = $("#ddlstate option:selected").html();
@@ -1496,7 +1556,7 @@
                                 $("#ddlidentityproof22alt").attr("disabled", "disabled");
                                 $("#txtIdentityProofValuealt2").attr("disabled", "disabled");
                                 $("#Alt_Identity_proof_Value").attr("disabled", "disabled");
-                                
+
                             });
 
 
@@ -1567,7 +1627,7 @@
 
 
 
-                            
+
 
                             $("#btnupdate").show();
 
@@ -1704,7 +1764,7 @@
 
 
 
-                          $("#Alt_Identity_proof_Value").removeAttr("disabled");
+                            $("#Alt_Identity_proof_Value").removeAttr("disabled");
 
 
 
@@ -1749,7 +1809,7 @@
 
                             $("#Alt_Identity_proof_Value").val("");
 
-                            
+
 
 
 
@@ -1888,5 +1948,94 @@
                     </script>
 
                     @*end*@
+
+
+
+
+                    @*for checking identity proof  and alternate identity proof*@
+
+
+
+                    <script>
+
+
+            function validateidentity(value) {
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "@Url.Action("Validateidentity", "Addwitness")",
+                    data: {"send":""+value+""},
+                    success: function (data) {
+
+                        if (data == "true") {
+
+                            $("#lblidentityproof").hide();
+
+                        }
+
+
+                        if (data == "false") {
+
+                            $("#lblidentityproof").show();
+
+                        }
+
+
+
+            }
+        });
+
+
+
+            }
+
+
+                    </script>
+
+
+
+
+
+
+                    <script>
+
+
+            function Altvalidateidentity(value) {
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "@Url.Action("altValidateidentity", "Addwitness")",
+                    data: {"send":""+value+""},
+                    success: function (data) {
+
+                        if (data == "true") {
+
+                            $("#altlblidentityproof").hide();
+
+                        }
+
+
+                        if (data == "false") {
+
+                            $("#altlblidentityproof").show();
+
+                        }
+
+
+
+            }
+        });
+
+
+
+            }
+
+
+                    </script>
+
+                    @*end*@
+
 
 

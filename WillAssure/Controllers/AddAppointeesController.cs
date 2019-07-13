@@ -1470,12 +1470,19 @@ namespace WillAssure.Controllers
                 }
                 else
                 {
+                        try
+                        {
 
-                    data2 += "'" + result2[i].ToString() + "',";
+                            data2 += "'" + result2[i].ToString() + "',";
+                        }
+                        catch (Exception)
+                        {
 
 
+                        }
 
-                }
+
+                    }
                 getcount2++;
 
 

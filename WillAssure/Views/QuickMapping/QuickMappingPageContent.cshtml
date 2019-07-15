@@ -65,9 +65,9 @@
                                                 </a>
 
                                                 <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
-                                                    <li style="">Mapping</li>
+                                                    <li style="">Mapping ></li>
                                                 </a>
-
+                                                <li style="color:#e1e1e1">Document</li>
 
                                             </ul>
                                         </h5>
@@ -314,19 +314,14 @@
                                 </div>
 
 
-                                @if (Session["doctype"] != null)
+                                @if (Session["doctype"] != null || Session["WillType"] != null)
                                 {
-                                    if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
+                                 
+                                    if (Session["doctype"].ToString() == "Will" || Session["WillType"].ToString() == "Quick")
                                     {
-                                        <div class="form-group" style="float:right">
-                                            <a href="@Url.Action("AddwitnessIndex", "Addwitness")"><button type="button" style="display:;" id="btnnext" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="form-group" style="float:right">
-                                            <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><button type="button" style="display:;" id="btnnext" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
-                                        </div>
+                                <div class="form-group" style="float:right">
+                                    <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )"><button type="button" style="display:;" id="btnnext" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                </div>
                                     }
                                 }
                                 else

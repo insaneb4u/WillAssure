@@ -218,6 +218,7 @@
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\ChangeTemplateController.cs" />
     <Compile Include="Controllers\CodocilController.cs" />
+    <Compile Include="Controllers\CodocilWitnessController.cs" />
     <Compile Include="Controllers\CompletedDocumentController.cs" />
     <Compile Include="Controllers\CouponsAllotmentController.cs" />
     <Compile Include="Controllers\DashBoardController.cs" />
@@ -334,6 +335,7 @@
     <Compile Include="Models\BeneficiaryInstitutionModel.cs" />
     <Compile Include="Models\BeneficiaryModel.cs" />
     <Compile Include="Models\CodocilModel.cs" />
+    <Compile Include="Models\codocilwitnessmodel.cs" />
     <Compile Include="Models\CouponAllotementModel.cs" />
     <Compile Include="Models\CouponsModel.cs" />
     <Compile Include="Models\DesingnationModel.cs" />
@@ -1872,6 +1874,7 @@
     <Content Include="Views\TestatorHomePage\TestatorHomePageContent.cshtml" />
     <Content Include="Views\Addwitness\AddWitnessPageContent.cshtml" />
     <Content Include="Views\QuickMapping\QuickMappingPageContent.cshtml" />
+    <Content Include="Views\CodocilWitness\CodocilWitnessPageContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

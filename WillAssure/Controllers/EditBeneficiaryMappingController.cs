@@ -284,7 +284,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string query = "select a.Beneficiary_Asset_ID , c.AssetsType , b.AssetsCategory , a.SchemeName , a.InstrumentName , a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId";
+            string query = "select a.Beneficiary_Asset_ID , c.AssetsType , b.AssetsCategory , a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -303,8 +303,7 @@ namespace WillAssure.Controllers
                     data = data + "<tr class='nr'><td>" + dt.Rows[i]["Beneficiary_Asset_ID"].ToString() + "</td>"
                    + "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>"
                    + "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>"
-                   + "<td>" + dt.Rows[i]["SchemeName"].ToString() + "</td>"
-                   + "<td>" + dt.Rows[i]["InstrumentName"].ToString() + "</td>"
+                   
                     + "<td>" + dt.Rows[i]["Proportion"].ToString() + "</td>"
                    + "<td> <button type='button'   id='" + dt.Rows[i]["Beneficiary_Asset_ID"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
 

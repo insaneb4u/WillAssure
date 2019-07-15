@@ -24,9 +24,624 @@ namespace WillAssure.Controllers
         // GET: CodocilWitness
         public ActionResult CodocilWitnessIndex()
         {
+            codocilwitnessmodel CWM = new codocilwitnessmodel();
+
+            return View("~/Views/CodocilWitness/CodocilWitnessPageContent.cshtml", CWM);
+        }
+
+
+        public ActionResult InsertAppointeesFormData(AppointeesModel AM)
+        {
+            ViewBag.collapse = "true";
+            // check type 
+            string typ = "";
+            con.Open();
+            string qq1 = "select Type from users where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+            SqlDataAdapter daa = new SqlDataAdapter(qq1, con);
+            DataTable dtt = new DataTable();
+            daa.Fill(dtt);
+            con.Close();
+
+            if (dtt.Rows.Count > 0)
+            {
+                typ = dtt.Rows[0]["Type"].ToString();
+            }
+
+
+
+            //end
+
+
+
+            if (typ == "Testator")
+            {
+                // check will status
+                con.Open();
+                string qry1 = "select Will  from users where Will = 1 ";
+                SqlDataAdapter daa1 = new SqlDataAdapter(qry1, con);
+                DataTable dtt1 = new DataTable();
+                daa1.Fill(dtt1);
+                if (dtt1.Rows.Count > 0)
+                {
+                    ViewBag.documentbtn1 = "true";
+                }
+                con.Close();
+                //end
+
+
+                // check codocil status
+                con.Open();
+                string qry2 = "select Codocil  from users where Codocil = 1 ";
+                SqlDataAdapter daa2 = new SqlDataAdapter(qry2, con);
+                DataTable dtt2 = new DataTable();
+                daa2.Fill(dtt2);
+                if (dtt2.Rows.Count > 0)
+                {
+                    ViewBag.documentbtn2 = "true";
+                }
+                con.Close();
+
+                //end
+
+
+                // check Poa status
+                con.Open();
+                string qry4 = "select POA  from users where POA = 1 ";
+                SqlDataAdapter daa4 = new SqlDataAdapter(qry4, con);
+                DataTable dtt4 = new DataTable();
+                daa4.Fill(dtt4);
+                if (dtt4.Rows.Count > 0)
+                {
+                    ViewBag.documentbtn3 = "true";
+                }
+                con.Close();
+                //end
+
+
+                // check gift deeds status
+                con.Open();
+                string qry3 = "select Giftdeeds  from users where Giftdeeds = 1 ";
+                SqlDataAdapter daa3 = new SqlDataAdapter(qry3, con);
+                DataTable dtt3 = new DataTable();
+                daa3.Fill(dtt3);
+                if (dtt3.Rows.Count > 0)
+                {
+                    ViewBag.documentbtn4 = "true";
+                }
+                con.Close();
+                //end
+            }
+            else
+            {
+                ViewBag.showtitle = "true";
+                ViewBag.documentlink = "true";
+
+            }
+
+
+
+            // roleassignment
+            List<LoginModel> Lmlist = new List<LoginModel>();
+            con.Open();
+            string q = "select * from Assignment_Roles where RoleId = " + Convert.ToInt32(Session["rId"]) + "";
+            SqlDataAdapter da3 = new SqlDataAdapter(q, con);
+            DataTable dt3 = new DataTable();
+            da3.Fill(dt3);
+            if (dt3.Rows.Count > 0)
+            {
+
+                for (int i = 0; i < dt3.Rows.Count; i++)
+                {
+                    LoginModel lm = new LoginModel();
+                    lm.PageName = dt3.Rows[i]["PageName"].ToString();
+                    lm.PageStatus = dt3.Rows[i]["PageStatus"].ToString();
+                    lm.Action = dt3.Rows[i]["Action"].ToString();
+                    lm.Nav1 = dt3.Rows[i]["Nav1"].ToString();
+                    lm.Nav2 = dt3.Rows[i]["Nav2"].ToString();
+
+                    Lmlist.Add(lm);
+                }
+
+
+
+                ViewBag.PageName = Lmlist;
+
+
+
+
+            }
+
+            con.Close();
+
+
+            //end
+
+
+
+            AM.documentId = 0;
+            int appid = 0;
+            // latest appointees
+            int apid = 0;
+
+
+           
+             
+                    ViewBag.disablefield = "true";
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("SP_CRUDAppointees", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@condition", "insert");
+                    cmd.Parameters.AddWithValue("@documentId", AM.documentId);
+                    cmd.Parameters.AddWithValue("@Type", "Witness");
+
+                    if (AM.subTypetxt != null || AM.subTypetxt != "")
+                    {
+                        cmd.Parameters.AddWithValue("@subType", AM.subTypetxt);
+                    }
+                    else
+                    {
+                        cmd.Parameters.AddWithValue("@subType", "None");
+                    }
+
+
+
+
+
+
+                    cmd.Parameters.AddWithValue("@Name", AM.Firstname);
+                    cmd.Parameters.AddWithValue("@middleName", AM.middleName);
+                    cmd.Parameters.AddWithValue("@Surname", AM.Surname);
+                    cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);
+                    cmd.Parameters.AddWithValue("@Identity_proof_value", AM.Identity_Proof_Value);
+
+
+                    if (AM.Alt_Identity_Proof != null)
+                    {
+                        cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+                    }
+                    else
+                    {
+                        AM.Alt_Identity_Proof = "None";
+                        cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+                    }
+
+
+                    if (AM.Alt_Identity_Proof_Value != null)
+                    {
+                        cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+                    }
+                    else
+                    {
+                        AM.Alt_Identity_Proof_Value = "None";
+                        cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+                    }
+
+
+
+
+
+
+
+
+
+                    //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                    //cmd.Parameters.AddWithValue("@DOB", "None");
+                    cmd.Parameters.AddWithValue("@Gender", AM.Gender);
+                    cmd.Parameters.AddWithValue("@Occupation", "None");
+                    cmd.Parameters.AddWithValue("@Relationship", "None");
+                    cmd.Parameters.AddWithValue("@Address1", AM.Address1);
+                    if (AM.Address2 != null || AM.Address2 == "")
+                    {
+                        cmd.Parameters.AddWithValue("@Address2", AM.Address2);
+                    }
+                    else
+                    {
+                        AM.Address2 = "None";
+                        cmd.Parameters.AddWithValue("@Address2", AM.Address2);
+                    }
+
+
+                    if (AM.Address3 != null || AM.Address3 == "")
+                    {
+                        cmd.Parameters.AddWithValue("@Address3", AM.Address3);
+                    }
+                    else
+                    {
+                        AM.Address3 = "None";
+                        cmd.Parameters.AddWithValue("@Address3", AM.Address3);
+                    }
+
+
+                    cmd.Parameters.AddWithValue("@City", AM.citytext);
+                    cmd.Parameters.AddWithValue("@State", AM.statetext);
+                    cmd.Parameters.AddWithValue("@Pin", AM.Pin);
+                    cmd.Parameters.AddWithValue("@tid", AM.ddltid);
+                    cmd.Parameters.AddWithValue("@ExecutorType", "Single");
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+
+
+
+                    con.Open();
+                    string query = "select top 1 * from Appointees order by apId desc";
+                    SqlDataAdapter da2 = new SqlDataAdapter(query, con);
+                    DataTable dt2 = new DataTable();
+                    da2.Fill(dt2);
+                    if (dt2.Rows.Count > 0)
+                    {
+                        appid = Convert.ToInt32(dt2.Rows[0]["apId"]);
+                        apid = 1; // for yes
+                    }
+                    else
+                    {
+                        apid = 2; //for no
+                    }
+                    con.Close();
+
+
+
+                    //end
+
+                    // update document status
+
+                    con.Open();
+                    string qte = "update Appointees set documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid + " ";
+                    SqlCommand cmdte = new SqlCommand(qte, con);
+                    cmdte.ExecuteNonQuery();
+                    con.Close();
+
+
+                    //end
+
+
+                    con.Open();
+                    string qt = "update Appointees set doctype = 'Will'  where  apId = " + Convert.ToInt32(dt2.Rows[0]["apId"]) + "";
+                    SqlCommand cmdt = new SqlCommand(qt, con);
+                    cmdt.ExecuteNonQuery();
+                    con.Close();
+
+
+
+
+
+
+                    ////////////////////////////////////alternate witness //////////////////////////////////////////////////
+
+
+
+
+                    con.Open();
+                    SqlCommand cmdw = new SqlCommand("SP_CRUDAppointees", con);
+                    cmdw.CommandType = CommandType.StoredProcedure;
+                    cmdw.Parameters.AddWithValue("@condition", "insert");
+                    cmdw.Parameters.AddWithValue("@documentId", AM.wdocumentId);
+                    cmdw.Parameters.AddWithValue("@Type", "Witness");
+
+                    if (AM.wsubTypetxt != null || AM.wsubTypetxt != "")
+                    {
+                        cmdw.Parameters.AddWithValue("@subType", AM.wsubTypetxt);
+                    }
+                    else
+                    {
+                        cmdw.Parameters.AddWithValue("@subType", "None");
+                    }
+
+
+
+
+
+
+                    cmdw.Parameters.AddWithValue("@Name", AM.wFirstname);
+                    cmdw.Parameters.AddWithValue("@middleName", AM.wmiddleName);
+                    cmdw.Parameters.AddWithValue("@Surname", AM.wSurname);
+                    cmdw.Parameters.AddWithValue("@Identity_proof", AM.wIdentity_Proof);
+                    cmdw.Parameters.AddWithValue("@Identity_proof_value", AM.wIdentity_Proof_Value);
+
+
+                    if (AM.wAlt_Identity_Proof != null)
+                    {
+                        cmdw.Parameters.AddWithValue("@Alt_Identity_proof", AM.wAlt_Identity_Proof);
+                    }
+                    else
+                    {
+                        AM.wAlt_Identity_Proof = "None";
+                        cmdw.Parameters.AddWithValue("@Alt_Identity_proof", AM.wAlt_Identity_Proof);
+                    }
+
+
+                    if (AM.wAlt_Identity_Proof_Value != null)
+                    {
+                        cmdw.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.wAlt_Identity_Proof_Value);
+                    }
+                    else
+                    {
+                        AM.wAlt_Identity_Proof_Value = "None";
+                        cmdw.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.wAlt_Identity_Proof_Value);
+                    }
+
+
+
+
+
+
+
+
+
+                    //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                    //cmd.Parameters.AddWithValue("@DOB", "None");
+                    cmdw.Parameters.AddWithValue("@Gender", AM.wGender);
+                    cmdw.Parameters.AddWithValue("@Occupation", "None");
+                    cmdw.Parameters.AddWithValue("@Relationship", "None");
+                    cmdw.Parameters.AddWithValue("@Address1", AM.wAddress1);
+                    if (AM.wAddress2 != null || AM.wAddress2 == "")
+                    {
+                        cmdw.Parameters.AddWithValue("@Address2", AM.wAddress2);
+                    }
+                    else
+                    {
+                        AM.wAddress2 = "None";
+                        cmdw.Parameters.AddWithValue("@Address2", AM.wAddress2);
+                    }
+
+
+                    if (AM.wAddress3 != null || AM.wAddress3 == "")
+                    {
+                        cmdw.Parameters.AddWithValue("@Address3", AM.wAddress3);
+                    }
+                    else
+                    {
+                        AM.wAddress3 = "None";
+                        cmdw.Parameters.AddWithValue("@Address3", AM.wAddress3);
+                    }
+
+
+                    cmdw.Parameters.AddWithValue("@City", AM.wcitytext);
+                    cmdw.Parameters.AddWithValue("@State", AM.wstatetext);
+                    cmdw.Parameters.AddWithValue("@Pin", AM.wPin);
+                    cmdw.Parameters.AddWithValue("@tid", AM.ddltid);
+                    cmdw.Parameters.AddWithValue("@ExecutorType", "Single");
+                    cmdw.ExecuteNonQuery();
+                    con.Close();
+
+
+                    int appid22 = 0;
+                    con.Open();
+                    string query22 = "select top 1 * from Appointees order by apId desc";
+                    SqlDataAdapter da22 = new SqlDataAdapter(query22, con);
+                    DataTable dt22 = new DataTable();
+                    da22.Fill(dt22);
+                    if (dt22.Rows.Count > 0)
+                    {
+                        appid22 = Convert.ToInt32(dt22.Rows[0]["apId"]);
+                        apid = 1; // for yes
+                    }
+                    else
+                    {
+                        apid = 2; //for no
+                    }
+                    con.Close();
+
+
+
+                    //end
+
+                    // update document status
+
+                    con.Open();
+                    string qte22 = "update Appointees set documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid22 + " ";
+                    SqlCommand cmdte22 = new SqlCommand(qte22, con);
+                    cmdte22.ExecuteNonQuery();
+                    con.Close();
+
+
+                    //end
+
+
+                    con.Open();
+                    string qt22 = "update Appointees set doctype = 'Will'  where  apId = " + appid22 + "";
+                    SqlCommand cmdt22 = new SqlCommand(qt22, con);
+                    cmdt22.ExecuteNonQuery();
+                    con.Close();
+
+
+
+
+
+
+
+
+
+                    ////////////////////////////////////////end//////////////////////////////////////////////////////////////
+
+
+                
+            
+          
+
+
+
+
+
+
+         
+
+            TempData["Message"] = "true";
+
+            // dropdown selection
+            int AppointmentofGuardian = 0;
+            if (AM.Typetxt == "Guardian")
+            {
+                AppointmentofGuardian = 1;    //yes
+            }
+            else
+            {
+                AppointmentofGuardian = 2;    // no
+            }
+
+            int Numberofexecutors = 0;
+            if (AM.subTypetxt == "Single")
+            {
+                Numberofexecutors = 1;
+            }
+            if (AM.subTypetxt == "Many Joint")
+            {
+                Numberofexecutors = 2;
+            }
+            if (AM.subTypetxt == "Many Independent")
+            {
+                Numberofexecutors = 3;
+            }
+
+            //end
+
+            // Document Rules
+
+            //get latest id first
+            con.Open();
+            string getquery = "select top 1 * from documentRules order by wdId desc";
+            SqlDataAdapter da = new SqlDataAdapter(getquery, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            int getruleid = 0;
+            if (dt.Rows.Count > 0)
+            {
+                getruleid = Convert.ToInt32(dt.Rows[0]["wdId"]);
+            }
+            con.Close();
+
+            //end
+
+
+
+            con.Open();
+            string rulequery = "update documentRules set guardian = " + AppointmentofGuardian + " ,executors_category = " + Numberofexecutors + " where tid = " + AM.ddltid + " ";
+            SqlCommand cmd2 = new SqlCommand(rulequery, con);
+            cmd2.ExecuteNonQuery();
+            con.Close();
+            //end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            ViewBag.Message = "Verified";
+
+
+            // latest appointees
+            int altapid = 0;
+            con.Open();
+            string query4 = "select top 1 * from alternate_Appointees order by apId desc";
+            SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
+            DataTable dt4 = new DataTable();
+            da4.Fill(dt4);
+            if (dt4.Rows.Count > 0)
+            {
+
+                altapid = 1; // for yes
+            }
+            else
+            {
+                altapid = 2; //for no
+            }
+            con.Close();
+
+
+
+            //end
+
+
+
+            // dropdown selection
+            int AppointmentofaltGuardian = 0;
+            if (AM.altguardian == "Guardian")
+            {
+                AppointmentofaltGuardian = 1;    //yes
+            }
+            else
+            {
+                AppointmentofaltGuardian = 2;    // no
+            }
+
+            int altNumberofexecutors = 2;
+            if (AM.altexecutor == "Single")
+            {
+                altNumberofexecutors = 1;
+            }
+            if (AM.altexecutor == "Many Joint")
+            {
+                altNumberofexecutors = 1;
+            }
+            if (AM.altexecutor == "Many Independent")
+            {
+                altNumberofexecutors = 1;
+            }
+
+            //end
+
+            // Document Rules
+
+            //get latest id first
+            con.Open();
+            string getquery4 = "select top 1 * from documentRules order by wdId desc";
+            SqlDataAdapter da5 = new SqlDataAdapter(getquery4, con);
+            DataTable dt5 = new DataTable();
+            da5.Fill(dt5);
+            int getruleid2 = 0;
+            if (dt.Rows.Count > 0)
+            {
+                getruleid2 = Convert.ToInt32(dt5.Rows[0]["wdId"]);
+            }
+            con.Close();
+
+            //end
+
+
+
+            con.Open();
+            string rulequery2 = "update documentRules set AlternateGaurdian = " + AppointmentofaltGuardian + " , AlternateExecutors = " + altNumberofexecutors + " where tid = " + AM.ddltid + " ";
+            SqlCommand cmd6 = new SqlCommand(rulequery2, con);
+            cmd6.ExecuteNonQuery();
+            con.Close();
+            //end
+
+
+            // update document master with latest rule id
+
+            con.Open();
+            string rquery2 = "update documentMaster set wdId = " + getruleid2 + " where tId =  " + AM.ddltid + "  ";
+            SqlCommand rcmd2 = new SqlCommand(rquery2, con);
+            rcmd2.ExecuteNonQuery();
+            con.Close();
+
+
+
+
+            //end
+
+
+
+
+
+
+
            
 
-            return View("~/Views/CodocilWitness/CodocilWitnessPageContent.cshtml");
+       
+
+
+            TempData["Message"] = "true";
+            ModelState.Clear();
+
+            return RedirectToAction("AddwitnessIndex", "Addwitness");
         }
 
 

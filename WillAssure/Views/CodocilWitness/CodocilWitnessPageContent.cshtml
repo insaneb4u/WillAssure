@@ -3,8 +3,2310 @@
     ViewBag.Title = "CodocilWitnessPageContent";
 }
 
+<style>
 
-<div id="witnessform">
+
+    ul#menu li {
+        display: inline;
+    }
+</style>
 
 
-</div>
+
+
+@*Main Content*@
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row pt-2 pb-2">
+            <div class="col-sm-3">
+                <div class="btn-group float-sm-right">
+                    <div class="dropdown-menu">
+                        <a href="javaScript:void();" class="dropdown-item">Action</a>
+                        <a href="javaScript:void();" class="dropdown-item">Another action</a>
+                        <a href="javaScript:void();" class="dropdown-item">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javaScript:void();" class="dropdown-item">Separated link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Breadcrumb-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+
+
+                        <h5 style="float:right; color:#199d4b;">DocumentType  : <span class="icon-doc" style="color:#199d4b;"><b>Codocil</b></span> </h5>
+
+
+                        <div class="card-title text-primary" style="font-size:1.3em;"><a href="/Codocil/CodocilIndex/" style="color:black;">Codocil > </a><a href="@Url.Action("CodocilWitnessIndex","CodocilWitness")">Witness</a></div></h4>
+                        <br />
+
+
+
+
+
+                        @using (Html.BeginForm("InsertAppointeesFormData", null, FormMethod.Post, new { id = "DistributorForm" }))
+                        {
+
+
+
+
+
+
+                            <hr class="div_rd">
+                            /////////////////////////////////////////////////////////////////////////////////////////
+                            // EXECUTOR
+                            <div id="executorform" style="display:">
+
+
+
+
+                                @Html.HiddenFor(m => m.apId)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <div style="float:right;">
+
+                                    <input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" /><a href="@Url.Action("EditAppointeesIndex","EditAppointees" , new { Type = "Witness" })"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a>
+
+                                </div>
+
+
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h4> Witness 1</h4>
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
+
+
+
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">First Name</label>
+                                            @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control input-shadow required validate[required]", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Middle Name</label>
+                                            @Html.TextBoxFor(m => m.middleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Last Name</label>
+                                            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname", @placeholder = "Enter Surname", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Gender</label>
+                                            @Html.DropDownListFor(x => x.Gender, new SelectListItem[]{
+                                            new SelectListItem() {Text = "--Select--", Value=""},
+                                            new SelectListItem() {Text = "Male", Value="Male"},
+                                            new SelectListItem() {Text = "Female", Value="Female"},
+                                            new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow  validate[required]" })
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                                <hr />
+
+
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
+                                    @if (Model.statetext != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">State</label>
+                                                <select id="ddlstate" class="form-control input-shadow validate[required]">
+                                                    <option value="@Model.statetext">@Model.statetext</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
+                                                @Html.HiddenFor(m => m.statetext, new { id = "statetext" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">State</label>
+                                                <select id="ddlstate" class="form-control input-shadow validate[required]">
+                                                    <option value="">--Select State--</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
+                                                @Html.HiddenFor(m => m.statetext, new { id = "statetext" })
+                                            </div>
+                                        </div>
+                                    }
+
+                                    @if (Model.citytext != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">City</label>
+                                                <select id="ddlcity" class="form-control input-shadow validate[required]">
+                                                    <option value="@Model.citytext">@Model.citytext</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.cityid, new { id = "cityid" })
+                                                @Html.HiddenFor(m => m.citytext, new { id = "citytext" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">City</label>
+                                                <select id="ddlcity" class="form-control input-shadow validate[required]">
+                                                    <option value="">--Select City--</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.cityid, new { id = "cityid" })
+                                                @Html.HiddenFor(m => m.citytext, new { id = "citytext" })
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Pin</label>
+                                            @Html.TextBoxFor(m => m.Pin, new { @class = "form-control input-shadow validate[required,custom[PinCode]]  text-input", @id = "txtpin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <label for="input-1">Address 1</label>
+                                            @Html.TextAreaFor(m => m.Address1, new { @class = "form-control input-shadow  text-input validate[required]", @id = "txtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <label for="input-1">Address 2</label>
+                                            @Html.TextAreaFor(m => m.Address2, new { @class = "form-control input-shadow  text-input ", @id = "txtaddress2", @placeholder = "Enter Address2", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <label for="input-1">Address 3</label>
+                                            @Html.TextAreaFor(m => m.Address3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3", @placeholder = "Enter Address3", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Identity Proof</label>
+                                            @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
+                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Identity Proof Value</label>
+                                            <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "Identity_Proof_Value", @onchange = "validateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
+                                            <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Alt Identity Proof</label>
+                                            @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
+                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow ", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Alt Identity Proof Value</label>
+                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
+                                            <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
+
+
+
+
+                            //END
+                            ///////////////////////////////////////////////////////////////////////////////////////////
+
+                            <hr class="div_rd">
+                            /////////////////////////////////////////////////////////////////////////////////////////
+                            // EXECUTOR
+                            <div id="executorform" style="display:">
+
+
+
+
+                                @Html.HiddenFor(m => m.apId)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <h4> Witness 2</h4>
+                                    </div>
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
+
+
+
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">First Name</label>
+                                            @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control input-shadow required validate[required]", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Middle Name</label>
+                                            @Html.TextBoxFor(m => m.middleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Last Name</label>
+                                            @Html.TextBoxFor(m => m.Surname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname", @placeholder = "Enter Surname", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Gender</label>
+                                            @Html.DropDownListFor(x => x.Gender, new SelectListItem[]{
+                                            new SelectListItem() {Text = "--Select--", Value=""},
+                                            new SelectListItem() {Text = "Male", Value="Male"},
+                                            new SelectListItem() {Text = "Female", Value="Female"},
+                                            new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow  validate[required]" })
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                                <hr />
+
+
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
+                                    @if (Model.statetext != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">State</label>
+                                                <select id="ddlstate" class="form-control input-shadow validate[required]">
+                                                    <option value="@Model.statetext">@Model.statetext</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
+                                                @Html.HiddenFor(m => m.statetext, new { id = "statetext" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">State</label>
+                                                <select id="ddlstate" class="form-control input-shadow validate[required]">
+                                                    <option value="">--Select State--</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
+                                                @Html.HiddenFor(m => m.statetext, new { id = "statetext" })
+                                            </div>
+                                        </div>
+                                    }
+
+                                    @if (Model.citytext != null)
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">City</label>
+                                                <select id="ddlcity" class="form-control input-shadow validate[required]">
+                                                    <option value="@Model.citytext">@Model.citytext</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.cityid, new { id = "cityid" })
+                                                @Html.HiddenFor(m => m.citytext, new { id = "citytext" })
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">City</label>
+                                                <select id="ddlcity" class="form-control input-shadow validate[required]">
+                                                    <option value="">--Select City--</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.cityid, new { id = "cityid" })
+                                                @Html.HiddenFor(m => m.citytext, new { id = "citytext" })
+                                            </div>
+                                        </div>
+                                    }
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Pin</label>
+                                            @Html.TextBoxFor(m => m.Pin, new { @class = "form-control input-shadow validate[required,custom[PinCode]]  text-input", @id = "txtpin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <label for="input-1">Address 1</label>
+                                            @Html.TextAreaFor(m => m.Address1, new { @class = "form-control input-shadow  text-input validate[required]", @id = "txtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <label for="input-1">Address 2</label>
+                                            @Html.TextAreaFor(m => m.Address2, new { @class = "form-control input-shadow  text-input ", @id = "txtaddress2", @placeholder = "Enter Address2", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+                                        <div class="form-group">
+                                            <label for="input-1">Address 3</label>
+                                            @Html.TextAreaFor(m => m.Address3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3", @placeholder = "Enter Address3", @autocomplete = "off" })
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Identity Proof</label>
+                                            @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
+                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Identity Proof Value</label>
+                                            <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "Identity_Proof_Value", @onchange = "validateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
+                                            <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Alt Identity Proof</label>
+                                            @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
+                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow ", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Alt Identity Proof Value</label>
+                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
+                                            <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+
+
+
+
+
+
+
+
+
+
+                            </div>
+
+
+
+
+
+
+                            //END
+                            ///////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+                            <div class="form-group" style="float:right">
+
+                                <button type="submit" id="btnDistributorformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
+                                <button type="submit" id="btnupdate" style="display:none;" formaction="UpdateAppointees" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
+
+                                <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                <a href="@Url.Action("AddwitnessIndex","Addwitness")">
+                                    <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
+                                </a>
+
+
+
+                            </div>
+
+
+
+                        }
+                        <button id="btnappointeeSuccess" style="display:none;"></button>
+
+                    </div>
+
+
+
+
+
+                    <script>
+
+
+                        $(document).ready(function () {
+
+                              $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindNumberOfExecutor", "CodocilWitness")",
+                                  success: function (data) {
+                                      $('#executorcount').empty().append(data);
+
+                                  }
+        });
+
+
+
+
+
+        $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindStateDDL", "CodocilWitness")",
+            success: function (data) {
+                $('#ddlstate').append(data);
+            }
+                            });
+
+
+
+                                  $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("altBindStateDDL", "CodocilWitness")",
+            success: function (data) {
+                $('#altddlstate').append(data);
+            }
+        });
+
+
+            $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindRelationDDL", "CodocilWitness")",
+            success: function (data) {
+                $('#ddlrelation').append(data);
+            }
+        });
+
+
+    });
+
+
+                    </script>
+                    <script>
+
+
+
+
+
+
+
+
+
+                        // alter witness state on change
+
+
+
+    $("#altddlstate").change(function () {
+        var value = $(this).children(":selected").attr("value");
+        var text = $("#altddlstate option:selected").html();
+
+        $("#wstatetext").val(text);
+        $("#wstateid").val(value);
+
+
+
+         $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("altOnChangeBindCity", "CodocilWitness")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#altddlcity').empty().append(data);
+            }
+
+
+
+        });
+
+
+
+    });
+
+
+
+
+                        //end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </script>
+                    <script>
+                        $("#ddlcity").change(function () {
+                            var value = $(this).children(":selected").attr("value");
+                            var text = $("#ddlcity option:selected").html();
+
+                            $("#citytext").val(text);
+                            $("#cityid").val(value);
+                        });
+                    </script>
+                    <script>
+
+    $(document).ready(function () {
+
+        $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindDesignationDDL", "CodocilWitness")",
+            success: function (data) {
+                $('#ddldesignation').append(data);
+            }
+        });
+
+
+
+
+
+
+
+        var val = $("#tid").val();
+
+        var checkstatus =  $("#txtcheck").val();
+
+             $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("CheckTestatorUsers", "CodocilWitness")",
+                 data: { value: val, checkstatus: checkstatus },
+            success: function (data) {
+
+                if (data == 2) {
+
+                    $("#confirmtestatorfamily").on("click", function () { });
+
+                    $("#confirmtestatorfamily").click();
+
+
+
+                }
+
+
+
+
+
+
+
+            }
+        });
+
+
+    });
+
+
+                    </script>
+                    <script>
+                        $("#ddldesignation").change(function () {
+                            var value = $(this).children(":selected").attr("value");
+                            var text = $("#ddldesignation option:selected").html();
+
+                            $("#designationtxt").val(text);
+                            $("#designationid").val(value);
+                        });
+                    </script>
+                    <script>
+    $(document).ready(function () {
+        var key = $(this).attr("data-errormessage-value-missing='Mobile no.is required!'");
+        $("#txtComanyName").val(key);
+        $("#DistributorForm").validationEngine();
+        $("#DistributorForm1").validationEngine();
+        $("#DistributorForm2").validationEngine();
+
+
+
+
+
+			  $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindTestatorDDL", "CodocilWitness")",
+                  success: function (data) {
+                      var splitted = data.split("~");
+                      $("#DDLTestator").append(splitted[0]);
+                      $("#ddltid").val(splitted[1]);
+                      var pop = splitted[2];
+                      //$('#DDLTestator').append(data);
+                      if (pop == "true") {
+
+                          $("#confirmtestatorfamily").on("click", function () { });
+
+                          $("#confirmtestatorfamily").click(); //trigger event after listening to it.
+                      }
+
+
+
+
+
+            }
+          });
+
+
+    });
+                    </script>
+                    @if (ViewBag.Message == "Verified")
+                    {
+                        <script>
+
+                            $(document).ready(function () {
+
+
+
+                                $("#txtComanyName").val("");
+                                $("#txtownerName").val("");
+                                $("#txtownerMobileNo").val("");
+                                $("#txtAddress1").val("");
+                                $("#txtAddress2").val("");
+
+
+                                $("#txtPin").val("");
+                                $("#txtGstNO").val("");
+                                $("#txtIdentityProofValue").val("");
+                                $("#txtAlt_Identity_Proof").val("");
+                                $("#txtAlt_Identity_Proof_Value").val("");
+                                $("#txtcontactPerson").val("");
+                                $("#txtcontactMobileNo").val("");
+                                $("#txtcontactMailId").val("");
+                                $("#txtbankName").val("");
+                                $("#txtBranch").val("");
+                                $("#txtaccountNumber").val("");
+                                $("#txtIFSC_Code").val("");
+                                $("#txtaccountName").val("");
+                                $("#txtReferred_By").val("");
+                                $("#txtleadgeneratedBy").val("");
+                                $("#txtCompId").val("");
+                                $("#txtrelationshipManager").val("");
+                                $("#txtleadStatus").val("");
+                                $("#txtleadRemark").val("");
+
+                                $("#btnnext").show();
+
+                            });
+                        </script>
+
+                    }
+
+
+
+                    @*validation script*@
+                    <script>
+                        function getIdentityselection(id) {
+                            $("#ddlidentityproof1 option:disabled").removeAttr('disabled');
+                            //var a =  $("#Identity_Proof_txt").val(id);
+
+                            //$("#ddlidentityproof1").find("option[value='" + a + "']").removeAttr("disabled");
+
+
+                            if (id == "Aadhaar Card") {
+                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[adharCard]] text-input' id='Identity_Proof_Value' , onchange='validateidentity(this.value)' , name='Identity_Proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                            }
+
+
+                            if (id == "Passport") {
+                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[Passport]] text-input' id='Identity_Proof_Value' name='Identity_Proof_Value' , onchange='validateidentity(this.value)' , placeholder='Enter Passport Number' autocomplete='off'  />");
+                            }
+
+
+
+                            if (id == "Driving Licences") {
+                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[carnumber]] text-input' id='Identity_Proof_Value' name='Identity_Proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='validateidentity(this.value)' />");
+                            }
+
+
+
+                            if (id == "Pan Card") {
+                                $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[pannumber]] text-input' id='Identity_Proof_Value' name='Identity_Proof_Value' placeholder='Enter Pan Card' autocomplete='off'  , onchange='validateidentity(this.value)' />");
+                            }
+
+
+                            var previousid = id;
+
+
+
+                            $("#ddlidentityproof1").find("option[value='" + previousid + "']").attr("disabled", "disabled");
+
+                        }
+                    </script>
+
+                    <script>
+    function getAltIdentityselection(id) {
+
+        $("#Alt_Identity_Proof").val(id);
+
+
+        if (id == "Aadhaar Card") {
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  , onchange='altvalidateidentity(this.value)' />");
+        }
+
+
+        if (id == "Passport") {
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='altvalidateidentity(this.value)'   />");
+        }
+
+
+
+        if (id == "Driving Licences") {
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='altvalidateidentity(this.value)'  />");
+        }
+
+
+
+        if (id == "Pan Card") {
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='altvalidateidentity(this.value)'   />");
+        }
+
+
+    }
+
+
+
+    $('.radio').on('change', function () {
+        if (!$(this).is(':checked')) {
+            $('.radio').prop('checked', false);
+            $("#txtcheck").val("false");
+
+        } else {
+            $('.radio').prop('checked', true);
+            $("#txtcheck").val("true");
+        }
+    });
+
+
+
+
+
+
+      function getDDLTestator(value) {
+        //var value = $(this).children(":selected").attr("value");
+        var text = $("#DDLTestator option:selected").html();
+
+
+
+
+
+        $("#ddltestatorname").val(text);
+          $("#ddltid").val(value);
+
+
+
+        var checkstatus =  $("#txtcheck").val();
+
+             $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("CheckTestatorUsers", "CodocilWitness")",
+                 data: { value: value, checkstatus: checkstatus },
+            success: function (data) {
+
+                if (data == 2) {
+
+                    $("#confirmtestatorfamily").on("click", function () { });
+
+                    $("#confirmtestatorfamily").click();
+
+
+
+                }
+
+
+
+
+
+
+
+            }
+        });
+
+
+
+
+
+    };
+
+
+
+
+    $("#confirmtestatorfamily").click(function () {
+        $("#btnnext").show();
+        swal({
+
+            text: 'Your Testator Family Data Submitted Successfully Do You Want To Add More ?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+            buttons: ['No', 'Yes']
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+
+
+
+                } else {
+
+
+
+
+
+                        var url = "/AddBeneficiary/AddBeneficiaryIndex/";
+                        window.location.href = url;
+
+
+
+
+                }
+            });
+
+            });
+
+
+
+
+
+
+            // confirm guardian popup
+
+            $("#confirmguardian").click(function () {
+                $("#btnnext").show();
+                swal({
+
+                    text: 'Do You Like To Add Guardian Details ? ',
+                    icon: 'warning',
+                    buttons: true,
+                    dangerMode: true,
+                    buttons: ['No', 'Yes']
+                })
+                    .then((willDelete) => {
+                        if (willDelete) {
+
+                            $("#guardianform").show();
+
+                        } else {
+
+
+                            $("#guardianform").hide();
+                            $("#txtgchk").val("false");
+
+
+
+
+
+
+                        }
+                    });
+
+            });
+
+
+
+
+            //end
+
+
+                    </script>
+
+
+
+                    @*end*@
+
+
+
+
+
+
+
+                    <script>
+
+
+
+    $("#ddlstate").change(function () {
+        var value = $(this).children(":selected").attr("value");
+        var text = $("#ddlstate option:selected").html();
+
+        $("#statetext").val(text);
+        $("#stateid").val(value);
+
+
+
+        $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("OnChangeBindCity", "CodocilWitness")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#ddlcity').empty().append(data);
+            }
+
+
+
+        });
+
+
+
+
+
+    });
+                    </script>
+                    @if (ViewBag.Message == "Verified")
+                    {
+                        <script>
+
+                            $(document).ready(function () {
+
+
+                                $("#btnappointeeSuccess").on("click", function () { });
+
+                                $("#btnappointeeSuccess").click(); //trigger event after listening to it.
+
+
+                                $("#btnnext").show();
+
+                            });
+                        </script>
+
+                    }
+                    <script>
+                        $('.radio').on('change', function () {
+
+                            $('.radio').not(this).prop('checked', false);
+                            var val = $("input[name=radio]:checked").val()
+
+                            if (val == "Yes") {
+
+                                $("#showcompany").removeAttr("style");
+                                $(".appointeesclass").removeAttr("style");
+                                $("#txtcheck").val("true");
+
+                            }
+
+                            if (val == "No") {
+
+                                $(".appointeesclass").css("display", "none");
+                                $("#txtcheck").val("false");
+
+                            }
+
+
+                        });
+                    </script>
+                    @*end*@
+
+
+
+
+
+
+
+
+                    @*end*@
+
+                    @*alt nominee script*@
+                    <script>
+                        function altgetIdentityselection(id) {
+
+
+                            $("#ddlidentityproof22 option:disabled").removeAttr('disabled');
+
+                            if (id == "Aadhaar Card") {
+                                $("#altappendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[adharCard]] text-input' id='altIdentity_Proof_Value' name='altIdentity_Proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                            }
+
+
+                            if (id == "Passport") {
+                                $("#altappendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[Passport]] text-input' id='altIdentity_Proof_Value' name='altIdentity_Proof_Value'  placeholder='Enter Passport Number' autocomplete='off'  />");
+                            }
+
+
+
+                            if (id == "Driving Licences") {
+                                $("#altappendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[carnumber]]  text-input' id='altIdentity_Proof_Value' name='altIdentity_Proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  />");
+                            }
+
+
+
+                            if (id == "Pan Card") {
+                                $("#altappendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[pannumber]] text-input' id='altIdentity_Proof_Value' name='altIdentity_Proof_Value' placeholder='Enter Pan Card' autocomplete='off'  />");
+                            }
+
+
+                            var previousid = id;
+
+
+
+
+                            $("#ddlidentityproof22").find("option[value='" + previousid + "']").removeAttr("disabled");
+
+
+                        }
+
+
+
+
+
+
+
+                        function altgetAltIdentityselection(id) {
+
+                            $("#altAlt_Identity_Proof_Value").val(id);
+
+
+                            if (id == "Aadhaar Card") {
+                                $("#altappendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='altAlt_Identity_Proof_Value' name='altAlt_Identity_Proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                            }
+
+
+                            if (id == "Passport") {
+                                $("#altappendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='altAlt_Identity_Proof_Value' name='altAlt_Identity_Proof_Value'  placeholder='Enter Passport Number' autocomplete='off'  />");
+                            }
+
+
+
+                            if (id == "Driving Licences") {
+                                $("#altappendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='altAlt_Identity_Proof_Value' name='altAlt_Identity_Proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  />");
+                            }
+
+
+
+                            if (id == "Pan Card") {
+                                $("#altappendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='altAlt_Identity_Proof_Value' name='altAlt_Identity_Proof_Value' placeholder='Enter Pan Card' autocomplete='off'  />");
+                            }
+
+
+                        }
+
+
+                    </script>
+
+                    <script>
+
+
+      $(document).ready(function () {
+
+        $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindStateDDL", "CodocilWitness")",
+            success: function (data) {
+                $('#altddlstate').append(data);
+            }
+        });
+
+
+            $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindRelationDDL", "CodocilWitness")",
+            success: function (data) {
+                $('#altddlrelation').append(data);
+            }
+          });
+
+
+
+
+
+    });
+
+
+
+
+
+
+
+
+                    </script>
+                    <script>
+
+        $("#altddlstate").change(function () {
+        var value = $(this).children(":selected").attr("value");
+        var text = $("#altddlstate option:selected").html();
+
+        $("#altstatetext").val(text);
+        $("#altstateid").val(value);
+
+
+
+        $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("OnChangeBindCity", "CodocilWitness")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#altddlcity').empty().append(data);
+            }
+
+
+
+        });
+
+
+
+
+
+    });
+
+
+
+
+    function getDDLTestator(value) {
+        //var value = $(this).children(":selected").attr("value");
+        var text = $("#DDLTestator option:selected").html();
+
+
+
+
+
+        $("#ddltestatorname").val(text);
+        $("#ddltid").val(value);
+
+
+
+
+
+
+
+    };
+
+
+
+
+
+    $("#altddlrelation").change(function () {
+        var value = $(this).children(":selected").attr("value");
+        var text = $("#altddlrelation option:selected").html();
+
+        $("#altRelationshipTxt").val(text);
+        $("#altRelationshipId").val(value);
+
+
+    });
+
+
+
+    $("#altddlcity").change(function () {
+        var value = $(this).children(":selected").attr("value");
+        var text = $("#altddlcity option:selected").html();
+
+        $("#wcitytext").val(text);
+        $("#wcityid").val(value);
+    });
+
+                    </script>
+                    <script>
+                        $(function () {
+                            var startDate = new Date('1930-01-01');
+                            var now = new Date();
+                            var sDate = new Date(now.getFullYear() - 18, now.getMonth(), now.getDay());
+                            var endDate = new Date(sDate.getFullYear + '-' + sDate.getMonth() + '-' + sDate.getDay());
+                            $("#datepicker1").datepicker({
+                                //other option
+                                startDate: startDate, //set start date
+                                endDate: endDate //set end date
+
+
+                            });
+                        });
+
+                        $(function () {
+                            var startDate = new Date('1930-01-01');
+                            var now = new Date();
+                            var sDate = new Date(now.getFullYear() - 18, now.getMonth(), now.getDay());
+                            var endDate = new Date(sDate.getFullYear + '-' + sDate.getMonth() + '-' + sDate.getDay());
+                            $("#datepicker2").datepicker({
+                                //other option
+                                startDate: startDate, //set start date
+                                endDate: endDate //set end date
+
+
+                            });
+                        });
+
+
+
+
+
+
+                        $("#confirmtestatorfamily").click(function () {
+                            $("#btnnext").show();
+                            swal({
+
+                                text: 'Your Appointees Data Submitted Successfully Do You Want To Add More ?',
+                                icon: 'warning',
+                                buttons: true,
+                                dangerMode: true,
+                                buttons: ['No', 'Yes']
+                            })
+                                .then((willDelete) => {
+                                    if (willDelete) {
+
+
+
+                                    } else {
+
+
+
+                                        var NestId = $("#testid").val();
+
+                                        var url = "/WillDetails/WillDetailsIndex?NestId=" + NestId;
+                                        window.location.href = url;
+
+
+
+
+                                    }
+                                });
+
+                        });
+
+
+                    </script>
+
+
+
+                    @if (ViewBag.disablefield == "true")
+                    {
+                        <script>
+
+
+                            $("#btnmore").show();
+                            $("#btnmore2").show();
+                            $("#btnfieldedit").show();
+                            $("#btnnext").show();
+
+
+
+                            $("#btnDistributorformsubmit").hide();
+
+
+
+                            $(document).ready(function () {
+
+                                $("#ddltype").attr("disabled", "disabled");
+                                $("#ddlsubtype").attr("disabled", "disabled");
+                                $("#txtname").attr("disabled", "disabled");
+                                $("#txtmiddlename").attr("disabled", "disabled");
+                                $("#txtsurname").attr("disabled", "disabled");
+                                $("#DOB").attr("disabled", "disabled");
+                                $("#Gender").attr("disabled", "disabled");
+                                $("#txtoccupation").attr("disabled", "disabled");
+                                $("#ddlrelation").attr("disabled", "disabled");
+                                $("#ddlstate").attr("disabled", "disabled");
+                                $("#ddlcity").attr("disabled", "disabled");
+                                $("#txtpin").attr("disabled", "disabled");
+                                $("#txtaddress1").attr("disabled", "disabled");
+                                $("#txtaddress2").attr("disabled", "disabled");
+                                $("#txtaddress3").attr("disabled", "disabled");
+                                $("#Identity_Proof").attr("disabled", "disabled");
+                                $("#txtidentityproof").attr("disabled", "disabled");
+                                $("#ddlidentityproof11").attr("disabled", "disabled");
+                                $("#txtIdentityProofValue").attr("disabled", "disabled");
+
+
+                                $("#ddltypealt2").attr("disabled", "disabled");
+                                $("#ddlsubtypealt2").attr("disabled", "disabled");
+                                $("#txtname2").attr("disabled", "disabled");
+                                $("#txtmiddlename2").attr("disabled", "disabled");
+                                $("#txtsurname2").attr("disabled", "disabled");
+                                $("#altGender").attr("disabled", "disabled");
+                                $("#txtoccupation2").attr("disabled", "disabled");
+                                $("#altddlrelation").attr("disabled", "disabled");
+                                $("#DOB2").attr("disabled", "disabled");
+                                $("#altddlstate").attr("disabled", "disabled");
+                                $("#altddlcity").attr("disabled", "disabled");
+                                $("#txtpin2").attr("disabled", "disabled");
+                                $("#txtaddress2alt1").attr("disabled", "disabled");
+                                $("#txtaddress2alt2").attr("disabled", "disabled");
+                                $("#txtaddress3alt3").attr("disabled", "disabled");
+                                $("#altIdentity_Proof").attr("disabled", "disabled");
+                                $("#txtIdentityProofValuealt").attr("disabled", "disabled");
+                                $("#ddlidentityproof22alt").attr("disabled", "disabled");
+                                $("#txtIdentityProofValuealt2").attr("disabled", "disabled");
+                                $("#Alt_Identity_proof_Value").attr("disabled", "disabled");
+
+                            });
+
+
+                        </script>
+                    }
+
+
+
+
+
+
+
+
+                    <script>
+
+
+                        $("#btnfieldedit").click(function () {
+
+                            $("#btnfieldedit1").show();
+                            $("#btnfieldedit").hide();
+                            $("#btneditmsg").show();
+                            $("#btnupdate").show();
+
+
+
+
+                            $("#ddltype").removeAttr("disabled");
+                            $("#ddlsubtype").removeAttr("disabled");
+                            $("#txtname").removeAttr("disabled");
+                            $("#txtmiddlename").removeAttr("disabled");
+                            $("#txtsurname").removeAttr("disabled");
+                            $("#DOB").removeAttr("disabled");
+                            $("#Gender").removeAttr("disabled");
+                            $("#txtoccupation").removeAttr("disabled");
+                            $("#ddlrelation").removeAttr("disabled");
+                            $("#ddlstate").removeAttr("disabled");
+                            $("#ddlcity").removeAttr("disabled");
+                            $("#txtpin").removeAttr("disabled");
+                            $("#txtaddress1").removeAttr("disabled");
+                            $("#txtaddress2").removeAttr("disabled");
+                            $("#txtaddress3").removeAttr("disabled");
+                            $("#Identity_Proof").removeAttr("disabled");
+                            $("#txtidentityproof").removeAttr("disabled");
+                            $("#ddlidentityproof11").removeAttr("disabled");
+                            $("#txtIdentityProofValue").removeAttr("disabled");
+
+
+                            $("#ddltypealt2").removeAttr("disabled");
+                            $("#ddlsubtypealt2").removeAttr("disabled");
+                            $("#txtname2").removeAttr("disabled");
+                            $("#txtmiddlename2").removeAttr("disabled");
+                            $("#txtsurname2").removeAttr("disabled");
+                            $("#altGender").removeAttr("disabled");
+                            $("#txtoccupation2").removeAttr("disabled");
+                            $("#altddlrelation").removeAttr("disabled");
+                            $("#DOB2").removeAttr("disabled");
+                            $("#altddlstate").removeAttr("disabled");
+                            $("#altddlcity").removeAttr("disabled");
+                            $("#txtpin2").removeAttr("disabled");
+                            $("#txtaddress2alt1").removeAttr("disabled");
+                            $("#txtaddress2alt2").removeAttr("disabled");
+                            $("#txtaddress3alt3").removeAttr("disabled");
+                            $("#altIdentity_Proof").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt").removeAttr("disabled");
+                            $("#ddlidentityproof22alt").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt2").removeAttr("disabled");
+                            $("#Alt_Identity_proof_Value").removeAttr("disabled");
+
+
+
+
+
+                            $("#btnupdate").show();
+
+
+                            $("#btneditmsg").show();
+
+                        });
+
+
+                    </script>
+
+
+                    <script>
+                        $("#btnfieldedit1").click(function () {
+
+                            $("#btnfieldedit").show();
+                            $("#btnfieldedit1").hide();
+                            $("#btnupdate").hide();
+
+                            $("#btneditmsg").hide();
+
+                            $("#ddltype").attr("disabled", "disabled");
+                            $("#ddlsubtype").attr("disabled", "disabled");
+                            $("#txtname").attr("disabled", "disabled");
+                            $("#txtmiddlename").attr("disabled", "disabled");
+                            $("#txtsurname").attr("disabled", "disabled");
+                            $("#DOB").attr("disabled", "disabled");
+                            $("#Gender").attr("disabled", "disabled");
+                            $("#txtoccupation").attr("disabled", "disabled");
+                            $("#ddlrelation").attr("disabled", "disabled");
+                            $("#ddlstate").attr("disabled", "disabled");
+                            $("#ddlcity").attr("disabled", "disabled");
+                            $("#txtpin").attr("disabled", "disabled");
+                            $("#txtaddress1").attr("disabled", "disabled");
+                            $("#txtaddress2").attr("disabled", "disabled");
+                            $("#txtaddress3").attr("disabled", "disabled");
+                            $("#Identity_Proof").attr("disabled", "disabled");
+                            $("#txtidentityproof").attr("disabled", "disabled");
+                            $("#ddlidentityproof11").attr("disabled", "disabled");
+                            $("#txtIdentityProofValue").attr("disabled", "disabled");
+
+
+                            $("#ddltypealt2").attr("disabled", "disabled");
+                            $("#ddlsubtypealt2").attr("disabled", "disabled");
+                            $("#txtname2").attr("disabled", "disabled");
+                            $("#txtmiddlename2").attr("disabled", "disabled");
+                            $("#txtsurname2").attr("disabled", "disabled");
+                            $("#altGender").attr("disabled", "disabled");
+                            $("#txtoccupation2").attr("disabled", "disabled");
+                            $("#altddlrelation").attr("disabled", "disabled");
+                            $("#DOB2").attr("disabled", "disabled");
+                            $("#altddlstate").attr("disabled", "disabled");
+                            $("#altddlcity").attr("disabled", "disabled");
+                            $("#txtpin2").attr("disabled", "disabled");
+                            $("#txtaddress2alt1").attr("disabled", "disabled");
+                            $("#txtaddress2alt2").attr("disabled", "disabled");
+                            $("#txtaddress3alt3").attr("disabled", "disabled");
+                            $("#altIdentity_Proof").attr("disabled", "disabled");
+                            $("#txtIdentityProofValuealt").attr("disabled", "disabled");
+                            $("#ddlidentityproof22alt").attr("disabled", "disabled");
+                            $("#txtIdentityProofValuealt2").attr("disabled", "disabled");
+
+
+
+
+
+
+
+                            $("#btnfieldedit").show();
+                            $("#btnfieldedit1").hide();
+                            $("#btnupdate").hide();
+
+                            $("#btneditmsg").hide();
+
+                        });
+                    </script>
+
+
+
+                    <script>
+
+                        $("#btnmore").click(function () {
+
+
+
+                            $("#btnupdate").hide();
+
+                            $("#btnDistributorformsubmit").show();
+
+
+                            $("#btnfieldedit").hide();
+
+
+                            $("#ddltype").removeAttr("disabled");
+                            $("#ddlsubtype").removeAttr("disabled");
+                            $("#txtname").removeAttr("disabled");
+                            $("#txtmiddlename").removeAttr("disabled");
+                            $("#txtsurname").removeAttr("disabled");
+                            $("#DOB").removeAttr("disabled");
+                            $("#Gender").removeAttr("disabled");
+                            $("#txtoccupation").removeAttr("disabled");
+                            $("#ddlrelation").removeAttr("disabled");
+                            $("#ddlstate").removeAttr("disabled");
+                            $("#ddlcity").removeAttr("disabled");
+                            $("#txtpin").removeAttr("disabled");
+                            $("#txtaddress1").removeAttr("disabled");
+                            $("#txtaddress2").removeAttr("disabled");
+                            $("#txtaddress3").removeAttr("disabled");
+                            $("#Identity_Proof").removeAttr("disabled");
+                            $("#txtidentityproof").removeAttr("disabled");
+                            $("#ddlidentityproof11").removeAttr("disabled");
+                            $("#txtIdentityProofValue").removeAttr("disabled");
+
+
+                            $("#ddltypealt2").removeAttr("disabled");
+                            $("#ddlsubtypealt2").removeAttr("disabled");
+                            $("#txtname2").removeAttr("disabled");
+                            $("#txtmiddlename2").removeAttr("disabled");
+                            $("#txtsurname2").removeAttr("disabled");
+                            $("#altGender").removeAttr("disabled");
+                            $("#txtoccupation2").removeAttr("disabled");
+                            $("#altddlrelation").removeAttr("disabled");
+                            $("#DOB2").removeAttr("disabled");
+                            $("#altddlstate").removeAttr("disabled");
+                            $("#altddlcity").removeAttr("disabled");
+                            $("#txtpin2").removeAttr("disabled");
+                            $("#txtaddress2alt1").removeAttr("disabled");
+                            $("#txtaddress2alt2").removeAttr("disabled");
+                            $("#txtaddress3alt3").removeAttr("disabled");
+                            $("#altIdentity_Proof").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt").removeAttr("disabled");
+                            $("#ddlidentityproof22alt").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt2").removeAttr("disabled");
+
+
+
+
+
+
+
+
+
+                            $("#ddltype").val("");
+                            $("#ddlsubtype").val("");
+                            $("#txtname").val("");
+                            $("#txtmiddlename").val("");
+                            $("#txtsurname").val("");
+                            $("#DOB").val("");
+                            $("#Gender").val("");
+                            $("#txtoccupation").val("");
+
+
+                            $("#txtpin").val("");
+                            $("#txtaddress1").val("");
+                            $("#txtaddress2").val("");
+                            $("#txtaddress3").val("");
+                            $("#Identity_Proof").val("");
+                            $("#txtidentityproof").val("");
+                            $("#ddlidentityproof11").val("");
+                            $("#txtIdentityProofValue").val("");
+
+
+                            $("#ddltypealt2").val("");
+                            $("#ddlsubtypealt2").val("");
+                            $("#txtname2").val("");
+                            $("#txtmiddlename2").val("");
+                            $("#txtsurname2").val("");
+                            $("#altGender").val("");
+                            $("#txtoccupation2").val("");
+
+                            $("#DOB2").val("");
+
+                            $("#txtpin2").val("");
+                            $("#txtaddress2alt1").val("");
+                            $("#txtaddress2alt2").val("");
+                            $("#txtaddress3alt3").val("");
+                            $("#altIdentity_Proof").val("");
+                            $("#txtIdentityProofValuealt").val("");
+                            $("#ddlidentityproof22alt").val("");
+                            $("#txtIdentityProofValuealt2").val("");
+
+                            $("#Alt_Identity_proof_Value").val("");
+
+
+
+
+                            $("#wddltype").val("");
+                            $("#wddlsubtype").val("");
+                            $("#wtxtname").val("");
+                            $("#wtxtmiddlename").val("");
+                            $("#wtxtsurname").val("");
+                            $("#wDOB").val("");
+                            $("#wGender").val("");
+                            $("#wtxtoccupation").val("");
+
+
+                            $("#wtxtpin").val("");
+                            $("#wtxtaddress1").val("");
+                            $("#wtxtaddress2").val("");
+                            $("#wtxtaddress3").val("");
+                            $("#wIdentity_Proof").val("");
+                            $("#wtxtidentityproof").val("");
+                            $("#wddlidentityproof11").val("");
+                            $("#wtxtIdentityProofValue").val("");
+
+
+                            $("#wddltypealt2").val("");
+                            $("#wddlsubtypealt2").val("");
+                            $("#wtxtname2").val("");
+                            $("#wtxtmiddlename2").val("");
+                            $("#wtxtsurname2").val("");
+                            $("#waltGender").val("");
+                            $("#wtxtoccupation2").val("");
+
+                            $("#wDOB2").val("");
+
+                            $("#wtxtpin2").val("");
+                            $("#wtxtaddress2alt1").val("");
+                            $("#wtxtaddress2alt2").val("");
+                            $("#wtxtaddress3alt3").val("");
+                            $("#waltIdentity_Proof").val("");
+                            $("#wtxtIdentityProofValuealt").val("");
+                            $("#wddlidentityproof22alt").val("");
+                            $("#wtxtIdentityProofValuealt2").val("");
+
+                            $("#wAlt_Identity_proof_Value").val("");
+
+
+
+
+
+
+                        });
+
+
+
+                        $("#btnmore2").click(function () {
+
+                            $("#btnupdate").hide();
+
+                            $("#btnDistributorformsubmit").show();
+
+
+                            $("#btnfieldedit").hide();
+
+                            $("#ddltype").removeAttr("disabled");
+                            $("#ddlsubtype").removeAttr("disabled");
+                            $("#txtname").removeAttr("disabled");
+                            $("#txtmiddlename").removeAttr("disabled");
+                            $("#txtsurname").removeAttr("disabled");
+                            $("#DOB").removeAttr("disabled");
+                            $("#Gender").removeAttr("disabled");
+                            $("#txtoccupation").removeAttr("disabled");
+                            $("#ddlrelation").removeAttr("disabled");
+                            $("#ddlstate").removeAttr("disabled");
+                            $("#ddlcity").removeAttr("disabled");
+                            $("#txtpin").removeAttr("disabled");
+                            $("#txtaddress1").removeAttr("disabled");
+                            $("#txtaddress2").removeAttr("disabled");
+                            $("#txtaddress3").removeAttr("disabled");
+                            $("#Identity_Proof").removeAttr("disabled");
+                            $("#txtidentityproof").removeAttr("disabled");
+                            $("#ddlidentityproof11").removeAttr("disabled");
+                            $("#txtIdentityProofValue").removeAttr("disabled");
+
+
+                            $("#ddltypealt2").removeAttr("disabled");
+                            $("#ddlsubtypealt2").removeAttr("disabled");
+                            $("#txtname2").removeAttr("disabled");
+                            $("#txtmiddlename2").removeAttr("disabled");
+                            $("#txtsurname2").removeAttr("disabled");
+                            $("#altGender").removeAttr("disabled");
+                            $("#txtoccupation2").removeAttr("disabled");
+                            $("#altddlrelation").removeAttr("disabled");
+                            $("#DOB2").removeAttr("disabled");
+                            $("#altddlstate").removeAttr("disabled");
+                            $("#altddlcity").removeAttr("disabled");
+                            $("#txtpin2").removeAttr("disabled");
+                            $("#txtaddress2alt1").removeAttr("disabled");
+                            $("#txtaddress2alt2").removeAttr("disabled");
+                            $("#txtaddress3alt3").removeAttr("disabled");
+                            $("#altIdentity_Proof").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt").removeAttr("disabled");
+                            $("#ddlidentityproof22alt").removeAttr("disabled");
+                            $("#txtIdentityProofValuealt2").removeAttr("disabled");
+
+
+
+
+
+
+
+
+
+                            $("#ddltype").val("");
+                            $("#ddlsubtype").val("");
+                            $("#txtname").val("");
+                            $("#txtmiddlename").val("");
+                            $("#txtsurname").val("");
+                            $("#DOB").val("");
+                            $("#Gender").val("");
+                            $("#txtoccupation").val("");
+
+
+                            $("#txtpin").val("");
+                            $("#txtaddress1").val("");
+                            $("#txtaddress2").val("");
+                            $("#txtaddress3").val("");
+                            $("#Identity_Proof").val("");
+                            $("#txtidentityproof").val("");
+                            $("#ddlidentityproof11").val("");
+                            $("#txtIdentityProofValue").val("");
+
+
+                            $("#ddltypealt2").val("");
+                            $("#ddlsubtypealt2").val("");
+                            $("#txtname2").val("");
+                            $("#txtmiddlename2").val("");
+                            $("#txtsurname2").val("");
+                            $("#altGender").val("");
+                            $("#txtoccupation2").val("");
+
+                            $("#DOB2").val("");
+
+                            $("#txtpin2").val("");
+                            $("#txtaddress2alt1").val("");
+                            $("#txtaddress2alt2").val("");
+                            $("#txtaddress3alt3").val("");
+                            $("#altIdentity_Proof").val("");
+                            $("#txtIdentityProofValuealt").val("");
+                            $("#ddlidentityproof22alt").val("");
+                            $("#txtIdentityProofValuealt2").val("");
+
+                            $("#Alt_Identity_proof_Value").val("");
+
+
+
+
+                            $("#wddltype").val("");
+                            $("#wddlsubtype").val("");
+                            $("#wtxtname").val("");
+                            $("#wtxtmiddlename").val("");
+                            $("#wtxtsurname").val("");
+                            $("#wDOB").val("");
+                            $("#wGender").val("");
+                            $("#wtxtoccupation").val("");
+
+
+                            $("#wtxtpin").val("");
+                            $("#wtxtaddress1").val("");
+                            $("#wtxtaddress2").val("");
+                            $("#wtxtaddress3").val("");
+                            $("#wIdentity_Proof").val("");
+                            $("#wtxtidentityproof").val("");
+                            $("#wddlidentityproof11").val("");
+                            $("#wtxtIdentityProofValue").val("");
+
+
+                            $("#wddltypealt2").val("");
+                            $("#wddlsubtypealt2").val("");
+                            $("#wtxtname2").val("");
+                            $("#wtxtmiddlename2").val("");
+                            $("#wtxtsurname2").val("");
+                            $("#waltGender").val("");
+                            $("#wtxtoccupation2").val("");
+
+                            $("#wDOB2").val("");
+
+                            $("#wtxtpin2").val("");
+                            $("#wtxtaddress2alt1").val("");
+                            $("#wtxtaddress2alt2").val("");
+                            $("#wtxtaddress3alt3").val("");
+                            $("#waltIdentity_Proof").val("");
+                            $("#wtxtIdentityProofValuealt").val("");
+                            $("#wddlidentityproof22alt").val("");
+                            $("#wtxtIdentityProofValuealt2").val("");
+
+                            $("#wAlt_Identity_proof_Value").val("");
+
+
+
+
+                        });
+
+
+                    </script>
+
+
+
+
+
+                    <script>
+                        function getexecutorval(value) {
+
+                                $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("AlternateAppointeesControls", "CodocilWitness")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#alternatedynamiccontrol').empty().append(data + "<br><center><input type='submit' class='btn btn-primary' value='Submit' /></center> ");
+            }
+
+
+
+        });
+
+                        }
+                    </script>
+
+                    @*end*@
+
+
+
+
+                    @*for checking identity proof  and alternate identity proof*@
+
+
+
+                    <script>
+
+
+            function validateidentity(value) {
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "@Url.Action("Validateidentity", "CodocilWitness")",
+                    data: {"send":""+value+""},
+                    success: function (data) {
+
+                        if (data == "true") {
+
+                            $("#lblidentityproof").hide();
+
+                        }
+
+
+                        if (data == "false") {
+
+                            $("#lblidentityproof").show();
+
+                        }
+
+
+
+            }
+        });
+
+
+
+            }
+
+
+                    </script>
+
+
+
+
+
+
+                    <script>
+
+
+            function Altvalidateidentity(value) {
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "@Url.Action("altValidateidentity", "CodocilWitness")",
+                    data: {"send":""+value+""},
+                    success: function (data) {
+
+                        if (data == "true") {
+
+                            $("#altlblidentityproof").hide();
+
+                        }
+
+
+                        if (data == "false") {
+
+                            $("#altlblidentityproof").show();
+
+                        }
+
+
+
+            }
+        });
+
+
+
+            }
+
+
+                    </script>
+
+
+
+
+                    <script>
+    function getIdentityselection1(id) {
+
+
+                            $("#wddlidentityproof1 option:disabled").removeAttr('disabled');
+                            //var a =  $("#Identity_Proof_txt").val(id);
+
+                            //$("#ddlidentityproof1").find("option[value='" + a + "']").removeAttr("disabled");
+
+
+                            if (id == "Aadhaar Card") {
+                                $("#appendtxtone").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[adharCard]] text-input' id='wIdentity_Proof_Value' , onchange='validateidentity(this.value)' , name='wIdentity_Proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                            }
+
+
+                            if (id == "Passport") {
+                                $("#appendtxtone").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[Passport]] text-input' id='wIdentity_Proof_Value' name='wIdentity_Proof_Value' , onchange='validateidentity(this.value)' , placeholder='Enter Passport Number' autocomplete='off'  />");
+                            }
+
+
+
+                            if (id == "Driving Licences") {
+                                $("#appendtxtone").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[carnumber]] text-input' id='wIdentity_Proof_Value' name='wIdentity_Proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='validateidentity(this.value)' />");
+                            }
+
+
+
+                            if (id == "Pan Card") {
+                                $("#appendtxtone").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[pannumber]] text-input' id='wIdentity_Proof_Value' name='wIdentity_Proof_Value' placeholder='Enter Pan Card' autocomplete='off'  , onchange='validateidentity(this.value)' />");
+                            }
+
+
+                            var previousid = id;
+
+
+
+                            $("#wddlidentityproof1").find("option[value='" + previousid + "']").attr("disabled", "disabled");
+
+                        }
+
+
+
+
+
+
+                        function getAltIdentityselection2(id) {
+
+                            $("#wAlt_Identity_Proof").val(id);
+
+
+                            if (id == "Aadhaar Card") {
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  , onchange='altvalidateidentity(this.value)' />");
+                            }
+
+
+                            if (id == "Passport") {
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='altvalidateidentity(this.value)'   />");
+                            }
+
+
+
+                            if (id == "Driving Licences") {
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='altvalidateidentity(this.value)'  />");
+                            }
+
+
+
+                            if (id == "Pan Card") {
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='altvalidateidentity(this.value)'   />");
+                            }
+
+
+                        }
+
+                    @*end*@
+
+
+                    </script>
+
+
+
+
+                    @*for checking identity proof  and alternate identity proof*@
+
+
+
+                    <script>
+
+
+            function validateidentity(value) {
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "@Url.Action("Validateidentity", "Addwitness")",
+                    data: {"send":""+value+""},
+                    success: function (data) {
+
+                        if (data == "true") {
+
+                            $("#lblidentityproof").hide();
+
+                        }
+
+
+                        if (data == "false") {
+
+                            $("#lblidentityproof").show();
+
+                        }
+
+
+
+            }
+        });
+
+
+
+            }
+
+
+                    </script>
+
+
+
+
+
+
+                    <script>
+
+
+            function Altvalidateidentity(value) {
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "@Url.Action("altValidateidentity", "Addwitness")",
+                    data: {"send":""+value+""},
+                    success: function (data) {
+
+                        if (data == "true") {
+
+                            $("#altlblidentityproof").hide();
+
+                        }
+
+
+                        if (data == "false") {
+
+                            $("#altlblidentityproof").show();
+
+                        }
+
+
+
+            }
+        });
+
+
+
+            }
+
+
+                    </script>
+
+
+
+
+                    <script>
+    function getIdentityselection1(id) {
+
+
+                            $("#wddlidentityproof1 option:disabled").removeAttr('disabled');
+                            //var a =  $("#Identity_Proof_txt").val(id);
+
+                            //$("#ddlidentityproof1").find("option[value='" + a + "']").removeAttr("disabled");
+
+
+                            if (id == "Aadhaar Card") {
+                                $("#appendtxtone").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[adharCard]] text-input' id='wIdentity_Proof_Value' , onchange='validateidentity(this.value)' , name='wIdentity_Proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                            }
+
+
+                            if (id == "Passport") {
+                                $("#appendtxtone").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[Passport]] text-input' id='wIdentity_Proof_Value' name='wIdentity_Proof_Value' , onchange='validateidentity(this.value)' , placeholder='Enter Passport Number' autocomplete='off'  />");
+                            }
+
+
+
+                            if (id == "Driving Licences") {
+                                $("#appendtxtone").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[carnumber]] text-input' id='wIdentity_Proof_Value' name='wIdentity_Proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='validateidentity(this.value)' />");
+                            }
+
+
+
+                            if (id == "Pan Card") {
+                                $("#appendtxtone").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[pannumber]] text-input' id='wIdentity_Proof_Value' name='wIdentity_Proof_Value' placeholder='Enter Pan Card' autocomplete='off'  , onchange='validateidentity(this.value)' />");
+                            }
+
+
+                            var previousid = id;
+
+
+
+                            $("#wddlidentityproof1").find("option[value='" + previousid + "']").attr("disabled", "disabled");
+
+                        }
+
+
+
+
+
+
+                        function getAltIdentityselection2(id) {
+
+                            $("#wAlt_Identity_Proof").val(id);
+
+
+                            if (id == "Aadhaar Card") {
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  , onchange='altvalidateidentity(this.value)' />");
+                            }
+
+
+                            if (id == "Passport") {
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='altvalidateidentity(this.value)'   />");
+                            }
+
+
+
+                            if (id == "Driving Licences") {
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='altvalidateidentity(this.value)'  />");
+                            }
+
+
+
+                            if (id == "Pan Card") {
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='altvalidateidentity(this.value)'   />");
+                            }
+
+
+                        }
+
+                    @*end*@
+
+
+                    </script>
+

@@ -37,7 +37,7 @@
 
 
 
-                        <div class="card-title text-primary"><a href="/Codocil/CodocilIndex/">Codocil > </a><a href="@Url.Action("CodocilWitnessIndex","CodocilWitness")">Witness</a></div>
+                        <div class="card-title text-primary" style="font-size:1.3em;"><a href="/Codocil/CodocilIndex/" >Codocil > </a><a href="#"  style="color:#e1e1e1">Witness</a></div>
                         <hr class="div_rd">
 
                         <input type="hidden" name="name" id="userid" value="@Session["uuid"]" />
@@ -119,10 +119,13 @@
                             <button class="btn btn btn-danger" id="btnadd"><i class="fa fa-plus" style="color:white;"></i>Add</button>
                             <button class="btn btn btn-danger" id="btnremove"><i class="fa fa-trash" style="color:white;"></i>Remove</button>
                             <button type="submit" id="btnsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
+                            <a href="@Url.Action("CodocilWitnessIndex","CodocilWitness")">
+                                <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
+                            </a>
                             <button type="button" id="btntestatorfamilysubmitSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-                      
+
                         </div>
-                        
+
 
                     </div>
                 </div>
@@ -260,6 +263,8 @@
 
                     $("#olddetails1").val("");
                     $("#newdetails1").val("");
+
+                    $("#btnnext").show();
 
                 }
             });

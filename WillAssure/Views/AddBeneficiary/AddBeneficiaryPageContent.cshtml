@@ -316,7 +316,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Mobile</label>
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control input-shadow validate[required,custom[Mobile],maxSize[10]] text-input", @id = "txtMobile", @placeholder = "Enter Mobile", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control input-shadow validate[custom[Mobile],maxSize[10]] text-input", @id = "txtMobile", @placeholder = "Enter Mobile", @autocomplete = "off" })
                                     </div>
                                 </div>
 
@@ -395,6 +395,34 @@
 
                                     <div class="form-group">
 
+                                        <label for="input-1">Country</label>
+
+                                        @if (Model.country_txt != null)
+                                        {
+
+                                        <select id="ddlcountry123" style="display:;" class="form-control input-shadow validate[required]">
+                                            <option value=''>--Select--</option>
+                                            <option value="@Model.country_txt">@Model.country_txt</option>
+                                        </select>
+                                            @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
+                                            @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
+                                        }
+                                        else
+                                        {
+
+                                            <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"></select>
+                                            @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
+                                            @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
+                                        }
+
+
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">
+
                                         <label for="input-1">State</label>
 
                                         @if (Model.State_txt != null)
@@ -452,6 +480,8 @@
                                 }
 
 
+
+                                <div class="col-sm-3"></div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Pin</label>
@@ -459,10 +489,9 @@
                                     </div>
                                 </div>
 
-
                             </div>
 
-
+                            
 
 
 
@@ -1006,6 +1035,22 @@
 
 <script>
 
+
+        $(document).ready(function () {
+
+        $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindCountryDDL", "AddBeneficiary")",
+            success: function (data) {
+                alert(data);
+                $('#ddlcountry123').append(data);
+            }
+        });
+
+
+    });
+
     function validateDOB2(value) {
 
 
@@ -1146,14 +1191,14 @@
 
 
 
-        $.ajax({
+        @*$.ajax({
 
             type: "POST",
             url:"@Url.Action("BindStateDDL", "AddBeneficiary")",
             success: function (data) {
                 $('#ddlstate').append(data);
             }
-        });
+        });*@
 
 
 
@@ -1191,6 +1236,35 @@
 
 
 
+
+        $("#ddlcountry").change(function () {
+        var value = $(this).children(":selected").attr("value");
+            var text = $("#ddlcountry option:selected").html();
+            alert(text);
+        $("#countrytext").val(text);
+        $("#countryid").val(value);
+
+
+        $.ajax({
+
+            type: "post",
+            url: "@Url.Action("bindstateddl", "addbeneficiary")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#ddlstate').empty().append(data);
+            }
+
+
+
+        });
+
+
+
+    });
+
+
+
     $("#ddlstate").change(function () {
         var value = $(this).children(":selected").attr("value");
         var text = $("#ddlstate option:selected").html();
@@ -1206,7 +1280,7 @@
             data: { "send": "" + value+  ""},
             success: function (data) {
 
-                $('#ddlcity').append(data);
+                $('#ddlcity').empty().append(data);
             }
 
 
@@ -1484,14 +1558,14 @@
 
 
 
-          $.ajax({
+          @*$.ajax({
 
             type: "POST",
             url:"@Url.Action("BindStateDDL", "AddBeneficiary")",
             success: function (data) {
                 $('#altddlstate').append(data);
             }
-        });
+        });*@
 
 
 
@@ -1788,7 +1862,8 @@
             $("#txtIdentityProofValue").attr("disabled", "disabled");
             $("#ddlidentityproof22").attr("disabled", "disabled");
             $("#txtIdentityProofValue22").attr("disabled", "disabled");
-
+            $("#ddlcountry").attr("disabled", "disabled");
+            
 
             $("#altfirstname").attr("disabled", "disabled");
             $("#altmiddlename").attr("disabled", "disabled");

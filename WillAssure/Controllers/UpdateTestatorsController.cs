@@ -60,6 +60,13 @@ namespace WillAssure.Controllers
             }
 
 
+
+            if (Session["Type"].ToString() == "SuperAdmin")
+            {
+                ViewBag.enablebtnremaining = "true";
+            }
+
+
             con.Close();
 
 
@@ -1231,44 +1238,7 @@ namespace WillAssure.Controllers
 
 
 
-        //public String BindStateDDL()
-        //{
-
-        //    string response = Request["statename"].ToString();
-
-        //    con.Open();
-        //    string query = "select distinct * from tbl_state order by statename asc  ";
-        //    SqlDataAdapter da = new SqlDataAdapter(query, con);
-        //    DataTable dt = new DataTable();
-        //    da.Fill(dt);
-        //    con.Close();
-        //    string data = "";
-
-        //    if (dt.Rows.Count > 0)
-        //    {
-
-
-        //        for (int i = 0; i < dt.Rows.Count; i++)
-        //        {
-
-
-
-
-        //            data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
-
-
-
-        //        }
-
-
-
-
-        //    }
-
-        //    return data;
-
-        //}
-
+       
 
 
         public string UpdateStateBind()
@@ -1487,11 +1457,24 @@ namespace WillAssure.Controllers
 
         public ActionResult Checkforcompletedpage()
         {
-
+            string qtest001 = "";
+          
 
 
             con.Open();
-            string qtest001 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+            if (Session["Type"].ToString() == "SuperAdmin")
+            {
+                qtest001 = "select uId from users where Linked_user = " + Convert.ToInt32(Session["uuid"]) + " and Type = 'Testator'";
+            }
+            if (Session["Type"].ToString() == "Distributor")
+            {
+                qtest001 = "select uId from users where Linked_user = " + Convert.ToInt32(Session["uuid"]) + " and Type = 'DistributorAdmin'";
+            }
+            if (Session["Type"].ToString() == "Testator")
+            {
+                qtest001 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+            }
+            
             SqlDataAdapter test001da = new SqlDataAdapter(qtest001, con);
             DataTable test001dt = new DataTable();
             test001da.Fill(test001dt);
@@ -1512,7 +1495,7 @@ namespace WillAssure.Controllers
 
 
 
-                if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Detailed")
+                if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Detailed" || Session["Type"].ToString() == "SuperAdmin" || Session["Type"].ToString() == "Distributor")
                 {
                     //////////// check document completion /////////////
 

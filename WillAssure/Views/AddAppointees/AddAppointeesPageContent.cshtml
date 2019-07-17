@@ -235,11 +235,11 @@
                             </div>
 
 
-                            <div style="float:right;">
+                            @*<div style="float:right;">
 
                                 <input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" /><a href="@Url.Action("EditAppointeesIndex","EditAppointees" , new { Type = "Executor" })"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a>
 
-                            </div>
+                            </div>*@
 
 
 
@@ -888,7 +888,7 @@
                                     <button type="submit" id="btnDistributorformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
                                     <button type="submit" id="btnupdate" style="display:none;" formaction="UpdateAppointees" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
 
-                                    <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                    @*<input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />*@
                                     <a href="@Url.Action("AddwitnessIndex","Addwitness")">
                                         <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
                                     </a>
@@ -2666,7 +2666,7 @@
 
 
                                 var st = "<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='alttxtfirstproof" + x + "' name='altinputfield' placeholder='Enter Aadhaar Card' autocomplete='off'  />";
-                                alert(st);
+                               
 
 
                                 $("#altfirstproof").val(value);

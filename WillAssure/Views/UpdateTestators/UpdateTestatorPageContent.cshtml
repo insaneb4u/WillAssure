@@ -656,6 +656,7 @@
             type: "POST",
             url:"@Url.Action("BindCountryDDL", "AddTestatorsForm")",
             success: function (data) {
+
                 $('#ddlcountry').append(data);
             }
         });

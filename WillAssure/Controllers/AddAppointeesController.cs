@@ -358,78 +358,84 @@ namespace WillAssure.Controllers
 
 
             //  for alternate appointees
-            string query2 = "";
-            con.Open();
-
-            if (NestId != null)
+            if (Am.apId != null)
             {
-                query2 = "select * from alternate_Appointees where apId = " + NestId + "";
+                string query2 = "";
+                con.Open();
 
-            }
-            else
-            {
-                query2 = "select * from alternate_Appointees where apId = " + Am.apId + "";
-
-            }
-
-
-
-
-
-
-            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
-            DataTable dt2 = new DataTable();
-            da2.Fill(dt2);
-            con.Close();
-
-
-            if (dt2.Rows.Count > 0)
-            {
-
-
-                for (int i = 0; i < dt2.Rows.Count; i++)
+                if (NestId != null)
                 {
-
-                    ViewBag.alternate = "true";
-                    ViewBag.disablefield = "true";
-                    Am.altapId = Convert.ToInt32(dt2.Rows[i]["id"]);
-                    Am.altguardian = dt2.Rows[i]["altguardian"].ToString();
-                    Am.altexecutor = dt2.Rows[i]["altexec"].ToString();
-
-
-                    Am.altName = dt2.Rows[i]["Name"].ToString();
-                    Am.altmiddleName = dt2.Rows[i]["middleName"].ToString();
-                    Am.altSurname = dt2.Rows[i]["Surname"].ToString();
-                    Am.altIdentity_Proof = dt2.Rows[i]["Identity_Proof"].ToString();
-                    Am.altIdentity_Proof_Value = dt2.Rows[i]["Identity_Proof_Value"].ToString();
-                    Am.altAlt_Identity_Proof = dt2.Rows[i]["Alt_Identity_Proof"].ToString();
-                    Am.altAlt_Identity_Proof_Value = dt2.Rows[i]["Alt_Identity_Proof_Value"].ToString();
-
-                    //Am.altDob = Convert.ToDateTime(dt2.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
-
-                    Am.altGender = dt2.Rows[i]["Gender"].ToString();
-                    Am.altOccupation = dt2.Rows[i]["Occupation"].ToString();
-                    Am.altRelationshipTxt = dt2.Rows[i]["Relationship"].ToString();
-                    Am.altAddress1 = dt2.Rows[i]["Address1"].ToString();
-                    Am.altAddress2 = dt2.Rows[i]["Address2"].ToString();
-                    Am.altAddress3 = dt2.Rows[i]["Address3"].ToString();
-                    Am.altcitytext = dt2.Rows[i]["City"].ToString();
-                    Am.altstatetext = dt2.Rows[i]["State"].ToString();
-                    Am.altPin = dt2.Rows[i]["Pin"].ToString();
-
-
-
+                    query2 = "select * from alternate_Appointees where apId = " + NestId + "";
 
                 }
+                else
+                {
+                    query2 = "select * from alternate_Appointees where apId = " + Am.apId + "";
+
+                }
+
+
+
+
+
+
+                SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+                DataTable dt2 = new DataTable();
+                da2.Fill(dt2);
+                con.Close();
+
+                if (dt2.Rows.Count > 0)
+                {
+
+
+                    for (int i = 0; i < dt2.Rows.Count; i++)
+                    {
+
+                        ViewBag.alternate = "true";
+                        ViewBag.disablefield = "true";
+                        Am.altapId = Convert.ToInt32(dt2.Rows[i]["id"]);
+                        Am.altguardian = dt2.Rows[i]["altguardian"].ToString();
+                        Am.altexecutor = dt2.Rows[i]["altexec"].ToString();
+
+
+                        Am.altName = dt2.Rows[i]["Name"].ToString();
+                        Am.altmiddleName = dt2.Rows[i]["middleName"].ToString();
+                        Am.altSurname = dt2.Rows[i]["Surname"].ToString();
+                        Am.altIdentity_Proof = dt2.Rows[i]["Identity_Proof"].ToString();
+                        Am.altIdentity_Proof_Value = dt2.Rows[i]["Identity_Proof_Value"].ToString();
+                        Am.altAlt_Identity_Proof = dt2.Rows[i]["Alt_Identity_Proof"].ToString();
+                        Am.altAlt_Identity_Proof_Value = dt2.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+
+                        //Am.altDob = Convert.ToDateTime(dt2.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
+
+                        Am.altGender = dt2.Rows[i]["Gender"].ToString();
+                        Am.altOccupation = dt2.Rows[i]["Occupation"].ToString();
+                        Am.altRelationshipTxt = dt2.Rows[i]["Relationship"].ToString();
+                        Am.altAddress1 = dt2.Rows[i]["Address1"].ToString();
+                        Am.altAddress2 = dt2.Rows[i]["Address2"].ToString();
+                        Am.altAddress3 = dt2.Rows[i]["Address3"].ToString();
+                        Am.altcitytext = dt2.Rows[i]["City"].ToString();
+                        Am.altstatetext = dt2.Rows[i]["State"].ToString();
+                        Am.altPin = dt2.Rows[i]["Pin"].ToString();
+
+
+
+
+                    }
+                }
+
+
+
+
+
+
+
+                //end
+
             }
 
 
 
-
-
-
-
-            //end
 
 
 

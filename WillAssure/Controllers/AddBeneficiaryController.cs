@@ -250,7 +250,7 @@ namespace WillAssure.Controllers
                 BM.Religion = dt.Rows[0]["Religion"].ToString();
                 BM.Identity_proof = dt.Rows[0]["Identity_proof"].ToString();
                 BM.Identity_proof_value = dt.Rows[0]["Identity_proof_value"].ToString();
-                
+                BM.country_txt = dt.Rows[0]["Country"].ToString();
 
                 if(BM.Alt_Identity_proof != null)
                 {
@@ -340,9 +340,9 @@ namespace WillAssure.Controllers
 
         public String BindStateDDL()
         {
-
+            string response = Request["send"].ToString();
             con.Open();
-            string query = "select distinct * from tbl_state where country_id = 101 order by statename asc  ";
+            string query = "select distinct * from tbl_state where country_id = "+response+" order by statename asc  ";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -557,7 +557,16 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
                 DateTime dat = DateTime.ParseExact(BM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 cmd.Parameters.AddWithValue("@DOB", dat);
-                cmd.Parameters.AddWithValue("@Mobile", BM.Mobile);
+                if (BM.Mobile != null)
+                {
+                    cmd.Parameters.AddWithValue("@Mobile", BM.Mobile);
+                }
+                else
+                {
+                    BM.Mobile = "None";
+                    cmd.Parameters.AddWithValue("@Mobile", BM.Mobile);
+                }
+                
                 cmd.Parameters.AddWithValue("@Relationship", "None");
                 cmd.Parameters.AddWithValue("@Marital_Status", "none");
                 cmd.Parameters.AddWithValue("@Religion", "none");
@@ -645,7 +654,7 @@ namespace WillAssure.Controllers
                 con.Close();
 
                 con.Open();
-                string spupe = "update BeneficiaryDetails set documentstatus = 'incompleted' , WillType='"+Session["WillType"].ToString()+"'  where  bpid = " + bpid + " ";
+                string spupe = "update BeneficiaryDetails set documentstatus = 'incompleted' , WillType='"+Session["WillType"].ToString()+"' , country='"+BM.country_txt+"'  where  bpid = " + bpid + " ";
                 SqlCommand cmdupe = new SqlCommand(spupe, con);
                 cmdupe.ExecuteNonQuery();
                 con.Close();
@@ -751,7 +760,7 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string spup = "update BeneficiaryDetails set fetchid = " + Convert.ToInt32(Session["uuid"]) + "  , doctype = 'POA' , WillType='" + Session["WillType"].ToString() + "' where  bpid = " + bpid + " ";
+                string spup = "update BeneficiaryDetails set fetchid = " + Convert.ToInt32(Session["uuid"]) + "  , doctype = 'POA' , WillType='" + Session["WillType"].ToString() + "' ,  country='" + BM.country_txt + "' where  bpid = " + bpid + " ";
                 SqlCommand cmdup = new SqlCommand(spup, con);
                 cmdup.ExecuteNonQuery();
                 con.Close();
@@ -834,7 +843,7 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string spup = "update BeneficiaryDetails set fetchid = " + Convert.ToInt32(Session["uuid"]) + "  , doctype = 'Giftdeeds' , WillType='" + Session["WillType"].ToString() + "' where  bpid = " + bpid + " ";
+                string spup = "update BeneficiaryDetails set fetchid = " + Convert.ToInt32(Session["uuid"]) + "  , doctype = 'Giftdeeds' , WillType='" + Session["WillType"].ToString() + "' , country='" + BM.country_txt + "' where  bpid = " + bpid + " ";
                 SqlCommand cmdup = new SqlCommand(spup, con);
                 cmdup.ExecuteNonQuery();
                 con.Close();
@@ -1512,6 +1521,44 @@ namespace WillAssure.Controllers
 
 
             return msg;
+        }
+
+
+
+        public String BindCountryDDL()
+        {
+
+            con.Open();
+            string query = "select distinct * from country_tbl order by CountryName asc  ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["CountryID"].ToString() + " >" + dt.Rows[i]["CountryName"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
         }
 
 

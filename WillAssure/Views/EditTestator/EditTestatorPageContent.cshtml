@@ -45,24 +45,36 @@
                     }
                             <div class="card-body">
 
-                                @if (Session["Type"].ToString() == "SuperAdmin")
+                                @if (Session["Type"] != null)
                                 {
-                                    <div class="row">
-                                        <div class="col-sm-1"></div><div class='col-sm-2'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Distributor</label></div>
-                                        <div class='col-sm-3'>
-                                            <select id="ddlDistributor" class="form-control input-shadow validate[required]">
-                                                <option value="">--Select Distributor--</option>
-                                            </select>
+                                    if (Session["Type"].ToString() == "SuperAdmin")
+                                    {
+                                        <div class="row">
+                                            <div class="col-sm-1"></div><div class='col-sm-2'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Distributor</label></div>
+                                            <div class='col-sm-3'>
+                                                <select id="ddlDistributor" class="form-control input-shadow validate[required]">
+                                                    <option value="">--Select Distributor--</option>
+                                                </select>
 
+                                            </div>
                                         </div>
-                                    </div>
 
 
 
-                                    <hr class="div_rd">
-                                    @Html.HiddenFor(m => m.distributor_id, new { id = "distributor_id" })
-                                    @Html.HiddenFor(m => m.distributor_txt, new { id = "distributor_txt" })
+                                        <hr class="div_rd">
+                                        @Html.HiddenFor(m => m.distributor_id, new { id = "distributor_id" })
+                                        @Html.HiddenFor(m => m.distributor_txt, new { id = "distributor_txt" })
+                                    }
+
                                 }
+                                else
+                                {
+                                    if (!Response.IsRequestBeingRedirected)
+                                    {
+                                        Response.Redirect("/LoginPage/LoginPageIndex");
+                                    }
+                                }
+
 
 
                                 <div class="table-responsive">
@@ -93,7 +105,9 @@
                                                 <th>Country</th>
                                                 <th>Pin</th>
                                                 <th>active</th>
+
                                                 <th>Action</th>
+
                                             </tr>
                                         </thead>
                                         <tbody id="TestatorFormData"></tbody>
@@ -128,24 +142,24 @@
             type: "POST",
             url:"@Url.Action("BindTestatorFormData", "EditTestator")",
             success: function (data) {
-
+                //alert(data);
 
                 $('#TestatorFormData').empty().append(data);
 
                 $(".1").hide();
 
-                var v = $("#txttype").val();
+                //var v = $("#txttype").val();
                
-                if (v == "DistributorAdmin") {
+                //if (v == "DistributorAdmin") {
 
-                    $(".Editbtn").html('Update').addClass("btn btn-success");
-                }
+                //    $(".Editbtn").html('Update').addClass("btn btn-success");
+                //}
 
 
-                if (v == "SuperAdmin") {
+                //if (v == "SuperAdmin") {
 
-                    $(".Editbtn").html('Update').addClass("btn btn-success");
-                }
+                //    $(".Editbtn").html('Update').addClass("btn btn-success");
+                //}
                
             }
         });
@@ -162,9 +176,45 @@
 
 
     function Edit(id) {
+        
+        var data = id; 
+        var doc = "";
+        var fid = "";
+        doc = data.slice(0, -1);
+        if (doc=="Will") {
+
+            fid = data.substring(4);
+            doc = data.slice(0, -1);
+           
+        }
+
+        if (doc == "Codocil") {
+
+            fid = data.substring(7);
+            doc = data.slice(0, -1);
+        }
 
 
-        var id = id;
+        if (doc == "POA") {
+            fid = data.substring(3);
+            doc = data.slice(0, -1);
+        }
+
+
+        if (doc == "GiftDeeds") {
+            fid = data.substring(9);
+            doc = data.slice(0, -1);
+        }
+
+
+        if (doc == "LivingWill") {
+            fid = data.substring(10);
+            doc = data.slice(0, -1);
+        }
+
+        var data = fid + "~" + doc;
+
+       
 
 
 
@@ -172,7 +222,7 @@
 
             type: "POST",
             url: "@Url.Action("UpdateTestatorForm", "EditTestator")",
-            data: {  "send": "" + id + ""   },
+                data: { "send": "" + data + ""   },
             success: function (data) {
                
                 
@@ -707,9 +757,10 @@
             type: "POST",
             url: "@Url.Action("FilterTestatordata", "EditTestator")",
             data: {"send":""+value+""},
-            success: function (data) {
+               success: function (data) {
+                   //alert(data);
                 $('#TestatorFormData').empty().append(data);
-                $(".Editbtn").html('Update').addClass("btn btn-success");
+                //$(".Editbtn").html('Update').addClass("btn btn-success");
             }
         });
 

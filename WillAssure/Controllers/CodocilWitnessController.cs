@@ -24,6 +24,15 @@ namespace WillAssure.Controllers
         // GET: CodocilWitness
         public ActionResult CodocilWitnessIndex()
         {
+
+            if (TempData["Message"] != null)
+            {
+                if (TempData["Message"].ToString() == "true")
+                {
+                    ViewBag.Message = "Verified";
+                }
+            }
+
             codocilwitnessmodel CWM = new codocilwitnessmodel();
 
             return View("~/Views/CodocilWitness/CodocilWitnessPageContent.cshtml", CWM);
@@ -641,7 +650,7 @@ namespace WillAssure.Controllers
             TempData["Message"] = "true";
             ModelState.Clear();
 
-            return RedirectToAction("AddwitnessIndex", "Addwitness");
+            return RedirectToAction("CodocilWitnessIndex", "CodocilWitness");
         }
 
 
@@ -2514,6 +2523,17 @@ namespace WillAssure.Controllers
 
             return msg;
         }
+
+
+
+
+
+
+
+
+
+
+        
 
 
 

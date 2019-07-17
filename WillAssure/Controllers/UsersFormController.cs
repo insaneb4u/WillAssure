@@ -479,7 +479,7 @@ namespace WillAssure.Controllers
 
                 con.Open();
 
-                string LinkedQuery = "update users set Linked_user = " + Convert.ToInt32(Session["uuid"]) + " where uId = " + newusers + "  ";
+                string LinkedQuery = "update users set Linked_user = " + Convert.ToInt32(Session["uuid"]) + "   , gstno='"+UFM.cGST_NO+"' , bankname='"+UFM.cbankName+"' , branch='"+UFM.cBranch+"' , acno="+UFM.caccountNumber+" ,  ifsccode='"+UFM.cIFSC_Code+"' , accountname='"+UFM.caccountName+"'   where uId = " + newusers + "  ";
                 SqlCommand LinkedCommand = new SqlCommand(LinkedQuery,con);
                 LinkedCommand.ExecuteNonQuery();
                 con.Close();

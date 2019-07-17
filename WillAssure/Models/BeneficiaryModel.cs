@@ -60,6 +60,10 @@ namespace WillAssure.Models
         public int State_id { get; set; }
 
 
+        public string country_txt { get; set; }
+        public int country_id { get; set; }
+
+
 
 
         public string Pin { get; set; }

@@ -2,7 +2,16 @@
 @{
     ViewBag.Title = "AddRelationPageContent";
 }
+<style>
+    #datepicker {
+        width: 180px;
+        margin: 0 20px 20px 20px;
+    }
 
+        #datepicker > span:hover {
+            cursor: pointer;
+        }
+</style>
 
 @*Main Content*@
 <div class="content-wrapper">
@@ -52,20 +61,37 @@
                         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "RoleForm" }))
                         {
 
-                            <div class="row">
-                                <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
 
-                                    <div class="form-group">
-                                        <label for="input-1">Member Name</label>
+                                <div class="form-group">
+                                    <label for="input-1">Member Name</label>
 
-                                        @Html.TextBoxFor(m => m.MemberName, new { @class = "form-control input-shadow validate[required,custom[characteronly]] text-input", @id = "txtRole", @placeholder = "Enter Member Name", @autocomplete = "off", alert = "LabourCost is requried" })
-                                    </div>
+                                    @Html.TextBoxFor(m => m.MemberName, new { @class = "form-control input-shadow validate[required,custom[characteronly]] text-input", @id = "txtRole", @placeholder = "Enter Member Name", @autocomplete = "off", alert = "LabourCost is requried" })
                                 </div>
-
-
-
-
                             </div>
+
+
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="input-5">Date Of Birth</label>
+                                    @*@Html.TextBoxFor(m => m.Dob, new { @type = "date", @class = "form-control input-shadow validate[required] text-input", @id = "txtDob", @placeholder = "Select Your Date Of Birth", @autocomplete = "off" })*@
+
+
+                                    <div id="datepicker01" class="input-group date" data-date-format="dd-mm-yyyy">
+                                        <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+
+                                    <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
+
+                                </div>
+                            </div>
+
+
+
+
+                        </div>
 
 
 
@@ -104,6 +130,23 @@
     });
 
 
+
+    $(function () {
+
+        //var now = new Date();
+        //var sDate = new Date(now.getFullYear() - 18, now.getMonth(), 1);
+
+
+
+        //var endDate = new Date(sDate.getFullYear + '-' + sDate.getMonth() + '-' + sDate.getDay());
+        //var startDate = new Date('1930-01-01');
+
+        $('#datepicker01').datepicker({
+            //other option
+            //startDate: startDate, //set start date
+            //endDate: sDate //set end date
+        });
+    });
 
 </script>
 

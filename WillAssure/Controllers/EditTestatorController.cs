@@ -23,7 +23,8 @@ namespace WillAssure.Controllers
         public ActionResult EditTestatorIndex(string doctype)
         {
 
-
+            Session["WillType"] = "";
+            Session["doctype"] = "";
             TempData["selected"] = doctype;
             // check type 
             string typ5 = "";
@@ -530,7 +531,7 @@ namespace WillAssure.Controllers
                                     + "<td>" + dt.Rows[i]["Country"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Pin"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["active"].ToString() + "</td>"
-                                    +"<td><button type='button'    id='Will" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary Editbtn'>Will</button>&nbsp;&nbsp;<button type='button'   id='Codocil" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-success  Editbtn'>Codocil</button>&nbsp;&nbsp;<button type='button'   id='POA" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-info  Editbtn'>POA</button>&nbsp;&nbsp;<button type='button'   id='GiftDeeds" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-danger Editbtn'>GiftDeeds</button>&nbsp;&nbsp;<button type='button'   id='LivingWill" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-warning  Editbtn'>LivingWill</button></td></tr>";
+                                    +"<td><button type='button'    id='Quick" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary Editbtn'>(Quick)-Will</button>&nbsp;&nbsp;<button type='button'    id='Detailed"+ dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary Editbtn'>(Detailed)-Will</button>&nbsp;&nbsp;<button type='button'   id='Codocil" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-success  Editbtn'>Codocil</button>&nbsp;&nbsp;<button type='button'   id='POA" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-info  Editbtn'>POA</button>&nbsp;&nbsp;<button type='button'   id='GiftDeeds" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-danger Editbtn'>GiftDeeds</button>&nbsp;&nbsp;<button type='button'   id='LivingWill" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-warning  Editbtn'>LivingWill</button></td></tr>";
 
 
 
@@ -1042,6 +1043,48 @@ namespace WillAssure.Controllers
             Session["doctype"] = doc;
 
 
+
+            if (doc == "Quick")
+            {
+                Session["WillType"] = "Quick";
+                Session["doctype"] = "Will";
+                id = id.Substring(1);
+            }
+
+            if (doc == "Detailed")
+            {
+                Session["WillType"] = "Detailed";
+                Session["doctype"] = "Will";
+                id = id.Substring(4);
+            }
+
+
+
+            if (doc == "POA")
+            {
+                Session["doctype"] = "POA";
+
+
+            }
+            if (doc == "GiftDeeds")
+            {
+                Session["doctype"] = "GiftDeeds";
+
+
+            }
+            if (doc == "Codocil")
+            {
+                Session["doctype"] = "Codocil";
+            }
+
+
+            if (doc == "LivingWill")
+            {
+                Session["doctype"] = "LivingWill";
+            }
+
+
+
             //if (Session["doctype"].ToString() == "Will")
             //{
 
@@ -1070,7 +1113,7 @@ namespace WillAssure.Controllers
             //    data = "LivingWill";
             //}
 
-            return id+"~"+doc;
+            return id +"~"+doc;
         }
 
 
@@ -2294,7 +2337,7 @@ namespace WillAssure.Controllers
                                         + "<td>" + dt.Rows[i]["Pin"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["active"].ToString() + "</td>"
 
-                                         + "<td><button type='button'    id='Will" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary Editbtn'>Will</button>&nbsp;&nbsp;<button type='button'   id='Codocil" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-success  Editbtn'>Codocil</button>&nbsp;&nbsp;<button type='button'   id='POA" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-info  Editbtn'>POA</button>&nbsp;&nbsp;<button type='button'   id='GiftDeeds" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-danger Editbtn'>GiftDeeds</button>&nbsp;&nbsp;<button type='button'   id='LivingWill" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-warning  Editbtn'>LivingWill</button></td></tr>";
+                                          + "<td><button type='button'    id='Quick-Will" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary Editbtn'>Quick Will</button>&nbsp;&nbsp;<button type='button'    id='Quick-Will" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary Editbtn'>Detailed Will</button>&nbsp;&nbsp;<button type='button'   id='Codocil" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-success  Editbtn'>Codocil</button>&nbsp;&nbsp;<button type='button'   id='POA" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-info  Editbtn'>POA</button>&nbsp;&nbsp;<button type='button'   id='GiftDeeds" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-danger Editbtn'>GiftDeeds</button>&nbsp;&nbsp;<button type='button'   id='LivingWill" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-warning  Editbtn'>LivingWill</button></td></tr>";
 
                         }
 

@@ -139,11 +139,11 @@ namespace WillAssure.Controllers
             }
             else
             {
-              return  RedirectToAction("LoginPageIndex", "LoginPage");
+                return RedirectToAction("LoginPageIndex", "LoginPage");
             }
 
 
-           
+
             return View("~/Views/EditMainAssets/EditMainAssetsPageContent.cshtml");
         }
 
@@ -292,67 +292,107 @@ namespace WillAssure.Controllers
             da.Fill(dt);
             con.Close();
             string data = "";
-
-            for (int i = 0; i < dt.Rows.Count; i++)
+            string keydata = "";
+            string key = "";
+            string values = "";
+            string jstructure = "";
+            if (dt.Rows.Count > 0)
             {
-                string getjson = dt.Rows[i]["Json"].ToString();
-
-
-                var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
-                foreach (var kv in dict)
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    final = final + kv.Key + ":" + kv.Value;
+                    string getjson = dt.Rows[i]["Json"].ToString();
+
+                    
+                    var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
+                    foreach (var kv in dict)
+                    {
+                        keydata = kv.Key.Split('~')[1];
+                        key = key + keydata + "~";
+                        values = values + kv.Value + "~";
+
+
+
+
+
+
+
+
+                    }
+
+
+                    ArrayList result1 = new ArrayList(key.Split('~'));
+                    ArrayList result2 = new ArrayList(values.Split('~'));
+
+                    ArrayList result3 = new ArrayList();
+                    result3.AddRange(result1);
+                    result3.AddRange(result2);
+                    jstructure = "";
+                    for (int k = 0; k < result1.Count; k++)
+                    {
+                        if (result1[k].ToString() != "")
+                        {
+                            jstructure = jstructure + "<p>" + result1[k].ToString() + ":" + result2[k].ToString() + "</p></br>";
+                        }
+
+
+                    }
+
+
+
+                    if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
+                    {
+
+                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+
+                        data += "<td>" + jstructure + "</td>";
+                        data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
+
+                    }
+
+                    if (testString == "1,0,3" || testString == "0,0,3" || testString == "0,2,3" || testString == "1,0,3" || testString == "0,0,3")
+                    {
+                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+                        data += "<td>" + jstructure + "</td>";
+                        data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
+
+                    }
+
+
+                    if (testString == "1,2,3" || testString == "0,2,3")
+                    {
+                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+                        data += "<td>" + jstructure + "</td>";
+                        data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
+
+
+                    }
+
+
+                    if (testString == "0,0,0")
+                    {
+
+
+
+
+                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+                        data += "<td>" + jstructure + "</td>";
+
+
+                    }
+
+
+
+
+
                 }
-
-
-
-                if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
-                {
-                    data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                    data += "<td>" + final + "</td>";
-                    data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
-
-                }
-
-                if (testString == "1,0,3" || testString == "0,0,3" || testString == "0,2,3" || testString == "1,0,3" || testString == "0,0,3")
-                {
-                    data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                    data += "<td>" + final + "</td>";
-                    data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
-
-                }
-
-
-                if (testString == "1,2,3" || testString == "0,2,3")
-                {
-                    data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                    data += "<td>" + final + "</td>";
-                    data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
-
-
-                }
-
-
-                if (testString == "0,0,0")
-                {
-                    data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                    data += "<td>" + final + "</td>";
-                   
-
-                }
-
-
-
-
-
             }
 
 
@@ -364,8 +404,8 @@ namespace WillAssure.Controllers
 
 
 
-        
-    
+
+
 
             return data;
         }
@@ -378,8 +418,8 @@ namespace WillAssure.Controllers
             int index = Convert.ToInt32(Request["send"]);
 
             con.Open();
-            string query1 = "delete from AssetInformation where aiid = "+index+" ";
-            SqlCommand cmd = new SqlCommand(query1,con);
+            string query1 = "delete from AssetInformation where aiid = " + index + " ";
+            SqlCommand cmd = new SqlCommand(query1, con);
             cmd.ExecuteNonQuery();
             con.Close();
 
@@ -516,7 +556,7 @@ namespace WillAssure.Controllers
 
 
 
-           // string final = "";
+            // string final = "";
             con.Open();
             string query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where e.Linked_user = " + Convert.ToInt32(Session["uuid"]) + "   ";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
@@ -524,67 +564,110 @@ namespace WillAssure.Controllers
             da.Fill(dt);
             con.Close();
             string data = "";
-
-            for (int i = 0; i < dt.Rows.Count; i++)
+            string keydata = "";
+            string key = "";
+            string values = "";
+            string jstructure = "";
+            if (dt.Rows.Count > 0)
             {
-                string getjson = dt.Rows[i]["Json"].ToString();
-
-
-                var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
-                foreach (var kv in dict)
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    final = final + kv.Key + ":" + kv.Value;
+                    string getjson = dt.Rows[i]["Json"].ToString();
+
+                    keydata = "";
+                    key = "";
+                    values = "";
+                    jstructure = "";
+                    var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
+                    foreach (var kv in dict)
+                    {
+                        keydata = kv.Key.Split('~')[1];
+                        key = key + keydata + "~";
+                        values = values + kv.Value + "~";
+
+
+
+
+
+
+
+
+                    }
+
+
+                    ArrayList result1 = new ArrayList(key.Split('~'));
+                    ArrayList result2 = new ArrayList(values.Split('~'));
+
+                    ArrayList result3 = new ArrayList();
+                    result3.AddRange(result1);
+                    result3.AddRange(result2);
+                    jstructure = "";
+                    for (int k = 0; k < result1.Count; k++)
+                    {
+                        if (result1[k].ToString() != "")
+                        {
+                            jstructure = jstructure + "<p>" + result1[k].ToString() + ":" + result2[k].ToString() + "</p></br>";
+                        }
+
+
+                    }
+
+
+
+                    if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
+                    {
+
+                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+
+                        data += "<td>" + jstructure + "</td>";
+                        data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
+
+                    }
+
+                    if (testString == "1,0,3" || testString == "0,0,3" || testString == "0,2,3" || testString == "1,0,3" || testString == "0,0,3")
+                    {
+                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+                        data += "<td>" + jstructure + "</td>";
+                        data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
+
+                    }
+
+
+                    if (testString == "1,2,3" || testString == "0,2,3")
+                    {
+                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+                        data += "<td>" + jstructure + "</td>";
+                        data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
+
+
+                    }
+
+
+                    if (testString == "0,0,0")
+                    {
+
+
+
+
+                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+                        data += "<td>" + jstructure + "</td>";
+
+
+                    }
+
+
+
+
+
                 }
-
-
-
-                if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
-                {
-                    data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                    data += "<td>" + final + "</td>";
-                    data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
-
-                }
-
-                if (testString == "1,0,3" || testString == "0,0,3" || testString == "0,2,3" || testString == "1,0,3" || testString == "0,0,3")
-                {
-                    data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                    data += "<td>" + final + "</td>";
-                    data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'   class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
-
-                }
-
-
-                if (testString == "1,2,3" || testString == "0,2,3")
-                {
-                    data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                    data += "<td>" + final + "</td>";
-                    data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
-
-
-                }
-
-
-                if (testString == "0,0,0")
-                {
-                    data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                    data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                    data += "<td>" + final + "</td>";
-
-
-                }
-
-
-
-
-
             }
 
 
@@ -666,7 +749,7 @@ namespace WillAssure.Controllers
 
             }
 
-           
+
 
             con.Open();
             string checkuid = "select tId from TestatorDetails  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
@@ -701,10 +784,10 @@ namespace WillAssure.Controllers
                     {
                         string getjson = dt.Rows[i]["Json"].ToString();
 
-                         keydata = "";
-                         key = "";
-                         values = "";
-                         jstructure = "";
+                        keydata = "";
+                        key = "";
+                        values = "";
+                        jstructure = "";
                         var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
                         foreach (var kv in dict)
                         {
@@ -713,12 +796,12 @@ namespace WillAssure.Controllers
                             values = values + kv.Value + "~";
 
 
-                            
-
-                         
 
 
-                            
+
+
+
+
                         }
 
 
@@ -736,18 +819,18 @@ namespace WillAssure.Controllers
                                 jstructure = jstructure + "<p>" + result1[k].ToString() + ":" + result2[k].ToString() + "</p></br>";
                             }
 
-                           
+
                         }
 
 
 
                         if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
                         {
-                            
+
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
                             data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
                             data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
- 
+
                             data += "<td>" + final + "</td>";
                             data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
 
@@ -779,7 +862,7 @@ namespace WillAssure.Controllers
                         if (testString == "0,0,0")
                         {
 
-                            
+
 
 
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
@@ -813,21 +896,54 @@ namespace WillAssure.Controllers
                         {
                             string getjson = dt22.Rows[i]["Json"].ToString();
 
-
+                            keydata = "";
+                            key = "";
+                            values = "";
+                            jstructure = "";
                             var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
                             foreach (var kv in dict)
                             {
-                                final = final + kv.Key + ":" + kv.Value;
+                                keydata = kv.Key.Split('~')[1];
+                                key = key + keydata + "~";
+                                values = values + kv.Value + "~";
+
+
+
+
+
+
+
+
+                            }
+
+
+                            ArrayList result1 = new ArrayList(key.Split('~'));
+                            ArrayList result2 = new ArrayList(values.Split('~'));
+
+                            ArrayList result3 = new ArrayList();
+                            result3.AddRange(result1);
+                            result3.AddRange(result2);
+                            jstructure = "";
+                            for (int k = 0; k < result1.Count; k++)
+                            {
+                                if (result1[k].ToString() != "")
+                                {
+                                    jstructure = jstructure + "<p>" + result1[k].ToString() + ":" + result2[k].ToString() + "</p></br>";
+                                }
+
+
                             }
 
 
 
                             if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
                             {
+
                                 data = data + "<tr class='nr'><td>" + dt22.Rows[i]["aiid"].ToString() + "</td>";
                                 data += "<td>" + dt22.Rows[i]["AssetsType"].ToString() + "</td>";
                                 data += "<td>" + dt22.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                                data += "<td>" + final + "</td>";
+
+                                data += "<td>" + jstructure + "</td>";
                                 data += "<td><button type='button'   id='" + dt22.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
 
                             }
@@ -837,7 +953,7 @@ namespace WillAssure.Controllers
                                 data = data + "<tr class='nr'><td>" + dt22.Rows[i]["aiid"].ToString() + "</td>";
                                 data += "<td>" + dt22.Rows[i]["AssetsType"].ToString() + "</td>";
                                 data += "<td>" + dt22.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                                data += "<td>" + final + "</td>";
+                                data += "<td>" + jstructure + "</td>";
                                 data += "<td><button type='button'   id='" + dt22.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
 
                             }
@@ -848,7 +964,7 @@ namespace WillAssure.Controllers
                                 data = data + "<tr class='nr'><td>" + dt22.Rows[i]["aiid"].ToString() + "</td>";
                                 data += "<td>" + dt22.Rows[i]["AssetsType"].ToString() + "</td>";
                                 data += "<td>" + dt22.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                                data += "<td>" + final + "</td>";
+                                data += "<td>" + jstructure + "</td>";
                                 data += "<td><button type='button'   id='" + dt22.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button><button type='button'   id='" + dt22.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
 
 
@@ -857,10 +973,14 @@ namespace WillAssure.Controllers
 
                             if (testString == "0,0,0")
                             {
+
+
+
+
                                 data = data + "<tr class='nr'><td>" + dt22.Rows[i]["aiid"].ToString() + "</td>";
                                 data += "<td>" + dt22.Rows[i]["AssetsType"].ToString() + "</td>";
                                 data += "<td>" + dt22.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                                data += "<td>" + final + "</td>";
+                                data += "<td>" + jstructure + "</td>";
 
 
                             }
@@ -876,7 +996,6 @@ namespace WillAssure.Controllers
 
                 }
 
-               
 
 
 
@@ -890,10 +1009,15 @@ namespace WillAssure.Controllers
 
 
 
-              
+
+
             }
             else
             {
+                string keydata = "";
+                string key = "";
+                string values = "";
+                string jstructure = "";
                 string final = "";
                 con.Open();
                 string query = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId    ";
@@ -901,68 +1025,108 @@ namespace WillAssure.Controllers
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 con.Close();
-             
 
-                for (int i = 0; i < dt.Rows.Count; i++)
+
+                if (dt.Rows.Count > 0)
                 {
-                    string getjson = dt.Rows[i]["Json"].ToString();
-
-
-                    var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
-                    foreach (var kv in dict)
+                    for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        final = final + kv.Key + ":" + kv.Value;
+                        string getjson = dt.Rows[i]["Json"].ToString();
+
+                        keydata = "";
+                        key = "";
+                        values = "";
+                        jstructure = "";
+                        var dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(getjson);
+                        foreach (var kv in dict)
+                        {
+                            keydata = kv.Key.Split('~')[1];
+                            key = key + keydata + "~";
+                            values = values + kv.Value + "~";
+
+
+
+
+
+
+
+
+                        }
+
+
+                        ArrayList result1 = new ArrayList(key.Split('~'));
+                        ArrayList result2 = new ArrayList(values.Split('~'));
+
+                        ArrayList result3 = new ArrayList();
+                        result3.AddRange(result1);
+                        result3.AddRange(result2);
+                        jstructure = "";
+                        for (int k = 0; k < result1.Count; k++)
+                        {
+                            if (result1[k].ToString() != "")
+                            {
+                                jstructure = jstructure + "<p>" + result1[k].ToString() + ":" + result2[k].ToString() + "</p></br>";
+                            }
+
+
+                        }
+
+
+
+                        if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
+                        {
+
+                            data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                            data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                            data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+
+                            data += "<td>" + jstructure + "</td>";
+                            data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
+
+                        }
+
+                        if (testString == "1,0,3" || testString == "0,0,3" || testString == "0,2,3" || testString == "1,0,3" || testString == "0,0,3")
+                        {
+                            data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                            data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                            data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+                            data += "<td>" + jstructure + "</td>";
+                            data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
+
+                        }
+
+
+                        if (testString == "1,2,3" || testString == "0,2,3")
+                        {
+                            data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                            data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                            data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+                            data += "<td>" + jstructure + "</td>";
+                            data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
+
+
+                        }
+
+
+                        if (testString == "0,0,0")
+                        {
+
+
+
+
+                            data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
+                            data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
+                            data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
+                            data += "<td>" + jstructure + "</td>";
+
+
+                        }
+
+
+
+
+
                     }
-
-
-
-                    if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
-                    {
-                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                        data += "<td>" + final + "</td>";
-                        data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
-
-                    }
-
-                    if (testString == "1,0,3" || testString == "0,0,3" || testString == "0,2,3" || testString == "1,0,3" || testString == "0,0,3")
-                    {
-                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                        data += "<td>" + final + "</td>";
-                        data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
-
-                    }
-
-
-                    if (testString == "1,2,3" || testString == "0,2,3")
-                    {
-                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                        data += "<td>" + final + "</td>";
-                        data += "<td><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button><button type='button'   id='" + dt.Rows[i]["aiid"].ToString() + "'    class='btn btn-danger deletenotification'>Delete</button>  </td></tr>";
-
-
-                    }
-
-
-                    if (testString == "0,0,0")
-                    {
-                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["aiid"].ToString() + "</td>";
-                        data += "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>";
-                        data += "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>";
-                        data += "<td>" + final + "</td>";
-
-
-                    }
-
-
-
-
-
                 }
 
 
@@ -977,7 +1141,7 @@ namespace WillAssure.Controllers
 
 
 
-                
+
             }
             return data;
 

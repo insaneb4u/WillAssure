@@ -176,16 +176,25 @@
 
 
     function Edit(id) {
-        
+
         var data = id; 
         var doc = "";
         var fid = "";
         doc = data.slice(0, -1);
-        if (doc=="Will") {
+      
+        if (doc=="Quick") {
 
             fid = data.substring(4);
             doc = data.slice(0, -1);
            
+        }
+
+
+        if (doc == "Detailed") {
+
+            fid = data.substring(4);
+            doc = data.slice(0, -1);
+            alert(fid);
         }
 
         if (doc == "Codocil") {
@@ -229,10 +238,10 @@
                 var id = data.split("~")[0];
                 var type = data.split("~")[1];
 
-          
 
+                
 
-                if (type == "Will") {
+                if (type == "Quick" || type == "Detailed") {
                  
                 var url = "/UpdateTestators/UpdateTestatorsIndex?NestId=" + id;
                     window.location.href = url;

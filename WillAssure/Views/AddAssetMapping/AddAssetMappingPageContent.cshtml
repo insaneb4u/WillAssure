@@ -660,18 +660,31 @@
                                  res += "<div class='form-group start'>";
                                  res += "<label for='input-1'>Balance Proportion</label>";
                                  res += "<input type='text' id='txttotal"+data[i].assetcatid+"' min=0  class='form-control totalinput' readonly />";
-                                 res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-378px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
+                                 res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-638px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
                                  res += "</div>";
                                  res += "</div>";
 
+                                 res += "<div style='postion:relative; top:25px;'>";
+                                 res += "<button class='btn btn-danger'>Add Alternate</button>";
+                                 res += "</div>";
 
-                                 res += "<div class='col-sm-2'>";
+                                 res += "<div class='col-sm-2' id='alternatefield'>";
                                  res += "<div class='form-group' id='mainbeneddl" + data[i].assetcatid + "'>";
                                  res += "<label for='input-1' style='white-space:nowrap'>Alternate Beneficiary</label>";
                                  res += "<select id='ddlbeneficiaryalt" + data[i].assetcatid + "' onchange='altcheckbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control altbeneficiaryclass '></select>";
                                  res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                                  res += "</div>";
                                  res += "</div>";  
+
+
+
+                                 res += "<div class='col-sm-2 grandparent' id='alternatefield'>";
+                                 res += "<div class='form-group parent'>";
+                                 res += "<label for='input-1'>Alt Proportion</label><span id='errproportion' style='color:red;display:;'>(*)</span>";
+                                 res += "<input type='text' autocomplete='off' class='form-control proportioninput validate[required]'  onkeypress='return isNumberKey(event)'   onchange='gettxtproportion(this.id,this.value)' name='rank' id='txtproportion" + data[i].assetcatid + "' />";
+                                 res += "</div>";
+                                 res += "</div>";
+
 
 
 

@@ -400,8 +400,8 @@
                                         @if (Model.country_txt != null)
                                         {
 
-                                        <select id="ddlcountry123" style="display:;" class="form-control input-shadow validate[required]">
-                                            <option value=''>--Select--</option>
+                                        <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]">
+                                            
                                             <option value="@Model.country_txt">@Model.country_txt</option>
                                         </select>
                                             @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
@@ -1043,8 +1043,8 @@
             type: "POST",
             url:"@Url.Action("BindCountryDDL", "AddBeneficiary")",
             success: function (data) {
-                alert(data);
-                $('#ddlcountry123').append(data);
+             
+                $('#ddlcountry').append(data);
             }
         });
 
@@ -1917,6 +1917,7 @@
         $("#txtIdentityProofValue").removeAttr("disabled");
         $("#ddlidentityproof22").removeAttr("disabled");
         $("#txtIdentityProofValue22").removeAttr("disabled");
+        $("#ddlcountry").removeAttr("disabled");
 
 
 
@@ -1955,7 +1956,7 @@
         $("#btneditmsg").hide();
         $("#btnupdate").hide();
 
-
+        $("#ddlcountry").attr("disabled", "disabled");
         $("#txtFirst_Name").attr("disabled", "disabled");
         $("#txtMiddle_Name").attr("disabled", "disabled");
         $("#txtLast_Name").attr("disabled", "disabled");
@@ -2026,6 +2027,7 @@
         $("#txtIdentityProofValue").removeAttr("disabled");
         $("#ddlidentityproof22").removeAttr("disabled");
         $("#txtIdentityProofValue22").removeAttr("disabled");
+        $("#ddlcountry").removeAttr("disabled");
 
 
         $("#altfirstname").removeAttr("disabled");
@@ -2102,7 +2104,7 @@
 
 
         $("#btnfieldedit").hide();
-
+        $("#ddlcountry").removeAttr("disabled");
         $("#txtFirst_Name").removeAttr("disabled");
         $("#txtMiddle_Name").removeAttr("disabled");
         $("#txtLast_Name").removeAttr("disabled");

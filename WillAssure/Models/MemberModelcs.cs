@@ -12,6 +12,8 @@ namespace WillAssure.Models
 
         public string MemberName { get; set; }
 
+        public string dob { get; set; }
+
 
     }
 }

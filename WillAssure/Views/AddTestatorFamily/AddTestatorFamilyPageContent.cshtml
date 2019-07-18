@@ -94,7 +94,7 @@
 
 
 
-                                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will" || Session["Type"].ToString() == "SuperAdmin" || Session["Type"].ToString() == "Distributor")
+                                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
                                 {
 
                                     <ul id="menu" style="font-weight:bold;">
@@ -1217,7 +1217,14 @@
             data: { "send": "" + value + "" },
                      success: function (data) {
 
-                         if (data == "true") {
+                        
+                         var msg = data.split('~')[0];
+                         var structure = data.split('~')[1];
+
+
+                         $("#ddlrelation").empty().append(structure);
+
+                         if (msg == "true") {
 
 
                              $("#confirmguardian").on("click", function () { });

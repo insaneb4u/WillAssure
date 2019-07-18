@@ -392,32 +392,96 @@ namespace WillAssure.Controllers
         public string dateofbirth()
         {
 
+            string data = "";
             string date = Request["send"].ToString();
+            date = date.Substring(6, date.Length - 6);
+            var today = DateTime.Now.Year;
+            int age = today - int.Parse(date);
+          
             string msg = "";
             if (date != null)
             {
                 // identify if guardian or not
 
-                date = date.Substring(6, date.Length - 6);
-                var today = DateTime.Now.Year;
-                int age = today - int.Parse(date);
+              
                 if (age != 0)
                 {
                     if (age <= 18)
                     {
                         ViewBag.guardianform = "true";
                         msg = "true";
+
+
+                        con.Open();
+                        string query1 = "select ab.Rid , ab.MemberName , year(getdate())-year(ab.DOB) as age  from RelationShip ab where ( year(getdate())-year(ab.DOB)) <= 18";
+                        SqlDataAdapter da1 = new SqlDataAdapter(query1, con);
+                        DataTable dt1 = new DataTable();
+                        da1.Fill(dt1);
+                        con.Close();
+
+
+                        if (dt1.Rows.Count > 0)
+                        {
+
+
+                            for (int i = 0; i < dt1.Rows.Count; i++)
+                            {
+
+
+
+
+                                data = data + "<option value=" + dt1.Rows[i]["Rid"].ToString() + " >" + dt1.Rows[i]["MemberName"].ToString() + "</option>";
+
+
+
+                            }
+
+
+
+
+                        }
+
+                        
                     }
                     else
                     {
                         msg = "false";
+
+                        con.Open();
+                        string query2 = "select ab.Rid , ab.MemberName , year(getdate())-year(ab.DOB) as age  from RelationShip ab where ( year(getdate())-year(ab.DOB)) >= 18";
+                        SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+                        DataTable dt2 = new DataTable();
+                        da2.Fill(dt2);
+                        con.Close();
+
+
+                        if (dt2.Rows.Count > 0)
+                        {
+
+
+                            for (int i = 0; i < dt2.Rows.Count; i++)
+                            {
+
+
+
+
+                                data = data + "<option value=" + dt2.Rows[i]["Rid"].ToString() + " >" + dt2.Rows[i]["MemberName"].ToString() + "</option>";
+
+
+
+                            }
+
+
+
+
+                        }
+
+                        
+
                     }
 
                 }
-                else
-                {
-                    msg = "false";
-                }
+               
 
 
 
@@ -426,8 +490,17 @@ namespace WillAssure.Controllers
             }
 
 
-            return msg;
+            return msg + "~" + data;
+
         }
+           
+
+
+
+
+
+              
+        
 
 
 

@@ -196,18 +196,18 @@ namespace WillAssure.Controllers
 
                     if (Session["doctype"].ToString() == "Will")
                     {
-                        query = "select * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' and doctype = 'Will' ";
+                        query = "select top 1  * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' and doctype = 'Will' order by bpId desc ";
                     }
 
                     if (Session["doctype"].ToString() == "POA")
                     {
-                        query = "select * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' and doctype = 'POA' ";
+                        query = "select top 1  * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' and doctype = 'POA' order by bpId desc ";
                     }
 
 
                     if (Session["doctype"].ToString() == "GiftDeeds")
                     {
-                        query = "select * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' and doctype = 'Giftdeeds' ";
+                        query = "select top 1  * from BeneficiaryDetails where fetchid not in('TF') and tId  = '" + Convert.ToInt32(Session["distid"]) + "' and doctype = 'Giftdeeds' order by bpId desc";
                     }
 
 
@@ -1330,9 +1330,30 @@ namespace WillAssure.Controllers
             con.Close();
 
 
+            // get latest bpid with filter
+            int bpid = 0;
+            con.Open();
+            string qq = "select top 1 * from BeneficiaryDetails order by bpId desc";
+            SqlDataAdapter da = new SqlDataAdapter(qq, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+                bpid = Convert.ToInt32(dt.Rows[0]["bpId"]);
+            }
+            con.Close();
 
 
-        
+            con.Open();
+            string spup = "update BeneficiaryDetails set country='" + BM.country_txt + "' where  bpid = " + bpid + " ";
+            SqlCommand cmdup = new SqlCommand(spup, con);
+            cmdup.ExecuteNonQuery();
+            con.Close();
+
+
+            //end
+
+
 
             if (BM.check == "true")
             {

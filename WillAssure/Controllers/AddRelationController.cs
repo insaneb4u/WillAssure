@@ -288,6 +288,7 @@ namespace WillAssure.Controllers
                 cmd2.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd2.Parameters.AddWithValue("@action", "insert");
                 cmd2.Parameters.AddWithValue("@MemberName ", MMC.MemberName);
+                cmd2.Parameters.AddWithValue("@dob",Convert.ToDateTime(MMC.dob).ToString("yyyy-MM-dd"));
                 cmd2.ExecuteNonQuery();
 
 

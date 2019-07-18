@@ -22,6 +22,9 @@ namespace WillAssure.Controllers
         {
             // check type 
             string typ5 = "";
+
+            ViewBag.documentlink = "true";
+            ViewBag.collapse = "true";
             con.Open();
             string qq15 = "select Type from users where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
             SqlDataAdapter daa5 = new SqlDataAdapter(qq15, con);

@@ -35,8 +35,25 @@ namespace WillAssure.Controllers
             ViewBag.collapse = "true";
             ViewBag.enablelivingwill = "true";
 
+
+            int getid = Convert.ToInt32(Session["uuid"]);
+            int NestId = 0;
+
             con.Open();
-            string query = "insert into living_Will (Conditions,TreatmentDecline,uId) values ('"+CM.conditions+"' , '"+CM.treatmentdecline+"' , "+Convert.ToInt32(Session["uuid"])+"   )";
+
+            string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+            SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
+            DataTable dtt26 = new DataTable();
+            daa26.Fill(dtt26);
+            if (dtt26.Rows.Count > 0)
+            {
+                NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
+            }
+
+
+
+
+            string query = "insert into living_Will (Conditions,TreatmentDecline,uId,tid,documentstatus) values ('" + CM.conditions+"' , '"+CM.treatmentdecline+"' , "+Convert.ToInt32(Session["uuid"])+" , "+NestId+" , 'Completed'  )";
             SqlCommand cmd = new SqlCommand(query,con);
             cmd.ExecuteNonQuery();
 

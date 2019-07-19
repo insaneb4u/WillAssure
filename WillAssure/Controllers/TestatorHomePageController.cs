@@ -64,176 +64,13 @@ namespace WillAssure.Controllers
 
 
 
-                //////////////////////////////////////////////////////  FOR CHECKING DOCUMENT COMPLETION ///////////////////////////////////////////////
+               
 
 
-                con.Open();
-                string query2 = "select Will , Codocil , POA , Giftdeeds , LivingWill  from users where uId =  " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
-                DataTable dt2 = new DataTable();
-                da2.Fill(dt2);
-                con.Close();
 
-                if (dt2.Rows.Count > 0)
-                {
-                    if (Convert.ToInt32(dt2.Rows[0]["Will"]) == 1)
-                    {
-                        ViewBag.PaymentLink = "true";
-                        // for appointees 
 
-                        con.Open();
-                        string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='Will' and Type='Witness'  ";
-                        SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                        DataTable chk008dt = new DataTable();
-                        chk008da.Fill(chk008dt);
-                        con.Close();
 
-                        if (chk008dt.Rows.Count > 0)
-                        {
-
-
-                            ViewBag.Willbtn = "true";
-
-
-
-                        }
-                        else
-                        {
-                            ViewBag.empty = "true";
-                        }
-
-
-                        //end
-                    }
-
-
-
-                    if (Convert.ToInt32(dt2.Rows[0]["POA"]) == 1)
-                    {
-                        ViewBag.PaymentLink = "true";
-                        // for appointees 
-
-                        con.Open();
-                        string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='POA'  and Type='Witness' ";
-                        SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                        DataTable chk008dt = new DataTable();
-                        chk008da.Fill(chk008dt);
-                        con.Close();
-
-                        if (chk008dt.Rows.Count > 0)
-                        {
-
-
-                            ViewBag.POAbtn = "true";
-
-
-
-                        }
-                        else
-                        {
-                            ViewBag.empty = "true";
-                        }
-
-
-                        //end
-                    }
-
-
-                    if (Convert.ToInt32(dt2.Rows[0]["Giftdeeds"]) == 1)
-                    {
-                        ViewBag.PaymentLink = "true";
-                        // for appointees 
-
-                        con.Open();
-                        string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='Giftdeeds' and Type='Witness'  ";
-                        SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                        DataTable chk008dt = new DataTable();
-                        chk008da.Fill(chk008dt);
-                        con.Close();
-
-                        if (chk008dt.Rows.Count > 0)
-                        {
-
-
-                            ViewBag.Giftdeedsbtn = "true";
-
-
-
-                        }
-                        else
-                        {
-                            ViewBag.empty = "true";
-                        }
-
-
-                        //end
-                    }
-
-
-                    if (Convert.ToInt32(dt2.Rows[0]["LivingWill"]) == 1)
-                    {
-                        ViewBag.PaymentLink = "true";
-                        // for appointees 
-
-                        con.Open();
-                        string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='LivingWill'  ";
-                        SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                        DataTable chk008dt = new DataTable();
-                        chk008da.Fill(chk008dt);
-                        con.Close();
-
-                        if (chk008dt.Rows.Count > 0)
-                        {
-
-
-                            ViewBag.LivingWillbtn = "true";
-                            ViewBag.PaymentLink = "true";
-
-                        }
-
-
-                        //end
-                    }
-
-
-
-                    if (Convert.ToInt32(dt2.Rows[0]["Codocil"]) == 1)
-                    {
-                        ViewBag.PaymentLink = "true";
-                        // for appointees 
-
-                        con.Open();
-                        string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='Codocil'  ";
-                        SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                        DataTable chk008dt = new DataTable();
-                        chk008da.Fill(chk008dt);
-                        con.Close();
-
-                        if (chk008dt.Rows.Count > 0)
-                        {
-
-
-                            ViewBag.Codocilbtn = "true";
-                            ViewBag.PaymentLink = "true";
-
-
-
-                        }
-
-
-                        //end
-                    }
-                }
-
-                //////////////////////////////////////////////////////  END  ///////////////////////////////////////////////
-
-
-
-
-
-
-
-                //////////////////////////////////////////////////////  FOR CHECKING PAYMENT   ///////////////////////////////////////////////
+                //////////////////////////////////////////////////////  FOR CHECKING PAYMENT and displaying in incompleted document   ///////////////////////////////////////////////
 
 
                 con.Open();
@@ -285,7 +122,37 @@ namespace WillAssure.Controllers
                         {
                             if (Convert.ToInt32(dtt2.Rows[0]["Codocil"]) == 1 && Convert.ToInt32(dtt2.Rows[0]["Designation"]) == 1)
                             {
-                                ViewBag.documentbtn2 = "true";
+
+                               
+
+
+
+                                // if completed than hide 
+
+                                string qchk008 = "select top 1 codId from Codocil where documentstatus='Incompleted'  order by codId desc ";
+                                SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                                DataTable chk008dt = new DataTable();
+                                chk008da.Fill(chk008dt);
+                                con.Close();
+
+                                if (chk008dt.Rows.Count > 0)
+                                {
+                                    // remove document
+                                    ViewBag.documentbtn2 = "false";
+
+                                }
+                                else
+                                {
+                                    // display document
+                                    ViewBag.documentbtn2 = "true";
+                                }
+
+
+
+                                    //end
+
+
+                                   
 
                                 
 
@@ -705,6 +572,214 @@ namespace WillAssure.Controllers
 
 
 
+        public ActionResult checkcompleteddocument()
+        {
+            int testatorid = 0;
+            
+            con.Open();
+            string query1t = "select tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+            SqlDataAdapter da1t = new SqlDataAdapter(query1t, con);
+            DataTable dt1t = new DataTable();
+            da1t.Fill(dt1t);
+            if (dt1t.Rows.Count > 0)
+            {
+                testatorid = Convert.ToInt32(dt1t.Rows[0]["tId"]);
+
+
+            }
+            con.Close();
+
+
+
+
+
+            //////////////////////////////////////////////////////  FOR CHECKING DOCUMENT COMPLETION ///////////////////////////////////////////////
+
+
+            con.Open();
+            string query2 = "select Will , Codocil , POA , Giftdeeds , LivingWill  from users where uId =  " + Convert.ToInt32(Session["uuid"]) + " ";
+            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+            DataTable dt2 = new DataTable();
+            da2.Fill(dt2);
+            con.Close();
+
+            if (dt2.Rows.Count > 0)
+            {
+                if (Convert.ToInt32(dt2.Rows[0]["Will"]) == 1)
+                {
+                    ViewBag.PaymentLink = "true";
+                    // for appointees 
+
+                    con.Open();
+                    string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='Will' and Type='Witness'  ";
+                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                    DataTable chk008dt = new DataTable();
+                    chk008da.Fill(chk008dt);
+                    con.Close();
+
+                    if (chk008dt.Rows.Count > 0)
+                    {
+
+
+                        ViewBag.Willbtn = "true";
+
+
+
+                    }
+                    else
+                    {
+                        ViewBag.empty = "true";
+                    }
+
+
+                    //end
+                }
+
+
+
+                if (Convert.ToInt32(dt2.Rows[0]["POA"]) == 1)
+                {
+                    ViewBag.PaymentLink = "true";
+                    // for appointees 
+
+                    con.Open();
+                    string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='POA'  and Type='Witness' ";
+                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                    DataTable chk008dt = new DataTable();
+                    chk008da.Fill(chk008dt);
+                    con.Close();
+
+                    if (chk008dt.Rows.Count > 0)
+                    {
+
+
+                        ViewBag.POAbtn = "true";
+
+
+
+                    }
+                    else
+                    {
+                        ViewBag.empty = "true";
+                    }
+
+
+                    //end
+                }
+
+
+                if (Convert.ToInt32(dt2.Rows[0]["Giftdeeds"]) == 1)
+                {
+                    ViewBag.PaymentLink = "true";
+                    // for appointees 
+
+                    con.Open();
+                    string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='Giftdeeds' and Type='Witness'  ";
+                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                    DataTable chk008dt = new DataTable();
+                    chk008da.Fill(chk008dt);
+                    con.Close();
+
+                    if (chk008dt.Rows.Count > 0)
+                    {
+
+
+                        ViewBag.Giftdeedsbtn = "true";
+
+
+
+                    }
+                    else
+                    {
+                        ViewBag.empty = "true";
+                    }
+
+
+                    //end
+                }
+
+
+                if (Convert.ToInt32(dt2.Rows[0]["LivingWill"]) == 1)
+                {
+                    ViewBag.PaymentLink = "true";
+                    // for appointees 
+
+                    con.Open();
+                    string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='LivingWill'  ";
+                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                    DataTable chk008dt = new DataTable();
+                    chk008da.Fill(chk008dt);
+                    con.Close();
+
+                    if (chk008dt.Rows.Count > 0)
+                    {
+
+
+                        ViewBag.LivingWillbtn = "true";
+                        ViewBag.PaymentLink = "true";
+
+                    }
+
+
+                    //end
+                }
+
+
+
+                if (Convert.ToInt32(dt2.Rows[0]["Codocil"]) == 1)
+                {
+                    ViewBag.PaymentLink = "true";
+                    // for appointees 
+
+                    con.Open();
+                    string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='Codocil'  ";
+                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                    DataTable chk008dt = new DataTable();
+                    chk008da.Fill(chk008dt);
+                    con.Close();
+
+                    if (chk008dt.Rows.Count > 0)
+                    {
+
+
+                        ViewBag.Codocilbtn = "true";
+                        ViewBag.PaymentLink = "true";
+
+
+
+                    }
+
+
+                    //end
+                }
+            }
+
+            //////////////////////////////////////////////////////  END  ///////////////////////////////////////////////
+
+
+
+
+
+
+            return View("~/Views/TestatorHomePage/TestatorHomePageContent.cshtml");
+        }
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
 
 
         public ActionResult insertDocumentDetails(TestatorFormModel TFM)
@@ -716,6 +791,37 @@ namespace WillAssure.Controllers
             int typecat = 0;
 
             TFM.documenttype = TFM.will + TFM.codocil + TFM.livingwill + TFM.poa + TFM.giftdeeds;
+
+
+            if (TFM.codocil != "")
+            {
+                int codocilid = 0;
+                con.Open();
+                string quer1 = "select top 1 codId from  Codocil order by  codId desc";
+                SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
+                DataTable daat = new DataTable();
+                daa1.Fill(daat);
+                if (daat.Rows.Count > 0)
+                {
+                    codocilid = Convert.ToInt32(daat.Rows[0]["codId"]);
+                }
+
+
+
+
+                
+                string qq1 = "update Codocil set documentstatus = 'Completed' where codId = "+ codocilid + "";
+                SqlCommand cc1 = new SqlCommand(qq1, con);
+                cc1.ExecuteNonQuery();
+                con.Close();
+
+
+
+
+
+
+            }
+
 
 
             if (TFM.documenttype == "WillCodocilPOA")
@@ -1322,191 +1428,407 @@ namespace WillAssure.Controllers
 
         public string checkwilldocument()
         {
-            int NestId = 0;
             string status = "";
-            int getid = Convert.ToInt32(Session["uuid"]);
+
+            string WillType = Session["WillType"].ToString();
 
 
-            con.Open();
-            string identifydoc = "select Will from users where Will = 1 and uId = " + getid + " ";
-            SqlDataAdapter da = new SqlDataAdapter(identifydoc, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            if (dt.Rows.Count > 0)
+            if (WillType == "Quick")
             {
-                if (Convert.ToInt32(dt.Rows[0]["Will"]) == 1)
+
+                int NestId = 0;
+
+                int getid = Convert.ToInt32(Session["uuid"]);
+
+
+                con.Open();
+                string identifydoc = "select Will from users where Will = 1 and uId = " + getid + " and WillType = 'Quick' ";
+                SqlDataAdapter da = new SqlDataAdapter(identifydoc, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
                 {
-
-
-
-                    string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                    SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
-                    DataTable dtt26 = new DataTable();
-                    daa26.Fill(dtt26);
-                    if (dtt26.Rows.Count > 0)
-                    {
-                        NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
-                    }
-
-
-
-                    // check which document is active
-                    // for testator family
-
-                    string qchk001 = "select a.fId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Marital_Status , a.Religion , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.tId , a.active , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.Is_Informed_Person from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where b.tId =   " + NestId + "  ";
-                    SqlDataAdapter chk001da = new SqlDataAdapter(qchk001, con);
-                    DataTable chk001dt = new DataTable();
-                    chk001da.Fill(chk001dt);
-
-
-                    if (chk001dt.Rows.Count > 0)
+                    if (Convert.ToInt32(dt.Rows[0]["Will"]) == 1)
                     {
 
+
+
+                        string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                        SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
+                        DataTable dtt26 = new DataTable();
+                        daa26.Fill(dtt26);
+                        if (dtt26.Rows.Count > 0)
+                        {
+                            NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
+                        }
+
+
+
+                        // check which document is active
+                        // for testator family
+
+                        string qchk001 = "select a.fId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Marital_Status , a.Religion , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.tId , a.active , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.Is_Informed_Person from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where b.tId =   " + NestId + " and a.WillType = 'Quick' ";
+                        SqlDataAdapter chk001da = new SqlDataAdapter(qchk001, con);
+                        DataTable chk001dt = new DataTable();
+                        chk001da.Fill(chk001dt);
+
+
+                        if (chk001dt.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+                        //end
+
+
+                        // for beneficiary
+
+                        string qchk002 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + "  and a.doctype='Will' and a.WillType='Quick'";
+                        SqlDataAdapter chk002da = new SqlDataAdapter(qchk002, con);
+                        DataTable chk002dt = new DataTable();
+                        chk002da.Fill(chk002dt);
+                        con.Close();
+                        if (chk002dt.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+                        //end
+
+
+                        // for beneficiary institution
+                        con.Open();
+                        string qchk0020 = "select * from [BeneficiaryInstitutions] where tid = " + NestId + "  and WillType='Quick'";
+                        SqlDataAdapter chk002da0 = new SqlDataAdapter(qchk0020, con);
+                        DataTable chk002dt0 = new DataTable();
+                        chk002da0.Fill(chk002dt0);
+                        con.Close();
+                        if (chk002dt0.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+                        //end
+
+
+
+
+                        // for appointees 
+
+                        con.Open();
+                        string qchk008 = "select * from Appointees where tid = " + NestId + " and Type='Executor' and WillType='Quick' ";
+                        SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                        DataTable chk008dt = new DataTable();
+                        chk008da.Fill(chk008dt);
+                        con.Close();
+
+                        if (chk008dt.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+
+                        //end
+
+
+
+
+
+
+                        // for Addwitness 
+
+                        con.Open();
+                        string qchk0082 = "select * from Appointees where tid = " + NestId + " and Type='Witness' and WillType='Quick' ";
+                        SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
+                        DataTable chk008dt2 = new DataTable();
+                        chk008da2.Fill(chk008dt2);
+                        con.Close();
+
+                        if (chk008dt2.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+
+                        //end
+
+
+
+                        // for asset mapping 
+
+
+                        string qchk006 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID ,  a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "  and a.doctype='Will'  and a.WillType='Quick'";
+                        SqlDataAdapter chk006da = new SqlDataAdapter(qchk006, con);
+                        DataTable chk006dt = new DataTable();
+                        chk006da.Fill(chk006dt);
+                        con.Close();
+
+                        if (chk006dt.Rows.Count > 0)
+                        {
+                            status = "true";
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+
+                        //end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     }
-                    else
-                    {
-                        status = "false";
-                    }
-                    //end
-
-
-                    // for beneficiary
-
-                    string qchk002 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + "  and a.doctype='Will'";
-                    SqlDataAdapter chk002da = new SqlDataAdapter(qchk002, con);
-                    DataTable chk002dt = new DataTable();
-                    chk002da.Fill(chk002dt);
-                    con.Close();
-                    if (chk002dt.Rows.Count > 0)
-                    {
-
-                    }
-                    else
-                    {
-                        status = "false";
-                    }
-                    //end
-
-
-
-
-                    // for assetinformation
-
-                    string qchk003 = "select a.aiid , a.atId , a.amId , a.tid , a.docid , a.Json from AssetInformation a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "  and a.doctype='Will'  ";
-                    SqlDataAdapter chk003da = new SqlDataAdapter(qchk003, con);
-                    DataTable chk003dt = new DataTable();
-                    chk003da.Fill(chk003dt);
-                    con.Close();
-                    if (chk003dt.Rows.Count > 0)
-                    {
-
-                    }
-                    else
-                    {
-                        status = "false";
-                    }
-
-                    //end
-
-
-
-
-
-
-
-                    // for asset mapping 
-
-
-                    string qchk006 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID ,  a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "  and a.doctype='Will'";
-                    SqlDataAdapter chk006da = new SqlDataAdapter(qchk006, con);
-                    DataTable chk006dt = new DataTable();
-                    chk006da.Fill(chk006dt);
-                    con.Close();
-
-                    if (chk006dt.Rows.Count > 0)
-                    {
-
-                    }
-                    else
-                    {
-                        status = "false";
-                    }
-
-                    //end
-
-
-
-
-
-
-                    // for nominee
-
-
-
-                    string qchk007 = " select a.nId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.Description_of_Assets from Nominee a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + "  ";
-                    SqlDataAdapter chk007da = new SqlDataAdapter(qchk007, con);
-                    DataTable chk007dt = new DataTable();
-                    chk007da.Fill(chk007dt);
-                    con.Close();
-
-                    if (chk007dt.Rows.Count > 0)
-                    {
-
-                    }
-                    else
-                    {
-                        status = "false";
-                    }
-
-                    //end
-
-
-
-
-
-                    // for appointees 
-
-
-                    string qchk008 = "select * from Appointees where tid = " + NestId + " and doctype='Will' and Type='Witness' ";
-                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                    DataTable chk008dt = new DataTable();
-                    chk008da.Fill(chk008dt);
-                    con.Close();
-
-                    if (chk008dt.Rows.Count > 0)
-                    {
-
-                    }
-                    else
-                    {
-                        ViewBag.empty = "true";
-                        status = "false";
-                    }
-
-                    //end
-
-
-
-
-
-
-                    //end
-
-
-
-
-
-
-
-
-
-
-
-
                 }
+
+                con.Close();
+
+
+
+
+
+
             }
 
-            con.Close();
+
+
+            if (WillType == "Detailed")
+            {
+
+                int NestId = 0;
+
+                int getid = Convert.ToInt32(Session["uuid"]);
+
+
+                con.Open();
+                string identifydoc = "select Will from users where Will = 1 and uId = " + getid + " and WillType = 'Detailed' ";
+                SqlDataAdapter da = new SqlDataAdapter(identifydoc, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
+                {
+                    if (Convert.ToInt32(dt.Rows[0]["Will"]) == 1)
+                    {
+
+
+
+                        string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                        SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
+                        DataTable dtt26 = new DataTable();
+                        daa26.Fill(dtt26);
+                        if (dtt26.Rows.Count > 0)
+                        {
+                            NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
+                        }
+
+
+
+                        // check which document is active
+                        // for testator family
+
+                        string qchk001 = "select a.fId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Marital_Status , a.Religion , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.tId , a.active , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.Is_Informed_Person from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where b.tId =   " + NestId + " and a.WillType = 'Detailed' ";
+                        SqlDataAdapter chk001da = new SqlDataAdapter(qchk001, con);
+                        DataTable chk001dt = new DataTable();
+                        chk001da.Fill(chk001dt);
+
+
+                        if (chk001dt.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+                        //end
+
+
+                        // for beneficiary
+
+                        string qchk002 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + "  and a.doctype='Will' and a.WillType='Detailed'";
+                        SqlDataAdapter chk002da = new SqlDataAdapter(qchk002, con);
+                        DataTable chk002dt = new DataTable();
+                        chk002da.Fill(chk002dt);
+                        con.Close();
+                        if (chk002dt.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+                        //end
+
+
+
+
+                        // for beneficiary institution
+                        con.Open();
+                        string qchk0020 = "select * from [BeneficiaryInstitutions] where tid = " + NestId + "  and WillType='Detailed'";
+                        SqlDataAdapter chk002da0 = new SqlDataAdapter(qchk0020, con);
+                        DataTable chk002dt0 = new DataTable();
+                        chk002da0.Fill(chk002dt0);
+                        con.Close();
+                        if (chk002dt0.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+                        //end
+
+
+
+
+                        // for assetinformation
+
+                        string qchk003 = "select a.aiid , a.atId , a.amId , a.tid , a.docid , a.Json from AssetInformation a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "  and a.doctype='Will'  and a.WillType='Detailed'  ";
+                        SqlDataAdapter chk003da = new SqlDataAdapter(qchk003, con);
+                        DataTable chk003dt = new DataTable();
+                        chk003da.Fill(chk003dt);
+                        con.Close();
+                        if (chk003dt.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+
+                        //end
+
+
+
+
+
+
+
+                        // for asset mapping 
+
+
+                        string qchk006 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID ,  a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "  and a.doctype='Will'  and a.WillType='Detailed'";
+                        SqlDataAdapter chk006da = new SqlDataAdapter(qchk006, con);
+                        DataTable chk006dt = new DataTable();
+                        chk006da.Fill(chk006dt);
+                        con.Close();
+
+                        if (chk006dt.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+
+                        //end
+
+
+
+
+
+
+
+
+                        // for appointees 
+
+                        con.Open();
+                        string qchk008 = "select * from Appointees where tid = " + NestId + " and Type='Executor' and WillType='Detailed' ";
+                        SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                        DataTable chk008dt = new DataTable();
+                        chk008da.Fill(chk008dt);
+                        con.Close();
+
+                        if (chk008dt.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+
+                        //end
+
+
+
+
+
+
+                        // for Addwitness 
+
+                        con.Open();
+                        string qchk0082 = "select * from Appointees where tid = " + NestId + " and Type='Witness' and WillType='Detailed' ";
+                        SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
+                        DataTable chk008dt2 = new DataTable();
+                        chk008da2.Fill(chk008dt2);
+                        con.Close();
+
+                        if (chk008dt2.Rows.Count > 0)
+                        {
+
+                        }
+                        else
+                        {
+                            status = "false";
+                        }
+
+                        //end
+
+
+
+
+
+
+
+
+
+
+
+                    }
+                }
+
+                con.Close();
+
+
+
+
+
+
+
+            }
+
 
 
 
@@ -1526,43 +1848,58 @@ namespace WillAssure.Controllers
 
         public string checkcodocildocument()
         {
-            int NestId = 0;
-            string status = "";
-            int getid = Convert.ToInt32(Session["uuid"]);
+                string status = "";
 
 
-            con.Open();
-            string identifydoc = "select Codocil from users where Codocil = 1 and uId = " + getid + " ";
-            SqlDataAdapter da = new SqlDataAdapter(identifydoc, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            if (dt.Rows.Count > 0)
-            {
-                if (Convert.ToInt32(dt.Rows[0]["Codocil"]) == 1)
+                int NestId = 0;
+
+                int getid = Convert.ToInt32(Session["uuid"]);
+
+
+                con.Open();
+                string identifydoc = "select Codocil from users where Codocil = 1 and uId = " + getid + "  ";
+                SqlDataAdapter da = new SqlDataAdapter(identifydoc, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                if (dt.Rows.Count > 0)
                 {
+                    if (Convert.ToInt32(dt.Rows[0]["Codocil"]) == 1)
+                    {
 
 
 
-                    // check which document is active
+                        string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                        SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
+                        DataTable dtt26 = new DataTable();
+                        daa26.Fill(dtt26);
+                        if (dtt26.Rows.Count > 0)
+                        {
+                            NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
+                        }
 
 
-                    // for Codocil
 
-                    string qchk002 = "SELECT * FROM Codocil where uId = " + getid + " ";
-                    SqlDataAdapter chk002da = new SqlDataAdapter(qchk002, con);
-                    DataTable chk002dt = new DataTable();
-                    chk002da.Fill(chk002dt);
+
+                    // for Codocil 
+
+                    
+                    string qchk0082 = "select * from Codocil where tid = " + NestId + "  ";
+                    SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
+                    DataTable chk008dt2 = new DataTable();
+                    chk008da2.Fill(chk008dt2);
                     con.Close();
-                    if (chk002dt.Rows.Count > 0)
+
+                    if (chk008dt2.Rows.Count > 0)
                     {
 
                     }
                     else
                     {
                         status = "false";
-                        ViewBag.empty = "true";
                     }
+
                     //end
+
 
 
 
@@ -1570,14 +1907,11 @@ namespace WillAssure.Controllers
 
                 }
             }
+              
 
 
 
-
-
-
-
-            return status;
+                        return status;
         }
 
 
@@ -1588,13 +1922,16 @@ namespace WillAssure.Controllers
 
         public string checklivindocument()
         {
-            int NestId = 0;
             string status = "";
+
+
+            int NestId = 0;
+
             int getid = Convert.ToInt32(Session["uuid"]);
 
 
             con.Open();
-            string identifydoc = "select LivingWill from users where LivingWill = 1 and uId = " + getid + " ";
+            string identifydoc = "select LivingWill from users  where uId = " + getid + "  ";
             SqlDataAdapter da = new SqlDataAdapter(identifydoc, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -1605,26 +1942,38 @@ namespace WillAssure.Controllers
 
 
 
-                    // check which document is active
+                    string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
+                    DataTable dtt26 = new DataTable();
+                    daa26.Fill(dtt26);
+                    if (dtt26.Rows.Count > 0)
+                    {
+                        NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
+                    }
 
 
-                    // for Codocil
 
-                    string qchk002 = "SELECT * FROM living_Will where uId = " + getid + " ";
-                    SqlDataAdapter chk002da = new SqlDataAdapter(qchk002, con);
-                    DataTable chk002dt = new DataTable();
-                    chk002da.Fill(chk002dt);
+
+                    // for Codocil 
+
+
+                    string qchk0082 = "select * from living_Will where tid = " + NestId + "  ";
+                    SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
+                    DataTable chk008dt2 = new DataTable();
+                    chk008da2.Fill(chk008dt2);
                     con.Close();
-                    if (chk002dt.Rows.Count > 0)
+
+                    if (chk008dt2.Rows.Count > 0)
                     {
 
                     }
                     else
                     {
                         status = "false";
-                        ViewBag.empty = "true";
                     }
+
                     //end
+
 
 
 
@@ -1632,8 +1981,6 @@ namespace WillAssure.Controllers
 
                 }
             }
-
-
 
 
 

@@ -39,7 +39,7 @@ else
                         <div class="tabs-vertical tabs-vertical-dark">
                             <ul class="nav nav-tabs flex-column top-icon">
                                 <li class="nav-item">
-                                    <a class="nav-link active"  id="createddoc" data-toggle="tab" href="#tabe-25"><i class="icon-doc"></i> <span class="hidden-xs">Create Document</span></a>
+                                    <a class="nav-link active" id="createddoc" data-toggle="tab" href="#tabe-25"><i class="icon-doc"></i> <span class="hidden-xs">Create Document</span></a>
                                 </li>
 
                                 <li class="nav-item">
@@ -47,11 +47,11 @@ else
                                 </li>
 
                                 <li class="nav-item">
-                                    <a class="nav-link"  id="incompleteddoc" data-toggle="tab" href="#tabe-27"><i class="icon-info"></i> <span class="hidden-xs">Incompleted Document</span></a>
+                                    <a class="nav-link" id="incompleteddoc" data-toggle="tab" href="#tabe-27"><i class="icon-info"></i> <span class="hidden-xs">Incompleted Document</span></a>
                                 </li>
 
                                 @*<li class="nav-item">*@
-                                    <a class="nav-link" id="rzp-button1" style="display:none;"><i class="icon-badge"></i> <span class="hidden-xs">payment</span></a>
+                                <a class="nav-link" id="rzp-button1" style="display:none;"><i class="icon-badge"></i> <span class="hidden-xs">payment</span></a>
                                 @*</li>*@
 
                             </ul>
@@ -64,7 +64,7 @@ else
 
                                 @using (Html.BeginForm(null, null, FormMethod.Post, new { name = "PopUp", id = "testatordocument" }))
                                 {
-                                   
+
                                     <textarea id="documenttype" name="documenttype" style="display:none;"></textarea>
                                     <div class="modal-body">
                                         @Html.HiddenFor(m => m.tId, new { @id = "tId" })
@@ -78,8 +78,8 @@ else
                                             <div class="col-sm-6">
                                                 <div class="form-group">
                                                     <br />
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" value="Will" class="checkone radio validate[required]" name="will">Will
+                                                    <label class="checkbox-inline Willdoc">
+                                                        <input type="checkbox" value="Will" class="checkone radio validate[required] " name="will">Will
                                                     </label>
 
 
@@ -89,17 +89,17 @@ else
 
 
 
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" value="Codocil" class="checktwo radio validate[required]" name="codocil">Codocil
+                                                    <label class="checkbox-inline codocildoc">
+                                                        <input type="checkbox" value="Codocil" class="checktwo radio validate[required] " name="codocil">Codocil
                                                     </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" value="LivingWill" class="checkfive radio validate[required]" name="livingwill">Living Will
+                                                    <label class="checkbox-inline livingwilldoc">
+                                                        <input type="checkbox" value="LivingWill" class="checkfive radio validate[required] " name="livingwill">Living Will
                                                     </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" value="POA" class="checkthree radio validate[required]" name="poa">POA
+                                                    <label class="checkbox-inline poadoc">
+                                                        <input type="checkbox" value="POA" class="checkthree radio validate[required] " name="poa">POA
                                                     </label>
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" value="Giftdeeds" class="checkfour radio validate[required]" name="giftdeeds">Giftdeeds
+                                                    <label class="checkbox-inline giftdeedsdoc">
+                                                        <input type="checkbox" value="Giftdeeds" class="checkfour radio validate[required] gifts" name="giftdeeds">Giftdeeds
                                                     </label>
 
 
@@ -121,7 +121,7 @@ else
                                                 @Html.HiddenFor(m => m.Document_Created_By_txt, new { id = "Document_Created_By_txt" })
                                             </div>
 
-                                         
+
 
 
                                             <div class="col-sm-6" id="paymentfields">
@@ -158,12 +158,12 @@ else
                                         <hr class="div_rd">
 
                                         @*<div style="float:right;">
-                                            <h4>Total Cost :</h4>
-                                        </div>*@
+                                                <h4>Total Cost :</h4>
+                                            </div>*@
 
 
                                         <div class="form-group">
-                                            <button type="submit" id="alert-success" formaction="insertDocumentDetails" class="btn btn-danger shadow-primary px-5 btnpop"><i class="icon-lock"></i>Make A Payment</button>
+                                            <button type="submit" id="alert-success" style="display:none;" formaction="insertDocumentDetails" class="btnpay btn btn-danger shadow-primary px-5 btnpop"><i class="icon-lock"></i>Make A Payment</button>
                                         </div>
                                     </div>
 
@@ -351,6 +351,21 @@ else
 
 
 
+          @*$.ajax({
+
+            type: "POST",
+            url: "@Url.Action("checkcompleteddocument", "TestatorHomePage")",
+            success: function (data) {
+
+            }
+
+        });*@
+
+
+
+
+
+
     });
 
 
@@ -430,6 +445,22 @@ else
     </script>
 }
 
+
+
+
+@if (ViewBag.Codocilbtn == "true")
+{
+    <script>
+        $(document).ready(function () {
+            $("#compdocumentbtn5").show();
+            $("#documentbtn2").hide();
+
+            $("#title").hide();
+        });
+
+    </script>
+}
+
 @*END*@
 
 
@@ -459,7 +490,18 @@ else
 
         $("#documentbtn2").show();
         $("#paymenttitle").hide();
-      
+
+    </script>
+
+}
+@if (ViewBag.documentbtn2 == "false")
+{
+
+    <script>
+
+        $("#documentbtn2").hide();
+        
+
     </script>
 
 }
@@ -470,7 +512,7 @@ else
 
         $("#documentbtn3").show();
         $("#paymenttitle").hide();
-      
+
     </script>
 
 }
@@ -540,7 +582,104 @@ else
 
 
 <script>
+    $(document).ready(function () {
 
+        // for checking will document
+                       $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("checkwilldocument", "TestatorHomePage")",
+                           success: function (data) {
+
+                               if (data == "true") {
+
+                                   $(".Willdoc").show();
+                               }
+
+                               if (data == "false") {
+
+                                   $(".Willdoc").hide();
+                               }
+
+                           }
+
+
+
+        });
+
+        // end
+
+
+
+
+
+
+        //for checking codocil document
+
+
+
+             $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("checkcodocildocument", "TestatorHomePage")",
+            success: function (data) {
+
+                if (data == "false") {
+                    $(".codocildoc").hide();
+                }
+                else {
+                    $(".codocildoc").show();
+                }
+
+
+                }
+        });
+
+
+
+         //end
+
+
+
+
+        // for checking Living Will Document
+
+            $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("checklivindocument", "TestatorHomePage")",
+            success: function (data) {
+
+                if (data == "false") {
+                    $(".livingwilldoc").hide();
+                }
+                else {
+                    $(".livingwilldoc").show();
+                }
+
+
+                }
+        });
+
+
+
+
+
+
+
+
+        //end
+
+
+
+
+
+
+
+
+
+
+    });
 
 
             $(".checkone").click(function () {
@@ -550,31 +689,11 @@ else
                     $("#documentmsg2").hide();
                     $("#documentmsg3").hide();
                     $("#willtype").show();
-                     $.ajax({
-
-            type: "POST",
-            url:"@Url.Action("checkwilldocument", "TestatorHomePage")",
-            success: function (data) {
-                var x = $(".checkone").val();
-                if (data == "false") {
-
-                    $("#documentmsg1").show();
-                    $('.checkone').prop('checked', false);
-                 
-                }
-                else {
-                    $("#documentmsg1").hide();
-                    $("#documenttype").empty().append(x);
-                   
-                }
-
-
-                }
-        });
 
 
 
 
+                    $(".btnpay").show();
 
 
 
@@ -584,43 +703,39 @@ else
 
                     $('#DDLAmtPaidBY2').prop('disabled', true);
                     $("#willtype").hide();
+                    $(".btnpay").hide();
                 }
 
 
 
-            });
+    });
 
 
 
 
-            $(".checktwo").click(function () {
-                var x = $(".checktwo").val();
-                $("#documentmsg1").hide();
- $.ajax({
-
-            type: "POST",
-            url:"@Url.Action("checkcodocildocument", "TestatorHomePage")",
-            success: function (data) {
-
-                if (data == "false") {
-
-                    $("#documentmsg2").show();
-                    $("#documentmsg3").hide();
-                    $('.checktwo').prop('checked', false);
-                }
-                else {
-                    $("#documentmsg2").hide();
-                    $("#documenttype").empty().append(x);
-                }
 
 
-                }
-        });
+    $(".checktwo").click(function () {
+
+        if ($(".checktwo").is(":checked")) {
+            var x = $(".checktwo").val();
+            //  $("#documenttype").append(x);
+            $('#DDLAmtPaidBY2').prop('disabled', false);
+            $("#c").val(x);
+            $(".btnpay").show();
+
+        }
+        else {
+            $("#c").val('');
+            $(".btnpay").hide();
+        }
+        $("#lblcheck").hide();
+    });
 
 
 
 
-            });
+
 
 
 
@@ -632,6 +747,11 @@ else
                     var x = $(".checkthree").val();
                     $("#documenttype").append(x);
                     $('#DDLAmtPaidBY2').prop('disabled', false);
+                    $(".btnpay").show();
+
+                }
+                else {
+                    $(".btnpay").hide();
                 }
 
 
@@ -648,6 +768,10 @@ else
                     var x = $(".checkfour").val();
                     $("#documenttype").append(x);
                     $('#DDLAmtPaidBY2').prop('disabled', false);
+                    $(".btnpay").show();
+                }
+                else {
+                    $(".btnpay").hide();
                 }
 
 
@@ -660,26 +784,17 @@ else
                 $("#documentmsg1").hide();
                 $("#documentmsg2").hide();
                 var x = $(".checkfive").val();
-              $.ajax({
 
-            type: "POST",
-            url:"@Url.Action("checklivindocument", "TestatorHomePage")",
-            success: function (data) {
-
-                if (data == "false") {
-
-                    $("#documentmsg3").show();
-                    $('.checkfive').prop('checked', false);
+                if ($(".checkfive").is(":checked")) {
+                    $("#documentmsg1").hide();
+                    var x = $(".checkfour").val();
+                    $("#documenttype").append(x);
+                    $('#DDLAmtPaidBY2').prop('disabled', false);
+                    $(".btnpay").show();
                 }
                 else {
-                    $("#documentmsg3").hide();
-                    $("#documenttype").empty().append(x);
+                    $(".btnpay").hide();
                 }
-
-
-                }
-        });
-
 
 
 
@@ -691,7 +806,7 @@ else
 
     $(document).on("change", "#getvalone", function () {
 
-       
+
 
         $("#txtvoucher").show();
 
@@ -701,7 +816,7 @@ else
     $(document).on("change", "#getvaltwo", function () {
 
         $("#txtvoucher").hide();
-      
+
 
     });
 

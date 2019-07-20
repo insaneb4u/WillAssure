@@ -183,7 +183,7 @@ else
 
                                 <center>
                                     <a href="@Url.Action("Report.aspx", "page" , new { NestId = ViewBag.testatorid })" id="compdocumentbtn1" style="display:none;"><button type="button" class="btn btn-primary btn-round waves-effect waves-light m-1">Will</button></a>
-                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn2" style="display:none;"> <button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">POA</button></a>
+                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn2" style="display:none;"><button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">POA</button></a>
                                     <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid } )" id="compdocumentbtn3" style="display:none;"><button type="button" class="btn btn-info btn-round waves-effect waves-light m-1">Gift Deeds</button></a>
                                     <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn4" style="display:none;"><button type="button" class="btn btn-danger btn-round waves-effect waves-light m-1">Living Will</button></a>
                                     <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn5" style="display:none;"><button type="button" class="btn btn-warning btn-round waves-effect waves-light m-1">Codocil</button></a>
@@ -351,7 +351,7 @@ else
 
 
 
-          @*$.ajax({
+          $.ajax({
 
             type: "POST",
             url: "@Url.Action("checkcompleteddocument", "TestatorHomePage")",
@@ -359,7 +359,7 @@ else
 
             }
 
-        });*@
+        });
 
 
 
@@ -436,10 +436,17 @@ else
 {
     <script>
         $(document).ready(function () {
+
+            alert("working");
+
             $("#compdocumentbtn5").show();
+
             $("#documentbtn2").hide();
 
             $("#title").hide();
+
+
+
         });
 
     </script>
@@ -448,18 +455,6 @@ else
 
 
 
-@if (ViewBag.Codocilbtn == "true")
-{
-    <script>
-        $(document).ready(function () {
-            $("#compdocumentbtn5").show();
-            $("#documentbtn2").hide();
-
-            $("#title").hide();
-        });
-
-    </script>
-}
 
 @*END*@
 
@@ -473,11 +468,12 @@ else
 {
 
     <script>
+        $(document).ready(function () {
 
         $("#documentbtn1").show();
         $("#paymenttitle").hide();
 
-
+        });
 
     </script>
 
@@ -487,9 +483,10 @@ else
 {
 
     <script>
-
+        $(document).ready(function () {
         $("#documentbtn2").show();
         $("#paymenttitle").hide();
+        });
 
     </script>
 
@@ -499,7 +496,12 @@ else
 
     <script>
 
-        $("#documentbtn2").hide();
+        $(document).ready(function () {
+
+            $("#documentbtn2").hide();
+
+
+        });
         
 
     </script>
@@ -509,9 +511,12 @@ else
 {
 
     <script>
+        $(document).ready(function () {
 
         $("#documentbtn3").show();
         $("#paymenttitle").hide();
+
+        });
 
     </script>
 
@@ -521,8 +526,13 @@ else
 
     <script>
 
+        $(document).ready(function () {
+
         $("#documentbtn4").show();
         $("#paymenttitle").hide();
+
+
+        });
 
     </script>
 
@@ -533,8 +543,13 @@ else
 
     <script>
 
+        $(document).ready(function () {
+
         $("#documentbtn5").show();
         $("#paymenttitle").hide();
+
+
+        });
 
     </script>
 
@@ -627,7 +642,7 @@ else
                 if (data == "false") {
                     $(".codocildoc").hide();
                 }
-                else {
+                if (data == "true") {
                     $(".codocildoc").show();
                 }
 
@@ -649,11 +664,12 @@ else
             type: "POST",
             url:"@Url.Action("checklivindocument", "TestatorHomePage")",
             success: function (data) {
-
+              
+             
                 if (data == "false") {
                     $(".livingwilldoc").hide();
                 }
-                else {
+                if (data == "true") {
                     $(".livingwilldoc").show();
                 }
 

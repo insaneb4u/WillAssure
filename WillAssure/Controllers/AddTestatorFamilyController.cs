@@ -392,7 +392,7 @@ namespace WillAssure.Controllers
         public string dateofbirth()
         {
 
-            string data = "";
+            string data = "<option Value=''>--Select--</option>";
             string date = Request["send"].ToString();
             date = date.Substring(6, date.Length - 6);
             var today = DateTime.Now.Year;
@@ -504,41 +504,41 @@ namespace WillAssure.Controllers
 
 
 
-        public String BindRelationDDL()
-        {
+        //public String BindRelationDDL()
+        //{
 
-            con.Open();
-            string query = "select * from relationship";
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            string data = "";
+        //    con.Open();
+        //    string query = "select * from relationship";
+        //    SqlDataAdapter da = new SqlDataAdapter(query, con);
+        //    DataTable dt = new DataTable();
+        //    da.Fill(dt);
+        //    con.Close();
+        //    string data = "";
 
-            if (dt.Rows.Count > 0)
-            {
-
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
+        //    if (dt.Rows.Count > 0)
+        //    {
 
 
-
-
-                    data = data + "<option value=" + dt.Rows[i]["Rid"].ToString() + " >" + dt.Rows[i]["MemberName"].ToString() + "</option>";
-
-
-
-                }
+        //        for (int i = 0; i < dt.Rows.Count; i++)
+        //        {
 
 
 
 
-            }
+        //            data = data + "<option value=" + dt.Rows[i]["Rid"].ToString() + " >" + dt.Rows[i]["MemberName"].ToString() + "</option>";
 
-            return data;
 
-        }
+
+        //        }
+
+
+
+
+        //    }
+
+        //    return data;
+
+        //}
 
 
 

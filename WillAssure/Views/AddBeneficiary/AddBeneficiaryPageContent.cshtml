@@ -1240,7 +1240,7 @@
         $("#ddlcountry").change(function () {
         var value = $(this).children(":selected").attr("value");
             var text = $("#ddlcountry option:selected").html();
-            alert(text);
+
         $("#countrytext").val(text);
         $("#countryid").val(value);
 
@@ -2235,6 +2235,7 @@
                         if (data == "false") {
 
                             $("#lblidentityproof").show();
+                            $("#Identity_proof_value").val("");
 
                         }
 
@@ -2277,6 +2278,7 @@
                         if (data == "false") {
 
                             $("#altlblidentityproof").show();
+                            $("#Alt_Identity_proof_Value").val("");
 
                         }
 

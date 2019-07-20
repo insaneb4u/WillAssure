@@ -422,32 +422,40 @@
             data: { "send": "" + data + "" },
             success: function (data) {
 
-                alert(data);
+                if (data == "true") {
+                    alert("Records Inserted SuccessFully Please Check Your Email For OTP");
+
+
+                    $('#primarymodal').modal('show');
+
+
+                    $("#txtfirstname").val("");
+                    $("#txtmiddlename").val("");
+                    $("#txtlastname").val("");
+                    $("#txtcontact").val("");
+                    $("#txtemail").val("");
+                    $("#ddlDistributor").val("");
+
+
+
+                    $("#checkone").prop("checked", false);
+                    $("#checktwo").prop("checked", false);
+                    $("#checkthree").prop("checked", false);
+                    $("#checkfour").prop("checked", false);
+                    $("#checkfive").prop("checked", false);
+
+
+                    $("#lblsuccess").hide();
+                    $("#lblfailed").hide();
+                }
+
+
+               
 
 
 
 
-                $('#primarymodal').modal('show');
-
-
-                $("#txtfirstname").val("");
-                $("#txtmiddlename").val("");
-                $("#txtlastname").val("");
-                $("#txtcontact").val("");
-                $("#txtemail").val("");
-                $("#ddlDistributor").val("");
-
-
-
-                $("#checkone").prop("checked", false);
-                $("#checktwo").prop("checked", false);
-                $("#checkthree").prop("checked", false);
-                $("#checkfour").prop("checked", false);
-                $("#checkfive").prop("checked", false);
-
-
-                $("#lblsuccess").hide();
-                $("#lblfailed").hide();
+             
 
 
 

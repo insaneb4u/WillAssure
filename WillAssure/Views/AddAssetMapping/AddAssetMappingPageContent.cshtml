@@ -444,7 +444,7 @@
 
 
 
-
+            
 
 
 
@@ -663,12 +663,13 @@
                                  res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-638px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
                                  res += "</div>";
                                  res += "</div>";
+                                 res += "</br>";
 
                                  res += "<div style='postion:relative; top:25px;'>";
-                                 res += "<button class='btn btn-danger'>Add Alternate</button>";
+                                 res += "<button type='button' class='btn btn-danger alt'   id='addalt'>Add Alternate</button>";
                                  res += "</div>";
 
-                                 res += "<div class='col-sm-2' id='alternatefield'>";
+                                 res += "<div class='col-sm-2' id='alternatefield' style='display:none'>";
                                  res += "<div class='form-group' id='mainbeneddl" + data[i].assetcatid + "'>";
                                  res += "<label for='input-1' style='white-space:nowrap'>Alternate Beneficiary</label>";
                                  res += "<select id='ddlbeneficiaryalt" + data[i].assetcatid + "' onchange='altcheckbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control altbeneficiaryclass '></select>";
@@ -678,8 +679,8 @@
 
 
 
-                                 res += "<div class='col-sm-2 grandparent' id='alternatefield'>";
-                                 res += "<div class='form-group parent'>";
+                                 res += "<div class='col-sm-2 grandparent' id='alternatefield' style='display:none'>";
+                                 res += "<div class='form-group parent' id='alternatefield' style='display:none'>";
                                  res += "<label for='input-1'>Alt Proportion</label><span id='errproportion' style='color:red;display:;'>(*)</span>";
                                  res += "<input type='text' autocomplete='off' class='form-control proportioninput validate[required]'  onkeypress='return isNumberKey(event)'   onchange='gettxtproportion(this.id,this.value)' name='rank' id='txtproportion" + data[i].assetcatid + "' />";
                                  res += "</div>";
@@ -730,7 +731,7 @@
 
                                      $(".btn" + data[i].assetcatid + "").removeAttr("disabled");
 
-                                     
+                                     $(".alt").hide();
 
                                      $("#mainbeneddl" + data[i].assetcatid + "").show();
                                  
@@ -832,6 +833,7 @@
 
 
 
+           
 
 
 
@@ -1377,7 +1379,7 @@
 
         $(document).on("change", "#getvalone", function (e) {
 
-
+            $(".alt").hide();
             var myClass = $(this).attr("class");
 
             $("#parentdiv" + myClass + "").find(".rowdiv").not(':first').last().remove();
@@ -1418,8 +1420,8 @@
 
             var myClass = $(this).attr("class");
 
-         
 
+            $(".alt").show();
 
             $(".btnadd" + myClass).show();
             $(".btn" + myClass + "").attr("disabled","disabled");
@@ -1458,11 +1460,22 @@
 
         });
 
+
+
+        var cloneCount = 1;
         $(document).on("click", "#btnadd", function () {
 
             $(this).attr("disabled", "disabled");
             var btnnum = $(this).val();
 
+
+
+            var x = $(this).closest("#accordio1").find("#addalt:last").addClass("btn-"+cloneCount);
+           
+            alert(x);
+           
+
+      
             
 
             //get parentdiv last div element whose class name is rowdiv
@@ -1483,7 +1496,7 @@
 
             $clone.find('.beneficiaryclass').each(function () {
                 var el = $(this);
-
+                
                 var id = el.attr('id') || null;
 
                 if (id) {
@@ -1788,6 +1801,21 @@
 
 
 
+
+
+        });
+
+
+
+
+
+        $(document).on("click", "#addalt", function () {
+
+
+
+
+            $("#alternatefield").toggle();
+            
 
 
         });

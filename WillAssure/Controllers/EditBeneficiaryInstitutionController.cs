@@ -156,7 +156,21 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string query = "select * from BeneficiaryInstitutions";
+
+
+            string query0 = "select tId from TestatorDetails where uId = "+Convert.ToInt32(Session["uuid"])+"  ";
+            SqlDataAdapter da0 = new SqlDataAdapter(query0, con);
+            DataTable dt0 = new DataTable();
+            da0.Fill(dt0);
+            int tid = 0;
+            if (dt0.Rows.Count > 0)
+            {
+                tid = Convert.ToInt32(dt0.Rows[0]["tId"]);
+            }
+
+
+
+            string query = "select * from BeneficiaryInstitutions where tid="+tid+"";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -393,8 +407,25 @@ namespace WillAssure.Controllers
             //end
 
 
+
+
             con.Open();
-            string query1 = "select * from BeneficiaryInstitutions";
+
+            string query0 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "  ";
+            SqlDataAdapter da0 = new SqlDataAdapter(query0, con);
+            DataTable dt0 = new DataTable();
+            da0.Fill(dt0);
+            int tid = 0;
+            if (dt0.Rows.Count > 0)
+            {
+                tid = Convert.ToInt32(dt0.Rows[0]["tId"]);
+            }
+
+
+
+
+
+            string query1 = "select * from BeneficiaryInstitutions where tid = "+tid+"";
             SqlDataAdapter da1 = new SqlDataAdapter(query1, con);
             DataTable dt1 = new DataTable();
             da1.Fill(dt1);

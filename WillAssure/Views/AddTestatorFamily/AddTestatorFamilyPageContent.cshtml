@@ -244,10 +244,10 @@
 
                                 @if (Model.RelationshipTxt != null)
                                 {
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-3" id="ddr" style="display:none">
                                         <div class="form-group">
                                             <label for="input-1">Relation</label>
-                                            <select id="ddlrelation" class="form-control input-shadow validate[required]">
+                                            <select id="ddlrelation"  class="form-control input-shadow validate[required]" >
                                                 <option value="@Model.RelationshipTxt">@Model.RelationshipTxt</option>
                                             </select>
                                             @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid" })
@@ -257,10 +257,10 @@
                                 }
                                 else
                                 {
-                                    <div class="col-sm-3">
+                                    <div class="col-sm-3" id="ddr" style="display:none">
                                         <div class="form-group">
-                                            <label for="input-1">Relation</label>
-                                            <select id="ddlrelation" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                                            <label for="input-1">Relation </label>
+                                            <select id="ddlrelation"  class="form-control input-shadow validate[required]"  ><option value="">--Select--</option></select>
                                             @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid" })
                                             @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext" })
                                         </div>
@@ -1221,11 +1221,22 @@
                          var msg = data.split('~')[0];
                          var structure = data.split('~')[1];
 
+                         if (structure != "") {
 
-                         $("#ddlrelation").empty().append(structure);
+                             $("#ddr").show();
+
+                             $("#ddlrelation").empty().append(structure);
+                         }
+
+                       
 
                          if (msg == "true") {
 
+
+
+                          
+
+                             $("#ddlrelation").removeAttr("readonly");
 
                              $("#confirmguardian").on("click", function () { });
 
@@ -2035,7 +2046,7 @@
                 $("#btntestatorsubmit").hide();
 
 
-
+                $("#ddr").show();
 
 
                 $(document).ready(function () {
@@ -2111,7 +2122,7 @@
                 $("#btnfieldedit1").css("display", "none");
                 $("#btneditmsg").hide();
                 $("#btnupdate").hide();
-
+                $("#ddr").show();
 
                 $("#txtFirstName").attr("disabled", "disabled");
                 $("#txtMiddle_Name").attr("disabled", "disabled");
@@ -2154,7 +2165,7 @@
 
                 $("#btnfieldedit1").show();
                 $("#btnfieldedit").css("display", "none");
-
+                $("#ddr").hide();
                 $("#txtFirstName").removeAttr("disabled");
                 $("#txtMiddle_Name").removeAttr("disabled");
                 $("#txtLastName").removeAttr("disabled");
@@ -2214,6 +2225,7 @@
 
                 $("#guardianform").hide();
 
+                $("#ddr").hide();
 
                 $("#txtFirstName").removeAttr("disabled");
                 $("#txtMiddle_Name").removeAttr("disabled");
@@ -2331,7 +2343,7 @@
 
                 $("#btnfieldedit").hide();
                 $("#guardianform").hide();
-
+                $("#ddr").hide();
                 $("#txtFirstName").removeAttr("disabled");
                 $("#txtMiddle_Name").removeAttr("disabled");
                 $("#txtLastName").removeAttr("disabled");
@@ -2755,6 +2767,7 @@
                         if (data == "false") {
 
                             $("#lblidentityproof").show();
+                            $("#Identity_Proof_Value").val("");
 
                         }
 
@@ -2797,7 +2810,7 @@
                         if (data == "false") {
 
                             $("#altlblidentityproof").show();
-
+                            $("#Alt_Identity_proof_Value").val("");
                         }
 
 

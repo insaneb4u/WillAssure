@@ -421,7 +421,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Pin</label>
-                                        @Html.TextBoxFor(m => m.Pin, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtComanyName", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.Pin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "txtComanyName", @placeholder = "Enter Pin", @autocomplete = "off" })
                                     </div>
                                 </div>
 

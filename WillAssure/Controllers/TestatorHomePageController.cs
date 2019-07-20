@@ -212,6 +212,12 @@ namespace WillAssure.Controllers
                         //end
 
 
+
+
+
+
+
+
                         // check Living Will status
                         con.Open();
                         string qry3122 = "select LivingWill , Designation  from users where LivingWill = 1 and Designation = 1 and uId = " + Convert.ToInt32(Session["uuid"]) + " ";
@@ -705,7 +711,7 @@ namespace WillAssure.Controllers
                     // for appointees 
 
                     con.Open();
-                    string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='LivingWill'  ";
+                    string qchk008 = "select * from living_Will where tid = " + testatorid + "  and documentstatus='Completed'  ";
                     SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
                     DataTable chk008dt = new DataTable();
                     chk008da.Fill(chk008dt);
@@ -732,7 +738,7 @@ namespace WillAssure.Controllers
                     // for appointees 
 
                     con.Open();
-                    string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='Codocil'  ";
+                    string qchk008 = "select * from Codocil where uId = " + Convert.ToInt32(Session["uuid"]) + "  and documentstatus='Completed' ";
                     SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
                     DataTable chk008dt = new DataTable();
                     chk008da.Fill(chk008dt);
@@ -821,6 +827,42 @@ namespace WillAssure.Controllers
 
 
             }
+
+
+
+
+
+            if (TFM.livingwill != "")
+            {
+                int livwillid = 0;
+                con.Open();
+                string quer1 = "select top 1 livwillid from  living_Will order by  livwillid desc";
+                SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
+                DataTable daat = new DataTable();
+                daa1.Fill(daat);
+                if (daat.Rows.Count > 0)
+                {
+                    livwillid = Convert.ToInt32(daat.Rows[0]["livwillid"]);
+                }
+
+
+
+
+
+                string qq1 = "update living_Will set documentstatus = 'Completed' where livwillid = " + livwillid + "";
+                SqlCommand cc1 = new SqlCommand(qq1, con);
+                cc1.ExecuteNonQuery();
+                con.Close();
+
+
+
+
+
+
+            }
+
+
+
 
 
 
@@ -1869,6 +1911,8 @@ namespace WillAssure.Controllers
 
 
                         string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+
+
                         SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
                         DataTable dtt26 = new DataTable();
                         daa26.Fill(dtt26);
@@ -1883,7 +1927,7 @@ namespace WillAssure.Controllers
                     // for Codocil 
 
                     
-                    string qchk0082 = "select * from Codocil where tid = " + NestId + "  ";
+                    string qchk0082 = "select * from Codocil where tid = " + NestId + " and documentstatus='Incompleted'  ";
                     SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
                     DataTable chk008dt2 = new DataTable();
                     chk008da2.Fill(chk008dt2);
@@ -1891,7 +1935,7 @@ namespace WillAssure.Controllers
 
                     if (chk008dt2.Rows.Count > 0)
                     {
-
+                        status = "true";
                     }
                     else
                     {
@@ -1931,7 +1975,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string identifydoc = "select LivingWill from users  where uId = " + getid + "  ";
+            string identifydoc = "select LivingWill from users where LivingWill = 1 and uId = " + getid + "  ";
             SqlDataAdapter da = new SqlDataAdapter(identifydoc, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -1943,6 +1987,8 @@ namespace WillAssure.Controllers
 
 
                     string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+
+
                     SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
                     DataTable dtt26 = new DataTable();
                     daa26.Fill(dtt26);
@@ -1954,10 +2000,10 @@ namespace WillAssure.Controllers
 
 
 
-                    // for Codocil 
+                    // for living will 
 
 
-                    string qchk0082 = "select * from living_Will where tid = " + NestId + "  ";
+                    string qchk0082 = "select * from living_Will where tid = " + NestId + " and documentstatus='Incompleted'  ";
                     SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
                     DataTable chk008dt2 = new DataTable();
                     chk008da2.Fill(chk008dt2);
@@ -1965,7 +2011,7 @@ namespace WillAssure.Controllers
 
                     if (chk008dt2.Rows.Count > 0)
                     {
-
+                        status = "true";
                     }
                     else
                     {
@@ -1981,7 +2027,6 @@ namespace WillAssure.Controllers
 
                 }
             }
-
 
 
 

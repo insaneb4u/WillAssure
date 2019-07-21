@@ -124,7 +124,7 @@ else
 
 
 
-                                            <div class="col-sm-6" id="paymentfields">
+                                            <div class="col-sm-6" id="paymentfields" style="display:none;">
                                                 <div class="form-group">
                                                     <label>Do You Like To Use Coupon Number</label>
 
@@ -437,7 +437,7 @@ else
     <script>
         $(document).ready(function () {
 
-            alert("working");
+
 
             $("#compdocumentbtn5").show();
 
@@ -470,25 +470,30 @@ else
     <script>
         $(document).ready(function () {
 
-        $("#documentbtn1").show();
-        $("#paymenttitle").hide();
+            $("#documentbtn1").show();
+            $("#paymenttitle").hide();
 
         });
 
     </script>
 
 }
-
+   @*for codocil*@
 @if (ViewBag.documentbtn2 == "true")
 {
 
     <script>
         $(document).ready(function () {
-        $("#documentbtn2").show();
-        $("#paymenttitle").hide();
+            $("#documentbtn2").show();
+            $("#paymenttitle").hide();
         });
 
     </script>
+
+
+
+
+
 
 }
 @if (ViewBag.documentbtn2 == "false")
@@ -502,19 +507,25 @@ else
 
 
         });
-        
+
 
     </script>
 
 }
+
+@*end*@ 
+
+
+
+
 @if (ViewBag.documentbtn3 == "true")
 {
 
     <script>
         $(document).ready(function () {
 
-        $("#documentbtn3").show();
-        $("#paymenttitle").hide();
+            $("#documentbtn3").show();
+            $("#paymenttitle").hide();
 
         });
 
@@ -528,8 +539,8 @@ else
 
         $(document).ready(function () {
 
-        $("#documentbtn4").show();
-        $("#paymenttitle").hide();
+            $("#documentbtn4").show();
+            $("#paymenttitle").hide();
 
 
         });
@@ -545,16 +556,33 @@ else
 
         $(document).ready(function () {
 
-        $("#documentbtn5").show();
-        $("#paymenttitle").hide();
 
+            $("#documentbtn5").show();
+            $("#paymenttitle").hide();
+           
 
         });
 
     </script>
 
 }
+@if (ViewBag.documentbtn5 == "false")
+{
 
+    <script>
+
+        $(document).ready(function () {
+
+            $("#documentbtn5").hide();
+
+
+
+        });
+
+
+    </script>
+
+}
 
 
 @*END*@
@@ -640,10 +668,11 @@ else
             success: function (data) {
 
                 if (data == "false") {
-                    $(".codocildoc").hide();
+                    $(".codocildoc").show();
+                
                 }
                 if (data == "true") {
-                    $(".codocildoc").show();
+                    $(".codocildoc").hide();
                 }
 
 
@@ -664,13 +693,14 @@ else
             type: "POST",
             url:"@Url.Action("checklivindocument", "TestatorHomePage")",
             success: function (data) {
-              
-             
+
+
                 if (data == "false") {
-                    $(".livingwilldoc").hide();
+                    $(".livingwilldoc").show();
+                  
                 }
                 if (data == "true") {
-                    $(".livingwilldoc").show();
+                    $(".livingwilldoc").hide();
                 }
 
 
@@ -708,7 +738,7 @@ else
 
 
 
-
+                    $("#paymentfields").show();
                     $(".btnpay").show();
 
 
@@ -720,6 +750,8 @@ else
                     $('#DDLAmtPaidBY2').prop('disabled', true);
                     $("#willtype").hide();
                     $(".btnpay").hide();
+
+                    $("#paymentfields").hide();
                 }
 
 
@@ -739,11 +771,12 @@ else
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#c").val(x);
             $(".btnpay").show();
-
+            $("#paymentfields").show();
         }
         else {
             $("#c").val('');
             $(".btnpay").hide();
+            $("#paymentfields").hide();
         }
         $("#lblcheck").hide();
     });
@@ -764,10 +797,11 @@ else
                     $("#documenttype").append(x);
                     $('#DDLAmtPaidBY2').prop('disabled', false);
                     $(".btnpay").show();
-
+                    $("#paymentfields").show();
                 }
                 else {
                     $(".btnpay").hide();
+                    $("#paymentfields").hide();
                 }
 
 
@@ -785,9 +819,11 @@ else
                     $("#documenttype").append(x);
                     $('#DDLAmtPaidBY2').prop('disabled', false);
                     $(".btnpay").show();
+                    $("#paymentfields").show();
                 }
                 else {
                     $(".btnpay").hide();
+                    $("#paymentfields").hide();
                 }
 
 
@@ -807,9 +843,11 @@ else
                     $("#documenttype").append(x);
                     $('#DDLAmtPaidBY2').prop('disabled', false);
                     $(".btnpay").show();
+                    $("#paymentfields").show();
                 }
                 else {
                     $(".btnpay").hide();
+                    $("#paymentfields").hide();
                 }
 
 

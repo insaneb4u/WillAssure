@@ -53,7 +53,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query = "insert into living_Will (Conditions,TreatmentDecline,uId,tid,documentstatus) values ('" + CM.conditions+"' , '"+CM.treatmentdecline+"' , "+Convert.ToInt32(Session["uuid"])+" , "+NestId+" , 'Incompleted'  )";
+            string query = "insert into living_Will (Conditions,TreatmentDecline,uId,tid,documentstatus) values ('" + CM.conditions+"' , '"+CM.treatmentdecline+"' , "+Convert.ToInt32(Session["uuid"])+" , "+NestId+" , 'Completed'  )";
             SqlCommand cmd = new SqlCommand(query,con);
             cmd.ExecuteNonQuery();
 

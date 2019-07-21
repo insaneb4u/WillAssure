@@ -49,13 +49,13 @@ namespace WillAssure.Controllers
             if (Session["uuid"] != null)
             {
                 con.Open();
-                string query1t = "select tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlDataAdapter da1t = new SqlDataAdapter(query1t, con);
-                DataTable dt1t = new DataTable();
-                da1t.Fill(dt1t);
-                if (dt1t.Rows.Count > 0)
+                string query1tt = "select tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                SqlDataAdapter da1tt = new SqlDataAdapter(query1tt, con);
+                DataTable dt1tt = new DataTable();
+                da1tt.Fill(dt1tt);
+                if (dt1tt.Rows.Count > 0)
                 {
-                    testatorid = Convert.ToInt32(dt1t.Rows[0]["tId"]);
+                    testatorid = Convert.ToInt32(dt1tt.Rows[0]["tId"]);
 
 
                 }
@@ -123,7 +123,7 @@ namespace WillAssure.Controllers
                             if (Convert.ToInt32(dtt2.Rows[0]["Codocil"]) == 1 && Convert.ToInt32(dtt2.Rows[0]["Designation"]) == 1)
                             {
 
-                               
+
 
 
 
@@ -149,12 +149,12 @@ namespace WillAssure.Controllers
 
 
 
-                                    //end
+                                //end
 
 
-                                   
 
-                                
+
+
 
                             }
                         }
@@ -218,17 +218,46 @@ namespace WillAssure.Controllers
 
 
 
-                        // check Living Will status
+                        // check LivingWill status
                         con.Open();
-                        string qry3122 = "select LivingWill , Designation  from users where LivingWill = 1 and Designation = 1 and uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                        SqlDataAdapter daa233 = new SqlDataAdapter(qry3122, con);
-                        DataTable dtt433 = new DataTable();
-                        daa233.Fill(dtt433);
-                        if (dtt433.Rows.Count > 0)
+                        string qryl2 = "select LivingWill , Designation  from users where LivingWill = 1 and Designation = 1 and uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                        SqlDataAdapter daal2 = new SqlDataAdapter(qryl2, con);
+                        DataTable dttl2 = new DataTable();
+                        daal2.Fill(dttl2);
+                        if (dttl2.Rows.Count > 0)
                         {
-                            if (Convert.ToInt32(dtt433.Rows[0]["LivingWill"]) == 1 && Convert.ToInt32(dtt433.Rows[0]["Designation"]) == 1)
+                            if (Convert.ToInt32(dttl2.Rows[0]["LivingWill"]) == 1 && Convert.ToInt32(dttl2.Rows[0]["Designation"]) == 1)
                             {
-                                ViewBag.documentbtn5 = "true";
+
+
+
+
+
+                                // if completed than hide 
+
+                                string qchk008 = "select top 1 livwillid from living_Will where documentstatus='Incompleted'  order by livwillid desc ";
+                                SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                                DataTable chk008dt = new DataTable();
+                                chk008da.Fill(chk008dt);
+                                con.Close();
+
+                                if (chk008dt.Rows.Count > 0)
+                                {
+                                    // remove document
+                                    ViewBag.documentbtn5 = "false";
+
+                                }
+                                else
+                                {
+                                    // display document
+                                    ViewBag.documentbtn5 = "true";
+                                }
+
+
+
+                                //end
+
+
 
 
 
@@ -236,32 +265,23 @@ namespace WillAssure.Controllers
                             }
                         }
                         con.Close();
+
                         //end
-
-                        ViewBag.create = "true";
-
                     }
-                    else
-                    {
-
-                        ViewBag.PaymentLink = "true";
 
 
-                    }
                 }
 
 
 
 
-
-
-                //////////////////////////////////////////////////////  END  ///////////////////////////////////////////////
+                    //////////////////////////////////////////////////////  END  ///////////////////////////////////////////////
 
 
 
 
 
-                string OTP = "";
+                    string OTP = "";
                 if (Session["LoginOTP"] != null)
                 {
                     OTP = Session["LoginOTP"].ToString();
@@ -571,17 +591,7 @@ namespace WillAssure.Controllers
 
 
 
-            return View("~/Views/TestatorHomePage/TestatorHomePageContent.cshtml");
-        }
-
-
-
-
-
-        public ActionResult checkcompleteddocument()
-        {
-            int testatorid = 0;
-            
+         
             con.Open();
             string query1t = "select tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " ";
             SqlDataAdapter da1t = new SqlDataAdapter(query1t, con);
@@ -767,8 +777,17 @@ namespace WillAssure.Controllers
 
 
 
+
+
+
             return View("~/Views/TestatorHomePage/TestatorHomePageContent.cshtml");
         }
+
+
+
+
+
+    
 
 
 
@@ -1471,8 +1490,18 @@ namespace WillAssure.Controllers
         public string checkwilldocument()
         {
             string status = "";
+            string WillType = "";
 
-            string WillType = Session["WillType"].ToString();
+            if (Session["WillType"] != null)
+            {
+                WillType = Session["WillType"].ToString();
+            }
+            else
+            {
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+            
 
 
             if (WillType == "Quick")

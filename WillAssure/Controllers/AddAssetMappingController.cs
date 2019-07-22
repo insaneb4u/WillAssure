@@ -1692,7 +1692,7 @@ namespace WillAssure.Controllers
                 string altbene = collection["alt_beneficiary"].ToString();
                 string altproportion = collection["alt_proportion"].ToString();
             }
-
+            
             
 
 

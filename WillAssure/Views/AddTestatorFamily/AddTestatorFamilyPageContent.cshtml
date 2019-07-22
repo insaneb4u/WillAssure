@@ -290,7 +290,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">State</label>
-                                            <select id="ddlstate" class="form-control input-shadow validate[required]">
+                                            <select id="ddlstate" class="widthdatatfstate form-control input-shadow validate[required]">
                                                 <option value="@Model.State_txt">@Model.State_txt</option>
                                             </select>
                                             @Html.HiddenFor(m => m.State_id, new { id = "stateid" })
@@ -983,7 +983,7 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label for="input-1">State</label>
-                                                    <select id="guaddlstate" class="form-control input-shadow validate[required]">
+                                                    <select id="guaWithdatastate" class="form-control input-shadow validate[required]">
                                                         <option value="@Model.guastatetext">@Model.guastatetext</option>
                                                     </select>
                                                     @Html.HiddenFor(m => m.guastateid, new { id = "guastateid" })
@@ -996,7 +996,7 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label for="input-1">State</label>
-                                                    <select id="guaddlstate" class="form-control input-shadow validate[required]">
+                                                    <select id="guaWithdatastate" class="form-control input-shadow validate[required]">
                                                         <option value="">--Select State--</option>
                                                     </select>
                                                     @Html.HiddenFor(m => m.guastateid, new { id = "guastateid" })
@@ -1360,7 +1360,55 @@
 
 
 
-    $(document).ready(function () {
+            $(document).ready(function () {
+
+
+                var tfstate = $(".widthdatatfstate").val();
+
+                if (tfstate != null) {
+                      $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("Onnamebindtfcity", "AddTestatorFamily")",
+           data: { "send": "" + tfstate+  ""},
+            success: function (data) {
+
+                $('#ddlcity').append(data);
+            }
+
+
+
+        });
+                }
+
+
+
+
+
+                var guastate = $("#guaWithdatastate").val();
+             
+            
+                if (guastate != null) {
+                      $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("Onnamebindguacity", "AddTestatorFamily")",
+            data: { "send": "" + guastate+  ""},
+            success: function (data) {
+
+                $('#guaddlcity').append(data);
+            }
+
+
+
+        });
+                }
+                   
+
+                
+
+
+
         $("#FamilyForm").validationEngine();
 
 
@@ -1567,7 +1615,7 @@
             type: "POST",
             url:"@Url.Action("guaBindStateDDL", "AddTestatorFamily")",
             success: function (data) {
-                $('#guaddlstate').append(data);
+                $('#guaWithdatastate').append(data);
             }
         });
 
@@ -2090,7 +2138,7 @@
 
 
 
-                    $("#txtname").attr("disabled", "disabled");
+                    $("#guaName").attr("disabled", "disabled");
                     $("#txtmiddlename").attr("disabled", "disabled");
                     $("#txtsurname").attr("disabled", "disabled");
                     $("#guaGender").attr("disabled", "disabled");
@@ -2105,8 +2153,9 @@
                     $("#guaddlcity").attr("disabled", "disabled");
                     $("#guaIdentity_Proof").attr("disabled", "disabled");
                     $("#guaddlidentityproof11").attr("disabled", "disabled");
-
-
+                    $("#txtname").attr("disabled", "disabled");
+                    $("#guaWithdatastate").attr("disabled", "disabled");  
+                    
 
                 });
 
@@ -2158,6 +2207,24 @@
                 $(".altproof2").attr("disabled", "disabled");
                 $(".altvalue2").attr("disabled", "disabled");
 
+
+
+                $("#guamiddleName").attr("disabled", "disabled");
+                $("#guaSurname").attr("disabled", "disabled");
+                $("#guaGender").attr("disabled", "disabled");
+                $("#guaddlcity").attr("disabled", "disabled");
+                $("#txtpin").attr("disabled", "disabled");
+                $("#txtaddress1").attr("disabled", "disabled");
+                $("#txtaddress2").attr("disabled", "disabled");
+                $("#txtaddress3").attr("disabled", "disabled");
+                $("#guaIdentity_Proof").attr("disabled", "disabled");
+                $("#guaIdentity_Proof_Value").attr("disabled", "disabled");
+                $("#guaddlidentityproof11").attr("disabled", "disabled");
+                $("#guaAlt_Identity_Proof_Value").attr("disabled", "disabled");
+                $("#txtmiddlename").attr("disabled", "disabled");
+                $("#txtname").attr("disabled", "disabled");
+                $("#guaWithdatastate").attr("disabled", "disabled");
+
             });
 
 
@@ -2201,6 +2268,26 @@
                 $(".altproof2").removeAttr("disabled");
                 $(".altvalue2").removeAttr("disabled");
 
+                $("#guamiddleName").removeAttr("disabled");
+                $("#guaSurname").removeAttr("disabled");
+                $("#guaGender").removeAttr("disabled");
+                $("#guaddlcity").removeAttr("disabled");
+                $("#txtpin").removeAttr("disabled");
+                $("#txtaddress1").removeAttr("disabled");
+                $("#txtaddress2").removeAttr("disabled");
+                $("#txtaddress3").removeAttr("disabled");
+                $("#guaIdentity_Proof").removeAttr("disabled");
+                $("#guaIdentity_Proof_Value").removeAttr("disabled");
+                $("#guaddlidentityproof11").removeAttr("disabled");
+                $("#guaAlt_Identity_Proof_Value").removeAttr("disabled");
+                $("#txtmiddlename").removeAttr("disabled");
+                $("#txtname").removeAttr("disabled");
+                $("#guaWithdatastate").removeAttr("disabled");
+
+                $("#Identity_Proof_Value").removeAttr("disabled");
+                
+                $("#Alt_Identity_Proof_Value").removeAttr("disabled");
+                
                 $("#btnupdate").show();
                 $("#btntestatorsubmit").hide();
 

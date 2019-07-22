@@ -1066,15 +1066,15 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            DateTime dat;
-            if (TFM.Dobb != null || TFM.Dobb == "")
-            {
-                dat = DateTime.ParseExact(TFM.Dobb, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            }
-            else
-            {
-                dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            }
+            //DateTime dat;
+            //if (TFM.Dobb != null || TFM.Dobb == "")
+            //{
+            //    dat = DateTime.ParseExact(TFM.Dobb, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            //}
+            //else
+            //{
+            //    dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            //}
 
 
             SqlCommand cmd = new SqlCommand("SP_CRUDTestatorDetails", con);
@@ -1084,7 +1084,7 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@First_Name", TFM.First_Name);
             cmd.Parameters.AddWithValue("@Last_Name", TFM.Last_Name);
             cmd.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
-            cmd.Parameters.AddWithValue("@DOB", dat);
+            cmd.Parameters.AddWithValue("@DOB", Convert.ToDateTime(TFM.Dobb).ToString("yyyy-MM-dd"));
             cmd.Parameters.AddWithValue("@Occupation", TFM.Occupation);
             cmd.Parameters.AddWithValue("@Mobile", TFM.Mobile);
             cmd.Parameters.AddWithValue("@Email", TFM.Email);
@@ -1165,7 +1165,7 @@ namespace WillAssure.Controllers
 
             if (TFM.EmailOTP != null)
             {
-                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + Convert.ToDateTime(dat).ToString("dd-MM-yyyy") + "' , Mobile = '" + TFM.Mobile + "' ,  eMail = '" + TFM.Email + "' , Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '2'   where uId = " + TFM.uId + "     ";
+                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + Convert.ToDateTime(TFM.Dob).ToString("dd-MM-yyyy") + "' , Mobile = '" + TFM.Mobile + "' ,  eMail = '" + TFM.Email + "' , Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '2'   where uId = " + TFM.uId + "     ";
                 SqlCommand cdd = new SqlCommand(query2, con);
                 cdd.ExecuteNonQuery();
                 con.Close();
@@ -1173,7 +1173,7 @@ namespace WillAssure.Controllers
             else
             {
 
-                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + Convert.ToDateTime(dat).ToString("yyyy-MM-dd") + "' , Mobile = '" + TFM.Mobile + "' ,  eMail = '" + TFM.Email + "' , Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '1'   where uId = " + TFM.uId + "     ";
+                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + Convert.ToDateTime(TFM.Dob).ToString("yyyy-MM-dd") + "' , Mobile = '" + TFM.Mobile + "' ,  eMail = '" + TFM.Email + "' , Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '1'   where uId = " + TFM.uId + "     ";
                 SqlCommand cdd = new SqlCommand(query2, con);
                 cdd.ExecuteNonQuery();
                 con.Close();

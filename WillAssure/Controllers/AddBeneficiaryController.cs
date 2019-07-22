@@ -336,7 +336,40 @@ namespace WillAssure.Controllers
             return View("~/Views/AddBeneficiary/AddBeneficiaryPageContent.cshtml", BM);
         }
 
+        public string Onnamebindguacity()
+        {
+            string response = Request["send"];
+            con.Open();
+            string query = "select distinct b.state_id  , b.statename  from  country_tbl a inner join tbl_state b on  a.CountryID=b.country_id where a.CountryName = '"+response+"' order by b.statename asc";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
 
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+        }
 
         public String BindStateDDL()
         {
@@ -555,8 +588,8 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@First_Name ", BM.First_Name);
                 cmd.Parameters.AddWithValue("@Last_Name", BM.Last_Name);
                 cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
-                DateTime dat = DateTime.ParseExact(BM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                cmd.Parameters.AddWithValue("@DOB", dat);
+                
+                cmd.Parameters.AddWithValue("@DOB", Convert.ToDateTime(BM.Dob).ToString("yyyy-MM-dd"));
                 if (BM.Mobile != null)
                 {
                     cmd.Parameters.AddWithValue("@Mobile", BM.Mobile);

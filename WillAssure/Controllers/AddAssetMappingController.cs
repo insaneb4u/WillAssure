@@ -1567,6 +1567,139 @@ namespace WillAssure.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult InsertMultipleAssetMappeddata(FormCollection collection)
+        {
+            
+            
+            string propo = collection["multiproportion"].ToString();
+
+            string querydy = "";
+
+
+            string assetcatid = "";
+            string assettypeid = "";
+            string combine = "";
+
+            con.Open();
+            string getassettype = "select amId , atId from AssetsCategory where AssetsCategory =  '" + collection["txtassetcat"].ToString() + "' ";
+            SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
+            DataTable atdt = new DataTable();
+            atda.Fill(atdt);
+            if (atdt.Rows.Count > 0)
+            {
+                assetcatid = atdt.Rows[0]["amId"].ToString();
+                assettypeid = atdt.Rows[0]["atId"].ToString();
+
+            }
+            con.Close();
+
+            combine = collection["txtassetcat"].ToString() + assetcatid;
+
+
+
+
+            ArrayList result = new ArrayList(propo.Split(','));
+            string data = "";
+
+            int getcount = 0;
+
+            con.Open();
+            for (int i = 0; i <= result.Count; i++)
+            {
+                //getcount = count++;
+                try
+                {
+                    if (result[i].ToString() == "")
+                    {
+                        continue;
+                    }
+                }
+                catch (Exception)
+                {
+
+
+                }
+
+
+
+                //if (getcount == change)
+
+                // dynamic appointees
+                if (getcount == 2)
+                {
+
+
+
+                    data = data.Remove(data.Length - 2, 2);
+                 
+                    querydy = "insert BeneficiaryAssets (Beneficiary_ID ,Proportion , tid , AssetType_ID , AssetCategory_ID , doctype,Type,Category,documentstatus,WillType) values(" + data+" , "+ Session["distid"].ToString() + " , "+assettypeid+" , "+assetcatid+ " , '"+Session["doctype"].ToString()+ "', 2  ,'"+combine+"' , 'incompleted','"+Session["WillType"].ToString()+"' ) ";
+                    SqlCommand cmdy = new SqlCommand(querydy, con);
+                    cmdy.ExecuteNonQuery();
+                    getcount = 1;
+
+                    data = "";
+                    //  change = 10;
+                    // count = 3;
+
+                    try
+                    {
+                        data = "" + result[i].ToString() + ",";
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+
+
+
+
+
+                    continue;
+                }
+                else
+                {
+
+                    data += "" + result[i].ToString() + ",";
+
+
+
+                }
+                getcount++;
+                //end
+
+
+
+
+
+
+
+                //end
+
+
+
+            }
+            con.Close();
+
+
+
+
+
+            if (collection["checkaltbenestatus"].ToString() == "true")
+            {
+                string altbene = collection["alt_beneficiary"].ToString();
+                string altproportion = collection["alt_proportion"].ToString();
+            }
+
+            
+
+
+            return View("~/Views/AddAssetMapping/AddAssetMappingPageContent.cshtml");
+        }
+
+
 
 
 
@@ -2658,6 +2791,10 @@ namespace WillAssure.Controllers
 
 
         }
+
+
+
+        
 
 
 

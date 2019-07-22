@@ -124,7 +124,45 @@ namespace WillAssure.Controllers
             return View("~/Views/AddBeneficiaryInstitute/AddBeneficiaryInstitute.cshtml",BIM);
         }
 
-        
+
+
+
+        public string Onnamebindguacity()
+        {
+            string response = Request["send"];
+            con.Open();
+            string query = "select distinct b.id  , b.city_name  from  tbl_state a inner join tbl_city b on  a.state_id=b.state_id where a.statename = '" + response + "' order by b.city_name asc";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["id"].ToString() + " >" + dt.Rows[i]["city_name"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+        }
+
+
 
         public ActionResult InsertBeneficiaryInstitute(BeneficiaryInstitutionModel BIM)
         {

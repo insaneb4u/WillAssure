@@ -319,12 +319,13 @@
 
 
                                 <div class="col-lg-12">
-                                    <div id="accordion8">
+                                    <form>
+                                        <div id="accordion8">
 
 
 
-                                    </div>
-
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 
@@ -413,6 +414,7 @@
 
         </div>*@
 
+                                    <input type="text" id="checkaltbenestatus" name="checkaltbenestatus" value="" />
                             <textarea id="query" style="display:none;" class="form-control">
                                
                            </textarea>
@@ -606,12 +608,13 @@
                                  }
 
                                  var res = "";
+                             
                                  res += "<div class='card mb-2 border border-danger' id='accparent'>";
 
                                  res += "<div class='card-header'>";
                                  res += "<button type='button' class='btn btn-link shadow-none text-danger collapsed' data-toggle='collapse' data-target='#accordio" + data[i].assetcatid + "' aria-expanded='false' aria-controls='collapse-23'>";
                                  res += data[i].AssetsCategory + data[i].assetcatid;
-                                 res += "<input type='text' style='display:none;' id='txtassetcat"+data[i].assetcatid+"'  value='"+data[i].AssetsCategory+"' class='form-control' />";
+                                 res += "<input type='text' style='display:none;' id='txtassetcat" + data[i].assetcatid +"' name='txtassetcat'  value='"+data[i].AssetsCategory+"' class='form-control' />";
                                  res += "</button>";
                                  res += "</div>";
                                  res += "<div id='accordio" + data[i].assetcatid + "' class='collapse  accordiondiv' data-parent='#accordion8'>";
@@ -628,14 +631,14 @@
                                  res += "<div class='form-group'>";
                                  res += "<label for='input-1'>Type</label>";
                                  res += "<br />";
-                                 res += "<form id='testatorform'>";
+                                 //res += "<form id='testatorform'>";
                                  res += "<label class='radio-inline'>";
                                  res += "<input type='radio' id='getvalone' class=" + data[i].assetcatid + " name='optradio' value='Single' checked>Single";
                                  res += "</label>";
                                  res += "<label class='radio-inline'>";
                                  res += "<input type='radio' id='getvaltwo' class=" + data[i].assetcatid + " name='optradio' value='Multiple'>Multiple";
                                  res += "</label>";
-                                 res += "</form>";
+                                 //res += "</form>";
                                  res += "</div>";
                                  res += "</div>";
                                  res += "<div id='parentdiv" + data[i].assetcatid + "'  class='test'>";
@@ -645,7 +648,7 @@
                                  res += "<div class='col-sm-2'>";
                                  res += "<div class='form-group' id='mainbeneddl" + data[i].assetcatid+"'>";
                                  res += "<label for='input-1'>Beneficiary</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
-                                 res += "<select id='ddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control beneficiaryclass validate[required]'></select>";
+                                 res += "<select id='ddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id,this.value)' name='multiproportion' class='form-control beneficiaryclass validate[required]'></select>";
                                  res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                                  res += "</div>";
                                  res += "</div>";  
@@ -653,7 +656,7 @@
                                  res += "<div class='col-sm-2 grandparent'>";
                                  res += "<div class='form-group parent'>";
                                  res += "<label for='input-1'>Proportion</label><span id='errproportion' style='color:red;display:;'>(*)</span>";
-                                 res += "<input type='text' autocomplete='off' class='form-control proportioninput validate[required]'  onkeypress='return isNumberKey(event)'   onchange='gettxtproportion(this.id,this.value)' name='rank' id='txtproportion" + data[i].assetcatid + "' />";
+                                 res += "<input type='text' autocomplete='off' class='form-control proportioninput validate[required]'  onkeypress='return isNumberKey(event)'   onchange='gettxtproportion(this.id,this.value)' name='multiproportion' id='txtproportion" + data[i].assetcatid + "' />";
                                  res += "</div>";
                                  res += "</div>";
                                  res += "<div class='col-sm-2' id='totaldiv"+data[i].assetcatid+"'>";
@@ -661,13 +664,24 @@
                                  res += "<label for='input-1'>Balance Proportion</label>";
                                  res += "<input type='text' id='txttotal"+data[i].assetcatid+"' min=0  class='form-control totalinput' readonly />";
                                  res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-638px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
+              
                                  res += "</div>";
                                  res += "</div>";
                                  res += "</br>";
 
-                                 res += "<div style='postion:relative; top:25px;'>";
-                                 res += "<button type='button' class='btn btn-danger alt'   id='addalt'>Add Alternate</button>";
+                                 res += "<div class='col-md-8 alternaterow'>";
+                                 res += "<table class='table tblalternaterow'>";
+                                 res += "<tr>";
+
+                                 res += "<td><button type='button' id='alternatebtn' class='btn btn-sm btn-success'>Add Alternate Beneficiary</button></td>";
+                                 res += "<td id='field1' style='display:none'><select name='alt_proportion' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1' class='form-control altbeneficiaryclass'></select></td>";
+                                 res += "<td id='field2' style='display:none'><input type='text' name='alt_proportion' id='alt_proportion1' class='form-control'></td>";
+                                 res += "<td id='field3' style='display:none'><input type='text' name='alt_total' id='alt_total' class='form-control alt_total'></td>";
+                                 res += "<td id='field4' style='display:none'><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add</button></td>";
+                                 res += "</tr>";
+                                 res += "</table>";
                                  res += "</div>";
+                                 
 
                                  res += "<div class='col-sm-2' id='alternatefield' style='display:none'>";
                                  res += "<div class='form-group' id='mainbeneddl" + data[i].assetcatid + "'>";
@@ -712,7 +726,7 @@
 
 
                                  res += "<div class='form-group'>";
-                                 res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' id='btnmappingsubmit' value=" + data[i].assetcatid + "  class='btn btn-primary shadow-primary px-5 btn" + data[i].assetcatid + "'><i class='icon-lock'></i>Submit</button>";
+                                 res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='submit'  formaction='InsertMultipleAssetMappeddata' id='btnmappingsubmit' value=" + data[i].assetcatid + "  class='btn btn-primary shadow-primary px-5 btn" + data[i].assetcatid + "'><i class='icon-lock'></i>Submit</button>";
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' id='btnadd'   value='" + data[i].assetcatid + "' style='display:none;' disabled='disabled'    class='btn btn-success shadow-primary px-5 btnadd"+data[i].assetcatid+"'><i class='icon-lock'></i>Add Multiple</button>";
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' value='Reset' class='btn btn-danger' id='btnreset' />";
                                  res += " </div>";
@@ -720,7 +734,7 @@
                                  res += " </div>";
                                  res += " </div>";
                                  res += " </div>";
-
+                             
 
                                  $("#accordion8").append(res);
 
@@ -734,8 +748,9 @@
                                      $(".alt").hide();
 
                                      $("#mainbeneddl" + data[i].assetcatid + "").show();
-                                 
 
+                                     $(".alternaterow").hide();
+                                  
                                  }
 
                                
@@ -754,7 +769,7 @@
 
 
                                  var x = $("#ddlbeneficiary" + i + "").empty().append(md);
-
+                                 var x = $("#alt_beneficiary1").empty().append(md);
                                  //alert(x);
 
                              }
@@ -786,6 +801,8 @@
 
                 }
             });
+
+
 
 
 
@@ -945,7 +962,19 @@
 
 
 
+        $(document).on("click", "#alternatebtn", function () {
 
+            $("#field1").show();
+            $("#field2").show();
+            $("#field3").show();
+            $("#field4").show();
+
+            $("#checkaltbenestatus").val('true');
+
+            $("#alternatebtn").hide();
+            
+
+        });
 
 
 
@@ -990,6 +1019,8 @@
                 prevtotalinputval = temp;
             }
             var proportionvalue = $(this).val();
+
+            $rowdiv.find("table").find("tr:first").find('.alt_total').val(proportionvalue);
            
             if (prevtotalinputval != "") {
                 if (parseInt(prevtotalinputval) > parseInt(proportionvalue) || parseInt(prevtotalinputval) == parseInt(proportionvalue)  ) {
@@ -1055,10 +1086,13 @@
                     if ($rowdiv.find('.totalinput').val() != "") {
                         if ($rowdiv.find('.totalinput').val() > 0) {
 
-                            $('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+                            //$('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+
                         } else {
+
                             $('#' + parentaccordionid).find('#btnmappingsubmit').removeAttr("disabled");
                             $(".btnadd" + f + "").attr("disabled", "disabled");
+
                         }
                     } else {
                         $('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
@@ -1392,7 +1426,7 @@
             $("#totaldiv" + myClass + "").hide();
        
 
-
+            $(".alternaterow").hide();
         
 
             $(".btn" + myClass + "").removeAttr("disabled");
@@ -1419,7 +1453,7 @@
 
 
             var myClass = $(this).attr("class");
-
+            $(".alternaterow").show();
 
             $(".alt").show();
 
@@ -1472,7 +1506,7 @@
 
             var x = $(this).closest("#accordio1").find("#addalt:last").addClass("btn-"+cloneCount);
            
-            alert(x);
+         //   alert(x);
            
 
       
@@ -1486,7 +1520,7 @@
             var $clone = $("#parentdiv"+btnnum+"").find('.rowdiv:last').clone();
 
             var alternatebene = $("#parentdiv" + btnnum + "").find(".altbeneficiaryclass:last").val();
-
+            $clone.find("table").find("tr:not(:last)").remove();
             if (alternatebene == "0") {
                 $("#query").append("0~")
             }
@@ -1758,7 +1792,7 @@
                 }
                 else {
 
-                    var data = $("#query").val();
+                    @*var data = $("#query").val();
 
                     $.ajax({
 
@@ -1791,7 +1825,7 @@
 
                             location.reload();
                         }
-                    });
+                    });*@
                 }
 
 
@@ -1809,16 +1843,20 @@
 
 
 
-        $(document).on("click", "#addalt", function () {
-
-
-
-
-            $("#alternatefield").toggle();
+        /*$(document).on("click", ".btnaddalternate", function () {
+            var $rowdiv = $(this).closest('.rowdiv');
+            
+            var $alternaterow = $rowdiv.find(".alternaterow");
+           
+            var $clone = $alternaterow.clone();
+           
+            $clone.insertAfter($alternaterow);
+           // $("#alternatefield").toggle();
+            
             
 
 
-        });
+        });*/
 
 
         function getschemename(id) {
@@ -2105,6 +2143,70 @@ function getDDLTestator(value) {
             
 
         });
+        $(document).on('click', '.btnaddalternate', function () {
+
+            var $tr = $(this).closest('tr');
+
+            var $lastTr = $tr.closest('table').find('tr:last');
+
+            var $clone = $lastTr.clone();
+            $('input[type=text]', $clone).val('');
+            $clone.find('td').each(function () {
+                var el = $(this).find(':first-child');
+                var id = el.attr('id') || null;
+
+                if (id) {
+
+                    //  var i = id.substr(id.length - 1);
+
+                    //code for geting only number from alphanumer string
+                    number = id.replace(/\D/g, ''); // a string of only digits, or the empty string
+                    var i = parseInt(number, 10); // now it's a numeric value
+
+                    //code for getting only alpha character from alphanumer string
+                    var prefix = id.replace(/[^a-zA-Z]/g, '');
+                    //var prefix = id.substr(0, (id.length - 1));
+
+                    el.attr('id', prefix + (+i + 1));
+
+                }
+            });
+            // insert a remove link in the last cell
+
+            $('td:last-child', $lastTr).html('<a href="javascript:void(0);" class="btn btn-sm btn-danger remove removeDefault"><i class="fa fa-minus" aria-hidden="true"></i></a>');
+            $tr.closest('tbody').append($clone);
+          
+            // add the remove function to the new row
+            $('a.remove', $lastTr).click(function () {
+
+                $(this).closest('tr').remove();
+                return false;
+            });
+
+        });
+        $('.removeDefault').click(function () {
+            $(this).closest('tr').remove();
+            return false;
+        });
+        function checkaltbeneficiaryduplicate(id) {
+            var dt = '';
+            var lang_name = $('#' + id).val();
+            var selectedtext = $("#" + id + " option:selected").text();
+            var i = id.substr(id.length - 1);
+
+            $(".altbeneficiaryclass ").each(function () {
+                var myid = $(this).attr('id');
+                var myval = $('#' + myid).val();
+                if (id != myid) {
+                    if (lang_name == myval && lang_name != '') {
+                        alert(selectedtext + ' already exists');
+                        $("#" + id).val('0');
+                       // $("#" + id).select2('val', '');
+                    }
+                }
 
 
+            });
+
+        }
     </script>

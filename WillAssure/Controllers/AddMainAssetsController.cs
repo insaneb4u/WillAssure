@@ -1488,8 +1488,8 @@ namespace WillAssure.Controllers
                     cmd2.Parameters.AddWithValue("@First_Name", collection["nomFirst_Name"]);
                     cmd2.Parameters.AddWithValue("@Last_Name", collection["nomLast_Name"]);
                     cmd2.Parameters.AddWithValue("@Middle_Name", collection["nomMiddle_Name"]);
-                    DateTime dat = DateTime.ParseExact(collection["nomDob"], "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                    cmd2.Parameters.AddWithValue("@DOB", dat);
+                
+                    cmd2.Parameters.AddWithValue("@DOB", Convert.ToDateTime(collection["nomDob"]).ToString("yyyy-MM-dd"));
                     cmd2.Parameters.AddWithValue("@Mobile", collection["nomMobile"]);
                     cmd2.Parameters.AddWithValue("@Relationship", collection["nomRelationshipTxt"]);
                     cmd2.Parameters.AddWithValue("@Marital_Status", collection["nomMarital_Status"]);
@@ -1640,8 +1640,8 @@ namespace WillAssure.Controllers
                         cmd2.Parameters.AddWithValue("@First_Name", collection["nomFirst_Name"]);
                         cmd2.Parameters.AddWithValue("@Last_Name", collection["nomLast_Name"]);
                         cmd2.Parameters.AddWithValue("@Middle_Name", collection["nomMiddle_Name"]);
-                        DateTime dat = DateTime.ParseExact(collection["nomDob"], "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                        cmd2.Parameters.AddWithValue("@DOB", dat);
+           
+                        cmd2.Parameters.AddWithValue("@DOB", Convert.ToDateTime(collection["nomDob"]).ToString("yyyy-MM-dd"));
                         cmd2.Parameters.AddWithValue("@Mobile", collection["nomMobile"]);
                         cmd2.Parameters.AddWithValue("@Relationship", collection["nomRelationshipTxt"]);
                         cmd2.Parameters.AddWithValue("@Marital_Status", collection["nomMarital_Status"]);

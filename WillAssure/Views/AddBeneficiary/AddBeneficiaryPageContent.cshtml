@@ -400,7 +400,7 @@
                                         @if (Model.country_txt != null)
                                         {
 
-                                        <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]">
+                                        <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
                                             
                                             <option value="@Model.country_txt">@Model.country_txt</option>
                                         </select>
@@ -410,7 +410,7 @@
                                         else
                                         {
 
-                                            <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"></select>
+                                            <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
                                             @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
                                             @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
                                         }
@@ -435,7 +435,7 @@
                                         }
                                         else
                                         {
-                                            <select id="ddlstate" class="form-control input-shadow validate[required]"></select>
+                                            <select id="ddlstate" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
                                             @Html.HiddenFor(m => m.State_id, new { id = "stateid" })
                                             @Html.HiddenFor(m => m.State_txt, new { id = "statetext" })
                                         }
@@ -1037,6 +1037,27 @@
 
 
         $(document).ready(function () {
+
+            var statedata = $(".withdatacountry").val();
+
+            if (statedata != null) {
+                            $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("Onnamebindguacity", "AddBeneficiary")",
+                                data: { "send": "" + statedata+  ""},
+            success: function (data) {
+
+                $('#ddlstate').append(data);
+            }
+
+
+
+        });
+            }
+
+
+
 
         $.ajax({
 
@@ -1775,18 +1796,19 @@
 <script>
     $(function () {
 
-        var now = new Date();
-        var sDate = new Date(now.getFullYear() - 18, now.getMonth(), 1);
+        //var now = new Date();
+        //var sDate = new Date(now.getFullYear() - 18, now.getMonth(), 1);
 
 
 
-        var endDate = new Date(sDate.getFullYear + '-' + sDate.getMonth() + '-' + sDate.getDay());
-        var startDate = new Date('1930-01-01');
+        //var endDate = new Date(sDate.getFullYear + '-' + sDate.getMonth() + '-' + sDate.getDay());
+        //var startDate = new Date('1930-01-01');
 
         $('#datepicker01').datepicker({
-            //other option
-            startDate: startDate, //set start date
-            endDate: sDate //set end date
+            format: "dd/mm/yyyy",
+            autoclose: true,
+            orientation: "top",
+            endDate: "today"
         });
     });
 

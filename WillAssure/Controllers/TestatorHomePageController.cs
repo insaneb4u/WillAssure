@@ -1964,11 +1964,12 @@ namespace WillAssure.Controllers
 
                     if (chk008dt2.Rows.Count > 0)
                     {
-                        status = "true";
+                        
+                        status = "false";
                     }
                     else
                     {
-                        status = "false";
+                        status = "true";
                     }
 
                     //end
@@ -2040,11 +2041,12 @@ namespace WillAssure.Controllers
 
                     if (chk008dt2.Rows.Count > 0)
                     {
-                        status = "true";
+                       
+                        status = "false";
                     }
                     else
                     {
-                        status = "false";
+                        status = "true";
                     }
 
                     //end

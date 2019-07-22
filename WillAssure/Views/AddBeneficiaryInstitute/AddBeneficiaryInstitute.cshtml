@@ -221,7 +221,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">State</label>
-                                            <select id="ddlstate" class="form-control input-shadow validate[required]">
+                                            <select id="ddlstate" class="Withdatastate form-control input-shadow validate[required]">
                                                 <option value="@Model.StateText">@Model.StateText</option>
                                             </select>
                                             @Html.HiddenFor(m => m.StateId, new { id = "stateid" })
@@ -550,7 +550,26 @@
                         <button type="button" id="btncheckExists" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
                         @*<button type="button" style="display:none" id="confirmtestatorfamily"></button>*@
                         <script>
-                        $(document).ready(function () {
+                            $(document).ready(function () {
+
+
+                                var statedata = $(".Withdatastate").val();
+                         
+                                if (statedata != null) {
+                                                  $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("Onnamebindguacity", "AddBeneficiaryInstitute")",
+            data: { "send": "" + statedata+  ""},
+            success: function (data) {
+
+                $('#ddlcity').append(data);
+            }
+
+
+
+        });
+                                }
 
 
                             $("#BeneficiaryInstituteForm").validationEngine();

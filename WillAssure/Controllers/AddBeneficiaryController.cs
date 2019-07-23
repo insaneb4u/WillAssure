@@ -1484,7 +1484,7 @@ namespace WillAssure.Controllers
 
             
 
-            string query2 = "select Identity_proof_Value from TestatorDetails  where tId = " + tid+"";
+            string query2 = "select Alt_Identity_proof_Value , Identity_proof_Value from TestatorDetails  where tId = " + tid+"";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -1494,7 +1494,7 @@ namespace WillAssure.Controllers
 
                 for (int i = 0; i < dt2.Rows.Count; i++)
                 {
-                    if (dt2.Rows[i]["Identity_proof_Value"].ToString() == response)
+                    if (dt2.Rows[i]["Identity_proof_Value"].ToString() == response || dt2.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
                     {
                         msg = "false";
                     }
@@ -1549,7 +1549,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "";
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -1557,7 +1557,7 @@ namespace WillAssure.Controllers
             if (dt2.Rows.Count > 0)
             {
 
-                if (dt2.Rows[0]["Alt_Identity_proof_value"].ToString() == response)
+                if (dt2.Rows[0]["Alt_Identity_proof_value"].ToString() == response || dt2.Rows[0]["Identity_proof_Value"].ToString() == response)
                 {
                     msg = "false";
                 }

@@ -1467,104 +1467,104 @@ namespace WillAssure.Controllers
 
 
 
-        public JsonResult InsertMultipleAssetMappeddata(string data, string assetcat, string tid, string btnidentify)
-        {
+        //public JsonResult InsertMultipleAssetMappeddata(string data, string assetcat, string tid, string btnidentify)
+        //{
 
 
-            ViewBag.collapse = "true";
-            // roleassignment
-            List<LoginModel> Lmlist = new List<LoginModel>();
-            con.Open();
-            string q = "select * from Assignment_Roles where RoleId = " + Convert.ToInt32(Session["rId"]) + "";
-            SqlDataAdapter da3 = new SqlDataAdapter(q, con);
-            DataTable dt3 = new DataTable();
-            da3.Fill(dt3);
-            if (dt3.Rows.Count > 0)
-            {
+        //    ViewBag.collapse = "true";
+        //    // roleassignment
+        //    List<LoginModel> Lmlist = new List<LoginModel>();
+        //    con.Open();
+        //    string q = "select * from Assignment_Roles where RoleId = " + Convert.ToInt32(Session["rId"]) + "";
+        //    SqlDataAdapter da3 = new SqlDataAdapter(q, con);
+        //    DataTable dt3 = new DataTable();
+        //    da3.Fill(dt3);
+        //    if (dt3.Rows.Count > 0)
+        //    {
 
-                for (int i = 0; i < dt3.Rows.Count; i++)
-                {
-                    LoginModel lm = new LoginModel();
-                    lm.PageName = dt3.Rows[i]["PageName"].ToString();
-                    lm.PageStatus = dt3.Rows[i]["PageStatus"].ToString();
-                    lm.Action = dt3.Rows[i]["Action"].ToString();
-                    lm.Nav1 = dt3.Rows[i]["Nav1"].ToString();
-                    lm.Nav2 = dt3.Rows[i]["Nav2"].ToString();
+        //        for (int i = 0; i < dt3.Rows.Count; i++)
+        //        {
+        //            LoginModel lm = new LoginModel();
+        //            lm.PageName = dt3.Rows[i]["PageName"].ToString();
+        //            lm.PageStatus = dt3.Rows[i]["PageStatus"].ToString();
+        //            lm.Action = dt3.Rows[i]["Action"].ToString();
+        //            lm.Nav1 = dt3.Rows[i]["Nav1"].ToString();
+        //            lm.Nav2 = dt3.Rows[i]["Nav2"].ToString();
 
-                    Lmlist.Add(lm);
-                }
-
-
-
-                ViewBag.PageName = Lmlist;
+        //            Lmlist.Add(lm);
+        //        }
 
 
 
-
-            }
-
-            con.Close();
+        //        ViewBag.PageName = Lmlist;
 
 
-            //end
-            string assetcatid = "";
-            string assettypeid = "";
-            string combine = "";
-
-            con.Open();
-            string getassettype = "select amId , atId from AssetsCategory where AssetsCategory =  '" + assetcat + "' ";
-            SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
-            DataTable atdt = new DataTable();
-            atda.Fill(atdt);
-            if (atdt.Rows.Count > 0)
-            {
-                assetcatid = atdt.Rows[0]["amId"].ToString();
-                assettypeid = atdt.Rows[0]["atId"].ToString();
-
-            }
-            con.Close();
-
-            combine = assetcat + assetcatid;
-
-            string response = data;
-            string filter = response.Replace(" ", string.Empty).Replace("\n", string.Empty);
-            ArrayList result = new ArrayList(filter.Split('~'));
-
-            for (int i = 0; i < result.Count; i++)
-            {
-                if (result[i].ToString() != "")
-                {
-                    try
-                    {
-                        con.Open();
-                        result[i].ToString();
-                        string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , alternatebid , tid , AssetType_ID , AssetCategory_ID , doctype,Type,Category,documentstatus,WillType) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettypeid + " , " + assetcatid + " , '" + Session["doctype"].ToString() + "',2,'" + combine + "' , 'incompleted','" + Session["WillType"].ToString() + "')";
-                        SqlCommand cmd = new SqlCommand(query, con);
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                    }
-                    catch (Exception)
-                    {
 
 
-                    }
+        //    }
 
-                }
-            }
-
-            // if records submitted change status for assetinformation
-            con.Close();
-            con.Open();
-            string query2 = "update assetinformation set Remark ='Completed' where amId = " + assetcatid + "";
-            SqlCommand cmd2 = new SqlCommand(query2, con);
-            cmd2.ExecuteNonQuery();
-            con.Close();
-            //end
+        //    con.Close();
 
 
-            ModelState.Clear();
-            return Json(btnidentify);
-        }
+        //    //end
+        //    string assetcatid = "";
+        //    string assettypeid = "";
+        //    string combine = "";
+
+        //    con.Open();
+        //    string getassettype = "select amId , atId from AssetsCategory where AssetsCategory =  '" + assetcat + "' ";
+        //    SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
+        //    DataTable atdt = new DataTable();
+        //    atda.Fill(atdt);
+        //    if (atdt.Rows.Count > 0)
+        //    {
+        //        assetcatid = atdt.Rows[0]["amId"].ToString();
+        //        assettypeid = atdt.Rows[0]["atId"].ToString();
+
+        //    }
+        //    con.Close();
+
+        //    combine = assetcat + assetcatid;
+
+        //    string response = data;
+        //    string filter = response.Replace(" ", string.Empty).Replace("\n", string.Empty);
+        //    ArrayList result = new ArrayList(filter.Split('~'));
+
+        //    for (int i = 0; i < result.Count; i++)
+        //    {
+        //        if (result[i].ToString() != "")
+        //        {
+        //            try
+        //            {
+        //                con.Open();
+        //                result[i].ToString();
+        //                string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , alternatebid , tid , AssetType_ID , AssetCategory_ID , doctype,Type,Category,documentstatus,WillType) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , " + assettypeid + " , " + assetcatid + " , '" + Session["doctype"].ToString() + "',2,'" + combine + "' , 'incompleted','" + Session["WillType"].ToString() + "')";
+        //                SqlCommand cmd = new SqlCommand(query, con);
+        //                cmd.ExecuteNonQuery();
+        //                con.Close();
+        //            }
+        //            catch (Exception)
+        //            {
+
+
+        //            }
+
+        //        }
+        //    }
+
+        //    // if records submitted change status for assetinformation
+        //    con.Close();
+        //    con.Open();
+        //    string query2 = "update assetinformation set Remark ='Completed' where amId = " + assetcatid + "";
+        //    SqlCommand cmd2 = new SqlCommand(query2, con);
+        //    cmd2.ExecuteNonQuery();
+        //    con.Close();
+        //    //end
+
+
+        //    ModelState.Clear();
+        //    return Json(btnidentify);
+        //}
 
 
         [HttpPost]
@@ -1689,8 +1689,97 @@ namespace WillAssure.Controllers
 
             if (collection["checkaltbenestatus"].ToString() == "true")
             {
-                string altbene = collection["alt_beneficiary"].ToString();
-                string altproportion = collection["alt_proportion"].ToString();
+
+
+                string querydy2 = "";
+                string altbene = collection["alt_proportion"].ToString();
+
+
+                string firstValue = result[0].ToString();
+                ArrayList result2 = new ArrayList(altbene.Split(','));
+                string data2 = "";
+
+                int getcount2 = 0;
+
+                con.Open();
+                for (int i = 0; i <= result2.Count; i++)
+                {
+                    //getcount = count++;
+                    try
+                    {
+                        if (result2[i].ToString() == "")
+                        {
+                            continue;
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+
+
+                    //if (getcount == change)
+
+                    // dynamic appointees
+                    if (getcount2 == 2)
+                    {
+
+
+
+                        data2 = data2.Remove(data2.Length - 2, 2);
+
+                        querydy2 = "insert into alternate_Beneficiaryassets (alternatebenefciaryid ,alternateproportion,linkedbid) values (" + data2+","+firstValue+") ";
+                        SqlCommand cmdy2 = new SqlCommand(querydy2, con);
+                        cmdy2.ExecuteNonQuery();
+                        getcount2 = 1;
+
+                        data2 = "";
+                        //  change = 10;
+                        // count = 3;
+
+                        try
+                        {
+                            data2 = "" + result2[i].ToString() + ",";
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+
+
+
+
+
+
+                        continue;
+                    }
+                    else
+                    {
+
+                        data2 += "" + result2[i].ToString() + ",";
+
+
+
+                    }
+                    getcount2++;
+                    //end
+
+
+
+
+
+
+
+                    //end
+
+
+
+                }
+                con.Close();
+
             }
             
             

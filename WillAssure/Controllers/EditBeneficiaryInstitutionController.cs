@@ -180,7 +180,7 @@ namespace WillAssure.Controllers
 
             for (int i = 0; i < Lmlist.Count(); i++)
             {
-                testString = Lmlist[23].Action;
+                testString = Lmlist[22].Action;
 
             }
 

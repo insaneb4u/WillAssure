@@ -79,11 +79,11 @@
                                     <div class="col-sm-12"><label for="email" id="lblrefdist" style="font-weight: 700; font-size: 16px; ">Ref Distributer:</label></div>
                                     <form>
                                         <label class='radio-inline'>
-                                            <input type='radio' id='getvalone' class="" name='optradio' value='Single' checked>Distributor
+                                            <input type='radio' id='getvalone' class="" name='optradio' value='Distributor' checked>Distributor
 
                                         </label>
                                         <label class='radio-inline'>
-                                            <input type='radio' id='getvaltwo' class="" name='optradio' value='Multiple'>No Distributor
+                                            <input type='radio' id='getvaltwo' class="" name='optradio' value='NoDistributor'>No Distributor
 
                                         </label>
                                     </form>
@@ -344,13 +344,11 @@
 
 
         //var i = 0;
-        if ($("#getvalone").is(':checked')) {
-            if ($("#ddlDistributor").val() == "") {
-                $("#lblerror4").show();
-                //i = 1;
-            }
+       
 
-        }
+          
+
+        
         //if ($(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false) {
         //    $("#lblcheck").show();
         //    i = 1;
@@ -395,79 +393,81 @@
             $("#lblerror3").show();
             //i = 1;
         }
-        //if (i == 1) {
-        //    return;
-        //}
-
-        //var willtype = "";
-        //if ($('input[name=optone]:checked').val() == "Quick") {
-        //    willtype = "Quick";
-        //}
-        //else {
-        //    willtype = "Detailed";
-        //}
-      
-
-        //  else {
-
-        //      var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + $("#documenttype").val();
-        var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + $("#txtdob").val();
-
-       
-
-        $.ajax({
-
-            type: "POST",
-            url: "../VisitorData/VisitorDataIndex",
-            data: { "send": "" + data + "" },
-            success: function (data) {
-
-                if (data == "true") {
-                    alert("Records Inserted SuccessFully Please Check Your Email For OTP");
-
-
-                    $('#primarymodal').modal('show');
-
-
-                    $("#txtfirstname").val("");
-                    $("#txtmiddlename").val("");
-                    $("#txtlastname").val("");
-                    $("#txtcontact").val("");
-                    $("#txtemail").val("");
-                    $("#ddlDistributor").val("");
 
 
 
-                    $("#checkone").prop("checked", false);
-                    $("#checktwo").prop("checked", false);
-                    $("#checkthree").prop("checked", false);
-                    $("#checkfour").prop("checked", false);
-                    $("#checkfive").prop("checked", false);
+        
+        
+        if ($("#getvalone").prop("checked") == true) {
+
+            if ($("#ddlDistributor").val() == "") {
+                $("#lblerror4").show();
+            }
+        }
+        if ($("#getvaltwo").prop("checked") == true) {
 
 
-                    $("#lblsuccess").hide();
-                    $("#lblfailed").hide();
+            var data = $("#txtfirstname").val() + "~" + $("#txtmiddlename").val() + "~" + $("#txtlastname").val() + "~" + $("#txtcontact").val() + "~" + $("#txtemail").val() + "~" + $("#ddlDistributor").val() + "~" + $("#txtdob").val();
+
+
+
+            $.ajax({
+
+                type: "POST",
+                url: "../VisitorData/VisitorDataIndex",
+                data: { "send": "" + data + "" },
+                success: function (data) {
+
+                    if (data == "true") {
+                        alert("Records Inserted SuccessFully Please Check Your Email For OTP");
+
+
+                        $('#primarymodal').modal('show');
+
+
+                        $("#txtfirstname").val("");
+                        $("#txtmiddlename").val("");
+                        $("#txtlastname").val("");
+                        $("#txtcontact").val("");
+                        $("#txtemail").val("");
+                        $("#ddlDistributor").val("");
+
+
+
+                        $("#checkone").prop("checked", false);
+                        $("#checktwo").prop("checked", false);
+                        $("#checkthree").prop("checked", false);
+                        $("#checkfour").prop("checked", false);
+                        $("#checkfive").prop("checked", false);
+
+
+                        $("#lblsuccess").hide();
+                        $("#lblfailed").hide();
+                    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 }
 
 
-               
+            });
+        }
 
+       
 
-
-
-             
-
-
-
-
-               
-
-
-
-            }
-
-
-        });
 
 
         //   }
@@ -628,11 +628,12 @@
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#c").val(x);
 
-           
+            
         }
         else {
 
             $("#c").val('');
+         
         }
 
         $("#lblcheck").hide();
@@ -701,6 +702,7 @@
     $(document).on("change", "#getvalone", function () {
 
         $("#ddlDistributor").show();
+      
 
 
     });

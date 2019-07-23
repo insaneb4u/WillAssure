@@ -247,7 +247,7 @@
                                     <div class="col-sm-3" id="ddr" style="display:none">
                                         <div class="form-group">
                                             <label for="input-1">Relation</label>
-                                            <select id="ddlrelation"  class="form-control input-shadow validate[required]" >
+                                            <select id="ddlrelation" class="form-control input-shadow validate[required]">
                                                 <option value="@Model.RelationshipTxt">@Model.RelationshipTxt</option>
                                             </select>
                                             @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid" })
@@ -260,7 +260,7 @@
                                     <div class="col-sm-3" id="ddr" style="display:none">
                                         <div class="form-group">
                                             <label for="input-1">Relation </label>
-                                            <select id="ddlrelation"  class="form-control input-shadow validate[required]"  ><option value="">--Select--</option></select>
+                                            <select id="ddlrelation" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
                                             @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid" })
                                             @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext" })
                                         </div>
@@ -431,7 +431,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Identity Proof Value</label>
-                                        <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "Identity_Proof_Value", @onchange = "validateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" , @readonly="true" })  </div>
+                                        <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "Identity_Proof_Value", @onchange = "validateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
                                         <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
                                     </div>
                                 </div>
@@ -1082,8 +1082,9 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Identity Proof Value</label>
-                                                <div id="appendtxtalt1">  @Html.TextBoxFor(m => m.guaIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "guaIdentity_Proof_Value", @placeholder = "Enter Identity Proof Number", @autocomplete = "off" })</div>
+                                                <div id="appendtxtalt1">  @Html.TextBoxFor(m => m.guaIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "guaIdentity_Proof_Value", @placeholder = "Enter Identity Proof Number", @onchange = "validateidentity2(this.value)", @autocomplete = "off" })</div>
                                             </div>
+                                            <span id="lblidentityproof2" style="color:red; display:none;">*Identity Proof Already Entered</span>
                                         </div>
 
                                         <div class="col-sm-3">
@@ -1102,8 +1103,9 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Alt Identity Proof Value</label>
-                                                <div id="appendtxtalt2"> @Html.TextBoxFor(m => m.guaAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "guaAlt_Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+                                                <div id="appendtxtalt2"> @Html.TextBoxFor(m => m.guaAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "guaAlt_Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @onchange = "Altvalidateidentity2(this.value)" })  </div>
                                             </div>
+                                            <span id="altlblidentityproof2" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                         </div>
                                     </div>
 
@@ -1217,24 +1219,28 @@
             data: { "send": "" + value + "" },
                      success: function (data) {
 
-                        
+
                          var msg = data.split('~')[0];
                          var structure = data.split('~')[1];
 
-                         if (structure != "") {
+                         if (structure != "<option Value=''>--Select--</option>") {
 
-                             $("#ddr").show();
+                             if (structure != "") {
+                                 $("#ddr").show();
 
-                             $("#ddlrelation").empty().append(structure);
+                                 $("#ddlrelation").empty().append(structure);
+                             }
+
+
                          }
 
-                       
+
 
                          if (msg == "true") {
 
 
 
-                          
+
 
                              $("#ddlrelation").removeAttr("readonly");
 
@@ -1386,8 +1392,8 @@
 
 
                 var guastate = $("#guaWithdatastate").val();
-             
-            
+
+
                 if (guastate != null) {
                       $.ajax({
 
@@ -1403,9 +1409,9 @@
 
         });
                 }
-                   
 
-                
+
+
 
 
 
@@ -1898,24 +1904,24 @@
 
 
         if (id == "Aadhaar Card") {
-            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  , onchange='altvalidateidentity(this.value)' />");
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  , onchange='Altvalidateidentity(this.value)' />");
         }
 
 
         if (id == "Passport") {
-            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='altvalidateidentity(this.value)'   />");
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='Altvalidateidentity(this.value)'   />");
         }
 
 
 
         if (id == "Driving Licences") {
-            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='altvalidateidentity(this.value)'  />");
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='Altvalidateidentity(this.value)'  />");
         }
 
 
 
         if (id == "Pan Card") {
-            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='altvalidateidentity(this.value)'   />");
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='Altvalidateidentity(this.value)'   />");
         }
 
 
@@ -2138,24 +2144,24 @@
 
 
 
-                    $("#guaName").attr("disabled", "disabled");
-                    $("#txtmiddlename").attr("disabled", "disabled");
-                    $("#txtsurname").attr("disabled", "disabled");
-                    $("#guaGender").attr("disabled", "disabled");
-                    $("#txtpin").attr("disabled", "disabled");
-                    $("#txtaddress1").attr("disabled", "disabled");
-                    $("#txtaddress2").attr("disabled", "disabled");
-                    $("#txtaddress3").attr("disabled", "disabled");
-                    $("#guaIdentity_Proof_Value").attr("disabled", "disabled");
-                    $("#guaAlt_Identity_Proof_Value").attr("disabled", "disabled");
+                    //$("#guaName").attr("disabled", "disabled");
+                    //$("#txtmiddlename").attr("disabled", "disabled");
+                    //$("#txtsurname").attr("disabled", "disabled");
+                    //$("#guaGender").attr("disabled", "disabled");
+                    //$("#txtpin").attr("disabled", "disabled");
+                    //$("#txtaddress1").attr("disabled", "disabled");
+                    //$("#txtaddress2").attr("disabled", "disabled");
+                    //$("#txtaddress3").attr("disabled", "disabled");
+                    //$("#guaIdentity_Proof_Value").attr("disabled", "disabled");
+                    //$("#guaAlt_Identity_Proof_Value").attr("disabled", "disabled");
 
-                    $("#guaddlstate").attr("disabled", "disabled");
-                    $("#guaddlcity").attr("disabled", "disabled");
-                    $("#guaIdentity_Proof").attr("disabled", "disabled");
-                    $("#guaddlidentityproof11").attr("disabled", "disabled");
-                    $("#txtname").attr("disabled", "disabled");
-                    $("#guaWithdatastate").attr("disabled", "disabled");  
-                    
+                    //$("#guaddlstate").attr("disabled", "disabled");
+                    //$("#guaddlcity").attr("disabled", "disabled");
+                    //$("#guaIdentity_Proof").attr("disabled", "disabled");
+                    //$("#guaddlidentityproof11").attr("disabled", "disabled");
+                    //$("#txtname").attr("disabled", "disabled");
+                    //$("#guaWithdatastate").attr("disabled", "disabled");
+
 
                 });
 
@@ -2285,9 +2291,9 @@
                 $("#guaWithdatastate").removeAttr("disabled");
 
                 $("#Identity_Proof_Value").removeAttr("disabled");
-                
+
                 $("#Alt_Identity_Proof_Value").removeAttr("disabled");
-                
+
                 $("#btnupdate").show();
                 $("#btntestatorsubmit").hide();
 
@@ -2636,24 +2642,24 @@
 
 
                 if (id == "Aadhaar Card") {
-                    $("#appendtxtalt1").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[adharCard]] text-input' id='guaIdentity_Proof_Value' name='guaIdentity_Proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                    $("#appendtxtalt1").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[adharCard]] text-input' id='guaIdentity_Proof_Value' name='guaIdentity_Proof_Value'  onchange='validateidentity2(this.value)' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
                 }
 
 
                 if (id == "Passport") {
-                    $("#appendtxtalt1").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[Passport]] text-input' id='guaIdentity_Proof_Value' name='guaIdentity_Proof_Value'  placeholder='Enter Passport Number' autocomplete='off'  />");
+                    $("#appendtxtalt1").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[Passport]] text-input' id='guaIdentity_Proof_Value' name='guaIdentity_Proof_Value'   onchange='validateidentity2(this.value)'  placeholder='Enter Passport Number' autocomplete='off'  />");
                 }
 
 
 
                 if (id == "Driving Licences") {
-                    $("#appendtxtalt1").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[carnumber]] text-input' id='guaIdentity_Proof_Value' name='guaIdentity_Proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  />");
+                    $("#appendtxtalt1").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[carnumber]] text-input' id='guaIdentity_Proof_Value' name='guaIdentity_Proof_Value'  onchange='validateidentity2(this.value)' placeholder='Enter Driving Licences' autocomplete='off'  />");
                 }
 
 
 
                 if (id == "Pan Card") {
-                    $("#appendtxtalt1").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[pannumber]] text-input' id='guaIdentity_Proof_Value' name='guaIdentity_Proof_Value' placeholder='Enter Pan Card' autocomplete='off'  />");
+                    $("#appendtxtalt1").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[pannumber]] text-input' id='guaIdentity_Proof_Value' name='guaIdentity_Proof_Value'  onchange='validateidentity2(this.value)' placeholder='Enter Pan Card' autocomplete='off'  />");
                 }
 
 
@@ -2684,24 +2690,24 @@
 
 
                 if (id == "Aadhaar Card") {
-                    $("#appendtxtalt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='guaAlt_Identity_Proof_Value' name='guaAlt_Identity_Proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+                    $("#appendtxtalt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='guaAlt_Identity_Proof_Value' name='guaAlt_Identity_Proof_Value'  onchange='Altvalidateidentity2(this.value)' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
                 }
 
 
                 if (id == "Passport") {
-                    $("#appendtxtalt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='guaAlt_Identity_Proof_Value' name='guaAlt_Identity_Proof_Value'  placeholder='Enter Passport Number' autocomplete='off'  />");
+                    $("#appendtxtalt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='guaAlt_Identity_Proof_Value' name='guaAlt_Identity_Proof_Value' onchange='Altvalidateidentity2(this.value)' placeholder='Enter Passport Number' autocomplete='off'  />");
                 }
 
 
 
                 if (id == "Driving Licences") {
-                    $("#appendtxtalt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='guaAlt_Identity_Proof_Value' name='guaAlt_Identity_Proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  />");
+                    $("#appendtxtalt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='guaAlt_Identity_Proof_Value' name='guaAlt_Identity_Proof_Value' onchange='Altvalidateidentity2(this.value)' placeholder='Enter Driving Licences' autocomplete='off'  />");
                 }
 
 
 
                 if (id == "Pan Card") {
-                    $("#appendtxtalt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='guaAlt_Identity_Proof_Value' name='guaAlt_Identity_Proof_Value' placeholder='Enter Pan Card' autocomplete='off'  />");
+                    $("#appendtxtalt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='guaAlt_Identity_Proof_Value' name='guaAlt_Identity_Proof_Value' onchange='Altvalidateidentity2(this.value)' placeholder='Enter Pan Card' autocomplete='off'  />");
                 }
 
 
@@ -2913,3 +2919,88 @@
         </script>
 
         @*end*@
+
+
+
+        <script>
+
+
+            function validateidentity2(value) {
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "@Url.Action("Validateidentity2", "Addwitness")",
+                    data: {"send":""+value+""},
+                    success: function (data) {
+
+                        if (data == "true") {
+
+                            $("#lblidentityproof2").hide();
+
+                        }
+
+
+                        if (data == "false") {
+
+                            $("#lblidentityproof2").show();
+                            $("#Identity_Proof_Value").val("");
+
+                        }
+
+
+
+            }
+        });
+
+
+
+            }
+
+
+        </script>
+
+
+
+
+
+
+        <script>
+
+
+            function Altvalidateidentity2(value) {
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "@Url.Action("altValidateidentity2", "Addwitness")",
+                    data: {"send":""+value+""},
+                    success: function (data) {
+
+                        if (data == "true") {
+
+                            $("#altlblidentityproof2").hide();
+
+                        }
+
+
+                        if (data == "false") {
+
+                            $("#altlblidentityproof2").show();
+                            $("#Alt_Identity_Proof_Value").val("");
+
+                        }
+
+
+
+            }
+        });
+
+
+
+                        }
+
+
+
+        </script>
+

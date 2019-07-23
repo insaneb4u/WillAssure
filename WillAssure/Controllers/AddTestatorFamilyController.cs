@@ -244,7 +244,11 @@ namespace WillAssure.Controllers
                     TFM.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
                     TFM.Marital_Status = dt.Rows[i]["Marital_Status"].ToString();
                     TFM.Religion = dt.Rows[i]["Religion"].ToString();
-                    TFM.RelationshipTxt = dt.Rows[i]["Relationship"].ToString();
+                    if (dt.Rows[i]["Relationship"].ToString() != "None")
+                    {
+                        TFM.RelationshipTxt = dt.Rows[i]["Relationship"].ToString();
+                    }
+                   
                     TFM.Address1 = dt.Rows[i]["Address1"].ToString();
                     TFM.Address2 = dt.Rows[i]["Address2"].ToString();
                     TFM.Address3 = dt.Rows[i]["Address3"].ToString();
@@ -876,7 +880,17 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@DOB", Convert.ToDateTime(TFM.Dob));
                 cmd.Parameters.AddWithValue("@Marital_Status", "none");
                 cmd.Parameters.AddWithValue("@Religion", "none");
+            if (TFM.RelationshipTxt != "")
+            {
+                TFM.RelationshipTxt = "None";
                 cmd.Parameters.AddWithValue("@Relationship", TFM.RelationshipTxt);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@Relationship", TFM.RelationshipTxt);
+            }
+               
+                
                 cmd.Parameters.AddWithValue("@Address1", TFM.Address1);
                 cmd.Parameters.AddWithValue("@Address2", TFM.Address2);
                 cmd.Parameters.AddWithValue("@Address3", TFM.Address3);
@@ -1949,7 +1963,7 @@ namespace WillAssure.Controllers
             string response = Request["send"].ToString();
             string msg = "";
             con.Open();
-            string query = "select Identity_proof_Value from TestatorDetails where uId = '"+Convert.ToInt32(Session["uuid"])+"'";
+            string query = "select Alt_Identity_proof_Value , Identity_proof_Value from TestatorDetails where uId = '" + Convert.ToInt32(Session["uuid"])+"'";
             SqlDataAdapter da = new SqlDataAdapter(query,con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -1957,7 +1971,7 @@ namespace WillAssure.Controllers
             if (dt.Rows.Count > 0)
             {
 
-                if (dt.Rows[0]["Identity_proof_Value"].ToString() == response)
+                if (dt.Rows[0]["Identity_proof_Value"].ToString() == response || dt.Rows[0]["Alt_Identity_proof_Value"].ToString() == response)
                 {
                     msg = "false";
                 }
@@ -1986,7 +2000,7 @@ namespace WillAssure.Controllers
             string response = Request["send"].ToString();
             string msg = "";
             con.Open();
-            string query = "select Alt_Identity_proof_Value from TestatorDetails where uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            string query = "select  Identity_proof_Value , Alt_Identity_proof_Value   from TestatorDetails where uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -1994,7 +2008,132 @@ namespace WillAssure.Controllers
             if (dt.Rows.Count > 0)
             {
 
-                if (dt.Rows[0]["Alt_Identity_proof_Value"].ToString() == response)
+                if (dt.Rows[0]["Alt_Identity_proof_Value"].ToString() == response || dt.Rows[0]["Identity_proof_Value"].ToString() == response)
+                {
+                    msg = "false";
+                }
+                else
+                {
+                    msg = "true";
+                }
+
+            }
+
+
+            con.Close();
+
+
+
+
+            return msg;
+        }
+
+
+
+
+
+
+        public string Validateidentity2()
+        {
+            string response = Request["send"].ToString();
+            string msg = "";
+
+
+
+
+
+
+            con.Open();
+
+
+
+            string query = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "   ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            int tid = 0;
+            if (dt.Rows.Count > 0)
+            {
+                tid = Convert.ToInt32(dt.Rows[0]["tId"]);
+            }
+
+
+
+
+            string query2 = "select Alt_Identity_proof_Value , Identity_proof_Value from TestatorDetails  where tId = " + tid + " ";
+            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+            DataTable dt2 = new DataTable();
+            da2.Fill(dt2);
+
+            if (dt2.Rows.Count > 0)
+            {
+
+                for (int i = 0; i < dt2.Rows.Count; i++)
+                {
+                    if (dt2.Rows[i]["Identity_proof_Value"].ToString() == response || dt2.Rows[0]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        msg = "false";
+                    }
+                    else
+                    {
+                        msg = "true";
+                    }
+
+
+                }
+
+
+            }
+
+
+            con.Close();
+
+
+
+
+            return msg;
+        }
+
+
+
+
+
+        public string altValidateidentity2()
+        {
+            string response = Request["send"].ToString();
+            string msg = "";
+
+
+
+
+
+
+            con.Open();
+
+
+
+            string query = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            int tid = 0;
+            if (dt.Rows.Count > 0)
+            {
+                tid = Convert.ToInt32(dt.Rows[0]["tId"]);
+            }
+
+
+
+
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+            DataTable dt2 = new DataTable();
+            da2.Fill(dt2);
+
+            if (dt2.Rows.Count > 0)
+            {
+
+                if (dt2.Rows[0]["Alt_Identity_proof_value"].ToString() == response || dt2.Rows[0]["Identity_proof_Value"].ToString() == response)
                 {
                     msg = "false";
                 }

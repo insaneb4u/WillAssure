@@ -217,18 +217,20 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Date Of Birth</label>
-                                        @Html.TextBoxFor(m => m.Dob, new { @type = "text", @class = "form-control input-shadow validate[required] text-input", @id = "txtDob", @placeholder = "Select Your Date Of Birth", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.Dob, new { @type = "text", @class = "form-control input-shadow validate[required] text-input", @id = "txtDob", @placeholder = "Select Your Date Of Birth", @autocomplete = "off", onchange = "validatedate(this.value)" })
 
                                         <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-                                            <input class="form-control input-shadow validate[required]" type="text" id="DOB" style="display:none;" name="Dobb" autocomplete="off" placeholder="Select Date Of Birth" />
+                                            <input class="form-control input-shadow validate[required]" onchange="validatedate(this.value)" type="text" id="DOB" style="display:none;" name="Dobb" autocomplete="off" placeholder="Select Date Of Birth" />
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                         </div>
+
                                         <script>
                                             $("#txtDob").focus(function () {
                                                 $("#txtDob").hide();
                                                 $("#DOB").show();
                                             });
                                         </script>
+                                        <span style="color:red; display:none;" id="datemsg">Should be 18+ Year</span>
                                     </div>
                                 </div>
 
@@ -977,6 +979,56 @@
 
 
     });
+
+
+
+       
+
+
+
+
+
+
+
+
+               function validatedate(value) {
+
+                  
+
+                 $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("dateofbirth", "UpdateTestators")",
+            data: { "send": "" + value + "" },
+                     success: function (data) {
+
+                     
+
+                         if (data == "false") {
+
+                             $("#datemsg").hide();
+                         }
+
+
+                         if (data == "true") {
+                             $("#datemsg").show();
+                         }
+                         
+
+                         if (data == "NoData") {
+                             $("#datemsg").show();
+                         }
+
+                     
+                     }
+
+                     });
+
+
+
+
+            }
+
 
 
 </script>

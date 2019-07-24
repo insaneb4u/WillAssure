@@ -21,12 +21,7 @@ namespace WillAssure.Controllers
         // GET: EditDocumentPricing
         public ActionResult EditDocumentPricingIndex()
         {
-            if (Session["rId"] == null || Session["uuid"] == null)
-            {
-
-                RedirectToAction("LoginPageIndex", "LoginPage");
-
-            }
+           
 
             // check type 
             string typ = "";
@@ -284,86 +279,138 @@ namespace WillAssure.Controllers
 
             //end
 
-
-
-            con.Open();
-            string query = "select * from documentpricing";
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
             string data = "";
-            string testString = "";
 
-            for (int i = 0; i < Lmlist.Count(); i++)
+            if (Session["Type"] != null)
             {
-                testString = Lmlist[12].Action;
+                if (Session["Type"].ToString() == "SuperAdmin")
+                {
+                    con.Open();
+                    string query = "select * from documentpricing";
+                    SqlDataAdapter da = new SqlDataAdapter(query, con);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    con.Close();
+                   
+                    string testString = "";
 
+                    for (int i = 0; i < Lmlist.Count(); i++)
+                    {
+                        testString = Lmlist[12].Action;
+
+                    }
+
+
+
+                    if (dt.Rows.Count > 0)
+                    {
+
+                        if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
+                        {
+                            for (int i = 0; i < dt.Rows.Count; i++)
+                            {
+                                data = data + "<tr class='nr'><td>" + dt.Rows[i]["prid"].ToString() + "</td>"
+                                + "<td>" + dt.Rows[i]["Document_Name"].ToString() + "</td>"
+                                + "<td>" + dt.Rows[i]["Document_Price"].ToString() + "</td>"
+                                + "<td> <button type='button'   id='" + dt.Rows[i]["prid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
+                            }
+                        }
+
+
+                        if (testString == "1,0,3" || testString == "0,0,3" || testString == "0,2,3" || testString == "1,0,3" || testString == "0,0,3")
+                        {
+                            for (int i = 0; i < dt.Rows.Count; i++)
+                            {
+                                data = data + "<tr class='nr'><td>" + dt.Rows[i]["prid"].ToString() + "</td>"
+                                + "<td>" + dt.Rows[i]["Document_Name"].ToString() + "</td>"
+                                + "<td>" + dt.Rows[i]["Document_Price"].ToString() + "</td>"
+                                + "<td><button type='button'   id=" + dt.Rows[i]["prid"].ToString() + "    class='btn btn-danger deletenotification'>Delete</button></td></tr>";
+                            }
+                        }
+
+
+
+                        if (testString == "1,2,3" || testString == "0,2,3")
+                        {
+                            for (int i = 0; i < dt.Rows.Count; i++)
+                            {
+                                data = data + "<tr class='nr'><td>" + dt.Rows[i]["prid"].ToString() + "</td>"
+                                + "<td>" + dt.Rows[i]["Document_Name"].ToString() + "</td>"
+                                + "<td>" + dt.Rows[i]["Document_Price"].ToString() + "</td>"
+                                + "<td> <button type='button'   id='" + dt.Rows[i]["prid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button><button type='button'   id=" + dt.Rows[i]["prid"].ToString() + "     class='btn btn-danger deletenotification'>Delete</button></td></tr>";
+                            }
+
+                        }
+
+
+
+                        if (testString == "0,0,0")
+                        {
+                            for (int i = 0; i < dt.Rows.Count; i++)
+                            {
+                                data = data + "<tr class='nr'><td>" + dt.Rows[i]["prid"].ToString() + "</td>"
+                                + "<td>" + dt.Rows[i]["Document_Name"].ToString() + "</td>"
+                                + "<td>" + dt.Rows[i]["Document_Price"].ToString() + "</td>";
+
+                            }
+
+
+
+                        }
+
+
+
+
+
+                    }
+
+
+
+
+                }
+
+
+                if (Session["Type"].ToString() == "DistributorAdmin")
+                {
+                    con.Open();
+                    string query = "select * from Distributor_documentpricing";
+                    SqlDataAdapter da = new SqlDataAdapter(query, con);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    con.Close();
+
+                 
+
+
+
+                    if (dt.Rows.Count > 0)
+                    {
+
+
+                      
+                            for (int i = 0; i < dt.Rows.Count; i++)
+                            {
+                                data = data + "<tr class='nr'><td>" + dt.Rows[i]["prid"].ToString() + "</td>"
+                                + "<td>" + dt.Rows[i]["Document_Name"].ToString() + "</td>"
+                                + "<td>" + dt.Rows[i]["Document_Price"].ToString() + "</td>"
+                                + "<td> <button type='button'   id='" + dt.Rows[i]["prid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button><button type='button'   id=" + dt.Rows[i]["prid"].ToString() + "     class='btn btn-danger deletenotification'>Delete</button></td></tr>";
+                            }
+
+                        
+                     }
+
+
+
+
+                }
             }
-
-
-
-            if (dt.Rows.Count > 0)
+            else
             {
-
-                if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
-                {
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["prid"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["Document_Name"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["Document_Price"].ToString() + "</td>"
-                        + "<td> <button type='button'   id='" + dt.Rows[i]["prid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
-                    }
-                }
-
-
-                if (testString == "1,0,3" || testString == "0,0,3" || testString == "0,2,3" || testString == "1,0,3" || testString == "0,0,3")
-                {
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["prid"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["Document_Name"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["Document_Price"].ToString() + "</td>"
-                        + "<td><button type='button'   id=" + dt.Rows[i]["prid"].ToString() + "    class='btn btn-danger deletenotification'>Delete</button></td></tr>";
-                    }
-                }
-
-
-
-                if (testString == "1,2,3" || testString == "0,2,3")
-                {
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["prid"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["Document_Name"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["Document_Price"].ToString() + "</td>"
-                        + "<td> <button type='button'   id='" + dt.Rows[i]["prid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button><button type='button'   id=" + dt.Rows[i]["prid"].ToString() + "     class='btn btn-danger deletenotification'>Delete</button></td></tr>";
-                    }
-
-                }
-
-
-
-                if (testString == "0,0,0")
-                {
-                    for (int i = 0; i < dt.Rows.Count; i++)
-                    {
-                        data = data + "<tr class='nr'><td>" + dt.Rows[i]["prid"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["Document_Name"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["Document_Price"].ToString() + "</td>";
-
-                    }
-
-
-
-                }
-
-
-
-
-
+                RedirectToAction("LoginPageIndex", "LoginPage");
             }
+           
+
+
 
             return data;
         }

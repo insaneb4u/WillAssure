@@ -1,0 +1,171 @@
+﻿@model WillAssure.Models.LoginModel
+@{
+    ViewBag.Title = "UpdateDocumentPricingPageContent";
+}
+
+
+
+
+
+
+@*Main Content*@
+<div class="content-wrapper">
+    <div class="container-fluid">
+
+        <div class="row pt-2 pb-2">
+
+            <div class="col-sm-3">
+                <div class="btn-group float-sm-right">
+
+                    <div class="dropdown-menu">
+                        <a href="javaScript:void();" class="dropdown-item">Action</a>
+                        <a href="javaScript:void();" class="dropdown-item">Another action</a>
+                        <a href="javaScript:void();" class="dropdown-item">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javaScript:void();" class="dropdown-item">Separated link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Breadcrumb-->
+        <div class="row">
+
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12 12">
+                            <div class="card bg-transparent shadow-none border border-light-3">
+                                <div class="card-header text-white border-light-3" style="background: #199d4b">
+                                    Instructions
+
+                                </div>
+                                <div class="card-body" style="background: #fff; border:1px solid #199d4b">
+                                    <ul>
+                                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+                                        <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-title text-primary">Add Document & Price</div>
+                        <hr class="div_rd">
+
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "RoleForm" }))
+                        {
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    @Html.HiddenFor(x=>x.prid);
+                                    <div class="form-group">
+                                        <label for="input-1">Document Name</label>
+
+
+
+                                        @Html.DropDownListFor(x => x.documentname, new SelectListItem[]{
+                     new SelectListItem() {Text = "--Select--", Value=""},
+                     new SelectListItem() {Text = "Will", Value="Will"},
+                     new SelectListItem() {Text = "Codocil", Value="Codocil"},
+                     new SelectListItem() {Text = "POA", Value="POA"},
+                     new SelectListItem() {Text = "Gift Deeds", Value="Gift Deeds"},
+
+
+                     new SelectListItem() {Text = "Living Will", Value="Living Will"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlreligion" })
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-sm-6">
+
+                                    <div class="form-group">
+                                        <label for="input-1">Document Price</label>
+
+                                        @Html.TextBoxFor(m => m.documentprice, new { @class = "form-control input-shadow validate[required,custom[number]] text-input", @id = "txtdocumentprice", @placeholder = "Enter Document Price", @autocomplete = "off", alert = "LabourCost is requried" })
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+
+                            <div class="form-group">
+
+                                <button type="submit" id="btnRoleformsubmit" formaction="UpdateDistributorPricing" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update Price</button>
+
+                            </div>
+
+                        }
+                    </div>
+                </div>
+            </div>
+            <button type="button" id="btnRoleformsubmitSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+            <button type="button" id="btnRoleformsubmitCHECK" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+@*end*@
+
+<script>
+    $(document).ready(function () {
+        $("#RoleForm").validationEngine();
+    });
+
+
+</script>
+
+
+
+
+
+@if (ViewBag.Message == "Duplicate")
+{
+    <script>
+
+        $(document).ready(function () {
+
+
+            $("#btnRoleformsubmitCHECK").on("click", function () { });
+
+            $("#btnRoleformsubmitCHECK").click(); //trigger event after listening to it.
+
+
+
+
+        });
+    </script>
+
+}
+
+
+@if (ViewBag.Message == "Verified")
+{
+    <script>
+
+        $(document).ready(function () {
+
+
+            $("#btnRoleformsubmitSUCCESS").on("click", function () { });
+
+            $("#btnRoleformsubmitSUCCESS").click(); //trigger event after listening to it.
+
+            $("#txtRole").val("");
+
+
+        });
+    </script>
+
+}
+
+
+
+
+

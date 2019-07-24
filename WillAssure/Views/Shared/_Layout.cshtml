@@ -513,6 +513,25 @@
                             </li>
 
 
+
+                            <li>
+
+                                <a href="javaScript:void();" class="waves-effect">
+
+                                    <i class="zmdi zmdi-format-list-bulleted"></i> <span>DocumentPrice</span>
+                                    <i class="fa fa-angle-left pull-right"></i>
+
+                                </a>
+
+      
+
+                                <ul class="sidebar-submenu">
+                                    <li><a href="/EditDocumentPricing/EditDocumentPricingIndex"><i class="zmdi zmdi-star-outline"></i>Set Document Price</a></li>
+
+                                </ul>
+
+                            </li>
+
                             <script>
                                 $("#testlist").hide();
                             </script>
@@ -545,7 +564,7 @@
 
                             </li>
 
-                            
+
                             <script>
                                 $("#testlist").hide();
                             </script>
@@ -564,10 +583,15 @@
 
 
 
-                    @if (ViewBag.showtitle == "true")
+                    @if (Session["Type"].ToString() != "DistributorAdmin")
                     {
-                        <li class="sidebar-header">Visitor Information</li>
+                        if (ViewBag.showtitle == "true")
+                        {
+                            <li class="sidebar-header">Visitor Information</li>
+                        }
                     }
+
+
 
 
 

@@ -377,7 +377,7 @@ namespace WillAssure.Controllers
             DateTime fromdat = DateTime.ParseExact(CAM.fromdate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             DateTime todat = DateTime.ParseExact(CAM.todate, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
-            string query = "insert into couponAllotment (Coupon_Number , uId , documenttype , validFrm , validTo , Tid, Status) values (" + CAM.Coupon_Number_txt+" , "+CAM.distributor_id+" ,  '"+CAM.documenttype + "' , '"+fromdat+"' , '"+todat+"' ,  0 , 'Active') ";
+            string query = "insert into couponAllotment (Coupon_Number , uId , documenttype , validFrm , validTo , Tid, Status) values (" + CAM.Coupon_Number_txt+" , "+CAM.distributor_id+" ,  '"+CAM.documenttype + "' , '"+Convert.ToDateTime(CAM.fromdate).ToString("yyyy-MM-dd")+"' , '"+ Convert.ToDateTime(CAM.todate).ToString("yyyy-MM-dd") + "' ,  0 , 'Active') ";
             SqlCommand cmd = new SqlCommand(query,con);
             cmd.ExecuteNonQuery();
 

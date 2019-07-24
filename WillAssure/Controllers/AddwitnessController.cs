@@ -43,12 +43,7 @@ namespace WillAssure.Controllers
         
 
             ViewBag.collapse = "true";
-            if (Session["rId"] == null || Session["uuid"] == null)
-            {
-
-                RedirectToAction("LoginPageIndex", "LoginPage");
-
-            }
+          
             // check type 
             string typ = "";
             con.Open();

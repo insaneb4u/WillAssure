@@ -362,9 +362,9 @@ else
         });
 
 
+   
 
-
-
+        
 
 
 
@@ -742,18 +742,30 @@ else
 
 
 
-                    $("#paymentfields").show();
-                    $(".btnpay").show();
+                  
 
 
 
                     $('#DDLAmtPaidBY2').prop('disabled', false);
+
+
+
+                    if ($(".checkone").is(':checked') == true || $(".checktwo").is(':checked') == true || $(".checkthree").is(':checked') == true || $(".checkfour").is(':checked') == true || $(".checkfive").is(':checked') == true) {
+
+
+                        $("#paymentfields").show();
+                        $(".btnpay").show();
+
+                    }
+                    else {
+                        $("#paymentfields").hide();
+                        $(".btnpay").hide();
+                    }
                 }
                 else {
 
                     $('#DDLAmtPaidBY2').prop('disabled', true);
-                    $("#willtype").hide();
-                    $(".btnpay").hide();
+                    
 
                     $("#paymentfields").hide();
                 }
@@ -774,13 +786,23 @@ else
             //  $("#documenttype").append(x);
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#c").val(x);
-            $(".btnpay").show();
-            $("#paymentfields").show();
+
+            if ($(".checkone").is(':checked') == true || $(".checktwo").is(':checked') == true || $(".checkthree").is(':checked') == true || $(".checkfour").is(':checked') == true || $(".checkfive").is(':checked') == true) {
+
+
+                $("#paymentfields").show();
+                $(".btnpay").show();
+
+            }
+            else {
+                $("#paymentfields").hide();
+                $(".btnpay").hide();
+            }
+         
         }
         else {
             $("#c").val('');
-            $(".btnpay").hide();
-            $("#paymentfields").hide();
+           
         }
         $("#lblcheck").hide();
     });
@@ -800,13 +822,22 @@ else
                     var x = $(".checkthree").val();
                     $("#documenttype").append(x);
                     $('#DDLAmtPaidBY2').prop('disabled', false);
-                    $(".btnpay").show();
-                    $("#paymentfields").show();
+
+
+                    if ($(".checkone").is(':checked') == true || $(".checktwo").is(':checked') == true || $(".checkthree").is(':checked') == true || $(".checkfour").is(':checked') == true || $(".checkfive").is(':checked') == true) {
+
+
+                        $("#paymentfields").show();
+                        $(".btnpay").show();
+
+                    }
+                    else {
+                        $("#paymentfields").hide();
+                        $(".btnpay").hide();
+                    }
+                   
                 }
-                else {
-                    $(".btnpay").hide();
-                    $("#paymentfields").hide();
-                }
+              
 
 
 
@@ -822,13 +853,22 @@ else
                     var x = $(".checkfour").val();
                     $("#documenttype").append(x);
                     $('#DDLAmtPaidBY2').prop('disabled', false);
-                    $(".btnpay").show();
-                    $("#paymentfields").show();
+
+
+                    if ($(".checkone").is(':checked') == true || $(".checktwo").is(':checked') == true || $(".checkthree").is(':checked') == true || $(".checkfour").is(':checked') == true || $(".checkfive").is(':checked') == true) {
+
+
+                        $("#paymentfields").show();
+                        $(".btnpay").show();
+
+                    }
+                    else {
+                        $("#paymentfields").hide();
+                        $(".btnpay").hide();
+                    }
+                
                 }
-                else {
-                    $(".btnpay").hide();
-                    $("#paymentfields").hide();
-                }
+               
 
 
 
@@ -846,13 +886,21 @@ else
                     var x = $(".checkfour").val();
                     $("#documenttype").append(x);
                     $('#DDLAmtPaidBY2').prop('disabled', false);
-                    $(".btnpay").show();
-                    $("#paymentfields").show();
+
+                    if ($(".checkone").is(':checked') == true || $(".checktwo").is(':checked') == true || $(".checkthree").is(':checked') == true || $(".checkfour").is(':checked') == true || $(".checkfive").is(':checked') == true) {
+
+
+                        $("#paymentfields").show();
+                        $(".btnpay").show();
+
+                    }
+                    else {
+                        $("#paymentfields").hide();
+                        $(".btnpay").hide();
+                    }
+                  
                 }
-                else {
-                    $(".btnpay").hide();
-                    $("#paymentfields").hide();
-                }
+             
 
 
 

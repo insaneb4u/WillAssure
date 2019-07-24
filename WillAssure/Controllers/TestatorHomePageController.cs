@@ -88,7 +88,7 @@ namespace WillAssure.Controllers
 
                         // check will status
                         con.Open();
-                        string qry1 = "select Will , Designation  from users where Will = 1 and Designation = 1 and uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                        string qry1 = "select Will , Designation  from users where Will = 1 and Designation = 1 and uId = " + Convert.ToInt32(Session["uuid"]) + "  ";
                         SqlDataAdapter daa1 = new SqlDataAdapter(qry1, con);
                         DataTable dtt1 = new DataTable();
                         daa1.Fill(dtt1);
@@ -96,7 +96,34 @@ namespace WillAssure.Controllers
                         {
                             if (Convert.ToInt32(dtt1.Rows[0]["Will"]) == 1 && Convert.ToInt32(dtt1.Rows[0]["Designation"]) == 1)
                             {
-                                ViewBag.documentbtn1 = "true";
+
+
+
+                                // if completed than hide 
+
+                                string qchk008 = "select * from Appointees where Type = 'Witness' and tid = "+testatorid+" and documentstatus = 'completed' ";
+                                SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                                DataTable chk008dt = new DataTable();
+                                chk008da.Fill(chk008dt);
+                                con.Close();
+
+                                if (chk008dt.Rows.Count > 0)
+                                {
+                                    // remove document
+                                    ViewBag.documentbtn1 = "false";
+
+                                }
+                                else
+                                {
+                                    // display document
+                                    ViewBag.documentbtn1 = "true";
+                                }
+
+
+
+                                //end
+
+                           
 
 
 

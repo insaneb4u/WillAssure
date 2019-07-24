@@ -1035,29 +1035,29 @@ namespace WillAssure.Controllers
                 cmdd.Parameters.AddWithValue("@Name", collection["altName"]);
                 cmdd.Parameters.AddWithValue("@middleName", collection["altmiddleName"]);
                 cmdd.Parameters.AddWithValue("@Surname", collection["altSurname"]);
-                cmdd.Parameters.AddWithValue("@Identity_proof", collection["altIdentity_Proof"]);
-                cmdd.Parameters.AddWithValue("@Identity_proof_value", collection["altIdentity_Proof_Value"]);
+                cmdd.Parameters.AddWithValue("@Identity_proof", collection["wIdentity_Proof"]);
+                cmdd.Parameters.AddWithValue("@Identity_proof_value", collection["wIdentity_Proof_Value"]);
 
-                if (collection["altAlt_Identity_Proof"] != null)
+                if (collection["wddlidentityproof1"] != null)
                 {
 
-                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof", collection["altAlt_Identity_Proof"]);
+                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof", collection["wddlidentityproof1"]);
                 }
                 else
                 {
-                    collection["altAlt_Identity_Proof"] = "None";
-                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof", collection["altAlt_Identity_Proof"]);
+                    collection["wddlidentityproof1"] = "None";
+                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof", collection["wddlidentityproof1"]);
                 }
 
 
-                if (collection["altAlt_Identity_Proof_Value"] != null)
+                if (collection["wAlt_Identity_Proof_Value"] != null)
                 {
-                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof_value", collection["altAlt_Identity_Proof_Value"]);
+                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof_value", collection["wAlt_Identity_Proof_Value"]);
                 }
                 else
                 {
-                    collection["altAlt_Identity_Proof_Value"] = "None";
-                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof_value", collection["altAlt_Identity_Proof_Value"]);
+                    collection["wAlt_Identity_Proof_Value"] = "None";
+                    cmdd.Parameters.AddWithValue("@Alt_Identity_proof_value", collection["wAlt_Identity_Proof_Value"]);
                 }
 
 

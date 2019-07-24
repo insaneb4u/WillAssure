@@ -43,7 +43,7 @@ namespace WillAssure.Models
         public string htmlcontent { get; set; }
         public int AssetsCategoryId { get; set; }
 
-
+        public int prid { get; set; }
         public int documentprice { get; set; }
 
         public string documentname { get; set; }

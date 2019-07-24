@@ -295,7 +295,7 @@ namespace WillAssure.Controllers
             if (Convert.ToInt32(Session["uuid"]) != 1)
             {
                 con.Open();
-                string query = "select * from TestatorDetails a   inner join users b on a.uId = b.uId  where a.uId = " + Convert.ToInt32(Session["uuid"]) + "  ";
+                string query = "select b.tId , b.First_Name , b.Last_Name , b.Middle_Name , b.DOB , b.Occupation , b.Mobile , b.Email , b.maritalStatus , b.RelationShip , b.Religion , b.Identity_Proof , b.Identity_proof_Value , b.Alt_Identity_Proof , b.Alt_Identity_proof_Value , b.Gender , b.Address1 , b.Address2, b.Address3 , b.Country , b.State , b.City , b.Pin , b.active , b.uId , b.Contact_Verification , b.Email_Verification , b.Mobile_Verification_Status , b.dateCreated , b.Email_OTP , b.Mobile_OTP , b.PaymentStatus , b.documentstatus , b.WillType from users a inner join TestatorDetails b on a.uId=b.uId where Linked_user = " + Convert.ToInt32(Session["uuid"]) + "  ";
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -330,9 +330,7 @@ namespace WillAssure.Controllers
                                     + "<td>" + dt.Rows[i]["Country"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Pin"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["active"].ToString() + "</td>"
-                                    + "<td><button type='button'    id='Will" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary Editbtn'>Will</button>&nbsp;&nbsp;<button type='button'   id='Codocil" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-success  Editbtn'>Codocil</button>&nbsp;&nbsp;<button type='button'   id='POA" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-info  Editbtn'>POA</button>&nbsp;&nbsp;<button type='button'   id='GiftDeeds" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-danger Editbtn'>GiftDeeds</button>&nbsp;&nbsp;<button type='button'   id='LivingWill" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-warning  Editbtn'>LivingWill</button></td></tr>";
-
-
+                                    + "<td><button type='button'    id='Quick" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary Editbtn'>(Quick)-Will</button>&nbsp;&nbsp;<button type='button'    id='Detailed" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary Editbtn'>(Detailed)-Will</button>&nbsp;&nbsp;<button type='button'   id='Codocil" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-success  Editbtn'>Codocil</button>&nbsp;&nbsp;<button type='button'   id='POA" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-info  Editbtn'>POA</button>&nbsp;&nbsp;<button type='button'   id='GiftDeeds" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-danger Editbtn'>GiftDeeds</button>&nbsp;&nbsp;<button type='button'   id='LivingWill" + dt.Rows[i]["tId"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-warning  Editbtn'>LivingWill</button></td></tr>";
 
 
 

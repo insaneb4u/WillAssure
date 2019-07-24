@@ -1499,12 +1499,12 @@
                         // alternate state and city
 
 
-                           $("#altddlstate").change(function () {
+            $("#guaWithdatastate").change(function () {
         var value = $(this).children(":selected").attr("value");
-        var text = $("#altddlstate option:selected").html();
+                var text = $("#guaWithdatastate option:selected").html();
 
-        $("#altstatetext").val(text);
-        $("#altstateid").val(value);
+        $("#guastatetext").val(text);
+        $("#guastateid").val(value);
 
 
         $.ajax({
@@ -1514,7 +1514,7 @@
             data: { "send": "" + value+  ""},
             success: function (data) {
 
-                $('#altddlcity').append(data);
+                $('#guaddlcity').append(data);
             }
 
 
@@ -2667,7 +2667,7 @@
 
 
 
-                $("#ddlidentityproof1").find("option[value='" + previousid + "']").attr("disabled", "disabled");
+                $("#guaddlidentityproof11").find("option[value='" + previousid + "']").attr("disabled", "disabled");
 
             }
         </script>

@@ -327,9 +327,9 @@ namespace WillAssure.Controllers
 
                     
 
-                    DateTime dat = DateTime.ParseExact(UFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                    
 
-                    cmd.Parameters.AddWithValue("@Dob", dat);
+                    cmd.Parameters.AddWithValue("@Dob", Convert.ToDateTime(UFM.Dob).ToString("yyyy-MM-dd"));
                     cmd.Parameters.AddWithValue("@Mobile", UFM.Mobile);
                     cmd.Parameters.AddWithValue("@Email", UFM.Email);
                     cmd.Parameters.AddWithValue("@Address1", UFM.Address1);

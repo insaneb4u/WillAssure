@@ -518,6 +518,37 @@ namespace WillAssure.Controllers
                     }
 
                 }
+                else
+                {
+                    con.Open();
+                    string query1 = "select ab.Rid , ab.MemberName , year(getdate())-year(ab.DOB) as age  from RelationShip ab where ( year(getdate())-year(ab.DOB)) <= 18";
+                    SqlDataAdapter da1 = new SqlDataAdapter(query1, con);
+                    DataTable dt1 = new DataTable();
+                    da1.Fill(dt1);
+                    con.Close();
+
+
+                    if (dt1.Rows.Count > 0)
+                    {
+
+
+                        for (int i = 0; i < dt1.Rows.Count; i++)
+                        {
+
+
+
+
+                            data = data + "<option value=" + dt1.Rows[i]["Rid"].ToString() + " >" + dt1.Rows[i]["MemberName"].ToString() + "</option>";
+
+
+
+                        }
+
+
+
+
+                    }
+                }
                
 
 
@@ -876,8 +907,9 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@First_Name", TFM.First_Name);
                 cmd.Parameters.AddWithValue("@Last_Name", TFM.Last_Name);
                 cmd.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
-                //DateTime dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                cmd.Parameters.AddWithValue("@DOB", Convert.ToDateTime(TFM.Dob));
+            var d = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+            cmd.Parameters.AddWithValue("@DOB", d);
                 cmd.Parameters.AddWithValue("@Marital_Status", "none");
                 cmd.Parameters.AddWithValue("@Religion", "none");
             if (TFM.RelationshipTxt != "")

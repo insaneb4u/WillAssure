@@ -99,29 +99,10 @@ namespace WillAssure.Controllers
 
 
 
-                                // if completed than hide 
-
-                                string qchk008 = "select * from Appointees where Type = 'Witness' and tid = "+testatorid+" and documentstatus = 'completed' ";
-                                SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                                DataTable chk008dt = new DataTable();
-                                chk008da.Fill(chk008dt);
-                                con.Close();
-
-                                if (chk008dt.Rows.Count > 0)
-                                {
-                                    // remove document
-                                    ViewBag.documentbtn1 = "false";
-
-                                }
-                                else
-                                {
+                          
                                     // display document
                                     ViewBag.documentbtn1 = "true";
-                                }
-
-
-
-                                //end
+                              
 
                            
 
@@ -154,29 +135,10 @@ namespace WillAssure.Controllers
 
 
 
-                                // if completed than hide 
-
-                                string qchk008 = "select top 1 codId from Codocil where documentstatus='Incompleted'  order by codId desc ";
-                                SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                                DataTable chk008dt = new DataTable();
-                                chk008da.Fill(chk008dt);
-                                con.Close();
-
-                                if (chk008dt.Rows.Count > 0)
-                                {
-                                    // remove document
-                                    ViewBag.documentbtn2 = "false";
-
-                                }
-                                else
-                                {
+                           
                                     // display document
                                     ViewBag.documentbtn2 = "true";
-                                }
-
-
-
-                                //end
+                              
 
 
 
@@ -258,32 +220,18 @@ namespace WillAssure.Controllers
 
 
 
+                                string queryliv = "select top 1 * from living_Will where documentstatus not in ('Completed')";
+                                SqlDataAdapter daliv = new SqlDataAdapter(queryliv, con);
+                                DataTable dtliv = new DataTable();
+                                daliv.Fill(dtliv);
 
-
-                                // if completed than hide 
-
-                                string qchk008 = "select top 1 livwillid from living_Will where documentstatus='Incompleted'  order by livwillid desc ";
-                                SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                                DataTable chk008dt = new DataTable();
-                                chk008da.Fill(chk008dt);
-                                con.Close();
-
-                                if (chk008dt.Rows.Count > 0)
-                                {
-                                    // remove document
-                                    ViewBag.documentbtn5 = "false";
-
-                                }
-                                else
+                                if (dtliv.Rows.Count > 0)
                                 {
                                     // display document
                                     ViewBag.documentbtn5 = "true";
                                 }
-
-
-
-                                //end
-
+                                   
+                          
 
 
 
@@ -917,7 +865,7 @@ namespace WillAssure.Controllers
                 typeid = "1,2,3";
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='0', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -930,7 +878,7 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string qq1 = "update users set   Will = '0' , Codocil = '1' , POA = '0' , Giftdeeds='0', LivingWill='0'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set    Codocil = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -942,7 +890,7 @@ namespace WillAssure.Controllers
                 typeid = "3";
 
                 con.Open();
-                string qq1 = "update users set Will = '0' , Codocil = '0' , POA = '1' , Giftdeeds='0', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -951,7 +899,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "1";
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '0' , Giftdeeds='0', LivingWill='0'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -961,7 +909,7 @@ namespace WillAssure.Controllers
                 typeid = "1,2";
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '0' , Giftdeeds='0', LivingWill='0'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -971,7 +919,7 @@ namespace WillAssure.Controllers
                 typeid = "1,3";
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '1' , Giftdeeds='0', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -981,7 +929,7 @@ namespace WillAssure.Controllers
                 typeid = "2,3";
 
                 con.Open();
-                string qq1 = "update users set  Will = '0' , Codocil = '1' , POA = '1' , Giftdeeds='0', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set   Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -991,7 +939,7 @@ namespace WillAssure.Controllers
                 typeid = "2,1";
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '0' , Giftdeeds='0', LivingWill='0'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1000,7 +948,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '1' , Giftdeeds='0', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1'  , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1009,7 +957,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set Will = '0' , Codocil = '0' , POA = '0' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1018,7 +966,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set  Will = '0' , Codocil = '1' , POA = '0' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  Codocil = '1' ,  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1028,7 +976,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '0' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1038,7 +986,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set  Will = '0' , Codocil = '0' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set   POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1049,7 +997,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '0' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1058,7 +1006,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set  Will = '0' , Codocil = '0' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set   POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1068,7 +1016,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set Will = '0' , Codocil = '1' , POA = '0' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Codocil = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1078,7 +1026,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '0' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1088,7 +1036,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1098,7 +1046,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1108,7 +1056,7 @@ namespace WillAssure.Controllers
             {
                 typeid = "3,1";
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1128,7 +1076,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set  Will = '0' , Codocil = '0' , POA = '0' , Giftdeeds='0', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1158,7 +1106,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '1' , Giftdeeds='0', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1'  , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1168,7 +1116,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '1' , Giftdeeds='0', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1'  , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1187,7 +1135,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set  Will = '0' , Codocil = '0' , POA = '1' , Giftdeeds='1', LivingWill='0'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  POA = '1' , Giftdeeds='1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1196,7 +1144,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' ,  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1205,7 +1153,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='0', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1214,7 +1162,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '0' , Codocil = '1' , POA = '0' , Giftdeeds='0', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  Codocil = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1223,7 +1171,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set  Will = '0' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set   Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1232,7 +1180,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '0' , Codocil = '0' , POA = '1' , Giftdeeds='0', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1241,7 +1189,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '0' , Codocil = '0' , POA = '0' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set   Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1260,7 +1208,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set  Will = '0' , Codocil = '0' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set   POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1270,7 +1218,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '0' , Codocil = '0' , POA = '1' , Giftdeeds='1', LivingWill='1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  POA = '1' , Giftdeeds='1', LivingWill='1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1280,7 +1228,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set  Will = '0' , Codocil = '0' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set   POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1290,7 +1238,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '0' , Codocil = '1' , POA = '0' , Giftdeeds='0', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  Codocil = '1' ,  LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1300,7 +1248,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set  Will = '0' , Codocil = '0' , POA = '0' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1311,7 +1259,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '0' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1321,7 +1269,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '0' , Codocil = '0' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1330,7 +1278,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set  Will = '0' , Codocil = '0' , POA = '1' , Giftdeeds='0', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set   POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1339,7 +1287,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '0' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1349,7 +1297,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '0' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' ,  Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1358,7 +1306,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '0' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1367,7 +1315,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '0' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1' ,  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1376,7 +1324,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '0' , Giftdeeds='0', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1385,7 +1333,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA ='0' , Giftdeeds='0', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1396,7 +1344,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1407,7 +1355,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1419,7 +1367,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '0' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' ,  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1429,7 +1377,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='0' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1451,7 +1399,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '0' , Giftdeeds='0', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1'  , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1460,7 +1408,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '0' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set  Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1470,7 +1418,7 @@ namespace WillAssure.Controllers
             {
 
                 con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='0', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1 = new SqlCommand(qq1, con);
                 cc1.ExecuteNonQuery();
                 con.Close();
@@ -1519,16 +1467,21 @@ namespace WillAssure.Controllers
             string status = "";
             string WillType = "";
 
-            if (Session["WillType"] != null)
-            {
-                WillType = Session["WillType"].ToString();
-            }
-            else
-            {
-                RedirectToAction("LoginPageIndex", "LoginPage");
-            }
 
-            
+            con.Open();
+            string qtest0012 = "select WillType from users where uId = " + Convert.ToInt32(Session["uuid"]) + "";
+            SqlDataAdapter test001da2 = new SqlDataAdapter(qtest0012, con);
+            DataTable test001dt2 = new DataTable();
+            test001da2.Fill(test001dt2);
+
+            if (test001dt2.Rows.Count > 0)
+            {
+                WillType = test001dt2.Rows[0]["WillType"].ToString();
+            }
+            con.Close();
+
+
+
 
 
             if (WillType == "Quick")

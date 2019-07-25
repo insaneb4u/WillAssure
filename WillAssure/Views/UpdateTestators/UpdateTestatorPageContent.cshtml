@@ -217,20 +217,33 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Date Of Birth</label>
-                                        @Html.TextBoxFor(m => m.Dob, new { @type = "text", @class = "form-control input-shadow validate[required] text-input", @id = "txtDob", @placeholder = "Select Your Date Of Birth", @autocomplete = "off", onchange = "validatedate(this.value)" })
+
+
 
                                         <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-                                            <input class="form-control input-shadow validate[required]" onchange="validatedate(this.value)" type="text" id="DOB" style="display:none;" name="Dobb" autocomplete="off" placeholder="Select Date Of Birth" />
+                                            <input class="form-control input-shadow validate[required]" onchange="validatedate(this.value)" value="@Model.Dob" type="text" id="DOB" name="Dob" autocomplete="off" placeholder="Select Date Of Birth" />
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                         </div>
 
-                                        <script>
-                                            $("#txtDob").focus(function () {
-                                                $("#txtDob").hide();
-                                                $("#DOB").show();
-                                            });
-                                        </script>
                                         <span style="color:red; display:none;" id="datemsg">Should be 18+ Year</span>
+
+
+
+
+
+                                        @*<script>
+                                            $("#DOB").focus(function () {
+
+                                                $("#DOB").hide();
+                                                $("#DOBB").show();
+                                            });
+                                        </script>*@
+
+
+
+
+
+
                                     </div>
                                 </div>
 
@@ -1012,11 +1025,14 @@
 
                          if (data == "true") {
                              $("#datemsg").show();
+                             $("#DOB").val("");
+
                          }
                          
 
                          if (data == "NoData") {
                              $("#datemsg").show();
+                             $("#DOB").val("");
                          }
 
                      

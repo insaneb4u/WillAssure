@@ -125,7 +125,7 @@ namespace WillAssure.Controllers
             // check type 
             string typ = "";
             con.Open();
-            string qq1 = "select Type from users where uId = " + getid + " ";
+            string qq1 = "select Type , WillType from users where uId = " + getid + " ";
             SqlDataAdapter daa = new SqlDataAdapter(qq1, con);
             DataTable dtt = new DataTable();
             daa.Fill(dtt);
@@ -134,6 +134,7 @@ namespace WillAssure.Controllers
             if (dtt.Rows.Count > 0)
             {
                 typ = dtt.Rows[0]["Type"].ToString();
+               
             }
 
 
@@ -1155,7 +1156,7 @@ namespace WillAssure.Controllers
             //{
             //    dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             //}
-
+            DateTime fromdat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
 
             SqlCommand cmd = new SqlCommand("SP_CRUDTestatorDetails", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -1164,7 +1165,7 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@First_Name", TFM.First_Name);
             cmd.Parameters.AddWithValue("@Last_Name", TFM.Last_Name);
             cmd.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
-            cmd.Parameters.AddWithValue("@DOB", Convert.ToDateTime(TFM.Dobb).ToString("yyyy-MM-dd"));
+            cmd.Parameters.AddWithValue("@DOB", fromdat);
             cmd.Parameters.AddWithValue("@Occupation", TFM.Occupation);
             cmd.Parameters.AddWithValue("@Mobile", TFM.Mobile);
             cmd.Parameters.AddWithValue("@Email", TFM.Email);
@@ -1245,15 +1246,15 @@ namespace WillAssure.Controllers
 
             if (TFM.EmailOTP != null)
             {
-                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + Convert.ToDateTime(TFM.Dob).ToString("yyyy-MM-dd") + "' , Mobile = '" + TFM.Mobile + "' ,  eMail = '" + TFM.Email + "' , Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '2'   where uId = " + TFM.uId + "     ";
+                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + fromdat + "' , Mobile = '" + TFM.Mobile + "' ,  eMail = '" + TFM.Email + "' , Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '2'   where uId = " + TFM.uId + "     ";
                 SqlCommand cdd = new SqlCommand(query2, con);
                 cdd.ExecuteNonQuery();
                 con.Close();
             }
             else
             {
-
-                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + Convert.ToDateTime(TFM.Dob).ToString("yyyy-MM-dd") + "' , Mobile = '" + TFM.Mobile + "' ,  eMail = '" + TFM.Email + "' , Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '1'   where uId = " + TFM.uId + "     ";
+           
+                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + fromdat + "' , Mobile = '" + TFM.Mobile + "' ,  eMail = '" + TFM.Email + "' , Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '1'   where uId = " + TFM.uId + "     ";
                 SqlCommand cdd = new SqlCommand(query2, con);
                 cdd.ExecuteNonQuery();
                 con.Close();
@@ -1544,34 +1545,55 @@ namespace WillAssure.Controllers
             con.Open();
             if (Session["Type"].ToString() == "SuperAdmin")
             {
-                qtest001 = "select uId from users where Linked_user = " + Convert.ToInt32(Session["uuid"]) + " and Type = 'Testator'";
+                qtest001 = "select uId , WillType from users where Linked_user = " + Convert.ToInt32(Session["uuid"]) + " and Type = 'Testator'";
             }
             if (Session["Type"].ToString() == "Distributor")
             {
-                qtest001 = "select uId from users where Linked_user = " + Convert.ToInt32(Session["uuid"]) + " and Type = 'DistributorAdmin'";
+                qtest001 = "select uId , WillType from users where Linked_user = " + Convert.ToInt32(Session["uuid"]) + " and Type = 'DistributorAdmin'";
             }
             if (Session["Type"].ToString() == "Testator")
             {
-                qtest001 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                qtest001 = "select tId , WillType from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
             }
             
             SqlDataAdapter test001da = new SqlDataAdapter(qtest001, con);
             DataTable test001dt = new DataTable();
             test001da.Fill(test001dt);
             con.Close();
-
             int NestId = 0;
             if (test001dt.Rows.Count > 0)
             {
 
                 NestId = Convert.ToInt32(test001dt.Rows[0]["tId"]);
 
+
             }
 
 
 
-            if (Session["doctype"] != null && Session["WillType"] != null && Session["Type"] != null && Session["doctype"].ToString() != "" && Session["WillType"].ToString() != "" && Session["Type"].ToString() != "")
+
+            con.Open();
+            string qtest0012 = "select WillType from users where uId = "+ Convert.ToInt32(Session["uuid"]) + "";
+            SqlDataAdapter test001da2 = new SqlDataAdapter(qtest0012, con);
+            DataTable test001dt2 = new DataTable();
+            test001da2.Fill(test001dt2);
+        
+            if (test001dt2.Rows.Count > 0)
             {
+                Session["WillType"] = test001dt2.Rows[0]["WillType"].ToString();
+            }
+            con.Close();
+
+
+
+       
+
+
+            if (Session["doctype"] != null && Session["WillType"] != null && Session["Type"] != null)
+            {
+
+              
+
 
 
 
@@ -1747,8 +1769,143 @@ namespace WillAssure.Controllers
                 }
 
 
-               
-                
+                if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Quick" || Session["Type"].ToString() == "SuperAdmin" || Session["Type"].ToString() == "Distributor")
+                {
+                    //////////// check document completion /////////////
+
+
+
+                    // for testator family
+                    con.Open();
+                    string qchk001 = "select a.fId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Marital_Status , a.Religion , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.tId , a.active , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.Is_Informed_Person from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where b.tId =   " + NestId + " and a.WillType='Detailed' ";
+                    SqlDataAdapter chk001da = new SqlDataAdapter(qchk001, con);
+                    DataTable chk001dt = new DataTable();
+                    chk001da.Fill(chk001dt);
+                    con.Close();
+
+                    if (chk001dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddTestatorFamilyIndex", "AddTestatorFamily");
+                    }
+                    //end
+
+
+
+
+                    // for beneficiary institution
+                    con.Open();
+                    string qchk0020 = "select * from [BeneficiaryInstitutions] where tid = " + NestId + "  and WillType='Detailed'";
+                    SqlDataAdapter chk002da0 = new SqlDataAdapter(qchk0020, con);
+                    DataTable chk002dt0 = new DataTable();
+                    chk002da0.Fill(chk002dt0);
+                    con.Close();
+                    if (chk002dt0.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute");
+                    }
+                    //end
+
+
+
+
+
+                    // for beneficiary
+                    con.Open();
+                    string qchk002 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId and a.fetchid not in ('TF') where b.tId = " + NestId + " and a.beneficiary_type = 'Beneficiary'  and a.WillType='Detailed' ";
+                    SqlDataAdapter chk002da = new SqlDataAdapter(qchk002, con);
+                    DataTable chk002dt = new DataTable();
+                    chk002da.Fill(chk002dt);
+                    con.Close();
+                    if (chk002dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddBeneficiaryIndex", "AddBeneficiary");
+                    }
+                    //end
+
+
+
+                    // for asset mapping 
+
+                    con.Open();
+                    string qchk006 = "select a.Beneficiary_Asset_ID , a.AssetType_ID , a.AssetCategory_ID ,  a.Beneficiary_ID , a.Proportion , a.tid from BeneficiaryAssets a inner join TestatorDetails b on a.tid=b.tId where b.tId = " + NestId + "  and a.WillType='Detailed'";
+                    SqlDataAdapter chk006da = new SqlDataAdapter(qchk006, con);
+                    DataTable chk006dt = new DataTable();
+                    chk006da.Fill(chk006dt);
+                    con.Close();
+
+                    if (chk006dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddAssetMappingIndex", "AddAssetMapping");
+                    }
+
+                    //end
+
+
+                    // for appointees 
+
+                    con.Open();
+                    string qchk008 = "select * from Appointees where tid = " + NestId + " and Type='Executor' and WillType='Detailed' ";
+                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+                    DataTable chk008dt = new DataTable();
+                    chk008da.Fill(chk008dt);
+                    con.Close();
+
+                    if (chk008dt.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddAppointeesIndex", "AddAppointees");
+                    }
+
+                    //end
+
+
+
+
+
+
+                    // for Addwitness 
+
+                    con.Open();
+                    string qchk0082 = "select * from Appointees where tid = " + NestId + " and Type='Witness' and WillType='Detailed' ";
+                    SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
+                    DataTable chk008dt2 = new DataTable();
+                    chk008da2.Fill(chk008dt2);
+                    con.Close();
+
+                    if (chk008dt2.Rows.Count > 0)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("AddwitnessIndex", "Addwitness");
+                    }
+
+                    //end
+
+
+
+                }
+
 
 
                 if (Session["doctype"].ToString() == "POA")

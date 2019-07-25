@@ -588,8 +588,8 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@First_Name ", BM.First_Name);
                 cmd.Parameters.AddWithValue("@Last_Name", BM.Last_Name);
                 cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
-                
-                cmd.Parameters.AddWithValue("@DOB", Convert.ToDateTime(BM.Dob).ToString("yyyy-MM-dd"));
+                DateTime dat = DateTime.ParseExact(BM.Dob, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                cmd.Parameters.AddWithValue("@DOB", dat);
                 if (BM.Mobile != null)
                 {
                     cmd.Parameters.AddWithValue("@Mobile", BM.Mobile);

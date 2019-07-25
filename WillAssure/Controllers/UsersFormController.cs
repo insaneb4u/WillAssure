@@ -325,11 +325,11 @@ namespace WillAssure.Controllers
                     cmd.Parameters.AddWithValue("@LastName", UFM.LastName);
                     cmd.Parameters.AddWithValue("@MiddleName", UFM.MiddleName);
 
-                    
 
-                    
 
-                    cmd.Parameters.AddWithValue("@Dob", Convert.ToDateTime(UFM.Dob).ToString("yyyy-MM-dd"));
+
+                    DateTime dt = DateTime.ParseExact(UFM.Dob, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    cmd.Parameters.AddWithValue("@Dob", dt);
                     cmd.Parameters.AddWithValue("@Mobile", UFM.Mobile);
                     cmd.Parameters.AddWithValue("@Email", UFM.Email);
                     cmd.Parameters.AddWithValue("@Address1", UFM.Address1);

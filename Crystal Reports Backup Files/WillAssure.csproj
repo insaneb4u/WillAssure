@@ -274,6 +274,7 @@
     <Compile Include="Controllers\UpdateDiscountController.cs" />
     <Compile Include="Controllers\UpdateDistributorController.cs" />
     <Compile Include="Controllers\UpdateDistributorEmployeeController.cs" />
+    <Compile Include="Controllers\UpdateDocumentPricingController.cs" />
     <Compile Include="Controllers\UpdateEditFormController.cs" />
     <Compile Include="Controllers\UpdateLiabilitiesController.cs" />
     <Compile Include="Controllers\UpdateMainAssetsController.cs" />
@@ -1875,6 +1876,7 @@
     <Content Include="Views\Addwitness\AddWitnessPageContent.cshtml" />
     <Content Include="Views\QuickMapping\QuickMappingPageContent.cshtml" />
     <Content Include="Views\CodocilWitness\CodocilWitnessPageContent.cshtml" />
+    <Content Include="Views\UpdateDocumentPricing\UpdateDocumentPricingPageContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,7 +8,11 @@
     a:focus {
         color: #40a97b;
     }
+
+
 </style>
+
+
 
 <h6 class="text-uppercase">Vertical Nav Tabs</h6>
 <hr>
@@ -146,6 +150,15 @@ else
                                                     <input type="text" id="txtvoucher" placeholder="Enter A Coupon Number" class="form-control" style="width:215px; display:none;" name="name" value="" />
                                                 </div>
 
+
+                                                <hr class="div_rd">
+
+
+
+                                                <div class="form-group">
+                                                    <button type="submit" id="paymentbtn" style="display:none;" formaction="insertDocumentDetails" class="btnpay btn btn-danger shadow-primary px-5 btnpop"><i class="icon-lock"></i>Make A Payment</button>
+                                                </div>
+
                                             </div>
 
 
@@ -155,16 +168,7 @@ else
                                         </div>
 
 
-                                        <hr class="div_rd">
-
-                                        @*<div style="float:right;">
-                                                <h4>Total Cost :</h4>
-                                            </div>*@
-
-
-                                        <div class="form-group">
-                                            <button type="submit" id="alert-success" style="display:none;" formaction="insertDocumentDetails" class="btnpay btn btn-danger shadow-primary px-5 btnpop"><i class="icon-lock"></i>Make A Payment</button>
-                                        </div>
+                                     
                                     </div>
 
 
@@ -637,14 +641,15 @@ else
             type: "POST",
             url:"@Url.Action("checkwilldocument", "TestatorHomePage")",
                            success: function (data) {
-
+                           
                                if (data == "true") {
-
+                                  
                                    $(".Willdoc").show();
                                }
 
                                if (data == "false") {
 
+                                
                                    $(".Willdoc").hide();
                                }
 
@@ -754,18 +759,20 @@ else
 
 
                         $("#paymentfields").show();
-                        $(".btnpay").show();
+                        $(".btnpop").show();
+                        $("#paymentbtn").show();
 
                     }
                     else {
                         $("#paymentfields").hide();
-                        $(".btnpay").hide();
+                        $(".btnpop").hide();
+                        $("#paymentbtn").hide();
                     }
                 }
                 else {
 
                     $('#DDLAmtPaidBY2').prop('disabled', true);
-                    
+                    $("#willtype").hide();
 
                     $("#paymentfields").hide();
                 }
@@ -791,12 +798,14 @@ else
 
 
                 $("#paymentfields").show();
-                $(".btnpay").show();
+                $(".btnpop").show();
+                $("#paymentbtn").show();
 
             }
             else {
                 $("#paymentfields").hide();
-                $(".btnpay").hide();
+                $(".btnpop").hide();
+                $("#paymentbtn").hide();
             }
          
         }
@@ -828,12 +837,14 @@ else
 
 
                         $("#paymentfields").show();
-                        $(".btnpay").show();
+                        $(".btnpop").show();
+                        $("#paymentbtn").show();
 
                     }
                     else {
                         $("#paymentfields").hide();
-                        $(".btnpay").hide();
+                        $(".btnpop").hide();
+                        $("#paymentbtn").hide();
                     }
                    
                 }
@@ -859,12 +870,14 @@ else
 
 
                         $("#paymentfields").show();
-                        $(".btnpay").show();
+                        $(".btnpop").show();
+                        $("#paymentbtn").show();
 
                     }
                     else {
                         $("#paymentfields").hide();
-                        $(".btnpay").hide();
+                        $(".btnpop").hide();
+                        $("#paymentbtn").hide();
                     }
                 
                 }
@@ -891,12 +904,14 @@ else
 
 
                         $("#paymentfields").show();
-                        $(".btnpay").show();
+                        $(".btnpop").show();
+                        $("#paymentbtn").show();
 
                     }
                     else {
                         $("#paymentfields").hide();
-                        $(".btnpay").hide();
+                        $(".btnpop").hide();
+                        $("#paymentbtn").hide();
                     }
                   
                 }

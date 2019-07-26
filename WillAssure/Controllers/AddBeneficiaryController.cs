@@ -30,6 +30,23 @@ namespace WillAssure.Controllers
             }
 
 
+            if (TempData["showbenepopup"] != null)
+            {
+                if (TempData["showbenepopup"].ToString() == "false")
+                {
+                    ViewBag.checkmessage = "false";
+                }
+                else
+                {
+                    ViewBag.checkmessage = "true";
+                }
+
+               
+                   
+                
+            }
+
+
             ViewBag.view = "Will";
             ViewBag.collapse = "true";
             // check type fsdf
@@ -1613,6 +1630,85 @@ namespace WillAssure.Controllers
 
             return data;
 
+        }
+
+
+
+
+
+        public ActionResult CheckBeneficiaryCount()
+        {
+
+            con.Open();
+
+            // get tid
+            string qtest001 = "";
+            if (Session["Type"].ToString() == "SuperAdmin")
+            {
+                qtest001 = "select uId , WillType from users where Linked_user = " + Convert.ToInt32(Session["uuid"]) + " and Type = 'Testator'";
+            }
+            if (Session["Type"].ToString() == "Distributor")
+            {
+                qtest001 = "select uId , WillType from users where Linked_user = " + Convert.ToInt32(Session["uuid"]) + " and Type = 'DistributorAdmin'";
+            }
+            if (Session["Type"].ToString() == "Testator")
+            {
+                qtest001 = "select tId , WillType from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+            }
+
+            SqlDataAdapter test001da = new SqlDataAdapter(qtest001, con);
+            DataTable test001dt = new DataTable();
+            test001da.Fill(test001dt);
+           
+            int NestId = 0;
+            if (test001dt.Rows.Count > 0)
+            {
+
+                NestId = Convert.ToInt32(test001dt.Rows[0]["tId"]);
+
+
+            }
+
+
+
+            //end
+
+
+
+        
+
+            // check testator family
+            string query1 = "select beneficiary_type from BeneficiaryDetails where  tid=" + NestId+"";
+            SqlDataAdapter da1 = new SqlDataAdapter(query1,con);
+            DataTable dt1 = new DataTable();
+            da1.Fill(dt1);
+            if (dt1.Rows.Count > 0)
+            {
+                if (dt1.Rows[0]["beneficiary_type"].ToString() == "TestatorFamily" || dt1.Rows[0]["beneficiary_type"].ToString() == "Beneficiary" || dt1.Rows[0]["beneficiary_type"].ToString() == "Institution")
+                {
+                    TempData["showbenepopup"] = "true";
+                }
+               
+
+
+            }
+            else
+            {
+                TempData["showbenepopup"] = "false";
+            }
+            //end
+
+
+
+
+
+
+
+
+
+
+            return RedirectToAction("AddBeneficiaryIndex", "AddBeneficiary");
+            
         }
 
 

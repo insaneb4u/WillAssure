@@ -414,7 +414,7 @@
 
         </div>*@
 
-                                    <input type="text" id="checkaltbenestatus" name="checkaltbenestatus" value="" />
+                                    <input type="text" id="checkaltbenestatus" name="checkaltbenestatus" style="display:none;" value="" />
                             <textarea id="query" style="display:none;" class="form-control">
                                
                            </textarea>
@@ -664,20 +664,20 @@
                                  res += "<label for='input-1'>Balance Proportion</label>";
                                  res += "<input type='text' id='txttotal"+data[i].assetcatid+"' min=0  class='form-control totalinput' readonly />";
                                  res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-638px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
-              
+                                 res += "<input type='text' id='txtcapbeneid' name='txtcapbeneid' class='txtcapclass'  />"; 
                                  res += "</div>";
                                  res += "</div>";
                                  res += "</br>";
 
                                  res += "<div class='col-md-8 alternaterow'>";
                                  res += "<table class='table tblalternaterow'>";
-                                 res += "<tr>";
+                                 res += "<tr class='rowclass'>";
 
-                                 res += "<td><button type='button' id='alternatebtn' class='btn btn-sm btn-success'>Add Alternate Beneficiary</button></td>";
-                                 res += "<td id='field1' style='display:none'><select name='alt_proportion' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1' class='form-control altbeneficiaryclass'></select></td>";
-                                 res += "<td id='field2' style='display:none'><input type='text' name='alt_proportion' id='alt_proportion1' class='form-control'></td>";
-                                 res += "<td id='field3' style='display:none'><input type='text' name='alt_total' id='alt_total' class='form-control alt_total'></td>";
-                                 res += "<td id='field4' style='display:none'><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add</button></td>";
+                               
+                                 res += "<td><select disabled name='alt_proportion' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1' class='form-control altbeneficiaryclass disabledelement'></select></td>";
+                                 res += "<td><input disabled type='text' name='alt_proportion' id='alt_proportion1' class='form-control alt_proportioninput disabledelement'></td>";
+                                 res += "<td><input disabled type='text' name='alt_total' id='alt_total1' value='100' class='form-control alt_totalinput disabledelement'></td>";
+                                 res += "<td><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add</button></td>";
                                  res += "</tr>";
                                  res += "</table>";
                                  res += "</div>";
@@ -1020,7 +1020,7 @@
             }
             var proportionvalue = $(this).val();
 
-            $rowdiv.find("table").find("tr:first").find('.alt_total').val(proportionvalue);
+            //$rowdiv.find("table").find("tr:first").find('.alt_totalinput').val(proportionvalue);
            
             if (prevtotalinputval != "") {
                 if (parseInt(prevtotalinputval) > parseInt(proportionvalue) || parseInt(prevtotalinputval) == parseInt(proportionvalue)  ) {
@@ -1520,7 +1520,20 @@
             var $clone = $("#parentdiv"+btnnum+"").find('.rowdiv:last').clone();
 
             var alternatebene = $("#parentdiv" + btnnum + "").find(".altbeneficiaryclass:last").val();
+            //remove all rows except first
             $clone.find("table").find("tr:not(:last)").remove();
+
+            //get cloned table row;
+            var $getclonetabletr = $clone.find('table').find('tr');
+            $getclonetabletr.find('.alt_totalinput').val('100');
+            //add class to row
+            $getclonetabletr.addClass('rowclass');
+            //add disabled attribute to all elements in row
+            $getclonetabletr.each(function () {
+                $(this).find('td').each(function () {
+                    $(this).find('input,select').prop("disabled", true);
+                });
+            });
             if (alternatebene == "0") {
                 $("#query").append("0~")
             }
@@ -2145,7 +2158,23 @@ function getDDLTestator(value) {
         });
         $(document).on('click', '.btnaddalternate', function () {
 
+            $("#checkaltbenestatus").val("true");
+
+            var val = $(this).closest("#accordio1").find(".beneficiaryclass:last").val();
+    
+            $(this).closest("#accordio1").find(".txtcapclass:last").val(val);
+
             var $tr = $(this).closest('tr');
+            var $numberofrows = $tr.closest('table > tbody > tr').length;
+            var rowelementbool = false;
+            
+            if ($tr.hasClass('rowclass')) {
+
+                        rowelementbool = true;
+
+                    }
+             
+           // console.log(rowelementbool);
 
             var $lastTr = $tr.closest('table').find('tr:last');
 
@@ -2172,9 +2201,20 @@ function getDDLTestator(value) {
                 }
             });
             // insert a remove link in the last cell
-
-            $('td:last-child', $lastTr).html('<a href="javascript:void(0);" class="btn btn-sm btn-danger remove removeDefault"><i class="fa fa-minus" aria-hidden="true"></i></a>');
-            $tr.closest('tbody').append($clone);
+           
+            if ($numberofrows == 1 && rowelementbool) {
+                //enable elements in current row if there is only row
+                $tr.each(function () {
+                    $(this).find('td').each(function () {
+                        $(this).find('input,select').prop("disabled", false);
+                        $tr.removeClass('rowclass');
+                    });
+                });
+            } else {
+                $('td:last-child', $lastTr).html('<a href="javascript:void(0);" class="btn btn-sm btn-danger remove removeDefault"><i class="fa fa-minus" aria-hidden="true"></i></a>');
+                $tr.closest('tbody').append($clone);
+            }
+          
           
             // add the remove function to the new row
             $('a.remove', $lastTr).click(function () {
@@ -2209,4 +2249,137 @@ function getDDLTestator(value) {
             });
 
         }
+        $(document).on('keyup', '.alt_proportioninput', function () {
+
+
+
+
+
+            var $rowdiv = $(this).closest('tr');
+            var $rowdiv1 = $(this).closest('tr').closest('.rowdiv');
+            var $prevdiv = $rowdiv.prev('tr');
+            var parentaccordionid = $rowdiv1.parent('div').parent('div').parent('div').parent('div').attr('id');
+           
+            var rr = $(this).attr('id');
+            var f = rr.replace('txtproportion', '');
+            // var temp = $("#txttotalval").val();
+            //var temp = $rowdiv.find('.alt_totalinput').val();
+            var temp = 100;
+
+            var prevtotalinputval = $prevdiv.find('.alt_totalinput').val();
+          
+            $prevdiv.find('.alt_proportioninput').prop('readonly', true);
+
+
+
+
+
+            if (typeof prevtotalinputval === "undefined") {
+
+                prevtotalinputval = temp;
+            }
+            var proportionvalue = $(this).val();
+
+            $rowdiv.find('.alt_totalinput').val(proportionvalue);
+
+            if (prevtotalinputval != "") {
+                if (parseInt(prevtotalinputval) > parseInt(proportionvalue) || parseInt(prevtotalinputval) == parseInt(proportionvalue)) {
+
+
+
+                    if (proportionvalue == "") {
+
+
+                        $(".btnadd" + f + "").attr("disabled", "disabled");
+                    }
+                    else {
+
+                        $(".btnadd" + f + "").removeAttr("disabled");
+                    }
+
+
+
+
+
+
+
+
+
+
+                    var t = $("#txttotalval").val();
+                    var result = "";
+
+
+
+                    // if ($rowdiv.find('.totalinput').val() == "") {
+
+                    $rowdiv.find('.alt_totalinput').val(temp - proportionvalue);
+
+                    if (temp != "100") {
+                        // alert('1st');
+                        var x = prevtotalinputval - proportionvalue;
+                        if (parseInt(proportionvalue) > prevtotalinputval) {
+                            alert('proportion value cannot be greater than ' + prevtotalinputval);
+                            $(this).val('');
+                            $rowdiv.find('.alt_totalinput').val('');
+                        } else {
+                            $rowdiv.find('.alt_totalinput').val(x);
+                        }
+
+                    }
+
+
+
+                    if (temp == "100") {
+                        // alert('2nd');
+
+                        var x = parseInt(prevtotalinputval) - proportionvalue;
+                        if (parseInt(proportionvalue) > parseInt(temp)) {
+                            alert('proportion value cannot be greater than ' + parseInt(temp));
+                            $(this).val('');
+                            $rowdiv.find('.alt_totalinput').val('');
+                        } else {
+                            $rowdiv.find('.alt_totalinput').val(x);
+                        }
+
+                    }
+                    if ($rowdiv.find('.alt_totalinput').val() != "") {
+                        if ($rowdiv.find('.alt_totalinput').val() > 0) {
+
+                            //$('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+
+                        } else {
+
+                            $('#' + parentaccordionid).find('#btnmappingsubmit').removeAttr("disabled");
+                            $(".btnadd" + f + "").attr("disabled", "disabled");
+
+                        }
+                    } else {
+                        $('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+                    }
+
+
+
+
+
+                }
+                else {
+
+                    alert("Proportion Value Cannot Be Greater Than Total...!");
+
+                    $(this).val("");
+                    var x = $rowdiv.find('.alt_totalinput').val("");
+
+
+                }
+
+
+                //$(this).id.attr("disabled","disabled");
+
+
+
+
+            }
+
+        });
     </script>

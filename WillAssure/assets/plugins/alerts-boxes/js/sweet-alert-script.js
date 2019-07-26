@@ -55,7 +55,9 @@
          swal("Failed", "Will Already Have Been Created...!", "warning");
      });
 
-
+     $("#btnbenecheck").click(function () {
+         swal("Failed", "Need Aleast One Beneficiary To Proceed Further...!", "warning");
+     });
 
      $("#btncheckExists").click(function () {
          swal("Failed", "Data Already Exist For Selected Testator", "error");

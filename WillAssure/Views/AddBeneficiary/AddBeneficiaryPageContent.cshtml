@@ -283,7 +283,7 @@
 
                                             <label for="input-1">Date Of Birth</label>
                                             <div id="datepicker01" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB" value="@Model.Dob" name="DOB"  onchange="getinputdate(this.value)" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB" value="@Model.Dob" name="DOB" onchange="getinputdate(this.value)" autocomplete="off" placeholder="Select Date Of Birth"  readonly="true"  />
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
 
@@ -299,7 +299,7 @@
 
                                             <label for="input-1">Date Of Birth</label>
                                             <div id="datepicker01" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="DOB"  onchange="getinputdate(this.value)" autocomplete="off" placeholder="Select Date Of Birth" />
+                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="DOB" onchange="getinputdate(this.value)" autocomplete="off" placeholder="Select Date Of Birth"  readonly="true" />
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
 
@@ -400,10 +400,10 @@
                                         @if (Model.country_txt != null)
                                         {
 
-                                        <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
-                                            
-                                            <option value="@Model.country_txt">@Model.country_txt</option>
-                                        </select>
+                                            <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+
+                                                <option value="@Model.country_txt">@Model.country_txt</option>
+                                            </select>
                                             @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
                                             @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
                                         }
@@ -491,7 +491,7 @@
 
                             </div>
 
-                            
+
 
 
 
@@ -966,19 +966,19 @@
                                 <button type="submit" id="btnBeneficiaryformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
                                 <button type="submit" id="btnupdate" style="display:none;" formaction="updateBeneficiary" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
                                 <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
-
+                                <input type="button" id="btnbenecheck" style="display:none;" name="name" value="" />
 
                                 @if (Session["WillType"] != null && Session["doctype"] != null)
                                 {
                                     if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Quick")
                                     {
 
-                                        <a href="@Url.Action("AddAppointeesIndex","AddAppointees")"><button type="button" id="btnnext" style="display:none" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                        <a href="@Url.Action("CheckBeneficiaryCount","AddBeneficiary")"><button type="button" id="btnnext" style="display:" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
 
                                     }
                                     else
                                     {
-                                        <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><button type="button" id="btnnext" style="display:none" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                        <a href="@Url.Action("CheckBeneficiaryCount","AddBeneficiary")"><button type="button" id="btnnext" style="display:" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                                     }
                                 }
 
@@ -1073,7 +1073,7 @@
             type: "POST",
             url:"@Url.Action("BindCountryDDL", "AddBeneficiary")",
             success: function (data) {
-             
+
                 $('#ddlcountry').append(data);
             }
         });
@@ -1894,7 +1894,7 @@
             $("#ddlidentityproof22").attr("disabled", "disabled");
             $("#txtIdentityProofValue22").attr("disabled", "disabled");
             $("#ddlcountry").attr("disabled", "disabled");
-            
+
 
             $("#altfirstname").attr("disabled", "disabled");
             $("#altmiddlename").attr("disabled", "disabled");
@@ -2248,7 +2248,7 @@
 
 
             function validateidentity(value) {
-           
+
                 $.ajax({
 
                     type: "POST",
@@ -2324,5 +2324,47 @@
 
 
 </script>
+
+
+
+
+@if (ViewBag.checkmessage == "false")
+{
+    <script>
+
+        $(document).ready(function () {
+            $("#btnbenecheck").on("click", function () { });
+
+            $("#btnbenecheck").click(); //trigger event after listening to it.
+        });
+
+
+
+    </script>
+
+
+}
+
+
+
+
+
+@if (ViewBag.checkmessage == "true")
+{
+    <script>
+
+       
+
+            var url = "/AddMainAssets/AddMainAssetsIndex/";
+            window.location.href = url;
+
+
+
+
+    </script>
+
+
+}
+
 
 @*end*@

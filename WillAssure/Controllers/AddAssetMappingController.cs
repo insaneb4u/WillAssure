@@ -1631,8 +1631,8 @@ namespace WillAssure.Controllers
 
 
 
-                    data = data.Remove(data.Length - 2, 2);
-                 
+                    data = data.Remove(data.Length - 1, 1);
+
                     querydy = "insert BeneficiaryAssets (Beneficiary_ID ,Proportion , tid , AssetType_ID , AssetCategory_ID , doctype,Type,Category,documentstatus,WillType) values(" + data+" , "+ Session["distid"].ToString() + " , "+assettypeid+" , "+assetcatid+ " , '"+Session["doctype"].ToString()+ "', 2  ,'"+combine+"' , 'incompleted','"+Session["WillType"].ToString()+"' ) ";
                     SqlCommand cmdy = new SqlCommand(querydy, con);
                     cmdy.ExecuteNonQuery();
@@ -1693,7 +1693,11 @@ namespace WillAssure.Controllers
 
                 string querydy2 = "";
                 string altbene = collection["alt_proportion"].ToString();
+                string linkid = collection["txtcapbeneid"].ToString();
 
+
+                altbene = altbene.Substring(1);
+             
 
                 string firstValue = result[0].ToString();
                 ArrayList result2 = new ArrayList(altbene.Split(','));
@@ -1728,9 +1732,9 @@ namespace WillAssure.Controllers
 
 
 
-                        data2 = data2.Remove(data2.Length - 2, 2);
+                        data2 = data2.Remove(data2.Length - 1, 1);
 
-                        querydy2 = "insert into alternate_Beneficiaryassets (alternatebenefciaryid ,alternateproportion,linkedbid) values (" + data2+","+firstValue+") ";
+                        querydy2 = "insert into alternate_Beneficiaryassets (alternatebenefciaryid ,alternateproportion) values (" + data2+") ";
                         SqlCommand cmdy2 = new SqlCommand(querydy2, con);
                         cmdy2.ExecuteNonQuery();
                         getcount2 = 1;
@@ -1781,11 +1785,11 @@ namespace WillAssure.Controllers
                 con.Close();
 
             }
-            
-            
+
+            TempData["Message"] = "true";
 
 
-            return View("~/Views/AddAssetMapping/AddAssetMappingPageContent.cshtml");
+            return RedirectToAction("AddAssetMappingIndex", "AddAssetMapping");
         }
 
 

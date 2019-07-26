@@ -185,11 +185,11 @@
                                         <label for="input-1">Registration No</label>
                                         @if (Model.RegistrationNo != 0)
                                         {
-                                            @Html.TextBoxFor(m => m.RegistrationNo, new { @class = "form-control input-shadow validate[custom[onlyNumberSp]]  text-input", @id = "txtmiddlename", @placeholder = "Registration No", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextBoxFor(m => m.RegistrationNo, new { @class = "form-control input-shadow validate[custom[onlyNumberSp]]  text-input", @id = "RegistrationNo", @placeholder = "Registration No", @autocomplete = "off", alert = "LabourCost is requried" })
                                         }
                                         else
                                         {
-                                            <input type="text" class="form-control input-shadow validate[custom[onlyNumberSp]] text-input" name="RegistrationNo" />
+                                            <input type="text" class="form-control input-shadow validate[custom[onlyNumberSp]] text-input" name="RegistrationNo"  id="RegistrationNo" />
                                         }
                                     </div>
                                 </div>
@@ -250,7 +250,9 @@
                                         <div class="form-group">
                                             <label for="input-1">City</label>
                                             <select id="ddlcity" class="form-control input-shadow validate[required]">
+
                                                 <option value="@Model.CityText">@Model.CityText</option>
+                                                <option value="D">--Select City--</option>
                                             </select>
                                             @Html.HiddenFor(m => m.CityId, new { id = "cityid" })
                                             @Html.HiddenFor(m => m.CityText, new { id = "citytext" })
@@ -692,6 +694,7 @@
                                     $("#ddlstate").attr("disabled", "disabled");
                                     $("#ddlcity").attr("disabled", "disabled");
 
+                                    $("#RegistrationNo").attr("disabled", "disabled");
 
                                     $("#alttxtfirstname").attr("disabled", "disabled");
                                     $("#altTypeText").attr("disabled", "disabled");
@@ -726,7 +729,8 @@
                                 $("#txtaddress1").removeAttr("disabled");
                                 $("#ddlstate").removeAttr("disabled");
                                 $("#ddlcity").removeAttr("disabled");
-
+                                $("#RegistrationNo").removeAttr("disabled");
+                               
 
 
 
@@ -770,8 +774,9 @@
                                 $("#txtaddress1").removeAttr("disabled");
                                 $("#ddlstate").removeAttr("disabled");
                                 $("#ddlcity").removeAttr("disabled");
-
-
+                                $('#ddlstate').val('').trigger('change');
+                                $('#ddlcity').val('D').trigger('change');
+                                $("#RegistrationNo").removeAttr("disabled");
 
 
                                 $("#alttxtfirstname").removeAttr("disabled");
@@ -817,7 +822,10 @@
                                 $("#altinstitution").hide();
                                 $(".altone").prop('checked', false);
 
-
+                              
+                                $('#ddlstate').val('').trigger('change');
+                                $('#ddlcity').val('D').trigger('change');
+                               
                                 $("#txtfirstname").removeAttr("disabled");
                                 $("#TypeText").removeAttr("disabled");
                                 $("#txtmiddlename").removeAttr("disabled");
@@ -826,7 +834,7 @@
                                 $("#ddlcity").removeAttr("disabled");
 
 
-
+                                $("#RegistrationNo").removeAttr("disabled");
 
                                 $("#alttxtfirstname").removeAttr("disabled");
                                 $("#altTypeText").removeAttr("disabled");

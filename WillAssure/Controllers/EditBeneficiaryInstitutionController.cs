@@ -185,6 +185,8 @@ namespace WillAssure.Controllers
             }
 
 
+            string regno = "";
+
 
             if (dt.Rows.Count > 0)
             {
@@ -193,10 +195,17 @@ namespace WillAssure.Controllers
                 {
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
+                        if (dt.Rows[i]["registrationNo"].ToString() != "0")
+                        {
+                            regno = dt.Rows[i]["registrationNo"].ToString();
+                        }
+
+
+
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["biId"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["State"].ToString() + "</td>"
@@ -212,7 +221,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["biId"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["State"].ToString() + "</td>"
@@ -229,7 +238,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["biId"].ToString() + "</td>"
                           + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["State"].ToString() + "</td>"
@@ -247,7 +256,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["biId"].ToString() + "</td>"
                           + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt.Rows[i]["State"].ToString() + "</td>";
@@ -439,19 +448,29 @@ namespace WillAssure.Controllers
 
             }
 
-
+            string regno = "";
 
             if (dt1.Rows.Count > 0)
             {
 
                 if (testString == "1,2,0" || testString == "0,2,0" || testString == "0,2,3" || testString == "0,2,3" || testString == "0,2,0")
                 {
+
+
                     for (int i = 0; i < dt1.Rows.Count; i++)
                     {
+
+                        if (dt1.Rows[i]["registrationNo"].ToString() != "0")
+                        {
+                            regno = dt1.Rows[i]["registrationNo"].ToString();
+                        }
+
+
+
                         data = data + "<tr class='nr'><td>" + dt1.Rows[i]["biId"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt1.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt1.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["State"].ToString() + "</td>"
@@ -467,7 +486,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt1.Rows[i]["biId"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt1.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt1.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["State"].ToString() + "</td>"
@@ -484,7 +503,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt1.Rows[i]["biId"].ToString() + "</td>"
                           + "<td>" + dt1.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt1.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt1.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["State"].ToString() + "</td>"
@@ -502,7 +521,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt1.Rows[i]["biId"].ToString() + "</td>"
                           + "<td>" + dt1.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt1.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt1.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["State"].ToString() + "</td>";
@@ -682,7 +701,7 @@ namespace WillAssure.Controllers
 
             }
 
-
+            string regno = "";
 
             if (dt1.Rows.Count > 0)
             {
@@ -691,10 +710,16 @@ namespace WillAssure.Controllers
                 {
                     for (int i = 0; i < dt1.Rows.Count; i++)
                     {
+                        if (dt1.Rows[i]["registrationNo"].ToString() != "0")
+                        {
+                            regno = dt1.Rows[i]["registrationNo"].ToString();
+                        }
+
+
                         data = data + "<tr class='nr'><td>" + dt1.Rows[i]["biId"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt1.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt1.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["State"].ToString() + "</td>"
@@ -710,7 +735,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt1.Rows[i]["biId"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt1.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt1.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["State"].ToString() + "</td>"
@@ -727,7 +752,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt1.Rows[i]["biId"].ToString() + "</td>"
                           + "<td>" + dt1.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt1.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt1.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["State"].ToString() + "</td>"
@@ -745,7 +770,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt1.Rows[i]["biId"].ToString() + "</td>"
                           + "<td>" + dt1.Rows[i]["Name"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["Type"].ToString() + "</td>"
-                        + "<td>" + dt1.Rows[i]["registrationNo"].ToString() + "</td>"
+                        + "<td>" + regno + "</td>"
                         + "<td>" + dt1.Rows[i]["Address"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["City"].ToString() + "</td>"
                         + "<td>" + dt1.Rows[i]["State"].ToString() + "</td>";

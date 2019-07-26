@@ -1662,9 +1662,17 @@ namespace WillAssure.Controllers
                 else
                 {
 
-                    data += "" + result[i].ToString() + ",";
+                    
+
+                    try
+                    {
+                        data += "" + result[i].ToString() + ",";
+                    }
+                    catch (Exception)
+                    {
 
 
+                    }
 
                 }
                 getcount++;
@@ -1696,7 +1704,7 @@ namespace WillAssure.Controllers
                 string linkid = collection["txtcapbeneid"].ToString();
 
 
-                altbene = altbene.Substring(1);
+                
              
 
                 string firstValue = result[0].ToString();
@@ -1713,6 +1721,12 @@ namespace WillAssure.Controllers
                     {
                         if (result2[i].ToString() == "")
                         {
+                            if ((result2.IndexOf(result2) != 0))
+                            {
+                                data2 += linkid;
+                            }
+                            
+                            
                             continue;
                         }
                     }
@@ -1727,7 +1741,7 @@ namespace WillAssure.Controllers
                     //if (getcount == change)
 
                     // dynamic appointees
-                    if (getcount2 == 2)
+                    if (getcount2 == 3)
                     {
 
 
@@ -1763,7 +1777,17 @@ namespace WillAssure.Controllers
                     else
                     {
 
-                        data2 += "" + result2[i].ToString() + ",";
+                        
+
+                        try
+                        {
+                            data2 += "" + result2[i].ToString() + ",";
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
 
 
 

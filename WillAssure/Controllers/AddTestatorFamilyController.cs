@@ -914,11 +914,12 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@Religion", "none");
             if (TFM.RelationshipTxt != "")
             {
-                TFM.RelationshipTxt = "None";
+                
                 cmd.Parameters.AddWithValue("@Relationship", TFM.RelationshipTxt);
             }
             else
             {
+                TFM.RelationshipTxt = "None";
                 cmd.Parameters.AddWithValue("@Relationship", TFM.RelationshipTxt);
             }
                

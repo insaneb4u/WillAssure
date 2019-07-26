@@ -677,7 +677,8 @@
                                  res += "<td><select disabled name='alt_proportion' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1' class='form-control altbeneficiaryclass disabledelement'></select></td>";
                                  res += "<td><input disabled type='text' name='alt_proportion' id='alt_proportion1' class='form-control alt_proportioninput disabledelement'></td>";
                                  res += "<td><input disabled type='text' name='alt_total' id='alt_total1' value='100' class='form-control alt_totalinput disabledelement'></td>";
-                                 res += "<td><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add</button></td>";
+                                 res += "<td><input disabled type='text' name='alt_proportion' id='alt_pr' class='form-control alt_propo disabledelement'></td>";
+                                 res += "<td><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add Alternate Beneficiary</button></td>";
                                  res += "</tr>";
                                  res += "</table>";
                                  res += "</div>";
@@ -2240,7 +2241,8 @@ function getDDLTestator(value) {
                 if (id != myid) {
                     if (lang_name == myval && lang_name != '') {
                         alert(selectedtext + ' already exists');
-                        $("#" + id).val('0');
+                        $("#" + id).val('0');
+
                        // $("#" + id).select2('val', '');
                     }
                 }

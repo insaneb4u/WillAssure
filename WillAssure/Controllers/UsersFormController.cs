@@ -21,6 +21,17 @@ namespace WillAssure.Controllers
 
         public ActionResult UsersFormIndex()
         {
+            if (TempData["success"] != null)
+            {
+                if (TempData["success"].ToString() == "true")
+                {
+                    ViewBag.Message = "Verified";
+                }
+            }
+
+          
+
+
             // check type 
             string typ = "";
             con.Open();
@@ -499,7 +510,7 @@ namespace WillAssure.Controllers
 
 
 
-                ViewBag.Message = "Verified";
+                TempData["success"] = "true";
 
                 }
             con.Close();
@@ -643,7 +654,7 @@ namespace WillAssure.Controllers
 
 
 
-            return View("~/Views/UsersForm/UsersFormPageContent.cshtml");
+            return RedirectToAction("UsersFormIndex", "UsersForm");
         }
 
 

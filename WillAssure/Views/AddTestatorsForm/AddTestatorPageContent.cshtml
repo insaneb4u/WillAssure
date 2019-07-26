@@ -188,7 +188,7 @@
                                     <div class="form-group">
                                         <label for="input-1">Date Of Birth</label>
                                         <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-                                            <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
+                                            <input class="form-control input-shadow validate[required]" readonly="true" type="text" onchange="checkvalue(this.value)" id="DOB" name="DOB" autocomplete="off" placeholder="Select Date Of Birth" />
                                             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                         </div>
                                     </div>
@@ -744,7 +744,13 @@
                     <script>
 
 
+                        function checkvalue(value) {
+                            if (value != "") {
 
+                                $("#DOB").validationEngine("hide");
+
+                            }
+                        }
 
     $("#ddlcountry").change(function () {
         var value = $(this).children(":selected").attr("value");

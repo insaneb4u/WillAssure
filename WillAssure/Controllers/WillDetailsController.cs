@@ -1077,11 +1077,11 @@ namespace WillAssure.Controllers
             {
 
                 // update doctype for testator
-                con.Open();
-                string query77 = "update TestatorDetails set WillType = '" + Session["WillType"].ToString() + "'  and doctype='" + Session["doctype"].ToString() + "'  , documentstatus = 'Completed'   where  tId = " + NestId + "";
+               
+                string query77 = "update TestatorDetails set WillType = '" + Session["WillType"].ToString() + "' , doctype='" + Session["doctype"].ToString() + "'  , documentstatus = 'Completed'   where  tId = " + NestId + "";
                 SqlCommand cmd77 = new SqlCommand(query77, con);
                 cmd77.ExecuteNonQuery();
-                con.Close();
+               
 
                 //end
 

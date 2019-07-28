@@ -88,7 +88,7 @@ namespace WillAssure.Controllers
 
                         // check will status
                         con.Open();
-                        string qry1 = "select Will , Designation  from users where Will = 1 and Designation = 1 and uId = " + Convert.ToInt32(Session["uuid"]) + "  ";
+                        string qry1 = "select WillType , Will ,  Designation  from users where Will = 1 and Designation = 1 and uId = " + Convert.ToInt32(Session["uuid"]) + "  ";
                         SqlDataAdapter daa1 = new SqlDataAdapter(qry1, con);
                         DataTable dtt1 = new DataTable();
                         daa1.Fill(dtt1);
@@ -97,11 +97,20 @@ namespace WillAssure.Controllers
                             if (Convert.ToInt32(dtt1.Rows[0]["Will"]) == 1 && Convert.ToInt32(dtt1.Rows[0]["Designation"]) == 1)
                             {
 
+                                if (dtt1.Rows[0]["WillType"].ToString() == "Quick")
+                                {
+                                    // display document
+                                    ViewBag.Quick = "true";
+                                }
+
+                                if (dtt1.Rows[0]["WillType"].ToString() == "Detailed")
+                                {
+                                    // display document
+                                    ViewBag.Detailed = "true";
+                                }
+
 
                               
-                              
-                                    // display document
-                                    ViewBag.documentbtn1 = "true";
                                 
                              
                           

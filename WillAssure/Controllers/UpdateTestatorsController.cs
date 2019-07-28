@@ -125,7 +125,7 @@ namespace WillAssure.Controllers
             // check type 
             string typ = "";
             con.Open();
-            string qq1 = "select Type , WillType from users where uId = " + getid + " ";
+            string qq1 = "select Type  from users where uId = " + getid + " ";
             SqlDataAdapter daa = new SqlDataAdapter(qq1, con);
             DataTable dtt = new DataTable();
             daa.Fill(dtt);
@@ -134,7 +134,7 @@ namespace WillAssure.Controllers
             if (dtt.Rows.Count > 0)
             {
                 typ = dtt.Rows[0]["Type"].ToString();
-                willtype = dtt.Rows[0]["WillType"].ToString();
+                
             }
 
 
@@ -142,8 +142,8 @@ namespace WillAssure.Controllers
             //end
 
 
+         
 
-          
 
 
 

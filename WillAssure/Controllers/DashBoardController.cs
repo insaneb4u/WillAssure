@@ -476,7 +476,7 @@ namespace WillAssure.Controllers
         }
 
 
-        public ActionResult EnableDocumentLinks(string doctype)
+        public ActionResult EnableDocumentLinks(string doctype , string WillType)
         {
 
             if (Session["Type"] == null)
@@ -543,7 +543,9 @@ namespace WillAssure.Controllers
                 if (doctype == "Will")
                 {
                     ViewBag.collapse = "true";
+                   
                     Session["doctype"] = "Will";
+                    Session["WillType"] = WillType;
                     return RedirectToAction("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) });
                 }
 

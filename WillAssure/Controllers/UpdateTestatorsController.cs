@@ -61,7 +61,7 @@ namespace WillAssure.Controllers
             }
 
 
-            if (Session["Type"].ToString() != null)
+            if (Session["Type"] != null)
             {
 
                 if (Session["Type"].ToString() == "SuperAdmin")
@@ -111,7 +111,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string qq26 = "select tId from TestatorDetails where uId = " + getid + " ";
+            string qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
             SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
             DataTable dtt26 = new DataTable();
             daa26.Fill(dtt26);
@@ -130,16 +130,22 @@ namespace WillAssure.Controllers
             DataTable dtt = new DataTable();
             daa.Fill(dtt);
             con.Close();
-
+            string willtype = "";
             if (dtt.Rows.Count > 0)
             {
                 typ = dtt.Rows[0]["Type"].ToString();
-               
+                willtype = dtt.Rows[0]["WillType"].ToString();
             }
 
 
 
             //end
+
+
+
+          
+
+
 
 
 
@@ -1237,9 +1243,7 @@ namespace WillAssure.Controllers
 
             cmd.ExecuteNonQuery();
 
-            //string query = "update TestatorDetails set First_Name = '"+TFM.First_Name+"' , Last_Name='"+TFM.Last_Name+"' ,Middle_Name= '"+TFM.Middle_Name+"' , DOB = '"+ sqlFormattedDate + "' ,Occupation='"+TFM.Occupation+"' ,Mobile='"+TFM.Mobile+"' ,Email = '"+TFM.Email+"' ,maritalStatus='"+TFM.material_status +"' , Religion='"+TFM.Religiontext+ "' ,  Relationship = '"+TFM.RelationshipTxt + "'   ,Identity_Proof='" + TFM.Identity_Proof+"' ,Identity_proof_Value='"+TFM.Identity_proof_Value+"',Alt_Identity_Proof='"+TFM.Alt_Identity_Proof+"',Alt_Identity_proof_Value='"+TFM.Alt_Identity_proof_Value+"',Gender='"+TFM.Gendertext+"',Address1='"+TFM.Address1+"',Address2='"+TFM.Address2+"',Address3='"+TFM.Address3+"',Country='"+TFM.countrytext+"',State='"+TFM.statetext+"',City='"+TFM.citytext+"',Pin='"+TFM.Pin+"',active='"+TFM.active+ "'  where  tId = " + TFM.tId+"";
-            //SqlCommand cmd = new SqlCommand(query,con);
-            //cmd.ExecuteNonQuery();
+            
 
 
 
@@ -1553,7 +1557,7 @@ namespace WillAssure.Controllers
             }
             if (Session["Type"].ToString() == "Testator")
             {
-                qtest001 = "select tId , WillType from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                qtest001 = "select top 1 tId , WillType from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " order by tid desc ";
             }
             
             SqlDataAdapter test001da = new SqlDataAdapter(qtest001, con);

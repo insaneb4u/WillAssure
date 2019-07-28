@@ -70,7 +70,7 @@ namespace WillAssure.Controllers
 
 
 
-                //////////////////////////////////////////////////////  FOR CHECKING PAYMENT and displaying in incompleted document   ///////////////////////////////////////////////
+                //////////////////////////////////////////////////////  FOR CHECKING PAYMENT and displaying  ///////////////////////////////////////////////
 
 
                 con.Open();
@@ -98,10 +98,14 @@ namespace WillAssure.Controllers
                             {
 
 
-
-                          
+                              
+                              
                                     // display document
                                     ViewBag.documentbtn1 = "true";
+                                
+                             
+                          
+                                 
                               
 
                            
@@ -163,10 +167,9 @@ namespace WillAssure.Controllers
                             if (Convert.ToInt32(dtt4.Rows[0]["POA"]) == 1 && Convert.ToInt32(dtt4.Rows[0]["Designation"]) == 1)
                             {
 
-                                ViewBag.documentbtn3 = "true";
-
-
-
+                                // display document
+                                    ViewBag.documentbtn3 = "true";
+                                
 
 
                             }
@@ -187,13 +190,15 @@ namespace WillAssure.Controllers
                             {
                                 if (Convert.ToInt32(dtt3.Rows[0]["Giftdeeds"]) == 1 && Convert.ToInt32(dtt3.Rows[0]["Designation"]) == 1)
                                 {
-                                    ViewBag.documentbtn4 = "true";
+
+                                    
+                                        // display document
+                                        ViewBag.documentbtn4 = "true";
+                                    
 
 
 
-
-
-                                }
+                                }  
                             }
 
                         }
@@ -220,16 +225,10 @@ namespace WillAssure.Controllers
 
 
 
-                                string queryliv = "select top 1 * from living_Will where documentstatus not in ('Completed')";
-                                SqlDataAdapter daliv = new SqlDataAdapter(queryliv, con);
-                                DataTable dtliv = new DataTable();
-                                daliv.Fill(dtliv);
-
-                                if (dtliv.Rows.Count > 0)
-                                {
+                              
                                     // display document
                                     ViewBag.documentbtn5 = "true";
-                                }
+                                
                                    
                           
 
@@ -272,6 +271,7 @@ namespace WillAssure.Controllers
                 {
                     RedirectToAction("LoginPageIndex", "LoginPage");
                 }
+
 
                 con.Open();
                 string query = "select Designation  from users where uId = " + Convert.ToInt32(Session["uuid"]) + "  ";
@@ -440,7 +440,7 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string query12 = "select tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string query12 = "select top 1 tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " order by tid desc ";
                 SqlDataAdapter da12 = new SqlDataAdapter(query12, con);
                 DataTable dt12 = new DataTable();
                 da12.Fill(dt12);
@@ -568,7 +568,7 @@ namespace WillAssure.Controllers
 
          
             con.Open();
-            string query1t = "select tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+            string query1t = "select top 1 tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " order by tid desc ";
             SqlDataAdapter da1t = new SqlDataAdapter(query1t, con);
             DataTable dt1t = new DataTable();
             da1t.Fill(dt1t);
@@ -587,60 +587,107 @@ namespace WillAssure.Controllers
             //////////////////////////////////////////////////////  FOR CHECKING DOCUMENT COMPLETION ///////////////////////////////////////////////
 
 
-            con.Open();
-            string query2 = "select Will , Codocil , POA , Giftdeeds , LivingWill  from users where uId =  " + Convert.ToInt32(Session["uuid"]) + " ";
-            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
-            DataTable dt2 = new DataTable();
-            da2.Fill(dt2);
-            con.Close();
-
-            if (dt2.Rows.Count > 0)
-            {
-                if (Convert.ToInt32(dt2.Rows[0]["Will"]) == 1)
-                {
-                    ViewBag.PaymentLink = "true";
-                    // for appointees 
+          
+                    // for Detailed Will 
 
                     con.Open();
-                    string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='Will' and Type='Witness'  ";
+                    string qchk008 = "select * from TestatorDetails where WillType = 'Detailed' and doctype = 'Will' and documentstatus = 'Completed' and uId= "+Convert.ToInt32(Session["uuid"])+"";
                     SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
                     DataTable chk008dt = new DataTable();
                     chk008da.Fill(chk008dt);
                     con.Close();
-
+                    int detailedcount = 1;
+                    int getcount = 0;
+                    string btnwillDetailed = "";
                     if (chk008dt.Rows.Count > 0)
                     {
+                        
+                        for (int i = 0; i < chk008dt.Rows.Count; i++)
+                        {
+                            getcount = detailedcount++;
+                            try
+                            {
+                                btnwillDetailed = btnwillDetailed + "<a href='/page/Report.aspx?NestId="+chk008dt.Rows[i]["tid"].ToString()+"' id='compdocumentbtn1' ><button type='button' class='btn btn-primary waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Detailed-Will-(" + getcount + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
+                            }
+                            catch (Exception)
+                            {
+
+                              
+                            }
+
+                            
+                        }
+
+                       
 
 
-                        ViewBag.Willbtn = "true";
+                        ViewBag.Willbtn = btnwillDetailed;
 
 
 
                     }
-                    else
+
+
+            //end
+
+
+
+            // for Quick Will 
+
+            con.Open();
+            string qchk00822 = "select * from TestatorDetails where WillType = 'Quick' and doctype = 'Will' and documentstatus = 'Completed' and uId= " + Convert.ToInt32(Session["uuid"]) + "";
+            SqlDataAdapter chk008da22 = new SqlDataAdapter(qchk00822, con);
+            DataTable chk008dt22 = new DataTable();
+            chk008da22.Fill(chk008dt22);
+            con.Close();
+            int detailedcount22 = 1;
+            int getcount22 = 0;
+            string btnwillDetailed22 = "";
+            if (chk008dt22.Rows.Count > 0)
+            {
+
+                for (int i = 0; i < chk008dt22.Rows.Count; i++)
+                {
+                    getcount22 = detailedcount22++;
+                    try
                     {
-                        ViewBag.empty = "true";
+                        btnwillDetailed22 = btnwillDetailed22 + "<a href='/page/Report.aspx?NestId=" + chk008dt22.Rows[i]["tid"].ToString() + "' id='compdocumentbtn1' ><button type='button' class='btn btn-primary waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Quick-Will-(" + getcount + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
+                    }
+                    catch (Exception)
+                    {
+
+
                     }
 
 
-                    //end
                 }
 
 
 
-                if (Convert.ToInt32(dt2.Rows[0]["POA"]) == 1)
-                {
-                    ViewBag.PaymentLink = "true";
-                    // for appointees 
 
-                    con.Open();
-                    string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='POA'  and Type='Witness' ";
-                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                    DataTable chk008dt = new DataTable();
-                    chk008da.Fill(chk008dt);
+                ViewBag.WillQuickbtn = btnwillDetailed22;
+
+
+
+            }
+
+
+            //end
+
+
+
+
+
+            // for POA 
+
+            con.Open();
+                    string qchk0082 = "select * from TestatorDetails where  doctype = 'POA' and documentstatus = 'Completed' and uId= " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
+                    DataTable chk008dt2 = new DataTable();
+                    chk008da2.Fill(chk008dt2);
                     con.Close();
 
-                    if (chk008dt.Rows.Count > 0)
+                    if (chk008dt2.Rows.Count > 0)
                     {
 
 
@@ -649,29 +696,25 @@ namespace WillAssure.Controllers
 
 
                     }
-                    else
-                    {
-                        ViewBag.empty = "true";
-                    }
+                
 
 
                     //end
-                }
+                
 
 
-                if (Convert.ToInt32(dt2.Rows[0]["Giftdeeds"]) == 1)
-                {
-                    ViewBag.PaymentLink = "true";
-                    // for appointees 
+              
+                   
+                    // for Giftdeeds 
 
                     con.Open();
-                    string qchk008 = "select * from Appointees where tid = " + testatorid + " and doctype='Giftdeeds' and Type='Witness'  ";
-                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                    DataTable chk008dt = new DataTable();
-                    chk008da.Fill(chk008dt);
+                    string qchk0083 = "select * from TestatorDetails where  doctype = 'Giftdeeds' and documentstatus = 'Completed' and uId= " + Convert.ToInt32(Session["uuid"]) + "";
+                    SqlDataAdapter chk008da3 = new SqlDataAdapter(qchk0083, con);
+                    DataTable chk008dt3 = new DataTable();
+                    chk008da3.Fill(chk008dt3);
                     con.Close();
 
-                    if (chk008dt.Rows.Count > 0)
+                    if (chk008dt3.Rows.Count > 0)
                     {
 
 
@@ -680,70 +723,122 @@ namespace WillAssure.Controllers
 
 
                     }
-                    else
-                    {
-                        ViewBag.empty = "true";
-                    }
+                 
 
 
                     //end
-                }
+                
 
 
-                if (Convert.ToInt32(dt2.Rows[0]["LivingWill"]) == 1)
-                {
+                
                     ViewBag.PaymentLink = "true";
-                    // for appointees 
+                    // for living_Will 
 
                     con.Open();
-                    string qchk008 = "select * from living_Will where tid = " + testatorid + "  and documentstatus='Completed'  ";
-                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                    DataTable chk008dt = new DataTable();
-                    chk008da.Fill(chk008dt);
+                    string qchk0084 = "select * from living_Will where documentstatus = 'Completed' or documentstatus ='Incompleted' and tId = " + testatorid + "";
+                    SqlDataAdapter chk008da4 = new SqlDataAdapter(qchk0084, con);
+                    DataTable chk008dt4 = new DataTable();
+                    chk008da4.Fill(chk008dt4);
                     con.Close();
 
-                    if (chk008dt.Rows.Count > 0)
+                    if (chk008dt4.Rows.Count > 0)
                     {
 
 
-                        ViewBag.LivingWillbtn = "true";
-                        ViewBag.PaymentLink = "true";
+                        int detailedcountl = 1;
+                        int getcountl = 0;
+                        string btnLiving = "";
+                        if (chk008dt4.Rows.Count > 0)
+                        {
+                            
+                            for (int i = 0; i < chk008dt4.Rows.Count; i++)
+                            {
+                                getcountl = detailedcountl++;
+                                try
+                                {
+                                    btnLiving = btnLiving + "<a href='/page/Report.aspx?NestId=" + chk008dt4.Rows[i]["tid"].ToString() + "' id='compdocumentbtn5' ><button type='button' class='btn btn-warning waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>LivingWill-(" + getcount + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
+                                }
+                                catch (Exception)
+                                {
 
+
+                                }
+
+
+                            }
+
+
+
+
+                            ViewBag.LivingWillbtn = btnLiving;
+
+
+
+
+
+
+                            ViewBag.PaymentLink = "true";
+
+                        }
+
+
+                        //end
                     }
-
-
-                    //end
-                }
+                
 
 
 
-                if (Convert.ToInt32(dt2.Rows[0]["Codocil"]) == 1)
-                {
-                    ViewBag.PaymentLink = "true";
-                    // for appointees 
+              
+
+                    // for Codocil 
 
                     con.Open();
-                    string qchk008 = "select * from Codocil where uId = " + Convert.ToInt32(Session["uuid"]) + "  and documentstatus='Completed' ";
-                    SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
-                    DataTable chk008dt = new DataTable();
-                    chk008da.Fill(chk008dt);
+                    string qchk0085 = "select * from Codocil where documentstatus = 'Completed' or documentstatus ='Incompleted' and tId = " + testatorid + " ";
+                    SqlDataAdapter chk008da5 = new SqlDataAdapter(qchk0085, con);
+                    DataTable chk008dt5 = new DataTable();
+                    chk008da5.Fill(chk008dt5);
                     con.Close();
 
-                    if (chk008dt.Rows.Count > 0)
+                    if (chk008dt5.Rows.Count > 0)
                     {
+                        int detailedcountc = 1;
+                        int getcountc = 0;
+                        string btnCodocil = "";
+                        if (chk008dt5.Rows.Count > 0)
+                        {
+                            
+                            for (int i = 0; i < chk008dt5.Rows.Count; i++)
+                            {
+                                getcountc = detailedcountc++;
+                                try
+                                {
+                                    btnCodocil = btnCodocil + "<a href='/page/Report.aspx?NestId=" + chk008dt5.Rows[i]["tid"].ToString() + "' id='compdocumentbtn5' ><button type='button' class='btn btn-success waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Codocil-(" + getcount + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
+                                }
+                                catch (Exception)
+                                {
 
 
-                        ViewBag.Codocilbtn = "true";
-                        ViewBag.PaymentLink = "true";
+                                }
+
+
+                            }
 
 
 
+
+                            ViewBag.Codocilbtn = btnCodocil;
+
+                     
+                            ViewBag.PaymentLink = "true";
+
+
+
+                        }
+
+
+                        //end
                     }
-
-
-                    //end
-                }
-            }
+               
 
             //////////////////////////////////////////////////////  END  ///////////////////////////////////////////////
 
@@ -784,677 +879,1328 @@ namespace WillAssure.Controllers
 
         public ActionResult insertDocumentDetails(TestatorFormModel TFM)
         {
-
+            string typeid = "";
 
             // DOCUMENT RULES
-            string typeid = "";
-            int typecat = 0;
-
-            TFM.documenttype = TFM.will + TFM.codocil + TFM.livingwill + TFM.poa + TFM.giftdeeds;
-
-
-            if (TFM.codocil != "")
-            {
-                int codocilid = 0;
-                con.Open();
-                string quer1 = "select top 1 codId from  Codocil order by  codId desc";
-                SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
-                DataTable daat = new DataTable();
-                daa1.Fill(daat);
-                if (daat.Rows.Count > 0)
-                {
-                    codocilid = Convert.ToInt32(daat.Rows[0]["codId"]);
-                }
-
-
-
-
-                
-                string qq1 = "update Codocil set documentstatus = 'Completed' where codId = "+ codocilid + "";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-
-
-
-
-
-
-            }
-
-
-
-
-
-            if (TFM.livingwill != "")
-            {
-                int livwillid = 0;
-                con.Open();
-                string quer1 = "select top 1 livwillid from  living_Will order by  livwillid desc";
-                SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
-                DataTable daat = new DataTable();
-                daa1.Fill(daat);
-                if (daat.Rows.Count > 0)
-                {
-                    livwillid = Convert.ToInt32(daat.Rows[0]["livwillid"]);
-                }
-
-
-
-
-
-                string qq1 = "update living_Will set documentstatus = 'Completed' where livwillid = " + livwillid + "";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-
-
-
-
-
-
-            }
-
-
-
-
-
-
-            if (TFM.documenttype == "WillCodocilPOA")
-            {
-                typeid = "1,2,3";
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-
-            }
-            if (TFM.documenttype == "Codocil")
-            {
-                typeid = "2";
-
-
-
-                con.Open();
-                string qq1 = "update users set    Codocil = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-
-
-            }
-            if (TFM.documenttype == "POA")
-            {
-                typeid = "3";
-
-                con.Open();
-                string qq1 = "update users set  POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "Will")
-            {
-                typeid = "1";
-                con.Open();
-                string qq1 = "update users set Will = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "WillCodocil")
-            {
-                typeid = "1,2";
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "WillPOA")
-            {
-                typeid = "1,3";
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "CodocilPOA")
-            {
-                typeid = "2,3";
-
-                con.Open();
-                string qq1 = "update users set   Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "CodocilWill")
-            {
-                typeid = "2,1";
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "POAWill")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set Will = '1'  , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "Giftdeeds")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "GiftdeedsCodocil")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set  Codocil = '1' ,  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "GiftdeedsWill")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set Will = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "GiftdeedsPOA")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set   POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-
-            if (TFM.documenttype == "WillGiftdeeds")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set Will = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "POAGiftdeeds")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set   POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "CodocilGiftdeeds")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set Codocil = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "CodocilGiftdeedsWill")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "CodocilGiftdeedsWillPOA")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "CodocilWillGiftdeedsPOA")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "WillCodocilPOAGiftdeeds")
-            {
-                typeid = "3,1";
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "LivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set  LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "LivingWillWillCodocilPOAGiftdeeds")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "CodocilGiftdeedsLivingWillWillPOA")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "LivingWillWillPOA")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1'  , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "POALivingWillWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1'  , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "LivingWillPOAGiftdeeds")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "POAGiftdeeds")
-            {
-
-                con.Open();
-                string qq1 = "update users set  POA = '1' , Giftdeeds='1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "POAGiftdeedsWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' ,  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "POAWillCodocil")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "CodocilLivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set  Codocil = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "CodocilGiftdeedsLivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set   Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "POALivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "GiftdeedsLivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set   Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "POAGiftDeedsLivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set   POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "LivingWillGiftDeedsPOA")
-            {
-
-                con.Open();
-                string qq1 = "update users set  POA = '1' , Giftdeeds='1', LivingWill='1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "GiftDeedsLivingWillPOA")
-            {
-
-                con.Open();
-                string qq1 = "update users set   POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "LivingWillCodocil")
-            {
-
-                con.Open();
-                string qq1 = "update users set  Codocil = '1' ,  LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "LivingWillGiftdeeds")
-            {
-
-                con.Open();
-                string qq1 = "update users set  Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-
-            if (TFM.documenttype == "WillGiftdeeds")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "GiftdeedsPOA")
-            {
-
-                con.Open();
-                string qq1 = "update users set  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "LivingWillPOA")
-            {
-
-                con.Open();
-                string qq1 = "update users set   POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "WillGiftdeedsCodocil")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "WillGiftdeedsLivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' ,  Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "CodocilPOAGiftdeeds")
-            {
-
-                con.Open();
-                string qq1 = "update users set  Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "WillCodocilGiftdeeds")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' ,  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "WillLivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "LivingWillWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-
-            if (TFM.documenttype == "WillPOAGiftdeeds")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-
-            if (TFM.documenttype == "POAWillGiftdeeds")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-
-
-            if (TFM.documenttype == "GiftdeedsPOAWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' ,  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "WillCodocilGiftdeedsPOA")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-
-            if (TFM.documenttype == "WillCodocilGiftdeedsPOALivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-
-            if (TFM.documenttype == "WillCodocilLivingWill")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1'  , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-            if (TFM.documenttype == "CodocilLivingWillPOAGiftdeeds")
-            {
-
-                con.Open();
-                string qq1 = "update users set  Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-            if (TFM.documenttype == "WillCodocilLivingWillPOA")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-
-            if (TFM.documenttype == "WillCodocilLivingWillPOAGiftdeeds")
-            {
-
-                con.Open();
-                string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlCommand cc1 = new SqlCommand(qq1, con);
-                cc1.ExecuteNonQuery();
-                con.Close();
-            }
-
-
-
-            
-
-
+            int testatorid = 0;
             con.Open();
-            string qq1typ = "update users set WillType = '"+ TFM.typeofwill + "'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-            SqlCommand cc1typ = new SqlCommand(qq1typ, con);
-            cc1typ.ExecuteNonQuery();
+            string query1tt = "select top 1 tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " order by tid desc ";
+            SqlDataAdapter da1tt = new SqlDataAdapter(query1tt, con);
+            DataTable dt1tt = new DataTable();
+            da1tt.Fill(dt1tt);
+            if (dt1tt.Rows.Count > 0)
+            {
+                testatorid = Convert.ToInt32(dt1tt.Rows[0]["tId"]);
+
+
+            }
             con.Close();
 
 
 
+            con.Open();
+            string qchk008 = "select * from TestatorDetails where WillType = 'Detailed' and doctype = 'Will' and documentstatus = 'Completed' and tid= " + testatorid + "";
+            SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
+            DataTable chk008dt = new DataTable();
+            chk008da.Fill(chk008dt);
+            con.Close();
 
-            TempData["status"] = "true";
+            if (chk008dt.Rows.Count > 0)
+            {
+
+               //////////////////////////////////// for existing/////////////////////////////////////
+
+                con.Open();
+
+
+                string qrrr = "select * from TestatorDetails where tid = " + testatorid + "";
+                SqlDataAdapter chktdar = new SqlDataAdapter(qrrr, con);
+                DataTable chk008dtr = new DataTable();
+                chktdar.Fill(chk008dtr);
+
+
+
+                string query3 = "insert into TestatorDetails (First_Name,Middle_Name,Last_Name,Mobile,Email,uid ,DOB,Occupation,maritalStatus,RelationShip,Religion,Identity_Proof,Identity_proof_Value,Alt_Identity_Proof,Alt_Identity_proof_Value,Gender,Address1,Address2,Address3,City ,State,Country ,Pin,active,documentstatus) values ('" + chk008dtr.Rows[0]["First_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Middle_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Last_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Mobile"].ToString() + "' , '" + chk008dtr.Rows[0]["Email"].ToString() + "' , " + Convert.ToInt32(Session["uuid"]) + " , '" + Convert.ToDateTime(chk008dtr.Rows[0]["DOB"]).ToString("dd-MM-yyyy") + "' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'no' , 'incompleted' )    ";
+                SqlCommand cmd3 = new SqlCommand(query3, con);
+                cmd3.ExecuteNonQuery();
+                con.Close();
+
+
+
+                if (TFM.documenttype == "WillCodocilPOA")
+                {
+                    typeid = "1,2,3";
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+
+                }
+                if (TFM.documenttype == "Codocil")
+                {
+                    typeid = "2";
+
+
+
+                    con.Open();
+                    string qq1 = "update users set    Codocil = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+
+
+                }
+                if (TFM.documenttype == "POA")
+                {
+                    typeid = "3";
+
+                    con.Open();
+                    string qq1 = "update users set  POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "Will")
+                {
+                    typeid = "1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillCodocil")
+                {
+                    typeid = "1,2";
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillPOA")
+                {
+                    typeid = "1,3";
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilPOA")
+                {
+                    typeid = "2,3";
+
+                    con.Open();
+                    string qq1 = "update users set   Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilWill")
+                {
+                    typeid = "2,1";
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POAWill")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1'  , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "Giftdeeds")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "GiftdeedsCodocil")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set  Codocil = '1' ,  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "GiftdeedsWill")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "GiftdeedsPOA")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set   POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillGiftdeeds")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POAGiftdeeds")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set   POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeeds")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Codocil = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeedsWill")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeedsWillPOA")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "CodocilWillGiftdeedsPOA")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "WillCodocilPOAGiftdeeds")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillWillCodocilPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeedsLivingWillWillPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillWillPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1'  , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "POALivingWillWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1'  , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  POA = '1' , Giftdeeds='1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POAGiftdeedsWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' ,  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POAWillCodocil")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  Codocil = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilGiftdeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set   Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POALivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "GiftdeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set   Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "POAGiftDeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set   POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillGiftDeedsPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  POA = '1' , Giftdeeds='1', LivingWill='1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "GiftDeedsLivingWillPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set   POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillCodocil")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  Codocil = '1' ,  LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "GiftdeedsPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "LivingWillPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set   POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillGiftdeedsCodocil")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "WillGiftdeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' ,  Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillCodocilGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' ,  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "LivingWillWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "POAWillGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+
+                if (TFM.documenttype == "GiftdeedsPOAWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' ,  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "WillCodocilGiftdeedsPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillCodocilGiftdeedsPOALivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillCodocilLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1'  , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilLivingWillPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "WillCodocilLivingWillPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillCodocilLivingWillPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
 
 
 
 
-       
+
+
+                con.Open();
+                string qq1typ = "update users set WillType = '" + TFM.typeofwill + "'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                SqlCommand cc1typ = new SqlCommand(qq1typ, con);
+                cc1typ.ExecuteNonQuery();
+                con.Close();
+
+
+
+
+                TempData["status"] = "true";
+
+
+
+
+
+
+                /////////////////////////////////////////////////////end////////////////////////////////////////////
+
+
+
+            }
+            else
+            {
+
+                TFM.documenttype = TFM.will + TFM.codocil + TFM.livingwill + TFM.poa + TFM.giftdeeds;
+
+
+                if (TFM.codocil != "")
+                {
+                    int codocilid = 0;
+                    con.Open();
+                    string quer1 = "select top 1 codId from  Codocil order by  codId desc";
+                    SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
+                    DataTable daat = new DataTable();
+                    daa1.Fill(daat);
+                    if (daat.Rows.Count > 0)
+                    {
+                        codocilid = Convert.ToInt32(daat.Rows[0]["codId"]);
+                    }
+
+
+
+
+
+                    string qq1 = "update Codocil set documentstatus = 'Completed' where codId = " + codocilid + "";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+
+
+
+
+
+
+                }
+
+
+
+
+
+                if (TFM.livingwill != "")
+                {
+                    int livwillid = 0;
+                    con.Open();
+                    string quer1 = "select top 1 livwillid from  living_Will order by  livwillid desc";
+                    SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
+                    DataTable daat = new DataTable();
+                    daa1.Fill(daat);
+                    if (daat.Rows.Count > 0)
+                    {
+                        livwillid = Convert.ToInt32(daat.Rows[0]["livwillid"]);
+                    }
+
+
+
+
+
+                    string qq1 = "update living_Will set documentstatus = 'Completed' where livwillid = " + livwillid + "";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+
+
+
+
+
+
+                }
+
+
+
+
+
+
+                if (TFM.documenttype == "WillCodocilPOA")
+                {
+                    typeid = "1,2,3";
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+
+                }
+                if (TFM.documenttype == "Codocil")
+                {
+                    typeid = "2";
+
+
+
+                    con.Open();
+                    string qq1 = "update users set    Codocil = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+
+
+                }
+                if (TFM.documenttype == "POA")
+                {
+                    typeid = "3";
+
+                    con.Open();
+                    string qq1 = "update users set  POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "Will")
+                {
+                    typeid = "1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillCodocil")
+                {
+                    typeid = "1,2";
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillPOA")
+                {
+                    typeid = "1,3";
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilPOA")
+                {
+                    typeid = "2,3";
+
+                    con.Open();
+                    string qq1 = "update users set   Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilWill")
+                {
+                    typeid = "2,1";
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1'   where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POAWill")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1'  , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "Giftdeeds")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "GiftdeedsCodocil")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set  Codocil = '1' ,  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "GiftdeedsWill")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "GiftdeedsPOA")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set   POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillGiftdeeds")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POAGiftdeeds")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set   POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeeds")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Codocil = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeedsWill")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1'  , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeedsWillPOA")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "CodocilWillGiftdeedsPOA")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "WillCodocilPOAGiftdeeds")
+                {
+                    typeid = "3,1";
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillWillCodocilPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeedsLivingWillWillPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillWillPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1'  , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "POALivingWillWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1'  , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  POA = '1' , Giftdeeds='1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POAGiftdeedsWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' ,  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POAWillCodocil")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  Codocil = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilGiftdeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set   Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "POALivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "GiftdeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set   Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "POAGiftDeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set   POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillGiftDeedsPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  POA = '1' , Giftdeeds='1', LivingWill='1'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "GiftDeedsLivingWillPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set   POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillCodocil")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  Codocil = '1' ,  LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "LivingWillGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "GiftdeedsPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "LivingWillPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set   POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillGiftdeedsCodocil")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "WillGiftdeedsLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' ,  Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillCodocilGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' ,  Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "WillLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "LivingWillWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "POAWillGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+
+                if (TFM.documenttype == "GiftdeedsPOAWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' ,  POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "WillCodocilGiftdeedsPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillCodocilGiftdeedsPOALivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillCodocilLivingWill")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1'  , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (TFM.documenttype == "CodocilLivingWillPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set  Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+                if (TFM.documenttype == "WillCodocilLivingWillPOA")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+                if (TFM.documenttype == "WillCodocilLivingWillPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
+                }
+
+
+
+
+
+
+                con.Open();
+                string qq1typ = "update users set WillType = '" + TFM.typeofwill + "'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                SqlCommand cc1typ = new SqlCommand(qq1typ, con);
+                cc1typ.ExecuteNonQuery();
+                con.Close();
+
+
+
+
+                TempData["status"] = "true";
+
+
+
+            }
+
+
+
+
+
+
 
 
             return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage");

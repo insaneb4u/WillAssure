@@ -8,8 +8,6 @@
     a:focus {
         color: #40a97b;
     }
-
-
 </style>
 
 
@@ -168,7 +166,7 @@ else
                                         </div>
 
 
-                                     
+
                                     </div>
 
 
@@ -186,11 +184,16 @@ else
 
 
                                 <center>
-                                    <a href="@Url.Action("Report.aspx", "page" , new { NestId = ViewBag.testatorid })" id="compdocumentbtn1" style="display:none;"><button type="button" class="btn btn-primary btn-round waves-effect waves-light m-1">Will</button></a>
+                                    <div id="AppendButton"></div>
+                                    <textarea id="DetailedWill" style="display:none;">@ViewBag.Willbtn</textarea>
+                                    <textarea id="QuickWill" style="display:none;">@ViewBag.WillQuickbtn</textarea>
+                                    <textarea id="Codocildata" style="display:none;">@ViewBag.Codocilbtn</textarea>
+                                    <textarea id="Livingdata" style="display:none;">@ViewBag.LivingWillbtn</textarea>
+
                                     <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn2" style="display:none;"><button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">POA</button></a>
                                     <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid } )" id="compdocumentbtn3" style="display:none;"><button type="button" class="btn btn-info btn-round waves-effect waves-light m-1">Gift Deeds</button></a>
-                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn4" style="display:none;"><button type="button" class="btn btn-danger btn-round waves-effect waves-light m-1">Living Will</button></a>
-                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn5" style="display:none;"><button type="button" class="btn btn-warning btn-round waves-effect waves-light m-1">Codocil</button></a>
+
+
                                 </center>
 
 
@@ -202,11 +205,11 @@ else
 
                             <div id="tabe-27" class="container tab-pane fade">
                                 <center>
-                                    <a href="@Url.Action("EnableDocumentLinks","DashBoard", new { doctype = "Will" })" id="documentbtn1" style="display:none;"><button type="button" class="btn btn-primary btn-round waves-effect waves-light m-1">Will</button></a>
-                                    <a href="@Url.Action("CodocilIndex","Codocil")" id="documentbtn2" style="display:none;"> <button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">Codocil</button></a>
-                                    <a href="@Url.Action("EnableDocumentLinks","DashBoard", new { doctype = "POA" } )" id="documentbtn3" style="display:none;"><button type="button" class="btn btn-info btn-round waves-effect waves-light m-1">POA</button></a>
-                                    <a href="@Url.Action("EnableDocumentLinks","DashBoard", new { doctype = "GiftDeeds" })" id="documentbtn4" style="display:none;"><button type="button" class="btn btn-danger btn-round waves-effect waves-light m-1">Gift Deeds</button></a>
-                                    <a href="@Url.Action("LivingWillIndex","LivingWill", new { doctype = "LivingWill" })" id="documentbtn5" style="display:none;"><button type="button" class="btn btn-warning btn-round waves-effect waves-light m-1">Living Will</button></a>
+                                    <a href="@Url.Action("EnableDocumentLinks","DashBoard", new { doctype = "Will" })" id="documentbtn1" style="display:none;"> <button type='button' class='btn btn-primary waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Will</span> </button></a>
+                                    <a href="@Url.Action("CodocilIndex","Codocil")" id="documentbtn2" style="display:none;"> <button type='button' class='btn btn-success waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Codicil</span></button></a>
+                                    <a href="@Url.Action("EnableDocumentLinks","DashBoard", new { doctype = "POA" } )" id="documentbtn3" style="display:none;"><button type='button' class='btn btn-info waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>POA</span></button></a>
+                                    <a href="@Url.Action("EnableDocumentLinks","DashBoard", new { doctype = "GiftDeeds" })" id="documentbtn4" style="display:none;"><button type='button' class='btn btn-danger waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>GiftDeeds</span></button></a>
+                                    <a href="@Url.Action("LivingWillIndex","LivingWill", new { doctype = "LivingWill" })" id="documentbtn5" style="display:none;"><button type='button' class='btn btn-warning waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Living Will</span></button></a>
                                 </center>
 
 
@@ -366,9 +369,9 @@ else
         });
 
 
-   
 
-        
+
+
 
 
 
@@ -384,10 +387,30 @@ else
 
 @*FOR COMPLETED DOCUMENT*@
 
-@if (ViewBag.Willbtn == "true")
+@if (ViewBag.Willbtn != null)
 {
     <script>
         $(document).ready(function () {
+            var data = $("#DetailedWill").val();
+
+            $("#AppendButton").append(data);
+            $("#compdocumentbtn1").show();
+            $("#documentbtn1").hide();
+
+            $("#title").hide();
+        });
+
+    </script>
+}
+
+
+@if (ViewBag.WillQuickbtn != null)
+{
+    <script>
+        $(document).ready(function () {
+            var data = $("#QuickWill").val();
+
+            $("#AppendButton").append(data);
             $("#compdocumentbtn1").show();
             $("#documentbtn1").hide();
 
@@ -426,10 +449,15 @@ else
 }
 
 
-@if (ViewBag.LivingWillbtn == "true")
+@if (ViewBag.LivingWillbtn != null)
 {
     <script>
         $(document).ready(function () {
+
+            var data = $("#Livingdata").val();
+
+            $("#AppendButton").append(data);
+
             $("#compdocumentbtn4").show();
             $("#documentbtn5").hide();
 
@@ -440,11 +468,15 @@ else
 }
 
 
-@if (ViewBag.Codocilbtn == "true")
+@if (ViewBag.Codocilbtn != null)
 {
     <script>
         $(document).ready(function () {
 
+
+            var data = $("#Codocildata").val();
+
+            $("#AppendButton").append(data);
 
 
             $("#compdocumentbtn5").show();
@@ -486,7 +518,7 @@ else
     </script>
 
 }
-   @*for codocil*@
+@*for codocil*@
 @if (ViewBag.documentbtn2 == "true")
 {
 
@@ -521,7 +553,7 @@ else
 
 }
 
-@*end*@ 
+@*end*@
 
 
 
@@ -534,6 +566,22 @@ else
 
             $("#documentbtn3").show();
             $("#paymenttitle").hide();
+
+        });
+
+    </script>
+
+}
+@if (ViewBag.documentbtn3 == "false")
+{
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#documentbtn3").hide();
+
+
 
         });
 
@@ -557,6 +605,23 @@ else
 
 }
 
+@if (ViewBag.documentbtn4 == "false")
+{
+
+    <script>
+
+        $(document).ready(function () {
+
+            $("#documentbtn4").hide();
+
+
+
+        });
+
+    </script>
+
+}
+
 @if (ViewBag.documentbtn5 == "true")
 {
 
@@ -567,7 +632,7 @@ else
 
             $("#documentbtn5").show();
             $("#paymenttitle").hide();
-           
+
 
         });
 
@@ -641,15 +706,15 @@ else
             type: "POST",
             url:"@Url.Action("checkwilldocument", "TestatorHomePage")",
                            success: function (data) {
-                           
+
                                if (data == "true") {
-                                  
+
                                    $(".Willdoc").show();
                                }
 
                                if (data == "false") {
 
-                                
+
                                    $(".Willdoc").hide();
                                }
 
@@ -678,7 +743,7 @@ else
 
                 if (data == "false") {
                     $(".codocildoc").show();
-                
+
                 }
                 if (data == "true") {
                     $(".codocildoc").hide();
@@ -706,7 +771,7 @@ else
 
                 if (data == "false") {
                     $(".livingwilldoc").show();
-                  
+
                 }
                 if (data == "true") {
                     $(".livingwilldoc").hide();
@@ -740,6 +805,7 @@ else
             $(".checkone").click(function () {
 
 
+
                 if ($(".checkone").is(":checked")) {
                     $("#documentmsg2").hide();
                     $("#documentmsg3").hide();
@@ -747,7 +813,7 @@ else
 
 
 
-                  
+
 
 
 
@@ -756,7 +822,8 @@ else
 
 
                     if ($(".checkone").is(':checked') == true || $(".checktwo").is(':checked') == true || $(".checkthree").is(':checked') == true || $(".checkfour").is(':checked') == true || $(".checkfive").is(':checked') == true) {
-
+                        var x = $(".checkone").val();
+                        $("#documenttype").append(x);
 
                         $("#paymentfields").show();
                         $(".btnpop").show();
@@ -790,7 +857,7 @@ else
 
         if ($(".checktwo").is(":checked")) {
             var x = $(".checktwo").val();
-            //  $("#documenttype").append(x);
+              $("#documenttype").append(x);
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#c").val(x);
 
@@ -807,11 +874,11 @@ else
                 $(".btnpop").hide();
                 $("#paymentbtn").hide();
             }
-         
+
         }
         else {
             $("#c").val('');
-           
+
         }
         $("#lblcheck").hide();
     });
@@ -846,9 +913,9 @@ else
                         $(".btnpop").hide();
                         $("#paymentbtn").hide();
                     }
-                   
+
                 }
-              
+
 
 
 
@@ -879,9 +946,9 @@ else
                         $(".btnpop").hide();
                         $("#paymentbtn").hide();
                     }
-                
+
                 }
-               
+
 
 
 
@@ -913,9 +980,9 @@ else
                         $(".btnpop").hide();
                         $("#paymentbtn").hide();
                     }
-                  
+
                 }
-             
+
 
 
 

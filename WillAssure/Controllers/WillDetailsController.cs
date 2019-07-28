@@ -927,7 +927,7 @@ namespace WillAssure.Controllers
 
             con.Open();
        
-            string  qtest001 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+            string  qtest001 = "select top 1 tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " order by tid desc ";
             SqlDataAdapter test001da = new SqlDataAdapter(qtest001, con);
             DataTable test001dt = new DataTable();
             test001da.Fill(test001dt);
@@ -944,6 +944,17 @@ namespace WillAssure.Controllers
 
             if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Detailed")
             {
+
+                // update doctype for testator
+               
+                string query77 = "update TestatorDetails set WillType = '" + Session["WillType"].ToString() + "'  , doctype='" + Session["doctype"].ToString() + "' , documentstatus = 'Completed'   where  tId = " + NestId + "";
+                SqlCommand cmd77 = new SqlCommand(query77, con);
+                cmd77.ExecuteNonQuery();
+               
+
+                //end
+
+
                 // for testator family
 
                 string qchk001 = "update testatorFamily set documentstatus = 'Completed' where tId = "+NestId+" and WillType = 'Detailed'";
@@ -1037,11 +1048,44 @@ namespace WillAssure.Controllers
 
                 //end
 
+
+
+            
+
+
+
+                // Reset users table with 0
+
+                string qchk0083 = "update users set Will = 0 where uId="+Convert.ToInt32(Session["uuid"])+" ";
+                SqlCommand cmd8 = new SqlCommand(qchk0083, con);
+                cmd8.ExecuteNonQuery();
+
+
+
+                //end
+
+
+
+
+
+
+
             }
 
 
             if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Quick")
             {
+
+                // update doctype for testator
+                con.Open();
+                string query77 = "update TestatorDetails set WillType = '" + Session["WillType"].ToString() + "'  and doctype='" + Session["doctype"].ToString() + "'  , documentstatus = 'Completed'   where  tId = " + NestId + "";
+                SqlCommand cmd77 = new SqlCommand(query77, con);
+                cmd77.ExecuteNonQuery();
+                con.Close();
+
+                //end
+
+
 
                 // for testator family
 
@@ -1110,6 +1154,17 @@ namespace WillAssure.Controllers
 
                 //end
 
+
+                // Reset users table with 0
+
+                string qchk0083 = "update users set Will = 0 where uId=" + Convert.ToInt32(Session["uuid"]) + "   ";
+                SqlCommand cmd8 = new SqlCommand(qchk0083, con);
+                cmd8.ExecuteNonQuery();
+
+
+
+                //end
+
             }
 
 
@@ -1120,11 +1175,11 @@ namespace WillAssure.Controllers
 
             if (Session["doctype"].ToString() == "POA")
             {
-               
 
 
 
-             
+            
+
 
 
 
@@ -1189,6 +1244,18 @@ namespace WillAssure.Controllers
                 string qchk0082 = "update Appointees set documentstatus = 'Completed' where tId = " + NestId + " and WillType = 'Detailed' and Type='Witness' and doctype = 'POA' ";
                 SqlCommand cmd7 = new SqlCommand(qchk0082, con);
                 cmd7.ExecuteNonQuery();
+
+                //end
+
+
+
+                // Reset users table with 0
+
+                string qchk0083 = "update users set POA = 0 where uId=" + Convert.ToInt32(Session["uuid"]) + "    ";
+                SqlCommand cmd8 = new SqlCommand(qchk0083, con);
+                cmd8.ExecuteNonQuery();
+
+
 
                 //end
 
@@ -1271,6 +1338,18 @@ namespace WillAssure.Controllers
                 string qchk0082 = "update Appointees set documentstatus = 'Completed' where tId = " + NestId + " and WillType = 'Detailed' and Type='Witness' and doctype = 'Giftdeeds' ";
                 SqlCommand cmd7 = new SqlCommand(qchk0082, con);
                 cmd7.ExecuteNonQuery();
+
+                //end
+
+
+
+                // Reset users table with 0
+
+                string qchk0083 = "update users set Giftdeeds = 0 where uId=" + Convert.ToInt32(Session["uuid"]) + "  ";
+                SqlCommand cmd8 = new SqlCommand(qchk0083, con);
+                cmd8.ExecuteNonQuery();
+
+
 
                 //end
 

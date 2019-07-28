@@ -315,10 +315,10 @@
                                             <label for="input-1">Type</label>
                                             <br />
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" value="Individual" class="radio validate[required] typeone" onchange="ddtypeone(this.value)" name="radio" checked>Individual
+                                                <input type="checkbox" value="Individual" class="validate[required] typeone" onchange="ddtypeone(this.value)" id="ra1" name="radio" checked>Individual
                                             </label>
                                             <label class="checkbox-inline">
-                                                <input type="checkbox" value="Company" class="radio validate[required] typetwo" onchange="ddtypetwo(this.value)" name="radio">Company
+                                                <input type="checkbox" value="Company" class="validate[required] typetwo" onchange="ddtypetwo(this.value)" id="ra2" name="radio">Company
                                             </label>
                                         </div>
 
@@ -1180,7 +1180,7 @@
                                 $("#compone").show();
                                 $("#comptwo").show();
 
-                                $(".typeone").prop("checked", false);
+                              
 
                                 $("#ftxtname").hide();
                                 $("#ftxtmiddlename").hide();
@@ -1188,6 +1188,8 @@
                                 $("#ftxtgender").hide();
 
                             }
+
+                            $("#ra1").prop("checked", false);
                         }
 
 
@@ -1205,7 +1207,7 @@
 
                                     $("#scompone").hide();
                                     $("#scomptwo").hide();
-                                    $(".alttypetwo").prop("checked", false);
+                                 
 
                                     $("#stxtname2").show();
                                     $("#stxtmiddlename2").show();
@@ -1213,6 +1215,9 @@
                                     $("#stxtgender2").show();
 
                                 }
+
+
+                                $("#ra2").prop("checked", false);
 
                             }
 
@@ -1492,8 +1497,8 @@
                                     $("#txtleadStatus").val("");
                                     $("#txtleadRemark").val("");
 
-                                    $('#f2radio ').validationEngine('hide');
-                                    $('#f1radio ').validationEngine('hide');
+                                    $('#f2radio').validationEngine('hide');
+                                    $('#f1radio').validationEngine('hide');
                                 });
                             </script>
 

@@ -1748,7 +1748,7 @@ namespace WillAssure.Controllers
 
                         data2 = data2.Remove(data2.Length - 1, 1);
 
-                        querydy2 = "insert into alternate_Beneficiaryassets (alternatebenefciaryid ,alternateproportion) values (" + data2+") ";
+                        querydy2 = "insert into alternate_Beneficiaryassets (alternatebenefciaryid ,alternateproportion,linkedbid) values (" + data2+") ";
                         SqlCommand cmdy2 = new SqlCommand(querydy2, con);
                         cmdy2.ExecuteNonQuery();
                         getcount2 = 1;
@@ -1809,6 +1809,18 @@ namespace WillAssure.Controllers
                 con.Close();
 
             }
+
+
+
+
+            // if records submitted change status for assetinformation
+            con.Close();
+            con.Open();
+            string query2 = "update assetinformation set Remark ='Completed' where amId = " + assetcatid + "";
+            SqlCommand cmd2 = new SqlCommand(query2, con);
+            cmd2.ExecuteNonQuery();
+            con.Close();
+            //end
 
             TempData["Message"] = "true";
 

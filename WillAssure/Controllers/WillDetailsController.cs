@@ -1178,7 +1178,15 @@ namespace WillAssure.Controllers
 
 
 
-            
+                // update doctype for testator
+
+                string query77 = "update TestatorDetails set  doctype='" + Session["doctype"].ToString() + "'  , documentstatus = 'Completed'   where  tId = " + NestId + "";
+                SqlCommand cmd77 = new SqlCommand(query77, con);
+                cmd77.ExecuteNonQuery();
+
+
+                //end
+
 
 
 
@@ -1267,14 +1275,21 @@ namespace WillAssure.Controllers
 
 
 
-            if (Session["doctype"].ToString() == "Giftdeeds")
+            if (Session["doctype"].ToString() == "GiftDeeds")
             {
 
 
 
 
 
+                // update doctype for testator
 
+                string query77 = "update TestatorDetails set  doctype='" + Session["doctype"].ToString() + "'  , documentstatus = 'Completed'   where  tId = " + NestId + "";
+                SqlCommand cmd77 = new SqlCommand(query77, con);
+                cmd77.ExecuteNonQuery();
+
+
+                //end
 
 
 

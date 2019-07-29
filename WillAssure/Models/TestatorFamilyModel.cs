@@ -42,7 +42,8 @@ namespace WillAssure.Models
       public string Alt_Identity_Proof_Value{ get; set; }
       public string Is_Informed_Person{ get; set; }
 
-
+        public string country_txt { get; set; }
+        public int country_id { get; set; }
 
         public int ddltid { get; set; }
 
@@ -246,6 +247,11 @@ namespace WillAssure.Models
         public string guaState { get; set; }
         public int guastateid { get; set; }
         public string guastatetext { get; set; }
+
+
+
+        public int guacountryid { get; set; }
+        public string guacountrytext { get; set; }
 
         public string guaPin { get; set; }
         public int guarid { get; set; }

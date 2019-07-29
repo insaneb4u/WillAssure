@@ -26,7 +26,8 @@ namespace WillAssure.Models
         public string CityText { get; set; }
         public int CityId { get; set; }
 
-
+        public string country_txt { get; set; }
+        public int country_id { get; set; }
 
 
 

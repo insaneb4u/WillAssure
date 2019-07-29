@@ -417,7 +417,24 @@ namespace WillAssure.Controllers
 
 
 
+            if (Session["doctype"] != null)
+            {
 
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    Session["WillType"] = "POA";
+                }
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    Session["WillType"] = "GiftDeedss";
+                }
+
+            }
+            else
+            {
+                return RedirectToAction("LoginPageIndex", "LoginPage");
+            }
 
 
 

@@ -616,7 +616,7 @@ namespace WillAssure.Controllers
                             getcount = detailedcount++;
                             try
                             {
-                                btnwillDetailed = btnwillDetailed + "<a href='/page/Report.aspx?NestId="+chk008dt.Rows[i]["tid"].ToString()+"' id='compdocumentbtn1' ><button type='button' class='btn btn-primary waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Detailed-Will-(" + getcount + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
+                                btnwillDetailed = btnwillDetailed + "<a href='/page/Report.aspx?NestId="+chk008dt.Rows[i]["tid"].ToString()+"&WillType=Detailed' id='compdocumentbtn1' ><button type='button' class='btn btn-primary waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Detailed-Will-(" + i + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
                             }
                             catch (Exception)
                             {
@@ -660,7 +660,7 @@ namespace WillAssure.Controllers
                     getcount22 = detailedcount22++;
                     try
                     {
-                        btnwillDetailed22 = btnwillDetailed22 + "<a href='/page/Report.aspx?NestId=" + chk008dt22.Rows[i]["tid"].ToString() + "' id='compdocumentbtn1' ><button type='button' class='btn btn-primary waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Quick-Will-(" + getcount + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
+                        btnwillDetailed22 = btnwillDetailed22 + "<a href='/page/Report.aspx?NestId=" + chk008dt22.Rows[i]["tid"].ToString() + "&WillType=Quick' id='compdocumentbtn1' ><button type='button' class='btn btn-primary waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Quick-Will-(" + i + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
                     }
                     catch (Exception)
                     {
@@ -689,18 +689,40 @@ namespace WillAssure.Controllers
 
             // for POA 
 
-            con.Open();
-                    string qchk0082 = "select * from TestatorDetails where  doctype = 'POA' and documentstatus = 'Completed' and uId= " + Convert.ToInt32(Session["uuid"]) + " ";
+                    con.Open();
+                    string qchk0082 = "select a.* from BeneficiaryDetails a INNER JOIN TestatorDetails b on a.tId=b.tId inner join users c on b.uId=c.uId where a.doctype = 'POA' and c.uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                     SqlDataAdapter chk008da2 = new SqlDataAdapter(qchk0082, con);
                     DataTable chk008dt2 = new DataTable();
                     chk008da2.Fill(chk008dt2);
                     con.Close();
+                    int poacount = 1;
+                    int getpoacount = 0;
+                    string btnpoa = "";
+                if (chk008dt2.Rows.Count > 0)
+                        {
 
-                    if (chk008dt2.Rows.Count > 0)
+                    for (int i = 0; i < chk008dt2.Rows.Count; i++)
                     {
+                        getpoacount = poacount++;
+                        try
+                        {
+                            btnpoa = btnpoa + "<a href='/page/Report.aspx?NestId=" + chk008dt2.Rows[i]["tid"].ToString() + "&WillType=POA' id='compdocumentbtn1' ><button type='button' class='btn btn-info waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>POA-(" + i + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
+                        }
+                        catch (Exception)
+                        {
 
 
-                        ViewBag.POAbtn = "true";
+                        }
+
+
+                    }
+
+
+
+
+                ViewBag.POAbtn = btnpoa;
+
+            
 
 
 
@@ -717,21 +739,48 @@ namespace WillAssure.Controllers
                     // for Giftdeeds 
 
                     con.Open();
-                    string qchk0083 = "select * from TestatorDetails where  doctype = 'Giftdeeds' and documentstatus = 'Completed' and uId= " + Convert.ToInt32(Session["uuid"]) + "";
+                    string qchk0083 = "select a.* from BeneficiaryDetails a INNER JOIN TestatorDetails b on a.tId=b.tId inner join users c on b.uId=c.uId where a.doctype = 'GiftDeeds' and c.uId = " + Convert.ToInt32(Session["uuid"]) + "";
                     SqlDataAdapter chk008da3 = new SqlDataAdapter(qchk0083, con);
                     DataTable chk008dt3 = new DataTable();
                     chk008da3.Fill(chk008dt3);
                     con.Close();
+            int giftcount = 1;
+            int getgiftcount = 0;
+            string btngift = "";
+            if (chk008dt3.Rows.Count > 0)
+            {
 
-                    if (chk008dt3.Rows.Count > 0)
+                for (int i = 0; i < chk008dt3.Rows.Count; i++)
+                {
+                    getgiftcount = giftcount++;
+                    try
+                    {
+                        btngift = btngift + "<a href='/page/Report.aspx?NestId=" + chk008dt3.Rows[i]["tid"].ToString() + "&WillType=giftdeeds' id='compdocumentbtn1' ><button type='button' class='btn btn-danger waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>GiftDeeds-(" + i + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
+                    }
+                    catch (Exception)
                     {
 
 
-                        ViewBag.Giftdeedsbtn = "true";
-
-
-
                     }
+
+
+                }
+
+
+
+
+                ViewBag.Giftdeedsbtn = btngift;
+
+
+
+
+
+            }
+      
+
+
+
+                    
                  
 
 
@@ -906,9 +955,9 @@ namespace WillAssure.Controllers
             con.Close();
 
 
-
+            string qchk008 = "";
             con.Open();
-            string qchk008 = "select * from TestatorDetails where WillType = 'Detailed' and doctype = 'Will' and documentstatus = 'Completed' and tid= " + testatorid + "";
+            qchk008 = "select * from TestatorDetails where  documentstatus = 'Completed' and tid= " + testatorid + "";
             SqlDataAdapter chk008da = new SqlDataAdapter(qchk008, con);
             DataTable chk008dt = new DataTable();
             chk008da.Fill(chk008dt);

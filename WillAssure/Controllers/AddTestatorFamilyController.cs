@@ -390,6 +390,81 @@ namespace WillAssure.Controllers
         }
 
 
+        public String guaBindCountryDDL()
+        {
+
+            con.Open();
+            string query = "select distinct * from country_tbl order by CountryName asc  ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["CountryID"].ToString() + " >" + dt.Rows[i]["CountryName"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
+
+
+
+        public String BindCountryDDL()
+        {
+
+            con.Open();
+            string query = "select distinct * from country_tbl order by CountryName asc  ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["CountryID"].ToString() + " >" + dt.Rows[i]["CountryName"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
+
+
         public string Onnamebindtfcity()
         {
             string response = Request["send"];
@@ -651,9 +726,9 @@ namespace WillAssure.Controllers
 
         public String BindStateDDL()
         {
-
+            
             con.Open();
-            string query = "select distinct * from tbl_state where country_id = 101 order by statename asc   ";
+            string query = "select distinct * from tbl_state where country_id = '108' order by statename asc   ";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -907,7 +982,10 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@First_Name", TFM.First_Name);
                 cmd.Parameters.AddWithValue("@Last_Name", TFM.Last_Name);
                 cmd.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
-            var d = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+           
+            string dd = Convert.ToDateTime(TFM.Dob).ToString("dd-MM-yyyy");
+            var d = DateTime.ParseExact(dd, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            //DateTime fromdat = DateTime.ParseExact(TFM.Dob, "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             cmd.Parameters.AddWithValue("@DOB", d);
                 cmd.Parameters.AddWithValue("@Marital_Status", "none");
@@ -982,7 +1060,7 @@ namespace WillAssure.Controllers
             }
 
 
-            string qt2 = "update testatorFamily set WillType='"+Session["WillType"].ToString()+ "' where fId=" + fid + "";
+            string qt2 = "update testatorFamily set Country='"+TFM.country_txt+"' ,  WillType='"+Session["WillType"].ToString()+ "' where fId=" + fid + "";
             SqlCommand cmd33e2 = new SqlCommand(qt2, con);
             cmd33e2.ExecuteNonQuery();
             con.Close();
@@ -1102,7 +1180,7 @@ namespace WillAssure.Controllers
                 }
 
 
-                string qt = "update Appointees set documentstatus='incompleted' , tfid="+ fid + " where apId = " + appid + "";
+                string qt = "update Appointees set Country='" + TFM.guacountrytext + "' ,  documentstatus='incompleted' , tfid=" + fid + " where apId = " + appid + "";
                 SqlCommand cmd33e = new SqlCommand(qt, con);
                 cmd33e.ExecuteNonQuery();
                 con.Close();

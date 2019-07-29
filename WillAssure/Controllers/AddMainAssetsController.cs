@@ -451,7 +451,41 @@ namespace WillAssure.Controllers
 
 
 
+        public String BindCountryDDL()
+        {
 
+            con.Open();
+            string query = "select distinct * from country_tbl order by CountryName asc  ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["CountryID"].ToString() + " >" + dt.Rows[i]["CountryName"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
 
 
 
@@ -1595,12 +1629,7 @@ namespace WillAssure.Controllers
                 int count = (int)cmdchk.ExecuteScalar();
                 con.Close();
 
-                if (count > 0)
-                {
-                    Response.Redirect("<script>alert('Asset Category Already Mapped Please Select Another Asset')</script>");
-                }
-                else
-                {
+              
                     con.Open();
                     string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark,WillType) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted' , '" + Session["WillType"].ToString() + "')";
                     SqlCommand cmd = new SqlCommand(query, con);
@@ -1726,7 +1755,7 @@ namespace WillAssure.Controllers
 
 
 
-                }
+                
 
 
 
@@ -1736,24 +1765,13 @@ namespace WillAssure.Controllers
 
 
 
-            if (Session["doctype"].ToString() == "Giftdeeds")
+            if (Session["doctype"].ToString() == "GiftDeeds")
             {
                 string json = JsonConvert.SerializeObject(dd);
                 int amid = Convert.ToInt32(TempData["amid"]);
 
 
-                con.Open();
-                string qcheck = "SELECT count(*) FROM AssetInformation where amId = " + amid + "  ";
-                SqlCommand cmdchk = new SqlCommand(qcheck, con);
-                int count = (int)cmdchk.ExecuteScalar();
-                con.Close();
-
-                if (count > 0)
-                {
-                    Response.Redirect("<script>alert('Asset Category Already Mapped Please Select Another Asset')</script>");
-                }
-                else
-                {
+            
                     con.Open();
                     string query = "insert into AssetInformation (atId,amId,Json,tid,uId,Remark,WillType) values (" + TempData["atid"] + " , " + amid + " ,'" + json + "' , " + ttid + " , " + Convert.ToInt32(Session["uuid"]) + " , 'Incompleted' , '" + Session["WillType"].ToString() + "')";
                     SqlCommand cmd = new SqlCommand(query, con);
@@ -1894,7 +1912,7 @@ namespace WillAssure.Controllers
 
 
 
-                }
+            
 
 
 
@@ -2267,8 +2285,9 @@ namespace WillAssure.Controllers
         public String BindStateDDL()
         {
 
+            string response = Request["send"].ToString();
             con.Open();
-            string query = "select distinct * from tbl_state where country_id = 101 order by statename asc  ";
+            string query = "select distinct * from tbl_state where country_id = " + response + " order by statename asc  ";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);

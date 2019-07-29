@@ -189,9 +189,11 @@ else
                                     <textarea id="QuickWill" style="display:none;">@ViewBag.WillQuickbtn</textarea>
                                     <textarea id="Codocildata" style="display:none;">@ViewBag.Codocilbtn</textarea>
                                     <textarea id="Livingdata" style="display:none;">@ViewBag.LivingWillbtn</textarea>
+                                    <textarea id="POAdata" style="display:none;">@ViewBag.POAbtn</textarea>
+                                    <textarea id="Giftdeedsdata" style="display:none;">@ViewBag.Giftdeedsbtn</textarea>
 
-                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn2" style="display:none;"><button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">POA</button></a>
-                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid } )" id="compdocumentbtn3" style="display:none;"><button type="button" class="btn btn-info btn-round waves-effect waves-light m-1">Gift Deeds</button></a>
+                                    @*<a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid })" id="compdocumentbtn2" style="display:none;"><button type="button" class="btn btn-success btn-round waves-effect waves-light m-1">POA</button></a>
+                                    <a href="@Url.Action("Report.aspx","page", new { NestId = ViewBag.testatorid } )" id="compdocumentbtn3" style="display:none;"><button type="button" class="btn btn-info btn-round waves-effect waves-light m-1">Gift Deeds</button></a>*@
 
 
                                 </center>
@@ -424,10 +426,13 @@ else
     </script>
 }
 
-@if (ViewBag.POAbtn == "true")
+@if (ViewBag.POAbtn != null)
 {
     <script>
         $(document).ready(function () {
+            var data = $("#POAdata").val();
+           
+            $("#AppendButton").append(data);
             $("#compdocumentbtn2").show();
             $("#documentbtn3").hide();
 
@@ -439,10 +444,13 @@ else
 }
 
 
-@if (ViewBag.Giftdeedsbtn == "true")
+@if (ViewBag.Giftdeedsbtn != null)
 {
     <script>
         $(document).ready(function () {
+            var data = $("#Giftdeedsdata").val();
+
+            $("#AppendButton").append(data);
             $("#compdocumentbtn3").show();
             $("#documentbtn4").hide();
 
@@ -864,6 +872,9 @@ else
                     $("#willtype").hide();
 
                     $("#paymentfields").hide();
+                    $("#paymentfields").hide();
+                    $(".btnpop").hide();
+                    $("#paymentbtn").hide();
                 }
 
 
@@ -900,6 +911,9 @@ else
         }
         else {
             $("#c").val('');
+            $("#paymentfields").hide();
+            $(".btnpop").hide();
+            $("#paymentbtn").hide();
 
         }
         $("#lblcheck").hide();
@@ -934,8 +948,14 @@ else
                         $("#paymentfields").hide();
                         $(".btnpop").hide();
                         $("#paymentbtn").hide();
+
                     }
 
+                }
+                else {
+                    $("#paymentfields").hide();
+                    $(".btnpop").hide();
+                    $("#paymentbtn").hide();
                 }
 
 
@@ -970,6 +990,11 @@ else
                     }
 
                 }
+                else {
+                    $("#paymentfields").hide();
+                    $(".btnpop").hide();
+                    $("#paymentbtn").hide();
+                }
 
 
 
@@ -1003,6 +1028,11 @@ else
                         $("#paymentbtn").hide();
                     }
 
+                }
+                else {
+                    $("#paymentfields").hide();
+                    $(".btnpop").hide();
+                    $("#paymentbtn").hide();
                 }
 
 

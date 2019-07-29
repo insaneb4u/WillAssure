@@ -31,6 +31,7 @@ namespace WillAssure.Views.ViewDocument
         {
 
             int documentId = Convert.ToInt32(Request.QueryString["NestId"]);
+            string WillType = Request.QueryString["WillType"].ToString();
             ViewState["tid"] = documentId;
 
             con.Open();
@@ -130,21 +131,21 @@ namespace WillAssure.Views.ViewDocument
 
             // find match
 
-            con.Open();
-            string matchquery = "select TemplateID from DocumentIdentifier where DocumentType = "+ documentType1 + " and TypeOfWill = "+ category + " and AppointmentOfGuardian = "+ guardian + " and NumberOfExecutors = "+ executors_category + "  and AppointmentOfAltBeneficiary = "+ AlternateBenficiaries + " and AppointmentOfAltGuardian = "+ AlternateGaurdian + "  and AppointmentOfAltExecutor = "+ AlternateExecutors + " ";
-            SqlDataAdapter matchda = new SqlDataAdapter(matchquery, con);
-            DataTable matchdt = new DataTable();
-            matchda.Fill(matchdt);
+            //con.Open();
+            //string matchquery = "select TemplateID from DocumentIdentifier where DocumentType = "+ documentType1 + " and TypeOfWill = "+ category + " and AppointmentOfGuardian = "+ guardian + " and NumberOfExecutors = "+ executors_category + "  and AppointmentOfAltBeneficiary = "+ AlternateBenficiaries + " and AppointmentOfAltGuardian = "+ AlternateGaurdian + "  and AppointmentOfAltExecutor = "+ AlternateExecutors + " ";
+            //SqlDataAdapter matchda = new SqlDataAdapter(matchquery, con);
+            //DataTable matchdt = new DataTable();
+            //matchda.Fill(matchdt);
 
-            if (matchdt.Rows.Count > 0)
-            {
+            //if (matchdt.Rows.Count > 0)
+            //{
 
 
 
 
                 // update documentmaster with match template id 
 
-                ViewState["TemplateID"] = Convert.ToInt32(matchdt.Rows[0]["TemplateID"]);
+                //ViewState["TemplateID"] = Convert.ToInt32(matchdt.Rows[0]["TemplateID"]);
                 //string query = "update documentMaster set templateId = "+ Convert.ToInt32(matchdt.Rows[0]["TemplateID"]) + " where tId= " + documentId + "  ";
                 //SqlCommand cmd = new SqlCommand(query, con);
                 //cmd.ExecuteNonQuery();
@@ -172,7 +173,7 @@ namespace WillAssure.Views.ViewDocument
                 string beneficiarysirname = "";
                 string documenttype = "";
 
-                string query1 = "select   a.First_Name as TestatorName , a.Last_Name as Testatorsirname , a.DOB as TestatorAge , a.RelationShip as TestatorRelationship , a.Address1 as TestatorAddress , b.First_Name as BeneficiaryName , b.Last_Name as Beneficiarysirname  , c.Name as executorname , d.Name as alternateexecutorname , e.Relationship as Relation , g.AssetsCategory , f.InstrumentName , b.First_Name as BeneficiaryName , f.Proportion  from TestatorDetails a inner join BeneficiaryDetails b on a.tId=b.tId inner join Appointees c on a.tId = c.tid inner join alternate_Appointees d on a.tId=d.tid   inner join testatorFamily e on a.tId=e.tId inner join BeneficiaryAssets f on a.tId=f.tid  inner join AssetsCategory g on g.amId=f.AssetCategory_ID    where a.tId =   " + documentId + "";
+                string query1 = "select a.First_Name as TestatorName , a.Last_Name as Testatorsirname , a.DOB as TestatorAge  , a.RelationShip as TestatorRelationship , a.Address1 as TestatorAddress , b.First_Name as BeneficiaryName , b.Last_Name as Beneficiarysirname , c.Name as executorname , e.AssetsCategory , b.First_Name as Beneficiarysirname , d.Proportion from TestatorDetails a inner join BeneficiaryDetails b on a.tId=b.tId inner join Appointees c on a.tId=c.tid inner join BeneficiaryAssets d on a.tId=d.tid inner join AssetsCategory e on e.atId=d.AssetCategory_ID where a.documentstatus='Completed' and a.tId =   " + documentId + "";
                 SqlDataAdapter da = new SqlDataAdapter(query1, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -208,15 +209,15 @@ namespace WillAssure.Views.ViewDocument
                     executorname = dt.Rows[0]["executorname"].ToString();
 
 
-                    alternateexecutorname = dt.Rows[0]["alternateexecutorname"].ToString();
+                 
 
 
-                    Relation = dt.Rows[0]["Relation"].ToString();
+                 
 
 
 
                     assetcategory = dt.Rows[0]["AssetsCategory"].ToString();
-                    instrumentname = dt.Rows[0]["InstrumentName"].ToString();
+                   
                     mapbeneficiary = dt.Rows[0]["BeneficiaryName"].ToString();
                     proportion = dt.Rows[0]["Proportion"].ToString();
 
@@ -240,8 +241,8 @@ namespace WillAssure.Views.ViewDocument
                 
 
 
-                if (Convert.ToInt32(ViewState["TemplateID"]) == 1)
-                {
+                //if (Convert.ToInt32(ViewState["TemplateID"]) == 1)
+                //{
                     WillTestator1 rpt = new WillTestator1();
                     rpt.SetParameterValue("testator", TestatorName);
                     rpt.SetParameterValue("testatorsirname", TestatorName + testatorsirname);
@@ -251,8 +252,8 @@ namespace WillAssure.Views.ViewDocument
                     rpt.SetParameterValue("beneficiarysirname", beneficiarysirname);
                     rpt.SetParameterValue("testatoradd", TestatorAddress);
                     rpt.SetParameterValue("appointee1", executorname);
-                    rpt.SetParameterValue("appointee2", alternateexecutorname);
-                    rpt.SetParameterValue("wifename", Relation);
+          
+            
                     rpt.SetParameterValue("assetcategory", assetcategory);
                     rpt.SetParameterValue("assetname", instrumentname);
                     rpt.SetParameterValue("benefname", mapbeneficiary);
@@ -263,9 +264,9 @@ namespace WillAssure.Views.ViewDocument
                     CrystalReportViewer1.ReportSource = rpt;
                     
                     CrystalReportViewer1.Zoom(125);
-                    var path = Server.MapPath("~/GeneratedPdf/file.pdf");
-                    rpt.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path);
-                }
+                    var path3 = Server.MapPath("~/GeneratedPdf/file.pdf");
+                    rpt.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path3);
+                //}
                 
 
 
@@ -344,7 +345,7 @@ namespace WillAssure.Views.ViewDocument
                     rpt4.SetParameterValue("percent", proportion);
 
 
-                  
+                    ViewState["getreportdata"] = rpt4;
                     CrystalReportViewer1.ReportSource = rpt4;
                     CrystalReportViewer1.Zoom(125);
                     var path = Server.MapPath("~/GeneratedPdf/file.pdf");
@@ -390,13 +391,13 @@ namespace WillAssure.Views.ViewDocument
 
 
 
-            }
-            else
-            {
+            //}
+            //else
+            //{
 
-                Response.Write("<script>alert('Selected Template Does Not Match With The Rules')</script>");
+            //    Response.Write("<script>alert('Selected Template Does Not Match With The Rules')</script>");
 
-            }
+            //}
 
 
 
@@ -411,21 +412,21 @@ namespace WillAssure.Views.ViewDocument
         protected void btnverify_Click(object sender, EventArgs e)
         {
 
-            ClientScript.RegisterStartupScript(this.GetType(),"randomtext","alertme()",true);
+            //ClientScript.RegisterStartupScript(this.GetType(),"randomtext","alertme()",true);
 
 
-            //con.Open();
-            //string query= "update DocumentVerification set Verification_Status = 'Active' where Tid= "+ Convert.ToInt32(ViewState["tid"]) + "  ";
-            //SqlCommand cmd = new SqlCommand(query,con);
-            //cmd.ExecuteNonQuery();
-            //con.Close();
+            con.Open();
+            string query = "update DocumentVerification set Verification_Status = 'Active' where Tid= " + Convert.ToInt32(ViewState["tid"]) + "  ";
+            SqlCommand cmd = new SqlCommand(query, con);
+            cmd.ExecuteNonQuery();
+            con.Close();
 
 
-            //con.Open();
-            //string query2 = "update documentMaster set adminVerification = 1 where tId =  " + Convert.ToInt32(ViewState["tid"]) + "  ";
-            //SqlCommand cmd2 = new SqlCommand(query2, con);
-            //cmd2.ExecuteNonQuery();
-            //con.Close();
+            con.Open();
+            string query2 = "update documentMaster set adminVerification = 1 where tId =  " + Convert.ToInt32(ViewState["tid"]) + "  ";
+            SqlCommand cmd2 = new SqlCommand(query2, con);
+            cmd2.ExecuteNonQuery();
+            con.Close();
 
 
 
@@ -436,43 +437,45 @@ namespace WillAssure.Views.ViewDocument
 
             // new mail code
 
-            //con.Open();
-            //string query3 = "select Email  from testatordetails where tId =  " + Convert.ToInt32(ViewState["tid"]) + "  ";
-            //SqlDataAdapter da = new SqlDataAdapter(query3,con);
-            //DataTable dt = new DataTable();
-            //da.Fill(dt);
-            //con.Close();
-            //string mailto = "";
-            //if (dt.Rows.Count > 0)
-            //{
-            //    mailto = dt.Rows[0]["Email"].ToString();
-            //}
+            con.Open();
+            string query3 = "select Email  from testatordetails where tId =  " + Convert.ToInt32(ViewState["tid"]) + "  ";
+            SqlDataAdapter da = new SqlDataAdapter(query3, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string mailto = "";
+            if (dt.Rows.Count > 0)
+            {
+                mailto = dt.Rows[0]["Email"].ToString();
+            }
 
 
-            
-           
-            //string subject = "Will Assure";
-           
-            //string body = "As Per Your Details Will Has Been Generated Please Check The Attachment Below";
-
-            //var path = Server.MapPath("~/GeneratedPdf/file.pdf");
-            //MailMessage msg = new MailMessage();
-            //Attachment data = new Attachment(path, MediaTypeNames.Application.Octet);
-
-            //msg.Attachments.Add(data);
-            //msg.From = new MailAddress("info@drinco.in");
-            //msg.To.Add(mailto);
-            //msg.Subject = subject;
-            //msg.Body = body;
-
-            //msg.IsBodyHtml = true;
-            //SmtpClient smtp = new SmtpClient("216.10.240.149", 25);
-            //smtp.Credentials = new NetworkCredential("info@drinco.in", "95Bzf%s7");
-            //smtp.EnableSsl = false;
-            //smtp.Send(msg);
-            //smtp.Dispose();
 
 
+            string subject = "Will Assure";
+
+            string body = "As Per Your Details Will Has Been Generated Please Check The Attachment Below";
+
+            var path = Server.MapPath("~/GeneratedPdf/file.pdf");
+            MailMessage msg = new MailMessage();
+            Attachment data = new Attachment(path, MediaTypeNames.Application.Octet);
+
+            msg.Attachments.Add(data);
+            msg.From = new MailAddress("info@drinco.in");
+            msg.To.Add(mailto);
+            msg.Subject = subject;
+            msg.Body = body;
+
+            msg.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient("216.10.240.149", 25);
+            smtp.Credentials = new NetworkCredential("info@drinco.in", "95Bzf%s7");
+            smtp.EnableSsl = false;
+            smtp.Send(msg);
+            smtp.Dispose();
+
+
+
+            Response.Write("<script>alert('Mail has been Send Please Check The Email')</script>");
 
             //end
 

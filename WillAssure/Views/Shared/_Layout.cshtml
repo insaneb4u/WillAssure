@@ -523,7 +523,7 @@
 
                                 </a>
 
-      
+
 
                                 <ul class="sidebar-submenu">
                                     <li><a href="/EditDocumentPricing/EditDocumentPricingIndex"><i class="zmdi zmdi-star-outline"></i>Set Document Price</a></li>
@@ -582,14 +582,26 @@
 
 
 
-
-                    @if (Session["Type"].ToString() != "DistributorAdmin")
+                    @if (Session["Type"] != null)
                     {
-                        if (ViewBag.showtitle == "true")
+
+                        if (Session["Type"].ToString() != "DistributorAdmin")
                         {
-                            <li class="sidebar-header">Visitor Information</li>
+                            if (ViewBag.showtitle == "true")
+                            {
+                                <li class="sidebar-header">Visitor Information</li>
+                            }
                         }
                     }
+                    else
+                    {
+                        if (!Response.IsRequestBeingRedirected)
+                        {
+                            Response.Redirect("/LoginPage/LoginPageIndex");
+                        }
+                    }
+
+
 
 
 

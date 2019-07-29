@@ -2370,6 +2370,13 @@
             </script>
         }
     }
+    else
+    {
+        if (!Response.IsRequestBeingRedirected)
+        {
+            Response.Redirect("/LoginPage/LoginPageIndex");
+        }
+    }
 
 
 

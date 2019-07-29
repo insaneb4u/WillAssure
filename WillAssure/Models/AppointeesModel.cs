@@ -46,8 +46,12 @@ namespace WillAssure.Models
         public string Pin  { get; set;}
         public int rid { get; set; }
 
+        public string country_txt { get; set; }
+        public int country_id { get; set; }
 
 
+        public string altcountry_txt { get; set; }
+        public int altcountry_id { get; set; }
         // alternate appointees
 
         public int altid { get; set; }

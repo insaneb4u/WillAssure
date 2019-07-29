@@ -479,6 +479,37 @@
 
 
 
+                                    <div class="col-sm-3">
+
+                                        <div class="form-group">
+
+                                            <label for="input-1">Country</label>
+
+                                            @if (Model.country_txt != null)
+                                            {
+
+                                                <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+
+                                                    <option value="@Model.country_txt">@Model.country_txt</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
+                                                @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
+                                            }
+                                            else
+                                            {
+
+                                                <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                                                @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
+                                                @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
+                                            }
+
+
+                                        </div>
+                                    </div>
+
+
+
+
 
                                     <div class="col-sm-3">
 
@@ -511,166 +542,166 @@
                                     </div>
 
 
+                                    <div class="col-sm-3"></div>
+                                        <div class="col-sm-3">
 
-                                    <div class="col-sm-3">
+                                            <div class="form-group">
 
-                                        <div class="form-group">
-
-                                            <label for="input-1">Pin</label>
-                                            @Html.TextBoxFor(m => m.nomPin, new { @class = "form-control input-shadow required validate[required,custom[integer],maxSize[6]]", @id = "txtpin", @placeholder = "Enter Pin", @autocomplete = "off", alert = "LabourCost is requried" })
+                                                <label for="input-1">Pin</label>
+                                                @Html.TextBoxFor(m => m.nomPin, new { @class = "form-control input-shadow required validate[required,custom[integer],maxSize[6]]", @id = "txtpin", @placeholder = "Enter Pin", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            </div>
                                         </div>
+
+
+
                                     </div>
+
+
+
+
+
+
+
+
+                                    <div class="row">
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9">
+
+                                            <div class="form-group">
+
+                                                <label for="input-1">Address 1</label>
+                                                @Html.TextAreaFor(m => m.nomAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtaddress1", @placeholder = "Enter Address 1", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9">
+
+                                            <div class="form-group">
+
+                                                <label for="input-1">Address 2</label>
+                                                @Html.TextAreaFor(m => m.nomAddress2, new { @class = "form-control input-shadow  text-input", @id = "txtaddress2", @placeholder = "Enter Address 2", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-9">
+
+                                            <div class="form-group">
+
+                                                <label for="input-1">Address 3</label>
+                                                @Html.TextAreaFor(m => m.nomAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3", @placeholder = "Enter Address 3", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+                                    <hr />
+
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Identity Proof</label>
+                                                @Html.DropDownListFor(x => x.nomIdentity_Proof, new SelectListItem[]{
+                                           new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                           new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                           new SelectListItem() {Text = "Passport", Value="Passport"},
+                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @id="identityproof" , @onchange= "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Identity Proof Value</label>
+                                                <div id="appendtxt">  @Html.TextBoxFor(m => m.nomIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Aadhaar Card", @style = "display:;", @autocomplete = "off", @onchange = "validateidentity(this.value)", })</div>
+                                                <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Alt Identity Proof</label>
+                                                @Html.DropDownListFor(x => x.nomAlt_Identity_Proof, new SelectListItem[]{
+                                           new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                           new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                           new SelectListItem() {Text = "Passport", Value="Passport"},
+                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ", @id="ddlidentityproof1" , @onchange= "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                                @Html.HiddenFor(m => m.nomAlt_Identity_Proof, new { id = "Alt_Identity_Proof" })
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-sm-3"></div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <label for="input-1">Alt Identity Proof Value</label>
+                                                <div id="appendtxt2"> @Html.TextBoxFor(m => m.nomAlt_Identity_Proof_Value, new { @class = "form-control input-shadow text-input", @id = "txtIdentityProofValue", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
+                                                <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
+
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <hr />
+                                    <div class="row">
+                                        <div class="col-sm-1"></div>
+                                        <div class="col-sm-2"> <label for="input-1">Description of Assets</label></div>
+
+
+
+
+
+
+
+
+
+                                        <div class="col-sm-6">
+
+                                            <div class="form-group">
+
+
+                                                @Html.TextAreaFor(m => m.nomDescription_of_Assets, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtdescriptionofasset", @placeholder = "Enter Description of Assets", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
                                 </div>
-
-
-
-
-
-
-
-
-                                <div class="row">
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-9">
-
-                                        <div class="form-group">
-
-                                            <label for="input-1">Address 1</label>
-                                            @Html.TextAreaFor(m => m.nomAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtaddress1", @placeholder = "Enter Address 1", @autocomplete = "off", alert = "LabourCost is requried" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-9">
-
-                                        <div class="form-group">
-
-                                            <label for="input-1">Address 2</label>
-                                            @Html.TextAreaFor(m => m.nomAddress2, new { @class = "form-control input-shadow  text-input", @id = "txtaddress2", @placeholder = "Enter Address 2", @autocomplete = "off", alert = "LabourCost is requried" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-9">
-
-                                        <div class="form-group">
-
-                                            <label for="input-1">Address 3</label>
-                                            @Html.TextAreaFor(m => m.nomAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3", @placeholder = "Enter Address 3", @autocomplete = "off", alert = "LabourCost is requried" })
-                                        </div>
-                                    </div>
-
-
-                                </div>
-
-                                <hr />
-
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Identity Proof</label>
-                                            @Html.DropDownListFor(x => x.nomIdentity_Proof, new SelectListItem[]{
-                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                       new SelectListItem() {Text = "Passport", Value="Passport"},
-                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @id="identityproof" , @onchange= "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Identity Proof Value</label>
-                                            <div id="appendtxt">  @Html.TextBoxFor(m => m.nomIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Aadhaar Card", @style = "display:;", @autocomplete = "off", @onchange = "validateidentity(this.value)", })</div>
-                                            <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Alt Identity Proof</label>
-                                            @Html.DropDownListFor(x => x.nomAlt_Identity_Proof, new SelectListItem[]{
-                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                       new SelectListItem() {Text = "Passport", Value="Passport"},
-                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ", @id="ddlidentityproof1" , @onchange= "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-
-                                            @Html.HiddenFor(m => m.nomAlt_Identity_Proof, new { id = "Alt_Identity_Proof" })
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-sm-3"></div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.nomAlt_Identity_Proof_Value, new { @class = "form-control input-shadow text-input", @id = "txtIdentityProofValue", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
-                                            <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                                <hr />
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-2"> <label for="input-1">Description of Assets</label></div>
-
-
-
-
-
-
-
-
-
-                                    <div class="col-sm-6">
-
-                                        <div class="form-group">
-
-
-                                            @Html.TextAreaFor(m => m.nomDescription_of_Assets, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtdescriptionofasset", @placeholder = "Enter Description of Assets", @autocomplete = "off", alert = "LabourCost is requried" })
-                                        </div>
-                                    </div>
-
-
-
-
-
-                                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            </div>
 
 
 
                             <div class="form-group" style="float:right">
 
-                                <button type="submit" id="btnnomineeformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> Submit</button>
+                                <button type="submit" id="btnnomineeformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
                                 <button type="submit" id="btnupdate" style="display:none;" formaction="@Url.Action("updateNominee","AddNominee")" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
 
                                 @if (Session["doctype"] != null)
@@ -1720,22 +1751,70 @@ else
 
           $(document).ready(function () {
 
-            $.ajax({
+            @*$.ajax({
 
                 type: "POST",
                 url:"@Url.Action("BindStateDDL", "AddNominee")",
                 success: function (data) {
                     $('#ddlstate').append(data);
                 }
-              });
+              });*@
+
+
+              					   $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindCountryDDL", "AddMainAssets")",
+            success: function (data) {
+
+                $('#ddlcountry').append(data);
+            }
+        });
 
 
 
 
+    });
+
+
+
+
+    	
+								
+								
+								       $("#ddlcountry").change(function () {
+        var value = $(this).children(":selected").attr("value");
+            var text = $("#ddlcountry option:selected").html();
+
+        $("#countrytext").val(text);
+        $("#countryid").val(value);
+
+
+        $.ajax({
+
+            type: "post",
+            url: "@Url.Action("bindstateddl", "addbeneficiary")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#ddlstate').empty().append(data);
+            }
 
 
 
         });
+
+
+
+    });
+								
+								
+								
+								
+								
+								
+								
+								
 
 
 

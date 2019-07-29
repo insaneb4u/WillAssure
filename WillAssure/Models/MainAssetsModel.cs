@@ -225,7 +225,8 @@ namespace WillAssure.Models
         public int nomdocumentId { get; set; }
         public string nomDescription_of_Assets { get; set; }
 
-
+        public string country_txt { get; set; }
+        public int country_id { get; set; }
 
 
 

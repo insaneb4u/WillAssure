@@ -723,8 +723,10 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@First_Name ", BM.First_Name);
                 cmd.Parameters.AddWithValue("@Last_Name", BM.Last_Name);
                 cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
-                DateTime dat = DateTime.ParseExact(BM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                cmd.Parameters.AddWithValue("@DOB", dat);
+                string dd = Convert.ToDateTime(BM.Dob).ToString("dd-MM-yyyy");
+                var d = DateTime.ParseExact(dd, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                //DateTime dat = DateTime.ParseExact(BM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                cmd.Parameters.AddWithValue("@DOB", d);
                 cmd.Parameters.AddWithValue("@Mobile", BM.Mobile);
                 cmd.Parameters.AddWithValue("@Relationship", "None");
                 cmd.Parameters.AddWithValue("@Marital_Status", "none");
@@ -822,9 +824,10 @@ namespace WillAssure.Controllers
             }
 
 
-            if (Session["doctype"].ToString() == "Giftdeeds")
+            if (Session["doctype"].ToString() == "GiftDeeds")
             {
                 ViewBag.Message = "RecordsInsert";
+              
                 con.Open();
                 SqlCommand cmd = new SqlCommand("SP_CRUDBeneficiaryDetails", con);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -832,16 +835,44 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@First_Name ", BM.First_Name);
                 cmd.Parameters.AddWithValue("@Last_Name", BM.Last_Name);
                 cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
-                DateTime dat = DateTime.ParseExact(BM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                cmd.Parameters.AddWithValue("@DOB", dat);
+                string dd = Convert.ToDateTime(BM.Dob).ToString("dd-MM-yyyy");
+                var d = DateTime.ParseExact(dd, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                //DateTime dat = DateTime.ParseExact(BM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                cmd.Parameters.AddWithValue("@DOB", d);
                 cmd.Parameters.AddWithValue("@Mobile", BM.Mobile);
-                cmd.Parameters.AddWithValue("@Relationship", BM.RelationshipTxt);
+                cmd.Parameters.AddWithValue("@Relationship", "None");
                 cmd.Parameters.AddWithValue("@Marital_Status", "none");
                 cmd.Parameters.AddWithValue("@Religion", "none");
                 cmd.Parameters.AddWithValue("@Identity_proof", BM.Identity_proof);
                 cmd.Parameters.AddWithValue("@Identity_proof_value", BM.Identity_proof_value);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof", BM.Alt_Identity_proof);
-                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+
+
+
+                if (BM.Alt_Identity_proof != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", BM.Alt_Identity_proof);
+                }
+                else
+                {
+                    BM.Alt_Identity_proof = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", BM.Alt_Identity_proof);
+                }
+
+                if (BM.Alt_Identity_proof_value != null)
+                {
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+                }
+                else
+                {
+                    BM.Alt_Identity_proof_value = "None";
+                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+                }
+
+
+
+
+
+
 
                 cmd.Parameters.AddWithValue("@Address1", BM.Address1);
                 if (BM.Address2 != null || BM.Address2 == "")
@@ -879,7 +910,7 @@ namespace WillAssure.Controllers
 
 
                 // get latest bpid with filter
-                
+
                 con.Open();
                 string qq = "select top 1 * from BeneficiaryDetails order by bpId desc";
                 SqlDataAdapter da = new SqlDataAdapter(qq, con);

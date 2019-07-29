@@ -214,7 +214,7 @@
                                         <div class="form-group">
                                             <label for="input-1">Date Of Birth</label>
                                             <div id="datepicker11" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                <input class="form-control input-shadow validate[required]"   value="@Model.Dob" type="text" id="DOB" name="Dob" onchange="validatedate(this.value)" autocomplete="off" placeholder="Select Date Of Birth"  readonly="true" />
+                                                <input class="form-control input-shadow validate[required]" value="@Model.Dob" type="text" id="DOB" name="Dob" onchange="validatedate(this.value)" autocomplete="off" placeholder="Select Date Of Birth" readonly="true" />
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
                                             <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
@@ -228,7 +228,7 @@
                                         <div class="form-group">
                                             <label for="input-1">Date Of Birth</label>
                                             <div id="datepicker11" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="Dob" onchange="validatedate(this.value)" autocomplete="off" placeholder="Select Date Of Birth"   readonly="true" />
+                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="Dob" onchange="validatedate(this.value)" autocomplete="off" placeholder="Select Date Of Birth" readonly="true" />
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
                                             <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
@@ -282,6 +282,38 @@
                                     <label class="radio-inline">
                                         <input type="checkbox" name="optradio1" id="testchk1">Same As Testator
                                     </label>
+                                </div>
+
+
+
+
+
+                                <div class="col-sm-3">
+
+                                    <div class="form-group">
+
+                                        <label for="input-1">Country</label>
+
+                                        @if (Model.country_txt != null)
+                                        {
+
+                                            <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+
+                                                <option value="@Model.country_txt">@Model.country_txt</option>
+                                            </select>
+                                            @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
+                                            @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
+                                        }
+                                        else
+                                        {
+
+                                            <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                                            @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
+                                            @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
+                                        }
+
+
+                                    </div>
                                 </div>
 
 
@@ -344,393 +376,11 @@
                                     </div>
                                 }
 
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Pin</label>
-                                        @Html.TextBoxFor(m => m.Pin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "txtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                            <div class="row">
                                 <div class="col-sm-3"></div>
-                                <div class="col-sm-9">
-                                    <div class="form-group">
-                                        <label for="input-1">Address 1</label>
-                                        @Html.TextAreaFor(m => m.Address1, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtAddress1", @placeholder = "Enter Address1", @autocomplete = "off", alert = "LabourCost is requried" })
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-                            <div class="row">
-                                <div class="col-sm-3"></div>
-                                <div class="col-sm-9">
-                                    <div class="form-group">
-                                        <label for="input-1">Address 2</label>
-                                        @Html.TextAreaFor(m => m.Address2, new { @class = "form-control input-shadow text-input", @id = "txtAddress2", @placeholder = "Enter Address2", @autocomplete = "off", alert = "LabourCost is requried" })
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-sm-3"></div>
-                                <div class="col-sm-9">
-                                    <div class="form-group">
-                                        <label for="input-1">Address 3</label>
-                                        @Html.TextAreaFor(m => m.Address3, new { @class = "form-control input-shadow  text-input", @id = "txtAddress3", @placeholder = "Enter Address3", @autocomplete = "off", alert = "LabourCost is requried" })
-                                    </div>
-                                </div>
-                            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            <hr />
-
-                            <div class="row">
-                                <div class="col-sm-1"></div>
-                                <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Identity Proof</label>
-                                        @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
-                                   new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                   new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                   new SelectListItem() {Text = "Passport", Value="Passport"},
-                                   new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Identity Proof Value</label>
-                                        <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "Identity_Proof_Value", @onchange = "validateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
-                                        <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Alt Identity Proof</label>
-                                        @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
-                                   new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                   new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                   new SelectListItem() {Text = "Passport", Value="Passport"},
-                                   new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow ", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-3"></div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Alt Identity Proof Value</label>
-                                        <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
-                                        <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
-                                    </div>
-                                </div>
-
-
-
-
-
-                            </div>
-
-                            <hr />
-
-                            <div class="row">
-                                <div class="col-sm-1"></div>
-
-                                @if (Session["Type"].ToString() != "Testator")
-                                {
-                                    <div class="col-sm-2"> <label for="input-1">Status</label></div>
-
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            @Html.DropDownListFor(x => x.active, new SelectListItem[]{
-                                           new SelectListItem() {Text = "--Select--", Value=""},
-                                           new SelectListItem() {Text = "Active", Value="Active"},
-                                           new SelectListItem() {Text = "Inactive", Value="2"}}, new { @class = "form-control input-shadow validate[required]" })
-                                        </div>
-                                    </div>
-
-                                }
-
-                            </div>
-
-
-
-
-
-
-
-
-                            // add alternate testator family
-                            @*<center>
-
-                                <div class="col-sm-1"></div>
-                                <div class="col-sm-2"> <p style="white-space:nowrap">Add Alternate Testator Family</p></div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                @Html.HiddenFor(m => m.altchek, new { @id = "txtcheck" })
-
-                                <div class="col-sm-6" id="showcompany">
-
-                                    <div class="form-group">
-
-                                        <br />
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="Yes" class="altradio validate[required] chkone" name="radio1">Yes
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" value="No" class="altradio validate[required] chktwo" name="radio1">No
-                                        </label>
-
-
-
-                                    </div>
-                                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                            </center>*@
-                            @*<div id="alttestatorfamily" style="display:none;">
-
-
-                                @Html.HiddenFor(m => m.fId)
-
-
-                                <hr class="div_rd">
-
-
-
-
-
-
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">First Name</label>
-                                            @Html.TextBoxFor(m => m.altFirst_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtFirstName", @placeholder = "Enter First Name", @autocomplete = "off", alert = "LabourCost is requried" })
-                                        </div>
-                                    </div>
-
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Middle Name</label>
-                                            @Html.TextBoxFor(m => m.altMiddle_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtMiddle_Name", @placeholder = "Enter Middle Name", @autocomplete = "off", alert = "LabourCost is requried" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">Last Name</label>
-                                            @Html.TextBoxFor(m => m.altLast_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtLastName", @placeholder = "Enter Last Name", @autocomplete = "off", alert = "LabourCost is requried" })
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3"></div>
-
-
-
-                                    @if (Model.altDob != null)
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Date Of Birth</label>
-                                                <div id="datepicker22" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                    <input class="form-control input-shadow validate[required]" value="@Model.altDob" type="text" id="altDOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                </div>
-                                                <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
-
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Date Of Birth</label>
-                                                <div id="datepicker22" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                    <input class="form-control input-shadow validate[required]" type="text" id="altDOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
-                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                </div>
-                                                <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
-
-                                            </div>
-                                        </div>
-                                    }
-
-
-
-
-
-                                    @if (Model.altRelationshipTxt != null)
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Relation</label>
-                                                <select id="altddlrelation" class="form-control input-shadow validate[required]">
-                                                    <option value="@Model.altRelationshipTxt">@Model.altRelationshipTxt</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altRelationshipId, new { id = "altrelationid" })
-                                                @Html.HiddenFor(m => m.altRelationshipTxt, new { id = "altrelationtext" })
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Relation</label>
-                                                <select id="altddlrelation" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
-                                                @Html.HiddenFor(m => m.altRelationshipId, new { id = "altrelationid" })
-                                                @Html.HiddenFor(m => m.altRelationshipTxt, new { id = "altrelationtext" })
-                                            </div>
-                                        </div>
-
-                                    }
-
-
-
-
-                                </div>
-
-                                <hr />
-
-                                <div class="row">
-                                    <div class="col-sm-1"></div>
-                                    <div class="col-sm-2">
-                                        <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label>
-                                        <label class="radio-inline">
-                                            <input type="checkbox" name="optradio" id="testchk">Same As Testator
-                                        </label>
-                                    </div>
-
-
-                                    @if (Model.altState_txt != null)
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">State</label>
-                                                <select id="altddlstate" class="form-control input-shadow validate[required]">
-                                                    <option value="@Model.altState_txt">@Model.altState_txt</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altState_id, new { id = "altstateid" })
-                                                @Html.HiddenFor(m => m.altState_txt, new { id = "altstatetext" })
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">State</label>
-                                                <select id="altddlstate" class="form-control input-shadow validate[required]">
-                                                    <option value="">--Select State--</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altState_id, new { id = "altstateid" })
-                                                @Html.HiddenFor(m => m.altState_txt, new { id = "altstatetext" })
-                                            </div>
-                                        </div>
-                                    }
-
-
-
-
-
-
-                                    @if (Model.altCity_txt != null)
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">City</label>
-                                                <select id="altddlcity" class="form-control input-shadow validate[required]">
-                                                    <option value="@Model.altCity_txt">@Model.City_txt</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altCity_id, new { id = "altcityid" })
-                                                @Html.HiddenFor(m => m.altCity_txt, new { id = "altcitytext" })
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">City</label>
-                                                <select id="altddlcity" class="form-control input-shadow validate[required]">
-                                                    <option value="">--Select City--</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altCity_id, new { id = "altcityid" })
-                                                @Html.HiddenFor(m => m.altCity_txt, new { id = "altcitytext" })
-                                            </div>
-                                        </div>
-                                    }
-
-
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Pin</label>
-                                            @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "alttxtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                            @Html.TextBoxFor(m => m.Pin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "txtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
                                         </div>
                                     </div>
 
@@ -742,7 +392,7 @@
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 1</label>
-                                            @Html.TextAreaFor(m => m.altAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtAddress1", @placeholder = "Enter Address1", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextAreaFor(m => m.Address1, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtAddress1", @placeholder = "Enter Address1", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
                                 </div>
@@ -754,7 +404,7 @@
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 2</label>
-                                            @Html.TextAreaFor(m => m.altAddress2, new { @class = "form-control input-shadow text-input", @id = "alttxtAddress2", @placeholder = "Enter Address2", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextAreaFor(m => m.Address2, new { @class = "form-control input-shadow text-input", @id = "txtAddress2", @placeholder = "Enter Address2", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
                                 </div>
@@ -765,7 +415,7 @@
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 3</label>
-                                            @Html.TextAreaFor(m => m.altAddress3, new { @class = "form-control input-shadow  text-input", @id = "alttxtAddress3", @placeholder = "Enter Address3", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextAreaFor(m => m.Address3, new { @class = "form-control input-shadow  text-input", @id = "txtAddress3", @placeholder = "Enter Address3", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
                                 </div>
@@ -800,12 +450,12 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof</label>
-                                            @Html.DropDownListFor(x => x.altIdentity_Proof, new SelectListItem[]{
+                                            @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
                                        new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
                                        new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required] altproof", @id = "ddlidentityprooftf1", @onchange = "getIdentityselectiontf1(this.options[this.selectedIndex].innerHTML)" })
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
 
                                         </div>
                                     </div>
@@ -813,21 +463,21 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof Value</label>
-                                            <div id="appendtxttf1"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input altvalue", @id = "Identity_Proof_Valuetf1", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
-
+                                            <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "Identity_Proof_Value", @onchange = "validateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
+                                            <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof</label>
-                                            @Html.DropDownListFor(x => x.altAlt_Identity_Proof, new SelectListItem[]{
+                                            @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
                                        new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
                                        new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow altproof2", @id = "ddlidentityprooftf2", @onchange = "getAltIdentityselectiontf2(this.options[this.selectedIndex].innerHTML)" })
-                                            @Html.HiddenFor(m => m.Alt_Identity_Proof, new { id = "Alt_Identity_Proof" })
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow ", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
                                         </div>
                                     </div>
 
@@ -835,11 +485,10 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="appendtxttf2"> @Html.TextBoxFor(m => m.altAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altvalue2", @id = "Alt_Identity_Proof_Valuetf2", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
-
+                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
+                                            <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                         </div>
                                     </div>
-
 
 
 
@@ -859,7 +508,7 @@
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
-                                                @Html.DropDownListFor(x => x.altactive, new SelectListItem[]{
+                                                @Html.DropDownListFor(x => x.active, new SelectListItem[]{
                                                new SelectListItem() {Text = "--Select--", Value=""},
                                                new SelectListItem() {Text = "Active", Value="Active"},
                                                new SelectListItem() {Text = "Inactive", Value="2"}}, new { @class = "form-control input-shadow validate[required]" })
@@ -875,7 +524,44 @@
 
 
 
-                            </div>*@
+
+
+                                // add alternate testator family
+                                @*<center>
+
+            <div class="col-sm-1"></div>
+            <div class="col-sm-2"> <p style="white-space:nowrap">Add Alternate Testator Family</p></div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+            @Html.HiddenFor(m => m.altchek, new { @id = "txtcheck" })
+
+            <div class="col-sm-6" id="showcompany">
+
+                <div class="form-group">
+
+                    <br />
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="Yes" class="altradio validate[required] chkone" name="radio1">Yes
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" value="No" class="altradio validate[required] chktwo" name="radio1">No
+                    </label>
+
+
+
+                </div>
+            </div>
 
 
 
@@ -892,25 +578,229 @@
 
 
 
-                            @*/////////////////////////////////////////////////////////////////////////////////////////
-                            // GUARDIAN*@
 
 
-                            <div id="guardianform" style="display:none;">
-                                <center><h5> Guardian Details</h5></center>
-                                <br />
-                                <br />
-                                <div>
-
-                                    @Html.HiddenFor(m => m.guaapId)
+        </center>*@
+                                @*<div id="alttestatorfamily" style="display:none;">
 
 
+            @Html.HiddenFor(m => m.fId)
+
+
+            <hr class="div_rd">
 
 
 
 
 
 
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="input-1">First Name</label>
+                        @Html.TextBoxFor(m => m.altFirst_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtFirstName", @placeholder = "Enter First Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                    </div>
+                </div>
+
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="input-1">Middle Name</label>
+                        @Html.TextBoxFor(m => m.altMiddle_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtMiddle_Name", @placeholder = "Enter Middle Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="input-1">Last Name</label>
+                        @Html.TextBoxFor(m => m.altLast_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtLastName", @placeholder = "Enter Last Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                    </div>
+                </div>
+
+                <div class="col-sm-3"></div>
+
+
+
+                @if (Model.altDob != null)
+                {
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">Date Of Birth</label>
+                            <div id="datepicker22" class="input-group date" data-date-format="dd-mm-yyyy">
+                                <input class="form-control input-shadow validate[required]" value="@Model.altDob" type="text" id="altDOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                            <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
+
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">Date Of Birth</label>
+                            <div id="datepicker22" class="input-group date" data-date-format="dd-mm-yyyy">
+                                <input class="form-control input-shadow validate[required]" type="text" id="altDOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                            </div>
+                            <span style="color:red; display:none;" id="datemsg">Invalid Date Of Birth</span>
+
+                        </div>
+                    </div>
+                }
+
+
+
+
+
+                @if (Model.altRelationshipTxt != null)
+                {
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">Relation</label>
+                            <select id="altddlrelation" class="form-control input-shadow validate[required]">
+                                <option value="@Model.altRelationshipTxt">@Model.altRelationshipTxt</option>
+                            </select>
+                            @Html.HiddenFor(m => m.altRelationshipId, new { id = "altrelationid" })
+                            @Html.HiddenFor(m => m.altRelationshipTxt, new { id = "altrelationtext" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">Relation</label>
+                            <select id="altddlrelation" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                            @Html.HiddenFor(m => m.altRelationshipId, new { id = "altrelationid" })
+                            @Html.HiddenFor(m => m.altRelationshipTxt, new { id = "altrelationtext" })
+                        </div>
+                    </div>
+
+                }
+
+
+
+
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2">
+                    <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label>
+                    <label class="radio-inline">
+                        <input type="checkbox" name="optradio" id="testchk">Same As Testator
+                    </label>
+                </div>
+
+
+                @if (Model.altState_txt != null)
+                {
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">State</label>
+                            <select id="altddlstate" class="form-control input-shadow validate[required]">
+                                <option value="@Model.altState_txt">@Model.altState_txt</option>
+                            </select>
+                            @Html.HiddenFor(m => m.altState_id, new { id = "altstateid" })
+                            @Html.HiddenFor(m => m.altState_txt, new { id = "altstatetext" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">State</label>
+                            <select id="altddlstate" class="form-control input-shadow validate[required]">
+                                <option value="">--Select State--</option>
+                            </select>
+                            @Html.HiddenFor(m => m.altState_id, new { id = "altstateid" })
+                            @Html.HiddenFor(m => m.altState_txt, new { id = "altstatetext" })
+                        </div>
+                    </div>
+                }
+
+
+
+
+
+
+                @if (Model.altCity_txt != null)
+                {
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">City</label>
+                            <select id="altddlcity" class="form-control input-shadow validate[required]">
+                                <option value="@Model.altCity_txt">@Model.City_txt</option>
+                            </select>
+                            @Html.HiddenFor(m => m.altCity_id, new { id = "altcityid" })
+                            @Html.HiddenFor(m => m.altCity_txt, new { id = "altcitytext" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">City</label>
+                            <select id="altddlcity" class="form-control input-shadow validate[required]">
+                                <option value="">--Select City--</option>
+                            </select>
+                            @Html.HiddenFor(m => m.altCity_id, new { id = "altcityid" })
+                            @Html.HiddenFor(m => m.altCity_txt, new { id = "altcitytext" })
+                        </div>
+                    </div>
+                }
+
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="input-1">Pin</label>
+                        @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "alttxtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <div class="form-group">
+                        <label for="input-1">Address 1</label>
+                        @Html.TextAreaFor(m => m.altAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtAddress1", @placeholder = "Enter Address1", @autocomplete = "off", alert = "LabourCost is requried" })
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <div class="form-group">
+                        <label for="input-1">Address 2</label>
+                        @Html.TextAreaFor(m => m.altAddress2, new { @class = "form-control input-shadow text-input", @id = "alttxtAddress2", @placeholder = "Enter Address2", @autocomplete = "off", alert = "LabourCost is requried" })
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9">
+                    <div class="form-group">
+                        <label for="input-1">Address 3</label>
+                        @Html.TextAreaFor(m => m.altAddress3, new { @class = "form-control input-shadow  text-input", @id = "alttxtAddress3", @placeholder = "Enter Address3", @autocomplete = "off", alert = "LabourCost is requried" })
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -931,247 +821,439 @@
 
 
 
-                                    <div class="row">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
 
 
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">First Name</label>
-                                                @Html.TextBoxFor(m => m.guaName, new { @class = "form-control input-shadow required validate[required]", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
+            <hr />
+
+            <div class="row">
+                <div class="col-sm-1"></div>
+                <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="input-1">Identity Proof</label>
+                        @Html.DropDownListFor(x => x.altIdentity_Proof, new SelectListItem[]{
+                   new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                   new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                   new SelectListItem() {Text = "Passport", Value="Passport"},
+                   new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required] altproof", @id = "ddlidentityprooftf1", @onchange = "getIdentityselectiontf1(this.options[this.selectedIndex].innerHTML)" })
+
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="input-1">Identity Proof Value</label>
+                        <div id="appendtxttf1"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input altvalue", @id = "Identity_Proof_Valuetf1", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" })  </div>
+
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="input-1">Alt Identity Proof</label>
+                        @Html.DropDownListFor(x => x.altAlt_Identity_Proof, new SelectListItem[]{
+                   new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                   new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                   new SelectListItem() {Text = "Passport", Value="Passport"},
+                   new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow altproof2", @id = "ddlidentityprooftf2", @onchange = "getAltIdentityselectiontf2(this.options[this.selectedIndex].innerHTML)" })
+                        @Html.HiddenFor(m => m.Alt_Identity_Proof, new { id = "Alt_Identity_Proof" })
+                    </div>
+                </div>
+
+                <div class="col-sm-3"></div>
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label for="input-1">Alt Identity Proof Value</label>
+                        <div id="appendtxttf2"> @Html.TextBoxFor(m => m.altAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altvalue2", @id = "Alt_Identity_Proof_Valuetf2", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
+
+                    </div>
+                </div>
+
+
+
+
+
+
+            </div>
+
+            <hr />
+
+            <div class="row">
+                <div class="col-sm-1"></div>
+
+                @if (Session["Type"].ToString() != "Testator")
+                {
+                    <div class="col-sm-2"> <label for="input-1">Status</label></div>
+
+
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            @Html.DropDownListFor(x => x.altactive, new SelectListItem[]{
+                           new SelectListItem() {Text = "--Select--", Value=""},
+                           new SelectListItem() {Text = "Active", Value="Active"},
+                           new SelectListItem() {Text = "Inactive", Value="2"}}, new { @class = "form-control input-shadow validate[required]" })
+                        </div>
+                    </div>
+
+                }
+
+            </div>
+
+
+
+
+
+
+        </div>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                @*/////////////////////////////////////////////////////////////////////////////////////////
+        // GUARDIAN*@
+
+
+                                <div id="guardianform" style="display:none;">
+                                    <center><h5> Guardian Details</h5></center>
+                                    <br />
+                                    <br />
+                                    <div>
+
+                                        @Html.HiddenFor(m => m.guaapId)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        <div class="row">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
+
+
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">First Name</label>
+                                                    @Html.TextBoxFor(m => m.guaName, new { @class = "form-control input-shadow required validate[required]", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">Middle Name</label>
+                                                    @Html.TextBoxFor(m => m.guamiddleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">Last Name</label>
+                                                    @Html.TextBoxFor(m => m.guaSurname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname", @placeholder = "Enter Surname", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">Gender</label>
+                                                    @Html.DropDownListFor(x => x.guaGender, new SelectListItem[]{
+                                                    new SelectListItem() {Text = "--Select--", Value=""},
+                                                    new SelectListItem() {Text = "Male", Value="Male"},
+                                                    new SelectListItem() {Text = "Female", Value="Female"},
+                                                    new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow  validate[required]" })
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                        <hr />
+
+
+
+
+
+
+
+
+                                        <div class="row">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-2">
+                                                <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label>
+                                             
+                                            </div>
+
+
+
+
+
+                                            <div class="col-sm-3">
+
+                                                <div class="form-group">
+
+                                                    <label for="input-1">Country</label>
+
+                                                    @if (Model.guacountrytext != null)
+                                                    {
+
+                                                        <select id="guaddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+
+                                                            <option value="@Model.guacountrytext">@Model.guacountrytext</option>
+                                                        </select>
+                                                        @Html.HiddenFor(m => m.guacountryid, new { id = "guacountryid" })
+                                                        @Html.HiddenFor(m => m.guacountrytext, new { id = "guacountrytext" })
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <select id="guaddlcountry" style="display:;" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                                                        @Html.HiddenFor(m => m.guacountryid, new { id = "guacountryid" })
+                                                        @Html.HiddenFor(m => m.guacountrytext, new { id = "guacountrytext" })
+                                                    }
+
+
+                                                </div>
+                                            </div>
+
+
+                                            @if (Model.guastatetext != null)
+                                            {
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="input-1">State</label>
+                                                        <select id="guaddlstate" class="widthdatatfstate form-control input-shadow validate[required]">
+                                                            <option value="@Model.guastatetext">@Model.guastatetext</option>
+                                                        </select>
+                                                        @Html.HiddenFor(m => m.guastateid, new { id = "guastateid" })
+                                                        @Html.HiddenFor(m => m.guastatetext, new { id = "guastatetext" })
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="input-1">State</label>
+                                                        <select id="guaddlstate" class="form-control input-shadow validate[required]">
+                                                            <option value="">--Select State--</option>
+                                                        </select>
+                                                        @Html.HiddenFor(m => m.guastateid, new { id = "guastateid" })
+                                                        @Html.HiddenFor(m => m.guastatetext, new { id = "guastatetext" })
+                                                    </div>
+                                                </div>
+                                            }
+
+
+
+
+
+
+                                            @if (Model.guacitytext != null)
+                                            {
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="input-1">City</label>
+                                                        <select id="guaddlcity" class="form-control input-shadow validate[required]">
+                                                            <option value="@Model.guacitytext">@Model.guacitytext</option>
+                                                        </select>
+                                                        @Html.HiddenFor(m => m.guacityid, new { id = "guacityid" })
+                                                        @Html.HiddenFor(m => m.guacitytext, new { id = "guacitytext" })
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="col-sm-3">
+                                                    <div class="form-group">
+                                                        <label for="input-1">City</label>
+                                                        <select id="guaddlcity" class="form-control input-shadow validate[required]">
+                                                            <option value="">--Select City--</option>
+                                                        </select>
+                                                        @Html.HiddenFor(m => m.guacityid, new { id = "guacityid" })
+                                                        @Html.HiddenFor(m => m.guacitytext, new { id = "guacitytext" })
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">Pin</label>
+                                                    @Html.TextBoxFor(m => m.guaPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "txtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    <label for="input-1">Address 1</label>
+                                                    @Html.TextAreaFor(m => m.guaAddress1, new { @class = "form-control input-shadow  text-input validate[required]", @id = "txtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    <label for="input-1">Address 2</label>
+                                                    @Html.TextAreaFor(m => m.guaAddress2, new { @class = "form-control input-shadow  text-input ", @id = "txtaddress2", @placeholder = "Enter Address2", @autocomplete = "off" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-9">
+                                                <div class="form-group">
+                                                    <label for="input-1">Address 3</label>
+                                                    @Html.TextAreaFor(m => m.guaAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3", @placeholder = "Enter Address3", @autocomplete = "off" })
+                                                </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Middle Name</label>
-                                                @Html.TextBoxFor(m => m.guamiddleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+
+                                        <div class="row">
+                                            <div class="col-sm-1"></div>
+                                            <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">Identity Proof</label>
+                                                    @Html.DropDownListFor(x => x.guaIdentity_Proof, new SelectListItem[]{
+                                               new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                               new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                               new SelectListItem() {Text = "Passport", Value="Passport"},
+                                               new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                               new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @onchange= "guagetIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">Identity Proof Value</label>
+                                                    <div id="appendtxtalt1">  @Html.TextBoxFor(m => m.guaIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "guaIdentity_Proof_Value", @placeholder = "Enter Identity Proof Number", @onchange = "validateidentity2(this.value)", @autocomplete = "off" })</div>
+                                                </div>
+                                                <span id="lblidentityproof2" style="color:red; display:none;">*Identity Proof Already Entered</span>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">Alt Identity Proof</label>
+                                                    @Html.DropDownListFor(x => x.guaAlt_Identity_Proof, new SelectListItem[]{
+                                               new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                                new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                               new SelectListItem() {Text = "Passport", Value="Passport"},
+                                               new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                               new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ", @id="guaddlidentityproof11" , @onchange= "guagetAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3"></div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="input-1">Alt Identity Proof Value</label>
+                                                    <div id="appendtxtalt2"> @Html.TextBoxFor(m => m.guaAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "guaAlt_Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @onchange = "Altvalidateidentity2(this.value)" })  </div>
+                                                </div>
+                                                <span id="altlblidentityproof2" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                             </div>
                                         </div>
 
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Last Name</label>
-                                                @Html.TextBoxFor(m => m.guaSurname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname", @placeholder = "Enter Surname", @autocomplete = "off" })
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Gender</label>
-                                                @Html.DropDownListFor(x => x.guaGender, new SelectListItem[]{
-                                                new SelectListItem() {Text = "--Select--", Value=""},
-                                                new SelectListItem() {Text = "Male", Value="Male"},
-                                                new SelectListItem() {Text = "Female", Value="Female"},
-                                                new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow  validate[required]" })
-                                            </div>
-                                        </div>
+
 
 
                                     </div>
-
-
-                                    <hr />
-
-
-                                    <div class="row">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
-                                        @if (Model.guastatetext != null)
-                                        {
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="input-1">State</label>
-                                                    <select id="guaWithdatastate" class="form-control input-shadow validate[required]">
-                                                        <option value="@Model.guastatetext">@Model.guastatetext</option>
-                                                    </select>
-                                                    @Html.HiddenFor(m => m.guastateid, new { id = "guastateid" })
-                                                    @Html.HiddenFor(m => m.guastatetext, new { id = "guastatetext" })
-                                                </div>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="input-1">State</label>
-                                                    <select id="guaWithdatastate" class="form-control input-shadow validate[required]">
-                                                        <option value="">--Select State--</option>
-                                                    </select>
-                                                    @Html.HiddenFor(m => m.guastateid, new { id = "guastateid" })
-                                                    @Html.HiddenFor(m => m.guastatetext, new { id = "guastatetext" })
-                                                </div>
-                                            </div>
-                                        }
-
-                                        @if (Model.guacitytext != null)
-                                        {
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="input-1">City</label>
-                                                    <select id="guaddlcity" class="form-control input-shadow validate[required]">
-                                                        <option value="@Model.guacitytext">@Model.guacitytext</option>
-                                                    </select>
-                                                    @Html.HiddenFor(m => m.guacityid, new { id = "guacityid" })
-                                                    @Html.HiddenFor(m => m.guacitytext, new { id = "guacitytext" })
-                                                </div>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="col-sm-3">
-                                                <div class="form-group">
-                                                    <label for="input-1">City</label>
-                                                    <select id="guaddlcity" class="form-control input-shadow validate[required]">
-                                                        <option value="">--Select City--</option>
-                                                    </select>
-                                                    @Html.HiddenFor(m => m.guacityid, new { id = "guacityid" })
-                                                    @Html.HiddenFor(m => m.guacitytext, new { id = "guacitytext" })
-                                                </div>
-                                            </div>
-                                        }
-
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Pin</label>
-                                                @Html.TextBoxFor(m => m.guaPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]]  text-input", @id = "txtpin", @placeholder = "Enter Pin", @autocomplete = "off" })
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <label for="input-1">Address 1</label>
-                                                @Html.TextAreaFor(m => m.guaAddress1, new { @class = "form-control input-shadow  text-input validate[required]", @id = "txtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <label for="input-1">Address 2</label>
-                                                @Html.TextAreaFor(m => m.guaAddress2, new { @class = "form-control input-shadow  text-input ", @id = "txtaddress2", @placeholder = "Enter Address2", @autocomplete = "off" })
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-9">
-                                            <div class="form-group">
-                                                <label for="input-1">Address 3</label>
-                                                @Html.TextAreaFor(m => m.guaAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3", @placeholder = "Enter Address3", @autocomplete = "off" })
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Identity Proof</label>
-                                                @Html.DropDownListFor(x => x.guaIdentity_Proof, new SelectListItem[]{
-                                           new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                           new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                           new SelectListItem() {Text = "Passport", Value="Passport"},
-                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @onchange= "guagetIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Identity Proof Value</label>
-                                                <div id="appendtxtalt1">  @Html.TextBoxFor(m => m.guaIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "guaIdentity_Proof_Value", @placeholder = "Enter Identity Proof Number", @onchange = "validateidentity2(this.value)", @autocomplete = "off" })</div>
-                                            </div>
-                                            <span id="lblidentityproof2" style="color:red; display:none;">*Identity Proof Already Entered</span>
-                                        </div>
-
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Alt Identity Proof</label>
-                                                @Html.DropDownListFor(x => x.guaAlt_Identity_Proof, new SelectListItem[]{
-                                           new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                            new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                           new SelectListItem() {Text = "Passport", Value="Passport"},
-                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ", @id="guaddlidentityproof11" , @onchange= "guagetAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Alt Identity Proof Value</label>
-                                                <div id="appendtxtalt2"> @Html.TextBoxFor(m => m.guaAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "guaAlt_Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @onchange = "Altvalidateidentity2(this.value)" })  </div>
-                                            </div>
-                                            <span id="altlblidentityproof2" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
-                                        </div>
-                                    </div>
-
-
 
 
                                 </div>
 
 
+
+
+
+                                @*//END
+        ///////////////////////////////////////////////////////////////////////////////////////////*@
+
+
+
+
+                                <div class="form-group" style="float:right;">
+                                    <button type="submit" id="btntestatorsubmit" formaction="InsertTestatorFamilyFormData" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> SUBMIT</button>
+                                    <button type="submit" id="btnupdate" style="display:none;" formaction="updatetestatorfamily" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
+                                    <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                    <a href="@Url.Action("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute")"><button type="button" id="btnnext" style="display:;" class="btn btn-success shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                </div>
+
+
+
+
+
+
+                                }
+
+
+                                <button type="button" id="btntestatorfamilysubmitSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                                <button type="button" id="testatorfamilylinkcheck" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                                <button type="button" id="btncheckExists" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                                <button id="confirmguardian" style="display:none;" type="button"></button>
+                                @*<button type="button" style="display:none" id="confirmtestatorfamily"></button>*@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             </div>
-
-
-
-
-
-                            @*//END
-                            ///////////////////////////////////////////////////////////////////////////////////////////*@
-
-
-
-
-                            <div class="form-group" style="float:right;">
-                                <button type="submit" id="btntestatorsubmit" formaction="InsertTestatorFamilyFormData" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i> SUBMIT</button>
-                                <button type="submit" id="btnupdate" style="display:none;" formaction="updatetestatorfamily" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
-                                <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
-                                <a href="@Url.Action("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute")"><button type="button" id="btnnext" style="display:;" class="btn btn-success shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
-                            </div>
-
-
-
-
-
-
-                        }
-
-
-                        <button type="button" id="btntestatorfamilysubmitSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-                        <button type="button" id="testatorfamilylinkcheck" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-                        <button type="button" id="btncheckExists" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-                        <button id="confirmguardian" style="display:none;" type="button"></button>
-                        @*<button type="button" style="display:none" id="confirmtestatorfamily"></button>*@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    </div>
                 </div>
             </div>
         </div>
@@ -1371,6 +1453,17 @@
             $(document).ready(function () {
 
 
+                   $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindCountryDDL", "AddBeneficiary")",
+            success: function (data) {
+
+                $('#ddlcountry').append(data);
+            }
+        });
+
+
                 var tfstate = $(".widthdatatfstate").val();
 
                 if (tfstate != null) {
@@ -1404,7 +1497,7 @@
             data: { "send": "" + guastate+  ""},
             success: function (data) {
 
-                $('#guaddlcity').append(data);
+                $('#guaddlcity').empty().append(data);
             }
 
 
@@ -1475,7 +1568,7 @@
             data: { "send": "" + value+  ""},
             success: function (data) {
 
-                $('#ddlcity').append(data);
+                $('#ddlcity').empty().append(data);
             }
 
 
@@ -1516,7 +1609,7 @@
             data: { "send": "" + value+  ""},
             success: function (data) {
 
-                $('#guaddlcity').append(data);
+                $('#guaddlcity').empty().append(data);
             }
 
 
@@ -1556,7 +1649,7 @@
             data: { "send": "" + value+  ""},
             success: function (data) {
 
-                $('#guaddlcity').append(data);
+                $('#guaddlcity').empty().append(data);
             }
 
 
@@ -1587,32 +1680,110 @@
 
                         //en
 
+            	
+								       $("#ddlcountry").change(function () {
+        var value = $(this).children(":selected").attr("value");
+            var text = $("#ddlcountry option:selected").html();
 
+        $("#countrytext").val(text);
+        $("#countryid").val(value);
+
+
+        $.ajax({
+
+            type: "post",
+            url: "@Url.Action("bindstateddl", "addbeneficiary")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#ddlstate').empty().append(data);
+            }
+
+
+
+        });
+
+
+
+            });
+
+
+
+
+
+
+            
+            	
+								       $("#guaddlcountry").change(function () {
+        var value = $(this).children(":selected").attr("value");
+            var text = $("#ddlcountry option:selected").html();
+
+        $("#guacountrytext").val(text);
+        $("#guacountryid").val(value);
+
+
+        $.ajax({
+
+            type: "post",
+            url: "@Url.Action("bindstateddl", "addbeneficiary")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#guaddlstate').empty().append(data);
+            }
+
+
+
+        });
+
+
+
+    });
+
+
+
+
+								
+								
+								
+								
+								
 
 
 
 
     $(document).ready(function () {
 
-        $.ajax({
+        @*$.ajax({
 
             type: "POST",
             url:"@Url.Action("BindStateDDL", "AddTestatorFamily")",
             success: function (data) {
                 $('#ddlstate').append(data);
             }
+        });*@
+
+
+        					   $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("guaBindCountryDDL", "AddTestatorFamily")",
+            success: function (data) {
+
+                $('#guaddlcountry').append(data);
+            }
         });
 
 
 
-            $.ajax({
+            @*$.ajax({
 
             type: "POST",
             url:"@Url.Action("altBindStateDDL", "AddTestatorFamily")",
             success: function (data) {
                 $('#altddlstate').append(data);
             }
-        });
+        });*@
 
 
 
@@ -2327,7 +2498,7 @@
                 $("#txtLastName").removeAttr("disabled");
                 $("#DOB").removeAttr("disabled");
                 $("#ddlrelation").removeAttr("disabled");
-               
+
                 $("#ddlstate").removeAttr("disabled");
                 $("#ddlcity").removeAttr("disabled");
                 $("#txtPin").removeAttr("disabled");

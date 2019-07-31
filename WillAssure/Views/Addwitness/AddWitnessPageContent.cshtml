@@ -463,17 +463,37 @@
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
+
+
+
                                                 <label for="input-1">Identity Proof</label>
+
+                                                <input type="text" name="name" placeholder="--Select Identity Proof--" id="Identity_Proof_txt" value="@Model.Identity_Proof" class="form-control input-shadow validate[required]" onfocus="firstidentity()" />
+
                                                 @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
                                            new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
                                            new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                            new SelectListItem() {Text = "Passport", Value="Passport"},
                                            new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new {@style="display:none" , @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
 
                                             </div>
-
+                                            
                                         </div>
+
+
+                                        <script>
+
+                                            function firstidentity() {
+
+                                                $("#Identity_Proof_txt").hide();
+                                                $("#ddlidentityproof").show();
+
+                                            }
+
+                                        </script>
+
+
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
@@ -500,7 +520,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Alt Identity Proof Value</label>
-                                                <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
+                                                <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altsecond", @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
                                                 <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                             </div>
                                         </div>
@@ -763,16 +783,32 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof</label>
+
+
                                             @Html.DropDownListFor(x => x.wIdentity_Proof, new SelectListItem[]{
                                        new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
                                        new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required]", @id = "wddlidentityproof", @onchange = "getIdentityselection1(this.options[this.selectedIndex].innerHTML)" })
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new {@style="display:none" , @class = "form-control input-shadow validate[required]", @id = "wddlidentityproof", @onchange = "getIdentityselection1(this.options[this.selectedIndex].innerHTML)" })
+
+                                            <input type="text" name="name" placeholder="--Select Identity Proof--" id="altfirstIdentity_Proof_txt" value="@Model.wIdentity_Proof" class="form-control input-shadow validate[required]" onfocus="altfirstidentity()" />
+
+
 
                                         </div>
 
                                     </div>
+                                    <script>
+
+                                        function altfirstidentity() {
+
+                                            $("#altfirstIdentity_Proof_txt").hide();
+                                            $("#wddlidentityproof").show();
+                                           
+                                        }
+
+                                    </script>
 
                                     <div class="col-sm-3">
                                         <div class="form-group">
@@ -799,7 +835,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="appendtxttwo"> @Html.TextBoxFor(m => m.wAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity2(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
+                                            <div id="appendtxttwo"> @Html.TextBoxFor(m => m.wAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altsecond", @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity2(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
                                             <span id="altlblidentityproof2" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                         </div>
                                     </div>
@@ -949,6 +985,11 @@
 
 
                         $(document).ready(function () {
+
+                            $('#wddlidentityproof option[value=""]').attr("selected", true);
+
+
+                            $('#ddlidentityproof option[value=""]').attr("selected", true);
 
 
                             							   $.ajax({
@@ -2082,14 +2123,14 @@
                             $("#txtIdentityProofValuealt").removeAttr("disabled");
                             $("#ddlidentityproof22alt").removeAttr("disabled");
                             $("#txtIdentityProofValuealt2").removeAttr("disabled");
+                            $(".altsecond").val("");
 
 
 
 
 
-
-
-
+                            
+                            $("#wAlt_Identity_proof_Value").val("");
 
                             $("#ddltype").val("");
                             $("#ddlsubtype").val("");
@@ -2132,6 +2173,17 @@
 
                             $("#Alt_Identity_proof_Value").val("");
 
+
+                            $("#Identity_Proof_txt").val("");
+                            $("#Identity_Proof_Value").val("");
+                            $("#ddlidentityproof1").val("");
+                            $("#Alt_Identity_Proof_Value").val("");
+
+
+                            $("#altfirstIdentity_Proof_txt").val("");
+                            $("#wIdentity_Proof_Value").val("");
+                            $("#wddlidentityproof1").val("");
+                            $("#Alt_Identity_Proof_Value").val("");
 
 
 
@@ -2193,7 +2245,7 @@
 
 
                             $("#btnfieldedit").hide();
-
+                            $("#wAlt_Identity_proof_Value").val("");
                             $("#ddltype").removeAttr("disabled");
                             $("#ddlsubtype").removeAttr("disabled");
                             $("#txtname").removeAttr("disabled");
@@ -2214,7 +2266,12 @@
                             $("#ddlidentityproof11").removeAttr("disabled");
                             $("#txtIdentityProofValue").removeAttr("disabled");
 
+                            $("#altfirstIdentity_Proof_txt").val("");
+                            $("#wIdentity_Proof_Value").val("");
 
+                            
+
+                            $(".altsecond").val("")
                             $("#ddltypealt2").removeAttr("disabled");
                             $("#ddlsubtypealt2").removeAttr("disabled");
                             $("#txtname2").removeAttr("disabled");
@@ -2505,24 +2562,24 @@
 
 
                             if (id == "Aadhaar Card") {
-                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  , onchange='Altvalidateidentity2(this.value)' />");
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  ,  onchange='Altvalidateidentity2(this.value)' />");
                             }
 
 
                             if (id == "Passport") {
-                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='Altvalidateidentity2(this.value)'   />");
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='Altvalidateidentity2(this.value)'   />");
                             }
 
 
 
                             if (id == "Driving Licences") {
-                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='Altvalidateidentity2(this.value)'  />");
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='Altvalidateidentity2(this.value)'  />");
                             }
 
 
 
                             if (id == "Pan Card") {
-                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='Altvalidateidentity2(this.value)'   />");
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='Altvalidateidentity2(this.value)'   />");
                             }
 
 

@@ -19,6 +19,15 @@ namespace WillAssure.Controllers
         // GET: TestatorHomePage
         public ActionResult TestatorHomePageIndex(string status)
         {
+            if(TempData["setamount"] != null)
+            {
+                if (TempData["setamount"].ToString() != null)
+                {
+                    ViewBag.documentamount = TempData["setamount"];
+                }
+            }
+          
+
 
             if (TempData["status"] != null)
             {
@@ -36,11 +45,6 @@ namespace WillAssure.Controllers
             int testatorid = 0;
             ViewBag.collapse = "true";
 
-
-            if (true)
-            {
-
-            }
 
 
 
@@ -64,7 +68,7 @@ namespace WillAssure.Controllers
 
 
 
-               
+
 
 
 
@@ -110,14 +114,14 @@ namespace WillAssure.Controllers
                                 }
 
 
-                              
-                                
-                             
-                          
-                                 
-                              
 
-                           
+
+
+
+
+
+
+
 
 
 
@@ -148,10 +152,10 @@ namespace WillAssure.Controllers
 
 
 
-                           
-                                    // display document
-                                    ViewBag.documentbtn2 = "true";
-                              
+
+                                // display document
+                                ViewBag.documentbtn2 = "true";
+
 
 
 
@@ -177,8 +181,8 @@ namespace WillAssure.Controllers
                             {
 
                                 // display document
-                                    ViewBag.documentbtn3 = "true";
-                                
+                                ViewBag.documentbtn3 = "true";
+
 
 
                             }
@@ -200,14 +204,14 @@ namespace WillAssure.Controllers
                                 if (Convert.ToInt32(dtt3.Rows[0]["Giftdeeds"]) == 1 && Convert.ToInt32(dtt3.Rows[0]["Designation"]) == 1)
                                 {
 
-                                    
-                                        // display document
-                                        ViewBag.documentbtn4 = "true";
-                                    
+
+                                    // display document
+                                    ViewBag.documentbtn4 = "true";
 
 
 
-                                }  
+
+                                }
                             }
 
                         }
@@ -234,12 +238,12 @@ namespace WillAssure.Controllers
 
 
 
-                              
-                                    // display document
-                                    ViewBag.documentbtn5 = "true";
-                                
-                                   
-                          
+
+                                // display document
+                                ViewBag.documentbtn5 = "true";
+
+
+
 
 
 
@@ -258,13 +262,13 @@ namespace WillAssure.Controllers
 
 
 
-                    //////////////////////////////////////////////////////  END  ///////////////////////////////////////////////
+                //////////////////////////////////////////////////////  END  ///////////////////////////////////////////////
 
 
 
 
 
-                    string OTP = "";
+                string OTP = "";
                 if (Session["LoginOTP"] != null)
                 {
                     OTP = Session["LoginOTP"].ToString();
@@ -475,100 +479,11 @@ namespace WillAssure.Controllers
 
 
 
-                // document amount cal
-
-                int total = 0;
-                int willamt = 0;
-                int Codocilamt = 0;
-                int POAamt = 0;
-                int Giftdeedsamt = 0;
-                int LivingWillamt = 0;
-                con.Open();
-                string qry312 = "select Will , Codocil , POA , Giftdeeds , LivingWill from users where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-                SqlDataAdapter daa23 = new SqlDataAdapter(qry312, con);
-                DataTable dtt43 = new DataTable();
-                daa23.Fill(dtt43);
-                if (dtt43.Rows.Count > 0)
-                {
-                    if (Convert.ToInt32(dtt43.Rows[0]["Will"]) == 1)
-                    {
-
-                        string quer1 = "select Document_Price from documentpricing  where Document_Name = 'Will' ";
-                        SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
-                        DataTable daat = new DataTable();
-                        daa1.Fill(daat);
-                        if (daat.Rows.Count > 0)
-                        {
-                            willamt = Convert.ToInt32(daat.Rows[0]["Document_Price"]);
-                        }
-
-                    }
-                    if (Convert.ToInt32(dtt43.Rows[0]["Codocil"]) == 1)
-                    {
-
-                        string quer1 = "select Document_Price from documentpricing  where Document_Name = 'Codocil' ";
-                        SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
-                        DataTable daat = new DataTable();
-                        daa1.Fill(daat);
-                        if (daat.Rows.Count > 0)
-                        {
-                            Codocilamt += Convert.ToInt32(daat.Rows[0]["Document_Price"]);
-                        }
-
-                    }
-                    if (Convert.ToInt32(dtt43.Rows[0]["POA"]) == 1)
-                    {
-
-                        string quer1 = "select Document_Price from documentpricing  where Document_Name = 'POA' ";
-                        SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
-                        DataTable daat = new DataTable();
-                        daa1.Fill(daat);
-                        if (daat.Rows.Count > 0)
-                        {
-                            POAamt += Convert.ToInt32(daat.Rows[0]["Document_Price"]);
-                        }
-
-                    }
-                    if (Convert.ToInt32(dtt43.Rows[0]["Giftdeeds"]) == 1)
-                    {
-
-                        string quer1 = "select Document_Price from documentpricing  where Document_Name = 'Gift Deeds' ";
-                        SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
-                        DataTable daat = new DataTable();
-                        daa1.Fill(daat);
-                        if (daat.Rows.Count > 0)
-                        {
-                            Giftdeedsamt += Convert.ToInt32(daat.Rows[0]["Document_Price"]);
-                        }
-
-                    }
-                    if (Convert.ToInt32(dtt43.Rows[0]["LivingWill"]) == 1)
-                    {
-
-                        string quer1 = "select Document_Price from documentpricing  where Document_Name = 'Living Will' ";
-                        SqlDataAdapter daa1 = new SqlDataAdapter(quer1, con);
-                        DataTable daat = new DataTable();
-                        daa1.Fill(daat);
-                        if (daat.Rows.Count > 0)
-                        {
-                            LivingWillamt += Convert.ToInt32(daat.Rows[0]["Document_Price"]);
-                        }
-
-                    }
-                }
-                con.Close();
-
-                total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
-
-                Session["documentamount"] = total;
-
-                //end
-
+                
             }
-            else
-            {
-                RedirectToAction("LoginPageIndex", "LoginPage");
-            }
+
+
+           
 
 
 
@@ -938,6 +853,70 @@ namespace WillAssure.Controllers
         public ActionResult insertDocumentDetails(TestatorFormModel TFM)
         {
             string typeid = "";
+            int total = 0;
+            int willamt = 0;
+            int Codocilamt = 0;
+            int POAamt = 0;
+            int Giftdeedsamt = 0;
+            int LivingWillamt = 0;
+            
+
+            con.Open();
+
+            string qry = "select * from documentpricing";
+            SqlDataAdapter daa= new SqlDataAdapter(qry, con);
+            DataTable dtt = new DataTable();
+            daa.Fill(dtt);
+
+            if (dtt.Rows.Count > 0)
+            {
+
+                for (int i = 0; i < dtt.Rows.Count; i++)
+                {
+                    if (dtt.Rows[i]["Document_Name"].ToString() == "Will")
+                    {
+                        willamt = Convert.ToInt32(dtt.Rows[i]["Document_Price"]);
+                    }
+
+
+                    if (dtt.Rows[i]["Document_Name"].ToString() == "Codocil")
+                    {
+                        Codocilamt = Convert.ToInt32(dtt.Rows[i]["Document_Price"]);
+                    }
+
+
+
+                    if (dtt.Rows[i]["Document_Name"].ToString() == "POA")
+                    {
+                        POAamt = Convert.ToInt32(dtt.Rows[i]["Document_Price"]);
+                    }
+
+
+
+                    if (dtt.Rows[i]["Document_Name"].ToString() == "Gift Deeds")
+                    {
+                        Giftdeedsamt = Convert.ToInt32(dtt.Rows[i]["Document_Price"]);
+                    }
+
+
+                    if (dtt.Rows[i]["Document_Name"].ToString() == "Living Will")
+                    {
+                        LivingWillamt = Convert.ToInt32(dtt.Rows[i]["Document_Price"]);
+                    }
+                }
+
+                
+
+            }
+
+
+
+            con.Close();
+
+
+
+
+
 
             // DOCUMENT RULES
             int testatorid = 0;
@@ -985,6 +964,14 @@ namespace WillAssure.Controllers
 
 
 
+
+
+
+
+
+
+
+
                 if (TFM.documenttype == "WillCodocilPOA")
                 {
                     typeid = "1,2,3";
@@ -994,6 +981,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt;
 
                 }
                 if (TFM.documenttype == "Codocil")
@@ -1008,6 +997,8 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
+                    total = Codocilamt;
+
 
                 }
                 if (TFM.documenttype == "POA")
@@ -1019,6 +1010,9 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  POAamt;
+
                 }
                 if (TFM.documenttype == "Will")
                 {
@@ -1028,6 +1022,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt;
                 }
                 if (TFM.documenttype == "WillCodocil")
                 {
@@ -1038,6 +1034,9 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt;
+
                 }
                 if (TFM.documenttype == "WillPOA")
                 {
@@ -1048,6 +1047,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + POAamt;
                 }
                 if (TFM.documenttype == "CodocilPOA")
                 {
@@ -1058,6 +1059,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  Codocilamt + POAamt;
                 }
                 if (TFM.documenttype == "CodocilWill")
                 {
@@ -1068,6 +1071,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt;
                 }
                 if (TFM.documenttype == "POAWill")
                 {
@@ -1077,6 +1082,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + POAamt;
                 }
                 if (TFM.documenttype == "Giftdeeds")
                 {
@@ -1086,6 +1093,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Giftdeedsamt;
                 }
                 if (TFM.documenttype == "GiftdeedsCodocil")
                 {
@@ -1095,6 +1104,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  Codocilamt +  Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "GiftdeedsWill")
@@ -1105,6 +1116,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "GiftdeedsPOA")
@@ -1115,6 +1128,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + Giftdeedsamt;
                 }
 
 
@@ -1126,7 +1141,13 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Giftdeedsamt;
+
                 }
+
+
+
                 if (TFM.documenttype == "POAGiftdeeds")
                 {
                     typeid = "3,1";
@@ -1135,6 +1156,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  POAamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "CodocilGiftdeeds")
@@ -1145,6 +1168,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  Codocilamt  + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "CodocilGiftdeedsWill")
@@ -1155,6 +1180,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "CodocilGiftdeedsWillPOA")
@@ -1165,6 +1192,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "CodocilWillGiftdeedsPOA")
@@ -1175,6 +1204,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "WillCodocilPOAGiftdeeds")
@@ -1185,6 +1216,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
@@ -1195,6 +1228,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWill")
@@ -1205,6 +1240,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWillWillCodocilPOAGiftdeeds")
@@ -1215,6 +1252,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "CodocilGiftdeedsLivingWillWillPOA")
@@ -1225,6 +1264,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWillWillPOA")
@@ -1235,6 +1276,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + POAamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "POALivingWillWill")
@@ -1245,6 +1288,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  POAamt + LivingWillamt + willamt;
                 }
 
                 if (TFM.documenttype == "LivingWillPOAGiftdeeds")
@@ -1255,6 +1300,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  POAamt + Giftdeedsamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "POAGiftdeeds")
                 {
@@ -1264,6 +1311,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  POAamt + Giftdeedsamt;
                 }
                 if (TFM.documenttype == "POAGiftdeedsWill")
                 {
@@ -1273,6 +1322,9 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + POAamt + Giftdeedsamt;
+
                 }
                 if (TFM.documenttype == "POAWillCodocil")
                 {
@@ -1282,6 +1334,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt;
                 }
                 if (TFM.documenttype == "CodocilLivingWill")
                 {
@@ -1291,6 +1345,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  Codocilamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "CodocilGiftdeedsLivingWill")
                 {
@@ -1300,6 +1356,9 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  Codocilamt + Giftdeedsamt + LivingWillamt;
+
                 }
                 if (TFM.documenttype == "POALivingWill")
                 {
@@ -1309,6 +1368,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "GiftdeedsLivingWill")
                 {
@@ -1318,6 +1379,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  Giftdeedsamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
                 {
@@ -1327,6 +1390,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "POAGiftDeedsLivingWill")
@@ -1337,6 +1402,9 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+
+                    total =  POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWillGiftDeedsPOA")
@@ -1347,6 +1415,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "GiftDeedsLivingWillPOA")
@@ -1357,6 +1427,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWillCodocil")
@@ -1367,6 +1439,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  Codocilamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWillGiftdeeds")
@@ -1377,6 +1451,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  Giftdeedsamt + LivingWillamt;
                 }
 
 
@@ -1388,6 +1464,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt +  Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "GiftdeedsPOA")
@@ -1398,6 +1476,10 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+
+                    total =  POAamt + Giftdeedsamt;
+
                 }
                 if (TFM.documenttype == "LivingWillPOA")
                 {
@@ -1407,6 +1489,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  POAamt  + LivingWillamt;
                 }
                 if (TFM.documenttype == "WillGiftdeedsCodocil")
                 {
@@ -1416,6 +1500,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "WillGiftdeedsLivingWill")
@@ -1426,6 +1512,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt +  Giftdeedsamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "CodocilPOAGiftdeeds")
                 {
@@ -1435,6 +1523,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  Codocilamt + POAamt + Giftdeedsamt;
                 }
                 if (TFM.documenttype == "WillCodocilGiftdeeds")
                 {
@@ -1444,6 +1534,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt  + Giftdeedsamt;
                 }
                 if (TFM.documenttype == "WillLivingWill")
                 {
@@ -1453,6 +1545,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "LivingWillWill")
                 {
@@ -1462,6 +1556,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + LivingWillamt;
                 }
 
 
@@ -1473,6 +1569,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + POAamt + Giftdeedsamt;
                 }
 
 
@@ -1484,6 +1582,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt  + POAamt + Giftdeedsamt;
                 }
 
 
@@ -1496,6 +1596,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  POAamt + Giftdeedsamt + willamt;
                 }
 
                 if (TFM.documenttype == "WillCodocilGiftdeedsPOA")
@@ -1506,6 +1608,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
                 }
 
 
@@ -1517,6 +1621,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
 
@@ -1528,6 +1634,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt  + LivingWillamt;
                 }
                 if (TFM.documenttype == "CodocilLivingWillPOAGiftdeeds")
                 {
@@ -1537,6 +1645,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total =  Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "WillCodocilLivingWillPOA")
@@ -1547,6 +1657,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + LivingWillamt;
                 }
 
 
@@ -1558,6 +1670,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
 
@@ -1669,6 +1783,8 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
+                    total = willamt + Codocilamt + POAamt;
+
                 }
                 if (TFM.documenttype == "Codocil")
                 {
@@ -1682,6 +1798,8 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
+                    total = Codocilamt;
+
 
                 }
                 if (TFM.documenttype == "POA")
@@ -1693,6 +1811,9 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt;
+
                 }
                 if (TFM.documenttype == "Will")
                 {
@@ -1702,6 +1823,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt;
                 }
                 if (TFM.documenttype == "WillCodocil")
                 {
@@ -1712,6 +1835,9 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt;
+
                 }
                 if (TFM.documenttype == "WillPOA")
                 {
@@ -1722,6 +1848,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + POAamt;
                 }
                 if (TFM.documenttype == "CodocilPOA")
                 {
@@ -1732,6 +1860,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Codocilamt + POAamt;
                 }
                 if (TFM.documenttype == "CodocilWill")
                 {
@@ -1742,6 +1872,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt;
                 }
                 if (TFM.documenttype == "POAWill")
                 {
@@ -1751,6 +1883,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + POAamt;
                 }
                 if (TFM.documenttype == "Giftdeeds")
                 {
@@ -1760,6 +1894,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Giftdeedsamt;
                 }
                 if (TFM.documenttype == "GiftdeedsCodocil")
                 {
@@ -1769,6 +1905,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Codocilamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "GiftdeedsWill")
@@ -1779,6 +1917,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "GiftdeedsPOA")
@@ -1789,6 +1929,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + Giftdeedsamt;
                 }
 
 
@@ -1800,7 +1942,13 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Giftdeedsamt;
+
                 }
+
+
+
                 if (TFM.documenttype == "POAGiftdeeds")
                 {
                     typeid = "3,1";
@@ -1809,6 +1957,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "CodocilGiftdeeds")
@@ -1819,6 +1969,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Codocilamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "CodocilGiftdeedsWill")
@@ -1829,6 +1981,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "CodocilGiftdeedsWillPOA")
@@ -1839,6 +1993,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "CodocilWillGiftdeedsPOA")
@@ -1849,6 +2005,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "WillCodocilPOAGiftdeeds")
@@ -1859,6 +2017,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
@@ -1869,6 +2029,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWill")
@@ -1879,6 +2041,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWillWillCodocilPOAGiftdeeds")
@@ -1889,6 +2053,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "CodocilGiftdeedsLivingWillWillPOA")
@@ -1899,6 +2065,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWillWillPOA")
@@ -1909,6 +2077,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + POAamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "POALivingWillWill")
@@ -1919,6 +2089,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + LivingWillamt + willamt;
                 }
 
                 if (TFM.documenttype == "LivingWillPOAGiftdeeds")
@@ -1929,6 +2101,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + Giftdeedsamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "POAGiftdeeds")
                 {
@@ -1938,6 +2112,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + Giftdeedsamt;
                 }
                 if (TFM.documenttype == "POAGiftdeedsWill")
                 {
@@ -1947,6 +2123,9 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + POAamt + Giftdeedsamt;
+
                 }
                 if (TFM.documenttype == "POAWillCodocil")
                 {
@@ -1956,6 +2135,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt;
                 }
                 if (TFM.documenttype == "CodocilLivingWill")
                 {
@@ -1965,6 +2146,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Codocilamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "CodocilGiftdeedsLivingWill")
                 {
@@ -1974,6 +2157,9 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Codocilamt + Giftdeedsamt + LivingWillamt;
+
                 }
                 if (TFM.documenttype == "POALivingWill")
                 {
@@ -1983,6 +2169,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "GiftdeedsLivingWill")
                 {
@@ -1992,6 +2180,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Giftdeedsamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
                 {
@@ -2001,6 +2191,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "POAGiftDeedsLivingWill")
@@ -2011,6 +2203,9 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+
+                    total = POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWillGiftDeedsPOA")
@@ -2021,6 +2216,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "GiftDeedsLivingWillPOA")
@@ -2031,6 +2228,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWillCodocil")
@@ -2041,6 +2240,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Codocilamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "LivingWillGiftdeeds")
@@ -2051,6 +2252,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Giftdeedsamt + LivingWillamt;
                 }
 
 
@@ -2062,6 +2265,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "GiftdeedsPOA")
@@ -2072,6 +2277,10 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+
+                    total = POAamt + Giftdeedsamt;
+
                 }
                 if (TFM.documenttype == "LivingWillPOA")
                 {
@@ -2081,6 +2290,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "WillGiftdeedsCodocil")
                 {
@@ -2090,6 +2301,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + Giftdeedsamt;
                 }
 
                 if (TFM.documenttype == "WillGiftdeedsLivingWill")
@@ -2100,6 +2313,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Giftdeedsamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "CodocilPOAGiftdeeds")
                 {
@@ -2109,6 +2324,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Codocilamt + POAamt + Giftdeedsamt;
                 }
                 if (TFM.documenttype == "WillCodocilGiftdeeds")
                 {
@@ -2118,6 +2335,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + Giftdeedsamt;
                 }
                 if (TFM.documenttype == "WillLivingWill")
                 {
@@ -2127,6 +2346,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "LivingWillWill")
                 {
@@ -2136,6 +2357,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + LivingWillamt;
                 }
 
 
@@ -2147,6 +2370,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + POAamt + Giftdeedsamt;
                 }
 
 
@@ -2158,6 +2383,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + POAamt + Giftdeedsamt;
                 }
 
 
@@ -2170,6 +2397,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = POAamt + Giftdeedsamt + willamt;
                 }
 
                 if (TFM.documenttype == "WillCodocilGiftdeedsPOA")
@@ -2180,6 +2409,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
                 }
 
 
@@ -2191,6 +2422,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
 
@@ -2202,6 +2435,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + LivingWillamt;
                 }
                 if (TFM.documenttype == "CodocilLivingWillPOAGiftdeeds")
                 {
@@ -2211,6 +2446,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
                 if (TFM.documenttype == "WillCodocilLivingWillPOA")
@@ -2221,6 +2458,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + LivingWillamt;
                 }
 
 
@@ -2232,6 +2471,8 @@ namespace WillAssure.Controllers
                     SqlCommand cc1 = new SqlCommand(qq1, con);
                     cc1.ExecuteNonQuery();
                     con.Close();
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
 
@@ -2257,9 +2498,9 @@ namespace WillAssure.Controllers
 
 
 
+            TempData["setamount"] = total;
 
-
-
+          
 
             return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage");
 

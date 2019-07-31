@@ -4,6 +4,11 @@
 @{
     ViewBag.Title = "Regn";
 }
+<style type="text/css">
+    .bs-example {
+        margin: 20px;
+    }
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <section class="flat-row page-careers">
     <div class="container">
@@ -98,45 +103,46 @@
                                     </div>
                                 </div>
                                 @*<div class="form-group col-sm-12" style="float: left;">
-                                    <div class="col-sm-12"><label for="email" style="font-weight: 700; font-size: 16px">Select Doument which you wants to create</label></div>
-                                    <div class="col-sm-12" style="float: left;">
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="checkone" class="chk" value="Will">Will
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="checktwo" class="chk" value="Codocil">Codocil
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="checkthree" class="chk" value="POA">POA
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="checkfour" class="chk" value="Giftdeeds">Gift Deeds
-                                        </label>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" id="checkfive" class="chk" value="LivingWill">Living Will
-                                        </label>
-                                    </div>
-                                    <span style="color:red;display:none" id="lblcheck">*Required</span>
-                                </div>*@
+                                        <div class="col-sm-12"><label for="email" style="font-weight: 700; font-size: 16px">Select Doument which you wants to create</label></div>
+                                        <div class="col-sm-12" style="float: left;">
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="checkone" class="chk" value="Will">Will
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="checktwo" class="chk" value="Codocil">Codocil
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="checkthree" class="chk" value="POA">POA
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="checkfour" class="chk" value="Giftdeeds">Gift Deeds
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" id="checkfive" class="chk" value="LivingWill">Living Will
+                                            </label>
+                                        </div>
+                                        <span style="color:red;display:none" id="lblcheck">*Required</span>
+                                    </div>*@
 
                                 @*<div id="willtype" style="display:none;">
-                                    <label class="radio-inline">
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="typeone" name="optone" value="Quick" checked>Quick
-                                    </label>
-                                    <label class="radio-inline">
-                                        <input type="radio" id="typetwo" name="optone" value="Detailed">Detailed
-                                    </label>
-                                </div>*@
-                                    <!--<div class="col-sm-12" style="float: left;" id="documentpricing">
+                                        <label class="radio-inline">
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="typeone" name="optone" value="Quick" checked>Quick
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" id="typetwo" name="optone" value="Detailed">Detailed
+                                        </label>
+                                    </div>*@
+                                <!--<div class="col-sm-12" style="float: left;" id="documentpricing">
 
-        </div>-->
+                                </div>-->
 
 
-                                    <div class="col-sm-12 text-right" style="float: left;">
-                                        <button type="button" id="btnsubmit" class="btn btn-success ">Submit</button>
-                                    </div>
+                                <div class="col-sm-12 text-right" style="float: left;">
+                                    <button type="button" id="btnsubmit" class="btn btn-success ">Submit</button>
+                                </div>
                             </form>
-                            <button style="display:none;" class="btn btn-outline-primary btn-block m-1" id="btnotp" data-toggle="modal" data-target="#primarymodal">Primary</button>
+                            <button style="display:none;" class="btn btn-outline-primary btn-block m-1" id="btnotp" data-toggle="modal" data-target="#primarymodal" backdrop="static" data-keyboard="false">Primary</button>
+                             <input type="button" style="display:none" class="btn btn-lg btn-primary launch-modal" value="Launch Demo Modal">
                             <div class="clearfix"></div>
                         </div>
                     </div>
@@ -148,15 +154,16 @@
 
 
 
-<!--Primary Modal -->
-<div class="modal fade" id="primarymodal">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content border-primary">
-            <div class="modal-header bg-primary">
-                <h5 class="modal-title text-white">Please Enter OTP For Login</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+
+@*new model pop up*@
+
+<div id="myModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+             
+                <center><h5 class="modal-title">Please Enter OTP For Login</h5></center>
+              
             </div>
             <div class="modal-body">
                 <form>
@@ -171,6 +178,7 @@
 
                                 @*<span style="color:green;display:none" id="lblsuccess">Verified</span>*@
                                 <span style="color:red;display:none" id="lblfailed">Failed</span>
+                                <span style="color:red;display:none" id="lblemptycheck">Please Enter Your OTP</span>
                                 <span style="color:red; white-space:nowrap;" id="lblerror"></span>
                             </div>
                         </div>
@@ -178,19 +186,39 @@
 
                     </div>
 
-                    <div class="form-group">
-                        <input type="button" id="btnverifyotp" style="color:white;" name="name" class="btn btn-success" value="Verify OTP" />
-                        <a href=""><button type="button" class="btn btn-danger">Cancel</button></a>
-                    </div>
+                   
                 </form>
+            </div>
+            <div class="modal-footer">
+                <div class="form-group">
+                    <input type="button" id="btnverifyotp" style="color:white;" name="name" class="btn btn-success" value="Verify OTP" />
+                    <a href=""><button type="button" class="btn btn-danger">Cancel</button></a>
+                </div>
             </div>
         </div>
     </div>
-
-
 </div>
-<!--End Modal -->
 
+
+
+
+
+@*end*@
+
+
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.launch-modal').click(function () {
+            $('#myModal').modal({
+                backdrop: 'static'
+            });
+        });
+    });
+</script>
 
 <script>
 
@@ -198,9 +226,9 @@
 
     //NW
     function checkotpentered(value) {
-    
-        var data = $("#txtotp").val();
 
+        var data = $("#txtotp").val();
+      
         $.ajax({
 
             type: "POST",
@@ -208,8 +236,8 @@
             data: { "send": "" + data + "" },
             success: function (data) {
                 //alert(data);
-                 
-             
+
+
 
             }
         });
@@ -244,7 +272,7 @@
                 if (data == "true") {
                     $("#validatedob").hide()
                 }
-                 
+
                 if (data == "false") {
 
                     $("#validatedob").show()
@@ -336,7 +364,7 @@
     $("#btnsubmit").click(function () {
 
 
-   
+      
 
         //var getValuesSelected = $("#w").val().trim() + $("#c").val().trim() + $("#p").val().trim() + $("#g").val().trim() + $("#lw").val().trim();
         //  alert(getValuesSelected);
@@ -344,11 +372,11 @@
 
 
         //var i = 0;
-       
 
-          
 
-        
+
+
+
         //if ($(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false || $(".chk").prop("checked") == false) {
         //    $("#lblcheck").show();
         //    i = 1;
@@ -396,8 +424,8 @@
 
 
 
-        
-        
+
+
         if ($("#getvalone").prop("checked") == true) {
 
             if ($("#ddlDistributor").val() == "") {
@@ -422,7 +450,11 @@
                         alert("Records Inserted SuccessFully Please Check Your Email For OTP");
 
 
-                        $('#primarymodal').modal('show');
+                        //$('#primarymodal').modal('show');
+
+                        $(".launch-modal").on("click", function () { });
+
+                        $(".launch-modal").click(); //trigger event after listening to it.
 
 
                         $("#txtfirstname").val("");
@@ -466,7 +498,7 @@
             });
         }
 
-       
+
 
 
 
@@ -513,6 +545,7 @@
 
         var x = $("#txtotp").val();
 
+       
 
         $.ajax({
 
@@ -520,7 +553,7 @@
             url: "@Url.Action("checkOTP", "VisitorData")",
             data: { "send": "" + x + "" },
             success: function (data) {
-
+               
                 if (data == "true") {
                     $("#lblsuccess").show();
                     $("#lblfailed").hide();
@@ -533,14 +566,20 @@
                 if (data == "false") {
                     $("#lblfailed").show();
                     $("#lblsuccess").hide();
-                
+                    $("#lblemptycheck").hide();
+
                 }
 
+                if (data == "Empty") {
+
+                    $("#lblemptycheck").show();
+
+                }
 
                 //$('#primarymodal').modal('hide');
                 //$("#txtotp").val("");
 
-             
+
 
             }
         });
@@ -628,12 +667,12 @@
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#c").val(x);
 
-            
+
         }
         else {
 
             $("#c").val('');
-         
+
         }
 
         $("#lblcheck").hide();
@@ -649,7 +688,7 @@
             //  $("#documenttype").append(x);
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#p").val(x);
-          
+
         }
         else {
 
@@ -665,7 +704,7 @@
             //$("#documenttype").append(x);
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#g").val(x);
-           
+
         }
 
         else {
@@ -685,7 +724,7 @@
             //$("#documenttype").append(x);
             $('#DDLAmtPaidBY2').prop('disabled', false);
             $("#lw").val(x);
-            
+
         }
         else {
 
@@ -702,7 +741,7 @@
     $(document).on("change", "#getvalone", function () {
 
         $("#ddlDistributor").show();
-      
+
 
 
     });

@@ -450,12 +450,32 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof</label>
+
+
+                                           
+
+                                            <input type="text" name="name" placeholder="--Select Identity Proof--" id="Identity_Proof_txt" value="@Model.Identity_Proof" class = "form-control input-shadow validate[required]" onfocus="firstidentity()" />
+
+
                                             @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
                                        new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
                                        new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow validate[required]  firstselect", @id = "ddlidentityproof", @style="display:none;" , @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+
+                                            <script>
+
+                                                function firstidentity() {
+
+                                                    $("#Identity_Proof_txt").hide();
+                                                    $("#ddlidentityproof").show();
+
+                                                }
+
+                                            </script>
+
 
                                         </div>
                                     </div>
@@ -476,7 +496,7 @@
                                        new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow ", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
 
                                         </div>
                                     </div>
@@ -1150,17 +1170,40 @@
                                         <div class="row">
                                             <div class="col-sm-1"></div>
                                             <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
+
+
+
+
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label for="input-1">Identity Proof</label>
+
+                                                    <input type="text" name="name"  placeholder="--Select Identity Proof--" value="@Model.guaIdentity_Proof" id="altfirstIdentity_Proof_txt" class="form-control input-shadow validate[required]" onfocus="altfirstidentity()" />
+
+
                                                     @Html.DropDownListFor(x => x.guaIdentity_Proof, new SelectListItem[]{
                                                new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
                                                new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                                new SelectListItem() {Text = "Passport", Value="Passport"},
                                                new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                               new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @onchange= "guagetIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                               new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required] altfirstselect", @onchange= "guagetIdentityselection(this.options[this.selectedIndex].innerHTML)" , @style="display:none;" })
                                                 </div>
                                             </div>
+
+
+                                            <script>
+
+                                                function altfirstidentity() {
+
+                                                    $("#altfirstIdentity_Proof_txt").hide();
+                                                    $(".altfirstselect").show();
+
+                                                }
+
+                                            </script>
+
+
+
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label for="input-1">Identity Proof Value</label>
@@ -1303,6 +1346,7 @@
             data: { "send": "" + value + "" },
                      success: function (data) {
 
+                         
 
                          var msg = data.split('~')[0];
                          var structure = data.split('~')[1];
@@ -1322,7 +1366,7 @@
 
                          if (msg == "true") {
 
-
+                             
 
 
 
@@ -1336,9 +1380,13 @@
                              $("#txtgchk").val("true");
 
 
+                             $("#guardianform").show();
+
+
                          }
-                         if (data == "false") {
+                         if (msg == "false") {
                              $("#txtgchk").val("false");
+                             $("#guardianform").hide();
                          }
                      }
 
@@ -1358,8 +1406,8 @@
             $('input[name="optradio1"]').click(function () {
 
         var tid = $("#tid").val();
-
-
+                
+              
 
             if ($(this).prop("checked") == true) {
 
@@ -1378,10 +1426,9 @@
                 var add3 = response.split("~")[2];
 
 
-
-                $("#txtAddress1").empty().append(add1);
-                $("#txtAddress2").empty().append(add2);
-                $("#txtAddress3").empty().append(add3);
+                $("#txtAddress1").val(add1);
+                $("#txtAddress2").val(add2);
+                $("#txtAddress3").val(add3);
 
 
 
@@ -1451,6 +1498,10 @@
 
 
             $(document).ready(function () {
+
+                $('.firstselect option[value=""]').attr("selected", true);
+                $('.altfirstselect option[value=""]').attr("selected", true);
+                
 
 
                    $.ajax({
@@ -2509,7 +2560,10 @@
                 $("#Alt_Identity_Proof_Value").removeAttr("disabled");
                 $("#ddlidentityproof1").removeAttr("disabled");
                 $("#Identity_Proof_Value").removeAttr("disabled");
+                $("#Identity_Proof_txt").removeAttr("disabled");
 
+
+                $("#Identity_Proof_txt").val("");
 
                 $("#alttxtFirstName").removeAttr("disabled");
                 $("#alttxtMiddle_Name").removeAttr("disabled");
@@ -2528,8 +2582,8 @@
                 $(".altvalue1").removeAttr("disabled");
 
 
-
-
+                
+                $("#altfirstIdentity_Proof_txt").val("");
                 $("#txtFirstName").val("");
                 $("#txtMiddle_Name").val("");
                 $("#txtLastName").val("");
@@ -2626,7 +2680,10 @@
                 $("#Alt_Identity_Proof_Value").removeAttr("disabled");
                 $("#ddlidentityproof1").removeAttr("disabled");
                 $("#Identity_Proof_Value").removeAttr("disabled");
+                $("#Identity_Proof_txt").removeAttr("disabled");
 
+
+                $("#Identity_Proof_txt").val("");
 
                 $("#alttxtFirstName").removeAttr("disabled");
                 $("#alttxtMiddle_Name").removeAttr("disabled");

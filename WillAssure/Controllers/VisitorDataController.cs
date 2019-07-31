@@ -365,7 +365,17 @@ namespace WillAssure.Controllers
         public JsonResult checkOTP()
         {
             string message = "";
-            int response = Convert.ToInt32(Request["send"]);
+            int response = 0;
+            if (Request["send"] != "")
+            {
+                response = Convert.ToInt32(Request["send"]);
+                
+            }
+            else
+            {
+                message = "Empty";
+            }
+            
             string email = "";
             int userid = 0;
             if (response != 0)

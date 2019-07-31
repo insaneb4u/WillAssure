@@ -488,13 +488,39 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Identity Proof</label>
-                                        @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
-                                   new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                   new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                   new SelectListItem() {Text = "Passport", Value="Passport"},
-                                   new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @id="ddlidentityproof" , @onchange= "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-                                        @Html.HiddenFor(m => m.Identity_Proof_txt, new { id = "Identity_Proof_txt" })
+
+                                    
+                                            @Html.TextBoxFor(m => m.Identity_Proof, new { id = "Identity_Proof_txt", @class = "form-control input-shadow validate[required]" , @onfocus="firstidentity()" })
+                                    
+
+                                            @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
+                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @id="ddlidentityproof" , @style = "display:none", @onchange= "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+
+                                        
+
+                                        <script>
+
+                                            function firstidentity() {
+
+                                                $("#Identity_Proof_txt").hide();
+                                                $("#ddlidentityproof").show();
+
+                                            }
+
+                                        </script>
+                                       
+
+
+
+
+
+
+
                                     </div>
                                 </div>
 
@@ -507,22 +533,26 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
+
+
+
+
+
                                         <label for="input-1">Alt Identity Proof</label>
                                         @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
                                    new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                    new SelectListItem() {Text = "Passport", Value="Passport"},
                                    new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ddalternate", @id="ddlidentityproof1" , @style="display:;" , @onchange= "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-                                        @Html.HiddenFor(m => m.Alt_Identity_Proof, new { id = "Alt_Identity_Proof" })
-                                        @*@Html.TextBoxFor(m => m.Alt_Identity_Proof, new { id = "txtAlt_Identity_Proof" , @class="form-control input-shadow" })
+                                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ddalternate", @id="ddlidentityproof1" , @style="display:;" , @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
 
-                        <script>
-                            $("#txtAlt_Identity_Proof").focus(function () {
-                                $("#txtAlt_Identity_Proof").hide();
-                                $(".ddalternate").show();
-                            });
-                        </script>*@
+
+                                       
+
+
+
+
+
                                     </div>
                                 </div>
 
@@ -665,6 +695,8 @@
 <script>
 
     $(document).ready(function () {
+
+        $('#ddlidentityproof option[value=""]').attr("selected", true);
 
         $.ajax({
 

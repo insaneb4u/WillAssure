@@ -17,17 +17,10 @@
 <br />
 
 
-@if (Session["documentamount"] != null)
-{
-    <input type="hidden" name="name" id="test" value="@Session["documentamount"]" />
-}
-else
-{
-    if (!Response.IsRequestBeingRedirected)
-    {
-        Response.Redirect("/LoginPage/LoginPageIndex");
-    }
-}
+
+    <input type="hidden" name="name" id="test" value="@ViewBag.documentamount" />
+
+
 
 
 

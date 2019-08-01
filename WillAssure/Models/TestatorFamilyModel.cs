@@ -255,7 +255,62 @@ namespace WillAssure.Models
 
         public string guaPin { get; set; }
         public int guarid { get; set; }
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        public int altguaapId { get; set; }
+        public int altguadocumentId { get; set; }
+        public string altgauType { get; set; }
+        public int altguaTypeId { get; set; }
+        public string altguaTypetxt { get; set; }
+        public string altguasubType { get; set; }
+        public int altguasubTypeId { get; set; }
+        public string altguasubTypetxt { get; set; }
+        public string altguaName { get; set; }
+        public string altguamiddleName { get; set; }
+        public string altguaSurname { get; set; }
+        public string altguaIdentity_Proof { get; set; }
+        public string altguaIdentity_Proof_Value { get; set; }
+        public string altguaAlt_Identity_Proof { get; set; }
+        public string altguaAlt_Identity_Proof_Value { get; set; }
+        public string altguaDob { get; set; }
+        public string altguaGender { get; set; }
+        public string altguaOccupation { get; set; }
+
+        public string altguaRelationship { get; set; }
+        public int altguaRelationshipId { get; set; }
+        public string altguaRelationshipTxt { get; set; }
+
+        public string altguaAddress1 { get; set; }
+        public string altguaAddress2 { get; set; }
+        public string altguaAddress3 { get; set; }
+
+        public string altguaCity { get; set; }
+        public int altguacityid { get; set; }
+        public string altguacitytext { get; set; }
+
+        public string altguaState { get; set; }
+        public int altguastateid { get; set; }
+        public string altguastatetext { get; set; }
+
+
+
+        public int altguacountryid { get; set; }
+        public string altguacountrytext { get; set; }
+
+        public string altguaPin { get; set; }
+        public int altguarid { get; set; }
+
 
 
 

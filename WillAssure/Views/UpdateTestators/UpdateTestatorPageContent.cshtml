@@ -490,7 +490,7 @@
                                         <label for="input-1">Identity Proof</label>
 
                                     
-                                            @Html.TextBoxFor(m => m.Identity_Proof, new { id = "Identity_Proof_txt", @class = "form-control input-shadow validate[required]" , @onfocus="firstidentity()" })
+                                            @Html.TextBoxFor(m => m.Identity_Proof, new {@placeholder="--Select Identity Proof--" , id = "Identity_Proof_txt", @class = "form-control input-shadow validate[required]" , @onfocus="firstidentity()" })
                                     
 
                                             @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
@@ -934,6 +934,14 @@
 @*validation script*@
 <script>
     function getIdentityselection(id) {
+
+
+        if (id != "") {
+
+            $("#ddlidentityproof").validationEngine("hide");
+
+        }
+
 
         $("#Identity_Proof_txt").val(id);
 

@@ -2227,78 +2227,13 @@ namespace WillAssure.Controllers
             string response = Request["send"].ToString();
             string msg = "";
 
-
-
-
-
-
-            con.Open();
-
-
-
-            string query = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "   ";
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            int tid = 0;
-            if (dt.Rows.Count > 0)
-            {
-                tid = Convert.ToInt32(dt.Rows[0]["tId"]);
-            }
-
-
-
-
-            string query2 = "select Alt_Identity_proof_Value , Identity_proof_Value from TestatorDetails  where tId = " + tid + " ";
-            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
-            DataTable dt2 = new DataTable();
-            da2.Fill(dt2);
-
-            if (dt2.Rows.Count > 0)
-            {
-
-                for (int i = 0; i < dt2.Rows.Count; i++)
-                {
-                    if (dt2.Rows[i]["Identity_proof_Value"].ToString() == response || dt2.Rows[0]["Alt_Identity_proof_Value"].ToString() == response)
-                    {
-                        msg = "false";
-                    }
-                    else
-                    {
-                        msg = "true";
-                    }
-
-
-                }
-
-
-            }
-
-
-            con.Close();
-
-
-
-
-            return msg;
-        }
-
-
-
-
-
-        public string altValidateidentity()
-        {
-            string response = Request["send"].ToString();
-            string msg = "";
-
-
-
-
-
+            string testatorchk = "";
+            string testatorfamilychk = "";
+            string guardianchk = "";
+            string benechk = "";
+            string witchk = "";
 
             con.Open();
-
 
 
             string query = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "";
@@ -2324,19 +2259,388 @@ namespace WillAssure.Controllers
 
                 if (dt2.Rows[0]["Alt_Identity_proof_value"].ToString() == response || dt2.Rows[0]["Identity_proof_Value"].ToString() == response)
                 {
-                    msg = "false";
+                    testatorchk = "false";
                 }
-                else
-                {
-                    msg = "true";
-                }
+             
 
             }
 
 
+
+
+
+
+
+            //////////////////////////////// check in testator family  ///////////////////////////////////////
+
+
+
+
+
+
+
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
+            DataTable dt3 = new DataTable();
+            da3.Fill(dt3);
+
+            if (dt3.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt3.Rows.Count; i++)
+                {
+                    if (dt3.Rows[i]["Identity_proof_Value"].ToString() == response || dt3.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        testatorfamilychk = "false";
+                    }
+                 
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+            //////////////////////////////// check in Appointees guardian  ///////////////////////////////////////
+
+
+
+
+
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
+            DataTable dt4 = new DataTable();
+            da4.Fill(dt4);
+
+            if (dt4.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt4.Rows.Count; i++)
+                {
+                    if (dt4.Rows[i]["Identity_proof_Value"].ToString() == response || dt4.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        guardianchk = "false";
+                    }
+                  
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+
+            //////////////////////////////// check in beneficiary  ///////////////////////////////////////
+
+
+
+
+
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
+            DataTable dt5 = new DataTable();
+            da5.Fill(dt5);
+
+            if (dt5.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt5.Rows.Count; i++)
+                {
+                    if (dt5.Rows[i]["Identity_proof_Value"].ToString() == response || dt5.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        benechk = "false";
+                    }
+                 
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+            //////////////////////////////// check in Witness  ///////////////////////////////////////
+
+
+
+
+
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
+            DataTable dt6 = new DataTable();
+            da6.Fill(dt6);
+
+            if (dt6.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt6.Rows.Count; i++)
+                {
+                    if (dt6.Rows[i]["Identity_proof_Value"].ToString() == response || dt6.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        witchk = "false";
+                    }
+                 
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+
+
+
+
+
+
             con.Close();
 
+            msg = testatorchk + "~" + testatorfamilychk + "~" + guardianchk + "~" + benechk + "~" + witchk;
 
+
+            return msg;
+        }
+
+
+
+
+
+        public string altValidateidentity()
+        {
+            string response = Request["send"].ToString();
+            string msg = "";
+
+            string testatorchk = "";
+            string testatorfamilychk = "";
+            string guardianchk = "";
+            string benechk = "";
+            string witchk = "";
+
+            con.Open();
+
+
+            string query = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            int tid = 0;
+            if (dt.Rows.Count > 0)
+            {
+                tid = Convert.ToInt32(dt.Rows[0]["tId"]);
+            }
+
+
+
+
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+            DataTable dt2 = new DataTable();
+            da2.Fill(dt2);
+
+            if (dt2.Rows.Count > 0)
+            {
+
+                if (dt2.Rows[0]["Alt_Identity_proof_value"].ToString() == response || dt2.Rows[0]["Identity_proof_Value"].ToString() == response)
+                {
+                    testatorchk = "false";
+                }
+              
+
+            }
+
+
+
+
+
+
+
+            //////////////////////////////// check in testator family  ///////////////////////////////////////
+
+
+
+
+
+
+
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
+            DataTable dt3 = new DataTable();
+            da3.Fill(dt3);
+
+            if (dt3.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt3.Rows.Count; i++)
+                {
+                    if (dt3.Rows[i]["Identity_proof_Value"].ToString() == response || dt3.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        testatorfamilychk = "false";
+                    }
+                  
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+            //////////////////////////////// check in Appointees guardian  ///////////////////////////////////////
+
+
+
+
+
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
+            DataTable dt4 = new DataTable();
+            da4.Fill(dt4);
+
+            if (dt4.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt4.Rows.Count; i++)
+                {
+                    if (dt4.Rows[i]["Identity_proof_Value"].ToString() == response || dt4.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        guardianchk = "false";
+                    }
+                   
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+
+            //////////////////////////////// check in beneficiary  ///////////////////////////////////////
+
+
+
+
+
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
+            DataTable dt5 = new DataTable();
+            da5.Fill(dt5);
+
+            if (dt5.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt5.Rows.Count; i++)
+                {
+                    if (dt5.Rows[i]["Identity_proof_Value"].ToString() == response || dt5.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        benechk = "false";
+                    }
+                 
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+            //////////////////////////////// check in Witness  ///////////////////////////////////////
+
+
+
+
+
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
+            DataTable dt6 = new DataTable();
+            da6.Fill(dt6);
+
+            if (dt6.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt6.Rows.Count; i++)
+                {
+                    if (dt6.Rows[i]["Identity_proof_Value"].ToString() == response || dt6.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        witchk = "false";
+                    }
+                 
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+
+
+
+
+
+
+            con.Close();
+
+            msg = testatorchk + "~" + testatorfamilychk + "~" + guardianchk + "~" + benechk + "~" + witchk;
 
 
             return msg;
@@ -2357,78 +2661,13 @@ namespace WillAssure.Controllers
             string response = Request["send"].ToString();
             string msg = "";
 
-
-
-
-
-
-            con.Open();
-
-
-
-            string query = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "   ";
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            int tid = 0;
-            if (dt.Rows.Count > 0)
-            {
-                tid = Convert.ToInt32(dt.Rows[0]["tId"]);
-            }
-
-
-
-
-            string query2 = "select Alt_Identity_proof_Value , Identity_proof_Value from TestatorDetails  where tId = " + tid + " ";
-            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
-            DataTable dt2 = new DataTable();
-            da2.Fill(dt2);
-
-            if (dt2.Rows.Count > 0)
-            {
-
-                for (int i = 0; i < dt2.Rows.Count; i++)
-                {
-                    if (dt2.Rows[i]["Identity_proof_Value"].ToString() == response || dt2.Rows[0]["Alt_Identity_proof_Value"].ToString() == response)
-                    {
-                        msg = "false";
-                    }
-                    else
-                    {
-                        msg = "true";
-                    }
-
-
-                }
-
-
-            }
-
-
-            con.Close();
-
-
-
-
-            return msg;
-        }
-
-
-
-
-
-        public string altValidateidentity2()
-        {
-            string response = Request["send"].ToString();
-            string msg = "";
-
-
-
-
-
+            string testatorchk = "";
+            string testatorfamilychk = "";
+            string guardianchk = "";
+            string benechk = "";
+            string witchk = "";
 
             con.Open();
-
 
 
             string query = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "";
@@ -2454,19 +2693,387 @@ namespace WillAssure.Controllers
 
                 if (dt2.Rows[0]["Alt_Identity_proof_value"].ToString() == response || dt2.Rows[0]["Identity_proof_Value"].ToString() == response)
                 {
-                    msg = "false";
+                    testatorchk = "false";
                 }
-                else
-                {
-                    msg = "true";
-                }
+             
 
             }
 
 
+
+
+
+
+
+            //////////////////////////////// check in testator family  ///////////////////////////////////////
+
+
+
+
+
+
+
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
+            DataTable dt3 = new DataTable();
+            da3.Fill(dt3);
+
+            if (dt3.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt3.Rows.Count; i++)
+                {
+                    if (dt3.Rows[i]["Identity_proof_Value"].ToString() == response || dt3.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        testatorfamilychk = "false";
+                    }
+               
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+            //////////////////////////////// check in Appointees guardian  ///////////////////////////////////////
+
+
+
+
+
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
+            DataTable dt4 = new DataTable();
+            da4.Fill(dt4);
+
+            if (dt4.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt4.Rows.Count; i++)
+                {
+                    if (dt4.Rows[i]["Identity_proof_Value"].ToString() == response || dt4.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        guardianchk = "false";
+                    }
+                
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+
+            //////////////////////////////// check in beneficiary  ///////////////////////////////////////
+
+
+
+
+
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
+            DataTable dt5 = new DataTable();
+            da5.Fill(dt5);
+
+            if (dt5.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt5.Rows.Count; i++)
+                {
+                    if (dt5.Rows[i]["Identity_proof_Value"].ToString() == response || dt5.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        benechk = "false";
+                    }
+                 
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+            //////////////////////////////// check in Witness  ///////////////////////////////////////
+
+
+
+
+
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
+            DataTable dt6 = new DataTable();
+            da6.Fill(dt6);
+
+            if (dt6.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt6.Rows.Count; i++)
+                {
+                    if (dt6.Rows[i]["Identity_proof_Value"].ToString() == response || dt6.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        witchk = "false";
+                    }
+                  
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+
+
+
+
+
+
             con.Close();
 
+            msg = testatorchk + "~" + testatorfamilychk + "~" + guardianchk + "~" + benechk + "~" + witchk;
 
+
+            return msg;
+        }
+
+
+
+
+
+        public string altValidateidentity2()
+        {
+            string response = Request["send"].ToString();
+            string msg = "";
+
+            string testatorchk = "";
+            string testatorfamilychk = "";
+            string guardianchk = "";
+            string benechk = "";
+            string witchk = "";
+
+            con.Open();
+
+
+            string query = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            int tid = 0;
+            if (dt.Rows.Count > 0)
+            {
+                tid = Convert.ToInt32(dt.Rows[0]["tId"]);
+            }
+
+
+
+
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+            DataTable dt2 = new DataTable();
+            da2.Fill(dt2);
+
+            if (dt2.Rows.Count > 0)
+            {
+
+                if (dt2.Rows[0]["Alt_Identity_proof_value"].ToString() == response || dt2.Rows[0]["Identity_proof_Value"].ToString() == response)
+                {
+                    testatorchk = "false";
+                }
+          
+
+            }
+
+
+
+
+
+
+
+            //////////////////////////////// check in testator family  ///////////////////////////////////////
+
+
+
+
+
+
+
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
+            DataTable dt3 = new DataTable();
+            da3.Fill(dt3);
+
+            if (dt3.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt3.Rows.Count; i++)
+                {
+                    if (dt3.Rows[i]["Identity_proof_Value"].ToString() == response || dt3.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        testatorfamilychk = "false";
+                    }
+                
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+            //////////////////////////////// check in Appointees guardian  ///////////////////////////////////////
+
+
+
+
+
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
+            DataTable dt4 = new DataTable();
+            da4.Fill(dt4);
+
+            if (dt4.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt4.Rows.Count; i++)
+                {
+                    if (dt4.Rows[i]["Identity_proof_Value"].ToString() == response || dt4.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        guardianchk = "false";
+                    }
+                 
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+
+            //////////////////////////////// check in beneficiary  ///////////////////////////////////////
+
+
+
+
+
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
+            DataTable dt5 = new DataTable();
+            da5.Fill(dt5);
+
+            if (dt5.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt5.Rows.Count; i++)
+                {
+                    if (dt5.Rows[i]["Identity_proof_Value"].ToString() == response || dt5.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        benechk = "false";
+                    }
+                
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+            //////////////////////////////// check in Witness  ///////////////////////////////////////
+
+
+
+
+
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
+            DataTable dt6 = new DataTable();
+            da6.Fill(dt6);
+
+            if (dt6.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt6.Rows.Count; i++)
+                {
+                    if (dt6.Rows[i]["Identity_proof_Value"].ToString() == response || dt6.Rows[i]["Alt_Identity_proof_Value"].ToString() == response)
+                    {
+                        witchk = "false";
+                    }
+              
+
+
+
+
+
+
+                }
+
+
+
+            }
+
+
+            ////////////////////////////////////////end////////////////////////////////////////////
+
+
+
+
+
+
+
+
+            con.Close();
+
+            msg = testatorchk + "~" + testatorfamilychk + "~" + guardianchk + "~" + benechk + "~" + witchk;
 
 
             return msg;

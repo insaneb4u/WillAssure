@@ -574,7 +574,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Identity proof Value</label>
-                                        <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_proof_value, new { @class = "form-control input-shadow validate[required] text-input", @onchange = "validateidentity(this.value)", @id = "txtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
+                                        <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_proof_value, new { @class = "form-control input-shadow validate[required] text-input", @onchange = "validateidentity(this.value)", @id = "txtIdentityProofValue",  @onfocus="txtfirst()" , @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
                                         <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
 
                                     </div>
@@ -602,7 +602,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Alt Identity proof Value</label>
-                                        <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_proof_value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValue22", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
+                                        <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_proof_value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValue22", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" ,  @onfocus = "txtSecond()" }) </div>
                                         <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
 
                                     </div>
@@ -1048,6 +1048,25 @@
 
 <script>
 
+
+
+    function txtfirst() {
+
+        $("#lblidentityproof").hide();
+    }
+
+
+
+
+    function txtsecond() {
+
+        $("#altlblidentityproof").hide();
+    }
+
+
+
+
+
     function getinputdate(value) {
 
         if (value != "") {
@@ -1436,24 +1455,24 @@
         $("#ddlidentityproof22 option:disabled").removeAttr('disabled');
 
         if (id == "Aadhaar Card") {
-            $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[adharCard]] text-input' onchange='validateidentity(this.value)' id='Identity_proof_value' name='Identity_proof_value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+            $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[adharCard]] text-input' onchange='validateidentity(this.value)' id='Identity_proof_value' name='Identity_proof_value' placeholder='Enter Aadhaar Card' autocomplete='off' , onfocus='txtfirst()'  />");
         }
 
 
         if (id == "Passport") {
-            $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[Passport]] text-input' onchange='validateidentity(this.value)' id='Identity_proof_value' name='Identity_proof_value'  placeholder='Enter Passport Number' autocomplete='off'  />");
+            $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[Passport]] text-input' onchange='validateidentity(this.value)' id='Identity_proof_value' name='Identity_proof_value'  placeholder='Enter Passport Number' autocomplete='off' , onfocus='txtfirst()' />");
         }
 
 
 
         if (id == "Driving Licences") {
-            $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[carnumber]] text-input' onchange='validateidentity(this.value)' id='Identity_proof_value' name='Identity_proof_value' placeholder='Enter Driving Licences' autocomplete='off'  />");
+            $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[carnumber]] text-input' onchange='validateidentity(this.value)' id='Identity_proof_value' name='Identity_proof_value' placeholder='Enter Driving Licences' autocomplete='off' , onfocus='txtfirst()' />");
         }
 
 
 
         if (id == "Pan Card") {
-            $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[pannumber]] text-input' onchange='validateidentity(this.value)' id='Identity_proof_value' name='Identity_proof_value' placeholder='Enter Pan Card' autocomplete='off'  />");
+            $("#appendtxt").empty().append("<input type='text' class='form-control input-shadow validate[required,custom[pannumber]] text-input' onchange='validateidentity(this.value)' id='Identity_proof_value' name='Identity_proof_value' placeholder='Enter Pan Card' autocomplete='off' , onfocus='txtfirst()'  />");
         }
 
 
@@ -1477,24 +1496,24 @@
 
 
         if (id == "Aadhaar Card") {
-            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input'  onchange='Altvalidateidentity(this.value)' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  />");
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input'  onchange='Altvalidateidentity(this.value)' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off' , onfocus='txtsecond()'  />");
         }
 
 
         if (id == "Passport") {
-            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input'   onchange='Altvalidateidentity(this.value)' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off'  />");
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input'   onchange='Altvalidateidentity(this.value)' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onfocus='txtsecond()' />");
         }
 
 
 
         if (id == "Driving Licences") {
-            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input'  onchange='Altvalidateidentity(this.value)'  id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  />");
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input'  onchange='Altvalidateidentity(this.value)'  id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off' , onfocus='txtsecond()'  />");
         }
 
 
 
         if (id == "Pan Card") {
-            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' onchange='Altvalidateidentity(this.value)' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off'  />");
+            $("#appendtxt2").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input' onchange='Altvalidateidentity(this.value)' id='Alt_Identity_proof_Value' name='Alt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onfocus='txtsecond()'  />");
         }
 
 
@@ -2278,18 +2297,51 @@
                     data: {"send":""+value+""},
                     success: function (data) {
 
-                        if (data == "true") {
+                    
+                        var data1 = data.split("~")[0];
+                        var data2 = data.split("~")[1];
+                        var data3 = data.split("~")[2];
+                        var data4 = data.split("~")[3];
+                        var data5 = data.split("~")[4];
 
-                            $("#lblidentityproof").hide();
 
+
+                    
+                        if (data1 == "false") {
+                            $("#lblidentityproof").show();
+
+                            $("#Identity_proof_value").val("");
                         }
 
 
-                        if (data == "false") {
-
+                      
+                        if (data2 == "false") {
                             $("#lblidentityproof").show();
                             $("#Identity_proof_value").val("");
+                        }
 
+
+                    
+
+
+
+                        if (data4 == "false") {
+                            $("#lblidentityproof").show();
+                            $("#Identity_proof_value").val("");
+                        }
+
+
+                      
+                        if (data3 == "false") {
+                            $("#lblidentityproof").show();
+                            $("#Identity_proof_value").val("");
+                        }
+
+
+
+                        if (data5 == "false") {
+                            $("#lblidentityproof").show();
+                            $("#Identity_proof_value").val("");
                         }
 
 
@@ -2321,18 +2373,51 @@
                     data: {"send":""+value+""},
                     success: function (data) {
 
-                        if (data == "true") {
 
-                            $("#altlblidentityproof").hide();
+                        var data1 = data.split("~")[0];
+                        var data2 = data.split("~")[1];
+                        var data3 = data.split("~")[2];
+                        var data4 = data.split("~")[3];
+                        var data5 = data.split("~")[4];
 
+
+                       
+                        if (data1 == "false") {
+                            $("#altlblidentityproof").show();
+                            $("#Alt_Identity_proof_Value").val("");
                         }
 
 
-                        if (data == "false") {
 
+                        if (data2 == "false") {
                             $("#altlblidentityproof").show();
                             $("#Alt_Identity_proof_Value").val("");
+                        }
 
+
+
+                     
+
+
+
+                        if (data4 == "false") {
+                            $("#altlblidentityproof").show();
+                            $("#Alt_Identity_proof_Value").val("");
+                        }
+
+
+
+                       
+                        if (data3 == "false") {
+                            $("#altlblidentityproof").show();
+                            $("#Alt_Identity_proof_Value").val("");
+                        }
+
+
+
+                        if (data5 == "false") {
+                            $("#altlblidentityproof").show();
+                            $("#Alt_Identity_proof_Value").val("");
                         }
 
 

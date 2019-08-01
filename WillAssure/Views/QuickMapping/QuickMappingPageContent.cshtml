@@ -1,426 +1,370 @@
-﻿﻿﻿﻿@model WillAssure.Models.AssetMappingModel
+﻿﻿﻿﻿﻿@model WillAssure.Models.AssetMappingModel
+@{
+    ViewBag.Title = "QuickMappingPageContent";
+}
+<h2>QuickMappingPageContent</h2>
+<style>
 
-    @{
-        ViewBag.Title = "QuickMappingPageContent";
+
+
+    ul#menu li {
+        display: inline;
     }
-
-    <h2>QuickMappingPageContent</h2>
-    <style>
-
-
-        ul#menu li {
-            display: inline;
-        }
-    </style>
-    @*Main Content*@
-    <div class="content-wrapper">
-        <div class="container-fluid">
-            <div class="row pt-2 pb-2">
-                <div class="col-sm-3">
-                    <div class="btn-group float-sm-right">
-                        <div class="dropdown-menu">
-                            <a href="javaScript:void();" class="dropdown-item">Action</a>
-                            <a href="javaScript:void();" class="dropdown-item">Another action</a>
-                            <a href="javaScript:void();" class="dropdown-item">Something else here</a>
-                            <div class="dropdown-divider"></div>
-                            <a href="javaScript:void();" class="dropdown-item">Separated link</a>
-                        </div>
+</style>
+@*Main Content*@
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row pt-2 pb-2">
+            <div class="col-sm-3">
+                <div class="btn-group float-sm-right">
+                    <div class="dropdown-menu">
+                        <a href="javaScript:void();" class="dropdown-item">Action</a>
+                        <a href="javaScript:void();" class="dropdown-item">Another action</a>
+                        <a href="javaScript:void();" class="dropdown-item">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javaScript:void();" class="dropdown-item">Separated link</a>
                     </div>
                 </div>
             </div>
-            <!-- End Breadcrumb-->
-            @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "RoleForm" }))
-            {
+        </div>
+        <!-- End Breadcrumb-->
+        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "RoleForm" }))
+        {
 
-                @Html.HiddenFor(m => m.Beneficiaryid, new { id = "Beneficiaryid" })
-                @Html.HiddenFor(m => m.Beneficiarytxt, new { id = "Beneficiarytxt" })
+            @Html.HiddenFor(m => m.Beneficiaryid, new { id = "Beneficiaryid" })
+            @Html.HiddenFor(m => m.Beneficiarytxt, new { id = "Beneficiarytxt" })
 
-                @Html.HiddenFor(m => m.InstrumentId, new { id = "InstrumentId" })
-                @Html.HiddenFor(m => m.Instrumenttxt, new { id = "Instrumenttxt" })
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-body">
-
-
+            @Html.HiddenFor(m => m.InstrumentId, new { id = "InstrumentId" })
+            @Html.HiddenFor(m => m.Instrumenttxt, new { id = "Instrumenttxt" })
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
 
 
-                                @if (Session["WillType"] != null)
+                            @if (Session["WillType"] != null)
+                            {
+                                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
                                 {
-                                    if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                                    <h5>
+                                        <ul id="menu" style="font-weight:bold;">
+                                            <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:black;">TestatorFamily ></li></a>
+                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                <li style="color:black;">Institution ></li>
+                                            </a>
+                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+
+                                            <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:black">Executor ></li></a>
+                                            <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                                <li style="color:black">Witness > </li>
+                                            </a>
+                                            <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
+                                                <li style="">Mapping ></li>
+                                            </a>
+                                            <li style="color:#e1e1e1">Document</li>
+                                        </ul>
+                                    </h5>
+                                }
+                                else
+                                {
+                                    if (Session["doctype"] != null)
                                     {
-                                        <h5>
-                                            <ul id="menu" style="font-weight:bold;">
-                                                <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                                <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:black;">TestatorFamily ></li></a>
-                                                <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                    <li style="color:black;">Institution ></li>
-                                                </a>
-                                                <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-
-
-                                                <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:black">Executor ></li></a>
-                                                <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
-                                                    <li style="color:black">Witness > </li>
-                                                </a>
-
-                                                <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
-                                                    <li style="">Mapping ></li>
-                                                </a>
-                                                <li style="color:#e1e1e1">Document</li>
-
-                                            </ul>
-                                        </h5>
-                                    }
-                                    else
-                                    {
-                                        if (Session["doctype"] != null)
+                                        if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
                                         {
-                                            if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
+                                            <h5>
+                                                <ul id="menu" style="font-weight:bold;">
+                                                    <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Donor ></li></a>
+                                                    <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black">Donee ></li></a>
+                                                    <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black">Gift ></li></a>
+                                                    <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
+                                                        <li style="color:">Asset Mapping ></li>
+                                                    </a>
+                                                    <li style="color:#e1e1e1">Witness Appointment ></li>
+                                                    <li style="color:#e1e1e1">Document</li>
+                                                </ul>
+                                            </h5>
+                                        }
+                                        else
+                                        {
+                                            if (Session["Type"].ToString() != "Testator")
                                             {
                                                 <h5>
                                                     <ul id="menu" style="font-weight:bold;">
-                                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Donor ></li></a>
-                                                        <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black">Donee ></li></a>
-                                                        <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black">Gift ></li></a>
-                                                        <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
-                                                            <li style="color:">Asset Mapping ></li>
+                                                        <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                                        <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                        <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                            <li style="color:black;">Institution ></li>
                                                         </a>
-                                                        <li style="color:#e1e1e1">Witness Appointment ></li>
+                                                        <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                                        <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
+                                                        <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
+                                                        <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:black;">PetCare ></li></a>
+                                                        <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="">Mapping ></li></a>
+                                                        <li style="color:#e1e1e1">Executor > </li>
+                                                        <li style="color:#e1e1e1">Witness > </li>
                                                         <li style="color:#e1e1e1">Document</li>
                                                     </ul>
                                                 </h5>
                                             }
                                             else
                                             {
-                                                if (Session["Type"].ToString() != "Testator")
-                                                {
-                                                    <h5>
-                                                        <ul id="menu" style="font-weight:bold;">
-                                                            <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                                            <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                                <li style="color:black;">Institution ></li>
-                                                            </a>
-                                                            <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                                            <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                                            <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
-                                                            <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:black;">PetCare ></li></a>
-                                                            <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="">Mapping ></li></a>
-
-                                                            <li style="color:#e1e1e1">Executor > </li>
-                                                            <li style="color:#e1e1e1">Witness > </li>
-                                                            <li style="color:#e1e1e1">Document</li>
-                                                        </ul>
-                                                    </h5>
-                                                }
-                                                else
-                                                {
-                                                    <h5>
-                                                        <ul id="menu" style="font-weight:bold;">
-                                                            <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                                            <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                                <li style="color:black;">Institution ></li>
-                                                            </a>
-                                                            <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                                            <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                                            <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
-                                                            <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:black;">PetCare ></li></a>
-                                                            <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="">Mapping ></li></a>
-
-                                                            <li style="color:#e1e1e1">Executor > </li>
-                                                            <li style="color:#e1e1e1">Witness > </li>
-                                                            <li style="color:#e1e1e1">Document</li>
-                                                        </ul>
-                                                    </h5>
-                                                }
-
+                                                <h5>
+                                                    <ul id="menu" style="font-weight:bold;">
+                                                        <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
+                                                        <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                                        <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                            <li style="color:black;">Institution ></li>
+                                                        </a>
+                                                        <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                                        <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
+                                                        <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
+                                                        <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:black;">PetCare ></li></a>
+                                                        <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="">Mapping ></li></a>
+                                                        <li style="color:#e1e1e1">Executor > </li>
+                                                        <li style="color:#e1e1e1">Witness > </li>
+                                                        <li style="color:#e1e1e1">Document</li>
+                                                    </ul>
+                                                </h5>
                                             }
+
                                         }
-                                        else
+                                    }
+                                    else
+                                    {
+                                        if (!Response.IsRequestBeingRedirected)
                                         {
-                                            if (!Response.IsRequestBeingRedirected)
-                                            {
-                                                Response.Redirect("/LoginPage/LoginPageIndex");
-                                            }
+                                            Response.Redirect("/LoginPage/LoginPageIndex");
                                         }
                                     }
-
                                 }
-                                else
+
+                            }
+                            else
+                            {
+                                if (!Response.IsRequestBeingRedirected)
                                 {
-                                    if (!Response.IsRequestBeingRedirected)
-                                    {
-                                        Response.Redirect("/LoginPage/LoginPageIndex");
-                                    }
+                                    Response.Redirect("/LoginPage/LoginPageIndex");
                                 }
+                            }
 
 
 
+                            <br>
 
+                            <div class="row">
+                                <div class='col-sm-1'><label for='input-1' style="line-height:40px;">Testator <span id='errproportion' style='color:red;display:;'>(*)</span></label></div>
+                                <div class="col-sm-3">
+                                    <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
+                                    <input type="hidden" id="tid" name="ddltid" value="@Session["distid"].ToString()" />
 
-
-                                <br>
-
-
-                                <div class="row">
-                                    <div class='col-sm-1'><label for='input-1' style="line-height:40px;">Testator <span id='errproportion' style='color:red;display:;'>(*)</span></label></div>
-                                    <div class="col-sm-3">
-
-                                        <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
-                                        <input type="hidden" id="tid" name="ddltid" value="@Session["distid"].ToString()" />
-
-
-
-                                        <input type="hidden" id="txtcount" name="name" value="" />
-                                    </div>
-                                    <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><a href="@Url.Action("EditBeneficiaryMappingIndex", "EditBeneficiaryMapping")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
-
-
-
+                                    <input type="hidden" id="txtcount" name="name" value="" />
                                 </div>
-                                @*<div class="row">
+                                <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><a href="@Url.Action("EditBeneficiaryMappingIndex", "EditBeneficiaryMapping")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
 
+                            </div>
+                            @*<div class="row">
 
 
 
 
 
-            <input type="hidden" id="txtcheck" value="" name="name" />
 
-            <div class='col-sm-6'>
-                <div class='form-group'>
-                    <label for='input-1'>Assets Type</label>
-                    <select id='ddlassettype' name="contentList" onChange='getassettypeid(this.value)' class='form-control'></select>
-                    @Html.HiddenFor(m => m.assettypeid, new { id = "assettypeid" })
-                    @Html.HiddenFor(m => m.assettypetext, new { id = "assettypetext" })
-                </div>
-            </div>
+                                    <input type="hidden" id="txtcheck" value="" name="name" />
 
-            <div class='col-sm-6'>
-                <div class='form-group'>
-                    <label for='input-1'>Assets Category</label>
-                    <select id='ddlassetcat' name="contentList" onChange='getassetcatid(this.value)' class='form-control'><option value="">--Select--</option></select>
-                    @Html.HiddenFor(m => m.assetcatid, new { id = "assetcatid" })
-                    @Html.HiddenFor(m => m.assetcattext, new { id = "assetcattext" })
-                </div>
-            </div>
-        </div>*@
-                                @*<div class='col-sm-3' id="type" style="display:none;">
-            <div class='form-group'>
-                <label for='input-1'>Type</label>
-                <br />
-                <form>
-                    <label class="radio-inline">
-                        <input type="radio" onchange="getvalone(this.value)" name="optradio" value="Single" checked>Single
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" onchange="getvaltwo(this.value)" name="optradio" value="Multiple">Multiple
-                    </label>
-                </form>
-            </div>
-        </div>*@
-                                <hr>
-                                <input type='hidden' id='txttotalval' name='name' value='100' />
-
-
-                                <input type='hidden' id='assettypeidforliablities' name='name' value='@Session["assettypeidforliablities"]' />
-
-
-
-
-                                <input type='hidden' id='assetcategoryidforliablities' name='name' value='@Session["assetcategoryidforliablities"]' />
-
-
-
-
-                                <input type='hidden' id='totalliablities' name='name' value='@Session["totalliablities"]' />
-
-
-
-                                <input type='hidden' id='assettypeidforpetcare' name='name' value='@Session["assettypeidforpetcare"]' />
-
-
-
-                                <input type='hidden' id='assetcategoryidforpetcare' name='name' value='@Session["assetcategoryidforpetcare"]' />
-
-
-
-
-                                <input type='hidden' id='totalpetcare' name='name' value='@Session["totalpetcare"]' />
-
-
-
-                                <div id="lastsinglefinancialrecords">
-
-
-
-                                </div>
-
-                                <div id="lastmultiplefinancialrecords">
-
-
-
-                                </div>
-
-
-
-                                <div id="lastsinglenonfinancialrecords">
-
-
-                                </div>
-
-
-
-
-                                <div id="lastmultiplenonfinancialrecords">
-
-
-                                </div>
-
-
-                                <!--End Row-->
-                                @*<center style="display:none" id="financialtitle"><h6 style="color:green;" class='text-uppercase'>(Completed Financial Assets)</h6></center>
-
-
-        <br />
-        <center style="display:none" id="nonfinancialtitle"><h6 style="color:green;" class='text-uppercase'>(Completed Non Financial Assets)</h6></center>
-        <div id="lastnonfinancialrecords" class="row" style="border:2px solid #ca1136; padding:20px">
-
-
-
-        </div>*@
-
-                                <br />
-                                <br />
-                                <br />
-
-                                <div class="row">
-
-
-
-
-
-
-                                    <div class="col-lg-12">
-                                        <div id="accordion8">
-
-
-
+                                    <div class='col-sm-6'>
+                                        <div class='form-group'>
+                                            <label for='input-1'>Assets Type</label>
+                                            <select id='ddlassettype' name="contentList" onChange='getassettypeid(this.value)' class='form-control'></select>
+                                            @Html.HiddenFor(m => m.assettypeid, new { id = "assettypeid" })
+                                            @Html.HiddenFor(m => m.assettypetext, new { id = "assettypetext" })
                                         </div>
+                                    </div>
+
+                                    <div class='col-sm-6'>
+                                        <div class='form-group'>
+                                            <label for='input-1'>Assets Category</label>
+                                            <select id='ddlassetcat' name="contentList" onChange='getassetcatid(this.value)' class='form-control'><option value="">--Select--</option></select>
+                                            @Html.HiddenFor(m => m.assetcatid, new { id = "assetcatid" })
+                                            @Html.HiddenFor(m => m.assetcattext, new { id = "assetcattext" })
+                                        </div>
+                                    </div>
+                                </div>*@
+                            @*<div class='col-sm-3' id="type" style="display:none;">
+                                    <div class='form-group'>
+                                        <label for='input-1'>Type</label>
+                                        <br />
+                                        <form>
+                                            <label class="radio-inline">
+                                                <input type="radio" onchange="getvalone(this.value)" name="optradio" value="Single" checked>Single
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" onchange="getvaltwo(this.value)" name="optradio" value="Multiple">Multiple
+                                            </label>
+                                        </form>
+                                    </div>
+                                </div>*@
+                            <hr>
+                            <input type='hidden' id='txttotalval' name='name' value='100' />
+
+                            <input type='hidden' id='assettypeidforliablities' name='name' value='@Session["assettypeidforliablities"]' />
+
+
+                            <input type='hidden' id='assetcategoryidforliablities' name='name' value='@Session["assetcategoryidforliablities"]' />
+
+
+                            <input type='hidden' id='totalliablities' name='name' value='@Session["totalliablities"]' />
+
+                            <input type='hidden' id='assettypeidforpetcare' name='name' value='@Session["assettypeidforpetcare"]' />
+
+                            <input type='hidden' id='assetcategoryidforpetcare' name='name' value='@Session["assetcategoryidforpetcare"]' />
+
+
+                            <input type='hidden' id='totalpetcare' name='name' value='@Session["totalpetcare"]' />
+
+                            <div id="lastsinglefinancialrecords">
+
+                            </div>
+                            <div id="lastmultiplefinancialrecords">
+
+                            </div>
+
+                            <div id="lastsinglenonfinancialrecords">
+
+                            </div>
+
+
+                            <div id="lastmultiplenonfinancialrecords">
+
+                            </div>
+
+                            <!--End Row-->
+                            @*<center style="display:none" id="financialtitle"><h6 style="color:green;" class='text-uppercase'>(Completed Financial Assets)</h6></center>
+
+
+                                <br />
+                                <center style="display:none" id="nonfinancialtitle"><h6 style="color:green;" class='text-uppercase'>(Completed Non Financial Assets)</h6></center>
+                                <div id="lastnonfinancialrecords" class="row" style="border:2px solid #ca1136; padding:20px">
+
+
+
+                                </div>*@
+                            <br />
+                            <br />
+                            <br />
+                            <div class="row">
+
+
+
+                                <div class="col-lg-12">
+                                    <div id="accordion8">
 
                                     </div>
                                 </div>
+                            </div>
 
+                            @if (Session["doctype"] != null || Session["WillType"] != null)
+                            {
 
-                                @if (Session["doctype"] != null || Session["WillType"] != null)
+                                if (Session["doctype"].ToString() == "Will" || Session["WillType"].ToString() == "Quick")
                                 {
-                                 
-                                    if (Session["doctype"].ToString() == "Will" || Session["WillType"].ToString() == "Quick")
-                                    {
-                                <div class="form-group" style="float:right">
-                                    <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )"><button type="button" style="display:;" id="btnnext" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
-                                </div>
-                                    }
+                                    <div class="form-group" style="float:right">
+                                        <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )"><button type="button" style="display:;" id="btnnext" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+                                    </div>
                                 }
-                                else
+                            }
+                            else
+                            {
+                                if (!Response.IsRequestBeingRedirected)
                                 {
-                                    if (!Response.IsRequestBeingRedirected)
-                                    {
-                                        Response.Redirect("/LoginPage/LoginPageIndex");
-                                    }
+                                    Response.Redirect("/LoginPage/LoginPageIndex");
                                 }
+                            }
 
 
 
-                                
+                            @*<div class="card-body" id="fetchdata">
+                                    <div class='col-sm-3' id="type">
+                                        <div class='form-group'>
+                                            <label for='input-1'>Type</label>
+                                            <br />
+                                            <form>
+                                                <label class="radio-inline">
+                                                    <input type="radio" onchange="getvalone(this.value)" name="optradio" value="Single" checked>Single
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" onchange="getvaltwo(this.value)" name="optradio" value="Multiple">Multiple
+                                                </label>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div id="parentdiv">
+                                        <div class="row rowdiv" id="beneficiarydetails" style="display:;">
 
 
+                                            <div class='col-sm-2'>
+                                                <div class='form-group'>
+                                                    <label for='input-1'>Beneficiary</label>
+                                                    <select id='ddlbeneficiary1' onchange="checkbeneficiaryduplicate(this.id)" name="contentList" class='form-control beneficiaryclass'></select>
+                                                    @Html.HiddenFor(m => m.Beneficiaryid, new { id = "Beneficiaryid" })
+                                                    @Html.HiddenFor(m => m.Beneficiarytxt, new { id = "Beneficiarytxt" })
 
-                                @*<div class="card-body" id="fetchdata">
-            <div class='col-sm-3' id="type">
-                <div class='form-group'>
-                    <label for='input-1'>Type</label>
-                    <br />
-                    <form>
-                        <label class="radio-inline">
-                            <input type="radio" onchange="getvalone(this.value)" name="optradio" value="Single" checked>Single
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" onchange="getvaltwo(this.value)" name="optradio" value="Multiple">Multiple
-                        </label>
-                    </form>
-                </div>
-            </div>
-            <div id="parentdiv">
-                <div class="row rowdiv" id="beneficiarydetails" style="display:;">
-
-
-                    <div class='col-sm-2'>
-                        <div class='form-group'>
-                            <label for='input-1'>Beneficiary</label>
-                            <select id='ddlbeneficiary1' onchange="checkbeneficiaryduplicate(this.id)" name="contentList" class='form-control beneficiaryclass'></select>
-                            @Html.HiddenFor(m => m.Beneficiaryid, new { id = "Beneficiaryid" })
-                            @Html.HiddenFor(m => m.Beneficiarytxt, new { id = "Beneficiarytxt" })
-
-                            <input type="text" class="form-control" style="display:none" id="ddlbeneficiarytxt" name="name" value="" />
-                        </div>
-                    </div>
-                    <div class='col-sm-2'><div class='form-group' id="getidentifier"></div></div>
-                    <div class='col-sm-3'>
-                        <label for='input-1'>Instruments</label>
-                        <select id='DDLAssetColumn1' onchange="getDDLAssetColumn(this.id)" name="contentList" class='form-control instrumentclass'></select>
-                        @Html.HiddenFor(m => m.InstrumentId, new { id = "InstrumentId" })
-                        @Html.HiddenFor(m => m.Instrumenttxt, new { id = "Instrumenttxt" })
-                    </div>
-                    <div class='col-sm-2 grandparent'>
-                        <div class='form-group parent'>
-                            <label for='input-1'>Proportion</label>
-                            <input type='text' class='form-control proportioninput' onkeypress="return isNumberKey(event)" onchange="gettxtproportion(this.value)" name="rank" id="txtproportion" />
-                        </div>
-                    </div>
-                    <div class='col-sm-2'>
-                        <div class='form-group start'>
-                            <label for='input-1'>Total</label>
-                            <input type='text' id="txttotal" class='form-control totalinput' readonly />
-                            <input type="hidden" id="txttotalval" name="name" value="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <button type="submit" id="btnmappingsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
-                <button type="button" id="btnadd" style="display:none;" class="btn btn-danger shadow-primary px-5"><i class="icon-lock"></i>Add</button>
+                                                    <input type="text" class="form-control" style="display:none" id="ddlbeneficiarytxt" name="name" value="" />
+                                                </div>
+                                            </div>
+                                            <div class='col-sm-2'><div class='form-group' id="getidentifier"></div></div>
+                                            <div class='col-sm-3'>
+                                                <label for='input-1'>Instruments</label>
+                                                <select id='DDLAssetColumn1' onchange="getDDLAssetColumn(this.id)" name="contentList" class='form-control instrumentclass'></select>
+                                                @Html.HiddenFor(m => m.InstrumentId, new { id = "InstrumentId" })
+                                                @Html.HiddenFor(m => m.Instrumenttxt, new { id = "Instrumenttxt" })
+                                            </div>
+                                            <div class='col-sm-2 grandparent'>
+                                                <div class='form-group parent'>
+                                                    <label for='input-1'>Proportion</label>
+                                                    <input type='text' class='form-control proportioninput' onkeypress="return isNumberKey(event)" onchange="gettxtproportion(this.value)" name="rank" id="txtproportion" />
+                                                </div>
+                                            </div>
+                                            <div class='col-sm-2'>
+                                                <div class='form-group start'>
+                                                    <label for='input-1'>Total</label>
+                                                    <input type='text' id="txttotal" class='form-control totalinput' readonly />
+                                                    <input type="hidden" id="txttotalval" name="name" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" id="btnmappingsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
+                                        <button type="button" id="btnadd" style="display:none;" class="btn btn-danger shadow-primary px-5"><i class="icon-lock"></i>Add</button>
 
 
-            </div>
+                                    </div>
 
-        </div>*@
-
-                                <textarea id="query" style="display:NONE;" class="form-control">
+                                </div>*@
+                            <textarea id="query" style="display:NONE;" class="form-control">
                                
                            </textarea>
-                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
 
-            }
-            <button type="button" id="btnmainassetsuccess" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-            <button type="button" id="btncheckExists" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-            @*<button type="button" style="display:none" id="confirmtestatorfamily"></button>*@
-        </div>
-        @*end*@
-        <script>
-            $(document).ready(function () {
-                $("#RoleForm").validationEngine();
+        }
+        <button type="button" id="btnmainassetsuccess" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+        <button type="button" id="btncheckExists" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+        @*<button type="button" style="display:none" id="confirmtestatorfamily"></button>*@
+    </div>
+    @*end*@
+    <script>
+        $(document).ready(function () {
+            $("#RoleForm").validationEngine();
 
 
-            });
-        </script>
-        <script>
+        });
+    </script>
+    <script>
 
 
 
@@ -456,7 +400,7 @@
 
                 url: "@Url.Action("BindLastMultipleRecords", "QuickMapping")",
                        success: function (data) {
-                      
+
                     $("#financialtitle").show();
                     $("#lastmultiplefinancialrecords").append(data);
 
@@ -466,7 +410,7 @@
 
 
 
-     
+
 
 
 
@@ -498,15 +442,15 @@
 
                      success: function (response1) {
 
-                  
 
-                         
+
+
                              $("#accordion8").append(response1);
-                        
-                       
-                        
-                   
-                         $(".grandparent").hide(); 
+
+
+
+
+                         $(".grandparent").hide();
                          $("#totaldiv0").hide();
                          $("#singlepropo0").show();
 
@@ -694,8 +638,8 @@
             var $prevdiv = $rowdiv.prev('.rowdiv');
             var filter = $rowdiv.parent('div').parent('div').attr('id');
             var parentaccordionid = filter.substring(9);
-         
-           
+
+
 
 
             var rr = $(this).attr('id');
@@ -1557,26 +1501,26 @@
 
         }
 
-        </script>
-        @if (ViewBag.Message == "Verified")
-        {
-            <script>
-
-                $(document).ready(function () {
-
-
-                    $("#btnmainassetsuccess").on("click", function () { });
-
-                    $("#btnmainassetsuccess").click(); //trigger event after listening to it.
-
-
-
-
-                });
-            </script>
-
-        }
+    </script>
+    @if (ViewBag.Message == "Verified")
+    {
         <script>
+
+            $(document).ready(function () {
+
+
+                $("#btnmainassetsuccess").on("click", function () { });
+
+                $("#btnmainassetsuccess").click(); //trigger event after listening to it.
+
+
+
+
+            });
+        </script>
+
+    }
+    <script>
 
 
 
@@ -1646,144 +1590,142 @@ function getDDLTestator(value) {
 
 
 
-        </script>
-        <script>
-            $("#confirmtestatorfamily").click(function () {
-                $("#btnnext").show();
-                swal({
+    </script>
+    <script>
+        $("#confirmtestatorfamily").click(function () {
+            $("#btnnext").show();
+            swal({
 
-                    text: 'Your Mapping Data Submitted Successfully Do You Want To Add More ?',
-                    icon: 'warning',
-                    buttons: true,
-                    dangerMode: true,
-                    buttons: ['No', 'Yes']
-                })
-                    .then((willDelete) => {
-                        if (willDelete) {
-
-
-
-                        } else {
+                text: 'Your Mapping Data Submitted Successfully Do You Want To Add More ?',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+                buttons: ['No', 'Yes']
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
 
 
 
-
-
-                            var url = "/AddNominee/AddNomineeIndex/";
-                            window.location.href = url;
+                    } else {
 
 
 
 
-                        }
-                    });
 
-            });
-
-            /* for grouping json data */
+                        var url = "/AddNominee/AddNomineeIndex/";
+                        window.location.href = url;
 
 
-            function getItemByKey(arr, key, value) {
-                // here we look for existing group item in the result array
-                return arr.reduce(function (prev, cur) {
-                    if (prev == null && cur[key] == value) {
-                        return cur;
+
+
                     }
-                    return prev;
-                }, null);
-            }
-
-            function checkPropForGroup(prop, key) {
-                // here we check which columns should stay in the group,
-                // and which should go down to group items.
-                return prop == key || prop == key.replace("_id", "_name");
-            }
-
-            function cloneSuperItem(src, key) {
-                // create super item by copying only group related fields
-                var item = {};
-                for (prop in src) {
-                    if (checkPropForGroup(prop, key)) {
-                        item[prop] = src[prop];
-                    }
-                }
-                item[key + '_group'] = [];
-                return item;
-            }
-
-            function cloneSubItem(src, key) {
-                // create sub-item by copying all but group related fields
-                var item = {};
-                for (prop in src) {
-                    if (!checkPropForGroup(prop, key)) {
-                        item[prop] = src[prop];
-                    }
-                }
-                return item;
-            }
-
-            function groupArray(arr, args, lvl) {
-                var key = args[lvl];
-                var result = [];
-                arr.forEach(function (item, ind, a) {
-                    // find or create super item for group and then create sub item and push it there
-                    var keyItem = getItemByKey(result, key, item[key]);
-                    if (!keyItem) {
-                        keyItem = cloneSuperItem(item, key);
-                        result.push(keyItem);
-                    }
-                    subItem = cloneSubItem(item, key);
-                    keyItem[key + '_group'].push(subItem);
                 });
-                if (args[lvl + 1]) {
-                    // recursively make grouping on lower level
-                    for (var i = 0; i < result.length; i++) {
-                        result[i][key + '_group'] = groupArray(result[i][key + '_group'], args, lvl + 1);
-                    }
+
+        });
+
+        /* for grouping json data */
+
+
+        function getItemByKey(arr, key, value) {
+            // here we look for existing group item in the result array
+            return arr.reduce(function (prev, cur) {
+                if (prev == null && cur[key] == value) {
+                    return cur;
                 }
-                return result;
+                return prev;
+            }, null);
+        }
+
+        function checkPropForGroup(prop, key) {
+            // here we check which columns should stay in the group,
+            // and which should go down to group items.
+            return prop == key || prop == key.replace("_id", "_name");
+        }
+
+        function cloneSuperItem(src, key) {
+            // create super item by copying only group related fields
+            var item = {};
+            for (prop in src) {
+                if (checkPropForGroup(prop, key)) {
+                    item[prop] = src[prop];
+                }
             }
+            item[key + '_group'] = [];
+            return item;
+        }
 
-            function groupArrayMain(arr, keysArray) {
-                // keys should be simply listed as parameters in order from top group to lower
-                return groupArray(arr, arguments, 1)
+        function cloneSubItem(src, key) {
+            // create sub-item by copying all but group related fields
+            var item = {};
+            for (prop in src) {
+                if (!checkPropForGroup(prop, key)) {
+                    item[prop] = src[prop];
+                }
             }
+            return item;
+        }
+
+        function groupArray(arr, args, lvl) {
+            var key = args[lvl];
+            var result = [];
+            arr.forEach(function (item, ind, a) {
+                // find or create super item for group and then create sub item and push it there
+                var keyItem = getItemByKey(result, key, item[key]);
+                if (!keyItem) {
+                    keyItem = cloneSuperItem(item, key);
+                    result.push(keyItem);
+                }
+                subItem = cloneSubItem(item, key);
+                keyItem[key + '_group'].push(subItem);
+            });
+            if (args[lvl + 1]) {
+                // recursively make grouping on lower level
+                for (var i = 0; i < result.length; i++) {
+                    result[i][key + '_group'] = groupArray(result[i][key + '_group'], args, lvl + 1);
+                }
+            }
+            return result;
+        }
+
+        function groupArrayMain(arr, keysArray) {
+            // keys should be simply listed as parameters in order from top group to lower
+            return groupArray(arr, arguments, 1)
+        }
 
 
 
-        </script>
+    </script>
+    @*@if (Session["assettypeidforpetcare"] != null || Session["assetcategoryidforpetcare"] != null)
+        {
+            <script>
 
-        @*@if (Session["assettypeidforpetcare"] != null || Session["assetcategoryidforpetcare"] != null)
-            {
-                <script>
+                document.ready(function () {
 
-                    document.ready(function () {
-
-                        $
-
-
-                    });
+                    $
 
 
-                </script>
-            }*@
-        @*@if (Session["assettypeidforliablities"] != null || Session["assetcategoryidforliablities"] != null)
-            {
-                  <script>
+                });
 
 
-                      document.ready(function () {
+            </script>
+        }*@
+    @*@if (Session["assettypeidforliablities"] != null || Session["assetcategoryidforliablities"] != null)
+        {
+              <script>
+
+
+                  document.ready(function () {
 
 
 
-                      });
+                  });
 
 
-                  </script>
-            }*@
+              </script>
+        }*@
 
-
-        <script>
+    <script>
 
 
              $.ajax({
@@ -1807,4 +1749,4 @@ function getDDLTestator(value) {
         });
 
 
-        </script>
+    </script>

@@ -508,6 +508,15 @@ namespace WillAssure.Controllers
 
 
 
+            con.Open();
+            string query = "insert into ForgotPassword_Tbl (Email,OTP,OTP_Status) values ('"+LM.EmailID+"' , '"+EmailOTP+"' , 'InActive')";
+            SqlCommand cmd = new SqlCommand(query,con);
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+
+
+            
 
 
 

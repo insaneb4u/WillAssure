@@ -275,7 +275,7 @@ namespace WillAssure.Controllers
                 }
                 else
                 {
-                    BM.Alt_Identity_proof = "None";
+                   
                     BM.Alt_Identity_proof = dt.Rows[0]["Alt_Identity_proof"].ToString();
 
                 }
@@ -289,7 +289,7 @@ namespace WillAssure.Controllers
                 }
                 else
                 {
-                    BM.Alt_Identity_proof_value = "None";
+                   
                     BM.Alt_Identity_proof_value = dt.Rows[0]["Alt_Identity_proof_value"].ToString();
                 }
                

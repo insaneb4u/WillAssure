@@ -8,6 +8,9 @@ using System.Data.Sql;
 using System.Data.SqlClient;
 using System.Configuration;
 using System.Data;
+using System.Net.Mail;
+using System.Net;
+
 namespace WillAssure.Controllers
 {
     public class LoginPageController : Controller
@@ -436,6 +439,80 @@ namespace WillAssure.Controllers
 
 
             return RedirectToAction("LoginPageIndex", "LoginPage");
+        }
+
+
+
+
+
+
+        public ActionResult ForgotpasswordMail(LoginModel LM)
+        {
+
+            //generate EMAIL OTP
+         
+        
+            string sTempChars = String.Empty;
+            Random rand = new Random();
+
+            string EmailOTP = "";
+            EmailOTP = String.Empty;
+            string[] saAllowedCharacters2 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+            int iOTPLength2 = 5;
+
+            string sTempChars2 = String.Empty;
+            Random rand2 = new Random();
+
+            for (int i = 0; i < iOTPLength2; i++)
+
+            {
+
+                int p = rand.Next(0, saAllowedCharacters2.Length);
+
+                sTempChars2 = saAllowedCharacters2[rand.Next(0, saAllowedCharacters2.Length)];
+
+                EmailOTP += sTempChars2;
+
+            }
+            //END
+
+
+            // new mail code
+            string mailto = LM.EmailID;
+            string Userid = LM.EmailID;
+
+            Session["userid"] = Userid;
+            string subject = "Testing Mail Sending";
+            string OTP = "<font color='Green' style='font-size=3em;'>" + EmailOTP + "</font>";
+            string text = "Your OTP for Verification Is " + OTP + "";
+            string body = "<font color='red'>" + text + "</font>";
+
+
+            MailMessage msg = new MailMessage();
+            msg.From = new MailAddress("info@drinco.in");
+            msg.To.Add(mailto);
+            msg.Subject = subject;
+            msg.Body = body;
+
+            msg.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient("216.10.240.149", 25);
+            smtp.Credentials = new NetworkCredential("info@drinco.in", "95Bzf%s7");
+            smtp.EnableSsl = false;
+            smtp.Send(msg);
+            smtp.Dispose();
+
+
+
+            //end
+
+
+
+
+
+
+
+
+            return View("~/LoginPage/LoginPageContent.cshtml");
         }
 
 

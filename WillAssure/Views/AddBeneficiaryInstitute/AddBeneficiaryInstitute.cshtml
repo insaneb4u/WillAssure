@@ -255,7 +255,9 @@
                                         <div class="form-group">
                                             <label for="input-1">State</label>
                                             <select id="ddlstate" class="Withdatastate form-control input-shadow validate[required]">
+
                                                 <option value="@Model.StateText">@Model.StateText</option>
+                                                <option value="S">--Select State--</option>
                                             </select>
                                             @Html.HiddenFor(m => m.StateId, new { id = "stateid" })
                                             @Html.HiddenFor(m => m.StateText, new { id = "statetext" })
@@ -588,6 +590,33 @@
                             $(document).ready(function () {
 
 
+                                var country = $("#ddlcountry").val();
+
+                                if (country != null) {
+                                                  $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("UBindStateDDL", "AddBeneficiaryInstitute")",
+            data: { "send": "" + country+  ""},
+            success: function (data) {
+
+                $('#ddlstate').append(data);
+            }
+
+
+
+        });
+                                }
+
+
+
+
+
+
+
+
+
+
                                 var statedata = $(".Withdatastate").val();
 
                                 if (statedata != null) {
@@ -715,7 +744,7 @@
 
                                             $("#btnnext").show();
 
-
+                                            $("#ddlcountry").attr("disabled", "disabled");
 
                                             $("#btnmore").show();
                                             $("#btnview").show();
@@ -754,7 +783,7 @@
                             						   $.ajax({
 
             type: "POST",
-            url:"@Url.Action("BindCountryDDL", "AddBeneficiary")",
+            url:"@Url.Action("BindCountryDDL", "AddBeneficiaryInstitute")",
             success: function (data) {
 
                 $('#ddlcountry').append(data);
@@ -779,6 +808,7 @@
                                 $("#ddlstate").removeAttr("disabled");
                                 $("#ddlcity").removeAttr("disabled");
                                 $("#RegistrationNo").removeAttr("disabled");
+                                $("#ddlcountry").removeAttr("disabled");
 
 
 
@@ -845,6 +875,9 @@
                                 $("#altinstitution").hide();
                                 $(".altone").prop('checked', false);
 
+                               
+
+
 
                                 $("#btnfieldedit").hide();
 
@@ -854,10 +887,11 @@
                                 $("#txtaddress1").removeAttr("disabled");
                                 $("#ddlstate").removeAttr("disabled");
                                 $("#ddlcity").removeAttr("disabled");
-                                $('#ddlstate').val('').trigger('change');
+                                $('#ddlstate').val('S').trigger('change');
                                 $('#ddlcity').val('D').trigger('change');
+                                $('#ddlcountry').val('C').trigger('change');
                                 $("#RegistrationNo").removeAttr("disabled");
-
+                                $("#ddlcountry").removeAttr("disabled");
 
                                 $("#alttxtfirstname").removeAttr("disabled");
                                 $("#altTypeText").removeAttr("disabled");
@@ -883,7 +917,7 @@
                                 $("#altTypeText").val("");
                                 $("#alttxtmiddlename").val("");
                                 $("#alttxtaddress1").val("");
-
+                                $("#RegistrationNo").val("");
 
 
 
@@ -895,16 +929,14 @@
 
                                 $("#btnnomineeformsubmit").show();
 
-
-
-                                $("#btnfieldedit").hide();
-
                                 $("#altinstitution").hide();
                                 $(".altone").prop('checked', false);
 
 
-                                $('#ddlstate').val('').trigger('change');
-                                $('#ddlcity').val('D').trigger('change');
+
+
+
+                                $("#btnfieldedit").hide();
 
                                 $("#txtfirstname").removeAttr("disabled");
                                 $("#TypeText").removeAttr("disabled");
@@ -912,9 +944,11 @@
                                 $("#txtaddress1").removeAttr("disabled");
                                 $("#ddlstate").removeAttr("disabled");
                                 $("#ddlcity").removeAttr("disabled");
-
-
+                                $('#ddlstate').val('S').trigger('change');
+                                $('#ddlcity').val('D').trigger('change');
+                                $('#ddlcountry').val('C').trigger('change');
                                 $("#RegistrationNo").removeAttr("disabled");
+                                $("#ddlcountry").removeAttr("disabled");
 
                                 $("#alttxtfirstname").removeAttr("disabled");
                                 $("#altTypeText").removeAttr("disabled");
@@ -926,17 +960,21 @@
 
 
 
+
+
                                 $("#txtfirstname").val("");
                                 $("#TypeText").val("");
                                 $("#txtmiddlename").val("");
                                 $("#txtaddress1").val("");
+                                $("#RegistrationNo").val("");
+
+
+
 
                                 $("#alttxtfirstname").val("");
                                 $("#altTypeText").val("");
                                 $("#alttxtmiddlename").val("");
                                 $("#alttxtaddress1").val("");
-
-
 
 
                             });

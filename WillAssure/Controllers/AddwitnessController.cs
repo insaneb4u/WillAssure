@@ -386,7 +386,8 @@ namespace WillAssure.Controllers
                                     Am.wcitytext = dt.Rows[i]["City"].ToString();
                                     Am.wstatetext = dt.Rows[i]["State"].ToString();
                                     Am.wPin = dt.Rows[i]["Pin"].ToString();
-                                }
+                                    Am.country_txt = dt.Rows[i]["Country"].ToString();
+                            }
                                 else
                                 {
                                     Am.apId = Convert.ToInt32(dt.Rows[i]["apId"]);
@@ -409,7 +410,8 @@ namespace WillAssure.Controllers
                                     Am.citytext = dt.Rows[i]["City"].ToString();
                                     Am.statetext = dt.Rows[i]["State"].ToString();
                                     Am.Pin = dt.Rows[i]["Pin"].ToString();
-                                }
+                                    Am.altcountry_txt = dt.Rows[i]["Country"].ToString();
+                            }
 
 
 
@@ -919,7 +921,18 @@ namespace WillAssure.Controllers
                     // update document status
 
                     con.Open();
-                    string qte = "update Appointees set documentstatus = 'Incompleted' , WillType='"+Session["WillType"].ToString()+"' where apId =" + appid + " ";
+
+                    string getcountryname = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.country_txt + "";
+                    SqlDataAdapter dacou = new SqlDataAdapter(getcountryname,con);
+                    DataTable dtcou = new DataTable();
+                    dacou.Fill(dtcou);
+                    string countryname = "";
+                    if (dtcou.Rows.Count > 0)
+                    {
+                        countryname = dtcou.Rows[0]["CountryName"].ToString();
+                    }
+
+                    string qte = "update Appointees set Country='"+countryname+"'  , documentstatus = 'Incompleted' , WillType='"+Session["WillType"].ToString()+"' where apId =" + appid + " ";
                     SqlCommand cmdte = new SqlCommand(qte, con);
                     cmdte.ExecuteNonQuery();
                     con.Close();
@@ -1062,7 +1075,20 @@ namespace WillAssure.Controllers
                     // update document status
 
                     con.Open();
-                    string qte22 = "update Appointees set documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid22 + " ";
+
+                    string altgetcountryname = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.altcountry_txt + "";
+                    SqlDataAdapter altdacou = new SqlDataAdapter(altgetcountryname, con);
+                    DataTable altdtcou = new DataTable();
+                    altdacou.Fill(altdtcou);
+                    string altcountryname = "";
+                    if (altdtcou.Rows.Count > 0)
+                    {
+                        altcountryname = altdtcou.Rows[0]["CountryName"].ToString();
+                    }
+
+
+
+                    string qte22 = "update Appointees set Country='" + altcountryname + "'  ,  documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid22 + " ";
                     SqlCommand cmdte22 = new SqlCommand(qte22, con);
                     cmdte22.ExecuteNonQuery();
                     con.Close();
@@ -1206,7 +1232,24 @@ namespace WillAssure.Controllers
 
                 //end
                 con.Open();
-                string qt = "update Appointees set doctype = 'POA'  where  apId = " + apid + "";
+
+
+
+
+                    string getcountryname = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.country_txt + "";
+                    SqlDataAdapter dacou = new SqlDataAdapter(getcountryname, con);
+                    DataTable dtcou = new DataTable();
+                    dacou.Fill(dtcou);
+                    string countryname = "";
+                    if (dtcou.Rows.Count > 0)
+                    {
+                        countryname = dtcou.Rows[0]["CountryName"].ToString();
+                    }
+
+
+
+
+                    string qt = "update Appointees set  Country='" + countryname + "'  , doctype = 'POA'  where  apId = " + apid + "";
                 SqlCommand cmdt = new SqlCommand(qt, con);
                 cmdt.ExecuteNonQuery();
                 con.Close();
@@ -1340,7 +1383,23 @@ namespace WillAssure.Controllers
                     // update document status
 
                     con.Open();
-                    string qte22 = "update Appointees set documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid22 + " ";
+
+
+
+                    string altgetcountryname = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.altcountry_txt + "";
+                    SqlDataAdapter altdacou = new SqlDataAdapter(altgetcountryname, con);
+                    DataTable altdtcou = new DataTable();
+                    altdacou.Fill(altdtcou);
+                    string altcountryname = "";
+                    if (altdtcou.Rows.Count > 0)
+                    {
+                        altcountryname = altdtcou.Rows[0]["CountryName"].ToString();
+                    }
+
+
+
+
+                    string qte22 = "update Appointees set Country='" + altcountryname + "'  , documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid22 + " ";
                     SqlCommand cmdte22 = new SqlCommand(qte22, con);
                     cmdte22.ExecuteNonQuery();
                     con.Close();
@@ -1484,7 +1543,24 @@ namespace WillAssure.Controllers
 
                     //end
                     con.Open();
-                    string qt = "update Appointees set doctype = 'Giftdeeds'  where  apId = " + apid + "";
+
+
+
+
+                    string getcountryname = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.country_txt + "";
+                    SqlDataAdapter dacou = new SqlDataAdapter(getcountryname, con);
+                    DataTable dtcou = new DataTable();
+                    dacou.Fill(dtcou);
+                    string countryname = "";
+                    if (dtcou.Rows.Count > 0)
+                    {
+                        countryname = dtcou.Rows[0]["CountryName"].ToString();
+                    }
+
+
+
+
+                    string qt = "update Appointees set Country='" + countryname + "'  , doctype = 'Giftdeeds'  where  apId = " + apid + "";
                     SqlCommand cmdt = new SqlCommand(qt, con);
                     cmdt.ExecuteNonQuery();
                     con.Close();
@@ -1617,7 +1693,22 @@ namespace WillAssure.Controllers
                     // update document status
 
                     con.Open();
-                    string qte22 = "update Appointees set documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid22 + " ";
+
+
+                    string altgetcountryname = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.altcountry_txt + "";
+                    SqlDataAdapter altdacou = new SqlDataAdapter(altgetcountryname, con);
+                    DataTable altdtcou = new DataTable();
+                    altdacou.Fill(altdtcou);
+                    string altcountryname = "";
+                    if (altdtcou.Rows.Count > 0)
+                    {
+                        altcountryname = altdtcou.Rows[0]["CountryName"].ToString();
+                    }
+
+
+
+
+                    string qte22 = "update Appointees set Country='" + altcountryname + "'  , documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid22 + " ";
                     SqlCommand cmdte22 = new SqlCommand(qte22, con);
                     cmdte22.ExecuteNonQuery();
                     con.Close();

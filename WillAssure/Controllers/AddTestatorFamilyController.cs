@@ -252,6 +252,7 @@ namespace WillAssure.Controllers
                     TFM.Address1 = dt.Rows[i]["Address1"].ToString();
                     TFM.Address2 = dt.Rows[i]["Address2"].ToString();
                     TFM.Address3 = dt.Rows[i]["Address3"].ToString();
+                    TFM.country_txt = dt.Rows[i]["Country"].ToString();
                     TFM.City_txt = dt.Rows[i]["City"].ToString();
                     TFM.State_txt = dt.Rows[i]["State"].ToString();
                     TFM.Pin = dt.Rows[i]["Pin"].ToString();
@@ -376,11 +377,11 @@ namespace WillAssure.Controllers
         TFM.guacitytext = dt33.Rows[i]["City"].ToString();
         TFM.guastatetext = dt33.Rows[i]["State"].ToString();
         TFM.guaPin = dt33.Rows[i]["Pin"].ToString();
+                    TFM.guacountrytext = dt33.Rows[i]["Country"].ToString();
 
 
 
-
-    }
+                }
 }
 
 
@@ -399,7 +400,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value=''>--Select Country--</option>";
 
             if (dt.Rows.Count > 0)
             {
@@ -429,6 +430,45 @@ namespace WillAssure.Controllers
 
 
         public String BindCountryDDL()
+        {
+
+            con.Open();
+            string query = "select distinct * from country_tbl order by CountryName asc  ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "<option value=''>--Select Country--</option>";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["CountryID"].ToString() + " >" + dt.Rows[i]["CountryName"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
+
+
+
+
+        public String AlternateguardianBindCountryDDL()
         {
 
             con.Open();
@@ -474,7 +514,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value=''>--Select City--</option>";
 
             if (dt.Rows.Count > 0)
             {
@@ -726,14 +766,55 @@ namespace WillAssure.Controllers
 
         public String BindStateDDL()
         {
-            
+
+            string countryid = Request["send"].ToString();
+
             con.Open();
-            string query = "select distinct * from tbl_state where country_id = '108' order by statename asc   ";
+            string query = "select distinct b.state_id , b.statename from country_tbl a inner join tbl_state b on a.CountryID=b.country_id where a.CountryName = '"+countryid+"' order by b.statename asc";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value=''>--Select State--</option>";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
+
+
+        public String AlternateGuaBindStateDDL()
+        {
+
+            string countryid = Request["send"].ToString();
+
+            con.Open();
+            string query = "select distinct * from tbl_state where country_id = "+countryid+" order by statename asc ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "<option value=''>--Select State--</option>";
 
             if (dt.Rows.Count > 0)
             {
@@ -762,6 +843,7 @@ namespace WillAssure.Controllers
 
 
 
+
         public string OnChangeBindCity()
         {
             string response = Request["send"];
@@ -771,7 +853,84 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value=''>--Select City--</option>";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["id"].ToString() + " >" + dt.Rows[i]["city_name"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+        }
+
+
+
+
+
+        public string OnChangeBindState()
+        {
+            string response = Request["send"];
+            con.Open();
+            string query = "select distinct * from tbl_state where country_id = "+response+" order by statename asc  ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "<option value=''>--Select State--</option>";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+        }
+
+
+
+
+        public string AlternateGuardianOnChangeBindCity()
+        {
+            string response = Request["send"];
+            con.Open();
+            string query = "select distinct * from tbl_city where state_id = '" + response + "' order by city_name asc ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "<option value=''>--Select City--</option>";
 
             if (dt.Rows.Count > 0)
             {
@@ -808,7 +967,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value=''>--Select City--</option>";
 
             if (dt.Rows.Count > 0)
             {
@@ -1181,6 +1340,134 @@ namespace WillAssure.Controllers
 
 
                 string qt = "update Appointees set Country='" + TFM.guacountrytext + "' ,  documentstatus='incompleted' , tfid=" + fid + " where apId = " + appid + "";
+                SqlCommand cmd33e = new SqlCommand(qt, con);
+                cmd33e.ExecuteNonQuery();
+                con.Close();
+
+
+
+            }
+
+
+
+
+            //end
+
+
+
+
+
+            //Alternate guardian form details
+            if (TFM.alternateguardiancheck == "true")
+            {
+
+                con.Open();
+                SqlCommand cmd3 = new SqlCommand("SP_CRUDAppointees", con);
+                cmd3.CommandType = CommandType.StoredProcedure;
+                cmd3.Parameters.AddWithValue("@condition", "insert");
+                cmd3.Parameters.AddWithValue("@documentId", TFM.altguadocumentId);
+                cmd3.Parameters.AddWithValue("@Type", "AlternateGuardian");
+
+                if (TFM.altguasubTypetxt != null || TFM.altguasubTypetxt != "")
+                {
+                    cmd3.Parameters.AddWithValue("@subType", TFM.altguasubTypetxt);
+                }
+                else
+                {
+                    cmd3.Parameters.AddWithValue("@subType", "None");
+                }
+
+
+
+
+
+
+                cmd3.Parameters.AddWithValue("@Name", TFM.altguaName);
+                cmd3.Parameters.AddWithValue("@middleName", TFM.altguamiddleName);
+                cmd3.Parameters.AddWithValue("@Surname", TFM.altguaSurname);
+                cmd3.Parameters.AddWithValue("@Identity_proof", TFM.altguaIdentity_Proof);
+                cmd3.Parameters.AddWithValue("@Identity_proof_value", TFM.altguaIdentity_Proof_Value);
+
+
+                if (TFM.altAlt_Identity_Proof != null)
+                {
+                    cmd3.Parameters.AddWithValue("@Alt_Identity_proof", TFM.altguaAlt_Identity_Proof);
+                }
+                else
+                {
+                    TFM.altAlt_Identity_Proof = "None";
+                    cmd3.Parameters.AddWithValue("@Alt_Identity_proof", TFM.altguaAlt_Identity_Proof);
+                }
+
+
+                if (TFM.altAlt_Identity_Proof_Value != null)
+                {
+                    cmd3.Parameters.AddWithValue("@Alt_Identity_proof_value", TFM.altguaAlt_Identity_Proof_Value);
+                }
+                else
+                {
+                    TFM.altAlt_Identity_Proof_Value = "None";
+                    cmd3.Parameters.AddWithValue("@Alt_Identity_proof_value", TFM.altguaAlt_Identity_Proof_Value);
+                }
+
+
+
+
+
+
+
+
+
+                //DateTime dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                //cmd.Parameters.AddWithValue("@DOB", "None");
+                cmd3.Parameters.AddWithValue("@Gender", TFM.altguaGender);
+                cmd3.Parameters.AddWithValue("@Occupation", "None");
+                cmd3.Parameters.AddWithValue("@Relationship", "None");
+                cmd3.Parameters.AddWithValue("@Address1", TFM.altguaAddress1);
+                if (TFM.altguaAddress2 != null || TFM.altguaAddress2 == "")
+                {
+                    cmd3.Parameters.AddWithValue("@Address2", TFM.altguaAddress2);
+                }
+                else
+                {
+                    TFM.altguaAddress2 = "None";
+                    cmd3.Parameters.AddWithValue("@Address2", TFM.altguaAddress2);
+                }
+
+
+                if (TFM.altguaAddress3 != null || TFM.altguaAddress3 == "")
+                {
+                    cmd3.Parameters.AddWithValue("@Address3", TFM.altguaAddress3);
+                }
+                else
+                {
+                    TFM.altguaAddress3 = "None";
+                    cmd3.Parameters.AddWithValue("@Address3", TFM.altguaAddress3);
+                }
+
+
+                cmd3.Parameters.AddWithValue("@City", TFM.altguacitytext);
+                cmd3.Parameters.AddWithValue("@State", TFM.altguastatetext);
+                cmd3.Parameters.AddWithValue("@Pin", TFM.altguaPin);
+                cmd3.Parameters.AddWithValue("@tid", Convert.ToInt32(Session["distid"]));
+                cmd3.Parameters.AddWithValue("@ExecutorType", "None");
+                cmd3.ExecuteNonQuery();
+                con.Close();
+
+                // lastest app id
+                int appid = 0;
+                con.Open();
+                string qcheckee = "select max(apId) as apId from Appointees ";
+                SqlDataAdapter dachkee = new SqlDataAdapter(qcheckee, con);
+                DataTable dtchkee = new DataTable();
+                dachkee.Fill(dtchkee);
+                if (dtchkee.Rows.Count > 0)
+                {
+                    appid = Convert.ToInt32(dtchkee.Rows[0]["apId"]);
+                }
+
+
+                string qt = "update Appointees set Country='" + TFM.altguacountrytext + "' ,  documentstatus='incompleted' , tfid=" + fid + " where apId = " + appid + "";
                 SqlCommand cmd33e = new SqlCommand(qt, con);
                 cmd33e.ExecuteNonQuery();
                 con.Close();
@@ -1913,13 +2200,15 @@ namespace WillAssure.Controllers
         public String altBindStateDDL()
         {
 
+            string countryid = Request["send"].ToString();
+
             con.Open();
-            string query = "select distinct * from tbl_state where country_id = 101 order by statename asc   ";
+            string query = "select distinct b.state_id , b.statename from country_tbl a inner join tbl_state b on a.CountryID=b.country_id where a.CountryName = '" + countryid + "' order by b.statename asc";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value=''>--Select State--</option>";
 
             if (dt.Rows.Count > 0)
             {
@@ -1957,7 +2246,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value=''>--Select City--</option>";
 
             if (dt.Rows.Count > 0)
             {
@@ -2001,7 +2290,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value=''>--Select State--</option>";
 
             if (dt.Rows.Count > 0)
             {
@@ -2039,7 +2328,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value=''>--Select City--</option>";
 
             if (dt.Rows.Count > 0)
             {

@@ -400,10 +400,11 @@
                                         @if (Model.country_txt != null)
                                         {
 
-                                            <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+                                        <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
 
-                                                <option value="@Model.country_txt">@Model.country_txt</option>
-                                            </select>
+                                            <option value="@Model.country_txt">@Model.country_txt</option>
+                                            <option value="C">--Select--</option>
+                                        </select>
                                             @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
                                             @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
                                         }
@@ -427,15 +428,16 @@
 
                                         @if (Model.State_txt != null)
                                         {
-                                            <select id="ddlstate" class="form-control input-shadow validate[required]">
-                                                <option value="@Model.State_txt">@Model.State_txt</option>
-                                            </select>
+                                        <select id="ddlstate" class="form-control input-shadow validate[required]">
+                                            <option value="@Model.State_txt">@Model.State_txt</option>
+                                            <option value="S">--Select--</option>
+                                        </select>
                                             @Html.HiddenFor(m => m.State_id, new { id = "stateid" })
                                             @Html.HiddenFor(m => m.State_txt, new { id = "statetext" })
                                         }
                                         else
                                         {
-                                            <select id="ddlstate" class="form-control input-shadow validate[required]"></select>
+                                            <select id="ddlstate" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
                                             @Html.HiddenFor(m => m.State_id, new { id = "stateid" })
                                             @Html.HiddenFor(m => m.State_txt, new { id = "statetext" })
                                         }
@@ -452,6 +454,7 @@
                                         <div class="form-group">
                                             <label for="input-1">City</label>
                                             <select id="ddlcity" class="form-control input-shadow validate[required]">
+                                                <option value="Ct">--Select--</option>
                                                 <option value="@Model.City_txt<">@Model.City_txt</option>
                                             </select>
                                             @Html.HiddenFor(m => m.City_id, new { id = "cityid" })
@@ -1612,6 +1615,16 @@
 
     $(document).ready(function () {
 
+
+
+        if ($("#txtIdentityProofValue22").val() == "None") {
+            $("#txtIdentityProofValue22").val("")
+        }
+
+
+
+
+
         $.ajax({
 
             type: "POST",
@@ -2069,6 +2082,12 @@
 
     $("#btnmore").click(function () {
 
+
+        $('#ddlcountry').val('C').trigger('change');
+        $('#ddlstate').val('S').trigger('change');
+        $('#ddlcity').val('Ct').trigger('change');
+
+
         $("#btnupdate").hide();
 
         $("#btnBeneficiaryformsubmit").show();
@@ -2165,6 +2184,12 @@
 
 
     $("#btnmore2").click(function () {
+
+        $('#ddlcountry').val('C').trigger('change');
+        $('#ddlstate').val('S').trigger('change');
+        $('#ddlcity').val('Ct').trigger('change');
+
+
 
         $("#btnupdate").hide();
 

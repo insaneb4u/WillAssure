@@ -36,7 +36,11 @@
     <link href="~/assets/plugins/bootstrap-datatable/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
     <link href="~/assets/plugins/bootstrap-datatable/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
     @*Master end*@
-
+    <style>
+        input[type="email"] {
+            text-align: center;
+        } 
+    </style>
 </head>
 <body class="bg-dark">
     <!-- Start wrapper-->
@@ -53,7 +57,7 @@
                             <h6 style="color:#5b3fc6;">@ViewBag.type</h6>
                         }
 
-                      
+
 
 
                     </div>
@@ -62,44 +66,84 @@
                     <br />
                     @using (Html.BeginForm())
                     {
-                        <div class="form-group">
-                            <label for="exampleInputUsername" class="">UserName</label>
-                            <div class="position-relative has-icon-right">
-                                @Html.TextBoxFor(m => m.UserID, new { @id = "txtUserId", @class = "form-control input-shadow", @placeholder = "Enter UserID", @autocomplete = "off" })
-                                <div class="form-control-position">
-                                    <i class="icon-user"></i>
+                        <div id="logincontent">
+                            <div class="form-group">
+                                <label for="exampleInputUsername" class="">UserName</label>
+                                <div class="position-relative has-icon-right">
+                                    @Html.TextBoxFor(m => m.UserID, new { @id = "txtUserId", @class = "form-control input-shadow", @placeholder = "Enter UserID", @autocomplete = "off" })
+                                    <div class="form-control-position">
+                                        <i class="icon-user"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword" class="">Password</label>
-                            <div class="position-relative has-icon-right">
-                                @Html.TextBoxFor(m => m.Password, new { @type = "password", @id = "exampleInputPassword", @class = "form-control input-shadow", @placeholder = "Enter Password", @autocomplete = "off" })
-                                <div class="form-control-position">
-                                    <i class="icon-lock"></i>
+                            <div class="form-group">
+                                <label for="exampleInputPassword" class="">Password</label>
+                                <div class="position-relative has-icon-right">
+                                    @Html.TextBoxFor(m => m.Password, new { @type = "password", @id = "exampleInputPassword", @class = "form-control input-shadow", @placeholder = "Enter Password", @autocomplete = "off" })
+                                    <div class="form-control-position">
+                                        <i class="icon-lock"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group col-8 text-capitalize">
-                                <a href="authentication-reset-password.html" data-toggle="modal" data-target="#myModal">Forget Password ?</a>
+                            <div class="form-row">
+                                <div class="form-group col-8 text-capitalize">
+                                    <a href="authentication-reset-password.html" data-toggle="modal" data-target="#myModal">Forget Password ?</a>
 
+                                </div>
+                                <div class="form-group col-3 text-capitalize">
+                                    <a href="@Url.Action("Index","Frontend")">WillAssure</a>
+                                </div>
                             </div>
-                            <div class="form-group col-3 text-capitalize">
-                                <a href="@Url.Action("Index","Frontend")">WillAssure</a>
-                            </div>
-                        </div>
-                        <button type="submit" formaction="@Url.Action("LoginPageData","LoginPage")" id="btnlogin" class="btn btn-primary shadow-primary btn-block waves-effect waves-light">Sign In</button>
+                            <button type="submit" formaction="@Url.Action("LoginPageData","LoginPage")" id="btnlogin" class="btn btn-primary shadow-primary btn-block waves-effect waves-light">Sign In</button>
 
-                        <button type="button" id="btnloginSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-                        <button type="button" id="btnloginFAILED" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                            <button type="button" id="btnloginSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                            <button type="button" id="btnloginFAILED" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+
+                        </div>
+
+
+                        <div id="Passwordcontent" style="display:none">
+                            <div class="form-group">
+                                <label for="exampleInputUsername" class="">OTP</label>
+                                <div class="position-relative has-icon-right">
+                                    @Html.TextBoxFor(m => m.UserID, new { @id = "txtUserId", @class = "form-control input-shadow", @placeholder = "Enter OTP", @autocomplete = "off" })
+                                    <div class="form-control-position">
+                                        <i class="icon-user"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword" class="">New Password</label>
+                                <div class="position-relative has-icon-right">
+                                    @Html.TextBoxFor(m => m.Password, new { @type = "password", @id = "exampleInputPassword", @class = "form-control input-shadow", @placeholder = "Enter Password", @autocomplete = "off" })
+                                    <div class="form-control-position">
+                                        <i class="icon-lock"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword" class="">Confirm Password</label>
+                                <div class="position-relative has-icon-right">
+                                    @Html.TextBoxFor(m => m.Password, new { @type = "password", @id = "exampleInputPassword", @class = "form-control input-shadow", @placeholder = "Enter Confirm Password", @autocomplete = "off" })
+                                    <div class="form-control-position">
+                                        <i class="icon-lock"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" formaction="@Url.Action("LoginPageData","LoginPage")" id="btnlogin" class="btn btn-primary shadow-primary btn-block waves-effect waves-light">Submit</button>
+
+                            <button type="button" id="btnloginSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                            <button type="button" id="btnloginFAILED" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+
+                        </div>
                     }
                 </div>
 
 
                 <!-- Modal -->
                 <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog modal-sm">
+                    <div class="modal-dialog modal-md">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -110,26 +154,30 @@
 
                                         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "RoleForm" }))
                                         {
+                                        <form>
+                                            <center>
+                                                <div>
 
-                                            <div class="row">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <label for="input-1">Email ID:</label>
-                                                        @Html.TextBoxFor(m => m.EmailID, new { @class = "form-control validate[required,custom[characteronly]] text-input", @id = "txtRole", @placeholder = "Enter Email ID", @style = "width:241px;", @autocomplete = "off", alert = "LabourCost is requried" })
+
+                                                    <div>
+                                                        <h5 style="white-space:nowrap;">Please Enter Registered Email ID</h5>
+                                                        <br />
+                                                        @Html.TextBoxFor(m => m.EmailID, new { @type = "email", @class = "form-control validate[required,custom[characteronly]] text-input", @id = "txtRole", @placeholder = "Enter Email ID", @style = "width:241px;", @autocomplete = "off", alert = "LabourCost is requried" })
                                                     </div>
+
+
+
                                                 </div>
 
+                                                <br />
 
-                                            </div>
-
-
-
-                                            <div class="form-group">
-                                                <input type="button" name="name" class="btn btn-danger" value="Send Mail" />
-                                            </div>
-
-                                        }
-                                    </div>
+                                                <div class="form-group">
+                                                    <input type="submit" name="name" formaction="ForgotpasswordMail" class="btn btn-danger" value="Send Mail" />
+                                                </div>
+                                            </center>
+                                        </form>
+                                            }
+                                        </div>
                                 </div>
                             </div>
                         </div>

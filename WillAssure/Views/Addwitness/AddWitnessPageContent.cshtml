@@ -350,19 +350,19 @@
                                             @if (Model.country_txt != null)
                                             {
 
-                                                <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+                                            <select id="ddlcountry" name="country_txt" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
 
-                                                    <option value="@Model.country_txt">@Model.country_txt</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
-                                                @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
+                                                <option value="@Model.country_txt">@Model.country_txt</option>
+
+                                                <option value="C">--Select--</option>
+                                            </select>
+                                               
                                             }
                                             else
                                             {
 
-                                                <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
-                                                @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
-                                                @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
+                                                <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]" name="country_txt"><option value="">--Select--</option></select>
+                                                
                                             }
 
 
@@ -377,6 +377,7 @@
                                                 <label for="input-1">State</label>
                                                 <select id="ddlstate" class="form-control input-shadow validate[required]">
                                                     <option value="@Model.statetext">@Model.statetext</option>
+                                                    <option value="S">--Select--</option>
                                                 </select>
                                                 @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
                                                 @Html.HiddenFor(m => m.statetext, new { id = "statetext" })
@@ -404,6 +405,7 @@
                                                 <label for="input-1">City</label>
                                                 <select id="ddlcity" class="form-control input-shadow validate[required]">
                                                     <option value="@Model.citytext">@Model.citytext</option>
+                                                    <option value="Ct">--Select--</option>
                                                 </select>
                                                 @Html.HiddenFor(m => m.cityid, new { id = "cityid" })
                                                 @Html.HiddenFor(m => m.citytext, new { id = "citytext" })
@@ -666,19 +668,19 @@
                                             @if (Model.altcountry_txt != null)
                                             {
 
-                                                <select id="altddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+                                            <select id="altddlcountry" style="display:;" name="altcountry_txt" class="withdatacountry form-control input-shadow validate[required]">
 
-                                                    <option value="@Model.altcountry_txt">@Model.country_txt</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altcountry_id, new { id = "altcountryid" })
-                                                @Html.HiddenFor(m => m.altcountry_txt, new { id = "altcountrytext" })
+                                                <option value="@Model.altcountry_txt">@Model.altcountry_txt</option>
+
+                                                <option value="altC">--Select--</option>
+                                            </select>
+                                            
                                             }
                                             else
                                             {
 
-                                                <select id="altddlcountry" style="display:;" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
-                                                @Html.HiddenFor(m => m.altcountry_id, new { id = "altcountryid" })
-                                                @Html.HiddenFor(m => m.altcountry_txt, new { id = "altcountrytext" })
+                                                <select id="altddlcountry" style="display:;" class="form-control input-shadow validate[required]"  name="altcountry_txt"><option value="">--Select--</option></select>
+                                          
                                             }
 
 
@@ -694,6 +696,7 @@
                                                 <label for="input-1">State</label>
                                                 <select id="altddlstate" class="form-control input-shadow validate[required]">
                                                     <option value="@Model.wstatetext">@Model.wstatetext</option>
+                                                    <option value="altS">--Select--</option>
                                                 </select>
                                                 @Html.HiddenFor(m => m.wstateid, new { id = "wstateid" })
                                                 @Html.HiddenFor(m => m.wstatetext, new { id = "wstatetext" })
@@ -721,6 +724,7 @@
                                                 <label for="input-1">City</label>
                                                 <select id="altddlcity" class="form-control input-shadow validate[required]">
                                                     <option value="@Model.wcitytext">@Model.wcitytext</option>
+                                                    <option value="altCt">--Select--</option>
                                                 </select>
                                                 @Html.HiddenFor(m => m.wcityid, new { id = "wcityid" })
                                                 @Html.HiddenFor(m => m.wcitytext, new { id = "wcitytext" })
@@ -835,7 +839,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="appendtxttwo"> @Html.TextBoxFor(m => m.wAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altsecond", @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity2(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus="altsecond()" }) </div>
+                                            <div id="appendtxttwo"> @Html.TextBoxFor(m => m.wAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altsecond", @id = "wAlt_Identity_proof_Value", @onchange = "Altvalidateidentity2(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus="altsecond()" }) </div>
                                             <span id="altlblidentityproof2" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                         </div>
                                     </div>
@@ -1013,6 +1017,21 @@
                      
 
                         $(document).ready(function () {
+
+
+                            if ($("#Alt_Identity_Proof_Value").val() == "None") {
+
+                                $("#Alt_Identity_Proof_Value").val("");
+                            }
+
+
+                            if ($("#wAlt_Identity_proof_Value").val() == "None") {
+
+                                $("#wAlt_Identity_proof_Value").val("");
+                            }
+
+
+
 
                             $('#wddlidentityproof option[value=""]').attr("selected", true);
 
@@ -1905,6 +1924,11 @@
 
                             $(document).ready(function () {
 
+
+                                $("#Identity_Proof_txt").attr("disabled", "disabled");
+                                $("#ddlidentityproof1").attr("disabled", "disabled");
+                                $("#txtname").attr("disabled", "disabled");
+                                $("#ddlcountry").attr("disabled", "disabled");
                                 $("#ddltype").attr("disabled", "disabled");
                                 $("#ddlsubtype").attr("disabled", "disabled");
                                 //$("#txtname").attr("disabled", "disabled");
@@ -1946,6 +1970,61 @@
                                 $("#ddlidentityproof22alt").attr("disabled", "disabled");
                                 $("#txtIdentityProofValuealt2").attr("disabled", "disabled");
                                 $("#Alt_Identity_proof_Value").attr("disabled", "disabled");
+
+
+
+
+
+
+                                // alternate 
+
+                                $("#altfirstIdentity_Proof_txt").attr("disabled", "disabled");
+                                $("#altddlcountry").attr("disabled", "disabled");
+                                $("#wIdentity_Proof_txt").attr("disabled", "disabled");
+                                $("#wddlidentityproof1").attr("disabled", "disabled");
+                                $("#wtxtname").attr("disabled", "disabled");
+                                $("#wddlcountry").attr("disabled", "disabled");
+                                $("#wddltype").attr("disabled", "disabled");
+                                $("#wddlsubtype").attr("disabled", "disabled");
+                                $("#wtxtname").attr("disabled", "disabled");
+                                $("#wtxtmiddlename").attr("disabled", "disabled");
+                                $("#wtxtsurname").attr("disabled", "disabled");
+                                $("#wDOB").attr("disabled", "disabled");
+                                $("#wGender").attr("disabled", "disabled");
+                                $("#wtxtoccupation").attr("disabled", "disabled");
+                                $("#wddlrelation").attr("disabled", "disabled");
+                                $("#wddlstate").attr("disabled", "disabled");
+                                $("#wddlcity").attr("disabled", "disabled");
+                                $("#wtxtpin").attr("disabled", "disabled");
+                                $("#wtxtaddress1").attr("disabled", "disabled");
+                                $("#wtxtaddress2").attr("disabled", "disabled");
+                                $("#wtxtaddress3").attr("disabled", "disabled");
+                                $("#wIdentity_Proof").attr("disabled", "disabled");
+                                $("#wtxtidentityproof").attr("disabled", "disabled");
+                                $("#wddlidentityproof11").attr("disabled", "disabled");
+                                $("#wtxtIdentityProofValue").attr("disabled", "disabled");
+
+
+                                $("#wddltypealt2").attr("disabled", "disabled");
+                                $("#wddlsubtypealt2").attr("disabled", "disabled");
+                                $("#wtxtname2").attr("disabled", "disabled");
+                                $("#wtxtmiddlename2").attr("disabled", "disabled");
+                                $("#wtxtsurname2").attr("disabled", "disabled");
+                                $("#waltGender").attr("disabled", "disabled");
+                                $("#wtxtoccupation2").attr("disabled", "disabled");
+                                $("#waltddlrelation").attr("disabled", "disabled");
+                                $("#wDOB2").attr("disabled", "disabled");
+                                $("#waltddlstate").attr("disabled", "disabled");
+                                $("#waltddlcity").attr("disabled", "disabled");
+                                $("#wtxtpin2").attr("disabled", "disabled");
+                                $("#wtxtaddress2alt1").attr("disabled", "disabled");
+                                $("#wtxtaddress2alt2").attr("disabled", "disabled");
+                                $("#wtxtaddress3alt3").attr("disabled", "disabled");
+                                $("#waltIdentity_Proof").attr("disabled", "disabled");
+                                $("#wtxtIdentityProofValuealt").attr("disabled", "disabled");
+                                $("#wddlidentityproof22alt").attr("disabled", "disabled");
+                                $("#wtxtIdentityProofValuealt2").attr("disabled", "disabled");
+                                $("#wAlt_Identity_proof_Value").attr("disabled", "disabled");
 
                             });
 
@@ -2102,10 +2181,36 @@
                         $("#btnmore").click(function () {
 
 
+                            $('#ddlcountry').val('C').trigger('change');
+                            $('#ddlstate').val('S').trigger('change');
+                            $('#ddlcity').val('Ct').trigger('change');
+
+
+
+                            $('#altddlcountry').val('altC').trigger('change');
+                            $('#altddlstate').val('altS').trigger('change');
+                            $('#altddlcity').val('altCt').trigger('change');
+
+
+
+                      
+
+
+
 
                             $("#btnupdate").hide();
 
                             $("#btnDistributorformsubmit").show();
+
+                            $("#ddlcountry").removeAttr("disabled");
+
+                            $("#Identity_Proof_txt").removeAttr("disabled");
+
+                            $("#Identity_Proof_Value").removeAttr("disabled");
+
+                            $("#ddlidentityproof1").removeAttr("disabled");
+
+                            $("#Alt_Identity_Proof_Value").removeAttr("disabled");
 
 
                             $("#btnfieldedit").hide();
@@ -2154,6 +2259,73 @@
                             $("#ddlidentityproof22alt").removeAttr("disabled");
                             $("#txtIdentityProofValuealt2").removeAttr("disabled");
                             $(".altsecond").val("");
+
+
+                            ////// alternate witness /////////////
+
+
+                            $("#altfirstIdentity_Proof_txt").removeAttr("disabled");
+                            $("#altddlcountry").removeAttr("disabled");
+                            $("#wIdentity_Proof_txt").removeAttr("disabled");
+                            $("#wddlidentityproof1").removeAttr("disabled");
+                            $("#wtxtname").removeAttr("disabled");
+                            $("#wddlcountry").removeAttr("disabled");
+                            $("#wddltype").removeAttr("disabled");
+                            $("#wddlsubtype").removeAttr("disabled");
+                            $("#wtxtname").removeAttr("disabled");
+                            $("#wtxtmiddlename").removeAttr("disabled");
+                            $("#wtxtsurname").removeAttr("disabled");
+                            $("#wDOB").removeAttr("disabled");
+                            $("#wGender").removeAttr("disabled");
+                            $("#wtxtoccupation").removeAttr("disabled");
+                            $("#wddlrelation").removeAttr("disabled");
+                            $("#wddlstate").removeAttr("disabled");
+                            $("#wddlcity").removeAttr("disabled");
+                            $("#wtxtpin").removeAttr("disabled");
+                            $("#wtxtaddress1").removeAttr("disabled");
+                            $("#wtxtaddress2").removeAttr("disabled");
+                            $("#wtxtaddress3").removeAttr("disabled");
+                            $("#wIdentity_Proof").removeAttr("disabled");
+                            $("#wtxtidentityproof").removeAttr("disabled");
+                            $("#wddlidentityproof11").removeAttr("disabled");
+                            $("#wtxtIdentityProofValue").removeAttr("disabled");
+
+
+                            $("#wddltypealt2").removeAttr("disabled");
+                            $("#wddlsubtypealt2").removeAttr("disabled");
+                            $("#wtxtname2").removeAttr("disabled");
+                            $("#wtxtmiddlename2").removeAttr("disabled");
+                            $("#wtxtsurname2").removeAttr("disabled");
+                            $("#waltGender").removeAttr("disabled");
+                            $("#wtxtoccupation2").removeAttr("disabled");
+                            $("#waltddlrelation").removeAttr("disabled");
+                            $("#wDOB2").removeAttr("disabled");
+                            $("#waltddlstate").removeAttr("disabled");
+                            $("#waltddlcity").removeAttr("disabled");
+                            $("#wtxtpin2").removeAttr("disabled");
+                            $("#wtxtaddress2alt1").removeAttr("disabled");
+                            $("#wtxtaddress2alt2").removeAttr("disabled");
+                            $("#wtxtaddress3alt3").removeAttr("disabled");
+                            $("#waltIdentity_Proof").removeAttr("disabled");
+                            $("#wtxtIdentityProofValuealt").removeAttr("disabled");
+                            $("#wddlidentityproof22alt").removeAttr("disabled");
+                            $("#wtxtIdentityProofValuealt2").removeAttr("disabled");
+                            $("#wAlt_Identity_proof_Value").removeAttr("disabled");
+
+
+
+
+
+
+
+
+
+
+
+
+                            /////////////////end//////////////////
+
+
 
 
 
@@ -2269,16 +2441,44 @@
 
                         $("#btnmore2").click(function () {
 
+
+                            $('#ddlcountry').val('C').trigger('change');
+                            $('#ddlstate').val('S').trigger('change');
+                            $('#ddlcity').val('Ct').trigger('change');
+
+
+
+                            $('#altddlcountry').val('altC').trigger('change');
+                            $('#altddlstate').val('altS').trigger('change');
+                            $('#altddlcity').val('altCt').trigger('change');
+
+
+
+
+
+
+
+
                             $("#btnupdate").hide();
 
                             $("#btnDistributorformsubmit").show();
 
+                            $("#ddlcountry").removeAttr("disabled");
+
+                            $("#Identity_Proof_txt").removeAttr("disabled");
+
+                            $("#Identity_Proof_Value").removeAttr("disabled");
+
+                            $("#ddlidentityproof1").removeAttr("disabled");
+
+                            $("#Alt_Identity_Proof_Value").removeAttr("disabled");
+
+
+                            $("#btnfieldedit").hide();
 
                             $('#ddlidentityproof1 option[value=""]').attr("selected", true);
                             $('#wddlidentityproof1 option[value=""]').attr("selected", true);
 
-                            $("#btnfieldedit").hide();
-                            $("#wAlt_Identity_proof_Value").val("");
                             $("#ddltype").removeAttr("disabled");
                             $("#ddlsubtype").removeAttr("disabled");
                             $("#txtname").removeAttr("disabled");
@@ -2299,14 +2499,7 @@
                             $("#ddlidentityproof11").removeAttr("disabled");
                             $("#txtIdentityProofValue").removeAttr("disabled");
 
-                            $("#altfirstIdentity_Proof_txt").val("");
-                            $("#wIdentity_Proof_Value").val("");
 
-                            
-                            $("#Identity_Proof_txt").val("");
-
-                            $(".altsecond").val("");
-                            $("#Identity_Proof_Value").val("");
                             $("#ddltypealt2").removeAttr("disabled");
                             $("#ddlsubtypealt2").removeAttr("disabled");
                             $("#txtname2").removeAttr("disabled");
@@ -2326,6 +2519,59 @@
                             $("#txtIdentityProofValuealt").removeAttr("disabled");
                             $("#ddlidentityproof22alt").removeAttr("disabled");
                             $("#txtIdentityProofValuealt2").removeAttr("disabled");
+                            $(".altsecond").val("");
+
+
+                            ////// alternate witness /////////////
+
+
+                            $("#altfirstIdentity_Proof_txt").removeAttr("disabled");
+                            $("#altddlcountry").removeAttr("disabled");
+                            $("#wIdentity_Proof_txt").removeAttr("disabled");
+                            $("#wddlidentityproof1").removeAttr("disabled");
+                            $("#wtxtname").removeAttr("disabled");
+                            $("#wddlcountry").removeAttr("disabled");
+                            $("#wddltype").removeAttr("disabled");
+                            $("#wddlsubtype").removeAttr("disabled");
+                            $("#wtxtname").removeAttr("disabled");
+                            $("#wtxtmiddlename").removeAttr("disabled");
+                            $("#wtxtsurname").removeAttr("disabled");
+                            $("#wDOB").removeAttr("disabled");
+                            $("#wGender").removeAttr("disabled");
+                            $("#wtxtoccupation").removeAttr("disabled");
+                            $("#wddlrelation").removeAttr("disabled");
+                            $("#wddlstate").removeAttr("disabled");
+                            $("#wddlcity").removeAttr("disabled");
+                            $("#wtxtpin").removeAttr("disabled");
+                            $("#wtxtaddress1").removeAttr("disabled");
+                            $("#wtxtaddress2").removeAttr("disabled");
+                            $("#wtxtaddress3").removeAttr("disabled");
+                            $("#wIdentity_Proof").removeAttr("disabled");
+                            $("#wtxtidentityproof").removeAttr("disabled");
+                            $("#wddlidentityproof11").removeAttr("disabled");
+                            $("#wtxtIdentityProofValue").removeAttr("disabled");
+
+
+                            $("#wddltypealt2").removeAttr("disabled");
+                            $("#wddlsubtypealt2").removeAttr("disabled");
+                            $("#wtxtname2").removeAttr("disabled");
+                            $("#wtxtmiddlename2").removeAttr("disabled");
+                            $("#wtxtsurname2").removeAttr("disabled");
+                            $("#waltGender").removeAttr("disabled");
+                            $("#wtxtoccupation2").removeAttr("disabled");
+                            $("#waltddlrelation").removeAttr("disabled");
+                            $("#wDOB2").removeAttr("disabled");
+                            $("#waltddlstate").removeAttr("disabled");
+                            $("#waltddlcity").removeAttr("disabled");
+                            $("#wtxtpin2").removeAttr("disabled");
+                            $("#wtxtaddress2alt1").removeAttr("disabled");
+                            $("#wtxtaddress2alt2").removeAttr("disabled");
+                            $("#wtxtaddress3alt3").removeAttr("disabled");
+                            $("#waltIdentity_Proof").removeAttr("disabled");
+                            $("#wtxtIdentityProofValuealt").removeAttr("disabled");
+                            $("#wddlidentityproof22alt").removeAttr("disabled");
+                            $("#wtxtIdentityProofValuealt2").removeAttr("disabled");
+                            $("#wAlt_Identity_proof_Value").removeAttr("disabled");
 
 
 
@@ -2334,6 +2580,20 @@
 
 
 
+
+
+
+
+                            /////////////////end//////////////////
+
+
+
+
+
+
+
+
+                            $("#wAlt_Identity_proof_Value").val("");
 
                             $("#ddltype").val("");
                             $("#ddlsubtype").val("");
@@ -2377,6 +2637,17 @@
                             $("#Alt_Identity_proof_Value").val("");
 
 
+                            $("#Identity_Proof_txt").val("");
+                            $("#Identity_Proof_Value").val("");
+                            $("#ddlidentityproof1").val("");
+                            $("#Alt_Identity_Proof_Value").val("");
+
+
+                            $("#altfirstIdentity_Proof_txt").val("");
+                            $("#wIdentity_Proof_Value").val("");
+                            $("#wddlidentityproof1").val("");
+                            $("#Alt_Identity_Proof_Value").val("");
+
 
 
                             $("#wddltype").val("");
@@ -2419,6 +2690,7 @@
                             $("#wtxtIdentityProofValuealt2").val("");
 
                             $("#wAlt_Identity_proof_Value").val("");
+
 
 
 

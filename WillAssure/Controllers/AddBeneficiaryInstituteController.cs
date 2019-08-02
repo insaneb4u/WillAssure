@@ -73,6 +73,7 @@ namespace WillAssure.Controllers
                 BIM.Address = dt.Rows[0]["Address"].ToString();
                 BIM.CityText = dt.Rows[0]["City"].ToString();
                 BIM.StateText = dt.Rows[0]["State"].ToString();
+                BIM.country_txt = dt.Rows[0]["Country"].ToString();
 
             }
 
@@ -124,6 +125,46 @@ namespace WillAssure.Controllers
             return View("~/Views/AddBeneficiaryInstitute/AddBeneficiaryInstitute.cshtml",BIM);
         }
 
+        public String UBindStateDDL()
+        {
+
+            string countryid = Request["send"].ToString();
+
+            con.Open();
+            string query = "select distinct b.state_id , b.statename from country_tbl a inner join tbl_state b on a.CountryID=b.country_id where a.CountryName = '" + countryid + "' order by b.statename asc";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
+
+
+
         public String BindCountryDDL()
         {
 
@@ -133,7 +174,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "";
+            string data = "<option value='C'>--Select Country--</option>";
 
             if (dt.Rows.Count > 0)
             {
@@ -202,12 +243,12 @@ namespace WillAssure.Controllers
         {
 
             con.Open();
-            string query = "insert into BeneficiaryInstitutions (Name,Type,registrationNo,Address,City,State,tid,documentstatus,WillType) values ('"+BIM.FirstName+"' , '"+BIM.TypeText+"' , "+BIM.RegistrationNo+" , '"+BIM.Address+"' , '"+BIM.CityText+"' , '"+BIM.StateText+"',"+Convert.ToInt32(Session["distid"])+" , 'incompleted' , '"+Session["WillType"].ToString()+"')";
+            string query = "insert into BeneficiaryInstitutions (Name,Type,registrationNo,Address,City,State,tid,documentstatus,WillType,Country) values ('"+BIM.FirstName+"' , '"+BIM.TypeText+"' , "+BIM.RegistrationNo+" , '"+BIM.Address+"' , '"+BIM.CityText+"' , '"+BIM.StateText+"',"+Convert.ToInt32(Session["distid"])+" , 'incompleted' , '"+Session["WillType"].ToString()+"' ,  '"+BIM.country_txt+"')";
             SqlCommand cmd = new SqlCommand(query,con);
             cmd.ExecuteNonQuery();
 
 
-            string query2 = "insert into BeneficiaryDetails (First_Name,Address1,State,City,tId,beneficiary_type,WillType) values ('" + BIM.FirstName+"', '"+BIM.Address+"' , '"+BIM.StateText+"' , '"+BIM.CityText+ "'," + Convert.ToInt32(Session["distid"]) + ",'Institution','"+Session["WillType"].ToString()+"')";
+            string query2 = "insert into BeneficiaryDetails (First_Name,Address1,State,City,tId,beneficiary_type,WillType,Country) values ('" + BIM.FirstName+"', '"+BIM.Address+"' , '"+BIM.StateText+"' , '"+BIM.CityText+ "'," + Convert.ToInt32(Session["distid"]) + ",'Institution','"+Session["WillType"].ToString()+ "'  ,  '" + BIM.country_txt + "')";
             SqlCommand cmd2 = new SqlCommand(query2,con);
             cmd2.ExecuteNonQuery();
             con.Close();

@@ -51,9 +51,39 @@
                     <div class="card-body">
 
                         <div class="row">
-                            <div class="col-sm-2">
-                                <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><button type="button" id="btnnext" style="display:;" class="btn btn-danger shadow-primary px-5"><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></button></a>
-                            </div>
+
+
+                            @if (Session["typ"] != null)
+                            {
+                                if (Session["typ"].ToString() == "Witness")
+                                {
+                                    <div class="col-sm-2">
+                                        <a href="@Url.Action("AddwitnessIndex", "Addwitness")"><button type="button" id="btnnext" style="display:;" class="btn btn-danger shadow-primary px-5"><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="col-sm-2">
+                                        <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><button type="button" id="btnnext" style="display:;" class="btn btn-danger shadow-primary px-5"><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
+                                    </div>
+                                }
+
+                            }
+                            else
+                            {
+
+                                if (!Response.IsRequestBeingRedirected)
+                                {
+                                    Response.Redirect("/LoginPage/LoginPageIndex");
+                                }
+                            }
+
+
+
+
+
+
+
                             <div class="col-sm-3">
 
                                 <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>

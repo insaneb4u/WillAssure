@@ -275,7 +275,7 @@
 
                                 <div style="float:right;">
 
-                                    <input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" /><a href="@Url.Action("EditAppointeesIndex","EditAppointees" , new { Type = "Witness" })"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a>
+                                    <input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" />&nbsp;&nbsp;<a href="@Url.Action("EditAppointeesIndex","EditAppointees" , new { Type = "Witness" })"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a>
 
                                 </div>
 
@@ -839,7 +839,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="appendtxttwo"> @Html.TextBoxFor(m => m.wAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altsecond", @id = "wAlt_Identity_proof_Value", @onchange = "Altvalidateidentity2(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus="altsecond()" }) </div>
+                                            <div id="appendtxttwo"> @Html.TextBoxFor(m => m.wAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altsecond", @id = "wAlt_Identity_proof_Value", @onchange = "altAltvalidate2(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus="altsecond()" }) </div>
                                             <span id="altlblidentityproof2" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                         </div>
                                     </div>
@@ -890,7 +890,7 @@
 
 
 
-                                                <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
+                                                <button type="button" id="btnnext" style="display:none;" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
 
                                             </a>
                                         }
@@ -913,7 +913,7 @@
                                             <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
                                             <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )">
 
-                                                <button type="button" id="btnnext" style="display:none;" class="btn btn-success shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
+                                                <button type="button" id="btnnext" style="display:none;" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
 
                                             </a>
                                         }
@@ -2952,24 +2952,24 @@
 
 
                             if (id == "Aadhaar Card") {
-                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  ,  onchange='Altvalidateidentity2(this.value)'  , onfocus='altsecond()' />");
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  ,  onchange='altAltvalidate2(this.value)'  , onfocus='altsecond()' />");
                             }
 
 
                             if (id == "Passport") {
-                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='Altvalidateidentity2(this.value)' , onfocus='altsecond()'  />");
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='altAltvalidate2(this.value)' , onfocus='altsecond()'  />");
                             }
 
 
 
                             if (id == "Driving Licences") {
-                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='Altvalidateidentity2(this.value)' , onfocus='altsecond()' />");
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='altAltvalidate2(this.value)' , onfocus='altsecond()' />");
                             }
 
 
 
                             if (id == "Pan Card") {
-                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='Altvalidateidentity2(this.value)' , onfocus='altsecond()'  />");
+                                $("#appendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='altAltvalidate2(this.value)' , onfocus='altsecond()'  />");
                             }
 
 
@@ -2993,7 +2993,20 @@
                     <script>
 
 
-            function validateidentity2(value) {
+                        function validateidentity2(value) {
+
+
+                            if ($("#Identity_Proof_Value").val() == value || $("#Alt_Identity_Proof_Value").val() == value) {
+
+                                $("#wIdentity_Proof_Value").val("");
+                                $("#lblidentityproof2").show();
+                                return false;
+                            }
+
+
+
+
+
 
                 $.ajax({
 
@@ -3080,7 +3093,21 @@
                     <script>
 
 
-            function Altvalidateidentity2(value) {
+                        function altAltvalidate2(value) {
+
+
+                         var c =     $("#Alt_Identity_Proof_Value").val();
+
+                      
+                            if ($("#Identity_Proof_Value").val() == value || $("#Alt_Identity_proof_Value").val() == value) {
+
+                                $("#wAlt_Identity_proof_Value").val("");
+                                $("#altlblidentityproof2").show();
+                                return false;
+                            }
+                       
+
+
 
                 $.ajax({
 

@@ -29,7 +29,30 @@ namespace WillAssure.Controllers
                 }
                 
             }
-            
+
+
+            if (TempData["ForgotPasswordProcess"] != null)
+            {
+                if (TempData["ForgotPasswordProcess"].ToString() == "True")
+                {
+                    ViewBag.EnablePassword = "true";
+                }
+
+               
+
+            }
+
+            if (TempData["changed"] != null)
+            {
+
+            if (TempData["changed"].ToString() == "true")
+            {
+                ViewBag.passmsg = "true";
+            }
+
+
+            }
+
 
             return View("~/Views/LoginPage/LoginPageContent.cshtml");
         }
@@ -482,9 +505,9 @@ namespace WillAssure.Controllers
             string Userid = LM.EmailID;
 
             Session["userid"] = Userid;
-            string subject = "Testing Mail Sending";
+            string subject = "OTP For Forgot Password Request";
             string OTP = "<font color='Green' style='font-size=3em;'>" + EmailOTP + "</font>";
-            string text = "Your OTP for Verification Is " + OTP + "";
+            string text = "Your OTP for Forgot Password Process Is " + OTP + "";
             string body = "<font color='red'>" + text + "</font>";
 
 
@@ -516,19 +539,156 @@ namespace WillAssure.Controllers
 
 
 
-            
+
+            TempData["ForgotPasswordProcess"] = "True";
 
 
 
-
-            return View("~/LoginPage/LoginPageContent.cshtml");
+            return RedirectToAction("LoginPageIndex", "LoginPage");
         }
 
 
 
 
-       
 
+
+
+        public ActionResult UpdateNewPassword(LoginModel LM)
+        {
+
+            con.Open();
+
+            string query1 = "select Email , OTP from ForgotPassword_Tbl where OTP = "+LM.FOTP+" ";
+            SqlDataAdapter da1 = new SqlDataAdapter(query1,con);
+            DataTable dt1 = new DataTable();
+            da1.Fill(dt1);
+
+            if (dt1.Rows.Count > 0)
+            {
+
+                if (dt1.Rows[0]["OTP"].ToString() == LM.FOTP)
+                {
+                    // identify user id
+                    string query2 = "select uId from users where eMail = '"+dt1.Rows[0]["Email"].ToString()+ "' and  Type='Testator'";
+                    SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+                    DataTable dt2 = new DataTable();
+                    da2.Fill(dt2);
+                    // end
+
+                  
+
+                    if (dt2.Rows.Count > 0)
+                    {
+                        // update password
+                        string query3 = "update users set userPwd = '"+LM.FPassword+"' where uId = "+ Convert.ToInt32(dt2.Rows[0]["uId"]) + " and Type='Testator' ";
+                        SqlCommand cmd3 = new SqlCommand(query3,con);
+                        cmd3.ExecuteNonQuery();
+                        //end
+
+
+                        TempData["changed"] = "true";
+
+                    }
+
+                   
+
+
+
+                }
+
+            }
+
+
+
+
+
+            con.Close();
+
+
+
+
+            return RedirectToAction("LoginPageIndex", "LoginPage");
+        }
+
+
+
+
+
+
+
+        public string CheckOTP()
+        {
+
+            string Response = Request["send"].ToString();
+            string msg = "";
+
+            con.Open();
+
+            string query1 = "select Email , OTP from ForgotPassword_Tbl where OTP = " + Response + " ";
+            SqlDataAdapter da1 = new SqlDataAdapter(query1, con);
+            DataTable dt1 = new DataTable();
+            da1.Fill(dt1);
+
+            if (dt1.Rows.Count > 0)
+            {
+
+                if (dt1.Rows[0]["OTP"].ToString() == Response)
+                {
+
+                    msg = "true";
+
+
+                }
+
+
+            }
+            else
+            {
+                msg = "false";
+            }
+
+
+
+
+
+            con.Close();
+
+            return msg;
+
+
+        }
+
+
+
+        public string EmailCheckOTP()
+        {
+            string Response = Request["send"].ToString();
+            string msg = "";
+            con.Open();
+            string query = "select * from users where  eMail = '"+ Response + "' ";
+            SqlDataAdapter da = new SqlDataAdapter(query,con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+
+            if (dt.Rows.Count > 0)
+            {
+                msg = "true";
+            }
+            else
+            {
+                msg = "false";
+            }
+
+
+            con.Close();
+
+
+
+
+
+            return msg;
+        }
 
 
 

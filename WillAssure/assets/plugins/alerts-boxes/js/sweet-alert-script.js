@@ -10,7 +10,10 @@
               });
 
      //success Alert Button
-     
+
+     $("#btnchanged").click(function () {
+         swal("Password Changed!", "Password Has Been SuccessFully Changed", "success");
+     });
 
      $("#btnsenddocument").click(function () {
          swal("Verified!", "Details Has Been Send For Verification", "success");

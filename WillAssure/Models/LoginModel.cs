@@ -50,6 +50,13 @@ namespace WillAssure.Models
 
       public string DDLbeneficiarycontent { get; set; }
 
+        public string FOTP { get; set; }
+        public string FconfirmPassword { get; set; }
+        public string FPassword { get; set; }
+
+
+
+
 
     }
 }

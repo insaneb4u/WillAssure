@@ -700,7 +700,7 @@
 
 
                             <div class="form-group" style="float:right">
-
+                                <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
                                 <button type="submit" id="btnnomineeformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
                                 <button type="submit" id="btnupdate" style="display:none;" formaction="@Url.Action("updateNominee","AddNominee")" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
 
@@ -1391,6 +1391,40 @@ else
 <script>
 
     $("#btnmore").click(function () {
+
+        $("#btnupdate").hide();
+
+        $("#btnmainassetsubmit").show();
+
+
+        $("#nomineeform").hide();
+
+
+
+
+        $("#btneditmsg").hide();
+
+        $("#updatedata").hide();
+
+
+
+
+        $("#upcat").hide();
+        $("#inscat").show();
+
+
+        $(".optional").hide();
+
+
+
+
+
+    });
+
+
+
+
+    $("#btnmore2").click(function () {
 
         $("#btnupdate").hide();
 
@@ -2221,7 +2255,7 @@ else
 
 <script>
 
-    $("#btnmore").click(function () {
+    $("#btnmore2").click(function () {
 
         $("#btnupdate").hide();
 

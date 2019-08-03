@@ -140,6 +140,9 @@ namespace WillAssure.Models
 
 
         public string successmessage { get; set; }
+
+
+        public string SpouseName { get; set; }
     }
 
 

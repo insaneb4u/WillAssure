@@ -24,12 +24,19 @@ namespace WillAssure.Controllers
 
             int testatorid = 0;
 
-
-
+            string query1t = "";
+            string query2 = "";
 
 
             con.Open();
-            string query1t = "select tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+            if (Session["uuid"] != null)
+            {
+                 query1t = "select tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+            }
+            else
+            {
+               return RedirectToAction("LoginPageIndex", "LoginPage");
+            }
             SqlDataAdapter da1t = new SqlDataAdapter(query1t, con);
             DataTable dt1t = new DataTable();
             da1t.Fill(dt1t);
@@ -42,7 +49,15 @@ namespace WillAssure.Controllers
             con.Close();
 
             con.Open();
-            string query2 = "select Will , Codocil , POA , Giftdeeds , LivingWill  from users where uId =  " + Convert.ToInt32(Session["uuid"]) + " ";
+            if (Session["uuid"] != null)
+            {
+                 query2 = "select Will , Codocil , POA , Giftdeeds , LivingWill  from users where uId =  " + Convert.ToInt32(Session["uuid"]) + " ";
+            }
+            else
+            {
+               return RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+            
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);

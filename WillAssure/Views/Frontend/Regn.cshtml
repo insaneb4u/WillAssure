@@ -58,23 +58,63 @@
 
                                 @*<textarea id="documenttype" name="documenttype" style="display:none;"></textarea>*@
                                 <div class="row">
-                                    <div class="form-group col-sm-12">
-                                        <div class="col-sm-2"><label for="email" style="font-weight: 700; font-size: 16px">Name:</label></div>
-                                        <div class="col-sm-3" style="float: left;"><input type="text" class="form-control input-shadow" id="txtfirstname" onchange="clearlblerror1()" placeholder="First Name"><span style="color:red; display:none" id="lblerror1">*Required</span></div>
-                                        <div class="col-sm-3" style="float: left;"><input type="text" class="form-control input-shadow" id="txtmiddlename" onchange="lblerror12()" placeholder="Middle Name"><span style="color:red; display:none" id="lblerror12">*Required</span></div>
-                                        <div class="col-sm-3" style="float: left;"><input type="text" class="form-control input-shadow" id="txtlastname" onchange="lblerror13()" placeholder="Last Name"><span style="color:red; display:none" id="lblerror13">*Required</span></div>
+                                    <div class="form-group col-sm-4">
+                                        <label for="email" style="font-weight: 700; font-size: 16px">Name:</label>
+                                        <div style="float: left;"><input type="text" class="form-control input-shadow" id="txtfirstname" onchange="clearlblerror1()" placeholder="First Name"><span style="color:red; display:none" id="lblerror1">*Required</span></div>
+
 
                                     </div>
 
+                                    <div class="form-group col-sm-4">
+                                        <div><label for="email" style="font-weight: 700; font-size: 16px">Middle Name:</label></div>
+                                        <div style="float: left;"><input type="text" class="form-control input-shadow" id="txtmiddlename" onchange="lblerror12()" placeholder="Middle Name"><span style="color:red; display:none" id="lblerror12">*Required</span></div>
+
+
+                                    </div>
+
+                                    <div class="form-group col-sm-4">
+                                        <div><label for="email" style="font-weight: 700; font-size: 16px">Last Name:</label></div>
+                                        <div style="float: left;"><input type="text" class="form-control input-shadow" id="txtlastname" onchange="lblerror13()" placeholder="Last Name"><span style="color:red; display:none" id="lblerror13">*Required</span></div>
+
+
+                                    </div>
+
+
+
+
                                 </div>
 
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-12"><label for="email" style="font-weight: 700; font-size: 16px">Contact No:</label></div>
-                                    <div class="col-sm-3" style="float: left;"><input type="text" class="form-control input-shadow" id="txtcontact" onchange="check()" placeholder="Mobile No"><span style="color:red;display:none" id="lblerror2">*Required</span><span id="error" style="color: Red; display: none">*Invalid Mobile</span></div>
-                                    <div class="col-sm-4" style="float: left;"><input type="text" class="form-control input-shadow" id="txtemail" onchange="lblerror3()" placeholder="Email Id" required><span style="color:red;display:none" id="lblerror3">*Required</span><span style="color:red;display:none" id="lblemailerr">*Invalid Email</span><span style="color:red;display:none" id="lbldup">*Email ID Already Register</span></div>
-                                    <div class="col-sm-4" style="float: left;"><input type="date" class="form-control input-shadow" id="txtdob" onchange="lblerrordob(this.value)" onkeydown="return false" placeholder="Date Of Birth"><span style="color:red; display:none" id="lblerrordate">*Required</span><span style="color:red; display:none" id="validatedob">*should be 18+ Year</span></div>
+
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label for="email" style="font-weight: 700; font-size: 16px">Mobile:</label>
+                                        <div style="float: left;"><input type="text" class="form-control input-shadow" id="txtcontact" onchange="check()" placeholder="Mobile No"><span style="color:red;display:none" id="lblerror2">*Required</span><span id="error" style="color: Red; display: none">*Invalid Mobile</span></div>
+
+
+                                    </div>
+
+                                    <div class="form-group col-sm-4">
+                                        <div><label for="email" style="font-weight: 700; font-size: 16px">Email:</label></div>
+                                        <div style="float: left;"><input type="text" class="form-control input-shadow" id="txtemail" onchange="lblerror3()" placeholder="Email Id" required><span style="color:red;display:none" id="lblerror3">*Required</span><span style="color:red;display:none" id="lblemailerr">*Invalid Email</span><span style="color:red;display:none" id="lbldup">*Email ID Already Register</span></div>
+
+
+                                    </div>
+
+                                    <div class="form-group col-sm-4">
+                                        <div><label for="email" style="font-weight: 700; font-size: 16px">Date Of Birth:</label></div>
+                                        <div style="float: left;"><input type="date" class="form-control input-shadow" id="txtdob" onchange="lblerrordob(this.value)" onkeydown="return false" placeholder="Date Of Birth"><span style="color:red; display:none" id="lblerrordate">*Required</span><span style="color:red; display:none" id="validatedob">*should be 18+ Year</span></div>
+
+
+                                    </div>
+
+
+
+
                                 </div>
+
+
+
 
 
 
@@ -103,38 +143,38 @@
                                     </div>
                                 </div>
                                 @*<div class="form-group col-sm-12" style="float: left;">
-                                        <div class="col-sm-12"><label for="email" style="font-weight: 700; font-size: 16px">Select Doument which you wants to create</label></div>
-                                        <div class="col-sm-12" style="float: left;">
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" id="checkone" class="chk" value="Will">Will
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" id="checktwo" class="chk" value="Codocil">Codocil
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" id="checkthree" class="chk" value="POA">POA
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" id="checkfour" class="chk" value="Giftdeeds">Gift Deeds
-                                            </label>
-                                            <label class="checkbox-inline">
-                                                <input type="checkbox" id="checkfive" class="chk" value="LivingWill">Living Will
-                                            </label>
-                                        </div>
-                                        <span style="color:red;display:none" id="lblcheck">*Required</span>
-                                    </div>*@
+            <div class="col-sm-12"><label for="email" style="font-weight: 700; font-size: 16px">Select Doument which you wants to create</label></div>
+            <div class="col-sm-12" style="float: left;">
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="checkone" class="chk" value="Will">Will
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="checktwo" class="chk" value="Codocil">Codocil
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="checkthree" class="chk" value="POA">POA
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="checkfour" class="chk" value="Giftdeeds">Gift Deeds
+                </label>
+                <label class="checkbox-inline">
+                    <input type="checkbox" id="checkfive" class="chk" value="LivingWill">Living Will
+                </label>
+            </div>
+            <span style="color:red;display:none" id="lblcheck">*Required</span>
+        </div>*@
 
                                 @*<div id="willtype" style="display:none;">
-                                        <label class="radio-inline">
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="typeone" name="optone" value="Quick" checked>Quick
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" id="typetwo" name="optone" value="Detailed">Detailed
-                                        </label>
-                                    </div>*@
+            <label class="radio-inline">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="typeone" name="optone" value="Quick" checked>Quick
+            </label>
+            <label class="radio-inline">
+                <input type="radio" id="typetwo" name="optone" value="Detailed">Detailed
+            </label>
+        </div>*@
                                 <!--<div class="col-sm-12" style="float: left;" id="documentpricing">
 
-                                </div>-->
+    </div>-->
 
 
                                 <div class="col-sm-12 text-right" style="float: left;">

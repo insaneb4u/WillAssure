@@ -64,79 +64,103 @@
                     @*<div class="card-title text-uppercase text-center py-3">Will Assure</div>*@
                     <br />
                     <br />
-                    @using (Html.BeginForm())
+                    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "changepasswordform" }))
                     {
-                        <div id="logincontent">
-                            <div class="form-group">
-                                <label for="exampleInputUsername" class="">UserName</label>
-                                <div class="position-relative has-icon-right">
-                                    @Html.TextBoxFor(m => m.UserID, new { @id = "txtUserId", @class = "form-control input-shadow", @placeholder = "Enter UserID", @autocomplete = "off" })
-                                    <div class="form-control-position">
-                                        <i class="icon-user"></i>
+
+                        if (ViewBag.EnablePassword != "true")
+                        {
+                            <div id="logincontent">
+                                <div class="form-group">
+                                    <label for="exampleInputUsername" class="">UserName</label>
+                                    <div class="position-relative has-icon-right">
+                                        @Html.TextBoxFor(m => m.UserID, new { @id = "txtUserId", @class = "form-control input-shadow", @placeholder = "Enter UserID", @autocomplete = "off" })
+                                        <div class="form-control-position">
+                                            <i class="icon-user"></i>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword" class="">Password</label>
-                                <div class="position-relative has-icon-right">
-                                    @Html.TextBoxFor(m => m.Password, new { @type = "password", @id = "exampleInputPassword", @class = "form-control input-shadow", @placeholder = "Enter Password", @autocomplete = "off" })
-                                    <div class="form-control-position">
-                                        <i class="icon-lock"></i>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword" class="">Password</label>
+                                    <div class="position-relative has-icon-right">
+                                        @Html.TextBoxFor(m => m.Password, new { @type = "password", @id = "exampleInputPassword", @class = "form-control input-shadow", @placeholder = "Enter Password", @autocomplete = "off" })
+                                        <div class="form-control-position">
+                                            <i class="icon-lock"></i>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="form-row">
+                                    <div class="form-group col-8 text-capitalize">
+                                        <a href="authentication-reset-password.html" data-toggle="modal" data-target="#myModal">Forget Password ?</a>
+
+                                    </div>
+                                    <div class="form-group col-3 text-capitalize">
+                                        <a href="@Url.Action("Index", "Frontend")">WillAssure</a>
+                                    </div>
+                                </div>
+                                <button type="submit" formaction="@Url.Action("LoginPageData", "LoginPage")" id="btnlogin" class="btn btn-primary shadow-primary btn-block waves-effect waves-light">Sign In</button>
+
+                                <button type="button" id="btnloginSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                                <button type="button" id="btnloginFAILED" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                                <button id="btnchanged" style="display:none" type="button"></button>
                             </div>
-                            <div class="form-row">
+                        }
+                        else
+                        {
+                            <div id="Passwordcontent" style="display:">
+                                <center><h5 style="color:blueviolet;">Please Check Your Email For OTP</h5></center>
+                                <br />
+                                <div class="form-group">
+                                    <label for="exampleInputUsername" class="">OTP</label>
+                                    <div class="position-relative has-icon-right">
+                                        @Html.TextBoxFor(m => m.FOTP, new { @id = "txtotp", @onchange = "VerifyOTP(this.value)", @class = "form-control input-shadow", @placeholder = "Enter OTP", @autocomplete = "off" })
+                                        <div class="form-control-position">
+                                            <i class="icon-user"></i>
+                                        </div>
+                                    </div>
+                                    <span id="errmsg" style="color:red;"></span>
+                                    <span id="lblOTP" style="color:red; display:none;">Invalid OTP</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword" class="">New Password</label>
+                                    <div class="position-relative has-icon-right">
+                                        @Html.TextBoxFor(m => m.FPassword, new { @type = "password", @id = "txtnewpassword", @class = "form-control input-shadow", @placeholder = "Enter Confirm Password", @autocomplete = "off" })
+                                        <div class="form-control-position">
+                                            <i class="icon-lock"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword" class="">Confirm Password</label>
+                                    <div class="position-relative has-icon-right">
+                                        @Html.TextBoxFor(m => m.FconfirmPassword, new { @type = "password", @id = "txtconfirmpassword", @onchange = "VerifyPassword(this.value)", @class = "form-control input-shadow", @placeholder = "Enter Confirm Password", @autocomplete = "off" })
+                                        <div class="form-control-position">
+                                            <i class="icon-lock"></i>
+                                        </div>
+                                    </div>
+                                    <span id="lblpmsg" style="color:red; display:none;">Password Does Not Match</span>
+                                </div>
+
+
+                                
+
                                 <div class="form-group col-8 text-capitalize">
-                                    <a href="authentication-reset-password.html" data-toggle="modal" data-target="#myModal">Forget Password ?</a>
+                                    <i class="icon-user" style="color:#5e72e4"></i>&nbsp;&nbsp; <a href="@Url.Action("LoginPageIndex","LoginPage")">Sign In</a>
 
                                 </div>
-                                <div class="form-group col-3 text-capitalize">
-                                    <a href="@Url.Action("Index","Frontend")">WillAssure</a>
-                                </div>
+
+
+                                <button type="submit" formaction="@Url.Action("UpdateNewPassword", "LoginPage")" id="btnlogin" class="btn btn-primary shadow-primary btn-block waves-effect waves-light">Submit</button>
+
+                                <button type="button" id="btnloginSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                                <button type="button" id="btnloginFAILED" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+
                             </div>
-                            <button type="submit" formaction="@Url.Action("LoginPageData","LoginPage")" id="btnlogin" class="btn btn-primary shadow-primary btn-block waves-effect waves-light">Sign In</button>
-
-                            <button type="button" id="btnloginSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-                            <button type="button" id="btnloginFAILED" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-
-                        </div>
+                        }
 
 
-                        <div id="Passwordcontent" style="display:none">
-                            <div class="form-group">
-                                <label for="exampleInputUsername" class="">OTP</label>
-                                <div class="position-relative has-icon-right">
-                                    @Html.TextBoxFor(m => m.UserID, new { @id = "txtUserId", @class = "form-control input-shadow", @placeholder = "Enter OTP", @autocomplete = "off" })
-                                    <div class="form-control-position">
-                                        <i class="icon-user"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword" class="">New Password</label>
-                                <div class="position-relative has-icon-right">
-                                    @Html.TextBoxFor(m => m.Password, new { @type = "password", @id = "exampleInputPassword", @class = "form-control input-shadow", @placeholder = "Enter Password", @autocomplete = "off" })
-                                    <div class="form-control-position">
-                                        <i class="icon-lock"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword" class="">Confirm Password</label>
-                                <div class="position-relative has-icon-right">
-                                    @Html.TextBoxFor(m => m.Password, new { @type = "password", @id = "exampleInputPassword", @class = "form-control input-shadow", @placeholder = "Enter Confirm Password", @autocomplete = "off" })
-                                    <div class="form-control-position">
-                                        <i class="icon-lock"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <button type="submit" formaction="@Url.Action("LoginPageData","LoginPage")" id="btnlogin" class="btn btn-primary shadow-primary btn-block waves-effect waves-light">Submit</button>
 
-                            <button type="button" id="btnloginSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
-                            <button type="button" id="btnloginFAILED" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
 
-                        </div>
+
                     }
                 </div>
 
@@ -152,9 +176,9 @@
                                 <div class="card">
                                     <div class="card-body">
 
-                                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "RoleForm" }))
+                                        @using (Html.BeginForm())
                                         {
-                                        <form>
+
                                             <center>
                                                 <div>
 
@@ -162,7 +186,8 @@
                                                     <div>
                                                         <h5 style="white-space:nowrap;">Please Enter Registered Email ID</h5>
                                                         <br />
-                                                        @Html.TextBoxFor(m => m.EmailID, new { @type = "email", @class = "form-control validate[required,custom[characteronly]] text-input", @id = "txtRole", @placeholder = "Enter Email ID", @style = "width:241px;", @autocomplete = "off", alert = "LabourCost is requried" })
+                                                        @Html.TextBoxFor(m => m.EmailID, new { @type = "email", @class = "form-control validate[required,custom[characteronly]] text-input", @id = "txtEmailid", @placeholder = "Enter Email ID", @style = "width:241px;", @autocomplete = "off", alert = "LabourCost is requried", @required = "Required" , @onchange="verifyEmail(this.value)" })
+                                                        <span style="color:red; display:none;" id="lblemailcorrect">Entered Email ID Is Not Registered</span>
                                                     </div>
 
 
@@ -172,12 +197,12 @@
                                                 <br />
 
                                                 <div class="form-group">
-                                                    <input type="submit" name="name" formaction="ForgotpasswordMail" class="btn btn-danger" value="Send Mail" />
+                                                    <input type="submit" name="name" formaction="@Url.Action("ForgotpasswordMail", "LoginPage")" class="btn btn-danger" value="Send Mail" />
                                                 </div>
                                             </center>
-                                        </form>
-                                            }
-                                        </div>
+
+                                        }
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -185,6 +210,99 @@
                 </div>
             </div>
         </div>
+
+
+        <script>
+            $(document).ready(function () {
+                $("#changepasswordform").validationEngine();
+            });
+        </script>
+
+
+
+
+        <script>
+
+            function verifyEmail(value) {
+
+                  $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("EmailCheckOTP", "LoginPage")",
+            data: { "send": "" + value + "" },
+            success: function (data) {
+
+                if (data == "true") {
+                    $("#lblemailcorrect").hide();
+                }
+
+
+                if (data == "false") {
+                    $("#lblemailcorrect").show();
+                    $("#txtEmailid").val("");
+                }
+
+
+            }
+
+                });
+
+            }
+
+
+
+
+
+            function VerifyPassword(value) {
+
+                var newpassword = $("#txtnewpassword").val();
+
+                if (newpassword == value) {
+                    $("#lblpmsg").hide();
+                }
+                else {
+                    $("#lblpmsg").show();
+                    $("#txtconfirmpassword").val("");
+                }
+
+
+            }
+
+
+
+
+
+            function VerifyOTP(value) {
+
+
+          $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("CheckOTP", "LoginPage")",
+            data: { "send": "" + value + "" },
+            success: function (data) {
+
+                if (data == "true") {
+                    $("#lblOTP").hide();
+                }
+
+
+                if (data == "false") {
+                    $("#lblOTP").show();
+                    $("#txtotp").val("");
+                }
+
+
+            }
+
+                });
+
+
+
+
+            }
+
+        </script>
 
 
 
@@ -218,6 +336,45 @@
             </script>
 
         }
+
+
+
+        @if (ViewBag.passmsg == "true")
+        {
+            <script>
+
+                $(document).ready(function () {
+
+                    $("#btnchanged").on("click", function () { });
+
+                    $("#btnchanged").click();
+
+                });
+
+            </script>
+
+        }
+
+
+        <script>
+            $(document).ready(function () {
+                //called when key is pressed in textbox
+                $("#txtotp").keypress(function (e) {
+                    //if the letter is not digit then display error and don't type anything
+                    if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                        //display error message
+                        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+                        return false;
+                    }
+                });
+            });
+
+
+
+        </script>
+
+
+   
 
 
 

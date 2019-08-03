@@ -400,6 +400,11 @@ namespace WillAssure.Controllers
                 }
 
 
+               
+                 TFM.SpouseName = dt.Rows[0]["SpouseName"].ToString();
+                
+
+
                 TFM.uId = Convert.ToInt32(dt.Rows[0]["uId"]);
 
 
@@ -1260,7 +1265,17 @@ namespace WillAssure.Controllers
 
             cmd.ExecuteNonQuery();
 
-            
+
+
+
+            string queryu = "update testatordetails set SpouseName='"+TFM.SpouseName+"' where tId = "+TFM.tId+" ";
+            SqlCommand cddu = new SqlCommand(queryu, con);
+            cddu.ExecuteNonQuery();
+
+
+          
+
+
 
 
 

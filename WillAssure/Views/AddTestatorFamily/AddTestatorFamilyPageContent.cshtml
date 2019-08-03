@@ -297,7 +297,7 @@
                                         @if (Model.country_txt != null)
                                         {
 
-                                            <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+                                            <select id="ddlcountry" style="display:;" class="count withdatacountry form-control input-shadow validate[required]">
 
                                                 <option value="@Model.country_txt">@Model.country_txt</option>
                                             </select>
@@ -307,7 +307,7 @@
                                         else
                                         {
 
-                                            <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                                            <select id="ddlcountry" style="display:;" class="count form-control input-shadow validate[required]"><option value="">--Select--</option></select>
                                             @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
                                             @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
                                         }
@@ -1136,7 +1136,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Pin</label>
-                                                @Html.TextBoxFor(m => m.guaPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "txtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                                @Html.TextBoxFor(m => m.guaPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "guatxtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
                                             </div>
                                         </div>
 
@@ -2899,8 +2899,11 @@
                     $("#Alt_Identity_Proof_Value").attr("disabled", "disabled");
                     $("#ddlidentityproof1").attr("disabled", "disabled");
                     $("#Identity_Proof_Value").attr("disabled", "disabled");
+                    $("#ddlcountry").attr("disabled", "disabled");
+                    $("#Identity_Proof_txt").attr("disabled", "disabled");
 
-
+                    
+                    
 
 
 
@@ -2923,25 +2926,30 @@
 
 
 
-                    //$("#guaName").attr("disabled", "disabled");
-                    //$("#txtmiddlename").attr("disabled", "disabled");
-                    //$("#txtsurname").attr("disabled", "disabled");
-                    //$("#guaGender").attr("disabled", "disabled");
-                    //$("#txtpin").attr("disabled", "disabled");
-                    //$("#txtaddress1").attr("disabled", "disabled");
-                    //$("#txtaddress2").attr("disabled", "disabled");
-                    //$("#txtaddress3").attr("disabled", "disabled");
-                    //$("#guaIdentity_Proof_Value").attr("disabled", "disabled");
-                    //$("#guaAlt_Identity_Proof_Value").attr("disabled", "disabled");
+                    $("#guaName").attr("disabled", "disabled");
+                    $("#txtmiddlename").attr("disabled", "disabled");
+                    $("#txtsurname").attr("disabled", "disabled");
+                    $("#guaGender").attr("disabled", "disabled");
+                    $("#txtpin").attr("disabled", "disabled");
+                    $("#txtaddress1").attr("disabled", "disabled");
+                    $("#txtaddress2").attr("disabled", "disabled");
+                    $("#txtaddress3").attr("disabled", "disabled");
+                    $("#guaIdentity_Proof_Value").attr("disabled", "disabled");
+                    $("#guaAlt_Identity_Proof_Value").attr("disabled", "disabled");
 
-                    //$("#guaddlstate").attr("disabled", "disabled");
-                    //$("#guaddlcity").attr("disabled", "disabled");
-                    //$("#guaIdentity_Proof").attr("disabled", "disabled");
-                    //$("#guaddlidentityproof11").attr("disabled", "disabled");
-                    //$("#txtname").attr("disabled", "disabled");
-                    //$("#guaWithdatastate").attr("disabled", "disabled");
-
-
+                    $("#guaddlstate").attr("disabled", "disabled");
+                    $("#guaddlcity").attr("disabled", "disabled");
+                    $("#guaIdentity_Proof").attr("disabled", "disabled");
+                    $("#guaddlidentityproof11").attr("disabled", "disabled");
+                    $("#txtname").attr("disabled", "disabled");
+                    $("#guaWithdatastate").attr("disabled", "disabled");
+                    $("#guaddlcountry").attr("disabled", "disabled");
+                    $("#guaddlcountry").attr("disabled", "disabled");
+                    $("#guatxtPin").attr("disabled", "disabled");
+                    $("#altfirstIdentity_Proof_txt").attr("disabled", "disabled");
+                    $("#ddlcountry").attr("disabled", "disabled");
+                 
+                    
                 });
 
 
@@ -2973,7 +2981,7 @@
                 $("#Alt_Identity_Proof_Value").attr("disabled", "disabled");
                 $("#ddlidentityproof1").attr("disabled", "disabled");
                 $("#Identity_Proof_Value").attr("disabled", "disabled");
-
+                $(".count")
 
 
                 $("#alttxtFirstName").attr("disabled", "disabled");
@@ -3010,6 +3018,12 @@
                 $("#txtname").attr("disabled", "disabled");
                 $("#guaWithdatastate").attr("disabled", "disabled");
 
+                $("#Identity_Proof_txt").attr("disabled", "disabled");
+                $("#guaddlcountry").attr("disabled", "disabled");
+                $("#guaddlstate").attr("disabled", "disabled");
+                $("#guatxtPin").attr("disabled", "disabled");
+                $("#altfirstIdentity_Proof_txt").attr("disabled", "disabled");
+
             });
 
 
@@ -3033,9 +3047,13 @@
                 $("#Alt_Identity_Proof_Value").removeAttr("disabled");
                 $("#ddlidentityproof1").removeAttr("disabled");
                 $("#Identity_Proof_Value").removeAttr("disabled");
-
-
-
+                $("#ddlcountry").removeAttr("disabled");
+                $("#Identity_Proof_txt").removeAttr("disabled");
+                $("#txtsurname").removeAttr("disabled");
+                $("#guaddlcountry").removeAttr("disabled");
+                $("#guaddlstate").removeAttr("disabled");
+                $("#guatxtPin").removeAttr("disabled");
+                $("#ddlcountry").removeAttr("disabled");
 
                 $("#alttxtFirstName").removeAttr("disabled");
                 $("#alttxtMiddle_Name").removeAttr("disabled");
@@ -3062,9 +3080,9 @@
                 $("#txtaddress2").removeAttr("disabled");
                 $("#txtaddress3").removeAttr("disabled");
                 $("#guaIdentity_Proof").removeAttr("disabled");
-                $("#guaIdentity_Proof_Value").removeAttr("disabled");
+                $("#altfirstIdentity_Proof_txt").removeAttr("disabled");
                 $("#guaddlidentityproof11").removeAttr("disabled");
-                $("#guaAlt_Identity_Proof_Value").removeAttr("disabled");
+              
                 $("#txtmiddlename").removeAttr("disabled");
                 $("#txtname").removeAttr("disabled");
                 $("#guaWithdatastate").removeAttr("disabled");
@@ -3113,7 +3131,7 @@
                 $("#txtLastName").removeAttr("disabled");
                 $("#DOB").removeAttr("disabled");
                 $("#ddlrelation").removeAttr("disabled");
-
+                $("#ddlcountry").removeAttr("disabled");
                 $("#ddlstate").removeAttr("disabled");
                 $("#ddlcity").removeAttr("disabled");
                 $("#txtPin").removeAttr("disabled");
@@ -3222,18 +3240,29 @@
 
             $("#btnmore2").click(function () {
 
+                $('#ddlcountry').val('').trigger('change');
+                $('#ddlstate').val('').trigger('change');
+                $('#ddlcity').val('').trigger('change');
+
+
+
+
                 $("#btnupdate").hide();
 
                 $("#btntestatorsubmit").show();
 
                 $("#btnfieldedit").hide();
+
                 $("#guardianform").hide();
+
                 $("#ddr").hide();
+
                 $("#txtFirstName").removeAttr("disabled");
                 $("#txtMiddle_Name").removeAttr("disabled");
                 $("#txtLastName").removeAttr("disabled");
                 $("#DOB").removeAttr("disabled");
                 $("#ddlrelation").removeAttr("disabled");
+                $("#ddlcountry").removeAttr("disabled");
                 $("#ddlstate").removeAttr("disabled");
                 $("#ddlcity").removeAttr("disabled");
                 $("#txtPin").removeAttr("disabled");
@@ -3267,7 +3296,7 @@
 
 
 
-
+                $("#altfirstIdentity_Proof_txt").val("");
                 $("#txtFirstName").val("");
                 $("#txtMiddle_Name").val("");
                 $("#txtLastName").val("");
@@ -3291,7 +3320,7 @@
                 $("#ddlidentityproof").val("");
                 $("#Alt_Identity_Proof_Value").val("");
                 $("#ddlidentityproof1").val("");
-                $("#Identity_Proof_Value").val("");
+
 
 
 
@@ -3301,6 +3330,7 @@
                 $("#alttxtMiddle_Name").val("");
                 $("#alttxtLastName").val("");
                 $("#altDOB").val("");
+
                 $("#alttxtPin").val("");
                 $("#alttxtAddress1").val("");
                 $("#alttxtAddress2").val("");
@@ -3309,7 +3339,6 @@
                 $(".altvalue").val("");
                 $(".altproof1").val("");
                 $(".altvalue1").val("");
-
 
 
 
@@ -3323,6 +3352,13 @@
                 $("#txtaddress3").val("");
                 $("#guaIdentity_Proof_Value").val("");
                 $("#guaAlt_Identity_Proof_Value").val("");
+
+
+
+
+
+
+
 
 
                 $(".chkone").prop('checked', false);

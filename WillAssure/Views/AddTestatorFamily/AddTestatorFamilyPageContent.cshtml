@@ -380,7 +380,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Pin</label>
-                                        @Html.TextBoxFor(m => m.Pin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "txtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.Pin, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
                                     </div>
                                 </div>
 
@@ -491,12 +491,18 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Alt Identity Proof</label>
-                                        @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
-                                   new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                   new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                   new SelectListItem() {Text = "Passport", Value="Passport"},
-                                   new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+
+                                   
+
+                                            @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
+                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                        
 
                                     </div>
                                 </div>
@@ -1136,7 +1142,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Pin</label>
-                                                @Html.TextBoxFor(m => m.guaPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "guatxtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                                @Html.TextBoxFor(m => m.guaPin, new { @class = "form-control input-shadow validate[required] text-input", @id = "guatxtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
                                             </div>
                                         </div>
 
@@ -1466,7 +1472,7 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Pin</label>
-                                                @Html.TextBoxFor(m => m.altguaPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]] text-input", @id = "alttxtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                                @Html.TextBoxFor(m => m.altguaPin, new { @class = "form-control input-shadow validate[required] text-input", @id = "alttxtPin", @placeholder = "Enter Pin", @autocomplete = "off" })
                                             </div>
                                         </div>
 
@@ -1766,15 +1772,23 @@
             url:"@Url.Action("dateofbirth", "AddTestatorFamily")",
             data: { "send": "" + value + "" },
                      success: function (data) {
-
-
+                      
 
                          var msg = data.split('~')[0];
                          var structure = data.split('~')[1];
 
                          if (structure != "<option Value=''>--Select--</option>") {
 
+
+                          
+
+
+
                              if (structure != "") {
+
+                               
+
+
                                  $("#ddr").show();
 
                                  $("#ddlrelation").empty().append(structure);
@@ -1803,6 +1817,67 @@
 
                              $("#guardianform").show();
                              $("#alternateoption").show();
+
+
+
+                             $("#txtFirstName").removeAttr("disabled");
+                             $("#txtMiddle_Name").removeAttr("disabled");
+                             $("#txtLastName").removeAttr("disabled");
+                             $("#DOB").removeAttr("disabled");
+                             $("#ddlrelation").removeAttr("disabled");
+                             $("#ddlstate").removeAttr("disabled");
+                             $("#ddlcity").removeAttr("disabled");
+                             $("#txtPin").removeAttr("disabled");
+                             $("#txtAddress1").removeAttr("disabled");
+                             $("#txtAddress2").removeAttr("disabled");
+                             $("#txtAddress3").removeAttr("disabled");
+                             $("#ddlidentityproof").removeAttr("disabled");
+                             $("#Alt_Identity_Proof_Value").removeAttr("disabled");
+                             $("#ddlidentityproof1").removeAttr("disabled");
+                             $("#Identity_Proof_Value").removeAttr("disabled");
+                             $("#ddlcountry").removeAttr("disabled");
+                             $("#Identity_Proof_txt").removeAttr("disabled");
+                             $("#txtsurname").removeAttr("disabled");
+                             $("#guaddlcountry").removeAttr("disabled");
+                             $("#guaddlstate").removeAttr("disabled");
+                             $("#guatxtPin").removeAttr("disabled");
+                             $("#ddlcountry").removeAttr("disabled");
+
+                             $("#alttxtFirstName").removeAttr("disabled");
+                             $("#alttxtMiddle_Name").removeAttr("disabled");
+                             $("#alttxtLastName").removeAttr("disabled");
+                             $("#altDOB").removeAttr("disabled");
+                             $("#altddlrelation").removeAttr("disabled");
+                             $("#altddlstate").removeAttr("disabled");
+                             $("#altddlcity").removeAttr("disabled");
+                             $("#alttxtPin").removeAttr("disabled");
+                             $("#alttxtAddress1").removeAttr("disabled");
+                             $("#alttxtAddress2").removeAttr("disabled");
+                             $("#alttxtAddress3").removeAttr("disabled");
+                             $(".altproof").removeAttr("disabled");
+                             $(".altvalue").removeAttr("disabled");
+                             $(".altproof2").removeAttr("disabled");
+                             $(".altvalue2").removeAttr("disabled");
+
+                             $("#guamiddleName").removeAttr("disabled");
+                             $("#guaSurname").removeAttr("disabled");
+                             $("#guaGender").removeAttr("disabled");
+                             $("#guaddlcity").removeAttr("disabled");
+                             $("#txtpin").removeAttr("disabled");
+                             $("#txtaddress1").removeAttr("disabled");
+                             $("#txtaddress2").removeAttr("disabled");
+                             $("#txtaddress3").removeAttr("disabled");
+                             $("#guaIdentity_Proof").removeAttr("disabled");
+                             $("#altfirstIdentity_Proof_txt").removeAttr("disabled");
+                             $("#guaddlidentityproof11").removeAttr("disabled");
+
+                             $("#txtmiddlename").removeAttr("disabled");
+                             $("#txtname").removeAttr("disabled");
+                             $("#guaWithdatastate").removeAttr("disabled");
+
+                             $("#Identity_Proof_Value").removeAttr("disabled");
+
+                             $("#Alt_Identity_Proof_Value").removeAttr("disabled");
 
 
                          }
@@ -1848,21 +1923,36 @@
                 var add1 = response.split("~")[0];
                 var add2 = response.split("~")[1];
                 var add3 = response.split("~")[2];
+                var add4 = response.split("~")[3];
+                var add5 = response.split("~")[4];
+                var add6 = response.split("~")[5];
+                var add7 = response.split("~")[6];
 
+         
 
                 $("#txtAddress1").val(add1);
                 $("#txtAddress2").val(add2);
                 $("#txtAddress3").val(add3);
+              
+                $('#ddlcountry option').empty().text(add4).prop('selected', true);
+                $('#ddlstate option').empty().text(add5).prop('selected', true);
+                $('#ddlcity option').empty().text(add6).prop('selected', true);
 
 
+                $("#txtPin").val(add7);
 
             }
         });
             }
             else if ($(this).prop("checked") == false) {
-                $("#txtAddress1").empty();
-                $("#txtAddress2").empty();
-                $("#txtAddress3").empty();
+
+                $("#txtAddress1").val("");
+                $("#txtAddress2").val("");
+                $("#txtAddress3").val("");
+                $('#ddlcountry option').text('--Select Country--').prop('selected', true);
+                $('#ddlstate option').text('--Select State--').prop('selected', true);
+                $('#ddlcity option').text('--Select Country--').prop('selected', true);
+                $("#txtPin").val("");
             }
 
 
@@ -2833,7 +2923,7 @@
 
                             $("#guardianform").hide();
                             $("#txtgchk").val("false");
-
+                            $("#alternateoption").hide();
 
 
 

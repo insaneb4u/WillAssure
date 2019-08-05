@@ -923,9 +923,20 @@ namespace WillAssure.Controllers
 
             //end
 
+            string cq1 = "select CountryName from country_tbl where CountryID = " + collection["ddlcountry"] + " ";
+            SqlDataAdapter cda1 = new SqlDataAdapter(cq1, con);
+            DataTable cdt1 = new DataTable();
+            cda1.Fill(cdt1);
+            string dcountryname = "";
+            if (cdt1.Rows.Count > 0)
+            {
+                dcountryname = cdt1.Rows[0]["CountryName"].ToString();
+            }
+
+
 
             con.Open();
-            string qt = "update Appointees set doctype = 'Will' ,  WillType='"+Session["WillType"].ToString()+"'    where  apId = " + Convert.ToInt32(dt2.Rows[0]["apId"]) + "";
+            string qt = "update Appointees set doctype = 'Will' , Country='"+ dcountryname + "' ,   WillType='"+Session["WillType"].ToString()+"'    where  apId = " + Convert.ToInt32(dt2.Rows[0]["apId"]) + "";
             SqlCommand cmdt = new SqlCommand(qt, con);
             cmdt.ExecuteNonQuery();
             con.Close();
@@ -1140,7 +1151,60 @@ namespace WillAssure.Controllers
                 //end
 
 
+                // latest appointees
+                int altapid = 0;
+                con.Open();
+                string query4 = "select top 1 * from alternate_Appointees order by apId desc";
+                SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
+                DataTable dt4 = new DataTable();
+                da4.Fill(dt4);
 
+                if (dt4.Rows.Count > 0)
+                {
+
+                    altapid = 1; // for yes
+                }
+                else
+                {
+                    altapid = 2; //for no
+                }
+                con.Close();
+
+
+
+
+
+                //end
+
+
+
+
+
+
+
+                con.Open();
+
+
+                string cq11 = "select CountryName from country_tbl where CountryID = " + collection["altddlcountry"] + " ";
+                SqlDataAdapter cda11 = new SqlDataAdapter(cq11, con);
+                DataTable cdt11 = new DataTable();
+                cda11.Fill(cdt11);
+                string dcountryname1 = "";
+                if (cdt11.Rows.Count > 0)
+                {
+                    dcountryname1 = cdt11.Rows[0]["CountryName"].ToString();
+                }
+
+
+
+
+
+
+
+                string qt2 = "update alternate_Appointees set  Country='" + dcountryname1 + "'     where  id = " + Convert.ToInt32(dt4.Rows[0]["id"]) + "";
+                SqlCommand cmdt2 = new SqlCommand(qt2, con);
+                cmdt2.ExecuteNonQuery();
+                con.Close();
 
 
 
@@ -1150,28 +1214,7 @@ namespace WillAssure.Controllers
             ViewBag.Message = "Verified";
 
 
-            // latest appointees
-            int altapid = 0;
-            con.Open();
-            string query4 = "select top 1 * from alternate_Appointees order by apId desc";
-            SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
-            DataTable dt4 = new DataTable();
-            da4.Fill(dt4);
-
-            if (dt4.Rows.Count > 0)
-            {
-
-                altapid = 1; // for yes
-            }
-            else
-            {
-                altapid = 2; //for no
-            }
-            con.Close();
-
-
-
-            //end
+          
 
 
 
@@ -1249,7 +1292,7 @@ namespace WillAssure.Controllers
             // dynamic data
 
             
-            if(collection["txtcounter"] == "true")
+            if(collection["counter"] == "true")
             {
 
                 string querydy = "";
@@ -1356,6 +1399,21 @@ namespace WillAssure.Controllers
                 }
 
 
+
+                string cq12 = "select CountryName from country_tbl where CountryID = " + collection["inputcountry"] + " ";
+                SqlDataAdapter cda12 = new SqlDataAdapter(cq12, con);
+                DataTable cdt12 = new DataTable();
+                cda12.Fill(cdt12);
+                string dcountryname2 = "";
+                if (cdt12.Rows.Count > 0)
+                {
+                    dcountryname2 = cdt12.Rows[0]["CountryName"].ToString();
+                }
+
+
+
+
+
                 string cq = "select city_name from tbl_city where id = " + collection["inputcity"] + " ";
                 SqlDataAdapter cda = new SqlDataAdapter(cq, con);
                 DataTable cdt = new DataTable();
@@ -1381,7 +1439,7 @@ namespace WillAssure.Controllers
 
 
 
-                string updatelocation = "update Appointees set City = '" + cityname + "'  , State='" + statename + "' where apId = " + dyapid + "";
+                string updatelocation = "update Appointees set City = '" + cityname + "'  , State='" + statename + "' , Country='"+ dcountryname2 + "' where apId = " + dyapid + "";
                 SqlCommand uplcmd = new SqlCommand(updatelocation, con);
                 uplcmd.ExecuteNonQuery();
                 con.Close();
@@ -1524,7 +1582,21 @@ namespace WillAssure.Controllers
             }
 
 
-            string cq2 = "select city_name from tbl_city where id = " + collection["altinputcity"] + " ";
+
+
+                string cq111 = "select CountryName from country_tbl where CountryID = " + collection["altinputcountry"] + " ";
+                SqlDataAdapter cda111 = new SqlDataAdapter(cq111, con);
+                DataTable cdt111 = new DataTable();
+                cda111.Fill(cdt111);
+                string dcountryname2 = "";
+                if (cdt111.Rows.Count > 0)
+                {
+                    dcountryname2 = cdt111.Rows[0]["CountryName"].ToString();
+                }
+
+
+
+                string cq2 = "select city_name from tbl_city where id = " + collection["altinputcity"] + " ";
             SqlDataAdapter cda2 = new SqlDataAdapter(cq2, con);
             DataTable cdt2 = new DataTable();
             cda2.Fill(cdt2);
@@ -1549,7 +1621,7 @@ namespace WillAssure.Controllers
 
 
 
-            string updatelocation2 = "update alternate_Appointees set City = '" + dcityname2 + "'  , State='" + dstatename2 + "' where id = " + dyapid2 + "";
+            string updatelocation2 = "update alternate_Appointees set City = '" + dcityname2 + "'  , State='" + dstatename2 + "' , Country='"+ dcountryname2 + "' where id = " + dyapid2 + "";
             SqlCommand uplcmd2 = new SqlCommand(updatelocation2, con);
             uplcmd2.ExecuteNonQuery();
             con.Close();
@@ -1933,6 +2005,42 @@ namespace WillAssure.Controllers
 
 
 
+            con.Open();
+            string query1 = "select distinct * from country_tbl order by CountryName asc  ";
+            SqlDataAdapter da1 = new SqlDataAdapter(query1, con);
+            DataTable dt1 = new DataTable();
+            da1.Fill(dt1);
+            con.Close();
+            string data1 = "<option value=''>--Select Country--</option>";
+
+            if (dt1.Rows.Count > 0)
+            {
+
+
+                for (int k = 0; k < dt1.Rows.Count; k++)
+                {
+
+
+
+
+                    data1 = data1 + "<option value=" + dt1.Rows[k]["CountryID"].ToString() + " >" + dt1.Rows[k]["CountryName"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+
+            con.Close();
+
+
+
+
+
 
             con.Open();
             string query = "select distinct * from tbl_state where country_id = 101 order by statename asc  ";
@@ -2070,6 +2178,28 @@ namespace WillAssure.Controllers
         "<div class='col-sm-2'>" +
             "<label for='input-1'>" + "<i class='fa fa-map-marker' aria-hidden='true'></i>Contact Details</label>" +
         "</div>" +
+
+
+
+           "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Country</label>" +
+                "<select id ='dyddlcountry" + i + "'  onchange='dynamiccountry(this.value,this.id)' name='inputcountry' class='form-control input-shadow validate[required] countryddl' >" +
+                    data1 +
+                "</select>" +
+                "<input data-val= 'true' data-val-number= 'The field stateid must be a number.' data-val-required= 'The stateid field is required.' id='stateid' name= 'stateid' type= 'hidden' value= '0' >" +
+
+
+                "</div>" +
+
+            "</div>" +
+
+
+
+
+
+
+
         "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>State</label>" +
@@ -2095,36 +2225,24 @@ namespace WillAssure.Controllers
             "</div>" +
         "</div>" +
 
+        
+    "</div>" +
+
+    "<div class='row'>" +
+        "<div class='col-sm-3'>" + "</div>" +
         "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>Pin</label>" +
                 "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[PinCode]]  text-input' id='txtpin" + i + "' name='inputfield' placeholder='Enter Pin' type='text' value='' >" +
             "</div>" +
         "</div>" +
-    "</div>" +
-
-    "<div class='row'>" +
-        "<div class='col-sm-3'>" + "</div>" +
-        "<div class='col-sm-9'>" +
+        "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>Address 1</label>" +
                 "<textarea autocomplete = 'off' class='form-control input-shadow  text-input validate[required]' cols='20' id='txtaddress1" + i + "' name='inputfield' placeholder='Enter Address1' rows='2' ></textarea>" +
             "</div>" +
         "</div>" +
-        //"<div class='col-sm-3'>" + "</div>" +
-        //"<div class='col-sm-9'>" +
-        //    "<div class='form-group'>" +
-        //        "<label for='input-1'>Address 2</label>" +
-        //        "<textarea autocomplete = 'off' class='form-control input-shadow  text-input ' cols='20' id='txtaddress2" + i + "' name='inputfield' placeholder='Enter Address2' rows='2' ></textarea>" +
-        //    "</div>" +
-        //"</div>" +
-        //"<div class='col-sm-3'>" + "</div>" +
-        //"<div class='col-sm-9'>" +
-        //    "<div class='form-group'>" +
-        //        "<label for='input-1'>Address 3</label>" +
-        //        "<textarea autocomplete = 'off' class='form-control input-shadow  text-input' cols='20' id='txtaddress3" + i + "' name='inputfield' placeholder='Enter Address3' rows='2' ></textarea>" +
-        //    "</div>" +
-        //"</div>" +
+ 
     "</div>" +
 
     "<div class='row'>" +
@@ -2153,30 +2271,7 @@ namespace WillAssure.Controllers
             "</div>" +
         "</div>" +
 
-        //"<div class='col-sm-3'>" +
-        //    "<div class='form-group'>" +
-        //        "<label for='input-1'>Alt Identity Proof</label>" +
-        //        "<select class='form-control input-shadow' id='secondproof" + i + "' name='inputfield' onchange='secondproofselection(this.options[this.selectedIndex].innerHTML,this.id)' >" +
-        //            "<option value ='' >--Select Identity Proof--</option>" +
-        //            "<option value ='Aadhaar Card' >Aadhaar Card</option>" +
-        //            "<option value ='Passport' >Passport</option>" +
-        //            "<option value='Driving Licences'>Driving Licences</option>" +
-        //            "<option value ='Pan Card'>Pan Card</option>" +
-        //         "</select>" +
-        //        "<input id = 'Alt_Identity_Proof' name= 'Alt_Identity_Proof_Value' type= 'hidden' value= 'None' >" +
-
-        //     "</div>" +
-
-        // "</div>" +
-
-        // "<div class='col-sm-3'></div>" +
-        //"<div class='col-sm-3'>" +
-        //    "<div class='form-group'>" +
-        //        "<label for='input-1'>Alt Identity Proof Value</label>" +
-        //        "<div id='secondappendtxt" + i + "'>" +
-        //        "<input autocomplete='off' class='form-control input-shadow  text-input' id='txtsecondproof" + i + "' name='inputfield' placeholder='Enter Identity Proof Value'  type='text' value=''>" + "</div>" +
-        //    "</div>" +
-        //"</div>" +
+       
     "</div>" +
 
     "<hr style='border:1px solid black; border-color:lightgray'>" +
@@ -2199,7 +2294,7 @@ namespace WillAssure.Controllers
          "</center>"+
 
 
-    "<input type='hidden' name='checking' id='txtcheck" + i + "' >" +
+    "<input type='text' name='checking' id='txtcheck" + i + "' >" +
 
      // alternate appointees
 
@@ -2306,6 +2401,23 @@ namespace WillAssure.Controllers
         "<div class='col-sm-2'>" +
             "<label for='input-1'>" + "<i class='fa fa-map-marker' aria-hidden='true'></i>Contact Details</label>" +
         "</div>" +
+
+        "<div class='col-sm-3'>" +
+            "<div class='form-group'>" +
+                "<label for='input-1'>Country</label>" +
+                "<select id ='altdyddlcountry" + i + "'  onchange='altdynamiccountry(this.value,this.id)' class='form-control input-shadow validate[required] countryddl' name='altinputcountry' >" +
+                    data1 +
+                "</select>" +
+
+
+                "</div>" +
+
+            "</div>" +
+
+
+
+
+
         "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>State</label>" +
@@ -2330,17 +2442,18 @@ namespace WillAssure.Controllers
             "</div>" +
         "</div>" +
 
-        "<div class='col-sm-3'>" +
+       
+    "</div>" +
+
+    "<div class='row'>" +
+        "<div class='col-sm-3'>" + "</div>" +
+         "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>Pin</label>" +
                 "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[PinCode]]  text-input' id='alttxtpin" + i + "' name='altinputfield' placeholder='Enter Pin' type='text' value='' >" +
             "</div>" +
         "</div>" +
-    "</div>" +
-
-    "<div class='row'>" +
-        "<div class='col-sm-3'>" + "</div>" +
-        "<div class='col-sm-9'>" +
+        "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>Address 1</label>" +
                 "<textarea autocomplete = 'off' class='form-control input-shadow  text-input validate[required]' cols='20' id='alttxtaddress1" + i + "' name='altinputfield' placeholder='Enter Address1' rows='2' ></textarea>" +
@@ -2370,7 +2483,7 @@ namespace WillAssure.Controllers
         "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>Identity Proof</label>" +
-                "<select class='form-control input-shadow validate[required]' id='altfirstproof" + i + "' name='altaltinputfield' onchange='altfirstproofselection(this.options[this.selectedIndex].innerHTML,this.id)' >" +
+                "<select class='form-control input-shadow validate[required]' id='altfirstproof" + i + "' name='altinputfield' onchange='altfirstproofselection(this.options[this.selectedIndex].innerHTML,this.id)' >" +
                     "<option value=''>--Select Identity Proof--</option>" +
                     "<option value='Aadhaar Card'>Aadhaar Card</option>" +
                     "<option value='Passport' >Passport</option >" +
@@ -2651,6 +2764,99 @@ namespace WillAssure.Controllers
 
 
             return structure;
+        }
+
+
+
+
+
+        public String AlternateguardianBindCountryDDL()
+        {
+
+            con.Open();
+            string query = "select distinct * from country_tbl order by CountryName asc  ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "<option value=''>--Select Country--</option>";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["CountryID"].ToString() + " >" + dt.Rows[i]["CountryName"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /////////////////////////////////////////////
+
+        public String AlternateGuaBindStateDDL()
+        {
+
+            string countryid = Request["send"].ToString();
+
+            con.Open();
+            string query = "select distinct * from tbl_state where country_id = " + countryid + " order by statename asc ";
+            SqlDataAdapter da = new SqlDataAdapter(query, con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            string data = "<option value=''>--Select State--</option>";
+
+            if (dt.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+
+
+
+
+                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
+
+
+
+                }
+
+
+
+
+            }
+
+            return data;
+
         }
 
 

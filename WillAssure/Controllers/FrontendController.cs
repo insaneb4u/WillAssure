@@ -36,6 +36,22 @@ namespace WillAssure.Controllers
         }
 
 
+
+
+        public ActionResult OtpIndex()
+        {
+            
+
+            return View("~/Views/Frontend/otpscreen.cshtml");
+        }
+
+
+
+
+
+
+
+
         public ActionResult AboutUsIndex()
         {
             if (Session["displayname"] != null)

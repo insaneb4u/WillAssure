@@ -383,8 +383,48 @@
 
 
                                 <div class="row">
+
+
                                     <div class="col-sm-1"></div>
+
+
+
                                     <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
+
+
+
+
+
+
+
+
+                                    <div class="col-sm-2">
+
+                                        <label for="input-1">Country</label>
+
+                                        @if (Model.country_txt != null)
+                                        {
+
+                                            <select id="ddlcountry"  name="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+
+                                                <option value="@Model.country_txt">@Model.country_txt</option>
+                                            </select>
+                                            @Html.HiddenFor(m => m.country_id, new { id = "country_id" })
+                                            @Html.HiddenFor(m => m.country_txt, new { id = "country_txt" })
+                                        }
+                                        else
+                                        {
+
+                                            <select id="ddlcountry" name="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"></select>
+                                            @Html.HiddenFor(m => m.country_id, new { id = "country_id" })
+                                            @Html.HiddenFor(m => m.country_txt, new { id = "country_txt" })
+                                        }
+
+
+                                    </div>
+
+
+
                                     @if (Model.statetext != null)
                                     {
                                         <div class="col-sm-3">
@@ -438,11 +478,11 @@
                                             </div>
                                         </div>
                                     }
-
+                                    <div class="col-sm-3"></div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Pin</label>
-                                            @Html.TextBoxFor(m => m.Pin, new { @class = "form-control input-shadow validate[required,custom[PinCode]]  text-input", @id = "txtpin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                            @Html.TextBoxFor(m => m.Pin, new { @class = "form-control input-shadow validate[required]  text-input", @id = "txtpin", @placeholder = "Enter Pin", @autocomplete = "off" })
                                         </div>
                                     </div>
                                 </div>
@@ -706,7 +746,30 @@
                                     <div class="row">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
+                                        <div class="form-group">
 
+                                            <label for="input-1">Country</label>
+
+                                            @if (Model.altguacountrytext != null)
+                                            {
+
+                                                <select id="altguaddlcountry" name="altddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+
+                                                    <option value="@Model.altguacountrytext">@Model.altguacountrytext</option>
+                                                </select>
+                                                @Html.HiddenFor(m => m.altguacountryid, new { id = "altguacountryid" })
+                                                @Html.HiddenFor(m => m.altguacountrytext, new { id = "altguacountrytext" })
+                                            }
+                                            else
+                                            {
+
+                                                <select id="altguaddlcountry" name="altddlcountry" style="display:;" class="form-control input-shadow validate[required]"></select>
+                                                @Html.HiddenFor(m => m.altguacountryid, new { id = "altguacountryid" })
+                                                @Html.HiddenFor(m => m.altguacountrytext, new { id = "altguacountrytext" })
+                                            }
+
+
+                                        </div>
 
 
 
@@ -769,12 +832,12 @@
 
 
 
-
+                                        <div class="col-sm-3"></div>
 
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Pin</label>
-                                                @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required,custom[PinCode]]  text-input", @id = "txtpin2", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                                @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required]  text-input", @id = "txtpin2", @placeholder = "Enter Pin", @autocomplete = "off" })
                                             </div>
                                         </div>
                                     </div>
@@ -1085,6 +1148,74 @@
 
 
 
+                                       function dynamiccountry(value,id) {
+
+
+
+
+
+
+
+                                $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("AlternateGuaBindStateDDL", "AddAppointees")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+              
+                var x =  id.substring(12);
+             
+                $("#ddlstate"+x+"").empty().append(data);
+            }
+
+
+
+        });
+
+
+
+                            }
+
+
+
+
+
+
+
+                                                     function altdynamiccountry(value,id) {
+
+
+
+
+
+
+
+                                $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("AlternateGuaBindStateDDL", "AddAppointees")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                
+                var x = id.substring(15);
+               
+                $("#altddlstate"+x+"").empty().append(data);
+            }
+
+
+
+        });
+
+
+
+                            }
+
+
+
+
+
 
 
                         function dynamicstate(value,id) {
@@ -1281,7 +1412,14 @@
                         //}
 
 
-                        $(document).ready(function () {
+                            $(document).ready(function () {
+
+
+
+
+
+
+
 
                               $.ajax({
 
@@ -1297,14 +1435,14 @@
 
 
 
-        $.ajax({
+        @*$.ajax({
 
             type: "POST",
             url:"@Url.Action("BindStateDDL", "AddAppointees")",
             success: function (data) {
                 $('#ddlstate').append(data);
             }
-        });
+        });*@
 
 
             $.ajax({
@@ -1601,7 +1739,8 @@
 
                             if (reg.test(value)) {
                                 $("#countlbl").hide();
-                             
+
+                                $("#txtcounter").empty();
                                 $("#txtcounter").val("true");
 
                                 if (value <= 5 && value >= 2) {
@@ -1758,7 +1897,45 @@
 
 
 
-                        $(document).ready(function () {
+                            $(document).ready(function () {
+
+
+
+                                                     ////////////////////////
+                                                					
+                          $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("AlternateguardianBindCountryDDL", "AddAppointees")",
+            success: function (data) {
+
+                $('#ddlcountry').append(data);
+
+            
+
+
+
+            }
+        });
+
+
+                            					
+                          $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("AlternateguardianBindCountryDDL", "AddAppointees")",
+            success: function (data) {
+
+                $('#altguaddlcountry').append(data);
+            }
+        });
+		
+		
+		/////////////////////////////////
+
+
+
+
 
                         $.ajax({
 
@@ -2919,9 +3096,107 @@
                         }
                     });
 
+                            });
+
+
+       
+		
+		
+		
+		
+		
+            $("#ddlcountry").change(function () {
+        var value = $(this).children(":selected").attr("value");
+                var text = $("#ddlcountry option:selected").html();
+
+                $("#country_txt").val(text);
+                $("#country_id").val(value);
+
+
+        $.ajax({
+
+            type: "post",
+            url: "@Url.Action("AlternateGuaBindStateDDL", "AddAppointees")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#ddlstate').empty().append(data);
+            }
+
+
+
+        });
+
+
+
             });
+										
+										
 
 
+
+
+
+
+
+
+
+
+
+                            //////////////////
+
+
+
+
+
+
+
+
+                            					
+                          $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("AlternateguardianBindCountryDDL", "AddAppointees")",
+            success: function (data) {
+
+                $('#altguaddlcountry').append(data);
+            }
+        });
+		
+		
+		/////////////////////////////////
+		
+		
+		
+		
+		
+            $("#altguaddlcountry").change(function () {
+        var value = $(this).children(":selected").attr("value");
+                var text = $("#altguaddlcountry option:selected").html();
+
+        $("#altguacountrytext").val(text);
+        $("#altguacountryid").val(value);
+
+
+        $.ajax({
+
+            type: "post",
+            url: "@Url.Action("AlternateGuaBindStateDDL", "AddAppointees")",
+            data: { "send": "" + value+  ""},
+            success: function (data) {
+
+                $('#altddlstate').empty().append(data);
+            }
+
+
+
+        });
+
+
+
+            });
+										
+										
 
 
         

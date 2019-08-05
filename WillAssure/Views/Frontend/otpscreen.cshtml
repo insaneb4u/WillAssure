@@ -1,0 +1,183 @@
+﻿
+@{
+    ViewBag.Title = "otpscreen";
+    Layout = "~/Views/Shared/Willassure_LayoutPage.cshtml";
+}
+
+
+
+
+<style type="text/css">
+    .bs-example {
+        margin: 20px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<section class="flat-row page-careers">
+    <div class="container">
+        <div class="careers-open" style="padding-top: 70px">
+            <div class="title-section text-center">
+            
+
+                <h1 class="otptitle">Verify OTP</h1>
+                <div class="otpsub-title">
+                    Please Enter OTP For Login.
+                </div>
+            </div>
+            <div class="info-apply">
+                <div class="row">
+                    <style type="text/css">
+
+                        .contactform span.title-form {
+                            color: #4d4d4d
+                        }
+
+                        input[type="text"] {
+                            margin-bottom: 15px;
+                        }
+
+                        .form-group {
+                            margin-bottom: 0px;
+                        }
+
+                        .radio-inline {
+                            margin-right: 15px;
+                        }
+
+                        .wrap-formrequest {
+                            border: 1px solid #ddd;
+                            border-radius: 10px;
+                            padding: 15px
+                        }
+                    </style>
+                 
+
+
+
+                    <div class="col-sm-3"></div>
+                   
+                    <div class="row" id="otpcontent" style="border:1px solid black; padding:50px; border-radius:30px;">
+                        <div class="col-sm-3"></div>
+       
+                        <div class="form-group col-sm-9">
+                            <label for="input-1">Enter OTP:</label>
+                            <input type="text" name="name" id="txtotp" onfocus="clearmsg()" onchange="checkotpentered(this.value)" class="form-control input-shadow" value="" />
+
+                            <br />
+
+
+                            <span style="color:red;display:none" id="lblfailed"> * Failed</span>
+                            <span style="color:red;display:none" id="lblemptycheck">* Please Enter Your OTP</span>
+                            <span style="color:red; white-space:nowrap;" id="lblerror"></span>
+
+
+                        </div>
+
+
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-9">
+                            <input type="button" id="btnverifyotp" style="color:white;" name="name" class="btn btn-success" value="Verify OTP" />
+                            <a href=""><button type="button" class="btn btn-danger">Cancel</button></a>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    function clearmsg() {
+        $("#lblemptycheck").hide();
+        $("#lblfailed").hide();
+    }
+
+
+
+
+
+
+
+
+
+ $("#btnverifyotp").click(function () {
+
+        var x = $("#txtotp").val();
+
+
+
+        $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("checkOTP", "VisitorData")",
+            data: { "send": "" + x + "" },
+            success: function (data) {
+
+                if (data == "true") {
+                    $("#lblsuccess").show();
+                    $("#lblfailed").hide();
+                    $("#btnverifyotp").removeAttr("disabled");
+
+                    var url = "/LoginPage/LoginPageIndex?Type=message";
+                    window.location.href = url;
+                }
+
+                if (data == "false") {
+                    $("#lblfailed").show();
+                    $("#lblsuccess").hide();
+                    $("#lblemptycheck").hide();
+
+                }
+
+                if (data == "Empty") {
+
+                    $("#lblemptycheck").show();
+
+                }
+
+    
+
+
+            }
+        });
+
+
+
+    });
+
+
+
+
+
+
+</script>
+
+
+
+

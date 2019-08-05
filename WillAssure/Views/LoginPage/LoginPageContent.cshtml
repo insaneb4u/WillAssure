@@ -39,7 +39,13 @@
     <style>
         input[type="email"] {
             text-align: center;
-        } 
+        }
+    </style>
+
+    <style type="text/css">
+        .bs-example {
+            margin: 20px;
+        }
     </style>
 </head>
 <body class="bg-dark">
@@ -90,7 +96,7 @@
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-8 text-capitalize">
-                                        <a href="authentication-reset-password.html" data-toggle="modal" data-target="#myModal">Forget Password ?</a>
+                                        <a href="#" class="launch-modal" value="Launch Demo Modal">Forget Password ?</a>
 
                                     </div>
                                     <div class="form-group col-3 text-capitalize">
@@ -139,9 +145,9 @@
                                     </div>
                                     <span id="lblpmsg" style="color:red; display:none;">Password Does Not Match</span>
                                 </div>
-                                
 
-                                
+
+
 
                                 <div class="form-group col-8 text-capitalize">
                                     <i class="icon-user" style="color:#5e72e4"></i>&nbsp;&nbsp; <a href="@Url.Action("LoginPageIndex","LoginPage")">Sign In</a>
@@ -186,7 +192,7 @@
                                                     <div>
                                                         <h5 style="white-space:nowrap;">Please Enter Registered Email ID</h5>
                                                         <br />
-                                                        @Html.TextBoxFor(m => m.EmailID, new { @type = "email", @class = "form-control validate[required,custom[characteronly]] text-input", @id = "txtEmailid", @placeholder = "Enter Email ID", @style = "width:241px;", @autocomplete = "off", alert = "LabourCost is requried", @required = "Required" , @onchange="verifyEmail(this.value)" })
+                                                        @Html.TextBoxFor(m => m.EmailID, new { @type = "email", @class = "form-control validate[required,custom[characteronly]] text-input", @id = "txtEmailid", @placeholder = "Enter Email ID", @style = "width:241px;", @autocomplete = "off", alert = "LabourCost is requried", @required = "Required", @onchange = "verifyEmail(this.value)" })
                                                         <span style="color:red; display:none;" id="lblemailcorrect">Entered Email ID Is Not Registered</span>
                                                     </div>
 
@@ -210,6 +216,20 @@
                 </div>
             </div>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         <script>
@@ -374,7 +394,15 @@
         </script>
 
 
-   
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.launch-modal').click(function () {
+                    $('#myModal').modal({
+                        backdrop: 'static'
+                    });
+                });
+            });
+        </script>
 
 
 

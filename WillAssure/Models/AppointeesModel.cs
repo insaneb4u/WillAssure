@@ -90,6 +90,8 @@ namespace WillAssure.Models
 
 
 
+        public string altguacountrytext { get; set; }
+        public int altguacountryid { get; set; }
 
         //end
 
@@ -165,7 +167,8 @@ namespace WillAssure.Models
 
 
 
-
+        public string dycountrytext { get; set; }
+        public int dycountryid { get; set; }
 
 
 

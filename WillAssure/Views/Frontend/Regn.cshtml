@@ -14,9 +14,15 @@
     <div class="container">
         <div class="careers-open" style="padding-top: 70px">
             <div class="title-section text-center">
-                <h1 class="title">Apply For Document</h1>
-                <div class="sub-title">
+                <h1 class="title" >Apply For Document</h1>
+                <div class="sub-title" >
                     Plase request to create document which you wants to create.
+                </div>
+
+
+                <h1 class="otptitle" style="display:none;">Verify OTP</h1>
+                <div class="otpsub-title" style="display:none;">
+                    Please Enter OTP For Login.
                 </div>
             </div>
             <div class="info-apply">
@@ -48,7 +54,7 @@
                     <div class="col-lg-2 col-md-2">
                     </div>
                     <div class="col-lg-8 col-md-8">
-                        <div class="wrap-formrequest">
+                        <div class="wrap-formrequest" >
                             <form>
                                 <input type="text" id="w" name="name" width="50" style="display:none;" />
                                 <input type="text" id="c" name="name" width="50" style="display:none;" />
@@ -142,39 +148,7 @@
 
                                     </div>
                                 </div>
-                                @*<div class="form-group col-sm-12" style="float: left;">
-            <div class="col-sm-12"><label for="email" style="font-weight: 700; font-size: 16px">Select Doument which you wants to create</label></div>
-            <div class="col-sm-12" style="float: left;">
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="checkone" class="chk" value="Will">Will
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="checktwo" class="chk" value="Codocil">Codocil
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="checkthree" class="chk" value="POA">POA
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="checkfour" class="chk" value="Giftdeeds">Gift Deeds
-                </label>
-                <label class="checkbox-inline">
-                    <input type="checkbox" id="checkfive" class="chk" value="LivingWill">Living Will
-                </label>
-            </div>
-            <span style="color:red;display:none" id="lblcheck">*Required</span>
-        </div>*@
 
-                                @*<div id="willtype" style="display:none;">
-            <label class="radio-inline">
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="typeone" name="optone" value="Quick" checked>Quick
-            </label>
-            <label class="radio-inline">
-                <input type="radio" id="typetwo" name="optone" value="Detailed">Detailed
-            </label>
-        </div>*@
-                                <!--<div class="col-sm-12" style="float: left;" id="documentpricing">
-
-    </div>-->
 
 
                                 <div class="col-sm-12 text-right" style="float: left;">
@@ -182,10 +156,50 @@
                                 </div>
                             </form>
                             <button style="display:none;" class="btn btn-outline-primary btn-block m-1" id="btnotp" data-toggle="modal" data-target="#primarymodal" backdrop="static" data-keyboard="false">Primary</button>
-                             <input type="button" style="display:none" class="btn btn-lg btn-primary launch-modal" value="Launch Demo Modal">
+                            <input type="button" style="display:none" class="btn btn-lg btn-primary launch-modal" value="Launch Demo Modal">
                             <div class="clearfix"></div>
                         </div>
                     </div>
+
+
+                    <div class="col-sm-3"></div>
+                         <div class="row"  id="otpcontent" style="border:1px solid black; padding:50px; border-radius:30px; display:none;">
+                        <div class="col-sm-3"></div>
+                        <div class="form-group col-sm-9">
+                            <label for="input-1">Enter OTP:</label>
+                            <input type="text" name="name" id="txtotp"  onfocus="clearmsg()" onchange="checkotpentered(this.value)" class="form-control input-shadow" value="" />
+
+                            <br />
+
+
+                            <span style="color:red;display:none" id="lblfailed"> * Failed</span>
+                            <span style="color:red;display:none" id="lblemptycheck">* Please Enter Your OTP</span>
+                            <span style="color:red; white-space:nowrap;" id="lblerror"></span>
+
+
+                        </div>
+
+
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-9">
+                            <input type="button" id="btnverifyotp" style="color:white;" name="name" class="btn btn-success" value="Verify OTP" />
+                            <a href=""><button type="button" class="btn btn-danger">Cancel</button></a>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+
+
+
+
+
+
+
                 </div>
             </div>
         </div>
@@ -195,55 +209,7 @@
 
 
 
-@*new model pop up*@
 
-<div id="myModal" class="modal fade">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-             
-                <center><h5 class="modal-title">Please Enter OTP For Login</h5></center>
-              
-            </div>
-            <div class="modal-body">
-                <form>
-
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                <label for="input-1">Enter OTP:</label>
-                                <input type="text" name="name" id="txtotp" onchange="checkotpentered(this.value)" class="form-control input-shadow" value="" />
-
-
-
-                                @*<span style="color:green;display:none" id="lblsuccess">Verified</span>*@
-                                <span style="color:red;display:none" id="lblfailed">Failed</span>
-                                <span style="color:red;display:none" id="lblemptycheck">Please Enter Your OTP</span>
-                                <span style="color:red; white-space:nowrap;" id="lblerror"></span>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-                   
-                </form>
-            </div>
-            <div class="modal-footer">
-                <div class="form-group">
-                    <input type="button" id="btnverifyotp" style="color:white;" name="name" class="btn btn-success" value="Verify OTP" />
-                    <a href=""><button type="button" class="btn btn-danger">Cancel</button></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-@*end*@
 
 
 
@@ -262,7 +228,10 @@
 
 <script>
 
-
+    function clearmsg() {
+        $("#lblemptycheck").hide();
+        $("#lblfailed").hide();
+    }
 
     //NW
     function checkotpentered(value) {
@@ -490,11 +459,17 @@
                         alert("Records Inserted SuccessFully Please Check Your Email For OTP");
 
 
-                        //$('#primarymodal').modal('show');
+                        ////$('#primarymodal').modal('show');
 
-                        $(".launch-modal").on("click", function () { });
+                        //$(".launch-modal").on("click", function () { });
 
-                        $(".launch-modal").click(); //trigger event after listening to it.
+                        //$(".launch-modal").click(); //trigger event after listening to it.
+
+
+            
+
+
+
 
 
                         $("#txtfirstname").val("");

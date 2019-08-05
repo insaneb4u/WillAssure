@@ -264,69 +264,18 @@ namespace WillAssure.Controllers
                     TFM.Alt_Identity_Proof_Value = dt.Rows[i]["Alt_Identity_Proof_Value"].ToString();
                     TFM.Is_Informed_Person = dt.Rows[i]["Is_Informed_Person"].ToString();
 
-
-
-                }
-            }
-
-
-
-
-
-
-
-            string query4 = "";
-
-            con.Open();
-
-      
-            query4 = "select * from alttestatorFamily where testatorfamilyid = " + alternatetfid + "";
-        
-            
-
-
-
-
-
-            SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
-            DataTable dt4 = new DataTable();
-            da4.Fill(dt4);
-            con.Close();
-            string data4 = "";
-
-            if (dt4.Rows.Count > 0)
-            {
-                ViewBag.disablefield = "true";
-                ViewBag.alternate = "true";
-
-                for (int i = 0; i < dt4.Rows.Count; i++)
-                {
-                    TFM.altfId = Convert.ToInt32(dt4.Rows[i]["altfId"]);
-                    TFM.altFirst_Name = dt4.Rows[i]["altFirst_Name"].ToString();
-                    TFM.altLast_Name = dt4.Rows[i]["altLast_Name"].ToString();
-                    TFM.altMiddle_Name = dt4.Rows[i]["altMiddle_Name"].ToString();
-                    TFM.altDob = Convert.ToDateTime(dt4.Rows[0]["altDOB"]).ToString("dd-MM-yyyy");
-                    TFM.altMarital_Status = dt4.Rows[i]["altMarital_Status"].ToString();
-                    TFM.altReligion = dt4.Rows[i]["altReligion"].ToString();
-                    TFM.altRelationshipTxt = dt4.Rows[i]["altRelationship"].ToString();
-                    TFM.altAddress1 = dt4.Rows[i]["altAddress1"].ToString();
-                    TFM.altAddress2 = dt4.Rows[i]["altAddress2"].ToString();
-                    TFM.altAddress3 = dt4.Rows[i]["altAddress3"].ToString();
-                    TFM.altCity_txt = dt4.Rows[i]["altCity"].ToString();
-                    TFM.altState_txt = dt4.Rows[i]["altState"].ToString();
-                    TFM.altPin = dt4.Rows[i]["altPin"].ToString();
-
                     
-                    TFM.altIdentity_Proof = dt4.Rows[i]["altIdentity_Proof"].ToString();
-                    TFM.altIdentity_Proof_Value = dt4.Rows[i]["altIdentity_Proof_Value"].ToString();
-                    TFM.Alt_Identity_Proof = dt4.Rows[i]["altAlt_Identity_Proof"].ToString();
-                    TFM.Alt_Identity_Proof_Value = dt4.Rows[i]["altAlt_Identity_Proof_Value"].ToString();
-                    TFM.Is_Informed_Person = dt4.Rows[i]["altIs_Informed_Person"].ToString();
-
-
 
                 }
             }
+
+
+
+
+
+
+
+          
 
 
 
@@ -635,6 +584,7 @@ namespace WillAssure.Controllers
                 }
                 else
                 {
+                    msg = "true";
                     con.Open();
                     string query1 = "select ab.Rid , ab.MemberName , year(getdate())-year(ab.DOB) as age  from RelationShip ab where ( year(getdate())-year(ab.DOB)) <= 18";
                     SqlDataAdapter da1 = new SqlDataAdapter(query1, con);
@@ -2029,7 +1979,7 @@ namespace WillAssure.Controllers
             string tid = Request["send"].ToString();
 
             con.Open();
-            string query = "select Address1 , Address2 , Address3 from TestatorDetails where tId = "+ tid + " ";
+            string query = "select * from TestatorDetails where tId = "+ tid + " ";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -2037,7 +1987,7 @@ namespace WillAssure.Controllers
             string data = "";
             if (dt.Rows.Count > 0)
             {
-                data = dt.Rows[0]["Address1"].ToString() + "~" + dt.Rows[0]["Address2"].ToString() + "~" + dt.Rows[0]["Address3"].ToString();
+                data = dt.Rows[0]["Address1"].ToString() + "~" + dt.Rows[0]["Address2"].ToString() + "~" + dt.Rows[0]["Address3"].ToString() + "~" + dt.Rows[0]["Country"].ToString() + "~" + dt.Rows[0]["State"].ToString() + "~" + dt.Rows[0]["City"].ToString() + "~" + dt.Rows[0]["Pin"].ToString();
 
             }
 

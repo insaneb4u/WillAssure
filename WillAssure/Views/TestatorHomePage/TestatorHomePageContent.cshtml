@@ -147,7 +147,8 @@
 
 
                                                 <div class="form-group">
-                                                    <button type="submit" id="paymentbtn" style="display:none;" formaction="insertDocumentDetails" class="btnpay btn btn-danger shadow-primary px-5 btnpop"><i class="icon-lock"></i>Make A Payment</button>
+                                                    <input type="submit" formaction="MakePayment" id="btnsub" style="display:none;" name="name" value="" />
+                                                    <button type="submit" id="paymentbtn" style="display:none;" formaction="getdocumentprice" class="btnpay btn btn-danger shadow-primary px-5 btnpop"><i class="icon-lock"></i>Make A Payment</button>
                                                 </div>
 
                                             </div>
@@ -233,11 +234,19 @@
         "currency": "INR", // Optional. Same as the Order currency
         "description": "Purchase Description",
         "image": "/assets/images/logo-icon.png",
+        //"callback_url": "https://www.google.com/",
+        //"redirect": "true",
         "handler": function (response) {
-            //alert(response.razorpay_payment_id);
+           
             $("#rzp-button1").hide();
-            var url = "/Frontend/Makepayment";
-            window.location.href = url;
+            //var url = "/TestatorHomePage//";
+            //window.location.href = url;
+
+            $("#btnsub").on("click", function () { });
+
+            $("#btnsub").click();
+
+
         },
         "prefill": {
             "name": "Gaurav Kumar",

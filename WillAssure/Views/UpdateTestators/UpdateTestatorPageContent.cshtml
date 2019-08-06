@@ -554,10 +554,15 @@
                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                    new SelectListItem() {Text = "Passport", Value="Passport"},
                                    new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ddalternate", @id="ddlidentityproof1" , @style="display:;" , @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ddalternate", @onfocus="checkproof()" , @id="ddlidentityproof1" , @style="display:;" , @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
 
 
-                                       
+                                       <script>
+                                           function checkproof() {
+                                              var x = $("#Identity_Proof_txt").val();
+                                               $("#ddlidentityproof1").find("option[value='" + x + "']").attr("disabled", "disabled");
+                                           }
+                                       </script>
 
 
 

@@ -294,6 +294,13 @@
 
                                         <label for="input-1">Country</label>
 
+                                        <input type="text" placeholder="--Select Country--" id="txtddlcountry" onfocus="txtcountryhide()" style="display:none" class="form-control input-shadow" name="country_txt" value="" />
+                                        <script>
+                                            function txtcountryhide() {
+                                                $("#txtddlcountry").hide();
+                                                $("#ddlcountry").show();
+                                            }
+                                        </script>
                                         @if (Model.country_txt != null)
                                         {
 
@@ -311,6 +318,9 @@
                                             @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
                                             @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
                                         }
+
+
+
 
 
                                     </div>
@@ -335,6 +345,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">State</label>
+                                            <input type="text" placeholder="--Select State--" id="txtddlstate"  onfocus="txtstatehide()" style="display:none" class="form-control input-shadow" name="State_txt" value="" />
                                             <select id="ddlstate" class="form-control input-shadow validate[required]">
                                                 <option value="">--Select State--</option>
                                             </select>
@@ -345,7 +356,12 @@
                                 }
 
 
-
+                                <script>
+                                    function txtstatehide() {
+                                        $("#txtddlstate").hide();
+                                        $("#ddlstate").show();
+                                    }
+                                </script>
 
 
 
@@ -367,6 +383,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">City</label>
+                                            <input type="text" placeholder="--Select City--" id="txtddlcity" onfocus="txtcityhide()" style="display:none" class="form-control input-shadow" name="City_txt" value="" />
                                             <select id="ddlcity" class="form-control input-shadow validate[required]">
                                                 <option value="">--Select City--</option>
                                             </select>
@@ -375,6 +392,13 @@
                                         </div>
                                     </div>
                                 }
+
+                                <script>
+                                    function txtcityhide() {
+                                        $("#txtddlcity").hide();
+                                        $("#ddlcity").show();
+                                    }
+                                </script>
 
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-3">
@@ -493,16 +517,16 @@
                                         <label for="input-1">Alt Identity Proof</label>
 
 
-                                   
 
-                                            @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
-                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                       new SelectListItem() {Text = "Passport", Value="Passport"},
-                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
 
-                                        
+                                        @Html.DropDownListFor(x => x.Alt_Identity_Proof, new SelectListItem[]{
+                                   new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                   new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                   new SelectListItem() {Text = "Passport", Value="Passport"},
+                                   new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                   new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow", @id = "ddlidentityproof1", @onchange = "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" , @onfocus= "checkproof()" })
+
+
 
                                     </div>
                                 </div>
@@ -511,13 +535,18 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Alt Identity Proof Value</label>
-                                        <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus = "secondid()" }) </div>
+                                        <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input" , @id = "Alt_Identity_Proof_Value", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus = "secondid()" }) </div>
                                         <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                     </div>
                                 </div>
 
 
-
+                                <script>
+                                    function checkproof() {
+                                        var x = $("#Identity_Proof_txt").val();
+                                        $("#ddlidentityproof1").find("option[value='" + x + "']").attr("disabled", "disabled");
+                                    }
+                                </script>
 
 
                             </div>
@@ -1069,9 +1098,8 @@
                                                 else
                                                 {
 
-                                                    <select id="guaddlcountry" style="display:;" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
-                                                    @Html.HiddenFor(m => m.guacountryid, new { id = "guacountryid" })
-                                                    @Html.HiddenFor(m => m.guacountrytext, new { id = "guacountrytext" })
+                                                    <select id="guaddlcountry" style="display:;"  name="guacountrytext" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                                                 
                                                 }
 
 
@@ -1934,9 +1962,17 @@
                 $("#txtAddress2").val(add2);
                 $("#txtAddress3").val(add3);
               
-                $('#ddlcountry option').empty().text(add4).prop('selected', true);
-                $('#ddlstate option').empty().text(add5).prop('selected', true);
-                $('#ddlcity option').empty().text(add6).prop('selected', true);
+                $('#ddlcountry').hide();
+                $('#ddlstate').hide();
+                $('#ddlcity').hide();
+
+
+                $('#txtddlcountry').show().val(add4);
+                $('#txtddlstate').show().val(add5);
+                $('#txtddlcity').show().val(add6);
+
+
+
 
 
                 $("#txtPin").val(add7);
@@ -1949,9 +1985,12 @@
                 $("#txtAddress1").val("");
                 $("#txtAddress2").val("");
                 $("#txtAddress3").val("");
-                $('#ddlcountry option').text('--Select Country--').prop('selected', true);
-                $('#ddlstate option').text('--Select State--').prop('selected', true);
-                $('#ddlcity option').text('--Select Country--').prop('selected', true);
+                $('#ddlcountry').show();
+                $('#ddlstate').show();
+                $('#ddlcity').show();
+                $('#txtddlcountry').hide();
+                $('#txtddlstate').hide();
+                $('#txtddlcity').hide();
                 $("#txtPin").val("");
             }
 
@@ -2729,6 +2768,9 @@
         @*validation script*@
         <script>
             function getIdentityselection(id) {
+
+             
+
                 $("#ddlidentityproof1 option:disabled").removeAttr('disabled');
                 //var a =  $("#Identity_Proof_txt").val(id);
 

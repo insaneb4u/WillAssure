@@ -850,7 +850,7 @@ namespace WillAssure.Controllers
 
 
 
-        public ActionResult insertDocumentDetails(TestatorFormModel TFM)
+        public ActionResult getdocumentprice(TestatorFormModel TFM)
         {
             string typeid = "";
             int total = 0;
@@ -859,7 +859,8 @@ namespace WillAssure.Controllers
             int POAamt = 0;
             int Giftdeedsamt = 0;
             int LivingWillamt = 0;
-            
+            Session["storedocument"] = "";
+            Session["storedocument"] = TFM.documenttype;
 
             con.Open();
 
@@ -919,6 +920,497 @@ namespace WillAssure.Controllers
 
 
             // DOCUMENT RULES
+
+
+
+
+
+
+
+
+
+
+                if (TFM.documenttype == "WillCodocilPOA")
+                {
+
+
+                    total = willamt + Codocilamt + POAamt;
+
+                }
+                if (TFM.documenttype == "Codocil")
+                {
+
+
+                    total = Codocilamt;
+
+
+                }
+                if (TFM.documenttype == "POA")
+                {
+
+
+                    total = POAamt;
+
+                }
+                if (TFM.documenttype == "Will")
+                {
+
+
+                    total = willamt;
+                }
+                if (TFM.documenttype == "WillCodocil")
+                {
+
+
+                    total = willamt + Codocilamt;
+
+                }
+                if (TFM.documenttype == "WillPOA")
+                {
+
+
+                    total = willamt + POAamt;
+                }
+                if (TFM.documenttype == "CodocilPOA")
+                {
+
+
+                    total = Codocilamt + POAamt;
+                }
+                if (TFM.documenttype == "CodocilWill")
+                {
+
+
+                    total = willamt + Codocilamt;
+                }
+                if (TFM.documenttype == "POAWill")
+                {
+
+
+                    total = willamt + POAamt;
+                }
+                if (TFM.documenttype == "Giftdeeds")
+                {
+
+
+                    total = Giftdeedsamt;
+                }
+                if (TFM.documenttype == "GiftdeedsCodocil")
+                {
+
+
+                    total = Codocilamt + Giftdeedsamt;
+                }
+
+                if (TFM.documenttype == "GiftdeedsWill")
+                {
+
+
+                    total = willamt + Giftdeedsamt;
+                }
+
+                if (TFM.documenttype == "GiftdeedsPOA")
+                {
+
+
+                    total = POAamt + Giftdeedsamt;
+                }
+
+
+                if (TFM.documenttype == "WillGiftdeeds")
+                {
+
+
+                    total = willamt + Giftdeedsamt;
+
+                }
+
+
+
+                if (TFM.documenttype == "POAGiftdeeds")
+                {
+
+
+                    total = POAamt + Giftdeedsamt;
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeeds")
+                {
+
+
+                    total = Codocilamt + Giftdeedsamt;
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeedsWill")
+                {
+
+
+                    total = willamt + Codocilamt + Giftdeedsamt;
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeedsWillPOA")
+                {
+
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
+                }
+
+                if (TFM.documenttype == "CodocilWillGiftdeedsPOA")
+                {
+
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
+                }
+
+                if (TFM.documenttype == "WillCodocilPOAGiftdeeds")
+                {
+
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
+                }
+
+                if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
+                {
+
+
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                }
+
+                if (TFM.documenttype == "LivingWill")
+                {
+
+
+                    total = LivingWillamt;
+                }
+
+                if (TFM.documenttype == "LivingWillWillCodocilPOAGiftdeeds")
+                {
+
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                }
+
+                if (TFM.documenttype == "CodocilGiftdeedsLivingWillWillPOA")
+                {
+
+
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                }
+
+                if (TFM.documenttype == "LivingWillWillPOA")
+                {
+
+
+                    total = willamt + POAamt + LivingWillamt;
+                }
+
+                if (TFM.documenttype == "POALivingWillWill")
+                {
+
+
+                    total = POAamt + LivingWillamt + willamt;
+                }
+
+                if (TFM.documenttype == "LivingWillPOAGiftdeeds")
+                {
+
+
+
+                    total = POAamt + Giftdeedsamt + LivingWillamt;
+                }
+                if (TFM.documenttype == "POAGiftdeeds")
+                {
+
+
+                    total = POAamt + Giftdeedsamt;
+                }
+                if (TFM.documenttype == "POAGiftdeedsWill")
+                {
+
+
+
+                    total = willamt + POAamt + Giftdeedsamt;
+
+                }
+                if (TFM.documenttype == "POAWillCodocil")
+                {
+
+
+
+                    total = willamt + Codocilamt + POAamt;
+                }
+                if (TFM.documenttype == "CodocilLivingWill")
+                {
+
+
+
+                    total = Codocilamt + LivingWillamt;
+                }
+                if (TFM.documenttype == "CodocilGiftdeedsLivingWill")
+                {
+
+
+                    total = Codocilamt + Giftdeedsamt + LivingWillamt;
+
+                }
+                if (TFM.documenttype == "POALivingWill")
+                {
+
+
+                    total = POAamt + LivingWillamt;
+                }
+                if (TFM.documenttype == "GiftdeedsLivingWill")
+                {
+
+
+
+                    total = Giftdeedsamt + LivingWillamt;
+                }
+                if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
+                {
+
+
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                }
+
+                if (TFM.documenttype == "POAGiftDeedsLivingWill")
+                {
+
+                    total = POAamt + Giftdeedsamt + LivingWillamt;
+                }
+
+                if (TFM.documenttype == "LivingWillGiftDeedsPOA")
+                {
+
+
+                    total = POAamt + Giftdeedsamt + LivingWillamt;
+                }
+
+                if (TFM.documenttype == "GiftDeedsLivingWillPOA")
+                {
+
+
+
+                    total = POAamt + Giftdeedsamt + LivingWillamt;
+                }
+
+                if (TFM.documenttype == "LivingWillCodocil")
+                {
+
+
+                    total = Codocilamt + LivingWillamt;
+                }
+
+                if (TFM.documenttype == "LivingWillGiftdeeds")
+                {
+
+
+
+                    total = Giftdeedsamt + LivingWillamt;
+                }
+
+
+                if (TFM.documenttype == "WillGiftdeeds")
+                {
+
+
+
+                    total = willamt + Giftdeedsamt;
+                }
+
+                if (TFM.documenttype == "GiftdeedsPOA")
+                {
+
+
+
+                    total = POAamt + Giftdeedsamt;
+
+                }
+                if (TFM.documenttype == "LivingWillPOA")
+                {
+
+
+
+                    total = POAamt + LivingWillamt;
+                }
+                if (TFM.documenttype == "WillGiftdeedsCodocil")
+                {
+
+
+
+                    total = willamt + Codocilamt + Giftdeedsamt;
+                }
+
+                if (TFM.documenttype == "WillGiftdeedsLivingWill")
+                {
+
+
+                    total = willamt + Giftdeedsamt + LivingWillamt;
+                }
+                if (TFM.documenttype == "CodocilPOAGiftdeeds")
+                {
+
+
+                    total = Codocilamt + POAamt + Giftdeedsamt;
+                }
+                if (TFM.documenttype == "WillCodocilGiftdeeds")
+                {
+
+
+
+                    total = willamt + Codocilamt + Giftdeedsamt;
+                }
+                if (TFM.documenttype == "WillLivingWill")
+                {
+
+
+                    total = willamt + LivingWillamt;
+                }
+                if (TFM.documenttype == "LivingWillWill")
+                {
+
+
+                    total = willamt + LivingWillamt;
+                }
+
+
+                if (TFM.documenttype == "WillPOAGiftdeeds")
+                {
+
+
+
+                    total = willamt + POAamt + Giftdeedsamt;
+                }
+
+
+                if (TFM.documenttype == "POAWillGiftdeeds")
+                {
+
+
+
+                    total = willamt + POAamt + Giftdeedsamt;
+                }
+
+
+
+                if (TFM.documenttype == "GiftdeedsPOAWill")
+                {
+
+
+
+                    total = POAamt + Giftdeedsamt + willamt;
+                }
+
+                if (TFM.documenttype == "WillCodocilGiftdeedsPOA")
+                {
+
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
+                }
+
+
+                if (TFM.documenttype == "WillCodocilGiftdeedsPOALivingWill")
+                {
+
+
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                }
+
+
+                if (TFM.documenttype == "WillCodocilLivingWill")
+                {
+
+
+
+                    total = willamt + Codocilamt + LivingWillamt;
+                }
+                if (TFM.documenttype == "CodocilLivingWillPOAGiftdeeds")
+                {
+
+
+
+                    total = Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                }
+
+                if (TFM.documenttype == "WillCodocilLivingWillPOA")
+                {
+
+
+
+                    total = willamt + Codocilamt + POAamt + LivingWillamt;
+                }
+
+
+                if (TFM.documenttype == "WillCodocilLivingWillPOAGiftdeeds")
+                {
+
+
+
+                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                }
+
+
+                if (TFM.documenttype == "WillCodocilGiftdeedsPOAGiftdeeds")
+                {
+
+                   total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+
+                }
+
+
+                TempData["status"] = "true";
+
+
+                TempData["setamount"] = total;
+
+
+
+               
+
+
+
+
+
+
+
+            /////////////////////////////////////////////////////end////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+            return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage");
+
+        }
+
+
+
+
+
+        public ActionResult MakePayment(TestatorFormModel TFM)
+        {
+            string typeid = "";
+
+
+
+            string documenttype = Session["storedocument"].ToString(); 
+
+
+
+
+
+
+            // DOCUMENT RULES
             int testatorid = 0;
             con.Open();
             string query1tt = "select top 1 tId from  TestatorDetails where  uId = " + Convert.ToInt32(Session["uuid"]) + " order by tid desc ";
@@ -945,7 +1437,7 @@ namespace WillAssure.Controllers
             if (chk008dt.Rows.Count > 0)
             {
 
-               //////////////////////////////////// for existing/////////////////////////////////////
+                //////////////////////////////////// for existing/////////////////////////////////////
 
                 con.Open();
 
@@ -972,7 +1464,7 @@ namespace WillAssure.Controllers
 
 
 
-                if (TFM.documenttype == "WillCodocilPOA")
+                if (documenttype == "WillCodocilPOA")
                 {
                     typeid = "1,2,3";
 
@@ -982,10 +1474,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt;
+           
 
                 }
-                if (TFM.documenttype == "Codocil")
+                if (documenttype == "Codocil")
                 {
                     typeid = "2";
 
@@ -997,11 +1489,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Codocilamt;
+         
 
 
                 }
-                if (TFM.documenttype == "POA")
+                if (documenttype == "POA")
                 {
                     typeid = "3";
 
@@ -1011,10 +1503,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  POAamt;
+             
 
                 }
-                if (TFM.documenttype == "Will")
+                if (documenttype == "Will")
                 {
                     typeid = "1";
                     con.Open();
@@ -1023,9 +1515,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt;
+                 
                 }
-                if (TFM.documenttype == "WillCodocil")
+                if (documenttype == "WillCodocil")
                 {
                     typeid = "1,2";
 
@@ -1035,10 +1527,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt;
+     
 
                 }
-                if (TFM.documenttype == "WillPOA")
+                if (documenttype == "WillPOA")
                 {
                     typeid = "1,3";
 
@@ -1048,9 +1540,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + POAamt;
+         
                 }
-                if (TFM.documenttype == "CodocilPOA")
+                if (documenttype == "CodocilPOA")
                 {
                     typeid = "2,3";
 
@@ -1060,9 +1552,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  Codocilamt + POAamt;
+               
                 }
-                if (TFM.documenttype == "CodocilWill")
+                if (documenttype == "CodocilWill")
                 {
                     typeid = "2,1";
 
@@ -1072,9 +1564,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt;
+                   
                 }
-                if (TFM.documenttype == "POAWill")
+                if (documenttype == "POAWill")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1083,9 +1575,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + POAamt;
+                    
                 }
-                if (TFM.documenttype == "Giftdeeds")
+                if (documenttype == "Giftdeeds")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1094,9 +1586,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Giftdeedsamt;
+                   
                 }
-                if (TFM.documenttype == "GiftdeedsCodocil")
+                if (documenttype == "GiftdeedsCodocil")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1105,10 +1597,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  Codocilamt +  Giftdeedsamt;
+                 
                 }
 
-                if (TFM.documenttype == "GiftdeedsWill")
+                if (documenttype == "GiftdeedsWill")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1117,10 +1609,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Giftdeedsamt;
+                 
                 }
 
-                if (TFM.documenttype == "GiftdeedsPOA")
+                if (documenttype == "GiftdeedsPOA")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1129,11 +1621,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + Giftdeedsamt;
+                   
                 }
 
 
-                if (TFM.documenttype == "WillGiftdeeds")
+                if (documenttype == "WillGiftdeeds")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1142,13 +1634,13 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Giftdeedsamt;
+           
 
                 }
 
 
 
-                if (TFM.documenttype == "POAGiftdeeds")
+                if (documenttype == "POAGiftdeeds")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1157,10 +1649,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  POAamt + Giftdeedsamt;
+                
                 }
 
-                if (TFM.documenttype == "CodocilGiftdeeds")
+                if (documenttype == "CodocilGiftdeeds")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1169,10 +1661,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  Codocilamt  + Giftdeedsamt;
+              
                 }
 
-                if (TFM.documenttype == "CodocilGiftdeedsWill")
+                if (documenttype == "CodocilGiftdeedsWill")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1181,10 +1673,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + Giftdeedsamt;
+      
                 }
 
-                if (TFM.documenttype == "CodocilGiftdeedsWillPOA")
+                if (documenttype == "CodocilGiftdeedsWillPOA")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1193,10 +1685,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
                 }
 
-                if (TFM.documenttype == "CodocilWillGiftdeedsPOA")
+                if (documenttype == "CodocilWillGiftdeedsPOA")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1205,10 +1696,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
+                
                 }
 
-                if (TFM.documenttype == "WillCodocilPOAGiftdeeds")
+                if (documenttype == "WillCodocilPOAGiftdeeds")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1217,10 +1708,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
+           
                 }
 
-                if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
+                if (documenttype == "WillCodocilPOAGiftdeedsLivingWill")
                 {
 
                     con.Open();
@@ -1229,10 +1720,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
-                if (TFM.documenttype == "LivingWill")
+                if (documenttype == "LivingWill")
                 {
 
                     con.Open();
@@ -1241,10 +1731,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  LivingWillamt;
+                 
                 }
 
-                if (TFM.documenttype == "LivingWillWillCodocilPOAGiftdeeds")
+                if (documenttype == "LivingWillWillCodocilPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -1253,10 +1743,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                  
                 }
 
-                if (TFM.documenttype == "CodocilGiftdeedsLivingWillWillPOA")
+                if (documenttype == "CodocilGiftdeedsLivingWillWillPOA")
                 {
 
                     con.Open();
@@ -1265,10 +1755,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                 
                 }
 
-                if (TFM.documenttype == "LivingWillWillPOA")
+                if (documenttype == "LivingWillWillPOA")
                 {
 
                     con.Open();
@@ -1277,10 +1767,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + POAamt + LivingWillamt;
+                   
                 }
 
-                if (TFM.documenttype == "POALivingWillWill")
+                if (documenttype == "POALivingWillWill")
                 {
 
                     con.Open();
@@ -1289,10 +1779,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  POAamt + LivingWillamt + willamt;
+               
                 }
 
-                if (TFM.documenttype == "LivingWillPOAGiftdeeds")
+                if (documenttype == "LivingWillPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -1301,9 +1791,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  POAamt + Giftdeedsamt + LivingWillamt;
+                   
                 }
-                if (TFM.documenttype == "POAGiftdeeds")
+                if (documenttype == "POAGiftdeeds")
                 {
 
                     con.Open();
@@ -1312,9 +1802,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  POAamt + Giftdeedsamt;
+               
                 }
-                if (TFM.documenttype == "POAGiftdeedsWill")
+                if (documenttype == "POAGiftdeedsWill")
                 {
 
                     con.Open();
@@ -1323,10 +1813,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + POAamt + Giftdeedsamt;
+                  
 
                 }
-                if (TFM.documenttype == "POAWillCodocil")
+                if (documenttype == "POAWillCodocil")
                 {
 
                     con.Open();
@@ -1335,9 +1825,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt;
+                  
                 }
-                if (TFM.documenttype == "CodocilLivingWill")
+                if (documenttype == "CodocilLivingWill")
                 {
 
                     con.Open();
@@ -1346,9 +1836,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  Codocilamt + LivingWillamt;
+                   
                 }
-                if (TFM.documenttype == "CodocilGiftdeedsLivingWill")
+                if (documenttype == "CodocilGiftdeedsLivingWill")
                 {
 
                     con.Open();
@@ -1357,10 +1847,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  Codocilamt + Giftdeedsamt + LivingWillamt;
+                  
 
                 }
-                if (TFM.documenttype == "POALivingWill")
+                if (documenttype == "POALivingWill")
                 {
 
                     con.Open();
@@ -1369,9 +1859,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + LivingWillamt;
+                  
                 }
-                if (TFM.documenttype == "GiftdeedsLivingWill")
+                if (documenttype == "GiftdeedsLivingWill")
                 {
 
                     con.Open();
@@ -1380,9 +1870,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  Giftdeedsamt + LivingWillamt;
+                  
                 }
-                if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
+                if (documenttype == "WillCodocilPOAGiftdeedsLivingWill")
                 {
 
                     con.Open();
@@ -1391,10 +1881,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                   
                 }
 
-                if (TFM.documenttype == "POAGiftDeedsLivingWill")
+                if (documenttype == "POAGiftDeedsLivingWill")
                 {
 
                     con.Open();
@@ -1404,10 +1894,10 @@ namespace WillAssure.Controllers
                     con.Close();
 
 
-                    total =  POAamt + Giftdeedsamt + LivingWillamt;
+                   
                 }
 
-                if (TFM.documenttype == "LivingWillGiftDeedsPOA")
+                if (documenttype == "LivingWillGiftDeedsPOA")
                 {
 
                     con.Open();
@@ -1416,10 +1906,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  POAamt + Giftdeedsamt + LivingWillamt;
                 }
 
-                if (TFM.documenttype == "GiftDeedsLivingWillPOA")
+                if (documenttype == "GiftDeedsLivingWillPOA")
                 {
 
                     con.Open();
@@ -1428,10 +1917,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  POAamt + Giftdeedsamt + LivingWillamt;
+                  
                 }
 
-                if (TFM.documenttype == "LivingWillCodocil")
+                if (documenttype == "LivingWillCodocil")
                 {
 
                     con.Open();
@@ -1440,10 +1929,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  Codocilamt + LivingWillamt;
+                   
                 }
 
-                if (TFM.documenttype == "LivingWillGiftdeeds")
+                if (documenttype == "LivingWillGiftdeeds")
                 {
 
                     con.Open();
@@ -1452,11 +1941,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  Giftdeedsamt + LivingWillamt;
+                    
                 }
 
 
-                if (TFM.documenttype == "WillGiftdeeds")
+                if (documenttype == "WillGiftdeeds")
                 {
 
                     con.Open();
@@ -1465,10 +1954,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt +  Giftdeedsamt;
+                   
                 }
 
-                if (TFM.documenttype == "GiftdeedsPOA")
+                if (documenttype == "GiftdeedsPOA")
                 {
 
                     con.Open();
@@ -1478,10 +1967,10 @@ namespace WillAssure.Controllers
                     con.Close();
 
 
-                    total =  POAamt + Giftdeedsamt;
+                 
 
                 }
-                if (TFM.documenttype == "LivingWillPOA")
+                if (documenttype == "LivingWillPOA")
                 {
 
                     con.Open();
@@ -1490,9 +1979,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  POAamt  + LivingWillamt;
+                   
                 }
-                if (TFM.documenttype == "WillGiftdeedsCodocil")
+                if (documenttype == "WillGiftdeedsCodocil")
                 {
 
                     con.Open();
@@ -1501,10 +1990,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + Giftdeedsamt;
+                   
                 }
 
-                if (TFM.documenttype == "WillGiftdeedsLivingWill")
+                if (documenttype == "WillGiftdeedsLivingWill")
                 {
 
                     con.Open();
@@ -1513,9 +2002,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt +  Giftdeedsamt + LivingWillamt;
+                  
                 }
-                if (TFM.documenttype == "CodocilPOAGiftdeeds")
+                if (documenttype == "CodocilPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -1524,9 +2013,8 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  Codocilamt + POAamt + Giftdeedsamt;
                 }
-                if (TFM.documenttype == "WillCodocilGiftdeeds")
+                if (documenttype == "WillCodocilGiftdeeds")
                 {
 
                     con.Open();
@@ -1535,9 +2023,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt  + Giftdeedsamt;
+                
                 }
-                if (TFM.documenttype == "WillLivingWill")
+                if (documenttype == "WillLivingWill")
                 {
 
                     con.Open();
@@ -1546,9 +2034,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + LivingWillamt;
+               
                 }
-                if (TFM.documenttype == "LivingWillWill")
+                if (documenttype == "LivingWillWill")
                 {
 
                     con.Open();
@@ -1557,11 +2045,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + LivingWillamt;
+        
                 }
 
 
-                if (TFM.documenttype == "WillPOAGiftdeeds")
+                if (documenttype == "WillPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -1570,11 +2058,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + POAamt + Giftdeedsamt;
+                   
                 }
 
 
-                if (TFM.documenttype == "POAWillGiftdeeds")
+                if (documenttype == "POAWillGiftdeeds")
                 {
 
                     con.Open();
@@ -1583,12 +2071,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt  + POAamt + Giftdeedsamt;
                 }
 
 
 
-                if (TFM.documenttype == "GiftdeedsPOAWill")
+                if (documenttype == "GiftdeedsPOAWill")
                 {
 
                     con.Open();
@@ -1597,10 +2084,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  POAamt + Giftdeedsamt + willamt;
                 }
 
-                if (TFM.documenttype == "WillCodocilGiftdeedsPOA")
+                if (documenttype == "WillCodocilGiftdeedsPOA")
                 {
 
                     con.Open();
@@ -1609,11 +2095,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
+             
                 }
 
 
-                if (TFM.documenttype == "WillCodocilGiftdeedsPOALivingWill")
+                if (documenttype == "WillCodocilGiftdeedsPOALivingWill")
                 {
 
                     con.Open();
@@ -1622,11 +2108,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+              
                 }
 
 
-                if (TFM.documenttype == "WillCodocilLivingWill")
+                if (documenttype == "WillCodocilLivingWill")
                 {
 
                     con.Open();
@@ -1635,9 +2121,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt  + LivingWillamt;
+               
                 }
-                if (TFM.documenttype == "CodocilLivingWillPOAGiftdeeds")
+                if (documenttype == "CodocilLivingWillPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -1646,10 +2132,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total =  Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+               
                 }
 
-                if (TFM.documenttype == "WillCodocilLivingWillPOA")
+                if (documenttype == "WillCodocilLivingWillPOA")
                 {
 
                     con.Open();
@@ -1658,11 +2144,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + LivingWillamt;
+                   
                 }
 
 
-                if (TFM.documenttype == "WillCodocilLivingWillPOAGiftdeeds")
+                if (documenttype == "WillCodocilLivingWillPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -1671,7 +2157,18 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+               
+                }
+
+
+                if (documenttype == "WillCodocilGiftdeedsPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
                 }
 
 
@@ -1683,7 +2180,12 @@ namespace WillAssure.Controllers
                 string qq1typ = "update users set WillType = '" + TFM.typeofwill + "'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1typ = new SqlCommand(qq1typ, con);
                 cc1typ.ExecuteNonQuery();
+
+                string qq = "update testatordetails set PaymentStatus = 1 where uId= " + Convert.ToInt32(Session["uuid"]) + " ";
+                SqlCommand cmdqq = new SqlCommand(qq, con);
+                cmdqq.ExecuteNonQuery();
                 con.Close();
+
 
 
 
@@ -1703,10 +2205,10 @@ namespace WillAssure.Controllers
             else
             {
 
-                TFM.documenttype = TFM.will + TFM.codocil + TFM.livingwill + TFM.poa + TFM.giftdeeds;
+                //documenttype = TFM.will + TFM.codocil + TFM.livingwill + TFM.poa + TFM.giftdeeds;
 
 
-                if (TFM.codocil != "")
+                if (TFM.codocil != null)
                 {
                     int codocilid = 0;
                     con.Open();
@@ -1739,7 +2241,7 @@ namespace WillAssure.Controllers
 
 
 
-                if (TFM.livingwill != "")
+                if (TFM.livingwill != null)
                 {
                     int livwillid = 0;
                     con.Open();
@@ -1773,7 +2275,7 @@ namespace WillAssure.Controllers
 
 
 
-                if (TFM.documenttype == "WillCodocilPOA")
+                if (documenttype == "WillCodocilPOA")
                 {
                     typeid = "1,2,3";
 
@@ -1783,10 +2285,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt;
 
                 }
-                if (TFM.documenttype == "Codocil")
+                if (documenttype == "Codocil")
                 {
                     typeid = "2";
 
@@ -1798,11 +2299,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Codocilamt;
-
 
                 }
-                if (TFM.documenttype == "POA")
+                if (documenttype == "POA")
                 {
                     typeid = "3";
 
@@ -1812,10 +2311,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt;
+          
 
                 }
-                if (TFM.documenttype == "Will")
+                if (documenttype == "Will")
                 {
                     typeid = "1";
                     con.Open();
@@ -1824,9 +2323,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt;
+           
                 }
-                if (TFM.documenttype == "WillCodocil")
+                if (documenttype == "WillCodocil")
                 {
                     typeid = "1,2";
 
@@ -1836,10 +2335,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt;
+                
 
                 }
-                if (TFM.documenttype == "WillPOA")
+                if (documenttype == "WillPOA")
                 {
                     typeid = "1,3";
 
@@ -1849,9 +2348,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + POAamt;
+              
                 }
-                if (TFM.documenttype == "CodocilPOA")
+                if (documenttype == "CodocilPOA")
                 {
                     typeid = "2,3";
 
@@ -1861,9 +2360,8 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Codocilamt + POAamt;
                 }
-                if (TFM.documenttype == "CodocilWill")
+                if (documenttype == "CodocilWill")
                 {
                     typeid = "2,1";
 
@@ -1873,9 +2371,8 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt;
                 }
-                if (TFM.documenttype == "POAWill")
+                if (documenttype == "POAWill")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1884,9 +2381,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + POAamt;
+         
                 }
-                if (TFM.documenttype == "Giftdeeds")
+                if (documenttype == "Giftdeeds")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1895,9 +2392,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Giftdeedsamt;
+                   
                 }
-                if (TFM.documenttype == "GiftdeedsCodocil")
+                if (documenttype == "GiftdeedsCodocil")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1906,10 +2403,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Codocilamt + Giftdeedsamt;
                 }
 
-                if (TFM.documenttype == "GiftdeedsWill")
+                if (documenttype == "GiftdeedsWill")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1918,10 +2414,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Giftdeedsamt;
+              
                 }
 
-                if (TFM.documenttype == "GiftdeedsPOA")
+                if (documenttype == "GiftdeedsPOA")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1930,11 +2426,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + Giftdeedsamt;
                 }
 
 
-                if (TFM.documenttype == "WillGiftdeeds")
+                if (documenttype == "WillGiftdeeds")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1943,13 +2438,13 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Giftdeedsamt;
+            
 
                 }
 
 
 
-                if (TFM.documenttype == "POAGiftdeeds")
+                if (documenttype == "POAGiftdeeds")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1958,10 +2453,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + Giftdeedsamt;
                 }
 
-                if (TFM.documenttype == "CodocilGiftdeeds")
+                if (documenttype == "CodocilGiftdeeds")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1970,10 +2464,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Codocilamt + Giftdeedsamt;
                 }
 
-                if (TFM.documenttype == "CodocilGiftdeedsWill")
+                if (documenttype == "CodocilGiftdeedsWill")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1982,10 +2475,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + Giftdeedsamt;
+                   
                 }
 
-                if (TFM.documenttype == "CodocilGiftdeedsWillPOA")
+                if (documenttype == "CodocilGiftdeedsWillPOA")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -1994,10 +2487,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
+               
                 }
 
-                if (TFM.documenttype == "CodocilWillGiftdeedsPOA")
+                if (documenttype == "CodocilWillGiftdeedsPOA")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -2006,10 +2499,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
+                  
                 }
 
-                if (TFM.documenttype == "WillCodocilPOAGiftdeeds")
+                if (documenttype == "WillCodocilPOAGiftdeeds")
                 {
                     typeid = "3,1";
                     con.Open();
@@ -2018,10 +2511,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
+              
                 }
 
-                if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
+                if (documenttype == "WillCodocilPOAGiftdeedsLivingWill")
                 {
 
                     con.Open();
@@ -2030,10 +2523,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                   
                 }
 
-                if (TFM.documenttype == "LivingWill")
+                if (documenttype == "LivingWill")
                 {
 
                     con.Open();
@@ -2042,10 +2535,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = LivingWillamt;
+         
                 }
 
-                if (TFM.documenttype == "LivingWillWillCodocilPOAGiftdeeds")
+                if (documenttype == "LivingWillWillCodocilPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -2054,10 +2547,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                   
                 }
 
-                if (TFM.documenttype == "CodocilGiftdeedsLivingWillWillPOA")
+                if (documenttype == "CodocilGiftdeedsLivingWillWillPOA")
                 {
 
                     con.Open();
@@ -2066,10 +2559,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+          
                 }
 
-                if (TFM.documenttype == "LivingWillWillPOA")
+                if (documenttype == "LivingWillWillPOA")
                 {
 
                     con.Open();
@@ -2078,10 +2571,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + POAamt + LivingWillamt;
+             
                 }
 
-                if (TFM.documenttype == "POALivingWillWill")
+                if (documenttype == "POALivingWillWill")
                 {
 
                     con.Open();
@@ -2090,10 +2583,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + LivingWillamt + willamt;
+                   
                 }
 
-                if (TFM.documenttype == "LivingWillPOAGiftdeeds")
+                if (documenttype == "LivingWillPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -2102,9 +2595,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + Giftdeedsamt + LivingWillamt;
+                   
                 }
-                if (TFM.documenttype == "POAGiftdeeds")
+                if (documenttype == "POAGiftdeeds")
                 {
 
                     con.Open();
@@ -2113,9 +2606,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + Giftdeedsamt;
+         
                 }
-                if (TFM.documenttype == "POAGiftdeedsWill")
+                if (documenttype == "POAGiftdeedsWill")
                 {
 
                     con.Open();
@@ -2124,10 +2617,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + POAamt + Giftdeedsamt;
+             
 
                 }
-                if (TFM.documenttype == "POAWillCodocil")
+                if (documenttype == "POAWillCodocil")
                 {
 
                     con.Open();
@@ -2136,9 +2629,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt;
+     
                 }
-                if (TFM.documenttype == "CodocilLivingWill")
+                if (documenttype == "CodocilLivingWill")
                 {
 
                     con.Open();
@@ -2147,9 +2640,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Codocilamt + LivingWillamt;
+          
                 }
-                if (TFM.documenttype == "CodocilGiftdeedsLivingWill")
+                if (documenttype == "CodocilGiftdeedsLivingWill")
                 {
 
                     con.Open();
@@ -2158,10 +2651,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Codocilamt + Giftdeedsamt + LivingWillamt;
+     
 
                 }
-                if (TFM.documenttype == "POALivingWill")
+                if (documenttype == "POALivingWill")
                 {
 
                     con.Open();
@@ -2170,9 +2663,8 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + LivingWillamt;
                 }
-                if (TFM.documenttype == "GiftdeedsLivingWill")
+                if (documenttype == "GiftdeedsLivingWill")
                 {
 
                     con.Open();
@@ -2181,9 +2673,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Giftdeedsamt + LivingWillamt;
+ 
                 }
-                if (TFM.documenttype == "WillCodocilPOAGiftdeedsLivingWill")
+                if (documenttype == "WillCodocilPOAGiftdeedsLivingWill")
                 {
 
                     con.Open();
@@ -2192,10 +2684,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+     
                 }
 
-                if (TFM.documenttype == "POAGiftDeedsLivingWill")
+                if (documenttype == "POAGiftDeedsLivingWill")
                 {
 
                     con.Open();
@@ -2205,10 +2697,10 @@ namespace WillAssure.Controllers
                     con.Close();
 
 
-                    total = POAamt + Giftdeedsamt + LivingWillamt;
+                  
                 }
 
-                if (TFM.documenttype == "LivingWillGiftDeedsPOA")
+                if (documenttype == "LivingWillGiftDeedsPOA")
                 {
 
                     con.Open();
@@ -2217,10 +2709,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + Giftdeedsamt + LivingWillamt;
+           
                 }
 
-                if (TFM.documenttype == "GiftDeedsLivingWillPOA")
+                if (documenttype == "GiftDeedsLivingWillPOA")
                 {
 
                     con.Open();
@@ -2229,10 +2721,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + Giftdeedsamt + LivingWillamt;
+                  
                 }
 
-                if (TFM.documenttype == "LivingWillCodocil")
+                if (documenttype == "LivingWillCodocil")
                 {
 
                     con.Open();
@@ -2241,10 +2733,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Codocilamt + LivingWillamt;
                 }
 
-                if (TFM.documenttype == "LivingWillGiftdeeds")
+                if (documenttype == "LivingWillGiftdeeds")
                 {
 
                     con.Open();
@@ -2253,11 +2744,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Giftdeedsamt + LivingWillamt;
+  
                 }
 
 
-                if (TFM.documenttype == "WillGiftdeeds")
+                if (documenttype == "WillGiftdeeds")
                 {
 
                     con.Open();
@@ -2266,10 +2757,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Giftdeedsamt;
+               
                 }
 
-                if (TFM.documenttype == "GiftdeedsPOA")
+                if (documenttype == "GiftdeedsPOA")
                 {
 
                     con.Open();
@@ -2279,10 +2770,10 @@ namespace WillAssure.Controllers
                     con.Close();
 
 
-                    total = POAamt + Giftdeedsamt;
+            
 
                 }
-                if (TFM.documenttype == "LivingWillPOA")
+                if (documenttype == "LivingWillPOA")
                 {
 
                     con.Open();
@@ -2291,9 +2782,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + LivingWillamt;
+                   
                 }
-                if (TFM.documenttype == "WillGiftdeedsCodocil")
+                if (documenttype == "WillGiftdeedsCodocil")
                 {
 
                     con.Open();
@@ -2302,10 +2793,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + Giftdeedsamt;
+                  
                 }
 
-                if (TFM.documenttype == "WillGiftdeedsLivingWill")
+                if (documenttype == "WillGiftdeedsLivingWill")
                 {
 
                     con.Open();
@@ -2314,9 +2805,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Giftdeedsamt + LivingWillamt;
+                    
                 }
-                if (TFM.documenttype == "CodocilPOAGiftdeeds")
+                if (documenttype == "CodocilPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -2325,9 +2816,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Codocilamt + POAamt + Giftdeedsamt;
+                   
                 }
-                if (TFM.documenttype == "WillCodocilGiftdeeds")
+                if (documenttype == "WillCodocilGiftdeeds")
                 {
 
                     con.Open();
@@ -2336,9 +2827,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + Giftdeedsamt;
+                  
                 }
-                if (TFM.documenttype == "WillLivingWill")
+                if (documenttype == "WillLivingWill")
                 {
 
                     con.Open();
@@ -2347,9 +2838,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + LivingWillamt;
+                   
                 }
-                if (TFM.documenttype == "LivingWillWill")
+                if (documenttype == "LivingWillWill")
                 {
 
                     con.Open();
@@ -2358,11 +2849,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + LivingWillamt;
+                    
                 }
 
 
-                if (TFM.documenttype == "WillPOAGiftdeeds")
+                if (documenttype == "WillPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -2371,11 +2862,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + POAamt + Giftdeedsamt;
+                   
                 }
 
 
-                if (TFM.documenttype == "POAWillGiftdeeds")
+                if (documenttype == "POAWillGiftdeeds")
                 {
 
                     con.Open();
@@ -2384,12 +2875,12 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + POAamt + Giftdeedsamt;
+                   
                 }
 
 
 
-                if (TFM.documenttype == "GiftdeedsPOAWill")
+                if (documenttype == "GiftdeedsPOAWill")
                 {
 
                     con.Open();
@@ -2398,10 +2889,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = POAamt + Giftdeedsamt + willamt;
                 }
 
-                if (TFM.documenttype == "WillCodocilGiftdeedsPOA")
+                if (documenttype == "WillCodocilGiftdeedsPOA")
                 {
 
                     con.Open();
@@ -2410,11 +2900,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt;
+                 
                 }
 
 
-                if (TFM.documenttype == "WillCodocilGiftdeedsPOALivingWill")
+                if (documenttype == "WillCodocilGiftdeedsPOALivingWill")
                 {
 
                     con.Open();
@@ -2423,11 +2913,11 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                
                 }
 
 
-                if (TFM.documenttype == "WillCodocilLivingWill")
+                if (documenttype == "WillCodocilLivingWill")
                 {
 
                     con.Open();
@@ -2436,9 +2926,9 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + LivingWillamt;
+                 
                 }
-                if (TFM.documenttype == "CodocilLivingWillPOAGiftdeeds")
+                if (documenttype == "CodocilLivingWillPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -2447,10 +2937,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                   
                 }
 
-                if (TFM.documenttype == "WillCodocilLivingWillPOA")
+                if (documenttype == "WillCodocilLivingWillPOA")
                 {
 
                     con.Open();
@@ -2459,11 +2949,10 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + LivingWillamt;
                 }
 
 
-                if (TFM.documenttype == "WillCodocilLivingWillPOAGiftdeeds")
+                if (documenttype == "WillCodocilLivingWillPOAGiftdeeds")
                 {
 
                     con.Open();
@@ -2472,7 +2961,17 @@ namespace WillAssure.Controllers
                     cc1.ExecuteNonQuery();
                     con.Close();
 
-                    total = willamt + Codocilamt + POAamt + Giftdeedsamt + LivingWillamt;
+                }
+
+
+                if (documenttype == "WillCodocilGiftdeedsPOAGiftdeeds")
+                {
+
+                    con.Open();
+                    string qq1 = "update users set Will = '1' , Codocil = '1' , POA = '1' , Giftdeeds='1', LivingWill='1' where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlCommand cc1 = new SqlCommand(qq1, con);
+                    cc1.ExecuteNonQuery();
+                    con.Close();
                 }
 
 
@@ -2484,12 +2983,16 @@ namespace WillAssure.Controllers
                 string qq1typ = "update users set WillType = '" + TFM.typeofwill + "'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1typ = new SqlCommand(qq1typ, con);
                 cc1typ.ExecuteNonQuery();
+
+                string qq = "update testatordetails set PaymentStatus = 1 where uId= " + Convert.ToInt32(Session["uuid"]) + " ";
+                SqlCommand cmdqq = new SqlCommand(qq,con);
+                cmdqq.ExecuteNonQuery();
                 con.Close();
 
 
 
+                
 
-                TempData["status"] = "true";
 
 
 
@@ -2498,9 +3001,9 @@ namespace WillAssure.Controllers
 
 
 
-            TempData["setamount"] = total;
-
           
+
+
 
             return RedirectToAction("TestatorHomePageIndex", "TestatorHomePage");
 

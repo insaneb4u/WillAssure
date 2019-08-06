@@ -217,6 +217,9 @@
                         @using (Html.BeginForm("InsertAppointeesFormData", null, FormMethod.Post, new { id = "DistributorForm" }))
                         {
 
+                            <textarea id="primary" style="display:none;">
+                                     @ViewBag.primary
+                           </textarea>
 
                             <div class="row">
                                 <div class="col-sm-1"></div><div class='col-sm-2'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Testator</label></div>
@@ -1706,7 +1709,7 @@
                             if (text == "Single") {
                                 $("#txtnumber").hide();
                                 $("#txtnumber").val("");
-                                $("#dynamiccontrol").remove();
+                                $("#dynamiccontrol").hide();
                             }
 
 
@@ -1750,7 +1753,8 @@
                                         url: "@Url.Action("DynamicControl", "AddAppointees")",
                                         data: { "send": "" + value + "" },
                                         success: function (data) {
-                                         
+                                            $("#dynamiccontrol").show();
+                                          
                                             $("#dynamiccontrol").empty().append(data);
                                         
                                         }
@@ -2122,6 +2126,13 @@
                         @if (ViewBag.disablefield == "true")
                         {
                             <script>
+
+
+                                var pri = $("#primary").val();
+
+                                $("#dynamiccontrol").show();
+
+                                $("#dynamiccontrol").html(pri);
 
 
                                 $("#btnmore").show();

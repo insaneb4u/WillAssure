@@ -214,11 +214,15 @@
 
 
 
-                        @using (Html.BeginForm("InsertAppointeesFormData", null, FormMethod.Post, new { id = "DistributorForm" }))
+                        @using (Html.BeginForm())
                         {
 
                             <textarea id="primary" style="display:none;">
                                      @ViewBag.primary
+                           </textarea>
+
+                            <textarea id="primary2" style="display:none;">
+                                     @ViewBag.primary2
                            </textarea>
 
                             <div class="row">
@@ -408,7 +412,7 @@
                                         @if (Model.country_txt != null)
                                         {
 
-                                            <select id="ddlcountry"  name="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+                                            <select id="ddlcountry" name="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
 
                                                 <option value="@Model.country_txt">@Model.country_txt</option>
                                             </select>
@@ -418,10 +422,12 @@
                                         else
                                         {
 
-                                            <select id="ddlcountry" name="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"></select>
+                                            <select id="ddlcountry" name="ddlcountry" style="display:;" onchange="removeval()" class="form-control input-shadow validate[required]"></select>
                                             @Html.HiddenFor(m => m.country_id, new { id = "country_id" })
                                             @Html.HiddenFor(m => m.country_txt, new { id = "country_txt" })
                                         }
+
+
 
 
                                     </div>
@@ -536,7 +542,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof Value</label>
-                                            <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "Identity_Proof_Value", @onchange = "validateidentity(this.value)", @name="Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
+                                            <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "Identity_Proof_Value", @onchange = "validateidentity(this.value)", @name = "Identity_Proof_Value", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
                                             <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
                                         </div>
                                     </div>
@@ -558,7 +564,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @name= "Alt_Identity_proof_Value" , @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
+                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input", @id = "Alt_Identity_Proof_Value", @name = "Alt_Identity_proof_Value", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
                                             <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                         </div>
                                     </div>
@@ -753,12 +759,12 @@
 
                                             <label for="input-1">Country</label>
 
-                                            @if (Model.altguacountrytext != null)
+                                            @if (Model.altcountry_txt != null)
                                             {
 
                                                 <select id="altguaddlcountry" name="altddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
 
-                                                    <option value="@Model.altguacountrytext">@Model.altguacountrytext</option>
+                                                    <option value="@Model.altcountry_txt">@Model.altcountry_txt</option>
                                                 </select>
                                                 @Html.HiddenFor(m => m.altguacountryid, new { id = "altguacountryid" })
                                                 @Html.HiddenFor(m => m.altguacountrytext, new { id = "altguacountrytext" })
@@ -766,7 +772,7 @@
                                             else
                                             {
 
-                                                <select id="altguaddlcountry" name="altddlcountry" style="display:;" class="form-control input-shadow validate[required]"></select>
+                                                <select id="altguaddlcountry" name="altcountry_txt" style="display:;" class="form-control input-shadow validate[required]"></select>
                                                 @Html.HiddenFor(m => m.altguacountryid, new { id = "altguacountryid" })
                                                 @Html.HiddenFor(m => m.altguacountrytext, new { id = "altguacountrytext" })
                                             }
@@ -776,16 +782,15 @@
 
 
 
-                                        @if (Model.statetext != null)
+                                        @if (Model.altstatetext != null)
                                         {
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label for="input-1">State</label>
-                                                    <select id="altddlstate" name="altddlstate" class="form-control input-shadow validate[required]">
-                                                        <option value="@Model.statetext">@Model.statetext</option>
+                                                    <select id="altddlstate" name="altstatetext" class="form-control input-shadow validate[required]">
+                                                        <option value="@Model.altstatetext">@Model.altstatetext</option>
                                                     </select>
-                                                    @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
-                                                    @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
+
                                                 </div>
                                             </div>
                                         }
@@ -794,11 +799,10 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label for="input-1">State</label>
-                                                    <select id="altddlstate" name="altddlstate" class="form-control input-shadow validate[required]">
+                                                    <select id="altddlstate" name="altstatetext" class="form-control input-shadow validate[required]">
                                                         <option value="">--Select State--</option>
                                                     </select>
-                                                    @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
-                                                    @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
+
                                                 </div>
                                             </div>
                                         }
@@ -824,14 +828,21 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label for="input-1">City</label>
-                                                    <select id="altddlcity" name="altddlcity" class="form-control input-shadow validate[required]">
+                                                    <select id="altddlcity" name="altcitytext" class="form-control input-shadow validate[required]">
                                                         <option value="">--Select City--</option>
                                                     </select>
-                                                    @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
-                                                    @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
+
                                                 </div>
                                             </div>
                                         }
+
+
+
+
+
+
+
+
 
 
 
@@ -974,7 +985,7 @@
                                 @if (Session["distid"] != null)
                                 {
 
-                                    <button type="submit" id="btnDistributorformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
+                                    <button type="submit" id="btnDistributorformsubmit" formaction="InsertAppointeesFormData" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
                                     <button type="submit" id="btnupdate" style="display:none;" formaction="UpdateAppointees" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
 
                                     @*<input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />*@
@@ -1166,9 +1177,9 @@
             data: { "send": "" + value+  ""},
             success: function (data) {
 
-              
+
                 var x =  id.substring(12);
-             
+
                 $("#ddlstate"+x+"").empty().append(data);
             }
 
@@ -1201,9 +1212,9 @@
             data: { "send": "" + value+  ""},
             success: function (data) {
 
-                
+
                 var x = id.substring(15);
-               
+
                 $("#altddlstate"+x+"").empty().append(data);
             }
 
@@ -1314,7 +1325,7 @@
                                 $("#compone").show();
                                 $("#comptwo").show();
 
-                              
+
 
                                 $("#ftxtname").hide();
                                 $("#ftxtmiddlename").hide();
@@ -1341,7 +1352,7 @@
 
                                     $("#scompone").hide();
                                     $("#scomptwo").hide();
-                                 
+
 
                                     $("#stxtname2").show();
                                     $("#stxtmiddlename2").show();
@@ -1637,9 +1648,10 @@
                                     $("#txtrelationshipManager").val("");
                                     $("#txtleadStatus").val("");
                                     $("#txtleadRemark").val("");
+                                    $('.f2radio').validationEngine('hide');
+                                    $('.f1radio').validationEngine('hide');
+                                    $("#ddlcountry").validationEngine("hide");
 
-                                    $('#f2radio').validationEngine('hide');
-                                    $('#f1radio').validationEngine('hide');
                                 });
                             </script>
 
@@ -1733,7 +1745,7 @@
 
                         $(document).on("keyup", "#txtnumber", function () {
 
-                            
+
 
                             var reg = /^\d+$/;
 
@@ -1747,16 +1759,16 @@
                                 $("#txtcounter").val("true");
 
                                 if (value <= 5 && value >= 2) {
-                                  
+
                                     $.ajax({
                                         type: "POST",
                                         url: "@Url.Action("DynamicControl", "AddAppointees")",
                                         data: { "send": "" + value + "" },
                                         success: function (data) {
                                             $("#dynamiccontrol").show();
-                                          
+
                                             $("#dynamiccontrol").empty().append(data);
-                                        
+
                                         }
                                     });
                                 }
@@ -1839,7 +1851,9 @@
                                     $("#btnappointeeSuccess").click(); //trigger event after listening to it.
 
 
-
+                                    $('.f2radio').validationEngine('hide');
+                                    $('.f1radio').validationEngine('hide');
+                                    $("#ddlcountry").validationEngine("hide");
 
                                 });
                             </script>
@@ -1906,7 +1920,7 @@
 
 
                                                      ////////////////////////
-                                                					
+
                           $.ajax({
 
             type: "POST",
@@ -1915,7 +1929,7 @@
 
                 $('#ddlcountry').append(data);
 
-            
+
 
 
 
@@ -1923,7 +1937,7 @@
         });
 
 
-                            					
+
                           $.ajax({
 
             type: "POST",
@@ -1933,8 +1947,8 @@
                 $('#altguaddlcountry').append(data);
             }
         });
-		
-		
+
+
 		/////////////////////////////////
 
 
@@ -2129,10 +2143,13 @@
 
 
                                 var pri = $("#primary").val();
+                                var pri2 = $("#primary2").val();
 
                                 $("#dynamiccontrol").show();
+                                $("#alternatedynamiccontrol").show();
 
                                 $("#dynamiccontrol").html(pri);
+                                $("#alternatedynamiccontrol").html(pri2);
 
 
                                 $("#btnmore").show();
@@ -2146,6 +2163,8 @@
 
 
                                 $(document).ready(function () {
+
+                                    $("#btnupdate").show();
 
                                     $("#ddltype").attr("disabled", "disabled");
                                     $("#ddlsubtype").attr("disabled", "disabled");
@@ -2675,6 +2694,7 @@
 
                                     $(".faltone").prop('checked', true);
                                     $(".appointeesclass").show();
+                                    $("#btnupdate").show();
 
                                 });
 
@@ -3110,12 +3130,12 @@
                             });
 
 
-       
-		
-		
-		
-		
-		
+
+
+
+
+
+
             $("#ddlcountry").change(function () {
         var value = $(this).children(":selected").attr("value");
                 var text = $("#ddlcountry option:selected").html();
@@ -3141,8 +3161,8 @@
 
 
             });
-										
-										
+
+
 
 
 
@@ -3163,7 +3183,7 @@
 
 
 
-                            					
+
                           $.ajax({
 
             type: "POST",
@@ -3173,14 +3193,14 @@
                 $('#altguaddlcountry').append(data);
             }
         });
-		
-		
+
+
 		/////////////////////////////////
-		
-		
-		
-		
-		
+
+
+
+
+
             $("#altguaddlcountry").change(function () {
         var value = $(this).children(":selected").attr("value");
                 var text = $("#altguaddlcountry option:selected").html();
@@ -3206,11 +3226,11 @@
 
 
             });
-										
-										
 
 
-        
+
+
+
 
 
                         </script>

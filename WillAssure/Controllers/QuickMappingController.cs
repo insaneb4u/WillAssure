@@ -207,9 +207,9 @@ namespace WillAssure.Controllers
             // beneficiary dropdown bind
 
 
-             string d = "";
+            string d = "";
 
-            d = "select * from BeneficiaryDetails where tid = "+Convert.ToInt32(Session["distid"])+"";
+            d = "select * from BeneficiaryDetails where tid = " + Convert.ToInt32(Session["distid"]) + "";
 
             string data11 = "<option value='0'>--Select--</option>";
             con.Open();
@@ -236,14 +236,14 @@ namespace WillAssure.Controllers
             //end
 
             int data = 1;
-            for (int i = 0; i <1; i++)
+            for (int i = 0; i < 1; i++)
             {
 
                 res += "<div class='card mb-2 border border-danger' id='accparent'>";
 
                 res += "<div class='card-header'>";
                 res += "<button type='button' class='btn btn-link shadow-none text-danger collapsed ' data-toggle='collapse' data-target='#accordio" + i + "' aria-expanded='false' aria-controls='collapse-23'>";
-             
+
                 res += "<input type='text' style='display:none;' id='txtassetcat" + i + "'  value='" + i + "' class='form-control' />";
                 res += "</button>";
                 res += "</div>";
@@ -252,8 +252,8 @@ namespace WillAssure.Controllers
 
                 res += "<div class='card-body'>";
                 res += "<div id='main-body" + i + "'>";
-               
-                res +="<div class='col-sm-3' id='type" + i + "'>";
+
+                res += "<div class='col-sm-3' id='type" + i + "'>";
 
                 res += "<div class='form-group'>";
                 res += "<label for='input-1'>Type</label>";
@@ -275,7 +275,7 @@ namespace WillAssure.Controllers
                 res += "<div class='col-sm-2'>";
                 res += "<div class='form-group' id='mainbeneddl" + i + "'>";
                 res += "<label for='input-1'>Beneficiary</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
-                res += "<select id='ddlbeneficiary" + i + "' onchange='checkbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control beneficiaryclass validate[required]'>"+ data11 + "</select>";
+                res += "<select id='ddlbeneficiary" + i + "' onchange='checkbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control beneficiaryclass validate[required]'>" + data11 + "</select>";
                 res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                 res += "</div>";
                 res += "</div>";
@@ -341,7 +341,7 @@ namespace WillAssure.Controllers
 
 
 
-           
+
 
 
 
@@ -542,9 +542,9 @@ namespace WillAssure.Controllers
                     catch (Exception)
                     {
 
-                        
+
                     }
-                 
+
                 }
             }
 
@@ -553,7 +553,7 @@ namespace WillAssure.Controllers
 
 
 
-           
+
 
 
             ModelState.Clear();
@@ -580,7 +580,7 @@ namespace WillAssure.Controllers
 
                 if (Session["doctype"].ToString() == "Will")
                 {
-                    checkfinancial = "select a.Beneficiary_Asset_ID , b.First_Name , c.First_Name as alternate , a.Proportion  from BeneficiaryAssets a inner join BeneficiaryDetails b on a.Beneficiary_ID=b.bpId inner join BeneficiaryDetails  c on a.alternatebid=c.bpId where a.Type = 1 and a.WillType = 'Quick' and  a.doctype='Will' and a.tid = " + Convert.ToInt32(Session["distid"])+" ";
+                    checkfinancial = "select a.Beneficiary_Asset_ID , b.First_Name , c.First_Name as alternate , a.Proportion  from BeneficiaryAssets a inner join BeneficiaryDetails b on a.Beneficiary_ID=b.bpId inner join BeneficiaryDetails  c on a.alternatebid=c.bpId where a.Type = 1 and a.WillType = 'Quick' and  a.doctype='Will' and a.tid = " + Convert.ToInt32(Session["distid"]) + " ";
                 }
 
                 if (Session["doctype"].ToString() == "POA")
@@ -680,7 +680,6 @@ namespace WillAssure.Controllers
 
 
 
-                
 
 
 
@@ -690,7 +689,8 @@ namespace WillAssure.Controllers
 
 
 
-            
+
+
             con.Close();
 
 
@@ -719,11 +719,11 @@ namespace WillAssure.Controllers
 
 
 
-         
 
-              
-                    checkfinancial = "select a.Beneficiary_Asset_ID , b.First_Name , c.First_Name as alternate , a.Proportion  from beneficiaryassets a inner join BeneficiaryDetails b on a.Beneficiary_ID=b.bpId inner join BeneficiaryDetails c on b.bpId=c.bpId where Type = 2 and a.WillType = 'Quick' and a.tid = " + Convert.ToInt32(Session["distid"]) + " ";
-               
+
+
+            checkfinancial = "select a.Beneficiary_Asset_ID , b.First_Name , c.First_Name as alternate , a.Proportion  from beneficiaryassets a inner join BeneficiaryDetails b on a.Beneficiary_ID=b.bpId inner join BeneficiaryDetails c on b.bpId=c.bpId where Type = 2 and a.WillType = 'Quick' and a.tid = " + Convert.ToInt32(Session["distid"]) + " ";
+
 
 
 
@@ -803,9 +803,9 @@ namespace WillAssure.Controllers
                 }
             }
 
-           
 
-         
+
+
 
 
 
@@ -842,7 +842,7 @@ namespace WillAssure.Controllers
 
 
 
-       
+
 
 
 

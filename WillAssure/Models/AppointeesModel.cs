@@ -69,7 +69,7 @@ namespace WillAssure.Models
         public string altDob { get; set; }
         public string altGender { get; set; }
         public string altOccupation { get; set; }
-
+        public string altddlcountry { get; set; }
         public string altRelationship { get; set; }
         public int altRelationshipId { get; set; }
         public string altRelationshipTxt { get; set; }

@@ -462,7 +462,7 @@
 
 
 
-            // schemename
+         // schemename
 
                 $.ajax({
 
@@ -500,6 +500,7 @@
 
 
             //end
+
 
 
 
@@ -614,7 +615,19 @@
 
 
 
+        $(document).on("click", "#alternatebtn", function () {
 
+            $("#field1").show();
+            $("#field2").show();
+            $("#field3").show();
+            $("#field4").show();
+
+            $("#checkaltbenestatus").val('true');
+
+            $("#alternatebtn").hide();
+
+
+        });
 
 
 
@@ -636,21 +649,19 @@
 
             var $rowdiv = $(this).closest('.rowdiv');
             var $prevdiv = $rowdiv.prev('.rowdiv');
-            var filter = $rowdiv.parent('div').parent('div').attr('id');
-            var parentaccordionid = filter.substring(9);
-
+            var parentaccordionid = $rowdiv.parent('div').parent('div').parent('div').parent('div').attr('id');
 
 
 
             var rr = $(this).attr('id');
             var f = rr.replace('txtproportion', '');
             // var temp = $("#txttotalval").val();
-            var temp = 100;
+            var temp = $(this).closest('.accordiondiv').find('.total_liability_petcare_proportion').val();
 
 
             var prevtotalinputval = $prevdiv.find('.totalinput').val();
 
-            $prevdiv.find('.proportioninput').attr("disabled","disabled");
+            $prevdiv.find('.proportioninput').prop('readonly', true);
 
 
 
@@ -658,9 +669,11 @@
 
             if (typeof prevtotalinputval === "undefined") {
 
-                prevtotalinputval = temp;
+                prevtotalinputval = 100;
             }
             var proportionvalue = $(this).val();
+
+            //$rowdiv.find("table").find("tr:first").find('.alt_totalinput').val(proportionvalue);
 
             if (prevtotalinputval != "") {
                 if (parseInt(prevtotalinputval) > parseInt(proportionvalue) || parseInt(prevtotalinputval) == parseInt(proportionvalue)  ) {
@@ -726,13 +739,16 @@
                     if ($rowdiv.find('.totalinput').val() != "") {
                         if ($rowdiv.find('.totalinput').val() > 0) {
 
-                            $('#main-body'+parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+                            //$('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+
                         } else {
-                            $('#main-body'+parentaccordionid).find('#btnmappingsubmit').removeAttr("disabled");
-                            $(".btnadd" + parentaccordionid + "").attr("disabled", "disabled");
+
+                            $('#' + parentaccordionid).find('#btnmappingsubmit').removeAttr("disabled");
+                            $(".btnadd" + f + "").attr("disabled", "disabled");
+
                         }
                     } else {
-                        $('#main-body' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+                        $('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
                     }
 
 
@@ -895,6 +911,7 @@
             var check = 'active';
             $(".beneficiaryclass").each(function () {
                 var myid = $(this).attr('id');
+
                 var myval = $('#' + myid).val();
                 if (id != myid) {
                     if (lang_name == myval && lang_name != '') {
@@ -1049,7 +1066,7 @@
 
         $(document).on("change", "#getvalone", function (e) {
 
-
+            $(".alt").hide();
             var myClass = $(this).attr("class");
 
             $("#parentdiv" + myClass + "").find(".rowdiv").not(':first').last().remove();
@@ -1062,7 +1079,7 @@
             $("#totaldiv" + myClass + "").hide();
 
 
-
+            $(".alternaterow").hide();
 
 
             $(".btn" + myClass + "").removeAttr("disabled");
@@ -1089,9 +1106,9 @@
 
 
             var myClass = $(this).attr("class");
+            $(".alternaterow").show();
 
-
-
+            $(".alt").show();
 
             $(".btnadd" + myClass).show();
             $(".btn" + myClass + "").attr("disabled","disabled");
@@ -1130,10 +1147,21 @@
 
         });
 
+
+
+        var cloneCount = 1;
         $(document).on("click", "#btnadd", function () {
 
             $(this).attr("disabled", "disabled");
             var btnnum = $(this).val();
+
+
+
+            var x = $(this).closest("#accordio1").find("#addalt:last").addClass("btn-"+cloneCount);
+
+         //   alert(x);
+
+
 
 
 
@@ -1145,7 +1173,20 @@
             var $clone = $("#parentdiv"+btnnum+"").find('.rowdiv:last').clone();
 
             var alternatebene = $("#parentdiv" + btnnum + "").find(".altbeneficiaryclass:last").val();
+            //remove all rows except first
+            $clone.find("table").find("tr:not(:last)").remove();
 
+            //get cloned table row;
+            var $getclonetabletr = $clone.find('table').find('tr');
+            $getclonetabletr.find('.alt_totalinput').val('100');
+            //add class to row
+            $getclonetabletr.addClass('rowclass');
+            //add disabled attribute to all elements in row
+            $getclonetabletr.each(function () {
+                $(this).find('td').each(function () {
+                    $(this).find('input,select').prop("disabled", true);
+                });
+            });
             if (alternatebene == "0") {
                 $("#query").append("0~")
             }
@@ -1364,7 +1405,7 @@
                     $.ajax({
 
                         type: "POST",
-                        url:"@Url.Action("InsertSingleAssetMappeddata", "QuickMapping")",
+                        url:"@Url.Action("InsertSingleAssetMappeddata", "AddAssetMapping")",
                         data: { "send": "" + data + "" },
                         success: function (data) {
 
@@ -1417,12 +1458,12 @@
                 }
                 else {
 
-                    var data = $("#query").val();
+                    @*var data = $("#query").val();
 
                     $.ajax({
 
                         type: "POST",
-                        url:"@Url.Action("InsertMultipleAssetMappeddata", "QuickMapping")",
+                        url:"@Url.Action("InsertMultipleAssetMappeddata", "AddAssetMapping")",
                         data: { data: data, assetcat: assetcat, tid: tid, btnidentify:btnidentify },
                         success: function (data) {
 
@@ -1450,7 +1491,7 @@
 
                             location.reload();
                         }
-                    });
+                    });*@
                 }
 
 
@@ -1463,6 +1504,25 @@
 
 
         });
+
+
+
+
+
+        /*$(document).on("click", ".btnaddalternate", function () {
+            var $rowdiv = $(this).closest('.rowdiv');
+
+            var $alternaterow = $rowdiv.find(".alternaterow");
+
+            var $clone = $alternaterow.clone();
+
+            $clone.insertAfter($alternaterow);
+           // $("#alternatefield").toggle();
+
+
+
+
+        });*/
 
 
         function getschemename(id) {
@@ -1513,7 +1573,7 @@
 
                 $("#btnmainassetsuccess").click(); //trigger event after listening to it.
 
-
+                $("#accparent").hide();
 
 
             });
@@ -1696,6 +1756,7 @@ function getDDLTestator(value) {
 
 
     </script>
+
     @*@if (Session["assettypeidforpetcare"] != null || Session["assetcategoryidforpetcare"] != null)
         {
             <script>
@@ -1725,6 +1786,7 @@ function getDDLTestator(value) {
               </script>
         }*@
 
+
     <script>
 
 
@@ -1747,6 +1809,244 @@ function getDDLTestator(value) {
 
 
         });
+        $(document).on('click', '.btnaddalternate', function () {
+
+            $("#checkaltbenestatus").val("true");
+
+            var val = $(this).closest("#accordio1").find(".beneficiaryclass:last").val();
+
+            $(this).closest("#accordio1").find(".txtcapclass:last").val(val);
+
+            var $tr = $(this).closest('tr');
+            var $numberofrows = $tr.closest('table > tbody > tr').length;
+            var rowelementbool = false;
+
+            if ($tr.hasClass('rowclass')) {
+
+                        rowelementbool = true;
+
+                    }
+
+           // console.log(rowelementbool);
+
+            var $lastTr = $tr.closest('table').find('tr:last');
+
+            var $clone = $lastTr.clone();
+            $('input[type=text]', $clone).val('');
+            $clone.find('td').each(function () {
+                var el = $(this).find(':first-child');
+                var id = el.attr('id') || null;
+
+                if (id) {
+
+                    //  var i = id.substr(id.length - 1);
+
+                    //code for geting only number from alphanumer string
+                    number = id.replace(/\D/g, ''); // a string of only digits, or the empty string
+                    var i = parseInt(number, 10); // now it's a numeric value
+
+                    //code for getting only alpha character from alphanumer string
+                    var prefix = id.replace(/[^a-zA-Z]/g, '');
+                    //var prefix = id.substr(0, (id.length - 1));
+
+                    el.attr('id', prefix + (+i + 1));
+
+                }
+            });
+            // insert a remove link in the last cell
+
+            if ($numberofrows == 1 && rowelementbool) {
+                //enable elements in current row if there is only row
+                $tr.each(function () {
+                    $(this).find('td').each(function () {
+                        $(this).find('input,select').prop("disabled", false);
+                        $tr.removeClass('rowclass');
+                    });
+                });
+            } else {
+                $('td:last-child', $lastTr).html('<a href="javascript:void(0);" class="btn btn-sm btn-danger remove removeDefault"><i class="fa fa-minus" aria-hidden="true"></i></a>');
+                $tr.closest('tbody').append($clone);
+            }
 
 
+            // add the remove function to the new row
+            $('a.remove', $lastTr).click(function () {
+
+                $(this).closest('tr').remove();
+                return false;
+            });
+
+        });
+        $('.removeDefault').click(function () {
+            $(this).closest('tr').remove();
+            return false;
+        });
+        function checkaltbeneficiaryduplicate(id) {
+            var dt = '';
+            var lang_name = $('#' + id).val();
+            var selectedtext = $("#" + id + " option:selected").text();
+            var i = id.substr(id.length - 1);
+
+            $(".altbeneficiaryclass ").each(function () {
+                var myid = $(this).attr('id');
+                var myval = $('#' + myid).val();
+                if (id != myid) {
+                    if (lang_name == myval && lang_name != '') {
+                        alert(selectedtext + ' already exists');
+                        $("#" + id).val('0');
+
+                       // $("#" + id).select2('val', '');
+                    }
+                }
+
+
+            });
+
+        }
+        $(document).on('keyup', '.alt_proportioninput', function () {
+
+            // linked bid
+            $getprimarybeneid = $(this).closest("#accordion8").find(".beneficiaryclass:last").val();
+
+
+            var thisid = $(this).attr('id');
+            var fid = thisid.replace('txtproportion', '');
+            var fid2 = thisid.replace('txtproportion', '');
+            fid = fid.substring(14);
+            fid2 = fid2.substring(13);
+
+            $("#alt_pr" + fid + "").val($getprimarybeneid);
+            $("#altpr" + fid2 + "").val($getprimarybeneid);
+
+          //end
+
+
+            var $rowdiv = $(this).closest('tr');
+            var $rowdiv1 = $(this).closest('tr').closest('.rowdiv');
+            var $prevdiv = $rowdiv.prev('tr');
+            var parentaccordionid = $rowdiv1.parent('div').parent('div').parent('div').parent('div').attr('id');
+
+            var rr = $(this).attr('id');
+            var f = rr.replace('txtproportion', '');
+
+            // var temp = $("#txttotalval").val();
+            //var temp = $rowdiv.find('.alt_totalinput').val();
+            var temp = 100;
+
+            var prevtotalinputval = $prevdiv.find('.alt_totalinput').val();
+
+            $prevdiv.find('.alt_proportioninput').prop('readonly', true);
+
+
+
+
+
+            if (typeof prevtotalinputval === "undefined") {
+
+                prevtotalinputval = temp;
+            }
+            var proportionvalue = $(this).val();
+
+            $rowdiv.find('.alt_totalinput').val(proportionvalue);
+
+            if (prevtotalinputval != "") {
+                if (parseInt(prevtotalinputval) > parseInt(proportionvalue) || parseInt(prevtotalinputval) == parseInt(proportionvalue)) {
+
+
+
+                    if (proportionvalue == "") {
+
+
+                        $(".btnadd" + f + "").attr("disabled", "disabled");
+                    }
+                    else {
+
+                        $(".btnadd" + f + "").removeAttr("disabled");
+                    }
+
+
+
+
+
+
+
+
+
+
+                    var t = $("#txttotalval").val();
+                    var result = "";
+
+
+
+                    // if ($rowdiv.find('.totalinput').val() == "") {
+
+                    $rowdiv.find('.alt_totalinput').val(temp - proportionvalue);
+
+                    if (temp != "100") {
+                        // alert('1st');
+                        var x = prevtotalinputval - proportionvalue;
+                        if (parseInt(proportionvalue) > prevtotalinputval) {
+                            alert('proportion value cannot be greater than ' + prevtotalinputval);
+                            $(this).val('');
+                            $rowdiv.find('.alt_totalinput').val('');
+                        } else {
+                            $rowdiv.find('.alt_totalinput').val(x);
+                        }
+
+                    }
+
+
+
+                    if (temp == "100") {
+                        // alert('2nd');
+
+                        var x = parseInt(prevtotalinputval) - proportionvalue;
+                        if (parseInt(proportionvalue) > parseInt(temp)) {
+                            alert('proportion value cannot be greater than ' + parseInt(temp));
+                            $(this).val('');
+                            $rowdiv.find('.alt_totalinput').val('');
+                        } else {
+                            $rowdiv.find('.alt_totalinput').val(x);
+                        }
+
+                    }
+                    if ($rowdiv.find('.alt_totalinput').val() != "") {
+                        if ($rowdiv.find('.alt_totalinput').val() > 0) {
+
+                            //$('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+
+                        } else {
+
+                            $('#' + parentaccordionid).find('#btnmappingsubmit').removeAttr("disabled");
+                            $(".btnadd" + f + "").attr("disabled", "disabled");
+
+                        }
+                    } else {
+                        $('#' + parentaccordionid).find('#btnmappingsubmit').attr("disabled", "disabled");
+                    }
+
+
+
+
+
+                }
+                else {
+
+                    alert("Proportion Value Cannot Be Greater Than Total...!");
+
+                    $(this).val("");
+                    var x = $rowdiv.find('.alt_totalinput').val("");
+
+
+                }
+
+
+                //$(this).id.attr("disabled","disabled");
+
+
+
+
+            }
+
+        });
     </script>

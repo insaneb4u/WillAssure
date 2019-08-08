@@ -291,11 +291,26 @@ namespace WillAssure.Controllers
                 res += "<label for='input-1'>Balance Proportion</label>";
                 res += "<input type='text' id='txttotal" + i + "' min=0  class='form-control totalinput' readonly />";
                 res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-466px;'  value='" + i + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
+                res += "<input type='text' id='txtcapbeneid' style='display:none;' name='txtcapbeneid' class='txtcapclass'  />";
                 res += "</div>";
+                res += "</div>";
+                res += "</br>";
+                res += "<div class='col-md-8 alternaterow'>";
+                res += "<table class='table tblalternaterow'>";
+                res += "<tr class='rowclass'>";
+
+
+                res += "<td><select disabled name='alt_proportion' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1' class='form-control altbeneficiaryclass disabledelement'></select></td>";
+                res += "<td><input disabled type='text' name='alt_proportion' id='alt_proportion1' class='form-control alt_proportioninput disabledelement'></td>";
+                res += "<td><input disabled type='text' name='alt_total'  id='alt_total1' value='100' class='form-control alt_totalinput disabledelement'></td>";
+                res += "<td><input disabled type='text' name='alt_proportion' style='display:none;' id='alt_pr1' class='form-control alt_propo disabledelement'></td>";
+                res += "<td><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add Alternate Beneficiary</button></td>";
+                res += "</tr>";
+                res += "</table>";
                 res += "</div>";
 
 
-                res += "<div class='col-sm-2'>";
+                res += "<div class='col-sm-2' id='alternatefield' style='display:none'>";
                 res += "<div class='form-group' id='mainbeneddl" + i + "'>";
                 res += "<label for='input-1' style='white-space:nowrap'>Alternate Beneficiary</label>";
                 res += "<select id='ddlbeneficiaryalt" + i + "' onchange='altcheckbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control altbeneficiaryclass '> " + data11 + " </select>";

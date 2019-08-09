@@ -1724,14 +1724,30 @@
 
       $(document).ready(function () {
 
-        @*$.ajax({
 
-            type: "POST",
-            url:"@Url.Action("BindStateDDL", "Addwitness")",
-            success: function (data) {
-                $('#altddlstate').append(data);
-            }
-        });*@
+          if ($("#txtaddress2").val() == "None") {
+
+              $("#txtaddress2").val("")
+          }
+
+          if ($("#txtaddress3").val() == "None") {
+
+              $("#txtaddress3").val("")
+          }
+
+
+
+
+          if ($("#wtxtaddress2").val() == "None") {
+
+              $("#wtxtaddress2").val("")
+          }
+
+          if ($("#wtxtaddress3").val() == "None") {
+
+              $("#wtxtaddress3").val("")
+          }
+       
 
 
             $.ajax({
@@ -2180,6 +2196,7 @@
 
                         $("#btnmore").click(function () {
 
+                            $("#btneditmsg").hide();
 
                             $('#ddlcountry').val('C').trigger('change');
                             $('#ddlstate').val('S').trigger('change');
@@ -2446,7 +2463,7 @@
                             $('#ddlstate').val('S').trigger('change');
                             $('#ddlcity').val('Ct').trigger('change');
 
-
+                            $("#btneditmsg").hide();
 
                             $('#altddlcountry').val('altC').trigger('change');
                             $('#altddlstate').val('altS').trigger('change');

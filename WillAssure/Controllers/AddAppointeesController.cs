@@ -332,8 +332,19 @@ namespace WillAssure.Controllers
                             Am.Occupation = dt.Rows[i]["Occupation"].ToString();
                             Am.RelationshipTxt = dt.Rows[i]["Relationship"].ToString();
                             Am.Address1 = dt.Rows[i]["Address1"].ToString();
-                            Am.Address2 = dt.Rows[i]["Address2"].ToString();
-                            Am.Address3 = dt.Rows[i]["Address3"].ToString();
+
+                            if (dt.Rows[i]["Address2"].ToString() != "None")
+                            {
+                                Am.Address2 = dt.Rows[i]["Address2"].ToString();
+                            }
+
+
+
+
+                            if (dt.Rows[i]["Address3"].ToString() != "None")
+                            {
+                                Am.Address3 = dt.Rows[i]["Address3"].ToString();
+                            }
 
                             Am.country_txt = dt.Rows[i]["Country"].ToString();
                             bool containsInt = Am.country_txt.Any(char.IsDigit);
@@ -496,8 +507,20 @@ namespace WillAssure.Controllers
                         Am.altOccupation = dt2.Rows[i]["Occupation"].ToString();
                         Am.altRelationshipTxt = dt2.Rows[i]["Relationship"].ToString();
                         Am.altAddress1 = dt2.Rows[i]["Address1"].ToString();
-                        Am.altAddress2 = dt2.Rows[i]["Address2"].ToString();
-                        Am.altAddress3 = dt2.Rows[i]["Address3"].ToString();
+
+
+                        if (dt2.Rows[i]["Address2"].ToString() != "None")
+                        {
+                            Am.altAddress2 = dt2.Rows[i]["Address2"].ToString();
+                        }
+
+                        if (dt2.Rows[i]["Address3"].ToString() != "None")
+                        {
+                            Am.altAddress3 = dt2.Rows[i]["Address3"].ToString();
+                        }
+
+
+                        
                      
                    
                            

@@ -1718,6 +1718,18 @@
                     $("#guaAlt_Identity_Proof_Value").val("")
                 }
 
+
+
+                if ($("#txtAddress2").val() == "None") {
+
+                    $("#txtAddress2").val("")
+                }
+
+                if ($("#txtAddress3").val() == "None") {
+
+                    $("#txtAddress3").val("")
+                }
+
                 
 
 
@@ -3245,7 +3257,7 @@
                 $('#ddlstate').val('').trigger('change');
                 $('#ddlcity').val('').trigger('change');
 
-
+                $("#btneditmsg").hide();
 
 
                 $("#btnupdate").hide();
@@ -3377,7 +3389,7 @@
                 $('#ddlcity').val('').trigger('change');
 
 
-
+                $("#btneditmsg").hide();
 
                 $("#btnupdate").hide();
 

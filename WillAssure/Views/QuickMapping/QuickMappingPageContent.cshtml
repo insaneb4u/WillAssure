@@ -161,7 +161,7 @@
                                     <input type="hidden" id="txtcount" name="name" value="" />
                                 </div>
                                 <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><a href="@Url.Action("EditBeneficiaryMappingIndex", "EditBeneficiaryMapping")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
-
+                                <input type="text" id="checkaltbenestatus" name="checkaltbenestatus" style="display:none;" value="" />
                             </div>
                             @*<div class="row">
 
@@ -257,9 +257,11 @@
 
 
                                 <div class="col-lg-12">
-                                    <div id="accordion8">
+                                    <form>
+                                        <div id="accordion8">
 
-                                    </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
 
@@ -370,10 +372,23 @@
 
         $(document).ready(function () {
 
+            if ($("#getvalone").prop("checked", true)) {
+
+
+      
 
 
 
+                $(".alt").hide();
 
+                $("#checking").val("Single");
+
+                $(".alternaterow").hide();
+
+            }
+
+
+            $(".multiple").hide();
 
 
 
@@ -905,6 +920,8 @@
 
         function checkbeneficiaryduplicate(id, value) {
 
+
+
             var dt = '';
             var lang_name = $('#' + id).val();
             var selectedtext = $("#" + id + " option:selected").text();
@@ -1066,6 +1083,12 @@
 
         $(document).on("change", "#getvalone", function (e) {
 
+
+    
+            $(".multiple").hide();
+
+            $("#checking").val("Single");
+
             $(".alt").hide();
             var myClass = $(this).attr("class");
 
@@ -1102,8 +1125,11 @@
 
         $(document).on("change", "#getvaltwo", function () {
 
+            $(".single").hide();
+            $(".multiple").show();
 
 
+            $("#checking").val("Multiple");
 
             var myClass = $(this).attr("class");
             $(".alternaterow").show();
@@ -1368,7 +1394,7 @@
         }
 
 
-        $(document).on("click", "#btnmappingsubmit", function () {
+        @*$(document).on("click", "#btnmappingsubmit", function () {
 
             var btnidentify = $(this).val();
 
@@ -1456,7 +1482,7 @@
 
                     alert('Please Fill Out Manadatory Field');
                 }
-                else {
+                else {*@
 
                     @*var data = $("#query").val();
 
@@ -1492,18 +1518,18 @@
                             location.reload();
                         }
                     });*@
-                }
+        //        }
 
 
 
 
-            }
+        //    }
 
 
 
 
 
-        });
+        //});
 
 
 
@@ -1562,7 +1588,7 @@
         }
 
     </script>
-    @if (ViewBag.Message == "Verified")
+    @if (ViewBag.Message == "Single")
     {
         <script>
 
@@ -1574,6 +1600,47 @@
                 $("#btnmainassetsuccess").click(); //trigger event after listening to it.
 
                 $("#accparent").hide();
+
+
+
+ 
+
+                location.reload();
+
+
+
+
+            });
+        </script>
+
+    }
+
+
+
+
+
+    @if (ViewBag.Message == "Multiple")
+    {
+        <script>
+
+            $(document).ready(function () {
+
+
+                $("#btnmainassetsuccess").on("click", function () { });
+
+                $("#btnmainassetsuccess").click(); //trigger event after listening to it.
+
+                $("#accparent").hide();
+
+
+
+
+
+
+                location.reload();
+
+
+
 
 
             });
@@ -1813,9 +1880,9 @@ function getDDLTestator(value) {
 
             $("#checkaltbenestatus").val("true");
 
-            var val = $(this).closest("#accordio1").find(".beneficiaryclass:last").val();
+            var val = $(this).closest("#accordio0").find(".beneficiaryclass:last").val();
 
-            $(this).closest("#accordio1").find(".txtcapclass:last").val(val);
+            $(this).closest("#accordio0").find(".txtcapclass:last").val(val);
 
             var $tr = $(this).closest('tr');
             var $numberofrows = $tr.closest('table > tbody > tr').length;

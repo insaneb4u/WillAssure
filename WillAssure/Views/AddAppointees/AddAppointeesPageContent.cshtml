@@ -985,7 +985,7 @@
                                 @if (Session["distid"] != null)
                                 {
 
-                                    <button type="submit" id="btnDistributorformsubmit" formaction="InsertAppointeesFormData" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
+                                    <button type="submit" id="btnDistributorformsubmit" formaction="@Url.Action("InsertAppointeesFormData","AddAppointees")" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
                                     <button type="submit" id="btnupdate" style="display:none;" formaction="UpdateAppointees" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
 
                                     @*<input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />*@
@@ -2164,7 +2164,12 @@
 
                                 $(document).ready(function () {
 
+
+
+
+
                                     $("#btnupdate").show();
+                                    $("#btnnext").show();
 
                                     $("#ddltype").attr("disabled", "disabled");
                                     $("#ddlsubtype").attr("disabled", "disabled");
@@ -2230,7 +2235,7 @@
                                 $("#btnfieldedit").hide();
                                 $("#btneditmsg").show();
                                 $("#btnupdate").show();
-
+                                $("#btnnext").show();
 
 
 

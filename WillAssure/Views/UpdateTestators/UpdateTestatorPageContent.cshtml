@@ -1025,6 +1025,18 @@
 
     $(document).ready(function () {
 
+        if ($("#txtaddress2").val() == "None") {
+
+            $("#txtaddress2").val("")
+        }
+
+        if ($("#txtaddress3").val() == "None") {
+
+            $("#txtaddress3").val("")
+        }
+
+
+
         $.ajax({
 
             type: "POST",

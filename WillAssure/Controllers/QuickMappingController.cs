@@ -25,9 +25,9 @@ namespace WillAssure.Controllers
         {
             if (TempData["Message"] != null)
             {
-                if (TempData["Message"].ToString() == "true")
+                if (TempData["Message"].ToString() != "")
                 {
-                    ViewBag.Message = "Verified";
+                    ViewBag.Message = TempData["Message"].ToString();
                 }
             }
 
@@ -204,157 +204,177 @@ namespace WillAssure.Controllers
             string res = "";
 
 
-            // beneficiary dropdown bind
-
-
-            string d = "";
-
-            d = "select * from BeneficiaryDetails where tid = " + Convert.ToInt32(Session["distid"]) + "";
-
-            string data11 = "<option value='0'>--Select--</option>";
             con.Open();
-
-            SqlDataAdapter da11 = new SqlDataAdapter(d, con);
-            DataTable dt11 = new DataTable();
-            da11.Fill(dt11);
+            string qut = "select Proportion from BeneficiaryAssets where tid = "+ Convert.ToInt32(Session["distid"]) + " and documentstatus = 'Incompleted'";
+            SqlDataAdapter daqt = new SqlDataAdapter(qut,con);
+            DataTable dtq = new DataTable();
+            daqt.Fill(dtq);
             con.Close();
 
 
-            if (dt11.Rows.Count > 0)
+            if (dtq.Rows.Count > 0)
             {
 
-                for (int k = 0; k < dt11.Rows.Count; k++)
+            }
+            else
+            {
+                // beneficiary dropdown bind
+
+
+                string d = "";
+
+                d = "select * from BeneficiaryDetails where tid = " + Convert.ToInt32(Session["distid"]) + "";
+
+                string data11 = "<option value='0'>--Select--</option>";
+                con.Open();
+
+                SqlDataAdapter da11 = new SqlDataAdapter(d, con);
+                DataTable dt11 = new DataTable();
+                da11.Fill(dt11);
+                con.Close();
+
+
+                if (dt11.Rows.Count > 0)
                 {
 
-                    data11 = data11 + "<option value=" + dt11.Rows[k]["bpId"] + ">" + dt11.Rows[k]["First_Name"] + "</option>";
+                    for (int k = 0; k < dt11.Rows.Count; k++)
+                    {
+
+                        data11 = data11 + "<option value=" + dt11.Rows[k]["bpId"] + ">" + dt11.Rows[k]["First_Name"] + "</option>";
+
+                    }
 
                 }
 
+
+                //end
+
+                int data = 1;
+                for (int i = 0; i < 1; i++)
+                {
+
+                    res += "<div class='card mb-2 border border-danger' id='accparent'>";
+
+                    res += "<div class='card-header'>";
+                    res += "<button type='button' class='btn btn-link shadow-none text-danger collapsed ' data-toggle='collapse' data-target='#accordio" + i + "' aria-expanded='false' aria-controls='collapse-23'>";
+
+                    res += "<input type='text' style='display:none;' id='txtassetcat" + i + "'  name='txtassetcat'  value='" + i + "' class='form-control' />";
+                    res += "</button>";
+                    res += "</div>";
+                    res += "<div id='accordio" + i + "' class='collapse show  accordiondiv' data-parent='#accordion8'>";
+
+
+                    res += "<div class='card-body'>";
+                    res += "<div id='main-body" + i + "'>";
+
+                    res += "<div class='col-sm-3' id='type" + i + "'>";
+
+                    res += "<div class='form-group'>";
+                    res += "<label for='input-1'>Type</label>";
+                    res += "<br />";
+
+                    res += "<label class='radio-inline'>";
+                    res += "<input type='radio' id='getvalone' class=" + i + " name='optradio' value='Single' checked>Single";
+                    res += "</label>";
+                    res += "<label class='radio-inline'>";
+                    res += "<input type='radio' id='getvaltwo' class=" + i + " name='optradio' value='Multiple'  >Multiple";
+                    res += "</label>";
+                    res += "<input type='hidden' name='checking' id='checking' value='Single' />";
+                    res += "</div>";
+                    res += "</div>";
+                    res += "<div id='parentdiv" + i + "'  class='test'>";
+                    res += "<div class='row rowdiv' id='beneficiarydetails' >";
+
+                    res += "&nbsp;&nbsp;&nbsp;&nbsp;";
+                    res += "<div class='col-sm-2'>";
+                    res += "<div class='form-group' id='mainbeneddl" + i + "'>";
+                    res += "<label for='input-1'>Beneficiary</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
+                    res += "<select id='ddlbeneficiary" + i + "' onchange='checkbeneficiaryduplicate(this.id,this.value)' name='multiproportion' class='form-control beneficiaryclass validate[required]'>" + data11 + "</select>";
+
+                    res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
+                    res += "</div>";
+                    res += "</div>";
+
+                    res += "<div class='col-sm-2 grandparent'>";
+                    res += "<div class='form-group parent'>";
+                    res += "<label for='input-1'>Proportion</label><span id='errproportion' style='color:red;display:;'>(*)</span>";
+
+                    res += "<input type='text' autocomplete='off' class='form-control proportioninput validate[required] multiple'  onkeypress='return isNumberKey(event)'   onchange='gettxtproportion(this.id,this.value)' name='multiproportion'  id='txtproportion" + i + "' />";
+                    res += "</div>";
+                    res += "</div>";
+                    res += "<div class='col-sm-2' id='totaldiv" + i + "'>";
+                    res += "<div class='form-group start'>";
+                    res += "<label for='input-1'>Balance Proportion</label>";
+                    res += "<input type='text' id='txttotal" + i + "' min=0  class='form-control totalinput' readonly />";
+                    res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-466px;'  value='" + i + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
+                    res += "<input type='text' id='txtcapbeneid' style='display:none;' name='txtcapbeneid' class='txtcapclass'  />";
+                    res += "</div>";
+                    res += "</div>";
+                    res += "</br>";
+                    res += "<div class='col-md-8 alternaterow' style='display:none;'>";
+                    res += "<table class='table tblalternaterow'>";
+                    res += "<tr class='rowclass'>";
+
+
+                    res += "<td><select disabled name='alt_proportion' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1' class='form-control altbeneficiaryclass disabledelement'>" + data11 + "</select></td>";
+                    res += "<td><input disabled type='text' name='alt_proportion' id='alt_proportion1' class='form-control alt_proportioninput disabledelement'></td>";
+                    res += "<td><input disabled type='text' name='alt_total'  id='alt_total1' value='100' class='form-control alt_totalinput disabledelement'></td>";
+                    res += "<td><input disabled type='text' name='alt_proportion' style='display:none;' value='0' id='alt_pr1' class='form-control alt_propo disabledelement'></td>";
+                    res += "<td><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add Alternate Beneficiary</button></td>";
+                    res += "</tr>";
+                    res += "</table>";
+                    res += "</div>";
+
+
+                    res += "<div class='col-sm-2' id='alternatefield' style='display:none'>";
+                    res += "<div class='form-group' id='mainbeneddl" + i + "'>";
+                    res += "<label for='input-1' style='white-space:nowrap'>Alternate Beneficiary</label>";
+                    res += "<select id='ddlbeneficiaryalt" + i + "' onchange='altcheckbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control altbeneficiaryclass '> " + data11 + " </select>";
+                    res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
+                    res += "</div>";
+                    res += "</div>";
+
+
+
+
+                    res += "<div class='col-sm-2' id='singlepropo" + i + "' style='display:none;'>";
+                    res += "<div class='form-group start'>";
+                    res += "<label for='input-1'>single Proportion</label>";
+                    res += "<input type='text' id='txtsingleproportion" + i + "' name='multiproportion' Value='100'  class='form-control singleproportion' readonly />";
+
+                    res += "</div>";
+                    res += "</div>";
+
+
+
+
+
+
+
+
+
+
+                    res += "</div>";
+                    res += "</div>";
+
+
+                    res += "<div class='form-group'>";
+                    res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='submit'   formaction='InsertMultipleAssetMappeddata' id='btnmappingsubmit' value=" + i + "  class='btn btn-primary shadow-primary px-5 btn" + i + "'><i class='icon-lock'></i>Submit</button>";
+                    res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' id='btnadd'   value='" + i + "' style='display:none;' disabled='disabled'    class='btn btn-success shadow-primary px-5 btnadd" + i + "'><i class='icon-lock'></i>Add Multiple</button>";
+                    res += "&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' value='Reset' class='btn btn-danger' id='btnreset' />";
+                    res += "</div>";
+                    res += "</div>";
+                    res += "</div>";
+                    res += "</div>";
+                    res += "</div>";
+
+                }
+
+
+
+
+
             }
-
-
-            //end
-
-            int data = 1;
-            for (int i = 0; i < 1; i++)
-            {
-
-                res += "<div class='card mb-2 border border-danger' id='accparent'>";
-
-                res += "<div class='card-header'>";
-                res += "<button type='button' class='btn btn-link shadow-none text-danger collapsed ' data-toggle='collapse' data-target='#accordio" + i + "' aria-expanded='false' aria-controls='collapse-23'>";
-
-                res += "<input type='text' style='display:none;' id='txtassetcat" + i + "'  value='" + i + "' class='form-control' />";
-                res += "</button>";
-                res += "</div>";
-                res += "<div id='accordio" + i + "' class='collapse show  accordiondiv' data-parent='#accordion8'>";
-
-
-                res += "<div class='card-body'>";
-                res += "<div id='main-body" + i + "'>";
-
-                res += "<div class='col-sm-3' id='type" + i + "'>";
-
-                res += "<div class='form-group'>";
-                res += "<label for='input-1'>Type</label>";
-                res += "<br />";
-                res += "<form id='testatorform'>";
-                res += "<label class='radio-inline'>";
-                res += "<input type='radio' id='getvalone' class=" + i + " name='optradio' value='Single' checked>Single";
-                res += "</label>";
-                res += "<label class='radio-inline'>";
-                res += "<input type='radio' id='getvaltwo' class=" + i + " name='optradio' value='Multiple'  >Multiple";
-                res += "</label>";
-                res += "</form>";
-                res += "</div>";
-                res += "</div>";
-                res += "<div id='parentdiv" + i + "'  class='test'>";
-                res += "<div class='row rowdiv' id='beneficiarydetails' >";
-
-                res += "&nbsp;&nbsp;&nbsp;&nbsp;";
-                res += "<div class='col-sm-2'>";
-                res += "<div class='form-group' id='mainbeneddl" + i + "'>";
-                res += "<label for='input-1'>Beneficiary</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
-                res += "<select id='ddlbeneficiary" + i + "' onchange='checkbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control beneficiaryclass validate[required]'>" + data11 + "</select>";
-                res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
-                res += "</div>";
-                res += "</div>";
-
-                res += "<div class='col-sm-2 grandparent'>";
-                res += "<div class='form-group parent'>";
-                res += "<label for='input-1'>Proportion</label><span id='errproportion' style='color:red;display:;'>(*)</span>";
-                res += "<input type='text' autocomplete='off' class='form-control proportioninput validate[required]'  onkeypress='return isNumberKey(event)'   onchange='gettxtproportion(this.id,this.value)' name='rank' id='txtproportion" + i + "' />";
-                res += "</div>";
-                res += "</div>";
-                res += "<div class='col-sm-2' id='totaldiv" + i + "'>";
-                res += "<div class='form-group start'>";
-                res += "<label for='input-1'>Balance Proportion</label>";
-                res += "<input type='text' id='txttotal" + i + "' min=0  class='form-control totalinput' readonly />";
-                res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-466px;'  value='" + i + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
-                res += "<input type='text' id='txtcapbeneid' style='display:none;' name='txtcapbeneid' class='txtcapclass'  />";
-                res += "</div>";
-                res += "</div>";
-                res += "</br>";
-                res += "<div class='col-md-8 alternaterow'>";
-                res += "<table class='table tblalternaterow'>";
-                res += "<tr class='rowclass'>";
-
-
-                res += "<td><select disabled name='alt_proportion' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1' class='form-control altbeneficiaryclass disabledelement'></select></td>";
-                res += "<td><input disabled type='text' name='alt_proportion' id='alt_proportion1' class='form-control alt_proportioninput disabledelement'></td>";
-                res += "<td><input disabled type='text' name='alt_total'  id='alt_total1' value='100' class='form-control alt_totalinput disabledelement'></td>";
-                res += "<td><input disabled type='text' name='alt_proportion' style='display:none;' id='alt_pr1' class='form-control alt_propo disabledelement'></td>";
-                res += "<td><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add Alternate Beneficiary</button></td>";
-                res += "</tr>";
-                res += "</table>";
-                res += "</div>";
-
-
-                res += "<div class='col-sm-2' id='alternatefield' style='display:none'>";
-                res += "<div class='form-group' id='mainbeneddl" + i + "'>";
-                res += "<label for='input-1' style='white-space:nowrap'>Alternate Beneficiary</label>";
-                res += "<select id='ddlbeneficiaryalt" + i + "' onchange='altcheckbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control altbeneficiaryclass '> " + data11 + " </select>";
-                res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
-                res += "</div>";
-                res += "</div>";
-
-
-
-
-                res += "<div class='col-sm-2' id='singlepropo" + i + "' style='display:none;'>";
-                res += "<div class='form-group start'>";
-                res += "<label for='input-1'>single Proportion</label>";
-                res += "<input type='text' id='txtsingleproportion" + i + "' Value='100'  class='form-control' readonly />";
-
-                res += "</div>";
-                res += "</div>";
-
-
-
-
-
-
-
-
-
-
-                res += "</div>";
-                res += "</div>";
-
-
-                res += "<div class='form-group'>";
-                res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' id='btnmappingsubmit' value=" + i + "  class='btn btn-primary shadow-primary px-5 btn" + i + "'><i class='icon-lock'></i>Submit</button>";
-                res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' id='btnadd'   value='" + i + "' style='display:none;' disabled='disabled'    class='btn btn-success shadow-primary px-5 btnadd" + i + "'><i class='icon-lock'></i>Add Multiple</button>";
-                res += "&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' value='Reset' class='btn btn-danger' id='btnreset' />";
-                res += " </div>";
-                res += " </div>";
-                res += " </div>";
-                res += " </div>";
-                res += " </div>";
-
-            }
-
-
 
 
 
@@ -362,6 +382,529 @@ namespace WillAssure.Controllers
 
 
             return Json(res);
+        }
+
+
+
+
+
+        [HttpPost]
+        public ActionResult InsertMultipleAssetMappeddata(FormCollection collection)
+        {
+            string collect = collection["checking"].ToString();
+
+            if (collection["checking"] == "Single")
+            {
+                string propo = collection["multiproportion"].ToString();
+                propo = propo.Replace(",,", ",");
+
+                string querydy = "";
+
+
+                string assetcatid = "";
+                string assettypeid = "";
+                string combine = "";
+
+                con.Open();
+                string getassettype = "select amId , atId from AssetsCategory where AssetsCategory =  '" + collection["txtassetcat"].ToString() + "' ";
+                SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
+                DataTable atdt = new DataTable();
+                atda.Fill(atdt);
+                if (atdt.Rows.Count > 0)
+                {
+                    assetcatid = atdt.Rows[0]["amId"].ToString();
+                    assettypeid = atdt.Rows[0]["atId"].ToString();
+
+                }
+                con.Close();
+
+                combine = collection["txtassetcat"].ToString() + assetcatid;
+
+
+
+
+                ArrayList result = new ArrayList(propo.Split(','));
+                string data = "";
+
+                int getcount = 0;
+
+                con.Open();
+                for (int i = 0; i <= result.Count; i++)
+                {
+                    //getcount = count++;
+                    try
+                    {
+                        if (result[i].ToString() == "")
+                        {
+                            continue;
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+
+
+                    //if (getcount == change)
+
+                    // dynamic appointees
+                    if (getcount == 2)
+                    {
+
+
+
+                        data = data.Remove(data.Length - 1, 1);
+
+                        querydy = "insert BeneficiaryAssets (Beneficiary_ID ,Proportion , tid  , doctype,Type,Category,documentstatus,WillType) values(" + data + " , " + Session["distid"].ToString() + "  , '" + Session["doctype"].ToString() + "', 1  ,'" + combine + "' , 'incompleted','" + Session["WillType"].ToString() + "' ) ";
+                        SqlCommand cmdy = new SqlCommand(querydy, con);
+                        cmdy.ExecuteNonQuery();
+                        getcount = 1;
+
+                        data = "";
+                        //  change = 10;
+                        // count = 3;
+
+                        try
+                        {
+                            data = "" + result[i].ToString() + ",";
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+
+
+
+
+
+
+                        continue;
+                    }
+                    else
+                    {
+
+
+
+                        try
+                        {
+                            data += "" + result[i].ToString() + ",";
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+
+                    }
+                    getcount++;
+                    //end
+
+
+
+
+
+
+
+                    //end
+
+
+
+                }
+                con.Close();
+
+
+
+
+
+                if (collection["checkaltbenestatus"].ToString() == "true")
+                {
+
+
+                    string querydy2 = "";
+                    string altbene = collection["alt_proportion"].ToString();
+                    string linkid = collection["txtcapbeneid"].ToString();
+
+
+
+
+
+                    string firstValue = result[0].ToString();
+                    ArrayList result2 = new ArrayList(altbene.Split(','));
+                    string data2 = "";
+
+                    int getcount2 = 0;
+
+                    con.Open();
+                    for (int i = 0; i <= result2.Count; i++)
+                    {
+                        //getcount = count++;
+                        try
+                        {
+                            if (result2[i].ToString() == "")
+                            {
+                                if ((result2.IndexOf(result2) != 0))
+                                {
+                                    data2 += linkid;
+                                }
+
+
+                                continue;
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+
+
+
+                        //if (getcount == change)
+
+                        // dynamic appointees
+                        if (getcount2 == 3)
+                        {
+
+
+
+                            data2 = data2.Remove(data2.Length - 1, 1);
+
+                            querydy2 = "insert into alternate_Beneficiaryassets (alternatebenefciaryid ,alternateproportion,linkedbid,WillType) values (" + data2 + ",'Quick') ";
+                            SqlCommand cmdy2 = new SqlCommand(querydy2, con);
+                            cmdy2.ExecuteNonQuery();
+                            getcount2 = 1;
+
+                            data2 = "";
+                            //  change = 10;
+                            // count = 3;
+
+                            try
+                            {
+                                data2 = "" + result2[i].ToString() + ",";
+                            }
+                            catch (Exception)
+                            {
+
+
+                            }
+
+
+
+
+
+
+                            continue;
+                        }
+                        else
+                        {
+
+
+
+                            try
+                            {
+                                data2 += "" + result2[i].ToString() + ",";
+                            }
+                            catch (Exception)
+                            {
+
+
+                            }
+
+
+
+                        }
+                        getcount2++;
+                        //end
+
+
+
+
+
+
+
+                        //end
+
+
+
+                    }
+                    con.Close();
+
+                }
+            }
+            else
+            {
+                string propo = collection["multiproportion"].ToString();
+               
+
+
+                string querydy = "";
+
+
+                string assetcatid = "";
+                string assettypeid = "";
+                string combine = "";
+
+                con.Open();
+                string getassettype = "select amId , atId from AssetsCategory where AssetsCategory =  '" + collection["txtassetcat"].ToString() + "' ";
+                SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
+                DataTable atdt = new DataTable();
+                atda.Fill(atdt);
+                if (atdt.Rows.Count > 0)
+                {
+                    assetcatid = atdt.Rows[0]["amId"].ToString();
+                    assettypeid = atdt.Rows[0]["atId"].ToString();
+
+                }
+                con.Close();
+
+                combine = collection["txtassetcat"].ToString() + assetcatid;
+
+
+
+
+                ArrayList result = new ArrayList(propo.Split(','));
+                string data = "";
+
+                int getcount = 0;
+
+                con.Open();
+                for (int i = 0; i <= result.Count; i++)
+                {
+                    //getcount = count++;
+                    try
+                    {
+                        if (result[i].ToString() == "")
+                        {
+                            continue;
+                        }
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+
+
+                    //if (getcount == change)
+
+                    // dynamic appointees
+                    if (getcount == 2)
+                    {
+
+
+
+                        data = data.Remove(data.Length - 1, 1);
+
+                        querydy = "insert BeneficiaryAssets (Beneficiary_ID ,Proportion , tid  , doctype,Type,Category,documentstatus,WillType) values(" + data + " , " + Session["distid"].ToString() + "  , '" + Session["doctype"].ToString() + "', 2  ,'" + combine + "' , 'incompleted','" + Session["WillType"].ToString() + "' ) ";
+                        SqlCommand cmdy = new SqlCommand(querydy, con);
+                        cmdy.ExecuteNonQuery();
+                        getcount = 1;
+
+                        data = "";
+                        //  change = 10;
+                        // count = 3;
+
+                        try
+                        {
+                            data = "" + result[i].ToString() + ",";
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+
+
+
+
+
+
+                        continue;
+                    }
+                    else
+                    {
+
+
+
+                        try
+                        {
+                            data += "" + result[i].ToString() + ",";
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+
+                    }
+                    getcount++;
+                    //end
+
+
+
+
+
+
+
+                    //end
+
+
+
+                }
+                con.Close();
+
+
+
+
+
+                if (collection["checkaltbenestatus"].ToString() == "true")
+                {
+
+
+                    string querydy2 = "";
+                    string altbene = collection["alt_proportion"].ToString();
+                    string linkid = collection["txtcapbeneid"].ToString();
+
+
+
+
+
+                    string firstValue = result[0].ToString();
+                    ArrayList result2 = new ArrayList(altbene.Split(','));
+                    string data2 = "";
+
+                    int getcount2 = 0;
+
+                    con.Open();
+                    for (int i = 0; i <= result2.Count; i++)
+                    {
+                        //getcount = count++;
+                        try
+                        {
+                            if (result2[i].ToString() == "")
+                            {
+                                if ((result2.IndexOf(result2) != 0))
+                                {
+                                    data2 += linkid;
+                                }
+
+
+                                continue;
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
+
+
+
+                        //if (getcount == change)
+
+                        // dynamic appointees
+                        if (getcount2 == 3)
+                        {
+
+
+
+                            data2 = data2.Remove(data2.Length - 1, 1);
+
+                            querydy2 = "insert into alternate_Beneficiaryassets (alternatebenefciaryid ,alternateproportion,linkedbid,WillType) values (" + data2 + ",'Quick') ";
+                            SqlCommand cmdy2 = new SqlCommand(querydy2, con);
+                            cmdy2.ExecuteNonQuery();
+                            getcount2 = 1;
+
+                            data2 = "";
+                            //  change = 10;
+                            // count = 3;
+
+                            try
+                            {
+                                data2 = "" + result2[i].ToString() + ",";
+                            }
+                            catch (Exception)
+                            {
+
+
+                            }
+
+
+
+
+
+
+                            continue;
+                        }
+                        else
+                        {
+
+
+
+                            try
+                            {
+                                data2 += "" + result2[i].ToString() + ",";
+                            }
+                            catch (Exception)
+                            {
+
+
+                            }
+
+
+
+                        }
+                        getcount2++;
+                        //end
+
+
+
+
+
+
+
+                        //end
+
+
+
+                    }
+                    con.Close();
+
+                }
+            }
+
+
+
+            
+
+
+
+
+            // if records submitted change status for assetinformation
+            con.Close();
+            con.Open();
+            string query2 = "update assetinformation set Remark ='Completed' where tid = " + Convert.ToInt32(Session["distid"]) + "  and WillType='Quick'";
+            SqlCommand cmd2 = new SqlCommand(query2, con);
+            cmd2.ExecuteNonQuery();
+            con.Close();
+            //end
+
+            if (collect == "")
+            {
+                TempData["Message"] = "Single";
+            }
+            else
+            {
+                TempData["Message"] = collect;
+            }
+            
+
+
+            return RedirectToAction("Index", "QuickMapping");
         }
 
 
@@ -478,102 +1021,102 @@ namespace WillAssure.Controllers
 
 
 
-        public JsonResult InsertMultipleAssetMappeddata(string data, string assetcat, string tid, string btnidentify)
-        {
+        //public JsonResult InsertMultipleAssetMappeddata(string data, string assetcat, string tid, string btnidentify)
+        //{
 
 
-            ViewBag.collapse = "true";
-            // roleassignment
-            List<LoginModel> Lmlist = new List<LoginModel>();
-            con.Open();
-            string q = "select * from Assignment_Roles where RoleId = " + Convert.ToInt32(Session["rId"]) + "";
-            SqlDataAdapter da3 = new SqlDataAdapter(q, con);
-            DataTable dt3 = new DataTable();
-            da3.Fill(dt3);
-            if (dt3.Rows.Count > 0)
-            {
+        //    ViewBag.collapse = "true";
+        //    // roleassignment
+        //    List<LoginModel> Lmlist = new List<LoginModel>();
+        //    con.Open();
+        //    string q = "select * from Assignment_Roles where RoleId = " + Convert.ToInt32(Session["rId"]) + "";
+        //    SqlDataAdapter da3 = new SqlDataAdapter(q, con);
+        //    DataTable dt3 = new DataTable();
+        //    da3.Fill(dt3);
+        //    if (dt3.Rows.Count > 0)
+        //    {
 
-                for (int i = 0; i < dt3.Rows.Count; i++)
-                {
-                    LoginModel lm = new LoginModel();
-                    lm.PageName = dt3.Rows[i]["PageName"].ToString();
-                    lm.PageStatus = dt3.Rows[i]["PageStatus"].ToString();
-                    lm.Action = dt3.Rows[i]["Action"].ToString();
-                    lm.Nav1 = dt3.Rows[i]["Nav1"].ToString();
-                    lm.Nav2 = dt3.Rows[i]["Nav2"].ToString();
+        //        for (int i = 0; i < dt3.Rows.Count; i++)
+        //        {
+        //            LoginModel lm = new LoginModel();
+        //            lm.PageName = dt3.Rows[i]["PageName"].ToString();
+        //            lm.PageStatus = dt3.Rows[i]["PageStatus"].ToString();
+        //            lm.Action = dt3.Rows[i]["Action"].ToString();
+        //            lm.Nav1 = dt3.Rows[i]["Nav1"].ToString();
+        //            lm.Nav2 = dt3.Rows[i]["Nav2"].ToString();
 
-                    Lmlist.Add(lm);
-                }
-
-
-
-                ViewBag.PageName = Lmlist;
+        //            Lmlist.Add(lm);
+        //        }
 
 
 
-
-            }
-
-            con.Close();
-
-
-            //end
-            string assetcatid = "";
-            string assettypeid = "";
-            string combine = "";
-
-            con.Open();
-            string getassettype = "select amId , atId from AssetsCategory where AssetsCategory =  '" + assetcat + "' ";
-            SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
-            DataTable atdt = new DataTable();
-            atda.Fill(atdt);
-            if (atdt.Rows.Count > 0)
-            {
-                assetcatid = atdt.Rows[0]["amId"].ToString();
-                assettypeid = atdt.Rows[0]["atId"].ToString();
-
-            }
-            con.Close();
-
-            combine = assetcat + assetcatid;
-
-            string response = data;
-            string filter = response.Replace(" ", string.Empty).Replace("\n", string.Empty);
-            ArrayList result = new ArrayList(filter.Split('~'));
-
-            for (int i = 0; i < result.Count; i++)
-            {
-                if (result[i].ToString() != "")
-                {
-                    try
-                    {
-                        con.Open();
-                        result[i].ToString();
-                        string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , alternatebid , tid , doctype,Type,documentstatus,WillType) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "',2, 'incompleted','Quick')";
-                        SqlCommand cmd = new SqlCommand(query, con);
-                        cmd.ExecuteNonQuery();
-                        con.Close();
-                    }
-                    catch (Exception)
-                    {
-
-
-                    }
-
-                }
-            }
-
-            // if records submitted change status for assetinformation
-            con.Close();
+        //        ViewBag.PageName = Lmlist;
 
 
 
 
+        //    }
+
+        //    con.Close();
 
 
-            ModelState.Clear();
-            return Json(btnidentify);
-        }
+        //    //end
+        //    string assetcatid = "";
+        //    string assettypeid = "";
+        //    string combine = "";
+
+        //    con.Open();
+        //    string getassettype = "select amId , atId from AssetsCategory where AssetsCategory =  '" + assetcat + "' ";
+        //    SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
+        //    DataTable atdt = new DataTable();
+        //    atda.Fill(atdt);
+        //    if (atdt.Rows.Count > 0)
+        //    {
+        //        assetcatid = atdt.Rows[0]["amId"].ToString();
+        //        assettypeid = atdt.Rows[0]["atId"].ToString();
+
+        //    }
+        //    con.Close();
+
+        //    combine = assetcat + assetcatid;
+
+        //    string response = data;
+        //    string filter = response.Replace(" ", string.Empty).Replace("\n", string.Empty);
+        //    ArrayList result = new ArrayList(filter.Split('~'));
+
+        //    for (int i = 0; i < result.Count; i++)
+        //    {
+        //        if (result[i].ToString() != "")
+        //        {
+        //            try
+        //            {
+        //                con.Open();
+        //                result[i].ToString();
+        //                string query = "insert into BeneficiaryAssets (Beneficiary_ID ,Proportion , alternatebid , tid , doctype,Type,documentstatus,WillType) values (" + result[i].ToString() + "," + Convert.ToInt32(tid) + " , '" + Session["doctype"].ToString() + "',2, 'incompleted','Quick')";
+        //                SqlCommand cmd = new SqlCommand(query, con);
+        //                cmd.ExecuteNonQuery();
+        //                con.Close();
+        //            }
+        //            catch (Exception)
+        //            {
+
+
+        //            }
+
+        //        }
+        //    }
+
+        //    // if records submitted change status for assetinformation
+        //    con.Close();
+
+
+
+
+
+
+        //    ModelState.Clear();
+        //    return Json(btnidentify);
+        //}
 
 
 
@@ -595,20 +1138,19 @@ namespace WillAssure.Controllers
 
                 if (Session["doctype"].ToString() == "Will")
                 {
-                    checkfinancial = "select a.Beneficiary_Asset_ID , b.First_Name , c.First_Name as alternate , a.Proportion  from BeneficiaryAssets a inner join BeneficiaryDetails b on a.Beneficiary_ID=b.bpId inner join BeneficiaryDetails  c on a.alternatebid=c.bpId where a.Type = 1 and a.WillType = 'Quick' and  a.doctype='Will' and a.tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                    checkfinancial = "select distinct a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid where a.tId = 1 and a.doctype = 'Will' and c.Type = 1";
                 }
 
                 if (Session["doctype"].ToString() == "POA")
                 {
-                    checkfinancial = "select a.Beneficiary_Asset_ID , b.First_Name , c.First_Name as alternate , a.Proportion  from BeneficiaryAssets a inner join BeneficiaryDetails b on a.Beneficiary_ID=b.bpId inner join BeneficiaryDetails  c on a.alternatebid=c.bpId where a.Type =1 and a.WillType = 'POA' and  a.doctype='Will' and a.tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                    checkfinancial = "select distinct a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid where a.tId = 1 and a.doctype = 'POA' and c.Type = 1";
                 }
 
 
                 if (Session["doctype"].ToString() == "GiftDeeds")
                 {
-                    checkfinancial = "select a.Beneficiary_Asset_ID , b.First_Name , c.First_Name as alternate , a.Proportion  from BeneficiaryAssets a inner join BeneficiaryDetails b on a.Beneficiary_ID=b.bpId inner join BeneficiaryDetails  c on a.alternatebid=c.bpId where a.Type = 1 and a.WillType = 'GiftDeeds' and  a.doctype='Will' and a.tid = " + Convert.ToInt32(Session["distid"]) + "";
+                    checkfinancial = "select distinct a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid where a.tId = 1 and a.doctype = 'GiftDeeds' and c.Type = 1";
                 }
-
 
 
 
@@ -629,64 +1171,66 @@ namespace WillAssure.Controllers
             string assettype = "";
             if (chkfinancialdt.Rows.Count > 0)
             {
-
-
-
-
-
-
-
-
-
-
-
-
-
-                for (int i = 0; i < chkfinancialdt.Rows.Count; i++)
+                for (int j = 0; j < 1; j++)
                 {
 
+                    financialstructure += "<div class='row'>" +
+      "<div class='col-lg-12'>" +
+      "<div id='accordion001'>" +
+      "<div class='card mb-2 border border-success'>" +
+      "<div class='card-header'>" +
+      "<button type='button' class='btn btn-link shadow - none text - success' data-toggle='collapse' data-target='#multipleaccordion-" + j + "' aria-expanded='true' aria-controls='collapse-22'>" +
+      "(Single)" +
+      "</button>" +
+      "</div>" +
+      "<div id='multipleaccordion-" + j + "' class='collapse' data-parent='#accordion001'>" +
+      "<div class='card-body'>";
+
+
+                    if (chkfinancialdt.Rows.Count > 0)
+                    {
+                        for (int i = 0; i < chkfinancialdt.Rows.Count; i++)
+                        {
 
 
 
 
-                    financialstructure = financialstructure + "<div class='row'>" +
-                   "<div class='col-lg-12'>" +
-                   "<div id='accordion001'>" +
-                   "<div class='card mb-2 border border-success'>" +
-                   "<div class='card-header'>" +
-                   "<button type='button' class='btn btn-link shadow - none text - success' data-toggle='collapse' data-target='#collapsesingleFA-" + Convert.ToInt32(chkfinancialdt.Rows[i]["Beneficiary_Asset_ID"]) + "' aria-expanded='true' aria-controls='collapse-22'>" +
-                   "(Single)" +
-                   "</button>" +
-                   "</div>" +
-                   "<div id='collapsesingleFA-" + Convert.ToInt32(chkfinancialdt.Rows[i]["Beneficiary_Asset_ID"]) + "' class='collapse' data-parent='#accordion001'>" +
-                   "<div class='card-body'>" +
-                   "<div class='row'>" +
-                   "<div class='col-sm-3'>" +
-                   "<label for='input-1'>Beneficiary</label>" +
-                   "<input type='text' value='" + chkfinancialdt.Rows[i]["First_Name"].ToString() + "'  readonly='true' class='form-control' id='' />" +
-                   "</div>" +
-                     "<div class='col-sm-3'>" +
-                   "<label for='input-1'>Alternate Beneficiary</label>" +
-                   "<input type='text' value='" + chkfinancialdt.Rows[i]["alternate"].ToString() + "'  readonly='true' class='form-control' id='' />" +
-                   "</div>" +
 
-                   "<div class='col-sm-3'>" +
-                   "<label for='input-1'>Proportion</label>" +
-                   "<input type='text' value='" + chkfinancialdt.Rows[i]["Proportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
-                   "</div>" +
-                   "</div>" +
-                   "</div>" +
-                   "</div>" +
-                   "</div>" +
-                   "</div>" +
-                   "</div>" +
-                   "</div>";
+
+                            financialstructure += "<div class='row'>" +
+                               "<div class='col-sm-3'>" +
+                               "<label for='input-1'>Beneficiary</label>" +
+                               "<input type='text' value='" + chkfinancialdt.Rows[i]["beneficiary"].ToString() + "'  readonly='true' class='form-control' id='' />" +
+                               "</div>" +
+
+
+                               "<div class='col-sm-3'>" +
+                               "<label for='input-1'>Proportion</label>" +
+                               "<input type='text' value='" + chkfinancialdt.Rows[i]["Proportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
+                               "</div>" +
+
+
+
+                           
+                            "</div>";
+
+
+
+                        }
+
+
+
+
+
+                    }
+
+
+                    financialstructure += "</div>" +
+                         "</div>" +
+                         "</div>" +
+                         "</div>";
+
                 }
-
-
-
-
-
             }
 
 
@@ -737,7 +1281,34 @@ namespace WillAssure.Controllers
 
 
 
-            checkfinancial = "select a.Beneficiary_Asset_ID , b.First_Name , c.First_Name as alternate , a.Proportion  from beneficiaryassets a inner join BeneficiaryDetails b on a.Beneficiary_ID=b.bpId inner join BeneficiaryDetails c on b.bpId=c.bpId where Type = 2 and a.WillType = 'Quick' and a.tid = " + Convert.ToInt32(Session["distid"]) + " ";
+            if (Session["doctype"] != null)
+            {
+
+                if (Session["doctype"].ToString() == "Will")
+                {
+                    checkfinancial = "select distinct bd.First_Name as beneficiary , c.Proportion ,a.First_Name as altbeneficiary , b.alternateproportion   from BeneficiaryDetails a inner join Alternate_BeneficiaryAssets b on a.bpId=b.alternatebenefciaryid inner join BeneficiaryAssets c on a.tId=c.tid inner join BeneficiaryDetails bd on c.Beneficiary_ID=bd.bpId  where a.tId = " + Convert.ToInt32(Session["distid"]) + " and a.doctype = 'Will' and c.Type = 2";
+                }
+
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    checkfinancial = "select distinct bd.First_Name as beneficiary , c.Proportion ,a.First_Name as altbeneficiary , b.alternateproportion   from BeneficiaryDetails a inner join Alternate_BeneficiaryAssets b on a.bpId=b.alternatebenefciaryid inner join BeneficiaryAssets c on a.tId=c.tid inner join BeneficiaryDetails bd on c.Beneficiary_ID=bd.bpId  where a.tId = " + Convert.ToInt32(Session["distid"]) + "  and a.doctype = 'POA' and c.Type = 2 ";
+                }
+
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    checkfinancial = "select distinct bd.First_Name as beneficiary , c.Proportion ,a.First_Name as altbeneficiary , b.alternateproportion   from BeneficiaryDetails a inner join Alternate_BeneficiaryAssets b on a.bpId=b.alternatebenefciaryid inner join BeneficiaryAssets c on a.tId=c.tid inner join BeneficiaryDetails bd on c.Beneficiary_ID=bd.bpId  where a.tId = " + Convert.ToInt32(Session["distid"]) + "  and a.doctype = 'GiftDeeds' and c.Type = 2";
+                }
+
+
+
+
+
+            }
+            else
+            {
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
 
 
 
@@ -785,19 +1356,28 @@ namespace WillAssure.Controllers
                             financialstructure += "<div class='row'>" +
                                "<div class='col-sm-3'>" +
                                "<label for='input-1'>Beneficiary</label>" +
-                               "<input type='text' value='" + chkfinancialdt.Rows[i]["First_Name"].ToString() + "'  readonly='true' class='form-control' id='' />" +
+                               "<input type='text' value='" + chkfinancialdt.Rows[i]["beneficiary"].ToString() + "'  readonly='true' class='form-control' id='' />" +
                                "</div>" +
-                               "<div class='col-sm-3'>" +
-                               "<label for='input-1'>Alternate Beneficiary</label>" +
-                               "<input type='text' value='" + chkfinancialdt.Rows[i]["alternate"].ToString() + "'  readonly='true' class='form-control' id='' />" +
-                               "</div>" +
+
 
                                "<div class='col-sm-3'>" +
                                "<label for='input-1'>Proportion</label>" +
                                "<input type='text' value='" + chkfinancialdt.Rows[i]["Proportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
                                "</div>" +
-                               "</div>";
 
+
+
+                                "<div class='col-sm-3'>" +
+                               "<label for='input-1'>Alternate Beneficiary</label>" +
+                               "<input type='text' value='" + chkfinancialdt.Rows[i]["altbeneficiary"].ToString() + "'  readonly='true' class='form-control' id='' />" +
+                               "</div>" +
+
+
+                                "<div class='col-sm-3'>" +
+                               "<label for='input-1'>Alternate Proportion</label>" +
+                               "<input type='text' value='" + chkfinancialdt.Rows[i]["alternateproportion"].ToString() + "'  readonly='true' class='form-control' id='' />" +
+                               "</div>" +
+                            "</div>";
 
 
 

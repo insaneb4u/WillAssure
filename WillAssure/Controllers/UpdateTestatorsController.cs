@@ -21,9 +21,11 @@ namespace WillAssure.Controllers
 
 
         // GET: UpdateTestators
-        public ActionResult UpdateTestatorsIndex(int NestId)
+        public ActionResult UpdateTestatorsIndex(int NestId,string documenttype)
         {
-           
+
+
+
 
             Session["testatorID"] = NestId;
 
@@ -66,6 +68,29 @@ namespace WillAssure.Controllers
 
                 if (Session["Type"].ToString() == "SuperAdmin")
                 {
+                    if (documenttype != null && documenttype != "")
+                    {
+                        if (documenttype == "'Quick'")
+                        {
+                            Session["doctype"] = "Will";
+                            documenttype = documenttype.Substring(1);
+                            documenttype = documenttype.Substring(0,documenttype.Length - 1);
+                            Session["WillType"] = documenttype;
+                        }
+
+                        if (documenttype == "Detailed")
+                        {
+
+                            Session["doctype"] = "'Will'";
+                            Session["WillType"] = documenttype;
+                        }
+
+                     
+                   
+                    }
+
+
+
                     ViewBag.enablebtnremaining = "true";
                 }
             }
@@ -1608,17 +1633,22 @@ namespace WillAssure.Controllers
 
 
 
-            con.Open();
-            string qtest0012 = "select WillType from users where uId = "+ Convert.ToInt32(Session["uuid"]) + "";
-            SqlDataAdapter test001da2 = new SqlDataAdapter(qtest0012, con);
-            DataTable test001dt2 = new DataTable();
-            test001da2.Fill(test001dt2);
-        
-            if (test001dt2.Rows.Count > 0)
+            if (Session["Type"].ToString() != "SuperAdmin")
             {
-                Session["WillType"] = test001dt2.Rows[0]["WillType"].ToString();
+                con.Open();
+                string qtest0012 = "select WillType from users where uId = " + Convert.ToInt32(Session["uuid"]) + "";
+                SqlDataAdapter test001da2 = new SqlDataAdapter(qtest0012, con);
+                DataTable test001dt2 = new DataTable();
+                test001da2.Fill(test001dt2);
+
+                if (test001dt2.Rows.Count > 0)
+                {
+                    Session["WillType"] = test001dt2.Rows[0]["WillType"].ToString();
+                }
+                con.Close();
             }
-            con.Close();
+
+          
 
 
 
@@ -1633,7 +1663,7 @@ namespace WillAssure.Controllers
 
 
 
-                if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Detailed" || Session["Type"].ToString() == "SuperAdmin" || Session["Type"].ToString() == "Distributor")
+                if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Detailed")
                 {
                     //////////// check document completion /////////////
 
@@ -1805,7 +1835,7 @@ namespace WillAssure.Controllers
                 }
 
 
-                if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Quick" || Session["Type"].ToString() == "SuperAdmin" || Session["Type"].ToString() == "Distributor")
+                if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Quick")
                 {
                     //////////// check document completion /////////////
 

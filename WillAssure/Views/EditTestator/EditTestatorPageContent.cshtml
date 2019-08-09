@@ -242,14 +242,14 @@
                 
 
                 if (type == "Quick" || type == "Detailed") {
-                 
-                var url = "/UpdateTestators/UpdateTestatorsIndex?NestId=" + id;
+
+                    var url = "/UpdateTestators/UpdateTestatorsIndex?NestId=" + id + "&documenttype='" + type + "'";
                     window.location.href = url;
                     
                 }
                 if (type == "POA" || type =="GiftDeeds") {
 
-                    var url = "/UpdateTestators/UpdateTestatorsIndex?NestId=" + id;
+                    var url = "/UpdateTestators/UpdateTestatorsIndex?NestId=" + id + "&documenttype='" + type + "'";;
                     window.location.href = url;
                 }
                 if (type == "Codocil") {

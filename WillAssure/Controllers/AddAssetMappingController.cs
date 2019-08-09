@@ -1548,7 +1548,7 @@ namespace WillAssure.Controllers
 
                         data2 = data2.Remove(data2.Length - 1, 1);
 
-                        querydy2 = "insert into alternate_Beneficiaryassets (alternatebenefciaryid ,alternateproportion,linkedbid) values (" + data2+") ";
+                        querydy2 = "insert into alternate_Beneficiaryassets (alternatebenefciaryid ,alternateproportion,linkedbid,WillType) values (" + data2+" , 'Detailed') ";
                         SqlCommand cmdy2 = new SqlCommand(querydy2, con);
                         cmdy2.ExecuteNonQuery();
                         getcount2 = 1;

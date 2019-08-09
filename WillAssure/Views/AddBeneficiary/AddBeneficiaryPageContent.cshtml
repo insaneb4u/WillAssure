@@ -986,16 +986,37 @@
 
                                 @if (Session["WillType"] != null && Session["doctype"] != null)
                                 {
+
+                                    if (Session["doctype"].ToString() == "GiftDeeds")
+                                    {
+                                        <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><button type="button" id="btnnext" style="display:" class="btn btn-success shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+
+                                    }
+
+                                    if (Session["doctype"].ToString() == "POA")
+                                    {
+                                        <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><button type="button" id="btnnext" style="display:" class="btn btn-success shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
+
+                                    }
+
+
+
+
                                     if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Quick")
                                     {
 
                                         <a href="@Url.Action("CheckBeneficiaryCount","AddBeneficiary")"><button type="button" id="btnnext" style="display:" class="btn btn-success shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
 
                                     }
-                                    else
+                                    if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Detailed")
                                     {
                                         <a href="@Url.Action("CheckBeneficiaryCount","AddBeneficiary")"><button type="button" id="btnnext" style="display:" class="btn btn-success shadow-primary px-5">Skip&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
                                     }
+
+
+
+
+
                                 }
 
 
@@ -1081,6 +1102,19 @@
 
 
     $(document).ready(function () {
+
+
+
+        if ($("#txtAddress2").val() == "None") {
+
+            $("#txtAddress2").val("")
+        }
+
+        if ($("#txtAddress3").val() == "None") {
+
+            $("#txtAddress3").val("")
+        }
+
 
 
         $('#altddlidentityproof option[value=""]').attr("selected", true);

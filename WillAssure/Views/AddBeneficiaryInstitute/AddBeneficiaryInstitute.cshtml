@@ -237,7 +237,7 @@
                                         else
                                         {
 
-                                            <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                                            <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"></select>
                                             @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
                                             @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
                                         }
@@ -737,13 +737,13 @@
 
                                             $("#btnmore").show();
                                             $("#btnmore2").show();
-
+                                      
                                             $("#btnfieldedit").show();
 
                                             $("#btnnomineeformsubmit").hide();
 
                                             $("#btnnext").show();
-
+                                            $("#btnnext").html('Next');
                                             $("#ddlcountry").attr("disabled", "disabled");
 
                                             $("#btnmore").show();

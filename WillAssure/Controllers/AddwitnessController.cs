@@ -313,18 +313,18 @@ namespace WillAssure.Controllers
 
                                 if (Session["doctype"].ToString() == "Will")
                                 {
-                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Will'  order by apId desc  ";
+                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Will' and WitnessType='First'  order by apId desc  ";
                                 }
 
                                 if (Session["doctype"].ToString() == "POA")
                                 {
-                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='POA'  order by apId desc ";
+                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='POA' and WitnessType='First'  order by apId desc ";
                                 }
 
 
                                 if (Session["doctype"].ToString() == "GiftDeeds")
                                 {
-                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Giftdeeds' order by apId desc ";
+                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Giftdeeds' and WitnessType='First' order by apId desc ";
                                 }
 
 
@@ -431,7 +431,110 @@ namespace WillAssure.Controllers
                 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+            //////////////////////////////////////////////////////////  witness 3
+            ///
+
+
+            string querye = "";
+
+
+            if (Session["doctype"] != null)
+            {
+
+                if (Session["doctype"].ToString() == "Will")
+                {
+                    querye = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Will' and WitnessType='Third'  order by apId desc  ";
+                }
+
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    querye = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='POA' and WitnessType='Third'  order by apId desc ";
+                }
+
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    querye = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Giftdeeds' and WitnessType='Third' order by apId desc ";
+                }
+
+
+
+
+
+            }
+            else
+            {
+                return RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+            SqlDataAdapter dae = new SqlDataAdapter(querye, con);
+                    DataTable dte = new DataTable();
+                    dae.Fill(dte);
+                    con.Close();
+                    string datae = "";
+                    
+                    if (dte.Rows.Count > 0)
+                    {
+
+
+                        for (int i = 0; i < dte.Rows.Count; i++)
+                        {
+                           
+                            ViewBag.thirdwitnessdata = "true";
+
+
+                            Am.weapId = Convert.ToInt32(dte.Rows[i]["apId"]);
+                            Am.weTypetxt = dte.Rows[i]["Type"].ToString();
+                            Am.wesubTypetxt = dte.Rows[i]["subType"].ToString();
+                            Am.weFirstname = dte.Rows[i]["Name"].ToString();
+                            Am.wemiddleName = dte.Rows[i]["middleName"].ToString();
+                            Am.weSurname = dte.Rows[i]["Surname"].ToString();
+                            Am.weIdentity_Proof = dte.Rows[i]["Identity_Proof"].ToString();
+                            Am.weIdentity_Proof_Value = dte.Rows[i]["Identity_Proof_Value"].ToString();
+                            Am.weAlt_Identity_Proof = dte.Rows[i]["Alt_Identity_Proof"].ToString();
+                            Am.weAlt_Identity_Proof_Value = dte.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                            //Am.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+                            Am.weGender = dte.Rows[i]["Gender"].ToString();
+                
+                            Am.weRelationshipTxt = dte.Rows[i]["Relationship"].ToString();
+                    Am.weAddress1 = dte.Rows[i]["Address1"].ToString();
+                    Am.weAddress2 = dte.Rows[i]["Address2"].ToString();
+                            Am.weAddress3 = dte.Rows[i]["Address3"].ToString();
+                            Am.wecitytext = dte.Rows[i]["City"].ToString();
+                            Am.westatetext = dte.Rows[i]["State"].ToString();
+                            Am.wePin = dte.Rows[i]["Pin"].ToString();
+                            Am.wecountrytext = dte.Rows[i]["Country"].ToString();
+
+
+
+
+
+                        }
+
+                    }
+
+
+
+                
             
+
+
+
+
+
+
 
 
             return View("~/Views/Addwitness/AddWitnessPageContent.cshtml", Am);
@@ -942,7 +1045,7 @@ namespace WillAssure.Controllers
 
 
                     con.Open();
-                    string qt = "update Appointees set doctype = 'Will'  where  apId = " + Convert.ToInt32(dt2.Rows[0]["apId"]) + "";
+                    string qt = "update Appointees set doctype = 'Will'  , WitnessType = 'First'  where  apId = " + Convert.ToInt32(dt2.Rows[0]["apId"]) + "";
                     SqlCommand cmdt = new SqlCommand(qt, con);
                     cmdt.ExecuteNonQuery();
                     con.Close();
@@ -1098,7 +1201,7 @@ namespace WillAssure.Controllers
 
 
                     con.Open();
-                    string qt22 = "update Appointees set doctype = 'Will'  where  apId = " + appid22 + "";
+                    string qt22 = "update Appointees set doctype = 'Will'   , WitnessType = 'Second'  where  apId = " + appid22 + "";
                     SqlCommand cmdt22 = new SqlCommand(qt22, con);
                     cmdt22.ExecuteNonQuery();
                     con.Close();
@@ -1112,6 +1215,183 @@ namespace WillAssure.Controllers
 
 
                     ////////////////////////////////////////end//////////////////////////////////////////////////////////////
+
+
+
+                   
+
+
+                    if (AM.checkwitness3 == "true")
+                    {
+
+                        ////////////////////////////////////alternate witness 3 //////////////////////////////////////////////////
+
+                        con.Open();
+                        SqlCommand cmdw3 = new SqlCommand("SP_CRUDAppointees", con);
+                        cmdw3.CommandType = CommandType.StoredProcedure;
+                        cmdw3.Parameters.AddWithValue("@condition", "insert");
+                        cmdw3.Parameters.AddWithValue("@documentId", AM.wedocumentId);
+                        cmdw3.Parameters.AddWithValue("@Type", "Witness");
+
+                        if (AM.wsubTypetxt != null || AM.wsubTypetxt != "")
+                        {
+                            cmdw3.Parameters.AddWithValue("@subType", AM.wesubTypetxt);
+                        }
+                        else
+                        {
+                            cmdw3.Parameters.AddWithValue("@subType", "None");
+                        }
+
+
+
+
+
+
+                        cmdw3.Parameters.AddWithValue("@Name", AM.weFirstname);
+                        cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+                        cmdw3.Parameters.AddWithValue("@Surname", AM.weSurname);
+                        cmdw3.Parameters.AddWithValue("@Identity_proof", AM.weIdentity_Proof);
+                        cmdw3.Parameters.AddWithValue("@Identity_proof_value", AM.weIdentity_Proof_Value);
+
+
+                        if (AM.wAlt_Identity_Proof != null)
+                        {
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof", AM.weAlt_Identity_Proof);
+                        }
+                        else
+                        {
+                            AM.wAlt_Identity_Proof = "None";
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof", AM.weAlt_Identity_Proof);
+                        }
+
+
+                        if (AM.wAlt_Identity_Proof_Value != null)
+                        {
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.weAlt_Identity_Proof_Value);
+                        }
+                        else
+                        {
+                            AM.wAlt_Identity_Proof_Value = "None";
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.weAlt_Identity_Proof_Value);
+                        }
+
+
+
+
+
+
+
+
+
+                        //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                        //cmd.Parameters.AddWithValue("@DOB", "None");
+                        cmdw3.Parameters.AddWithValue("@Gender", AM.weGender);
+                        cmdw3.Parameters.AddWithValue("@Occupation", "None");
+                        cmdw3.Parameters.AddWithValue("@Relationship", "None");
+                        cmdw3.Parameters.AddWithValue("@Address1", AM.weAddress1);
+                        if (AM.wAddress2 != null || AM.wAddress2 == "")
+                        {
+                            cmdw3.Parameters.AddWithValue("@Address2", AM.weAddress2);
+                        }
+                        else
+                        {
+                            AM.wAddress2 = "None";
+                            cmdw3.Parameters.AddWithValue("@Address2", AM.weAddress2);
+                        }
+
+
+                        if (AM.wAddress3 != null || AM.wAddress3 == "")
+                        {
+                            cmdw3.Parameters.AddWithValue("@Address3", AM.weAddress3);
+                        }
+                        else
+                        {
+                            AM.wAddress3 = "None";
+                            cmdw3.Parameters.AddWithValue("@Address3", AM.weAddress3);
+                        }
+
+
+                        cmdw3.Parameters.AddWithValue("@City", AM.wecitytext);
+                        cmdw3.Parameters.AddWithValue("@State", AM.westatetext);
+                        cmdw3.Parameters.AddWithValue("@Pin", AM.wePin);
+                        cmdw3.Parameters.AddWithValue("@tid", AM.ddltid);
+                        cmdw3.Parameters.AddWithValue("@ExecutorType", "Single");
+                        cmdw3.ExecuteNonQuery();
+                        con.Close();
+
+
+                        int appid223 = 0;
+                        con.Open();
+                        string query223 = "select top 1 * from Appointees order by apId desc";
+                        SqlDataAdapter da223 = new SqlDataAdapter(query223, con);
+                        DataTable dt223 = new DataTable();
+                        da223.Fill(dt223);
+                        if (dt223.Rows.Count > 0)
+                        {
+                            appid223 = Convert.ToInt32(dt223.Rows[0]["apId"]);
+                            apid = 1; // for yes
+                        }
+                        else
+                        {
+                            apid = 2; //for no
+                        }
+                        con.Close();
+
+
+
+                        //end
+
+                        // update document status
+
+                        con.Open();
+
+                        string altgetcountryname3 = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.wecountrytext + "";
+                        SqlDataAdapter altdacou3 = new SqlDataAdapter(altgetcountryname3, con);
+                        DataTable altdtcou3 = new DataTable();
+                        altdacou3.Fill(altdtcou3);
+                        string altcountryname3 = "";
+                        if (altdtcou3.Rows.Count > 0)
+                        {
+                            altcountryname3 = altdtcou3.Rows[0]["CountryName"].ToString();
+                        }
+
+                        int thirdid = appid22 + 1;
+
+                        string qte223 = "update Appointees set Country='" + altcountryname3 + "'  ,  documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + thirdid + " ";
+                        SqlCommand cmdte223 = new SqlCommand(qte223, con);
+                        cmdte223.ExecuteNonQuery();
+                        con.Close();
+
+
+                        //end
+
+                       
+
+                        con.Open();
+                        string qt223 = "update Appointees set doctype = 'Will' , WitnessType = 'Third'  where   apId = " + thirdid + "";
+                        SqlCommand cmdt223 = new SqlCommand(qt223, con);
+                        cmdt223.ExecuteNonQuery();
+                        con.Close();
+
+
+
+
+
+
+
+
+
+                        ////////////////////////////////////////end//////////////////////////////////////////////////////////////
+
+
+                    }
+
+
+
+
+
+
+
 
 
                 }
@@ -1249,7 +1529,7 @@ namespace WillAssure.Controllers
 
 
 
-                    string qt = "update Appointees set  Country='" + countryname + "'  , doctype = 'POA'  where  apId = " + apid + "";
+                    string qt = "update Appointees set  Country='" + countryname + "'  , doctype = 'POA'  , WitnessType = 'First' where  apId = " + apid + "";
                 SqlCommand cmdt = new SqlCommand(qt, con);
                 cmdt.ExecuteNonQuery();
                 con.Close();
@@ -1399,7 +1679,7 @@ namespace WillAssure.Controllers
 
 
 
-                    string qte22 = "update Appointees set Country='" + altcountryname + "'  , documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid22 + " ";
+                    string qte22 = "update Appointees set Country='" + altcountryname + "'  , documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "'  , WitnessType = 'Second' where apId =" + appid22 + " ";
                     SqlCommand cmdte22 = new SqlCommand(qte22, con);
                     cmdte22.ExecuteNonQuery();
                     con.Close();
@@ -1427,7 +1707,169 @@ namespace WillAssure.Controllers
 
 
 
+                    if (AM.checkwitness3 == "true")
+                    {
 
+                        ////////////////////////////////////alternate witness 3 //////////////////////////////////////////////////
+
+                        con.Open();
+                        SqlCommand cmdw3 = new SqlCommand("SP_CRUDAppointees", con);
+                        cmdw3.CommandType = CommandType.StoredProcedure;
+                        cmdw3.Parameters.AddWithValue("@condition", "insert");
+                        cmdw3.Parameters.AddWithValue("@documentId", AM.wedocumentId);
+                        cmdw3.Parameters.AddWithValue("@Type", "Witness");
+
+                        if (AM.wsubTypetxt != null || AM.wsubTypetxt != "")
+                        {
+                            cmdw3.Parameters.AddWithValue("@subType", AM.wesubTypetxt);
+                        }
+                        else
+                        {
+                            cmdw3.Parameters.AddWithValue("@subType", "None");
+                        }
+
+
+
+
+
+
+                        cmdw3.Parameters.AddWithValue("@Name", AM.weFirstname);
+                        cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+                        cmdw3.Parameters.AddWithValue("@Surname", AM.weSurname);
+                        cmdw3.Parameters.AddWithValue("@Identity_proof", AM.weIdentity_Proof);
+                        cmdw3.Parameters.AddWithValue("@Identity_proof_value", AM.weIdentity_Proof_Value);
+
+
+                        if (AM.wAlt_Identity_Proof != null)
+                        {
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof", AM.weAlt_Identity_Proof);
+                        }
+                        else
+                        {
+                            AM.wAlt_Identity_Proof = "None";
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof", AM.weAlt_Identity_Proof);
+                        }
+
+
+                        if (AM.wAlt_Identity_Proof_Value != null)
+                        {
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.weAlt_Identity_Proof_Value);
+                        }
+                        else
+                        {
+                            AM.wAlt_Identity_Proof_Value = "None";
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.weAlt_Identity_Proof_Value);
+                        }
+
+
+
+
+
+
+
+
+
+                        //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                        //cmd.Parameters.AddWithValue("@DOB", "None");
+                        cmdw3.Parameters.AddWithValue("@Gender", AM.weGender);
+                        cmdw3.Parameters.AddWithValue("@Occupation", "None");
+                        cmdw3.Parameters.AddWithValue("@Relationship", "None");
+                        cmdw3.Parameters.AddWithValue("@Address1", AM.weAddress1);
+                        if (AM.wAddress2 != null || AM.wAddress2 == "")
+                        {
+                            cmdw3.Parameters.AddWithValue("@Address2", AM.weAddress2);
+                        }
+                        else
+                        {
+                            AM.wAddress2 = "None";
+                            cmdw3.Parameters.AddWithValue("@Address2", AM.weAddress2);
+                        }
+
+
+                        if (AM.wAddress3 != null || AM.wAddress3 == "")
+                        {
+                            cmdw3.Parameters.AddWithValue("@Address3", AM.weAddress3);
+                        }
+                        else
+                        {
+                            AM.wAddress3 = "None";
+                            cmdw3.Parameters.AddWithValue("@Address3", AM.weAddress3);
+                        }
+
+
+                        cmdw3.Parameters.AddWithValue("@City", AM.wecitytext);
+                        cmdw3.Parameters.AddWithValue("@State", AM.westatetext);
+                        cmdw3.Parameters.AddWithValue("@Pin", AM.wePin);
+                        cmdw3.Parameters.AddWithValue("@tid", AM.ddltid);
+                        cmdw3.Parameters.AddWithValue("@ExecutorType", "Single");
+                        cmdw3.ExecuteNonQuery();
+                        con.Close();
+
+
+                        int appid223 = 0;
+                        con.Open();
+                        string query223 = "select top 1 * from Appointees order by apId desc";
+                        SqlDataAdapter da223 = new SqlDataAdapter(query223, con);
+                        DataTable dt223 = new DataTable();
+                        da223.Fill(dt223);
+                        if (dt223.Rows.Count > 0)
+                        {
+                            appid223 = Convert.ToInt32(dt223.Rows[0]["apId"]);
+                            apid = 1; // for yes
+                        }
+                        else
+                        {
+                            apid = 2; //for no
+                        }
+                        con.Close();
+
+
+
+                        //end
+
+                        // update document status
+
+                        con.Open();
+
+                        string altgetcountryname3 = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.altcountry_txt + "";
+                        SqlDataAdapter altdacou3 = new SqlDataAdapter(altgetcountryname3, con);
+                        DataTable altdtcou3 = new DataTable();
+                        altdacou3.Fill(altdtcou3);
+                        string altcountryname3 = "";
+                        if (altdtcou3.Rows.Count > 0)
+                        {
+                            altcountryname3 = altdtcou3.Rows[0]["CountryName"].ToString();
+                        }
+
+
+
+                        string qte223 = "update Appointees set Country='" + altcountryname + "'  ,  documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "'  , WitnessType = 'Third' where apId =" + appid22 + " ";
+                        SqlCommand cmdte223 = new SqlCommand(qte223, con);
+                        cmdte223.ExecuteNonQuery();
+                        con.Close();
+
+
+                        //end
+
+
+                        con.Open();
+                        string qt223 = "update Appointees set doctype = 'Will'  where  apId = " + appid22 + "";
+                        SqlCommand cmdt223 = new SqlCommand(qt223, con);
+                        cmdt223.ExecuteNonQuery();
+                        con.Close();
+
+
+
+
+
+
+
+
+
+                        ////////////////////////////////////////end//////////////////////////////////////////////////////////////
+
+
+                    }
 
 
 
@@ -1560,7 +2002,7 @@ namespace WillAssure.Controllers
 
 
 
-                    string qt = "update Appointees set Country='" + countryname + "'  , doctype = 'Giftdeeds'  where  apId = " + apid + "";
+                    string qt = "update Appointees set Country='" + countryname + "'  , doctype = 'Giftdeeds' , WitnessType = 'First' where  apId = " + apid + "";
                     SqlCommand cmdt = new SqlCommand(qt, con);
                     cmdt.ExecuteNonQuery();
                     con.Close();
@@ -1708,7 +2150,7 @@ namespace WillAssure.Controllers
 
 
 
-                    string qte22 = "update Appointees set Country='" + altcountryname + "'  , documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid22 + " ";
+                    string qte22 = "update Appointees set Country='" + altcountryname + "'  , documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "'  , WitnessType = 'Second' where apId =" + appid22 + " ";
                     SqlCommand cmdte22 = new SqlCommand(qte22, con);
                     cmdte22.ExecuteNonQuery();
                     con.Close();
@@ -1732,6 +2174,175 @@ namespace WillAssure.Controllers
 
 
                     ////////////////////////////////////////end//////////////////////////////////////////////////////////////
+
+
+
+
+                    if (AM.checkwitness3 == "true")
+                    {
+
+                        ////////////////////////////////////alternate witness 3 //////////////////////////////////////////////////
+
+                        con.Open();
+                        SqlCommand cmdw3 = new SqlCommand("SP_CRUDAppointees", con);
+                        cmdw3.CommandType = CommandType.StoredProcedure;
+                        cmdw3.Parameters.AddWithValue("@condition", "insert");
+                        cmdw3.Parameters.AddWithValue("@documentId", AM.wedocumentId);
+                        cmdw3.Parameters.AddWithValue("@Type", "Witness");
+
+                        if (AM.wsubTypetxt != null || AM.wsubTypetxt != "")
+                        {
+                            cmdw3.Parameters.AddWithValue("@subType", AM.wesubTypetxt);
+                        }
+                        else
+                        {
+                            cmdw3.Parameters.AddWithValue("@subType", "None");
+                        }
+
+
+
+
+
+
+                        cmdw3.Parameters.AddWithValue("@Name", AM.weFirstname);
+                        cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+                        cmdw3.Parameters.AddWithValue("@Surname", AM.weSurname);
+                        cmdw3.Parameters.AddWithValue("@Identity_proof", AM.weIdentity_Proof);
+                        cmdw3.Parameters.AddWithValue("@Identity_proof_value", AM.weIdentity_Proof_Value);
+
+
+                        if (AM.wAlt_Identity_Proof != null)
+                        {
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof", AM.weAlt_Identity_Proof);
+                        }
+                        else
+                        {
+                            AM.wAlt_Identity_Proof = "None";
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof", AM.weAlt_Identity_Proof);
+                        }
+
+
+                        if (AM.wAlt_Identity_Proof_Value != null)
+                        {
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.weAlt_Identity_Proof_Value);
+                        }
+                        else
+                        {
+                            AM.wAlt_Identity_Proof_Value = "None";
+                            cmdw3.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.weAlt_Identity_Proof_Value);
+                        }
+
+
+
+
+
+
+
+
+
+                        //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                        //cmd.Parameters.AddWithValue("@DOB", "None");
+                        cmdw3.Parameters.AddWithValue("@Gender", AM.weGender);
+                        cmdw3.Parameters.AddWithValue("@Occupation", "None");
+                        cmdw3.Parameters.AddWithValue("@Relationship", "None");
+                        cmdw3.Parameters.AddWithValue("@Address1", AM.weAddress1);
+                        if (AM.wAddress2 != null || AM.wAddress2 == "")
+                        {
+                            cmdw3.Parameters.AddWithValue("@Address2", AM.weAddress2);
+                        }
+                        else
+                        {
+                            AM.wAddress2 = "None";
+                            cmdw3.Parameters.AddWithValue("@Address2", AM.weAddress2);
+                        }
+
+
+                        if (AM.wAddress3 != null || AM.wAddress3 == "")
+                        {
+                            cmdw3.Parameters.AddWithValue("@Address3", AM.weAddress3);
+                        }
+                        else
+                        {
+                            AM.wAddress3 = "None";
+                            cmdw3.Parameters.AddWithValue("@Address3", AM.weAddress3);
+                        }
+
+
+                        cmdw3.Parameters.AddWithValue("@City", AM.wecitytext);
+                        cmdw3.Parameters.AddWithValue("@State", AM.westatetext);
+                        cmdw3.Parameters.AddWithValue("@Pin", AM.wePin);
+                        cmdw3.Parameters.AddWithValue("@tid", AM.ddltid);
+                        cmdw3.Parameters.AddWithValue("@ExecutorType", "Single");
+                        cmdw3.ExecuteNonQuery();
+                        con.Close();
+
+
+                        int appid223 = 0;
+                        con.Open();
+                        string query223 = "select top 1 * from Appointees order by apId desc";
+                        SqlDataAdapter da223 = new SqlDataAdapter(query223, con);
+                        DataTable dt223 = new DataTable();
+                        da223.Fill(dt223);
+                        if (dt223.Rows.Count > 0)
+                        {
+                            appid223 = Convert.ToInt32(dt223.Rows[0]["apId"]);
+                            apid = 1; // for yes
+                        }
+                        else
+                        {
+                            apid = 2; //for no
+                        }
+                        con.Close();
+
+
+
+                        //end
+
+                        // update document status
+
+                        con.Open();
+
+                        string altgetcountryname3 = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.altcountry_txt + "";
+                        SqlDataAdapter altdacou3 = new SqlDataAdapter(altgetcountryname3, con);
+                        DataTable altdtcou3 = new DataTable();
+                        altdacou3.Fill(altdtcou3);
+                        string altcountryname3 = "";
+                        if (altdtcou3.Rows.Count > 0)
+                        {
+                            altcountryname3 = altdtcou3.Rows[0]["CountryName"].ToString();
+                        }
+
+
+
+                        string qte223 = "update Appointees set Country='" + altcountryname + "'  ,  documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "'  , WitnessType = 'Third' where apId =" + appid22 + " ";
+                        SqlCommand cmdte223 = new SqlCommand(qte223, con);
+                        cmdte223.ExecuteNonQuery();
+                        con.Close();
+
+
+                        //end
+
+
+                        con.Open();
+                        string qt223 = "update Appointees set doctype = 'Will'  where  apId = " + appid22 + "";
+                        SqlCommand cmdt223 = new SqlCommand(qt223, con);
+                        cmdt223.ExecuteNonQuery();
+                        con.Close();
+
+
+
+
+
+
+
+
+
+                        ////////////////////////////////////////end//////////////////////////////////////////////////////////////
+
+
+                    }
+
+
 
 
 

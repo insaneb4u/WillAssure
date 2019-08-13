@@ -316,7 +316,11 @@
                                     new SelectListItem() {Text = "Male", Value="Male"},
                                     new SelectListItem() {Text = "Female", Value="Female"},
                                     new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow validate[required] ddlgender"  , @style="display:none;"   ,  @name= "Gendertext" , @onchange = "getgenderval(value)" })
-                                    @Html.TextBoxFor(m => m.Gendertext, new { @class = "form-control input-shadow", @id = "txtgender" })
+                                   
+        
+                                    
+                                    @Html.TextBoxFor(m => m.Gendertext, new { @class = "form-control input-shadow", @id = "txtgender" , @placeholder="--Select--" })
+                                    
                                     <script>
                                         $("#txtgender").focus(function () {
 
@@ -1033,6 +1037,14 @@
         if ($("#txtaddress3").val() == "None") {
 
             $("#txtaddress3").val("")
+        }
+
+        var x = $("#txtgender").val();
+       
+
+        if (x == "none"  ) {
+
+            $("#txtgender").val("")
         }
 
 

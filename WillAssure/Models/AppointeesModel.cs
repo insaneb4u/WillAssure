@@ -164,6 +164,67 @@ namespace WillAssure.Models
 
 
 
+        //witness 3
+
+
+        public int weapId { get; set; }
+        public int wedocumentId { get; set; }
+        public string weType { get; set; }
+        public int weTypeId { get; set; }
+        public string weTypetxt { get; set; }
+        public string wesubType { get; set; }
+        public int wesubTypeId { get; set; }
+        public string wesubTypetxt { get; set; }
+
+
+        public string weFirstname { get; set; }
+        public string wemiddleName { get; set; }
+        public string weSurname { get; set; }
+        public string weIdentity_Proof { get; set; }
+        public string weIdentity_Proof_Value { get; set; }
+        public string weAlt_Identity_Proof { get; set; }
+        public string weAlt_Identity_Proof_Value { get; set; }
+        public string weDob { get; set; }
+        public string weGender { get; set; }
+        public string weOccupation { get; set; }
+
+        public string weRelationship { get; set; }
+        public int weRelationshipId { get; set; }
+        public string weRelationshipTxt { get; set; }
+
+        public string weAddress1 { get; set; }
+        public string weAddress2 { get; set; }
+        public string weAddress3 { get; set; }
+
+        public string weCity { get; set; }
+        public int wecityid { get; set; }
+        public string wecitytext { get; set; }
+
+        public string weState { get; set; }
+        public int westateid { get; set; }
+        public string westatetext { get; set; }
+
+
+        public string wecountry { get; set; }
+        public int wecountryid { get; set; }
+        public string wecountrytext { get; set; }
+
+        public string wePin { get; set; }
+        public int werid { get; set; }
+
+        public int weddltid { get; set; }
+
+
+        public string checkwitness3 { get; set; }
+
+
+
+
+
+        //end
+
+
+
 
 
 

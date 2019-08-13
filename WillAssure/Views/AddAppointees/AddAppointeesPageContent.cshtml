@@ -214,7 +214,7 @@
 
 
 
-                        @using (Html.BeginForm())
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "appointeesform" }))
                         {
 
                             <textarea id="primary" style="display:none;">
@@ -755,31 +755,33 @@
                                     <div class="row">
                                         <div class="col-sm-1"></div>
                                         <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
-                                        <div class="form-group">
+                                        
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
 
-                                            <label for="input-1">Country</label>
+                                                <label for="input-1">Country</label>
 
-                                            @if (Model.altcountry_txt != null)
-                                            {
+                                                @if (Model.altcountry_txt != null)
+                                                {
 
-                                                <select id="altguaddlcountry" name="altddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+                                                    <select id="altguaddlcountry" name="altddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
 
-                                                    <option value="@Model.altcountry_txt">@Model.altcountry_txt</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.altguacountryid, new { id = "altguacountryid" })
-                                                @Html.HiddenFor(m => m.altguacountrytext, new { id = "altguacountrytext" })
-                                            }
-                                            else
-                                            {
+                                                        <option value="@Model.altcountry_txt">@Model.altcountry_txt</option>
+                                                    </select>
+                                                    @Html.HiddenFor(m => m.altguacountryid, new { id = "altguacountryid" })
+                                                    @Html.HiddenFor(m => m.altguacountrytext, new { id = "altguacountrytext" })
+                                                }
+                                                else
+                                                {
 
-                                                <select id="altguaddlcountry" name="altcountry_txt" style="display:;" class="form-control input-shadow validate[required]"></select>
-                                                @Html.HiddenFor(m => m.altguacountryid, new { id = "altguacountryid" })
-                                                @Html.HiddenFor(m => m.altguacountrytext, new { id = "altguacountrytext" })
-                                            }
+                                                    <select id="altguaddlcountry" name="altcountry_txt" style="display:;" class="form-control input-shadow validate[required]"></select>
+                                                    @Html.HiddenFor(m => m.altguacountryid, new { id = "altguacountryid" })
+                                                    @Html.HiddenFor(m => m.altguacountrytext, new { id = "altguacountrytext" })
+                                                }
 
 
+                                            </div>
                                         </div>
-
 
 
                                         @if (Model.altstatetext != null)
@@ -1512,7 +1514,9 @@
                         </script>
                         <script>
 
-    $(document).ready(function () {
+                            $(document).ready(function () {
+
+                                $("#appointeesform").validationEngine();
 
         $.ajax({
 
@@ -1706,7 +1710,7 @@
                             var value = $(this).children(":selected").attr("value");
                             var text = $("#ddlsubtype option:selected").html();
 
-
+                            $("#countlbl").hide();
 
                             if (text == "Many Joint") {
                                 $("#txtnumber").show();

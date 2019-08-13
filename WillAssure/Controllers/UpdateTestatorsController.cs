@@ -379,10 +379,11 @@ namespace WillAssure.Controllers
                     TFM.Alt_Identity_proof_Value = dt.Rows[0]["Alt_Identity_proof_Value"].ToString();
                 }
 
-                if (dt.Rows[0]["Gender"].ToString() != "none")
+                if (dt.Rows[0]["Gender"].ToString() != "none                ")
                 {
                     TFM.Gendertext = dt.Rows[0]["Gender"].ToString();
                 }
+            
 
                 if (dt.Rows[0]["Address1"].ToString() != "none")
                 {

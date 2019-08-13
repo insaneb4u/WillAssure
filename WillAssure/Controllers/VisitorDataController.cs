@@ -180,7 +180,7 @@ namespace WillAssure.Controllers
                     string subject = "Will Assure OTP for Login";
                     string OTP = "<font color='Green' style='font-size=3em;'>" + EmailOTP + "</font>";
                     string text = "Your OTP for Verification Is " + OTP + "";
-                    string body = "<font color='red'>" + text + "</font><br><a href='http://localhost:49735/Frontend/OtpIndex?userid=" + userid + "'>Click Here To Verify Your OTP</a>";
+                    string body = "<font color='red'>" + text + "</font><br><a href='http://localhost:49735/frontend/otpindex?userid=" + userid + "'>click here to verify your otp</a>";
                     //string body = "<font color='red'>" + text + "</font><br><a href='http://test.willassure.in/Frontend/OtpIndex?userid=" + userid + "'>Click Here To Verify Your OTP</a>";
 
                     MailMessage msg = new MailMessage();

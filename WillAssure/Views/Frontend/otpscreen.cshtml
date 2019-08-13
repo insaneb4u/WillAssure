@@ -65,9 +65,11 @@
 
                             <br />
 
-
+                            <span id="otpmsg">Your OTP Will Expire In :<span style="position:relative;right:27px;" class="countdown"></span></span>
+                            <br />
                             <span style="color:red;display:none" id="lblfailed"> * Failed</span>
                             <span style="color:red;display:none" id="lblemptycheck">* Please Enter Your OTP</span>
+                            <span style="color:rgb(255, 102, 12);display:none" id="lblnew">Please Check Your Email For New OTP</span>
                             <span style="color:red; white-space:nowrap;" id="lblerror"></span>
 
 
@@ -77,6 +79,7 @@
                         <div class="col-sm-3"></div>
                         <div class="col-sm-9">
                             <input type="button" id="btnverifyotp" style="color:white;" name="name" class="btn btn-success" value="Verify OTP" />
+                            <input type="button" id="btnresend"  style="color:white; display:none; background-color:goldenrod;" name="name" class="btn btn-warning" value="Resend OTP" />
                             <a href=""><button type="button" class="btn btn-danger">Cancel</button></a>
                         </div>
 
@@ -89,9 +92,9 @@
                     </div>
 
 
-
-
-
+                    <center>
+                        <h2 style="color:green; display:none;" id="otpheader">OTP has been already Verified....!</h2>
+                    </center>
 
 
                 </div>
@@ -118,6 +121,132 @@
         $("#lblfailed").hide();
     }
 
+
+
+    function getUrlVars() {
+        var vars = [], hash;
+        var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+        for (var i = 0; i < hashes.length; i++) {
+            hash = hashes[i].split('=');
+            vars.push(hash[0]);
+            vars[hash[0]] = hash[1];
+        }
+        return vars;
+    }
+
+
+    var userid = getUrlVars()["userid"];
+
+
+
+
+    var timer2 = "1:01";
+    var interval = setInterval(function () {
+
+        
+      
+
+        var timer = timer2.split(':');
+        //by parsing integer, I avoid all extra string processing
+        var minutes = parseInt(timer[0], 10);
+        var seconds = parseInt(timer[1], 10);
+        --seconds;
+        minutes = (seconds < 0) ? --minutes : minutes;
+        if (minutes < 0) clearInterval(interval);
+        seconds = (seconds < 0) ? 59 : seconds;
+        seconds = (seconds < 10) ? '0' + seconds : seconds;
+        //minutes = (minutes < 10) ?  minutes : minutes;
+        $('.countdown').html(minutes + ':' + seconds);
+        timer2 = minutes + ':' + seconds;
+
+        if (minutes == 0 && seconds == 0) {
+
+            $("#otpmsg").hide();
+            $("#btnresend").show();
+            $("#btnverifyotp").hide();
+            $("#txtotp").attr('readonly', true);
+
+
+        }
+
+
+
+
+    }, 1000);
+
+
+
+
+    $("#btnresend").click(function () {
+
+        
+
+             $.ajax({
+                  type: "post",
+                 url: "@Url.Action("Resendotp","Frontend")",
+                 data: { "send": "" + userid +""},
+                 success: function (data) {
+
+
+
+                     if (data == "true") {
+
+                         $("#lblnew").show();
+                         $("#btnresend").hide();
+                         $("#btnverifyotp").show();
+                         $("#txtotp").attr('readonly', false);
+
+                         var timer2 = "1:01";
+                         var interval = setInterval(function () {
+
+
+
+
+                             var timer = timer2.split(':');
+                             //by parsing integer, I avoid all extra string processing
+                             var minutes = parseInt(timer[0], 10);
+                             var seconds = parseInt(timer[1], 10);
+                             --seconds;
+                             minutes = (seconds < 0) ? --minutes : minutes;
+                             if (minutes < 0) clearInterval(interval);
+                             seconds = (seconds < 0) ? 59 : seconds;
+                             seconds = (seconds < 10) ? '0' + seconds : seconds;
+                             //minutes = (minutes < 10) ?  minutes : minutes;
+                             $('.countdown').html(minutes + ':' + seconds);
+                             timer2 = minutes + ':' + seconds;
+
+                             if (minutes == 0 && seconds == 0) {
+
+
+                                 $("#btnresend").show();
+                                 $("#btnverifyotp").hide();
+
+
+
+                             }
+
+
+
+
+                         }, 1000);
+
+
+
+
+                     }
+
+
+
+
+          
+
+
+
+
+            }
+            });
+
+    });
 
 
 
@@ -178,6 +307,25 @@
 
 </script>
 
+
+
+
+@if (ViewBag.alreadyverified == "true")
+{
+    <script>
+
+        $(document).ready(function () {
+
+            $("#otpcontent").hide();
+            $("#otpheader").show();
+            $(".otptitle").hide();
+            $(".otpsub-title").hide();
+
+        });
+
+    </script>
+
+}
 
 
 

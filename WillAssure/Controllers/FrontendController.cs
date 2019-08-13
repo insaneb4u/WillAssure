@@ -38,11 +38,160 @@ namespace WillAssure.Controllers
 
 
 
-        public ActionResult OtpIndex()
+        public ActionResult OtpIndex(string userid)
         {
+            con.Open();
+            string query = "select Email_Verification from TestatorDetails where uId = "+userid+"";
+            SqlDataAdapter da = new SqlDataAdapter(query,con);
+            DataTable dt = new DataTable();
             
+            da.Fill(dt);
+
+            if (dt.Rows.Count > 0)
+            {
+                if (dt.Rows[0]["Email_Verification"].ToString() == "1")
+                {
+                    ViewBag.alreadyverified = "true";
+                }
+            }
+
+            con.Close();
 
             return View("~/Views/Frontend/otpscreen.cshtml");
+        }
+
+
+
+
+
+        public string Resendotp()
+        {
+
+           string response = Request["send"].ToString();
+           string emailid = "";
+           string returnmsg = "true";
+
+
+           con.Open();
+
+            string q = "select * from users where uid = "+response+"";
+            SqlDataAdapter da = new SqlDataAdapter(q,con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            if (dt.Rows.Count > 0)
+            {
+                emailid = dt.Rows[0]["eMail"].ToString();
+            }
+           con.Close();
+
+
+
+
+
+            
+
+           
+
+
+
+            //generate MOBILE OTP
+            string MobileOTP = "";
+            MobileOTP = String.Empty;
+            string[] saAllowedCharacters = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+            int iOTPLength = 5;
+
+            string sTempChars = String.Empty;
+            Random rand = new Random();
+
+            for (int i = 0; i < iOTPLength; i++)
+
+            {
+
+                int p = rand.Next(0, saAllowedCharacters.Length);
+
+                sTempChars = saAllowedCharacters[rand.Next(0, saAllowedCharacters.Length)];
+
+                MobileOTP += sTempChars;
+
+            }
+            //END
+
+
+
+
+            //generate EMAIL OTP
+            string EmailOTP = "";
+            EmailOTP = String.Empty;
+            string[] saAllowedCharacters2 = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+            int iOTPLength2 = 5;
+
+            string sTempChars2 = String.Empty;
+            Random rand2 = new Random();
+
+            for (int i = 0; i < iOTPLength2; i++)
+
+            {
+
+                int p = rand.Next(0, saAllowedCharacters2.Length);
+
+                sTempChars2 = saAllowedCharacters2[rand.Next(0, saAllowedCharacters2.Length)];
+
+                EmailOTP += sTempChars2;
+
+            }
+            //END
+
+
+
+            if (emailid != "")
+            {
+                // new mail code
+                string mailto = emailid;
+                string Userid = emailid;
+
+                Session["userid"] = Userid;
+                string subject = "Will Assure OTP for Login";
+                string OTP = "<font color='Green' style='font-size=3em;'>" + EmailOTP + "</font>";
+                string text = "Your OTP for Verification Is " + OTP + "";
+                string body = "<font color='red'>" + text + "</font><br><a href='http://localhost:49735/frontend/otpindex?userid=" + response + "'>click here to verify your otp</a>";
+                //string body = "<font color='red'>" + text + "</font><br><a href='http://test.willassure.in/Frontend/OtpIndex?userid=" + userid + "'>Click Here To Verify Your OTP</a>";
+
+                MailMessage msg = new MailMessage();
+                msg.From = new MailAddress("info@drinco.in");
+                msg.To.Add(mailto);
+                msg.Subject = subject;
+                msg.Body = body;
+
+                msg.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient("216.10.240.149", 25);
+                smtp.Credentials = new NetworkCredential("info@drinco.in", "95Bzf%s7");
+                smtp.EnableSsl = false;
+                smtp.Send(msg);
+                smtp.Dispose();
+
+
+
+                //end
+            }
+
+
+
+
+
+            con.Open();
+
+            string query = "update TestatorDetails set Email_OTP = "+EmailOTP+" where uid = "+response+" ";
+            SqlCommand cmd = new SqlCommand(query,con);
+            cmd.ExecuteNonQuery();
+
+
+            con.Close();
+
+
+
+
+            return returnmsg;
+
         }
 
 

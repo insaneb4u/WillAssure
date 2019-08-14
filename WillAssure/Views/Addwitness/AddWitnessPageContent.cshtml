@@ -470,14 +470,23 @@
 
                                             <label for="input-1">Identity Proof</label>
 
-                                            <input type="text" name="name" placeholder="--Select Identity Proof--" id="Identity_Proof_txt" value="@Model.Identity_Proof" class="form-control input-shadow validate[required]" onfocus="firstidentity()" />
 
-                                            @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
-                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                       new SelectListItem() {Text = "Passport", Value="Passport"},
-                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new {@style="display:none" , @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                          
+                                                @Html.TextBoxFor(X=>X.Identity_Proof_txt1, new {  @placeholder = "--Select Identity Proof--" ,  @id = "Identity_Proof_txt1", @class="form-control input-shadow validate[required]" ,  @onfocus="firstidentity()" })
+                                            
+                                          
+
+                                                @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
+                                           new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                           new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                           new SelectListItem() {Text = "Passport", Value="Passport"},
+                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new {@style="display:none" , @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                            
+
+
+
 
                                         </div>
 
@@ -488,7 +497,7 @@
 
                                         function firstidentity() {
 
-                                            $("#Identity_Proof_txt").hide();
+                                            $("#Identity_Proof_txt1").hide();
                                             $("#ddlidentityproof").show();
 
                                         }
@@ -578,6 +587,8 @@
                             <div id="executorform" style="display:">
 
                                 @Html.HiddenFor(m => m.wapId)
+
+                                @Html.HiddenFor(m => m.weapId)
 
 
 
@@ -799,7 +810,7 @@
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
                                        new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new {@style="display:none" , @class = "form-control input-shadow validate[required]", @id = "wddlidentityproof", @onchange = "getIdentityselection1(this.options[this.selectedIndex].innerHTML)" })
 
-                                            <input type="text" name="name" placeholder="--Select Identity Proof--" id="altfirstIdentity_Proof_txt" value="@Model.wIdentity_Proof" class="form-control input-shadow validate[required]" onfocus="altfirstidentity()" />
+                                            <input type="text" name="Identity_Proof_txt2" placeholder="--Select Identity Proof--" id="altfirstIdentity_Proof_txt" value="@Model.Identity_Proof_txt2" class="form-control input-shadow validate[required]" onfocus="altfirstidentity()" />
 
 
 
@@ -864,7 +875,7 @@
 
                             </div>
 
-                            <input type="text" name="checkwitness3" id="checkwitness3" value="false" />
+                            <input type="hidden" name="checkwitness3" id="checkwitness3" value="false" />
 
                             <center>
                                 <h6>Do You Like To Add Witness 3</h6>
@@ -931,20 +942,20 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">First Name</label>
-                                            @Html.TextBoxFor(m => m.weFirstname, new { @class = "form-control input-shadow required validate[required]", @id = "wtxtname", @placeholder = "Enter Name", @autocomplete = "off" })
+                                            @Html.TextBoxFor(m => m.weFirstname, new { @class = "form-control input-shadow required validate[required]", @id = "wetxtname", @placeholder = "Enter Name", @autocomplete = "off" })
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Middle Name</label>
-                                            @Html.TextBoxFor(m => m.wemiddleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "wtxtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                            @Html.TextBoxFor(m => m.wemiddleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "wetxtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Last Name</label>
-                                            @Html.TextBoxFor(m => m.weSurname, new { @class = "form-control input-shadow validate[required] text-input", @id = "wtxtsurname", @placeholder = "Enter Surname", @autocomplete = "off" })
+                                            @Html.TextBoxFor(m => m.weSurname, new { @class = "form-control input-shadow validate[required] text-input", @id = "wetxtsurname", @placeholder = "Enter Surname", @autocomplete = "off" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3"></div>
@@ -957,7 +968,7 @@
                                             new SelectListItem() {Text = "--Select--", Value=""},
                                             new SelectListItem() {Text = "Male", Value="Male"},
                                             new SelectListItem() {Text = "Female", Value="Female"},
-                                            new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow  validate[required]" })
+                                            new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow  validate[required]"   , @id="weGender" })
                                         </div>
                                     </div>
 
@@ -1067,7 +1078,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Pin</label>
-                                            @Html.TextBoxFor(m => m.wePin, new { @class = "form-control input-shadow validate[required]  text-input", @id = "wtxtpin", @placeholder = "Enter Pin", @autocomplete = "off" })
+                                            @Html.TextBoxFor(m => m.wePin, new { @class = "form-control input-shadow validate[required]  text-input", @id = "wetxtpin", @placeholder = "Enter Pin", @autocomplete = "off" })
                                         </div>
                                     </div>
                                 </div>
@@ -1077,21 +1088,21 @@
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 1</label>
-                                            @Html.TextAreaFor(m => m.weAddress1, new { @class = "form-control input-shadow  text-input validate[required]", @id = "wtxtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
+                                            @Html.TextAreaFor(m => m.weAddress1, new { @class = "form-control input-shadow  text-input validate[required]", @id = "wetxtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 2</label>
-                                            @Html.TextAreaFor(m => m.weAddress2, new { @class = "form-control input-shadow  text-input ", @id = "wtxtaddress2", @placeholder = "Enter Address2", @autocomplete = "off" })
+                                            @Html.TextAreaFor(m => m.weAddress2, new { @class = "form-control input-shadow  text-input ", @id = "wetxtaddress2", @placeholder = "Enter Address2", @autocomplete = "off" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 3</label>
-                                            @Html.TextAreaFor(m => m.weAddress3, new { @class = "form-control input-shadow  text-input", @id = "wtxtaddress3", @placeholder = "Enter Address3", @autocomplete = "off" })
+                                            @Html.TextAreaFor(m => m.weAddress3, new { @class = "form-control input-shadow  text-input", @id = "wetxtaddress3", @placeholder = "Enter Address3", @autocomplete = "off" })
                                         </div>
                                     </div>
                                 </div>
@@ -1113,7 +1124,7 @@
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
                                        new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new {@style="display:none" , @class = "form-control input-shadow validate[required]", @id = "ewddlidentityproof", @onchange = "egetIdentityselection1(this.options[this.selectedIndex].innerHTML)" })
 
-                                            <input type="text" name="name" placeholder="--Select Identity Proof--" id="ealtfirstIdentity_Proof_txt" value="@Model.weIdentity_Proof" class="form-control input-shadow validate[required]" onfocus="ealtfirstidentity()" />
+                                            <input type="text" name="Identity_Proof_txt3" placeholder="--Select Identity Proof--" id="ealtfirstIdentity_Proof_txt" value="@Model.Identity_Proof_txt3" class="form-control input-shadow validate[required]" onfocus="ealtfirstidentity()" />
 
 
 
@@ -1135,7 +1146,7 @@
                                         <div class="form-group">
                                             <label for="input-1">Identity Proof Value</label>
                                             <div id="eappendtxtone"> @Html.TextBoxFor(m => m.weIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "weIdentity_Proof_Value", @onchange = "evalidateidentity2(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus = "ealtfirst()" })  </div>
-                                            <span id="lblidentityproof2" style="color:red; display:none;">*Identity Proof Already Entered</span>
+                                            <span id="elblidentityproof2" style="color:red; display:none;">*Identity Proof Already Entered</span>
                                         </div>
                                     </div>
 
@@ -1147,7 +1158,7 @@
                                        new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
                                        new SelectListItem() {Text = "Passport", Value="Passport"},
                                        new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow ", @id = "ewddlidentityproof1", @onchange = "egetAltIdentityselection2(this.options[this.selectedIndex].innerHTML)" })
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class = "form-control input-shadow ", @style="display:none;" ,  @id = "ewddlidentityproof1", @onchange = "egetAltIdentityselection2(this.options[this.selectedIndex].innerHTML)" })
 
                                         </div>
                                     </div>
@@ -1156,8 +1167,8 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="eappendtxttwo"> @Html.TextBoxFor(m => m.weAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altsecond", @id = "wAlt_Identity_proof_Value", @onchange = "altAltvalidate2(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus = "altsecond()" }) </div>
-                                            <span id="altlblidentityproof2" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
+                                            <div id="eappendtxttwo"> @Html.TextBoxFor(m => m.weAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altsecond", @id = "wAlt_Identity_proof_Value", @onchange = "ealtAltvalidate2(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus = "altsecond()" }) </div>
+                                            <span id="ealtlblidentityproof2" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                         </div>
                                     </div>
 
@@ -1698,6 +1709,10 @@
                     @*validation script*@
                     <script>
                         function getIdentityselection(id) {
+
+                          
+
+
                             $("#ddlidentityproof1 option:disabled").removeAttr('disabled');
                             //var a =  $("#Identity_Proof_txt").val(id);
 
@@ -2422,6 +2437,41 @@
                                 $("#wtxtIdentityProofValuealt2").attr("disabled", "disabled");
                                 $("#wAlt_Identity_proof_Value").attr("disabled", "disabled");
 
+
+
+
+                                $(".withdatacountry").attr("disabled", "disabled");
+                                $("#Identity_Proof_txt").attr("disabled", "disabled");
+                                $("#ddlidentityproof1").attr("disabled", "disabled");
+                                $("#wtxtname").attr("disabled", "disabled");
+                                $("#wtxtmiddlename").attr("disabled", "disabled");
+                                $("#wtxtsurname").attr("disabled", "disabled");
+                                $("#wGender").attr("disabled", "disabled");
+                                $("#wtxtpin").attr("disabled", "disabled");
+                                $("#wtxtaddress1").attr("disabled", "disabled");
+                                $("#wtxtaddress2").attr("disabled", "disabled");
+                                $("#wtxtaddress3").attr("disabled", "disabled");
+                                $("#altfirstIdentity_Proof_txt").attr("disabled", "disabled");
+                                $("#wddlidentityproof1").attr("disabled", "disabled");
+
+
+
+                                $("#wetxtname").attr("disabled", "disabled");
+                                $("#wetxtmiddlename").attr("disabled", "disabled");
+                                $("#wetxtsurname").attr("disabled", "disabled");
+                                $("#weGender").attr("disabled", "disabled");
+                                $(".withdatacountry").attr("disabled", "disabled");
+                                $("#ealtddlstate").attr("disabled", "disabled");
+                                $("#ealtddlcity").attr("disabled", "disabled");
+                                $("#wetxtpin").attr("disabled", "disabled");
+                                $("#wetxtaddress1").attr("disabled", "disabled");
+                                $("#wetxtaddress2").attr("disabled", "disabled");
+                                $("#wetxtaddress3").attr("disabled", "disabled");
+                                $("#ealtfirstIdentity_Proof_txt").attr("disabled", "disabled");
+                                $("#ewddlidentityproof1").attr("disabled", "disabled");
+                                $("#weAlt_Identity_proof_Value").attr("disabled", "disabled");
+
+
                             });
 
 
@@ -2444,6 +2494,43 @@
                             $("#btnfieldedit").hide();
                             $("#btneditmsg").show();
                             $("#btnupdate").show();
+
+
+                            $(".withdatacountry").removeAttr("disabled");
+                            $("#Identity_Proof_txt").removeAttr("disabled");
+                            $("#ddlidentityproof1").removeAttr("disabled");
+                            $("#wtxtname").removeAttr("disabled");
+                            $("#wtxtmiddlename").removeAttr("disabled");
+                            $("#wtxtsurname").removeAttr("disabled");
+                            $("#wGender").removeAttr("disabled");
+                            $("#wtxtpin").removeAttr("disabled");
+                            $("#wtxtaddress1").removeAttr("disabled");
+                            $("#wtxtaddress2").removeAttr("disabled");
+                            $("#wtxtaddress3").removeAttr("disabled");
+                            $("#altfirstIdentity_Proof_txt").removeAttr("disabled");
+                            $("#wddlidentityproof1").removeAttr("disabled");
+
+
+
+                            $("#wetxtname").removeAttr("disabled");
+                            $("#wetxtmiddlename").removeAttr("disabled");
+                            $("#wetxtsurname").removeAttr("disabled");
+                            $("#weGender").removeAttr("disabled");
+                            $(".withdatacountry").removeAttr("disabled");
+                            $("#ealtddlstate").removeAttr("disabled");
+                            $("#ealtddlcity").removeAttr("disabled");
+                            $("#wetxtpin").removeAttr("disabled");
+                            $("#wetxtaddress1").removeAttr("disabled");
+                            $("#wetxtaddress2").removeAttr("disabled");
+                            $("#wetxtaddress3").removeAttr("disabled");
+                            $("#ealtfirstIdentity_Proof_txt").removeAttr("disabled");
+                            $("#ewddlidentityproof1").removeAttr("disabled");
+                            $("#wAlt_Identity_proof_Value").removeAttr("disabled");
+                         
+
+
+
+
 
 
 
@@ -2556,7 +2643,36 @@
                             $("#txtIdentityProofValuealt2").attr("disabled", "disabled");
 
 
+                            $(".withdatacountry").attr("disabled", "disabled");
+                            $("#Identity_Proof_txt").attr("disabled", "disabled");
+                            $("#ddlidentityproof1").attr("disabled", "disabled");
+                            $("#wtxtname").attr("disabled", "disabled");
+                            $("#wtxtmiddlename").attr("disabled", "disabled");
+                            $("#wtxtsurname").attr("disabled", "disabled");
+                            $("#wGender").attr("disabled", "disabled");
+                            $("#wtxtpin").attr("disabled", "disabled");
+                            $("#wtxtaddress1").attr("disabled", "disabled");
+                            $("#wtxtaddress2").attr("disabled", "disabled");
+                            $("#wtxtaddress3").attr("disabled", "disabled");
+                            $("#altfirstIdentity_Proof_txt").attr("disabled", "disabled");
+                            $("#wddlidentityproof1").attr("disabled", "disabled");
 
+
+
+                            $("#wetxtname").attr("disabled", "disabled");
+                            $("#wetxtmiddlename").attr("disabled", "disabled");
+                            $("#wetxtsurname").attr("disabled", "disabled");
+                            $("#weGender").attr("disabled", "disabled");
+                            $(".withdatacountry").attr("disabled", "disabled");
+                            $("#ealtddlstate").attr("disabled", "disabled");
+                            $("#ealtddlcity").attr("disabled", "disabled");
+                            $("#wetxtpin").attr("disabled", "disabled");
+                            $("#wetxtaddress1").attr("disabled", "disabled");
+                            $("#wetxtaddress2").attr("disabled", "disabled");
+                            $("#wetxtaddress3").attr("disabled", "disabled");
+                            $("#ealtfirstIdentity_Proof_txt").attr("disabled", "disabled");
+                            $("#ewddlidentityproof1").attr("disabled", "disabled");
+                            $("#wAlt_Identity_proof_Value").attr("disabled", "disabled");
 
 
 
@@ -2829,6 +2945,21 @@
 
 
 
+                            $("#wetxtname").removeAttr("disabled");
+                            $("#wetxtmiddlename").removeAttr("disabled");
+                            $("#wetxtsurname").removeAttr("disabled");
+                            $("#weGender").removeAttr("disabled");
+                            $(".withdatacountry").removeAttr("disabled");
+                            $("#ealtddlstate").removeAttr("disabled");
+                            $("#ealtddlcity").removeAttr("disabled");
+                            $("#wetxtpin").removeAttr("disabled");
+                            $("#wetxtaddress1").removeAttr("disabled");
+                            $("#wetxtaddress2").removeAttr("disabled");
+                            $("#wetxtaddress3").removeAttr("disabled");
+                            $("#ealtfirstIdentity_Proof_txt").removeAttr("disabled");
+                            $("#ewddlidentityproof1").removeAttr("disabled");
+                            $("#wAlt_Identity_proof_Value").removeAttr("disabled");
+
 
 
 
@@ -3089,6 +3220,21 @@
                             $("#wAlt_Identity_proof_Value").val("");
 
 
+
+                            $("#wetxtname").removeAttr("disabled");
+                            $("#wetxtmiddlename").removeAttr("disabled");
+                            $("#wetxtsurname").removeAttr("disabled");
+                            $("#weGender").removeAttr("disabled");
+                            $(".withdatacountry").removeAttr("disabled");
+                            $("#ealtddlstate").removeAttr("disabled");
+                            $("#ealtddlcity").removeAttr("disabled");
+                            $("#wetxtpin").removeAttr("disabled");
+                            $("#wetxtaddress1").removeAttr("disabled");
+                            $("#wetxtaddress2").removeAttr("disabled");
+                            $("#wetxtaddress3").removeAttr("disabled");
+                            $("#ealtfirstIdentity_Proof_txt").removeAttr("disabled");
+                            $("#ewddlidentityproof1").removeAttr("disabled");
+                            $("#wAlt_Identity_proof_Value").removeAttr("disabled");
 
 
 
@@ -3405,24 +3551,24 @@
 
 
                             if (id == "Aadhaar Card") {
-                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  ,  onchange='altAltvalidate2(this.value)'  , onfocus='altsecond()' />");
+                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  ,  onchange='ealtAltvalidate2(this.value)'  , onfocus='altsecond()' />");
                             }
 
 
                             if (id == "Passport") {
-                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='altAltvalidate2(this.value)' , onfocus='altsecond()'  />");
+                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='ealtAltvalidate2(this.value)' , onfocus='altsecond()'  />");
                             }
 
 
 
                             if (id == "Driving Licences") {
-                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='altAltvalidate2(this.value)' , onfocus='altsecond()' />");
+                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='ealtAltvalidate2(this.value)' , onfocus='altsecond()' />");
                             }
 
 
 
                             if (id == "Pan Card") {
-                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='altAltvalidate2(this.value)' , onfocus='altsecond()'  />");
+                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='ealtAltvalidate2(this.value)' , onfocus='altsecond()'  />");
                             }
 
 
@@ -3543,16 +3689,7 @@
 
 
 
-                            function evalidateidentity2(value) {
-
-
-                                if ($("#eIdentity_Proof_Value").val() == value || $("#eAlt_Identity_Proof_Value").val() == value) {
-
-                                    $("#ewIdentity_Proof_Value").val("");
-                                    $("#elblidentityproof2").show();
-                                    return false;
-                                }
-
+              
 
 
 
@@ -3630,7 +3767,204 @@
 
 
 
+                        }
+
+
+
+
+
+
+
+
+
+                                           function evalidateidentity2(value) {
+
+
+                            if ($("#Identity_Proof_Value").val() == value || $("#Alt_Identity_Proof_Value").val() == value) {
+
+                                $("#wIdentity_Proof_Value").val("");
+                                $("#lblidentityproof2").show();
+                                return false;
+                            }
+
+
+
+
+              
+
+
+
+
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "@Url.Action("Validateidentity2", "Addwitness")",
+                    data: {"send":""+value+""},
+                    success: function (data) {
+
+
+                        var data1 = data.split("~")[0];
+                        var data2 = data.split("~")[1];
+                        var data3 = data.split("~")[2];
+                        var data4 = data.split("~")[3];
+                        var data5 = data.split("~")[4];
+
+
+
+                        if (data1 == "false") {
+
+                            $("#elblidentityproof2").show();
+                            $("#wIdentity_Proof_Value").val("");
+
+                        }
+
+
+
+                        if (data2 == "false") {
+                            $("#elblidentityproof2").show();
+                            $("#wIdentity_Proof_Value").val("");
+                        }
+
+
+
+                        if (data3 == "false") {
+                            $("#elblidentityproof2").show();
+                            $("#wIdentity_Proof_Value").val("");
+                        }
+
+
+
+
+
+
+
+                        if (data4 == "false") {
+                            $("#elblidentityproof2").show();
+                            $("#wIdentity_Proof_Value").val("");
+                        }
+
+
+
+
+
+                        if (data5 == "false") {
+                            $("#elblidentityproof2").show();
+                            $("#wIdentity_Proof_Value").val("");
+                        }
+
+
+
+
+
+
+
+
+
+
+
             }
+        });
+
+
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+                                  function ealtAltvalidate2(value) {
+
+
+                         var c =     $("#Alt_Identity_Proof_Value").val();
+
+
+                            if ($("#Identity_Proof_Value").val() == value || $("#Alt_Identity_proof_Value").val() == value) {
+
+                                $("#wAlt_Identity_proof_Value").val("");
+                                $("#altlblidentityproof2").show();
+                                return false;
+                            }
+
+
+
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "@Url.Action("altValidateidentity2", "Addwitness")",
+                    data: {"send":""+value+""},
+                    success: function (data) {
+
+
+
+                        var data1 = data.split("~")[0];
+                        var data2 = data.split("~")[1];
+                        var data3 = data.split("~")[2];
+                        var data4 = data.split("~")[3];
+                        var data5 = data.split("~")[4];
+
+
+
+                        if (data1 == "false") {
+                            $("#ealtlblidentityproof2").show();
+                            $("#wAlt_Identity_proof_Value").val("");
+
+                        }
+
+
+
+                        if (data2 == "false") {
+                            $("#ealtlblidentityproof2").show();
+                            $("#wAlt_Identity_proof_Value").val("");
+
+                        }
+
+
+
+                        if (data3 == "false") {
+                            $("#ealtlblidentityproof2").show();
+                            $("#wAlt_Identity_proof_Value").val("");
+
+                        }
+
+
+
+                        if (data4 == "false") {
+                            $("#ealtlblidentityproof2").show();
+                            $("#wAlt_Identity_proof_Value").val("");
+
+                        }
+
+
+
+
+                        if (data5 == "false") {
+                            $("#ealtlblidentityproof2").show();
+                            $("#wAlt_Identity_proof_Value").val("");
+
+                        }
+
+
+
+
+
+
+
+            }
+        });
+
+
+
+                        }
 
 
                     </script>

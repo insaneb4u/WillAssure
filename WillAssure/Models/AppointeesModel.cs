@@ -20,7 +20,14 @@ namespace WillAssure.Models
       public string middleName  { get; set;}
       public string Surname  { get; set;}
       public string Identity_Proof  { get; set;}
-      public string Identity_Proof_Value  { get; set;}
+
+        public string Identity_Proof_txt1 { get; set; }
+        public string Identity_Proof_txt2 { get; set; }
+        public string Identity_Proof_txt3 { get; set; }
+
+
+
+        public string Identity_Proof_Value  { get; set;}
       public string Alt_Identity_Proof  { get; set;}
       public string Alt_Identity_Proof_Value  { get; set;}
       public string Dob  { get; set;}

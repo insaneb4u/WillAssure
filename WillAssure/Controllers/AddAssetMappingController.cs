@@ -1498,6 +1498,15 @@ namespace WillAssure.Controllers
             if (collection["checkaltbenestatus"].ToString() == "true")
             {
 
+                // set document rules
+                con.Open();
+                string qdr = "update documentRules set AlternateBeneficiaries = 1 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                SqlCommand cdr = new SqlCommand(qdr, con);
+                cdr.ExecuteNonQuery();
+                con.Close();
+                // end
+
+
 
                 string querydy2 = "";
                 string altbene = collection["alt_proportion"].ToString();
@@ -1609,7 +1618,17 @@ namespace WillAssure.Controllers
                 con.Close();
 
             }
+            else
+            {
 
+                // set document rules
+                con.Open();
+                string qdr = "update documentRules set AlternateBeneficiaries = 2 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                SqlCommand cdr = new SqlCommand(qdr, con);
+                cdr.ExecuteNonQuery();
+                con.Close();
+                // end
+            }
 
 
 

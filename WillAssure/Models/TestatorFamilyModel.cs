@@ -21,10 +21,18 @@ namespace WillAssure.Models
       public string Address2{ get; set; }
       public string Address3{ get; set; }
 
+    public string Identity_Proof_txt { get; set; }
+    public string guaIdentity_Proof_txt { get; set; }
+    public string altguaIdentity_Proof_txt { get; set; }
+
+
         public string City{ get; set; }
         public int City_id { get; set; }
         public string City_txt { get; set; }
 
+        public string samecountry { get; set; }
+        public string samecity { get; set; }
+        public string samestate { get; set; }
 
         public string State{ get; set; }
         public int State_id { get; set; }

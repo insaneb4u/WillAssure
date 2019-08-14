@@ -2093,6 +2093,18 @@ namespace WillAssure.Controllers
             {
 
 
+                // set document rules
+                con.Open();
+                string qdr = "update documentRules set AlternateExecutors = 1 , executors_category = 1 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                SqlCommand cdr = new SqlCommand(qdr, con);
+                cdr.ExecuteNonQuery();
+                con.Close();
+                // end
+
+
+
+
+
                 // alternate appointees
 
                 con.Open();
@@ -2278,7 +2290,14 @@ namespace WillAssure.Controllers
 
 
             }
-
+            else
+            {
+                // set document rules
+                string qdr = "update documentRules set AlternateExecutors = 2 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                SqlCommand cdr = new SqlCommand(qdr, con);
+                cdr.ExecuteNonQuery();
+                // end
+            }
 
             ViewBag.Message = "Verified";
 
@@ -3475,6 +3494,18 @@ namespace WillAssure.Controllers
             string structure = "";
 
             int response = Convert.ToInt32(Request["send"]);
+
+
+
+
+            // set document rules
+            con.Open();
+            string qdr = "update documentRules set executors_category = "+response+" where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+            SqlCommand cdr = new SqlCommand(qdr, con);
+            cdr.ExecuteNonQuery();
+            con.Close();
+            // end
+
 
 
 

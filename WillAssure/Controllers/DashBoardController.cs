@@ -559,8 +559,49 @@ namespace WillAssure.Controllers
                 {
                     ViewBag.collapse = "true";
                    
-                    Session["doctype"] = "Will";
+                    Session["doctype"] = doctype;
                     Session["WillType"] = WillType;
+
+
+                    // set document rules
+                    con.Open();
+
+
+                    string gettid = "select tId from TestatorDetails where uId = "+ Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlDataAdapter da = new SqlDataAdapter(gettid,con);
+                    DataTable dat = new DataTable();
+                    da.Fill(dat);
+
+
+                    int drdoctype = 0;
+                    int drwilltype = 0;
+
+                    if (doctype == "Will")
+                    {
+                        drdoctype = 1;
+                    }
+
+
+                    if (WillType == "Quick")
+                    {
+                        drwilltype = 1;
+                    }
+
+                    if (WillType == "Detailed")
+                    {
+                        drwilltype = 2;
+                    }
+
+                    string qdr = "update documentRules set documentType = " + drdoctype + "  ,  category = "+ drwilltype + "  where tid = " + Convert.ToInt32(dat.Rows[0]["tId"])  + " ";
+                    SqlCommand cdr = new SqlCommand(qdr, con);
+                    cdr.ExecuteNonQuery();
+                    con.Close();
+                    
+                    
+                    // end
+
+
+
                     return RedirectToAction("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["uuid"]) });
                 }
 

@@ -258,7 +258,7 @@ namespace WillAssure.Controllers
                     TFM.Pin = dt.Rows[i]["Pin"].ToString();
 
                     TFM.active = dt.Rows[i]["active"].ToString();
-                    TFM.Identity_Proof = dt.Rows[i]["Identity_Proof"].ToString();
+                    TFM.Identity_Proof_txt = dt.Rows[i]["Identity_Proof"].ToString();
                     TFM.Identity_Proof_Value = dt.Rows[i]["Identity_Proof_Value"].ToString();
                     TFM.Alt_Identity_Proof = dt.Rows[i]["Alt_Identity_Proof"].ToString();
                     TFM.Alt_Identity_Proof_Value = dt.Rows[i]["Alt_Identity_Proof_Value"].ToString();
@@ -312,7 +312,7 @@ namespace WillAssure.Controllers
         TFM.guaName = dt33.Rows[i]["Name"].ToString();
         TFM.guamiddleName = dt33.Rows[i]["middleName"].ToString();
         TFM.guaSurname = dt33.Rows[i]["Surname"].ToString();
-        TFM.guaIdentity_Proof = dt33.Rows[i]["Identity_Proof"].ToString();
+        TFM.guaIdentity_Proof_txt = dt33.Rows[i]["Identity_Proof"].ToString();
         TFM.guaIdentity_Proof_Value = dt33.Rows[i]["Identity_Proof_Value"].ToString();
         TFM.guaAlt_Identity_Proof = dt33.Rows[i]["Alt_Identity_Proof"].ToString();
         TFM.guaAlt_Identity_Proof_Value = dt33.Rows[i]["Alt_Identity_Proof_Value"].ToString();
@@ -336,7 +336,59 @@ namespace WillAssure.Controllers
 
 
 
-            return View("~/Views/AddTestatorFamily/AddTestatorFamilyPageContent.cshtml", TFM);
+
+
+            string query333 = "select * from Appointees where tfId = " + Convert.ToInt32(Session["distid"]) + "   and Type='AlternateGuardian'";
+
+
+
+
+
+
+            SqlDataAdapter da333 = new SqlDataAdapter(query333, con);
+            DataTable dt333 = new DataTable();
+            da333.Fill(dt333);
+            con.Close();
+
+
+            if (dt333.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dt333.Rows.Count; i++)
+                {
+                    ViewBag.altguardian = "true";
+                    TFM.altguaapId = Convert.ToInt32(dt333.Rows[i]["apId"]);
+                    TFM.altguaTypetxt = dt333.Rows[i]["Type"].ToString();
+                    TFM.altguasubTypetxt = dt333.Rows[i]["subType"].ToString();
+                    TFM.altguaName = dt333.Rows[i]["Name"].ToString();
+                    TFM.altguamiddleName = dt333.Rows[i]["middleName"].ToString();
+                    TFM.altguaSurname = dt333.Rows[i]["Surname"].ToString();
+                    TFM.altguaIdentity_Proof_txt = dt333.Rows[i]["Identity_Proof"].ToString();
+                    TFM.altguaIdentity_Proof_Value = dt333.Rows[i]["Identity_Proof_Value"].ToString();
+                    TFM.altguaAlt_Identity_Proof = dt333.Rows[i]["Alt_Identity_Proof"].ToString();
+                    TFM.altguaAlt_Identity_Proof_Value = dt333.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                    //TFM.Dob = Convert.ToDateTime(dt33.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+                    TFM.altguaGender = dt333.Rows[i]["Gender"].ToString();
+                    TFM.altguaOccupation = dt333.Rows[i]["Occupation"].ToString();
+                    TFM.altguaRelationshipTxt = dt333.Rows[i]["Relationship"].ToString();
+                    TFM.altguaAddress1 = dt333.Rows[i]["Address1"].ToString();
+                    TFM.altguaAddress2 = dt333.Rows[i]["Address2"].ToString();
+                    TFM.altguaAddress3 = dt333.Rows[i]["Address3"].ToString();
+                    TFM.altguacitytext = dt333.Rows[i]["City"].ToString();
+                    TFM.altguastatetext = dt333.Rows[i]["State"].ToString();
+                    TFM.altguaPin = dt333.Rows[i]["Pin"].ToString();
+                    TFM.altguacountrytext = dt333.Rows[i]["Country"].ToString();
+
+
+
+                }
+            }
+
+
+
+
+                return View("~/Views/AddTestatorFamily/AddTestatorFamilyPageContent.cshtml", TFM);
         }
 
 
@@ -1114,9 +1166,32 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@Address1", TFM.Address1);
                 cmd.Parameters.AddWithValue("@Address2", TFM.Address2);
                 cmd.Parameters.AddWithValue("@Address3", TFM.Address3);
+
+
+            if (TFM.City_txt != null)
+            {
                 cmd.Parameters.AddWithValue("@City", TFM.City_txt);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@City", TFM.samecity);
+            }
+
+
+
+            if (TFM.State_txt != null)
+            {
                 cmd.Parameters.AddWithValue("@State", TFM.State_txt);
-                cmd.Parameters.AddWithValue("@Pin", TFM.Pin);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@State", TFM.samestate);
+            }
+
+               
+
+
+            cmd.Parameters.AddWithValue("@Pin", TFM.Pin);
                 cmd.Parameters.AddWithValue("@tId", TFM.ddltid);
 
             if (TFM.active != null && TFM.active != "")
@@ -1169,21 +1244,47 @@ namespace WillAssure.Controllers
             }
 
 
-            string qt2 = "update testatorFamily set Country='"+TFM.country_txt+"' ,  WillType='"+Session["WillType"].ToString()+ "' where fId=" + fid + "";
+            string country = "";
+
+            if (TFM.country_txt != null)
+            {
+                country = TFM.country_txt;
+            }
+            else
+            {
+                country = TFM.samecountry;
+            }
+
+
+
+            string qt2 = "update testatorFamily set Country='"+ country + "' ,  WillType='"+Session["WillType"].ToString()+ "' where fId=" + fid + "";
             SqlCommand cmd33e2 = new SqlCommand(qt2, con);
             cmd33e2.ExecuteNonQuery();
             con.Close();
 
 
             ViewBag.message = "Verified";
-            con.Close();
+           
 
 
             // guardian form details
             if (TFM.guardiancheck == "true")
             {
 
+
+
+
                 con.Open();
+
+
+                // set document rules
+                string qdr = "update documentRules set guardian = 1 where tid = "+ Convert.ToInt32(Session["distid"]) +" ";
+                SqlCommand cdr = new SqlCommand(qdr,con);
+                cdr.ExecuteNonQuery();
+                // end
+
+
+
                 SqlCommand cmd3 = new SqlCommand("SP_CRUDAppointees", con);
                 cmd3.CommandType = CommandType.StoredProcedure;
                 cmd3.Parameters.AddWithValue("@condition", "insert");
@@ -1307,6 +1408,16 @@ namespace WillAssure.Controllers
 
 
             }
+            else
+            {
+                // set document rules
+                con.Open();
+                string qdr = "update documentRules set guardian = 2 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                SqlCommand cdr = new SqlCommand(qdr, con);
+                cdr.ExecuteNonQuery();
+                con.Close();
+                // end
+            }
 
 
 
@@ -1321,7 +1432,19 @@ namespace WillAssure.Controllers
             if (TFM.alternateguardiancheck == "true")
             {
 
+               
+
+                // set document rules
                 con.Open();
+                string qdr = "update documentRules set AlternateGaurdian = 1 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                SqlCommand cdr = new SqlCommand(qdr, con);
+                cdr.ExecuteNonQuery();
+                
+                // end
+
+
+
+
                 SqlCommand cmd3 = new SqlCommand("SP_CRUDAppointees", con);
                 cmd3.CommandType = CommandType.StoredProcedure;
                 cmd3.Parameters.AddWithValue("@condition", "insert");
@@ -1446,6 +1569,16 @@ namespace WillAssure.Controllers
 
 
             }
+            else
+            {
+                // set document rules
+                con.Open();
+                string qdr = "update documentRules set AlternateGaurdian = 2 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                SqlCommand cdr = new SqlCommand(qdr, con);
+                cdr.ExecuteNonQuery();
+                con.Close();
+                // end
+            }
 
 
 
@@ -1521,8 +1654,35 @@ namespace WillAssure.Controllers
             }
 
 
-            cmd2.Parameters.AddWithValue("@City", TFM.City_txt);
-            cmd2.Parameters.AddWithValue("@State", TFM.State_txt);
+          
+           
+
+            if (TFM.City_txt != null)
+            {
+                cmd2.Parameters.AddWithValue("@City", TFM.City_txt);
+            }
+            else
+            {
+                cmd2.Parameters.AddWithValue("@City", TFM.samecity);
+            }
+
+
+
+            if (TFM.State_txt != null)
+            {
+                cmd2.Parameters.AddWithValue("@State", TFM.State_txt);
+            }
+            else
+            {
+                cmd2.Parameters.AddWithValue("@State", TFM.samestate);
+            }
+
+
+
+
+
+
+
             cmd2.Parameters.AddWithValue("@Pin", TFM.Pin);
             cmd2.Parameters.AddWithValue("@aid", 0);
             cmd2.Parameters.AddWithValue("@tid", TFM.ddltid);
@@ -2104,6 +2264,44 @@ namespace WillAssure.Controllers
         {
 
 
+            string testatoridentity = "";
+            string guaidentity = "";
+            string altguaidentity = "";
+
+
+            if (TFM.Identity_Proof != null)
+            {
+                testatoridentity = TFM.Identity_Proof;
+            }
+
+            if (TFM.guaIdentity_Proof != null)
+            {
+                guaidentity = TFM.guaIdentity_Proof;
+            }
+
+
+            if (TFM.altguaIdentity_Proof != null)
+            {
+                altguaidentity = TFM.altguaIdentity_Proof;
+            }
+
+
+
+            if (TFM.Identity_Proof_txt != null)
+            {
+                testatoridentity = TFM.Identity_Proof_txt;
+            }
+
+            if (TFM.guaIdentity_Proof_txt != null)
+            {
+                guaidentity = TFM.Identity_Proof_txt;
+            }
+
+
+            if (TFM.altguaIdentity_Proof_txt != null)
+            {
+                altguaidentity = TFM.Identity_Proof_txt;
+            }
 
             con.Open();
             SqlCommand cmd = new SqlCommand("SP_CRUDtestatorfamily", con);
@@ -2126,7 +2324,7 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@tId", TFM.ddltid);
             cmd.Parameters.AddWithValue("@Pin", TFM.Pin);
             cmd.Parameters.AddWithValue("@active", "1");
-            cmd.Parameters.AddWithValue("@Identity_Proof", TFM.Identity_Proof);
+            cmd.Parameters.AddWithValue("@Identity_Proof", testatoridentity);
             cmd.Parameters.AddWithValue("@Identity_Proof_Value", TFM.Identity_Proof_Value);
             cmd.Parameters.AddWithValue("@Alt_Identity_Proof", TFM.Alt_Identity_Proof);
             cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", TFM.Alt_Identity_Proof_Value);
@@ -2138,9 +2336,17 @@ namespace WillAssure.Controllers
 
 
 
-            string upaltquery = "update alttestatorFamily set altFirst_Name = '"+TFM.altFirst_Name+"'  , altLast_Name = '"+TFM.altLast_Name+"'  , altMiddle_Name = '"+TFM.altMiddle_Name+"'  , altDOB = '"+Convert.ToDateTime(TFM.altDob).ToString("yyyy-MM-dd")+"' , altMarital_Status = '"+TFM.altMarital_Status+"'   , altReligion = '"+TFM.altReligion+"' , altRelationship = '"+TFM.altRelationshipTxt+"' , altAddress1 = '"+TFM.altAddress1+"' , altAddress2 = '"+TFM.altAddress2+"' , altAddress3 = '"+TFM.altAddress3+"' , altCity = '"+TFM.altCity_txt+"'  , altState = '"+TFM.altState_txt+"'  , altPin = '"+TFM.altPin+"'  , altIdentity_Proof = '"+TFM.altIdentity_Proof+"'  , altIdentity_Proof_Value = '"+TFM.altIdentity_Proof_Value+"' , altAlt_Identity_Proof = '"+TFM.altAlt_Identity_Proof+"'  , altAlt_Identity_Proof_Value = '"+TFM.altAlt_Identity_Proof_Value+ "'  where testatorfamilyid = "+ TFM.fId + " ";
+            string upaltquery = "update Appointees set Name = '" + TFM.guaName+"'  , Surname = '"+TFM.guaSurname+"'  , middleName = '"+TFM.guamiddleName+"'  , DOB = '"+Convert.ToDateTime(TFM.guaDob).ToString("yyyy-MM-dd")+"'   , Address1 = '"+TFM.guaAddress1+"' , Address2 = '"+TFM.guaAddress2+"' , Address3 = '"+TFM.guaAddress3+"' , City = '"+TFM.guacitytext+"'  , State = '"+TFM.guastatetext+"'  , Pin = '"+TFM.guaPin+"'  , Identity_Proof = '"+ guaidentity + "'  ,Identity_Proof_Value = '"+TFM.guaIdentity_Proof_Value+"'  , Alt_Identity_Proof = '"+TFM.guaAlt_Identity_Proof+"'  , Alt_Identity_Proof_Value = '"+TFM.guaAlt_Identity_Proof_Value+ "'  where apId = "+ TFM.guaapId + " ";
             SqlCommand altcmd = new SqlCommand(upaltquery,con);
             altcmd.ExecuteNonQuery();
+
+
+
+
+
+            string upaltquery2 = "update Appointees set Name = '" + TFM.altguaName + "'  , Surname = '" + TFM.altguaSurname + "'  , middleName = '" + TFM.altguamiddleName + "'  , DOB = '" + Convert.ToDateTime(TFM.altguaDob).ToString("yyyy-MM-dd") + "'   , Address1 = '" + TFM.altguaAddress1 + "' , Address2 = '" + TFM.altguaAddress2 + "' , Address3 = '" + TFM.altguaAddress3 + "' , City = '" + TFM.altguacitytext + "'  , State = '" + TFM.altguastatetext + "'  , Pin = '" + TFM.altguaPin + "'  , Identity_Proof = '" + altguaidentity + "'  ,Identity_Proof_Value = '" + TFM.altguaIdentity_Proof_Value + "'  , Alt_Identity_Proof = '" + TFM.altguaAlt_Identity_Proof + "'  , Alt_Identity_Proof_Value = '" + TFM.altguaAlt_Identity_Proof_Value + "'  where apId = " + TFM.altguaapId + " ";
+            SqlCommand altcmd2 = new SqlCommand(upaltquery2, con);
+            altcmd2.ExecuteNonQuery();
 
 
 

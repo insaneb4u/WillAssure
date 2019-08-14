@@ -313,18 +313,18 @@ namespace WillAssure.Controllers
 
                                 if (Session["doctype"].ToString() == "Will")
                                 {
-                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Will' and WitnessType='First'  order by apId desc  ";
+                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Will' and WitnessType not in ('third')  order by apId desc  ";
                                 }
 
                                 if (Session["doctype"].ToString() == "POA")
                                 {
-                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='POA' and WitnessType='First'  order by apId desc ";
+                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='POA' and WitnessType not in ('third')  order by apId desc ";
                                 }
 
 
                                 if (Session["doctype"].ToString() == "GiftDeeds")
                                 {
-                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Giftdeeds' and WitnessType='First' order by apId desc ";
+                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Giftdeeds' and WitnessType not in ('third') order by apId desc ";
                                 }
 
 
@@ -372,7 +372,7 @@ namespace WillAssure.Controllers
                                     Am.wFirstname = dt.Rows[i]["Name"].ToString();
                                     Am.wmiddleName = dt.Rows[i]["middleName"].ToString();
                                     Am.wSurname = dt.Rows[i]["Surname"].ToString();
-                                    Am.wIdentity_Proof = dt.Rows[i]["Identity_Proof"].ToString();
+                                    Am.Identity_Proof_txt2 = dt.Rows[i]["Identity_Proof"].ToString();
                                     Am.wIdentity_Proof_Value = dt.Rows[i]["Identity_Proof_Value"].ToString();
                                     Am.wAlt_Identity_Proof = dt.Rows[i]["Alt_Identity_Proof"].ToString();
                                     Am.wAlt_Identity_Proof_Value = dt.Rows[i]["Alt_Identity_Proof_Value"].ToString();
@@ -396,7 +396,7 @@ namespace WillAssure.Controllers
                                     Am.Firstname = dt.Rows[i]["Name"].ToString();
                                     Am.middleName = dt.Rows[i]["middleName"].ToString();
                                     Am.Surname = dt.Rows[i]["Surname"].ToString();
-                                    Am.Identity_Proof = dt.Rows[i]["Identity_Proof"].ToString();
+                                    Am.Identity_Proof_txt1 = dt.Rows[i]["Identity_Proof"].ToString();
                                     Am.Identity_Proof_Value = dt.Rows[i]["Identity_Proof_Value"].ToString();
                                     Am.Alt_Identity_Proof = dt.Rows[i]["Alt_Identity_Proof"].ToString();
                                     Am.Alt_Identity_Proof_Value = dt.Rows[i]["Alt_Identity_Proof_Value"].ToString();
@@ -501,7 +501,7 @@ namespace WillAssure.Controllers
                             Am.weFirstname = dte.Rows[i]["Name"].ToString();
                             Am.wemiddleName = dte.Rows[i]["middleName"].ToString();
                             Am.weSurname = dte.Rows[i]["Surname"].ToString();
-                            Am.weIdentity_Proof = dte.Rows[i]["Identity_Proof"].ToString();
+                            Am.Identity_Proof_txt3 = dte.Rows[i]["Identity_Proof"].ToString();
                             Am.weIdentity_Proof_Value = dte.Rows[i]["Identity_Proof_Value"].ToString();
                             Am.weAlt_Identity_Proof = dte.Rows[i]["Alt_Identity_Proof"].ToString();
                             Am.weAlt_Identity_Proof_Value = dte.Rows[i]["Alt_Identity_Proof_Value"].ToString();
@@ -2771,18 +2771,56 @@ namespace WillAssure.Controllers
         public ActionResult UpdateAppointees(AppointeesModel AM)
         {
 
+            string w1identity = "";
+            string w2identity = "";
+            string w3identity = "";
+
+            if (AM.Identity_Proof != null)
+            {
+                w1identity = AM.Identity_Proof;
+            }
+            else
+            {
+                w1identity = "None";
+            }
+
+
+            if (AM.wIdentity_Proof != null)
+            {
+                w2identity = AM.wIdentity_Proof;
+            }
+            else
+            {
+                w2identity = "None"; 
+            }
+
+            if (AM.weIdentity_Proof != null)
+            {
+                w3identity = AM.weIdentity_Proof;
+            }
+            else
+            {
+                w3identity = "None";
+            }
+
+
+
+         
+
+
+
             con.Open();
             SqlCommand cmd = new SqlCommand("SP_CRUDAppointees", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@condition", "update");
             cmd.Parameters.AddWithValue("@apId", AM.apId);
-            cmd.Parameters.AddWithValue("@documentId", AM.documentId);
+            cmd.Parameters.AddWithValue("@documentId", "0");
             cmd.Parameters.AddWithValue("@Type", "Witness");
             cmd.Parameters.AddWithValue("@subType", AM.wTypetxt);
             cmd.Parameters.AddWithValue("@Name", AM.Firstname);
             cmd.Parameters.AddWithValue("@middleName", AM.middleName);
             cmd.Parameters.AddWithValue("@Surname", AM.Surname);
-            cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);
+            cmd.Parameters.AddWithValue("@Identity_proof", w1identity);
             cmd.Parameters.AddWithValue("@Identity_proof_value", AM.Identity_Proof_Value);
             cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
             cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
@@ -2801,8 +2839,8 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@Pin", AM.Pin);
             cmd.Parameters.AddWithValue("@tid", AM.ddltid);
             cmd.Parameters.AddWithValue("@ExecutorType", "Single");
-            
-            
+          
+
             cmd.ExecuteNonQuery();
             con.Close();
 
@@ -2815,13 +2853,13 @@ namespace WillAssure.Controllers
             cmd2.CommandType = CommandType.StoredProcedure;
             cmd2.Parameters.AddWithValue("@condition", "update");
             cmd2.Parameters.AddWithValue("@apId", AM.wapId);
-            cmd2.Parameters.AddWithValue("@documentId", AM.wdocumentId);
+            cmd2.Parameters.AddWithValue("@documentId", 0);
             cmd2.Parameters.AddWithValue("@Type", "Witness");
             cmd2.Parameters.AddWithValue("@subType", AM.wsubTypetxt);
             cmd2.Parameters.AddWithValue("@Name", AM.wFirstname);
             cmd2.Parameters.AddWithValue("@middleName", AM.wmiddleName);
             cmd2.Parameters.AddWithValue("@Surname", AM.wSurname);
-            cmd2.Parameters.AddWithValue("@Identity_proof", AM.wIdentity_Proof);
+            cmd2.Parameters.AddWithValue("@Identity_proof", w2identity);
             cmd2.Parameters.AddWithValue("@Identity_proof_value", AM.wIdentity_Proof_Value);
             cmd2.Parameters.AddWithValue("@Alt_Identity_proof", AM.wAlt_Identity_Proof);
             cmd2.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.wAlt_Identity_Proof_Value);
@@ -2840,7 +2878,48 @@ namespace WillAssure.Controllers
             cmd2.Parameters.AddWithValue("@Pin", AM.wPin);
             cmd2.Parameters.AddWithValue("@tid", AM.ddltid);
             cmd2.Parameters.AddWithValue("@ExecutorType", "Single");
+
             cmd2.ExecuteNonQuery();
+
+            con.Close();
+
+
+
+
+
+            con.Open();
+
+            SqlCommand cmd3 = new SqlCommand("SP_CRUDAppointees", con);
+            cmd3.CommandType = CommandType.StoredProcedure;
+            cmd3.Parameters.AddWithValue("@condition", "update");
+            cmd3.Parameters.AddWithValue("@apId", AM.weapId);
+            cmd3.Parameters.AddWithValue("@documentId", 0);
+            cmd3.Parameters.AddWithValue("@Type", "Witness");
+            cmd3.Parameters.AddWithValue("@subType", AM.wesubTypetxt);
+            cmd3.Parameters.AddWithValue("@Name", AM.weFirstname);
+            cmd3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+            cmd3.Parameters.AddWithValue("@Surname", AM.weSurname);
+            cmd3.Parameters.AddWithValue("@Identity_proof", w3identity);
+            cmd3.Parameters.AddWithValue("@Identity_proof_value", AM.weIdentity_Proof_Value);
+            cmd3.Parameters.AddWithValue("@Alt_Identity_proof", AM.weAlt_Identity_Proof);
+            cmd3.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.weAlt_Identity_Proof_Value);
+            //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+
+
+            cmd3.Parameters.AddWithValue("@DOB", Convert.ToDateTime(AM.weDob).ToString("yyyy-MM-dd"));
+            cmd3.Parameters.AddWithValue("@Gender", AM.weGender);
+            cmd3.Parameters.AddWithValue("@Occupation", "None");
+            cmd3.Parameters.AddWithValue("@Relationship", "None");
+            cmd3.Parameters.AddWithValue("@Address1", AM.weAddress1);
+            cmd3.Parameters.AddWithValue("@Address2", AM.weAddress2);
+            cmd3.Parameters.AddWithValue("@Address3", AM.weAddress3);
+            cmd3.Parameters.AddWithValue("@City", AM.wecitytext);
+            cmd3.Parameters.AddWithValue("@State", AM.westatetext);
+            cmd3.Parameters.AddWithValue("@Pin", AM.wePin);
+            cmd3.Parameters.AddWithValue("@tid", AM.ddltid);
+            cmd3.Parameters.AddWithValue("@ExecutorType", "Single");
+   
+            cmd3.ExecuteNonQuery();
 
             con.Close();
 

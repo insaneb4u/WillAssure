@@ -64,7 +64,7 @@ namespace WillAssure.Models
         public int country_id { get; set; }
 
 
-
+        public string Identity_proof_text { get; set; }
 
         public string Pin { get; set; }
 

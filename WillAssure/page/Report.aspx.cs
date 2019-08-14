@@ -129,28 +129,28 @@ namespace WillAssure.Views.ViewDocument
 
 
 
-            // find match
+            //find match
 
-            //con.Open();
-            //string matchquery = "select TemplateID from DocumentIdentifier where DocumentType = "+ documentType1 + " and TypeOfWill = "+ category + " and AppointmentOfGuardian = "+ guardian + " and NumberOfExecutors = "+ executors_category + "  and AppointmentOfAltBeneficiary = "+ AlternateBenficiaries + " and AppointmentOfAltGuardian = "+ AlternateGaurdian + "  and AppointmentOfAltExecutor = "+ AlternateExecutors + " ";
-            //SqlDataAdapter matchda = new SqlDataAdapter(matchquery, con);
-            //DataTable matchdt = new DataTable();
-            //matchda.Fill(matchdt);
+            con.Open();
+            string matchquery = "select TemplateID from DocumentIdentifier where DocumentType = " + documentType1 + " and TypeOfWill = " + category + " and AppointmentOfGuardian = " + guardian + " and NumberOfExecutors = " + executors_category + "  and AppointmentOfAltBeneficiary = " + AlternateBenficiaries + " and AppointmentOfAltGuardian = " + AlternateGaurdian + "  and AppointmentOfAltExecutor = " + AlternateExecutors + " ";
+            SqlDataAdapter matchda = new SqlDataAdapter(matchquery, con);
+            DataTable matchdt = new DataTable();
+            matchda.Fill(matchdt);
 
-            //if (matchdt.Rows.Count > 0)
-            //{
-
-
+            if (matchdt.Rows.Count > 0)
+            {
 
 
-                // update documentmaster with match template id 
 
-                //ViewState["TemplateID"] = Convert.ToInt32(matchdt.Rows[0]["TemplateID"]);
-                //string query = "update documentMaster set templateId = "+ Convert.ToInt32(matchdt.Rows[0]["TemplateID"]) + " where tId= " + documentId + "  ";
-                //SqlCommand cmd = new SqlCommand(query, con);
-                //cmd.ExecuteNonQuery();
-             
-                //
+
+               // update documentmaster with match template id
+
+                ViewState["TemplateID"] = Convert.ToInt32(matchdt.Rows[0]["TemplateID"]);
+                string query = "update documentMaster set templateId = " + Convert.ToInt32(matchdt.Rows[0]["TemplateID"]) + " where tId= " + documentId + "  ";
+                SqlCommand cmd = new SqlCommand(query, con);
+                cmd.ExecuteNonQuery();
+
+
 
 
 
@@ -236,13 +236,13 @@ namespace WillAssure.Views.ViewDocument
 
 
                 // load template
-                
-
-                
 
 
-                //if (Convert.ToInt32(ViewState["TemplateID"]) == 1)
-                //{
+
+
+
+                if (Convert.ToInt32(ViewState["TemplateID"]) == 1)
+                {
                     WillTestator1 rpt = new WillTestator1();
                     rpt.SetParameterValue("testator", TestatorName);
                     rpt.SetParameterValue("testatorsirname", TestatorName + testatorsirname);
@@ -266,8 +266,8 @@ namespace WillAssure.Views.ViewDocument
                     CrystalReportViewer1.Zoom(125);
                     var path3 = Server.MapPath("~/GeneratedPdf/file.pdf");
                     rpt.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path3);
-                //}
-                
+                }
+
 
 
                 if (Convert.ToInt32(ViewState["TemplateID"]) == 2)
@@ -386,18 +386,18 @@ namespace WillAssure.Views.ViewDocument
 
 
 
-               
 
 
 
 
-            //}
-            //else
-            //{
 
-            //    Response.Write("<script>alert('Selected Template Does Not Match With The Rules')</script>");
+            }
+            else
+            {
 
-            //}
+                Response.Write("<script>alert('Selected Template Does Not Match With The Rules')</script>");
+
+            }
 
 
 
@@ -405,7 +405,7 @@ namespace WillAssure.Views.ViewDocument
 
 
 
-          
+
 
         }
 

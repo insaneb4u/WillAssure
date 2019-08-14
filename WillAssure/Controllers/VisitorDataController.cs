@@ -113,6 +113,28 @@ namespace WillAssure.Controllers
 
 
 
+                con.Open();
+
+                string gettid = "select top 1 tId from TestatorDetails order by tId desc";
+                SqlDataAdapter dattid = new SqlDataAdapter(gettid, con);
+                DataTable dttid = new DataTable();
+                dattid.Fill(dttid);
+                int tid = 0;
+                if (dttid.Rows.Count > 0)
+                {
+                    tid = Convert.ToInt32(dttid.Rows[0]["tId"]);
+                }
+
+
+                // set document rules
+                string qdr = "insert into documentRules (tid,uid) values ( "+ tid + " ,   "+ userid + ") ";
+                SqlCommand cdr = new SqlCommand(qdr,con);
+                cdr.ExecuteNonQuery();
+
+                // end
+
+                con.Close();
+
 
 
 
@@ -208,13 +230,13 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string gettid = "select top 1 tId from TestatorDetails order by tId desc";
-                SqlDataAdapter datid = new SqlDataAdapter(gettid, con);
-                DataTable dttid = new DataTable();
-                datid.Fill(dttid);
-                if (dttid.Rows.Count > 0)
+                string gettid2 = "select top 1 tId from TestatorDetails order by tId desc";
+                SqlDataAdapter datid = new SqlDataAdapter(gettid2, con);
+                DataTable dttid2 = new DataTable();
+                datid.Fill(dttid2);
+                if (dttid2.Rows.Count > 0)
                 {
-                    testatorid = Convert.ToInt32(dttid.Rows[0]["tId"]);
+                    testatorid = Convert.ToInt32(dttid2.Rows[0]["tId"]);
                 }
                 con.Close();
 

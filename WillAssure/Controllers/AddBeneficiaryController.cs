@@ -265,7 +265,7 @@ namespace WillAssure.Controllers
                 BM.RelationshipTxt = dt.Rows[0]["Relationship"].ToString();
                 BM.Marital_Status = dt.Rows[0]["Marital_Status"].ToString();
                 BM.Religion = dt.Rows[0]["Religion"].ToString();
-                BM.Identity_proof = dt.Rows[0]["Identity_proof"].ToString();
+                BM.Identity_proof_text = dt.Rows[0]["Identity_proof"].ToString();
                 BM.Identity_proof_value = dt.Rows[0]["Identity_proof_value"].ToString();
                 BM.country_txt = dt.Rows[0]["Country"].ToString();
 
@@ -1380,6 +1380,23 @@ namespace WillAssure.Controllers
         public ActionResult updateBeneficiary(BeneficiaryModel BM)
         {
 
+            string identity = "";
+
+
+            if (BM.Identity_proof_text != null)
+            {
+                identity = BM.Identity_proof_text;
+            }
+
+
+            if (BM.Identity_proof != null)
+            {
+                identity = BM.Identity_proof;
+            }
+
+
+
+
             con.Open();
             SqlCommand cmd = new SqlCommand("SP_CRUDBeneficiaryDetails", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -1394,10 +1411,36 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@Relationship", "None");
             cmd.Parameters.AddWithValue("@Marital_Status", "none");
             cmd.Parameters.AddWithValue("@Religion", "none");
-            cmd.Parameters.AddWithValue("@Identity_proof", BM.Identity_proof);
-            cmd.Parameters.AddWithValue("@Identity_proof_value", BM.Alt_Identity_proof_value);
-            cmd.Parameters.AddWithValue("@Alt_Identity_proof", "None");
-            cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+            cmd.Parameters.AddWithValue("@Identity_proof", identity);
+            cmd.Parameters.AddWithValue("@Identity_proof_value", BM.Identity_proof_value);
+
+            if (BM.Alt_Identity_proof != null)
+            {
+
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof", BM.Alt_Identity_proof);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof", "None");
+            }
+
+
+
+            if (BM.Alt_Identity_proof_value != null)
+            {
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", BM.Alt_Identity_proof_value);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", "None");
+            }
+            
+
+            
+
+
+
+
             cmd.Parameters.AddWithValue("@Address1", BM.Address1);
             cmd.Parameters.AddWithValue("@Address2", BM.Address2);
             cmd.Parameters.AddWithValue("@Address3", BM.Address3);

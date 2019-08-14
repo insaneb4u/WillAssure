@@ -548,7 +548,7 @@
                                     <div class="form-group">
                                         <label for="input-1">Identity proof</label>
 
-                                        <input type="text" name="name" id="Identity_Proof_txt" value="@Model.Identity_proof" placeholder="--Select Identity Proof--" class="form-control input-shadow validate[required]" onfocus="firstidentity()" />
+                                        <input type="text" name="Identity_proof_text" id="Identity_Proof_txt" value="@Model.Identity_proof_text" placeholder="--Select Identity Proof--" class="form-control input-shadow validate[required]" onfocus="firstidentity()" />
 
                                         @Html.DropDownListFor(x => x.Identity_proof, new SelectListItem[]{
                                    new SelectListItem() {Text = "--Select Identity Proof--", Value=""},

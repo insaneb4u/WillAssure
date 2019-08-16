@@ -103,12 +103,16 @@
                                                     <span style="color:red;display:none;" id="documentmsg2">Please Complete Codocil Document First...!</span>
                                                     <span style="color:red;display:none;" id="documentmsg3">Please Complete LivingWill Document First...!</span>
 
+
+                                                    <input type="hidden" name="typeofwill" id="identify" value="Quick" />
+
+
                                                     <div id="willtype" style="display:none;">
                                                         <label class="radio-inline">
-                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="typeone" name="typeofwill" value="Quick" checked>Quick
+                                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="typeone" value="Quick" checked>Quick
                                                         </label>
                                                         <label class="radio-inline">
-                                                            <input type="radio" id="typetwo" name="typeofwill" value="Detailed">Detailed
+                                                            <input type="radio" id="typetwo"  value="Detailed">Detailed
                                                         </label>
                                                     </div>
                                                 </div>
@@ -274,6 +278,29 @@
         $('#btnpay').dialog('close');
         return false;
 
+    });
+
+
+
+
+
+
+
+
+    $("#typeone").click(function () {
+
+        $("#identify").val("Quick");
+        $("#typetwo").prop("checked", false);
+
+
+    });
+
+
+
+    $("#typetwo").click(function () {
+
+        $("#identify").val("Detailed");
+        $("#typeone").prop("checked", false);
     });
 
 </script>

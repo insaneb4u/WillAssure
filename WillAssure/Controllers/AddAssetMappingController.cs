@@ -1500,7 +1500,7 @@ namespace WillAssure.Controllers
 
                 // set document rules
                 con.Open();
-                string qdr = "update documentRules set AlternateBeneficiaries = 1 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                string qdr = "update documentRules set AlternateBenficiaries = 1 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
                 SqlCommand cdr = new SqlCommand(qdr, con);
                 cdr.ExecuteNonQuery();
                 con.Close();
@@ -1623,7 +1623,7 @@ namespace WillAssure.Controllers
 
                 // set document rules
                 con.Open();
-                string qdr = "update documentRules set AlternateBeneficiaries = 2 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                string qdr = "update documentRules set AlternateBenficiaries = 2 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
                 SqlCommand cdr = new SqlCommand(qdr, con);
                 cdr.ExecuteNonQuery();
                 con.Close();

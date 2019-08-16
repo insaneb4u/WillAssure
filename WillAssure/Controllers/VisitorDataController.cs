@@ -125,13 +125,14 @@ namespace WillAssure.Controllers
                     tid = Convert.ToInt32(dttid.Rows[0]["tId"]);
                 }
 
-
                 // set document rules
-                string qdr = "insert into documentRules (tid,uid) values ( "+ tid + " ,   "+ userid + ") ";
-                SqlCommand cdr = new SqlCommand(qdr,con);
+                string qdr = "insert into documentRules (tid,uid) values ( " + tid + " ,   " + userid + ") ";
+                SqlCommand cdr = new SqlCommand(qdr, con);
                 cdr.ExecuteNonQuery();
 
                 // end
+
+
 
                 con.Close();
 
@@ -267,25 +268,7 @@ namespace WillAssure.Controllers
 
 
 
-                int ruleid = 0;
-
-                con.Open();
-                string getrule = "select top 1 wdId from documentRules order by wdId desc";
-                SqlDataAdapter daruleid = new SqlDataAdapter(getrule, con);
-                DataTable dtruleid = new DataTable();
-                daruleid.Fill(dtruleid);
-                if (dtruleid.Rows.Count > 0)
-                {
-                    ruleid = Convert.ToInt32(dtruleid.Rows[0]["wdId"]);
-                }
-                con.Close();
-
-
-                con.Open();
-                string qq2 = "update documentRules set tid =" + testatorid + " where wdId=" + ruleid + "  ";
-                SqlCommand cmddd2 = new SqlCommand(qq2, con);
-                cmddd2.ExecuteNonQuery();
-                con.Close();
+              
 
 
 

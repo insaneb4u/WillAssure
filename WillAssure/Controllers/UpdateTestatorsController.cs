@@ -26,6 +26,9 @@ namespace WillAssure.Controllers
 
 
 
+         
+
+
 
             Session["testatorID"] = NestId;
 
@@ -130,13 +133,35 @@ namespace WillAssure.Controllers
                 RedirectToAction("LoginPageIndex", "LoginPage");
             }
 
-             
 
+            string qq26 = "";
 
 
 
             con.Open();
-            string qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
+
+            if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will" )
+            {
+                qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
+            }
+            if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+            {
+                qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
+            }
+            if (Session["doctype"].ToString() == "POA")
+            {
+                qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
+            }
+            if (Session["doctype"].ToString() == "GiftDeeds")
+            {
+                qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
+            }
+
+           
+
+
+
+
             SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
             DataTable dtt26 = new DataTable();
             daa26.Fill(dtt26);
@@ -144,12 +169,26 @@ namespace WillAssure.Controllers
             {
                 NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
             }
+
+
+
+
+            
+           
+
+
             con.Close();
             //}
 
             // check type 
             string typ = "";
             con.Open();
+
+            string upquery = "update TestatorDetails set WillType='" + Session["WillType"].ToString() + "' , doctype='" + Session["doctype"].ToString() + "' where tId = " + NestId + "" ;
+            SqlCommand upcmd = new SqlCommand(upquery, con);
+            upcmd.ExecuteNonQuery();
+
+
             string qq1 = "select Type  from users where uId = " + getid + " ";
             SqlDataAdapter daa = new SqlDataAdapter(qq1, con);
             DataTable dtt = new DataTable();
@@ -330,7 +369,7 @@ namespace WillAssure.Controllers
                 }
 
                 TFM.Last_Name = dt.Rows[0]["Last_Name"].ToString();
-                TFM.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+                TFM.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd/MM/yyyy");
                 TFM.Middle_Name = dt.Rows[0]["Middle_Name"].ToString();
 
                 if (dt.Rows[0]["Occupation"].ToString() != "none")
@@ -1210,8 +1249,11 @@ namespace WillAssure.Controllers
             //{
             //    dat = DateTime.ParseExact(TFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
             //}
-            string dd = Convert.ToDateTime(TFM.Dob).ToString("dd-MM-yyyy");
-            var d = DateTime.ParseExact(dd, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+            string dateString = TFM.Dob;
+            DateTime dd = Convert.ToDateTime(dateString,
+                System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
+     
+            
             SqlCommand cmd = new SqlCommand("SP_CRUDTestatorDetails", con);
             cmd.CommandType = System.Data.CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@condition", "update");

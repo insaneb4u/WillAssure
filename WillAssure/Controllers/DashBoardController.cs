@@ -582,20 +582,6 @@ namespace WillAssure.Controllers
                     }
 
 
-                    if (WillType == "Quick")
-                    {
-                        drwilltype = 1;
-                    }
-
-                    if (WillType == "Detailed")
-                    {
-                        drwilltype = 2;
-                    }
-
-                    string qdr = "update documentRules set documentType = " + drdoctype + "  ,  category = "+ drwilltype + "  where tid = " + Convert.ToInt32(dat.Rows[0]["tId"])  + " ";
-                    SqlCommand cdr = new SqlCommand(qdr, con);
-                    cdr.ExecuteNonQuery();
-                    con.Close();
                     
                     
                     // end

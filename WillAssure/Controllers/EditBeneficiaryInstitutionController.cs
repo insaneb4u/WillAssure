@@ -153,12 +153,13 @@ namespace WillAssure.Controllers
 
             //end
 
-
+         
 
             con.Open();
 
+     
+            string query0 = "select top 1 tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "    ";
 
-            string query0 = "select tId from TestatorDetails where uId = "+Convert.ToInt32(Session["uuid"])+"  ";
             SqlDataAdapter da0 = new SqlDataAdapter(query0, con);
             DataTable dt0 = new DataTable();
             da0.Fill(dt0);
@@ -168,6 +169,8 @@ namespace WillAssure.Controllers
                 tid = Convert.ToInt32(dt0.Rows[0]["tId"]);
             }
 
+
+       
 
 
             string query = "select * from BeneficiaryInstitutions where tid="+tid+"";

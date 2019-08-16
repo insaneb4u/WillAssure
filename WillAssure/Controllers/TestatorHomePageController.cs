@@ -862,6 +862,10 @@ namespace WillAssure.Controllers
             Session["storedocument"] = "";
             Session["storedocument"] = TFM.documenttype;
 
+            Session["typeofwill"] = "";
+            Session["typeofwill"] = TFM.typeofwill;
+            
+         
             con.Open();
 
             string qry = "select * from documentpricing";
@@ -1447,12 +1451,54 @@ namespace WillAssure.Controllers
                 DataTable chk008dtr = new DataTable();
                 chktdar.Fill(chk008dtr);
 
+                string dateString = Convert.ToDateTime(chk008dtr.Rows[0]["DOB"]).ToString("dd/MM/yyyy");
+                DateTime dd = Convert.ToDateTime(dateString,
+                    System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
 
 
-                string query3 = "insert into TestatorDetails (First_Name,Middle_Name,Last_Name,Mobile,Email,uid ,DOB,Occupation,maritalStatus,RelationShip,Religion,Identity_Proof,Identity_proof_Value,Alt_Identity_Proof,Alt_Identity_proof_Value,Gender,Address1,Address2,Address3,City ,State,Country ,Pin,active,documentstatus) values ('" + chk008dtr.Rows[0]["First_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Middle_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Last_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Mobile"].ToString() + "' , '" + chk008dtr.Rows[0]["Email"].ToString() + "' , " + Convert.ToInt32(Session["uuid"]) + " , '" + Convert.ToDateTime(chk008dtr.Rows[0]["DOB"]).ToString("dd-MM-yyyy") + "' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'no' , 'incompleted' )    ";
+                string query3 = "insert into TestatorDetails (First_Name,Middle_Name,Last_Name,Mobile,Email,uid ,DOB,Occupation,maritalStatus,RelationShip,Religion,Identity_Proof,Identity_proof_Value,Alt_Identity_Proof,Alt_Identity_proof_Value,Gender,Address1,Address2,Address3,City ,State,Country ,Pin,active,documentstatus) values ('" + chk008dtr.Rows[0]["First_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Middle_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Last_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Mobile"].ToString() + "' , '" + chk008dtr.Rows[0]["Email"].ToString() + "' , " + Convert.ToInt32(Session["uuid"]) + " , '" + dd + "' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'no' , 'incompleted' )    ";
                 SqlCommand cmd3 = new SqlCommand(query3, con);
                 cmd3.ExecuteNonQuery();
+
+
+
+
+                // set document rules
+
+                string getlatesttid = "select top 1 tId  from TestatorDetails order by tId desc";
+                SqlDataAdapter ladap = new SqlDataAdapter(getlatesttid,con);
+                DataTable ladt = new DataTable();
+                ladap.Fill(ladt);
+
+
+                int identify = 0;
+
+                if (Session["typeofWill"].ToString() == "Quick")
+                {
+                    identify = 1;
+                    string qdr = "insert into documentRules (tid,uid,category) values ( " + Convert.ToInt32(ladt.Rows[0]["tId"]) + " ,   " + Convert.ToInt32(Session["uuid"]) + " , " + identify + ") ";
+                    SqlCommand cdr = new SqlCommand(qdr, con);
+                    cdr.ExecuteNonQuery();
+                }
+                if (Session["typeofWill"].ToString() == "Detailed")
+                {
+                    identify = 2;
+                    string qdr = "insert into documentRules (tid,uid,category) values ( " + Convert.ToInt32(ladt.Rows[0]["tId"]) + " ,   " + Convert.ToInt32(Session["uuid"]) + " , " + identify + ") ";
+                    SqlCommand cdr = new SqlCommand(qdr, con);
+                    cdr.ExecuteNonQuery();
+                }
+
+               
+
+                // end
+
+
+
+
+
                 con.Close();
+
+
 
 
 
@@ -2177,11 +2223,11 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string qq1typ = "update users set WillType = '" + TFM.typeofwill + "'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1typ = "update users set WillType = '" + Session["typeofwill"].ToString() + "'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1typ = new SqlCommand(qq1typ, con);
                 cc1typ.ExecuteNonQuery();
 
-                string qq = "update testatordetails set PaymentStatus = 1 where uId= " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq = "update testatordetails set PaymentStatus = 1 , WillType='" + Session["typeofwill"].ToString() + "'  where uId= " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cmdqq = new SqlCommand(qq, con);
                 cmdqq.ExecuteNonQuery();
                 con.Close();
@@ -2205,7 +2251,38 @@ namespace WillAssure.Controllers
             else
             {
 
-                //documenttype = TFM.will + TFM.codocil + TFM.livingwill + TFM.poa + TFM.giftdeeds;
+                // set document rules
+
+                string getlatesttid = "select top 1 tId  from TestatorDetails order by tId desc";
+                SqlDataAdapter ladap = new SqlDataAdapter(getlatesttid, con);
+                DataTable ladt = new DataTable();
+                ladap.Fill(ladt);
+
+
+                int identify = 0;
+
+                if (Session["typeofWill"].ToString() == "Quick")
+                {
+                    identify = 1;
+
+                    con.Open();
+                    string qdr = "update documentRules set category = " + identify + " where tid = " + Convert.ToInt32(ladt.Rows[0]["tId"]) + " ";
+                    SqlCommand cdr = new SqlCommand(qdr, con);
+                    cdr.ExecuteNonQuery();
+                    con.Close();
+                }
+                if (Session["typeofWill"].ToString() == "Detailed")
+                {
+                    identify = 2;
+
+                    con.Open();
+                    string qdr = "update documentRules set category = " + identify + " where tid = " + Convert.ToInt32(ladt.Rows[0]["tId"]) + " ";
+                    SqlCommand cdr = new SqlCommand(qdr, con);
+                    cdr.ExecuteNonQuery();
+                    con.Close();
+                }
+            
+                // end
 
 
                 if (TFM.codocil != null)
@@ -2980,11 +3057,11 @@ namespace WillAssure.Controllers
 
 
                 con.Open();
-                string qq1typ = "update users set WillType = '" + TFM.typeofwill + "'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq1typ = "update users set WillType = '" + Session["typeofwill"].ToString() + "'  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cc1typ = new SqlCommand(qq1typ, con);
                 cc1typ.ExecuteNonQuery();
 
-                string qq = "update testatordetails set PaymentStatus = 1 where uId= " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq = "update testatordetails set PaymentStatus = 1  where uId= " + Convert.ToInt32(Session["uuid"]) + " ";
                 SqlCommand cmdqq = new SqlCommand(qq,con);
                 cmdqq.ExecuteNonQuery();
                 con.Close();
@@ -3017,7 +3094,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string qtest0012 = "select WillType from users where uId = " + Convert.ToInt32(Session["uuid"]) + "";
+            string qtest0012 = "select top 1 WillType from users where uId = " + Convert.ToInt32(Session["uuid"]) + " order by uId Desc";
             SqlDataAdapter test001da2 = new SqlDataAdapter(qtest0012, con);
             DataTable test001dt2 = new DataTable();
             test001da2.Fill(test001dt2);

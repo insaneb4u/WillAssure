@@ -28,7 +28,7 @@ namespace WillAssure.Views.ViewDocument
 
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+       {
 
             int documentId = Convert.ToInt32(Request.QueryString["NestId"]);
             string WillType = Request.QueryString["WillType"].ToString();
@@ -114,7 +114,18 @@ namespace WillAssure.Views.ViewDocument
 
                 category = Convert.ToInt32(checkdt.Rows[0]["category"]);
                 guardian = Convert.ToInt32(checkdt.Rows[0]["guardian"]);
-                executors_category = Convert.ToInt32(checkdt.Rows[0]["executors_category"]);
+
+                if (Convert.ToInt32(checkdt.Rows[0]["executors_category"]) == 0)
+                {
+                    executors_category = 1;
+                }
+                else
+                {
+                    executors_category = Convert.ToInt32(checkdt.Rows[0]["executors_category"]);
+                }
+                
+
+
                 AlternateBenficiaries = Convert.ToInt32(checkdt.Rows[0]["AlternateBenficiaries"]);
                 AlternateGaurdian = Convert.ToInt32(checkdt.Rows[0]["AlternateGaurdian"]);
                 AlternateExecutors = Convert.ToInt32(checkdt.Rows[0]["AlternateExecutors"]);
@@ -127,6 +138,34 @@ namespace WillAssure.Views.ViewDocument
             con.Close();
 
 
+            // document string
+
+            string testator = "";
+            string tdgender = "";
+            string tdmaritalstatus = "";
+            int Age = 0;
+            string TestatorAddress = "";
+            string AppointeesGender = "";
+            string AppointeesName = "";
+            string AlternateAppointeesGender = "";
+            string TestatorFamily1 = "";
+            string TestatorFamily2 = "";
+            string TestatorFamily3 = "";
+            string SystemDay = "";
+            string SytemMonth = "";
+            string SystemYear = "";
+            string TestatorCity = "";
+            string Witness1 = "";
+            string AlternateAppointeesName = "";
+            string TestatorRelationShip1 = "";
+            string TestatorRelationShip2 = "";
+            string AlternateBeneficiaryName = "";
+            string TestatorGender = "";
+            string Witness2 = "";
+            string FatherHusband = "";
+            string SonDaughterWife = "";
+
+            //end
 
 
             //find match
@@ -156,82 +195,284 @@ namespace WillAssure.Views.ViewDocument
 
 
                 ViewState["tid"] = documentId;
-                string TestatorName = "";
-                string TestatorRelationShip = "";
-                int age = 0;
-                string TestatorAge = "";
-                string TestatorAddress = "";
-                string BeneficiaryName = "";
-                string executorname = "";
-                string alternateexecutorname = "";
-                string Relation = "";
-                string assetcategory = "";
-                string instrumentname = "";
-                string mapbeneficiary = "";
-                string proportion = "";
-                string testatorsirname = "";
-                string beneficiarysirname = "";
-                string documenttype = "";
+               
 
-                string query1 = "select a.First_Name as TestatorName , a.Last_Name as Testatorsirname , a.DOB as TestatorAge  , a.RelationShip as TestatorRelationship , a.Address1 as TestatorAddress , b.First_Name as BeneficiaryName , b.Last_Name as Beneficiarysirname , c.Name as executorname , e.AssetsCategory , b.First_Name as Beneficiarysirname , d.Proportion from TestatorDetails a inner join BeneficiaryDetails b on a.tId=b.tId inner join Appointees c on a.tId=c.tid inner join BeneficiaryAssets d on a.tId=d.tid inner join AssetsCategory e on e.atId=d.AssetCategory_ID where a.documentstatus='Completed' and a.tId =   " + documentId + "";
-                SqlDataAdapter da = new SqlDataAdapter(query1, con);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                if (dt.Rows.Count > 0)
+
+
+
+
+
+
+
+
+            }
+
+
+            if (WillType == "Quick")
+            {
+
+                // document query for quick will
+
+
+                string docquery = " select td.First_Name as 'testator' , td.Gender as 'gender'  , td.maritalStatus as 'maritalstatus' , td.SpouseName as 'spousename' , ";
+                docquery += " td.DOB as 'age' ,  td.Address1 as 'testatoraddress'  ,  appexe.Gender as 'appointeesgender' , appexe.Name as 'appointeesname'  , ";
+                docquery += " DATENAME(weekday, td.dateCreated) AS 'systemday' ,  DATENAME(MONTH, td.dateCreated) AS 'systemmonth' , DATENAME(YEAR, td.dateCreated) ";
+                docquery += " AS 'systemyear' , td.City as testatorcity  from TestatorDetails as td inner join BeneficiaryDetails as bd  on td.tId = bd.tId  inner join ";
+                docquery += " testatorFamily tf on td.tId = tf.tId inner join Appointees as appexe on appexe.tid = td.tId  inner join Appointees as appwit on  ";
+                docquery += " appwit.tid = td.tId inner join BeneficiaryAssets as ba on td.tId = ba.tid where td.tId = " + documentId + " and td.WillType = '" + WillType + "' and td.doctype = 'Will'   ";
+                docquery += " and td.documentstatus = 'Completed'";
+
+                SqlDataAdapter docda = new SqlDataAdapter(docquery, con);
+                DataTable docdt = new DataTable();
+                docda.Fill(docdt);
+
+
+
+
+                testator = docdt.Rows[0]["testator"].ToString();
+                tdgender = docdt.Rows[0]["gender"].ToString();
+
+                tdgender = tdgender.TrimEnd();
+
+                tdmaritalstatus = docdt.Rows[0]["maritalstatus"].ToString();
+
+
+                DateTime dateOfBirth = Convert.ToDateTime(docdt.Rows[0]["age"].ToString());
+                int now = int.Parse(DateTime.Now.ToString("yyyyMMdd"));
+                int dob = int.Parse(dateOfBirth.ToString("yyyyMMdd"));
+                Age = (now - dob) / 10000;
+
+
+
+
+
+
+                TestatorAddress = docdt.Rows[0]["testatoraddress"].ToString();
+                AppointeesGender = docdt.Rows[0]["appointeesgender"].ToString();
+
+                AppointeesName = docdt.Rows[0]["appointeesname"].ToString();
+
+                SystemDay = docdt.Rows[0]["systemday"].ToString();
+                SytemMonth = docdt.Rows[0]["systemmonth"].ToString();
+                SystemYear = docdt.Rows[0]["systemyear"].ToString();
+                TestatorCity = docdt.Rows[0]["testatorcity"].ToString();
+
+                TestatorGender = docdt.Rows[0]["gender"].ToString();
+
+                FatherHusband = docdt.Rows[0]["testator"].ToString();
+
+
+
+                if (tdgender == "Male")
                 {
-                    TestatorName = dt.Rows[0]["TestatorName"].ToString();
+                    SonDaughterWife = "Son";
+                }
 
-                    testatorsirname = dt.Rows[0]["Testatorsirname"].ToString();
-
-
-
-                    DateTime dateOfBirth = Convert.ToDateTime(dt.Rows[0]["TestatorAge"]);
-                    int now = int.Parse(DateTime.Now.ToString("yyyyMMdd"));
-                    int dob = int.Parse(dateOfBirth.ToString("yyyyMMdd"));
-                    age = (now - dob) / 10000;
-
-                    TestatorAge = age.ToString();
+                if (tdgender == "Female")
+                {
+                    SonDaughterWife = "Daughter";
 
 
-                    TestatorRelationShip = dt.Rows[0]["TestatorRelationship"].ToString();
+                    if (tdmaritalstatus != "")
+                    {
+                        SonDaughterWife = "Wife";
+                    }
 
 
-                    TestatorAddress = dt.Rows[0]["TestatorAddress"].ToString();
+                }
 
 
-
-                    BeneficiaryName = dt.Rows[0]["BeneficiaryName"].ToString();
-
-                    beneficiarysirname = dt.Rows[0]["Beneficiarysirname"].ToString();
+                ////////////////////////////////// alternate //////////////////////////
 
 
-
-                    executorname = dt.Rows[0]["executorname"].ToString();
-
-
-                 
-
-
-                 
-
-
-
-                    assetcategory = dt.Rows[0]["AssetsCategory"].ToString();
-                   
-                    mapbeneficiary = dt.Rows[0]["BeneficiaryName"].ToString();
-                    proportion = dt.Rows[0]["Proportion"].ToString();
+                string alterdocquery = "select Name , Gender from alternate_Appointees where tid = " + documentId + " ";
+                SqlDataAdapter alterdocda = new SqlDataAdapter(alterdocquery, con);
+                DataTable alterdocdt = new DataTable();
+                alterdocda.Fill(alterdocdt);
+                if (alterdocdt.Rows.Count > 0)
+                {
+                    if (alterdocdt.Rows[0]["Gender"].ToString() == "Male")
+                    {
+                        AlternateAppointeesGender = "Mr.";
+                    }
 
 
+                    if (alterdocdt.Rows[0]["Gender"].ToString() == "Female")
+                    {
+                        AlternateAppointeesGender = "Ms.";
+                    }
 
-                    con.Close();
+
+                    AlternateAppointeesName = alterdocdt.Rows[0]["Name"].ToString();
+                }
 
 
 
 
+                ///////////////////////////////////
+
+
+                string alterdocquery2 = "select top 3 First_Name  from testatorFamily where tId = " + documentId + " and WillType='" + WillType + "'";
+                SqlDataAdapter alterdocda2 = new SqlDataAdapter(alterdocquery2, con);
+                DataTable alterdocdt2 = new DataTable();
+                alterdocda2.Fill(alterdocdt2);
+                int count = 0;
+                if (alterdocdt2.Rows.Count > 0)
+                {
+
+
+                    for (int i = 0; i < alterdocdt2.Rows.Count; i++)
+                    {
+                        count++;
+
+                        if (count == 1)
+                        {
+                            TestatorFamily1 = alterdocdt2.Rows[i]["First_Name"].ToString();
+                        }
+
+                        if (count == 2)
+                        {
+                            TestatorFamily2 = alterdocdt2.Rows[i]["First_Name"].ToString();
+                        }
+
+
+                        if (count == 3)
+                        {
+                            TestatorFamily3 = alterdocdt2.Rows[i]["First_Name"].ToString();
+                        }
+
+
+                    }
 
 
 
                 }
+
+
+
+
+                ////////////////////////////////////
+
+
+
+
+
+                string alterdocquery3 = "select bd.First_Name from Alternate_BeneficiaryAssets ab inner join BeneficiaryDetails bd on ab.alternatebenefciaryid = bd.bpId where bd.tId = " + documentId + " and bd.doctype = 'Will' and bd.WillType = '" + WillType + "' ";
+                SqlDataAdapter alterdocda3 = new SqlDataAdapter(alterdocquery3, con);
+                DataTable alterdocdt3 = new DataTable();
+                alterdocda3.Fill(alterdocdt3);
+                if (alterdocdt3.Rows.Count > 0)
+                {
+
+
+
+                    AlternateBeneficiaryName = alterdocdt3.Rows[0]["First_Name"].ToString();
+
+
+                }
+
+
+
+
+
+
+
+
+
+                /////////////////////////////////
+
+
+
+
+                ////////////////////////////////////
+
+
+
+
+
+                string alterdocquery4 = "select top 3 Name from Appointees where Type = 'Witness' and doctype='Will' and WillType = '" + WillType + "' and tid = " + documentId + " ";
+                SqlDataAdapter alterdocda4 = new SqlDataAdapter(alterdocquery4, con);
+                DataTable alterdocdt4 = new DataTable();
+                alterdocda4.Fill(alterdocdt4);
+                int count2 = 0;
+                if (alterdocdt4.Rows.Count > 0)
+                {
+
+
+
+                    for (int i = 0; i < alterdocdt4.Rows.Count; i++)
+                    {
+                        count2++;
+
+                        if (count2 == 1)
+                        {
+                            Witness1 = alterdocdt4.Rows[i]["Name"].ToString();
+                        }
+
+                        if (count2 == 2)
+                        {
+                            Witness2 = alterdocdt4.Rows[i]["Name"].ToString();
+                        }
+
+
+
+
+                    }
+
+
+                }
+
+
+
+
+
+
+
+
+
+                /////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+                //TestatorRelationShip1 = docdt.Rows[0][""].ToString();
+                //TestatorRelationShip2 = docdt.Rows[0][""].ToString();
+
+
+
+
+
+                //Witness1 = docdt.Rows[0][""].ToString();
+                //Witness2 = docdt.Rows[0][""].ToString();
+
+
+
+
+
+                ///////////////////////////////////end////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+                //end
+
+
+
 
 
 
@@ -243,146 +484,297 @@ namespace WillAssure.Views.ViewDocument
 
                 if (Convert.ToInt32(ViewState["TemplateID"]) == 1)
                 {
-                    WillTestator1 rpt = new WillTestator1();
-                    rpt.SetParameterValue("testator", TestatorName);
-                    rpt.SetParameterValue("testatorsirname", TestatorName + testatorsirname);
-                    rpt.SetParameterValue("testatorrelation", TestatorRelationShip);
-                    rpt.SetParameterValue("testatorage", TestatorAge);
-                    rpt.SetParameterValue("beneficiaryname", BeneficiaryName);
-                    rpt.SetParameterValue("beneficiarysirname", beneficiarysirname);
-                    rpt.SetParameterValue("testatoradd", TestatorAddress);
-                    rpt.SetParameterValue("appointee1", executorname);
-          
-            
-                    rpt.SetParameterValue("assetcategory", assetcategory);
-                    rpt.SetParameterValue("assetname", instrumentname);
-                    rpt.SetParameterValue("benefname", mapbeneficiary);
-                    rpt.SetParameterValue("percent", proportion);
 
 
-                   
+
+                    QuickWill1 rpt = new QuickWill1();
+                    rpt.SetParameterValue("TestatorName", testator);
+                    rpt.SetParameterValue("Son-Daughter-Wife", SonDaughterWife);   // check gender and marital status 
+                    rpt.SetParameterValue("Father-Husband", FatherHusband);
+                    rpt.SetParameterValue("Age", Age);
+                    rpt.SetParameterValue("TestatorAddress", TestatorAddress);
+                    rpt.SetParameterValue("AppointeesGender", AppointeesGender);
+                    rpt.SetParameterValue("AppointeesName", AppointeesName);
+                    rpt.SetParameterValue("AlternateAppointeesGender", AlternateAppointeesGender);
+                    rpt.SetParameterValue("TestatorFamily1", TestatorFamily1);
+                    rpt.SetParameterValue("TestatorFamily2", TestatorFamily2);
+                    rpt.SetParameterValue("TestatorFamily3", TestatorFamily3);
+                    rpt.SetParameterValue("SystemDay", SystemDay);
+                    rpt.SetParameterValue("SytemMonth", SytemMonth);
+                    rpt.SetParameterValue("SystemYear", SystemYear);
+                    rpt.SetParameterValue("TestatorCity", TestatorCity);
+                    rpt.SetParameterValue("Witness1", Witness1);
+                    rpt.SetParameterValue("AlternateAppointeesName", AlternateAppointeesName);
+                    rpt.SetParameterValue("TestatorRelationShip1", TestatorRelationShip1);
+                    rpt.SetParameterValue("TestatorRelationShip2", TestatorRelationShip2);
+                    rpt.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
+                    rpt.SetParameterValue("TestatorGender", TestatorGender);
+                    rpt.SetParameterValue("Witness2", Witness2);
+
+
+
                     CrystalReportViewer1.ReportSource = rpt;
-                    
+
                     CrystalReportViewer1.Zoom(125);
                     var path3 = Server.MapPath("~/GeneratedPdf/file.pdf");
-                    rpt.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path3);
+
+                    try
+                    {
+                        rpt.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path3);
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+
+
                 }
 
 
 
                 if (Convert.ToInt32(ViewState["TemplateID"]) == 2)
                 {
-                    WillTestator2 rpt2 = new WillTestator2();
-                    rpt2.SetParameterValue("testator", TestatorName);
-                    rpt2.SetParameterValue("testatorsirname", TestatorName + testatorsirname);
-                    rpt2.SetParameterValue("testatorrelation", TestatorRelationShip);
-                    rpt2.SetParameterValue("testatorage", TestatorAge);
-                    rpt2.SetParameterValue("beneficiaryname", BeneficiaryName);
-                    rpt2.SetParameterValue("beneficiarysirname", beneficiarysirname);
-                    rpt2.SetParameterValue("testatoradd", TestatorAddress);
-                    rpt2.SetParameterValue("appointee1", executorname);
-                    rpt2.SetParameterValue("appointee2", alternateexecutorname);
-                    rpt2.SetParameterValue("wifename", Relation);
-                    rpt2.SetParameterValue("assetcategory", assetcategory);
-                    rpt2.SetParameterValue("assetname", instrumentname);
-                    rpt2.SetParameterValue("benefname", mapbeneficiary);
-                    rpt2.SetParameterValue("percent", proportion);
+                    QuickWill3 rpt2 = new QuickWill3();
+                    rpt2.SetParameterValue("testator", testator);
+                    rpt2.SetParameterValue("Son-Daughter-Wife", SonDaughterWife);   // check gender and marital status 
+                    rpt2.SetParameterValue("Father-Husband", FatherHusband);
+                    rpt2.SetParameterValue("Age", Age);
+                    rpt2.SetParameterValue("TestatorAddress", TestatorAddress);
+                    rpt2.SetParameterValue("AppointeesGender", AppointeesGender);
+                    rpt2.SetParameterValue("AppointeesName", AppointeesName);
+                    rpt2.SetParameterValue("AlternateAppointeesGender", AlternateAppointeesGender);
+                    rpt2.SetParameterValue("TestatorFamily1", TestatorFamily1);
+                    rpt2.SetParameterValue("TestatorFamily2", TestatorFamily2);
+                    rpt2.SetParameterValue("TestatorFamily3", TestatorFamily3);
+                    rpt2.SetParameterValue("SystemDay", SystemDay);
+                    rpt2.SetParameterValue("SytemMonth", SytemMonth);
+                    rpt2.SetParameterValue("SystemYear", SystemYear);
+                    rpt2.SetParameterValue("TestatorCity", TestatorCity);
+                    rpt2.SetParameterValue("Witness1", Witness1);
+                    rpt2.SetParameterValue("AlternateAppointeesName", AlternateAppointeesName);
+                    rpt2.SetParameterValue("TestatorRelationShip1", TestatorRelationShip1);
+                    rpt2.SetParameterValue("TestatorRelationShip2", TestatorRelationShip2);
+                    rpt2.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
+                    rpt2.SetParameterValue("TestatorGender", TestatorGender);
+                    rpt2.SetParameterValue("Witness2", Witness2);
 
 
-                   
+
                     CrystalReportViewer1.ReportSource = rpt2;
                     CrystalReportViewer1.Zoom(125);
                     var path = Server.MapPath("~/GeneratedPdf/file.pdf");
-                    rpt2.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path);
+
+
+
+                    try
+                    {
+                        rpt2.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path);
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+
+
+
+
                 }
-               
+
 
                 if (Convert.ToInt32(ViewState["TemplateID"]) == 3)
                 {
-                    WillTestator3 rpt3 = new WillTestator3();
-                    rpt3.SetParameterValue("testator", TestatorName);
-                    rpt3.SetParameterValue("testatorsirname", TestatorName + testatorsirname);
-                    rpt3.SetParameterValue("testatorrelation", TestatorRelationShip);
-                    rpt3.SetParameterValue("testatorage", TestatorAge);
-                    rpt3.SetParameterValue("beneficiaryname", BeneficiaryName);
-                    rpt3.SetParameterValue("beneficiarysirname", beneficiarysirname);
-                    rpt3.SetParameterValue("testatoradd", TestatorAddress);
-                    rpt3.SetParameterValue("appointee1", executorname);
-                    rpt3.SetParameterValue("appointee2", alternateexecutorname);
-                    rpt3.SetParameterValue("wifename", Relation);
-                    rpt3.SetParameterValue("assetcategory", assetcategory);
-                    rpt3.SetParameterValue("assetname", instrumentname);
-                    rpt3.SetParameterValue("benefname", mapbeneficiary);
-                    rpt3.SetParameterValue("percent", proportion);
+                    QuickWill44 rpt6 = new QuickWill44();
+                    rpt6.SetParameterValue("testator", testator);
+                    rpt6.SetParameterValue("Son-Daughter-Wife", SonDaughterWife);   // check gender and marital status 
+                    rpt6.SetParameterValue("Father-Husband", FatherHusband);
+                    rpt6.SetParameterValue("Age", Age);
+                    rpt6.SetParameterValue("TestatorAddress", TestatorAddress);
+                    rpt6.SetParameterValue("AppointeesGender", AppointeesGender);
+                    rpt6.SetParameterValue("AppointeesName", AppointeesName);
+                    rpt6.SetParameterValue("AlternateAppointeesGender", AlternateAppointeesGender);
+                    rpt6.SetParameterValue("TestatorFamily1", TestatorFamily1);
+                    rpt6.SetParameterValue("TestatorFamily2", TestatorFamily2);
+                    rpt6.SetParameterValue("TestatorFamily3", TestatorFamily3);
+                    rpt6.SetParameterValue("SystemDay", SystemDay);
+                    rpt6.SetParameterValue("SytemMonth", SytemMonth);
+                    rpt6.SetParameterValue("SystemYear", SystemYear);
+                    rpt6.SetParameterValue("TestatorCity", TestatorCity);
+                    rpt6.SetParameterValue("Witness1", Witness1);
+                    rpt6.SetParameterValue("AlternateAppointeesName", AlternateAppointeesName);
+                    rpt6.SetParameterValue("TestatorRelationShip1", TestatorRelationShip1);
+                    rpt6.SetParameterValue("TestatorRelationShip2", TestatorRelationShip2);
+                    rpt6.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
+                    rpt6.SetParameterValue("TestatorGender", TestatorGender);
+                    rpt6.SetParameterValue("Witness2", Witness2);
 
 
-                    
-                    CrystalReportViewer1.ReportSource = rpt3;
+
+                    CrystalReportViewer1.ReportSource = rpt6;
                     CrystalReportViewer1.Zoom(125);
                     var path = Server.MapPath("~/GeneratedPdf/file.pdf");
-                    rpt3.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path);
+
+
+                    try
+                    {
+                        rpt6.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path);
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
                 }
-                
+
 
 
 
                 if (Convert.ToInt32(ViewState["TemplateID"]) == 4)
                 {
-                    WillTestator4 rpt4 = new WillTestator4();
-                    rpt4.SetParameterValue("testator", TestatorName);
-                    rpt4.SetParameterValue("testatorsirname", TestatorName + testatorsirname);
-                    rpt4.SetParameterValue("testatorrelation", TestatorRelationShip);
-                    rpt4.SetParameterValue("testatorage", TestatorAge);
-                    rpt4.SetParameterValue("beneficiaryname", BeneficiaryName);
-                    rpt4.SetParameterValue("beneficiarysirname", beneficiarysirname);
-                    rpt4.SetParameterValue("testatoradd", TestatorAddress);
-                    rpt4.SetParameterValue("appointee1", executorname);
-                    rpt4.SetParameterValue("appointee2", alternateexecutorname);
-                    rpt4.SetParameterValue("wifename", Relation);
-                    rpt4.SetParameterValue("assetcategory", assetcategory);
-                    rpt4.SetParameterValue("assetname", instrumentname);
-                    rpt4.SetParameterValue("benefname", mapbeneficiary);
-                    rpt4.SetParameterValue("percent", proportion);
+                    QuickWill46 rpt4 = new QuickWill46();
+                    rpt4.SetParameterValue("testator", testator);
+                    rpt4.SetParameterValue("Son-Daughter-Wife", SonDaughterWife);   // check gender and marital status 
+                    rpt4.SetParameterValue("Father-Husband", FatherHusband);
+                    rpt4.SetParameterValue("Age", Age);
+                    rpt4.SetParameterValue("TestatorAddress", TestatorAddress);
+                    rpt4.SetParameterValue("AppointeesGender", AppointeesGender);
+                    rpt4.SetParameterValue("AppointeesName", AppointeesName);
+                    rpt4.SetParameterValue("AlternateAppointeesGender", AlternateAppointeesGender);
+                    rpt4.SetParameterValue("TestatorFamily1", TestatorFamily1);
+                    rpt4.SetParameterValue("TestatorFamily2", TestatorFamily2);
+                    rpt4.SetParameterValue("TestatorFamily3", TestatorFamily3);
+                    rpt4.SetParameterValue("SystemDay", SystemDay);
+                    rpt4.SetParameterValue("SytemMonth", SytemMonth);
+                    rpt4.SetParameterValue("SystemYear", SystemYear);
+                    rpt4.SetParameterValue("TestatorCity", TestatorCity);
+                    rpt4.SetParameterValue("Witness1", Witness1);
+                    rpt4.SetParameterValue("AlternateAppointeesName", AlternateAppointeesName);
+                    rpt4.SetParameterValue("TestatorRelationShip1", TestatorRelationShip1);
+                    rpt4.SetParameterValue("TestatorRelationShip2", TestatorRelationShip2);
+                    rpt4.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
+                    rpt4.SetParameterValue("TestatorGender", TestatorGender);
+                    rpt4.SetParameterValue("Witness2", Witness2);
 
 
                     ViewState["getreportdata"] = rpt4;
                     CrystalReportViewer1.ReportSource = rpt4;
                     CrystalReportViewer1.Zoom(125);
                     var path = Server.MapPath("~/GeneratedPdf/file.pdf");
-                    rpt4.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path);
+
+
+
+                    try
+                    {
+                        rpt4.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path);
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
                 }
-               
+
 
 
                 if (Convert.ToInt32(ViewState["TemplateID"]) == 5)
                 {
-                    WillTestator5 rpt5 = new WillTestator5();
-                    rpt5.SetParameterValue("testator", TestatorName);
-                    rpt5.SetParameterValue("testatorsirname", TestatorName + testatorsirname);
-                    rpt5.SetParameterValue("testatorrelation", TestatorRelationShip);
-                    rpt5.SetParameterValue("testatorage", TestatorAge);
-                    rpt5.SetParameterValue("beneficiaryname", BeneficiaryName);
-                    rpt5.SetParameterValue("beneficiarysirname", beneficiarysirname);
-                    rpt5.SetParameterValue("testatoradd", TestatorAddress);
-                    rpt5.SetParameterValue("appointee1", executorname);
-                    rpt5.SetParameterValue("appointee2", alternateexecutorname);
-                    rpt5.SetParameterValue("wifename", Relation);
-                    rpt5.SetParameterValue("assetcategory", assetcategory);
-                    rpt5.SetParameterValue("assetname", instrumentname);
-                    rpt5.SetParameterValue("benefname", mapbeneficiary);
-                    rpt5.SetParameterValue("percent", proportion);
+                    QuickWill48 rpt5 = new QuickWill48();
+                    rpt5.SetParameterValue("testator", testator);
+                    rpt5.SetParameterValue("Son-Daughter-Wife", SonDaughterWife);   // check gender and marital status 
+                    rpt5.SetParameterValue("Father-Husband", FatherHusband);
+                    rpt5.SetParameterValue("Age", Age);
+                    rpt5.SetParameterValue("TestatorAddress", TestatorAddress);
+                    rpt5.SetParameterValue("AppointeesGender", AppointeesGender);
+                    rpt5.SetParameterValue("AppointeesName", AppointeesName);
+                    rpt5.SetParameterValue("AlternateAppointeesGender", AlternateAppointeesGender);
+                    rpt5.SetParameterValue("TestatorFamily1", TestatorFamily1);
+                    rpt5.SetParameterValue("TestatorFamily2", TestatorFamily2);
+                    rpt5.SetParameterValue("TestatorFamily3", TestatorFamily3);
+                    rpt5.SetParameterValue("SystemDay", SystemDay);
+                    rpt5.SetParameterValue("SytemMonth", SytemMonth);
+                    rpt5.SetParameterValue("SystemYear", SystemYear);
+                    rpt5.SetParameterValue("TestatorCity", TestatorCity);
+                    rpt5.SetParameterValue("Witness1", Witness1);
+                    rpt5.SetParameterValue("AlternateAppointeesName", AlternateAppointeesName);
+                    rpt5.SetParameterValue("TestatorRelationShip1", TestatorRelationShip1);
+                    rpt5.SetParameterValue("TestatorRelationShip2", TestatorRelationShip2);
+                    rpt5.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
+                    rpt5.SetParameterValue("TestatorGender", TestatorGender);
+                    rpt5.SetParameterValue("Witness2", Witness2);
 
-                    
+
+
 
                     CrystalReportViewer1.ReportSource = rpt5;
                     CrystalReportViewer1.Zoom(125);
                     var path = Server.MapPath("~/GeneratedPdf/file.pdf");
-                    rpt5.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path);
+
+
+
+
+                    try
+                    {
+                        rpt5.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path);
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+
                 }
 
 
 
-                //ReportDocument rpt = new ReportDocument();
+
+
+                if (Convert.ToInt32(ViewState["TemplateID"]) == 6)
+                {
+                    QuickWill5 rpt6 = new QuickWill5();
+                    rpt6.SetParameterValue("testator", testator);
+                    rpt6.SetParameterValue("Son-Daughter-Wife", SonDaughterWife);   // check gender and marital status 
+                    rpt6.SetParameterValue("Father-Husband", FatherHusband);
+                    rpt6.SetParameterValue("Age", Age);
+                    rpt6.SetParameterValue("TestatorAddress", TestatorAddress);
+                    rpt6.SetParameterValue("AppointeesGender", AppointeesGender);
+                    rpt6.SetParameterValue("AppointeesName", AppointeesName);
+                    rpt6.SetParameterValue("AlternateAppointeesGender", AlternateAppointeesGender);
+                    rpt6.SetParameterValue("TestatorFamily1", TestatorFamily1);
+                    rpt6.SetParameterValue("TestatorFamily2", TestatorFamily2);
+                    rpt6.SetParameterValue("TestatorFamily3", TestatorFamily3);
+                    rpt6.SetParameterValue("SystemDay", SystemDay);
+                    rpt6.SetParameterValue("SytemMonth", SytemMonth);
+                    rpt6.SetParameterValue("SystemYear", SystemYear);
+                    rpt6.SetParameterValue("TestatorCity", TestatorCity);
+                    rpt6.SetParameterValue("Witness1", Witness1);
+                    rpt6.SetParameterValue("AlternateAppointeesName", AlternateAppointeesName);
+                    rpt6.SetParameterValue("TestatorRelationShip1", TestatorRelationShip1);
+                    rpt6.SetParameterValue("TestatorRelationShip2", TestatorRelationShip2);
+                    rpt6.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
+                    rpt6.SetParameterValue("TestatorGender", TestatorGender);
+                    rpt6.SetParameterValue("Witness2", Witness2);
+
+
+                    CrystalReportViewer1.ReportSource = rpt6;
+                    CrystalReportViewer1.Zoom(125);
+                    var path = Server.MapPath("~/GeneratedPdf/file.pdf");
+
+
+                    try
+                    {
+                        rpt6.ExportToDisk(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, path);
+                    }
+                    catch (Exception)
+                    {
+
+
+                    }
+
+                }
 
 
 
@@ -391,17 +783,24 @@ namespace WillAssure.Views.ViewDocument
 
 
 
+
+
+
+
+
+
+
+
+                //end
             }
             else
             {
 
-                Response.Write("<script>alert('Selected Template Does Not Match With The Rules')</script>");
+                Response.Write("<script>alert('Select Quick Will Currently Quick Will Only Available....!')</script>");
 
             }
 
 
-
-            //end
 
 
 
@@ -414,7 +813,10 @@ namespace WillAssure.Views.ViewDocument
 
             //ClientScript.RegisterStartupScript(this.GetType(),"randomtext","alertme()",true);
 
-
+            if (con.State == ConnectionState.Open)
+            {
+                con.Close();
+            }
             con.Open();
             string query = "update DocumentVerification set Verification_Status = 'Active' where Tid= " + Convert.ToInt32(ViewState["tid"]) + "  ";
             SqlCommand cmd = new SqlCommand(query, con);

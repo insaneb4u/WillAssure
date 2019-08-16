@@ -2293,9 +2293,11 @@ namespace WillAssure.Controllers
             else
             {
                 // set document rules
+                con.Open();
                 string qdr = "update documentRules set AlternateExecutors = 2 where tid = " + Convert.ToInt32(Session["distid"]) + " ";
                 SqlCommand cdr = new SqlCommand(qdr, con);
                 cdr.ExecuteNonQuery();
+                con.Close();
                 // end
             }
 

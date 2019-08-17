@@ -292,6 +292,12 @@
     <Compile Include="Controllers\ViewTestatorController.cs" />
     <Compile Include="Controllers\VisitorDataController.cs" />
     <Compile Include="Controllers\WillDetailsController.cs" />
+    <Compile Include="CrystalReports\CrystalReport1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CrystalReports\QuickWill1.cs">
       <DependentUpon>QuickWill1.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1917,6 +1923,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CrystalReports\CrystalReport1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="CrystalReports\QuickWill1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>QuickWill1.cs</LastGenOutput>

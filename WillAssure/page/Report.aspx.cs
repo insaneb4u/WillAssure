@@ -56,7 +56,7 @@ namespace WillAssure.Views.ViewDocument
 
             //check document matches with rules
             con.Open();
-            string checkquery = "select b.templateId , b.tId , a.documentType , a.category , a.guardian , a.executors_category , a.AlternateBenficiaries , a.AlternateGaurdian , a.AlternateExecutors from documentRules a inner join documentMaster b on a.tid=b.tId where a.tid =" + documentId+"";
+            string checkquery = "select * from documentRules where tid =" + documentId+"";
             SqlDataAdapter checkda = new SqlDataAdapter(checkquery, con);
             DataTable checkdt = new DataTable();
             checkda.Fill(checkdt);
@@ -67,7 +67,7 @@ namespace WillAssure.Views.ViewDocument
 
 
 
-            int documentType1 = 0;
+            int documentType1 = 1;
             int category = 0;
             int guardian = 0;
             int executors_category = 0;
@@ -79,33 +79,33 @@ namespace WillAssure.Views.ViewDocument
             if (checkdt.Rows.Count > 0)
             {
 
-                Dmtemplateid = Convert.ToInt32(checkdt.Rows[0]["templateId"]);
+                //Dmtemplateid = Convert.ToInt32(checkdt.Rows[0]["templateId"]);
 
 
-                if (checkdt.Rows[0]["documentType"].ToString() == "Will")
-                {
-                    documentType1 = 1;
-                }
-                if (checkdt.Rows[0]["documentType"].ToString() == "Codocil")
-                {
-                    documentType1 = 2;
-                }
-                if (checkdt.Rows[0]["documentType"].ToString() == "POA")
-                {
-                    documentType1 = 3;
-                }
-                if (checkdt.Rows[0]["documentType"].ToString() == "Giftdeeds")
-                {
-                    documentType1 = 4;
-                }
-                if (checkdt.Rows[0]["documentType"].ToString() == "LivingWill")
-                {
-                    documentType1 = 5;
-                }
-                else
-                {
-                    documentType1 = 1;
-                }
+                //if (checkdt.Rows[0]["documentType"].ToString() == "Will")
+                //{
+                //    documentType1 = 1;
+                //}
+                //if (checkdt.Rows[0]["documentType"].ToString() == "Codocil")
+                //{
+                //    documentType1 = 2;
+                //}
+                //if (checkdt.Rows[0]["documentType"].ToString() == "POA")
+                //{
+                //    documentType1 = 3;
+                //}
+                //if (checkdt.Rows[0]["documentType"].ToString() == "Giftdeeds")
+                //{
+                //    documentType1 = 4;
+                //}
+                //if (checkdt.Rows[0]["documentType"].ToString() == "LivingWill")
+                //{
+                //    documentType1 = 5;
+                //}
+                //else
+                //{
+                //    documentType1 = 1;
+                //}
 
 
               
@@ -277,6 +277,24 @@ namespace WillAssure.Views.ViewDocument
                     {
                         SonDaughterWife = "Wife";
                     }
+
+
+                }
+
+
+
+
+                if (AppointeesGender == "Male")
+                {
+                    AppointeesGender = "Son";
+                }
+
+                if (AppointeesGender == "Female")
+                {
+                    AppointeesGender = "Daughter";
+
+
+                   
 
 
                 }
@@ -796,7 +814,10 @@ namespace WillAssure.Views.ViewDocument
             else
             {
 
-                Response.Write("<script>alert('Select Quick Will Currently Quick Will Only Available....!')</script>");
+                lblmsgquickwill.Visible = true;
+                lblmsgquickwill.Text = "Currently Quick Will Only Available....!";
+
+                CrystalReportViewer1.Visible = false;
 
             }
 
@@ -877,7 +898,8 @@ namespace WillAssure.Views.ViewDocument
 
 
 
-            Response.Write("<script>alert('Mail has been Send Please Check The Email')</script>");
+            lblsuccessmsg.Visible = true;
+            lblsuccessmsg.Text = "Mail has been Send Please Check The Email....!";
 
             //end
 

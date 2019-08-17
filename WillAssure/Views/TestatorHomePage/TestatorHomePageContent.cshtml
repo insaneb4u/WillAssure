@@ -57,7 +57,7 @@
                         <div class="tab-content">
                             <div id="tabe-25" class="container tab-pane active">
 
-                                @using (Html.BeginForm(null, null, FormMethod.Post, new { name = "PopUp", id = "testatordocument" }))
+                                @using (Html.BeginForm())
                                 {
 
                                     <textarea id="documenttype" name="documenttype" style="display:none;"></textarea>
@@ -151,8 +151,8 @@
 
 
                                                 <div class="form-group">
-                                                    <input type="submit" formaction="MakePayment" id="btnsub" style="display:none;" name="name" value="" />
-                                                    <button type="submit" id="paymentbtn" style="display:none;" formaction="getdocumentprice" class="btnpay btn btn-danger shadow-primary px-5 btnpop"><i class="icon-lock"></i>Make A Payment</button>
+                                                    <input type="submit" formaction="@Url.Action("MakePayment","TestatorHomePage")" id="btnsub" style="display:none;" name="name" value="" />
+                                                    <input type="submit" id="paymentbtn" style="display:none;" formaction="@Url.Action("getdocumentprice","TestatorHomePage")" class="btnpay btn btn-danger shadow-primary px-5 btnpop" value="Make A Payment" />
                                                 </div>
 
                                             </div>

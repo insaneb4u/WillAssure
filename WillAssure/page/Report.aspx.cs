@@ -530,6 +530,14 @@ namespace WillAssure.Views.ViewDocument
                     rpt.SetParameterValue("Witness2", Witness2);
 
 
+                    rpt.SetParameterValue("relationid", documentId);
+                    rpt.SetParameterValue("primarytid", documentId);
+                    rpt.SetParameterValue("alternatebenetid", documentId);
+
+
+
+
+
 
                     CrystalReportViewer1.ReportSource = rpt;
 
@@ -577,7 +585,7 @@ namespace WillAssure.Views.ViewDocument
                     rpt2.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
                     rpt2.SetParameterValue("TestatorGender", TestatorGender);
                     rpt2.SetParameterValue("Witness2", Witness2);
-
+                 
 
 
                     CrystalReportViewer1.ReportSource = rpt2;
@@ -628,7 +636,7 @@ namespace WillAssure.Views.ViewDocument
                     rpt6.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
                     rpt6.SetParameterValue("TestatorGender", TestatorGender);
                     rpt6.SetParameterValue("Witness2", Witness2);
-
+                  
 
 
                     CrystalReportViewer1.ReportSource = rpt6;
@@ -675,8 +683,7 @@ namespace WillAssure.Views.ViewDocument
                     rpt4.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
                     rpt4.SetParameterValue("TestatorGender", TestatorGender);
                     rpt4.SetParameterValue("Witness2", Witness2);
-
-
+                
                     ViewState["getreportdata"] = rpt4;
                     CrystalReportViewer1.ReportSource = rpt4;
                     CrystalReportViewer1.Zoom(125);
@@ -722,7 +729,7 @@ namespace WillAssure.Views.ViewDocument
                     rpt5.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
                     rpt5.SetParameterValue("TestatorGender", TestatorGender);
                     rpt5.SetParameterValue("Witness2", Witness2);
-
+         
 
 
 
@@ -775,8 +782,7 @@ namespace WillAssure.Views.ViewDocument
                     rpt6.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
                     rpt6.SetParameterValue("TestatorGender", TestatorGender);
                     rpt6.SetParameterValue("Witness2", Witness2);
-
-
+                   
                     CrystalReportViewer1.ReportSource = rpt6;
                     CrystalReportViewer1.Zoom(125);
                     var path = Server.MapPath("~/GeneratedPdf/file.pdf");

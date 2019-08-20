@@ -3129,7 +3129,9 @@ namespace WillAssure.Controllers
 
 
 
-                        string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                        string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " and documentstatus = 'Incompleted' order by tId desc";
+
+                        
                         SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
                         DataTable dtt26 = new DataTable();
                         daa26.Fill(dtt26);
@@ -3315,7 +3317,7 @@ namespace WillAssure.Controllers
 
 
 
-                        string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                        string qq26 = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " and documentstatus = 'Incompleted' order by tId desc";
                         SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
                         DataTable dtt26 = new DataTable();
                         daa26.Fill(dtt26);

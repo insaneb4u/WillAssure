@@ -1002,7 +1002,7 @@ namespace WillAssure.Controllers
             "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
             "<label for='input-1'>Pin</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[PinCode]]  text-input' id='txtpin" + i + "' name='inputfield' placeholder='Enter Pin' type='text' value='" + dy1dt.Rows[i]["Pin"].ToString() + "' >" +
+            "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='txtpin" + i + "' name='inputfield' placeholder='Enter Pin' type='text' value='" + dy1dt.Rows[i]["Pin"].ToString() + "' >" +
             "</div>" +
             "</div>" +
             "<div class='col-sm-3'>" +
@@ -1409,7 +1409,7 @@ namespace WillAssure.Controllers
             "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
             "<label for='input-1'>Pin</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[PinCode]]  text-input' id='txtpin" + i + "' name='altinputfield' placeholder='Enter Pin' type='text' value='" + dy2dt.Rows[i]["Pin"].ToString() + "' >" +
+            "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='txtpin" + i + "' name='altinputfield' placeholder='Enter Pin' type='text' value='" + dy2dt.Rows[i]["Pin"].ToString() + "' >" +
             "</div>" +
             "</div>" +
             "<div class='col-sm-3'>" +
@@ -3739,7 +3739,7 @@ namespace WillAssure.Controllers
         "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>Pin</label>" +
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[PinCode]]  text-input' id='txtpin" + i + "' name='inputfield' placeholder='Enter Pin' type='text' value='' >" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='txtpin" + i + "' name='inputfield' placeholder='Enter Pin' type='text' value='' >" +
             "</div>" +
         "</div>" +
         "<div class='col-sm-3'>" +
@@ -3800,7 +3800,7 @@ namespace WillAssure.Controllers
          "</center>"+
 
 
-    "<input type='text' name='checking' id='txtcheck" + i + "' >" +
+    "<input type='hidden' name='checking' id='txtcheck" + i + "' >" +
 
      // alternate appointees
 
@@ -3956,7 +3956,7 @@ namespace WillAssure.Controllers
          "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>Pin</label>" +
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[PinCode]]  text-input' id='alttxtpin" + i + "' name='altinputfield' placeholder='Enter Pin' type='text' value='' >" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='alttxtpin" + i + "' name='altinputfield' placeholder='Enter Pin' type='text' value='' >" +
             "</div>" +
         "</div>" +
         "<div class='col-sm-3'>" +

@@ -217,6 +217,7 @@
     <Compile Include="Controllers\AssetTypeController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\ChangeTemplateController.cs" />
+    <Compile Include="Controllers\ChangingPasswordController.cs" />
     <Compile Include="Controllers\CodocilController.cs" />
     <Compile Include="Controllers\CodocilWitnessController.cs" />
     <Compile Include="Controllers\CompletedDocumentController.cs" />
@@ -1903,6 +1904,7 @@
     <Content Include="Views\CodocilWitness\CodocilWitnessPageContent.cshtml" />
     <Content Include="Views\UpdateDocumentPricing\UpdateDocumentPricingPageContent.cshtml" />
     <Content Include="Views\Frontend\otpscreen.cshtml" />
+    <Content Include="Views\ChangingPassword\ChangingPasswordPageContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

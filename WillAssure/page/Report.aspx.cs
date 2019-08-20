@@ -966,9 +966,18 @@ namespace WillAssure.Views.ViewDocument
 
             }
 
+            string type = "";
 
+            if (Session["Type"] != null)
+            {
+                 type = Session["Type"].ToString();
+            }
+            else
+            {
+                Response.Redirect("/LoginPage/LoginPageIndex/");
+            }
 
-            string type = Session["Type"].ToString();
+            
 
             if (type == "SuperAdmin" || type == "Distributor")
             {

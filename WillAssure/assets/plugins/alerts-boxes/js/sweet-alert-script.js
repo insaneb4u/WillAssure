@@ -79,6 +79,10 @@
          swal("Submitted", "Your Data has Been Submitted", "success");
      });
 
+     $("#change").click(function () {
+         swal("Password Changed", "Your Password Has Been Changed", "success");
+     });
+
      $("#btnRoleformsubmitCHECK").click(function () {
          swal("Failed", "Data Already Exist", "error");
      });

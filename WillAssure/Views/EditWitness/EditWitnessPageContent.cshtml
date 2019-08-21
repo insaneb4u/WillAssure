@@ -48,95 +48,77 @@
 
 
 
-                            <div class="card-body">
+                    <div class="card-body">
 
-                                <div class="row">
-
-
-                                    @if (Session["typ"] != null)
-                                    {
-                                        if (Session["typ"].ToString() == "Witness")
-                                        {
-                                            <div class="col-sm-2">
-                                                <a href="@Url.Action("AddwitnessIndex", "Addwitness")"><button type="button" id="btnnext" style="display:;" class="btn btn-danger shadow-primary px-5"><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="col-sm-2">
-                                                <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><button type="button" id="btnnext" style="display:;" class="btn btn-danger shadow-primary px-5"><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
-                                            </div>
-                                        }
-
-                                    }
-                                    else
-                                    {
-
-                                        if (!Response.IsRequestBeingRedirected)
-                                        {
-                                            Response.Redirect("/LoginPage/LoginPageIndex");
-                                        }
-                                    }
+                        <div class="row">
 
 
-
-
-
-
-
-                                    <div class="col-sm-3">
-
-                                        <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>
+                                    <div class="col-sm-2">
+                                        <a href="@Url.Action("AddwitnessIndex", "Addwitness")"><button type="button" id="btnnext" style="display:;" class="btn btn-danger shadow-primary px-5"><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
                                     </div>
-
-                                    <div class="col-sm-5"></div>
-
-                                    <span>
-                                        <a href="@Url.Action("AddwitnessIndex", "Addwitness")"><button type="button" id="btnnext" style="display:; float:right;" class="btn btn-success ">Next&nbsp;&nbsp;<i class="icon-arrow-right"></i></button></a>
-                                    </span>
-
-
-                                </div>
                                 
-                                <textarea id="getdata" style="display:none">@ViewBag.tabledata</textarea>
+                              
+              
 
-                                <hr class="div_rd">
-                                <div class="table-responsive">
-                                    <table id="default-datatable" class="table table-bordered">
-                                        <thead>
-                                            <tr class="ui-widget-header">
-                                                <th>Id</th>
-                                                <th>documentId</th>
-                                                <th>Type</th>
-                                                <th>subType</th>
-                                                <th>Name</th>
-                                                <th>middleName</th>
-                                                <th>Surname</th>
-                                                <th>Identity Proof</th>
-                                                <th>Identity Proof Value</th>
-                                                <th>Alt Identity Proof</th>
-                                                <th>Alt Identity Proof Value</th>
-                                                <th>DOB</th>
-                                                <th>Gender</th>
-                                                <th>Occupation</th>
-                                                <th>Relationship</th>
-                                                <th>Address1</th>
-                                                <th>Address2</th>
-                                                <th>Address3</th>
-                                                <th>City</th>
-                                                <th>State</th>
-                                                <th>Pin</th>
-                                                <th>dateCreated</th>
-                                                <th>Rid</th>
-                                                <th>Action</th>
 
-                                            </tr>
-                                        </thead>
-                                        <tbody id="AppointeesData"></tbody>
-                                    </table>
 
-                                </div>
+
+
+
+
+                            <div class="col-sm-3">
+
+                                <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>
                             </div>
+
+                            <div class="col-sm-5"></div>
+
+                            <span>
+                                <a href="@Url.Action("AddwitnessIndex", "Addwitness")"><button type="button" id="btnnext" style="display:; float:right;" class="btn btn-success ">Next&nbsp;&nbsp;<i class="icon-arrow-right"></i></button></a>
+                            </span>
+
+
+                        </div>
+
+                        <textarea id="getdata" style="display:none">@ViewBag.tabledata</textarea>
+
+                        <hr class="div_rd">
+                        <div class="table-responsive">
+                            <table id="default-datatable" class="table table-bordered">
+                                <thead>
+                                    <tr class="ui-widget-header">
+                                        <th>Id</th>
+                                        <th>documentId</th>
+                                        <th>Type</th>
+
+                                        <th>Name</th>
+                                        <th>middleName</th>
+                                        <th>Surname</th>
+                                        <th>Identity Proof</th>
+                                        <th>Identity Proof Value</th>
+                                        <th>Alt Identity Proof</th>
+                                        <th>Alt Identity Proof Value</th>
+                              
+                                        <th>Gender</th>
+                                        <th>Occupation</th>
+                                        <th>Relationship</th>
+                                        <th>Address1</th>
+                                        <th>Address2</th>
+                                        <th>Address3</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Pin</th>
+                                        <th>dateCreated</th>
+                                        <th>Rid</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="AppointeesData"></tbody>
+                            </table>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div><!-- End Row-->
@@ -192,7 +174,7 @@
         $.ajax({
 
             type: "POST",
-            url:"@Url.Action("BindTestatorDDL", "EditAppointees")",
+            url:"@Url.Action("BindTestatorDDL", "EditWitness")",
                   success: function (data) {
 
                       $('#DDLTestator').append(data);
@@ -225,7 +207,7 @@
             $.ajax({
 
             type: "POST",
-            url: "@Url.Action("UpdateAppointees", "EditAppointees")",
+            url: "@Url.Action("UpdateAppointees", "EditWitness")",
             data: {  "send": "" + id + ""   },
             success: function (data) {
 
@@ -264,7 +246,7 @@
                   $.ajax({
 
             type: "POST",
-            url: "@Url.Action("DeleteAppointeesRecords", "EditAppointees")",
+            url: "@Url.Action("DeleteAppointeesRecords", "EditWitness")",
             data: {  "send": "" + id + ""   },
             success: function (data) {
                 $("#btnappointeesdelete").on("click", function () { });
@@ -320,7 +302,7 @@
              $.ajax({
 
             type: "POST",
-            url:"@Url.Action("BindAppointeesFormData", "EditAppointees")",
+            url:"@Url.Action("BindAppointeesFormData", "EditWitness")",
                  data: { value: value },
             success: function (data) {
 
@@ -345,6 +327,7 @@
 
 
 </script>
+
 
 
 

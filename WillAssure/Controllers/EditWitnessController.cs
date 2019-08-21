@@ -12,13 +12,12 @@ using System.Globalization;
 
 namespace WillAssure.Controllers
 {
-    public class EditAppointeesController : Controller
+    public class EditWitnessController : Controller
     {
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         SqlConnection con = new SqlConnection(connectionString);
-        // GET: EditAppointees
-
-        public ActionResult EditAppointeesIndex(string Type)
+        // GET: EditWitness
+        public ActionResult EditWitnessIndex(string Type)
         {
             // check type 
 
@@ -36,12 +35,12 @@ namespace WillAssure.Controllers
                 }
                 else
                 {
-                  return  RedirectToAction("LoginPageIndex", "LoginPage");
+                    return RedirectToAction("LoginPageIndex", "LoginPage");
                 }
 
             }
 
-            
+
 
             string typ5 = "";
             con.Open();
@@ -256,7 +255,7 @@ namespace WillAssure.Controllers
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                        + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                      
                                         + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -264,7 +263,7 @@ namespace WillAssure.Controllers
                                         + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                         + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+
                                         + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -288,7 +287,7 @@ namespace WillAssure.Controllers
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                        + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                  
                                         + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -296,7 +295,7 @@ namespace WillAssure.Controllers
                                         + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                      + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                   
                                         + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -322,7 +321,7 @@ namespace WillAssure.Controllers
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                        + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                       
                                         + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -330,7 +329,7 @@ namespace WillAssure.Controllers
                                         + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                        + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                     
                                         + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -356,7 +355,7 @@ namespace WillAssure.Controllers
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                        + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                      
                                         + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -364,7 +363,7 @@ namespace WillAssure.Controllers
                                         + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                         + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                    
                                         + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -405,7 +404,7 @@ namespace WillAssure.Controllers
                                 data = data + "<tr class='nr'><td>" + dt22.Rows[i]["apId"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["documentId"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Type"].ToString() + "</td>"
-                                            + "<td>" + dt22.Rows[i]["subType"].ToString() + "</td>"
+                                           
                                             + "<td>" + dt22.Rows[i]["Name"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["middleName"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Surname"].ToString() + "</td>"
@@ -413,7 +412,7 @@ namespace WillAssure.Controllers
                                             + "<td>" + dt22.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                             + "<td>" + dt22.Rows[i]["DOB"].ToString() + "</td>"
+
                                             + "<td>" + dt22.Rows[i]["Gender"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Occupation"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Relationship"].ToString() + "</td>"
@@ -437,7 +436,7 @@ namespace WillAssure.Controllers
                                 data = data + "<tr class='nr'><td>" + dt22.Rows[i]["apId"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["documentId"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Type"].ToString() + "</td>"
-                                            + "<td>" + dt22.Rows[i]["subType"].ToString() + "</td>"
+                                     
                                             + "<td>" + dt22.Rows[i]["Name"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["middleName"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Surname"].ToString() + "</td>"
@@ -445,7 +444,7 @@ namespace WillAssure.Controllers
                                             + "<td>" + dt22.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                          + "<td>" + dt22.Rows[i]["DOB"].ToString() + "</td>"
+                                          
                                             + "<td>" + dt22.Rows[i]["Gender"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Occupation"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Relationship"].ToString() + "</td>"
@@ -471,7 +470,7 @@ namespace WillAssure.Controllers
                                 data = data + "<tr class='nr'><td>" + dt22.Rows[i]["apId"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["documentId"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Type"].ToString() + "</td>"
-                                            + "<td>" + dt22.Rows[i]["subType"].ToString() + "</td>"
+                                          
                                             + "<td>" + dt22.Rows[i]["Name"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["middleName"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Surname"].ToString() + "</td>"
@@ -479,7 +478,7 @@ namespace WillAssure.Controllers
                                             + "<td>" + dt22.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                            + "<td>" + dt22.Rows[i]["DOB"].ToString() + "</td>"
+                                           
                                             + "<td>" + dt22.Rows[i]["Gender"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Occupation"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Relationship"].ToString() + "</td>"
@@ -505,7 +504,7 @@ namespace WillAssure.Controllers
                                 data = data + "<tr class='nr'><td>" + dt22.Rows[i]["apId"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["documentId"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Type"].ToString() + "</td>"
-                                            + "<td>" + dt22.Rows[i]["subType"].ToString() + "</td>"
+                                           
                                             + "<td>" + dt22.Rows[i]["Name"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["middleName"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Surname"].ToString() + "</td>"
@@ -513,7 +512,7 @@ namespace WillAssure.Controllers
                                             + "<td>" + dt22.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                             + "<td>" + dt22.Rows[i]["DOB"].ToString() + "</td>"
+                                    
                                             + "<td>" + dt22.Rows[i]["Gender"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Occupation"].ToString() + "</td>"
                                             + "<td>" + dt22.Rows[i]["Relationship"].ToString() + "</td>"
@@ -559,7 +558,7 @@ namespace WillAssure.Controllers
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                        + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                       
                                         + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -567,7 +566,7 @@ namespace WillAssure.Controllers
                                         + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                         + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+
                                         + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -591,7 +590,7 @@ namespace WillAssure.Controllers
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                        + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                       
                                         + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -599,7 +598,7 @@ namespace WillAssure.Controllers
                                         + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                      + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                      
                                         + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -625,7 +624,7 @@ namespace WillAssure.Controllers
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                        + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                       
                                         + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -633,7 +632,7 @@ namespace WillAssure.Controllers
                                         + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                        + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                      
                                         + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -659,7 +658,7 @@ namespace WillAssure.Controllers
                             data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                        + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                 
                                         + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -667,7 +666,7 @@ namespace WillAssure.Controllers
                                         + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                         + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                      
                                         + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                         + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -713,8 +712,9 @@ namespace WillAssure.Controllers
 
 
 
-            return View("~/Views/EditAppointees/EditAppointeesPageContent.cshtml");
+            return View("~/Views/EditWitness/EditWitnessPageContent.cshtml");
         }
+
 
 
         public string BindAppointeesFormData(int value)
@@ -869,7 +869,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                   
                                     + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -877,7 +877,7 @@ namespace WillAssure.Controllers
                                     + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                     + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                
                                     + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -901,7 +901,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                  
                                     + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -909,7 +909,7 @@ namespace WillAssure.Controllers
                                     + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                  + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                 
                                     + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -935,7 +935,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                   
                                     + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -943,7 +943,7 @@ namespace WillAssure.Controllers
                                     + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                 
                                     + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -969,7 +969,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                   
                                     + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -977,7 +977,7 @@ namespace WillAssure.Controllers
                                     + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                     + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                             
                                     + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -997,14 +997,14 @@ namespace WillAssure.Controllers
 
 
 
-               
+
             }
 
             return data;
         }
 
 
-   
+
 
 
 
@@ -1016,7 +1016,7 @@ namespace WillAssure.Controllers
             SqlCommand cmd = new SqlCommand("SP_CRUDAppointees", con);
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@condition", "delete");
-            cmd.Parameters.AddWithValue("@apId",index);
+            cmd.Parameters.AddWithValue("@apId", index);
             cmd.Parameters.AddWithValue("@documentId", "");
             cmd.Parameters.AddWithValue("@Type", "");
             cmd.Parameters.AddWithValue("@subType", "");
@@ -1093,7 +1093,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string query = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated , a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid inner join users c on b.uId=c.uId where c.Linked_user =" + Convert.ToInt32(Session["uuid"]) + "  and a.Type='"+ Session["typ"].ToString() + "'";
+            string query = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated , a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid inner join users c on b.uId=c.uId where c.Linked_user =" + Convert.ToInt32(Session["uuid"]) + "  and a.Type='" + Session["typ"].ToString() + "'";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -1109,7 +1109,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                 
                                     + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -1117,7 +1117,7 @@ namespace WillAssure.Controllers
                                     + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                     + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                    
                                     + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -1141,7 +1141,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                  
                                     + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -1149,7 +1149,7 @@ namespace WillAssure.Controllers
                                     + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                    
                                     + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -1174,7 +1174,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                   
                                     + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -1182,7 +1182,7 @@ namespace WillAssure.Controllers
                                     + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                               
                                     + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -1208,7 +1208,7 @@ namespace WillAssure.Controllers
                         data = data + "<tr class='nr'><td>" + dt.Rows[i]["apId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["documentId"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Type"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["subType"].ToString() + "</td>"
+                                 
                                     + "<td>" + dt.Rows[i]["Name"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["middleName"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Surname"].ToString() + "</td>"
@@ -1216,7 +1216,7 @@ namespace WillAssure.Controllers
                                     + "<td>" + dt.Rows[i]["Identity_Proof_Value"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Alt_Identity_Proof_Value"].ToString() + "</td>"
-                                    + "<td>" + dt.Rows[i]["DOB"].ToString() + "</td>"
+                                  
                                     + "<td>" + dt.Rows[i]["Gender"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Occupation"].ToString() + "</td>"
                                     + "<td>" + dt.Rows[i]["Relationship"].ToString() + "</td>"
@@ -1403,7 +1403,6 @@ namespace WillAssure.Controllers
 
 
         }
-
 
 
 

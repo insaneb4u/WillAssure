@@ -2227,7 +2227,7 @@ namespace WillAssure.Controllers
                 SqlCommand cc1typ = new SqlCommand(qq1typ, con);
                 cc1typ.ExecuteNonQuery();
 
-                string qq = "update testatordetails set PaymentStatus = 1 , WillType='" + Session["typeofwill"].ToString() + "'  where uId= " + Convert.ToInt32(Session["uuid"]) + " ";
+                string qq = "update testatordetails set PaymentStatus = 1 , WillType='" + Session["typeofwill"].ToString() + "'  where tId= " + Convert.ToInt32(ladt.Rows[0]["tId"]) + " ";
                 SqlCommand cmdqq = new SqlCommand(qq, con);
                 cmdqq.ExecuteNonQuery();
                 con.Close();

@@ -822,7 +822,7 @@ namespace WillAssure.Views.ViewDocument
 
                 lblmsgquickwill.Visible = true;
                 lblmsgquickwill.Text = "Currently Quick Will Only Available....!";
-
+                btnverify.Visible = false;
                 CrystalReportViewer1.Visible = false;
 
             }

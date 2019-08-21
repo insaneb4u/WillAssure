@@ -437,22 +437,33 @@ namespace WillAssure.Controllers
                                     foreach (var kv in dict)
                                     {
                                         string removecomma = kv.Key;
-                                        string first = removecomma.Split('~')[0];
-                                        string second = removecomma.Split('~')[1];
+                                        string first = "";
+                                        string second = "";
+                                        if (removecomma != "NomineeDetails~NomineeDetails")
+                                        {
+                                             first = removecomma.Split('~')[0];
+                                             second = removecomma.Split('~')[1];
+                                        }
+                                    
+                                      
+                                       
 
                                         final = final + kv.Key + ":" + kv.Value;
 
 
 
+                                        if (kv.Value != "")
+                                        {
+                                            structure = structure + "<div class='col-sm-3'>" +
+                                         "<div class='form-group'>" +
+                                         "<label for='input-1' readonly='true'>" + second + "</label>" +
+                                         "<input type='text' readonly='true' id='" + count++ + "' class='form-control' style='width:150px;' value='" + kv.Value + "'   />" +
+                                         "</div>" +
+                                         "</div>";
+                                        }
 
 
-
-                                        structure = structure + "<div class='col-sm-3'>" +
-                                            "<div class='form-group'>" +
-                                            "<label for='input-1' readonly='true'>" + second + "</label>" +
-                                            "<input type='text' readonly='true' id='" + count++ + "' class='form-control' style='width:150px;' value='" + kv.Value + "'   />" +
-                                            "</div>" +
-                                            "</div>";
+                                     
 
 
 

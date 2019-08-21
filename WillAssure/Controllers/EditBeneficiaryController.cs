@@ -50,12 +50,13 @@ namespace WillAssure.Controllers
 
             ViewBag.documentlink = "true";
             ViewBag.collapse = "true";
-            return View("~/Views/EditBeneficiary/EditBeneficiaryPageContent.cshtml");
-        }
 
 
-        public string LoadData()
-        {
+
+            //////////////////////////////////////////////// beneficiary //////////////////////////////////////////////////
+
+
+
             // check type 
             string typ5 = "";
             con.Open();
@@ -208,7 +209,7 @@ namespace WillAssure.Controllers
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 con.Close();
-               
+
 
                 if (dt.Rows.Count > 0)
                 {
@@ -513,7 +514,7 @@ namespace WillAssure.Controllers
 
 
                 }
-                
+
             }
             else
             {
@@ -523,7 +524,7 @@ namespace WillAssure.Controllers
                 DataTable dt = new DataTable();
                 da.Fill(dt);
                 con.Close();
-               
+
 
                 if (dt.Rows.Count > 0)
                 {
@@ -671,12 +672,39 @@ namespace WillAssure.Controllers
 
                 }
 
-               
+
             }
 
-            return data;
+            ViewBag.tabledata = data;
 
+
+
+
+
+
+
+
+
+
+
+            //////////////////////////////////////////////////////end////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+            return View("~/Views/EditBeneficiary/EditBeneficiaryPageContent.cshtml");
         }
+
+
+      
 
 
         public string BindBeneficiaryFormData(int value)

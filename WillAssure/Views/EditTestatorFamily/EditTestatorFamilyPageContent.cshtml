@@ -34,18 +34,20 @@
                     <div class="card-body">
 
                         <div class="row">
-                            <div class="col-sm-2">
-                                <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><button type="button" id="btnnext" style="display:;" class="btn btn-danger "><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
-                            </div>
+                            
+                                <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><button type="button" id="btnnext" style="display:; float:right;" class="btn btn-danger "><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
+                           
                             <div class="col-sm-3">
 
                                 <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>
                             </div>
                             <div class="col-sm-6"></div>
                             <span>
-                                <a href="@Url.Action("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute")"><button type="button" id="btnnext" style="display:;" class="btn btn-success ">Next&nbsp;&nbsp;<i class="icon-arrow-right"></i></button></a>
+                                <a href="@Url.Action("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute")"><button type="button" id="btnnext" style="display:; float:right;" class="btn btn-success ">Next&nbsp;&nbsp;<i class="icon-arrow-right"></i></button></a>
                             </span>
                         </div>
+
+                        <textarea id="getdata" style="display:none;" >@ViewBag.Tabledata</textarea>
                       
                         <hr class="div_rd">
 
@@ -58,8 +60,7 @@
                                         <th>Last Name</th>
                                         <th>Middle Name</th>
                                         <th>DOB</th>
-                                        @*<th>Marital_Status</th>
-                                        <th>Religion</th>*@
+                                    
                                         <th>Relationship</th>
                                         <th>Address1</th>
                                         <th>Address2</th>
@@ -104,6 +105,22 @@
 
 @*end*@
 
+@if (ViewBag.Tabledata != null)
+{
+<script>
+
+    $(document).ready(function () {
+
+        var message = $('textarea#getdata').val();
+   
+
+        $('#TesttatorFamilyBind').empty().append(message);
+    });
+
+    
+
+</script>
+}
 
 
 
@@ -111,8 +128,14 @@
 <script>
 
     $(document).ready(function () {
+
+
         
-        $.ajax({
+
+
+
+        
+        @*$.ajax({
 
             type: "POST",
             url:"@Url.Action("LoadData", "EditTestatorFamily")",
@@ -123,7 +146,7 @@
                
 
             }
-        });
+        });*@
 
 
 

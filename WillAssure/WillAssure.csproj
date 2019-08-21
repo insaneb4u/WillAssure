@@ -250,11 +250,13 @@
     <Compile Include="Controllers\EditRelationController.cs" />
     <Compile Include="Controllers\EditRoleController.cs" />
     <Compile Include="Controllers\EditSettingController.cs" />
+    <Compile Include="Controllers\EditSingleBeneficiaryController.cs" />
     <Compile Include="Controllers\EditTestatorController.cs" />
     <Compile Include="Controllers\EditTestatorFamilyController.cs" />
     <Compile Include="Controllers\EditUserFormController.cs" />
     <Compile Include="Controllers\EditVisitorController.cs" />
     <Compile Include="Controllers\EditWillEmployeeController.cs" />
+    <Compile Include="Controllers\EditWitnessController.cs" />
     <Compile Include="Controllers\EmailVerificationController.cs" />
     <Compile Include="Controllers\FrontendController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1905,6 +1907,8 @@
     <Content Include="Views\UpdateDocumentPricing\UpdateDocumentPricingPageContent.cshtml" />
     <Content Include="Views\Frontend\otpscreen.cshtml" />
     <Content Include="Views\ChangingPassword\ChangingPasswordPageContent.cshtml" />
+    <Content Include="Views\EditWitness\EditWitnessPageContent.cshtml" />
+    <Content Include="Views\EditSingleBeneficiary\EditSingleBeneficiary.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -113,8 +113,6 @@
                                                     </a>
                                                     <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
                                                     <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                                    <a href="@Url.Action("AddLiabilitiesIndex","AddLiabilities")"><li style="color:black;">Liabilites></li></a>
-                                                    <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
                                                     <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
                                                     @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
                                                     <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="color:black">Executor ></li></a>
@@ -138,8 +136,7 @@
                                                     <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
                                                     <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
                                                     <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Liabilites></li></a>
-                                                    <a href="@Url.Action("AddPetCareIndex","AddPetCare")"><li style="color:black;">PetCare ></li></a>
-                                                    <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
+                                                   <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
                                                     @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
                                                     <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="color:black;">Executor ></li></a>
 
@@ -275,7 +272,7 @@
 
                                 <div style="float:right;">
 
-                                    <input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" />&nbsp;&nbsp;<a href="@Url.Action("EditAppointeesIndex","EditAppointees" , new { Type = "Witness" })"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a>
+                                    <a href="@Url.Action("EditWitnessIndex","EditWitness" , new { Type = "Witness" })"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a>
 
                                 </div>
 
@@ -1215,7 +1212,7 @@
                                         if (Session["distid"] != null)
                                         {
 
-                                            <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                            @*<input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />*@
                                             <a href="@Url.Action("Index","QuickMapping" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )">
 
 
@@ -1241,7 +1238,7 @@
 
                                         if (Session["distid"] != null)
                                         {
-                                            <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
+                                            @*<input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />*@
                                             <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )">
 
                                                 <button type="button" id="btnnext" style="display:none;" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>

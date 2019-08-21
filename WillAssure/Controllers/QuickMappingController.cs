@@ -289,7 +289,7 @@ namespace WillAssure.Controllers
                     res += "<div class='col-sm-2'>";
                     res += "<div class='form-group' id='mainbeneddl" + i + "'>";
                     res += "<label for='input-1'>Beneficiary</label><span id='errbene'  style='color:red; display:;'>(*)</span>";
-                    res += "<select id='ddlbeneficiary" + i + "' onchange='checkbeneficiaryduplicate(this.id,this.value)' name='multiproportion' class='form-control beneficiaryclass validate[required]'>" + data11 + "</select>";
+                    res += "<select id='ddlbeneficiary" + i + "'  onchange='checkbeneficiaryduplicate(this.id,this.value)' name='multiproportion' class='form-control beneficiaryclass validate[required]'>" + data11 + "</select>";
 
                     res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                     res += "</div>";
@@ -304,21 +304,32 @@ namespace WillAssure.Controllers
                     res += "</div>";
                     res += "<div class='col-sm-2' id='totaldiv" + i + "'>";
                     res += "<div class='form-group start'>";
-                    res += "<label for='input-1'>Balance Proportion</label>";
+                    res += "<label for='input-1' style='White-space:nowrap;'>Balance Proportion</label>";
                     res += "<input type='text' id='txttotal" + i + "' min=0  class='form-control totalinput' readonly />";
                     res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-466px;'  value='" + i + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
                     res += "<input type='text' id='txtcapbeneid' style='display:none;' name='txtcapbeneid' class='txtcapclass'  />";
                     res += "</div>";
                     res += "</div>";
+
+
+                    res += "<div class='col-sm-2' id='singlepropo" + i + "' style='display:none;'>";
+                    res += "<div class='form-group start'>";
+                    res += "<label for='input-1' style='white-space:nowrap'>single Proportion</label>";
+                    res += "<input type='text' id='txtsingleproportion" + i + "' name='multiproportion' Value='100'  class='form-control singleproportion' readonly />";
+
+                    res += "</div>";
+                    res += "</div>";
+
+
                     res += "</br>";
-                    res += "<div class='col-md-8 alternaterow' style='display:none;'>";
+                    res += "<div class='col-md-8 alternaterow' style='display:;'>";
                     res += "<table class='table tblalternaterow'>";
                     res += "<tr class='rowclass'>";
 
 
-                    res += "<td><select disabled name='alt_proportion' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1' class='form-control altbeneficiaryclass disabledelement'>" + data11 + "</select></td>";
-                    res += "<td><input disabled type='text' name='alt_proportion' id='alt_proportion1' class='form-control alt_proportioninput disabledelement'></td>";
-                    res += "<td><input disabled type='text' name='alt_total'  id='alt_total1' value='100' class='form-control alt_totalinput disabledelement'></td>";
+                    res += "<td><select disabled name='alt_proportion'  style='width:109px' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1' class='form-control altbeneficiaryclass disabledelement'>" + data11 + "</select></td>";
+                    res += "<td><input disabled type='text' name='alt_proportion' style='width:109px' id='alt_proportion1' class='form-control alt_proportioninput disabledelement'></td>";
+                    res += "<td><input disabled type='text' name='alt_total' style='Width:109px;'  id='alt_total1' value='100' class='form-control alt_totalinput disabledelement'></td>";
                     res += "<td><input disabled type='text' name='alt_proportion' style='display:none;' value='0' id='alt_pr1' class='form-control alt_propo disabledelement'></td>";
                     res += "<td><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add Alternate Beneficiary</button></td>";
                     res += "</tr>";
@@ -329,7 +340,7 @@ namespace WillAssure.Controllers
                     res += "<div class='col-sm-2' id='alternatefield' style='display:none'>";
                     res += "<div class='form-group' id='mainbeneddl" + i + "'>";
                     res += "<label for='input-1' style='white-space:nowrap'>Alternate Beneficiary</label>";
-                    res += "<select id='ddlbeneficiaryalt" + i + "' onchange='altcheckbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control altbeneficiaryclass '> " + data11 + " </select>";
+                    res += "<select id='ddlbeneficiaryalt" + i + "'  style='width:109px' onchange='altcheckbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control altbeneficiaryclass '> " + data11 + " </select>";
                     res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                     res += "</div>";
                     res += "</div>";
@@ -337,13 +348,7 @@ namespace WillAssure.Controllers
 
 
 
-                    res += "<div class='col-sm-2' id='singlepropo" + i + "' style='display:none;'>";
-                    res += "<div class='form-group start'>";
-                    res += "<label for='input-1'>single Proportion</label>";
-                    res += "<input type='text' id='txtsingleproportion" + i + "' name='multiproportion' Value='100'  class='form-control singleproportion' readonly />";
-
-                    res += "</div>";
-                    res += "</div>";
+                
 
 
 

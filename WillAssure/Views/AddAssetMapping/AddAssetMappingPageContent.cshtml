@@ -119,9 +119,7 @@
                                                         </a>
                                                         <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
                                                         <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                                        <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
-                                                        <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:black;">PetCare ></li></a>
-                                                        <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="">Mapping ></li></a>
+                                                       <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="">Mapping ></li></a>
 
                                                         <li style="color:#e1e1e1">Executor > </li>
                                                         <li style="color:#e1e1e1">Witness > </li>
@@ -140,9 +138,7 @@
                                                         </a>
                                                         <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
                                                         <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                                        <a href="@Url.Action("AddLiabilitiesIndex", "AddLiabilities")"><li style="color:black;">Liabilites></li></a>
-                                                        <a href="@Url.Action("AddPetCareIndex", "AddPetCare")"><li style="color:black;">PetCare ></li></a>
-                                                        <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="">Mapping ></li></a>
+                                                      <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><li style="">Mapping ></li></a>
 
                                                         <li style="color:#e1e1e1">Executor > </li>
                                                         <li style="color:#e1e1e1">Witness > </li>
@@ -667,6 +663,14 @@
                                  res += "<input type='text' id='txtcapbeneid' style='display:none;' name='txtcapbeneid' class='txtcapclass'  />"; 
                                  res += "</div>";
                                  res += "</div>";
+
+                                 res += "<div class='col-sm-2' id='singlepropo" + data[i].assetcatid + "' style='display:none;'>";
+                                 res += "<div class='form-group start'>";
+                                 res += "<label for='input-1'>single Proportion</label>";
+                                 res += "<input type='text' id='txtsingleproportion" + data[i].assetcatid + "' Value='100'  class='form-control' readonly />";
+
+                                 res += "</div>";
+                                 res += "</div>";
                                  res += "</br>";
 
                                  res += "<div class='col-md-12 alternaterow'>";
@@ -705,13 +709,7 @@
 
 
 
-                                 res += "<div class='col-sm-2' id='singlepropo" + data[i].assetcatid + "' style='display:none;'>";
-                                 res += "<div class='form-group start'>";
-                                 res += "<label for='input-1'>single Proportion</label>";
-                                 res += "<input type='text' id='txtsingleproportion" + data[i].assetcatid + "' Value='100'  class='form-control' readonly />";
-                               
-                                 res += "</div>";
-                                 res += "</div>";
+                             
 
 
 
@@ -750,7 +748,7 @@
 
                                      $("#mainbeneddl" + data[i].assetcatid + "").show();
 
-                                     $(".alternaterow").hide();
+                                    
                                   
                                  }
 
@@ -1427,7 +1425,7 @@
             $("#totaldiv" + myClass + "").hide();
        
 
-            $(".alternaterow").hide();
+       
         
 
             $(".btn" + myClass + "").removeAttr("disabled");
@@ -1454,7 +1452,7 @@
 
 
             var myClass = $(this).attr("class");
-            $(".alternaterow").show();
+          
 
             $(".alt").show();
 

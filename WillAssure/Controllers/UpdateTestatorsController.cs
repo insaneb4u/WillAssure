@@ -44,28 +44,6 @@ namespace WillAssure.Controllers
             }
 
 
-
-            // enable remaining form button
-
-            con.Open();
-
-            string querycou = "select Country from TestatorDetails where uId = "+Convert.ToInt32(Session["uuid"])+"";
-            SqlDataAdapter dacou = new SqlDataAdapter(querycou, con);
-            DataTable dtcou = new DataTable();
-            dacou.Fill(dtcou);
-
-            if (dtcou.Rows.Count > 0)
-            {
-                if (dtcou.Rows[0]["Country"].ToString() != "none")
-                {
-                    ViewBag.enablebtnremaining = "true";
-                }
-
-               
-
-            }
-
-
             if (Session["Type"] != null)
             {
 
@@ -115,7 +93,43 @@ namespace WillAssure.Controllers
 
 
 
+            // enable remaining form button
 
+            con.Open();
+
+
+            //// latest tid
+
+            string queryte = "select top 1 tId from TestatorDetails where WillType = '" + Session["WillType"] + "' order by tId desc";
+            SqlDataAdapter date = new SqlDataAdapter(queryte, con);
+            DataTable dtte = new DataTable();
+            date.Fill(dtte);
+            int test = 0;
+            if (dtte.Rows.Count > 0)
+            {
+                test = Convert.ToInt32(dtte.Rows[0]["tId"]);
+            }
+
+
+
+            string querycou = "select Country from TestatorDetails where tId = " + test + "";
+            SqlDataAdapter dacou = new SqlDataAdapter(querycou, con);
+            DataTable dtcou = new DataTable();
+            dacou.Fill(dtcou);
+
+            if (dtcou.Rows.Count > 0)
+            {
+                if (dtcou.Rows[0]["Country"].ToString() != "none")
+                {
+                    ViewBag.enablebtnremaining = "true";
+                }
+
+
+
+            }
+
+            con.Close();
+            //end
 
 
 
@@ -140,35 +154,70 @@ namespace WillAssure.Controllers
 
             con.Open();
 
-            if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will" )
+            if (Session["WillType"] != null && Session["doctype"] != null)
             {
-                qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+                    qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
+
+                    SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
+                    DataTable dtt26 = new DataTable();
+                    daa26.Fill(dtt26);
+                    if (dtt26.Rows.Count > 0)
+                    {
+                        NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
+                    }
+                }
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+                    qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
+
+                    SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
+                    DataTable dtt26 = new DataTable();
+                    daa26.Fill(dtt26);
+                    if (dtt26.Rows.Count > 0)
+                    {
+                        NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
+                    }
+                }
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
+
+                    SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
+                    DataTable dtt26 = new DataTable();
+                    daa26.Fill(dtt26);
+                    if (dtt26.Rows.Count > 0)
+                    {
+                        NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
+                    }
+                }
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
+
+                    SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
+                    DataTable dtt26 = new DataTable();
+                    daa26.Fill(dtt26);
+                    if (dtt26.Rows.Count > 0)
+                    {
+                        NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
+                    }
+                }
             }
-            if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+            else
             {
-                qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
+                RedirectToAction("LoginPageIndex", "LoginPage");
             }
-            if (Session["doctype"].ToString() == "POA")
-            {
-                qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
-            }
-            if (Session["doctype"].ToString() == "GiftDeeds")
-            {
-                qq26 = "select top 1 tId from TestatorDetails where uId = " + getid + " order by  tid desc ";
-            }
+
+            
 
            
 
 
 
 
-            SqlDataAdapter daa26 = new SqlDataAdapter(qq26, con);
-            DataTable dtt26 = new DataTable();
-            daa26.Fill(dtt26);
-            if (dtt26.Rows.Count > 0)
-            {
-                NestId = Convert.ToInt32(dtt26.Rows[0]["tId"]);
-            }
+            
 
 
 
@@ -182,11 +231,24 @@ namespace WillAssure.Controllers
 
             // check type 
             string typ = "";
+            string upquery = "";
             con.Open();
 
-            string upquery = "update TestatorDetails set WillType='" + Session["WillType"].ToString() + "' , doctype='" + Session["doctype"].ToString() + "' where tId = " + NestId + "" ;
-            SqlCommand upcmd = new SqlCommand(upquery, con);
-            upcmd.ExecuteNonQuery();
+            if (Session["doctype"] != null)
+            {
+                upquery = "update TestatorDetails set WillType='" + Session["WillType"].ToString() + "' , doctype='" + Session["doctype"].ToString() + "' where tId = " + NestId + "";
+                SqlCommand upcmd = new SqlCommand(upquery, con);
+                upcmd.ExecuteNonQuery();
+            }
+            else
+            {
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+             
+
+
+           
 
 
             string qq1 = "select Type  from users where uId = " + getid + " ";
@@ -1272,7 +1334,16 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@Identity_proof_Value", TFM.Identity_proof_Value);
             cmd.Parameters.AddWithValue("@Alt_Identity_Proof", TFM.Alt_Identity_Proof);
             cmd.Parameters.AddWithValue("@Alt_Identity_proof_Value", TFM.Alt_Identity_proof_Value);
-            cmd.Parameters.AddWithValue("@Gender", TFM.Gendertext);
+
+           
+                cmd.Parameters.AddWithValue("@Gender", TFM.Gendertext);
+            
+
+
+            
+
+
+
             cmd.Parameters.AddWithValue("@Address1", TFM.Address1);
             if (TFM.Address2 != null)
             {

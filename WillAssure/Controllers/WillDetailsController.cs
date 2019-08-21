@@ -942,12 +942,12 @@ namespace WillAssure.Controllers
             }
 
 
-            if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Detailed")
+            if (Session["WillType"].ToString() == "Detailed")
             {
 
                 // update doctype for testator
                
-                string query77 = "update TestatorDetails set WillType = '" + Session["WillType"].ToString() + "'  , doctype='" + Session["doctype"].ToString() + "' , documentstatus = 'Completed'   where  tId = " + NestId + "";
+                string query77 = "update TestatorDetails set WillType = 'Detailed'  , doctype='" + Session["doctype"].ToString() + "' , documentstatus = 'Completed'   where  tId = " + NestId + "";
                 SqlCommand cmd77 = new SqlCommand(query77, con);
                 cmd77.ExecuteNonQuery();
                
@@ -1073,12 +1073,12 @@ namespace WillAssure.Controllers
             }
 
 
-            if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Quick")
+            if (Session["WillType"].ToString() == "Quick")
             {
 
                 // update doctype for testator
                
-                string query77 = "update TestatorDetails set WillType = '" + Session["WillType"].ToString() + "' , doctype='" + Session["doctype"].ToString() + "'  , documentstatus = 'Completed'   where  tId = " + NestId + "";
+                string query77 = "update TestatorDetails set WillType = '" + Session["WillType"].ToString() + "' , doctype='Will'  , documentstatus = 'Completed'   where  tId = " + NestId + "";
                 SqlCommand cmd77 = new SqlCommand(query77, con);
                 cmd77.ExecuteNonQuery();
                
@@ -1089,7 +1089,7 @@ namespace WillAssure.Controllers
 
                 // for testator family
 
-                string qchk001 = "update testatorFamily set documentstatus = 'Completed' where tId = " + NestId + " and WillType = '"+ Session["WillType"].ToString() + "'";
+                string qchk001 = "update testatorFamily set documentstatus = 'Completed' where tId = " + NestId + " and WillType = 'Quick' ";
                 SqlCommand cmd1 = new SqlCommand(qchk001, con);
                 cmd1.ExecuteNonQuery();
                 //end
@@ -1099,7 +1099,7 @@ namespace WillAssure.Controllers
 
                 // for beneficiary institution
 
-                string qchk0020 = "update BeneficiaryInstitutions set documentstatus = 'Completed' where tId = " + NestId + " and WillType = '"+ Session["WillType"].ToString() + "'";
+                string qchk0020 = "update BeneficiaryInstitutions set documentstatus = 'Completed' where tId = " + NestId + " and WillType = 'Quick'";
                 SqlCommand cmd2 = new SqlCommand(qchk0020, con);
                 cmd2.ExecuteNonQuery();
 
@@ -1111,7 +1111,7 @@ namespace WillAssure.Controllers
 
                 // for beneficiary
 
-                string qchk002 = "update BeneficiaryDetails set documentstatus = 'Completed' where tId = " + NestId + " and WillType = '"+ Session["WillType"].ToString() + "' ";
+                string qchk002 = "update BeneficiaryDetails set documentstatus = 'Completed' where tId = " + NestId + " and  WillType = 'Quick' ";
                 SqlCommand cmd3 = new SqlCommand(qchk002, con);
                 cmd3.ExecuteNonQuery();
 
@@ -1121,7 +1121,7 @@ namespace WillAssure.Controllers
                 // for asset mapping 
 
 
-                string qchk006 = "update BeneficiaryAssets set documentstatus = 'Completed' where tId = " + NestId + " and WillType = '"+ Session["WillType"].ToString() + "'";
+                string qchk006 = "update BeneficiaryAssets set documentstatus = 'Completed' where tId = " + NestId + " and  WillType = 'Quick'";
                 SqlCommand cmd5 = new SqlCommand(qchk006, con);
                 cmd5.ExecuteNonQuery();
 
@@ -1132,7 +1132,7 @@ namespace WillAssure.Controllers
                 // for appointees 
 
 
-                string qchk008 = "update Appointees set documentstatus = 'Completed' where tId = " + NestId + " and WillType = '"+ Session["WillType"].ToString() + "' and Type='Executor' ";
+                string qchk008 = "update Appointees set documentstatus = 'Completed' where tId = " + NestId + " and WillType = 'Quick' and Type='Executor' ";
                 SqlCommand cmd6 = new SqlCommand(qchk008, con);
                 cmd6.ExecuteNonQuery();
 
@@ -1148,7 +1148,7 @@ namespace WillAssure.Controllers
                 // for Addwitness 
 
 
-                string qchk0082 = "update Appointees set documentstatus = 'Completed' where tId = " + NestId + " and WillType = '"+ Session["WillType"].ToString() + "' and Type='Witness' ";
+                string qchk0082 = "update Appointees set documentstatus = 'Completed' where tId = " + NestId + " and WillType = 'Quick' and Type='Witness' ";
                 SqlCommand cmd7 = new SqlCommand(qchk0082, con);
                 cmd7.ExecuteNonQuery();
 

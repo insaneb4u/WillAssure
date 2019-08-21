@@ -88,8 +88,7 @@
                                         <li style="color:#e1e1e1">Institution ></li>
                                         <li style="color:#e1e1e1">Beneficiary ></li>
                                         <li style="color:#e1e1e1">AssetInformation ></li>
-                                        <li style="color:#e1e1e1">Liabilites></li>
-                                        <li style="color:#e1e1e1">PetCare ></li>
+                                     
                                         <li style="color:#e1e1e1">Mapping ></li>
                                         <li style="color:#e1e1e1">Executor > </li>
                                         <li style="color:#e1e1e1">Witness > </li>
@@ -269,74 +268,99 @@
                                     </div>
                                 </div>
 
-                                @if (Model.State_txt != null)
-                                {
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">State</label>
+                                @*state*@
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="input-1">State</label>
+                                        <input type="text" placeholder="--Select State--" id="txtddlstate" onfocus="txtstatehide()" style="display:none" class="form-control input-shadow" name="samestate" value="" />
+                                        <script>
+                                            function txtstatehide() {
+                                                $("#txtddlstate").hide();
+                                                $("#ddlstate").show();
+                                            }
+                                        </script>
+                                        @if (Model.State_txt != null)
+                                        {
+
                                             <select id="ddlstate" class="widthdatatfstate form-control input-shadow validate[required]">
                                                 <option value="@Model.State_txt">@Model.State_txt</option>
                                             </select>
                                             @Html.HiddenFor(m => m.State_id, new { id = "stateid" })
                                             @Html.HiddenFor(m => m.State_txt, new { id = "statetext" })
-                                        </div>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">State</label>
-                                            <input type="text" placeholder="--Select State--" id="txtddlstate" onfocus="txtstatehide()" style="display:none" class="form-control input-shadow" name="samestate" value="" />
+                                        }
+                                        else
+                                        {
+
                                             <select id="ddlstate" class="form-control input-shadow validate[required]">
                                                 <option value="">--Select State--</option>
                                             </select>
                                             @Html.HiddenFor(m => m.State_id, new { id = "stateid" })
                                             @Html.HiddenFor(m => m.State_txt, new { id = "statetext" })
-                                        </div>
+                                        }
+
+
                                     </div>
-                                }
+                                </div>
 
-                                <script>
-                                    function txtstatehide() {
-                                        $("#txtddlstate").hide();
-                                        $("#ddlstate").show();
-                                    }
-                                </script>
 
-                                @if (Model.City_txt != null)
-                                {
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">City</label>
+
+
+
+                                @*end*@
+
+
+
+
+
+
+
+                                @*city*@
+
+
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="input-1">City</label>
+                                        <input type="text" placeholder="--Select City--" id="txtddlcity" onfocus="txtcityhide()" style="display:none" class="form-control input-shadow" name="samecity" value="" />
+                                        <script>
+                                            function txtcityhide() {
+                                                $("#txtddlcity").hide();
+                                                $("#ddlcity").show();
+                                            }
+                                        </script>
+                                        @if (Model.City_txt != null)
+                                        {
+
                                             <select id="ddlcity" class="form-control input-shadow validate[required]">
                                                 <option value="@Model.City_txt">@Model.City_txt</option>
                                             </select>
                                             @Html.HiddenFor(m => m.City_id, new { id = "cityid" })
                                             @Html.HiddenFor(m => m.City_txt, new { id = "citytext" })
-                                        </div>
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">City</label>
-                                            <input type="text" placeholder="--Select City--" id="txtddlcity" onfocus="txtcityhide()" style="display:none" class="form-control input-shadow" name="samecity" value="" />
+                                        }
+                                        else
+                                        {
+
                                             <select id="ddlcity" class="form-control input-shadow validate[required]">
                                                 <option value="">--Select City--</option>
                                             </select>
                                             @Html.HiddenFor(m => m.City_id, new { id = "cityid" })
                                             @Html.HiddenFor(m => m.City_txt, new { id = "citytext" })
-                                        </div>
+                                        }
+
+
                                     </div>
-                                }
-                                <script>
-                                    function txtcityhide() {
-                                        $("#txtddlcity").hide();
-                                        $("#ddlcity").show();
-                                    }
-                                </script>
+                                </div>
+
+
+
+
+
+                                @*end*@
+
+
+
+
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
@@ -1396,7 +1420,6 @@
                 var add7 = response.split("~")[6];
 
 
-
                 $("#txtAddress1").val(add1);
                 $("#txtAddress2").val(add2);
                 $("#txtAddress3").val(add3);
@@ -1406,9 +1429,14 @@
                 $('#ddlcity').hide();
 
 
-                $('#txtddlcountry').show().val(add4);
-                $('#txtddlstate').show().val(add5);
-                $('#txtddlcity').show().val(add6);
+                $('#txtddlcountry').show();
+                $('#txtddlstate').show();
+                $('#txtddlcity').show();
+
+
+                $('#txtddlcountry').val(add4);
+                $('#txtddlstate').val(add5);
+                $('#txtddlcity').val(add6);
 
 
 
@@ -2738,7 +2766,7 @@
 
             $("#btnmore").click(function () {
 
-
+                $("#Alternateguardianform").hide();
 
                 $('#ddlcountry').val('').trigger('change');
                 $('#ddlstate').val('').trigger('change');
@@ -2874,7 +2902,7 @@
                 $('#ddlcountry').val('').trigger('change');
                 $('#ddlstate').val('').trigger('change');
                 $('#ddlcity').val('').trigger('change');
-
+                $("#Alternateguardianform").hide();
 
                 $("#btneditmsg").hide();
 

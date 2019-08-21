@@ -941,7 +941,7 @@ namespace WillAssure.Controllers
                         }
                         else
                         {
-                            column = column + "<input type=" + dt3.Rows[i]["NominationControls"].ToString() + " name='inputName' id='txtnominee' class='form-control input-shadow' /> </div></div>";
+                            column = column + "<input type=" + dt3.Rows[i]["NominationControls"].ToString() + " name='inputName' style='display:none' id='txtnominee' class='form-control input-shadow' /> </div></div>";
                         }
 
                         MAM.NominationControls = dt3.Rows[i]["NominationControls"].ToString();
@@ -952,14 +952,14 @@ namespace WillAssure.Controllers
                     {
                         string testString = dt3.Rows[i]["NomineeDetails"].ToString();
                         ArrayList result = new ArrayList(testString.Split('~'));
-                        column = column + "<div class='col-sm-3'> <div class='form-group'><label for='input-1' >" + result[1].ToString() + "</label>";
+                        column = column + "<div class='col-sm-3'> <div class='form-group'><label style='display:none;' for='input-1' >" + result[1].ToString() + "</label>";
                         MAM.NomineeDetails = dt3.Rows[i]["NomineeDetails"].ToString();
                     }
 
 
                     if (dt3.Rows[i]["NomineeDetailsControls"].ToString() != "")
                     {
-                        column = column + "<input type=" + dt3.Rows[i]["NomineeDetailsControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' id='txtnominee' /> </div></div>";
+                        column = column + "<input type=" + dt3.Rows[i]["NomineeDetailsControls"].ToString() + " class='form-control input-shadow validate[required]' name='inputName' style='display:none' id='txtnominee' /> </div></div>";
                         MAM.NomineeDetailsControls = dt3.Rows[i]["NomineeDetailsControls"].ToString();
                     }
 

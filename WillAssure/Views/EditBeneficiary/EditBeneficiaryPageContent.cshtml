@@ -44,19 +44,25 @@
                         }
                     }
 
-                            <div class="row">
-                                <div class="col-sm-2">
-                                    <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><button type="button" id="btnnext" style="display:;" class="btn btn-danger"><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
-                                </div>
-                                <div class="col-sm-3">
+                    <div class="row">
 
-                                    <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>
-                                </div>
-                                <div class="col-sm-6"></div>
-                                <span>
-                                    <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><button type="button" id="btnnext" style="display:;" class="btn btn-success ">Next&nbsp;&nbsp;<i class="icon-arrow-right"></i></button></a>
-                                </span>
-                            </div>
+                        <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><button type="button" id="btnnext" style="display:; float:right;" class="btn btn-danger"><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
+
+                        <div class="col-sm-3">
+
+                            <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>
+                        </div>
+                        <div class="col-sm-6"></div>
+                        <span>
+                            <a href="@Url.Action("AddMainAssetsIndex", "AddMainAssets")"><button type="button" id="btnnext" style="display:;" class="btn btn-success ">Next&nbsp;&nbsp;<i class="icon-arrow-right"></i></button></a>
+                        </span>
+                    </div>
+
+
+                    <textarea id="getdata" style="display:none">@ViewBag.tabledata</textarea>
+
+
+
                     <hr class="div_rd">
                     <div class="table-responsive">
                         <table id="default-datatable" class="table table-bordered">
@@ -96,13 +102,13 @@
                         </table>
                     </div>
                 </div>
-                </div>
             </div>
-        </div><!-- End Row-->
+        </div>
+    </div><!-- End Row-->
 
 
-       <input type="button" style="display:none;" id="btnbenefdelete" name="name" value="" />
-    </div>
+    <input type="button" style="display:none;" id="btnbenefdelete" name="name" value="" />
+</div>
 
 
 </div>
@@ -120,21 +126,36 @@
 
 
 
+
+@if (ViewBag.tabledata != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            var getdata = $("textarea#getdata").val();
+            $('#BeneficiaryData').empty().append(getdata);
+        });
+
+    </script>
+}
+
+
 <script>
 
     $(document).ready(function () {
 
-        $.ajax({
+        @*$.ajax({
 
             type: "POST",
             url:"@Url.Action("LoadData", "EditBeneficiary")",
             success: function (data) {
                 $('#BeneficiaryData').empty().append(data);
             }
-        });
+        });*@
 
 
-        
+
 	    $.ajax({
 
             type: "POST",
@@ -142,11 +163,11 @@
                   success: function (data) {
 
                       $('#DDLTestator').append(data);
-                      
 
 
 
-                
+
+
             }
           });
 
@@ -172,7 +193,7 @@
             url: "@Url.Action("UpdateBeneficiaryForm", "EditBeneficiary")",
             data: {  "send": "" + id + ""   },
             success: function (data) {
-             
+
 
                 var NestId = data
                 var url = "/AddBeneficiary/AddBeneficiaryIndex?NestId=" + NestId;
@@ -197,7 +218,7 @@
 
         var $tr = $(this).closest('tr');
         var id = $(this).attr('id');
- 
+
         swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this record!",
@@ -220,7 +241,7 @@
                      $("#btnbenefdelete").click(); //trigger event after listening to it.
 
                      $('#BeneficiaryData').empty().append(data).reload();
-          
+
             }
 
 
@@ -277,14 +298,14 @@
             url:"@Url.Action("BindBeneficiaryFormData", "EditBeneficiary")",
                  data: { value: value },
             success: function (data) {
-                
-         
+
+
                 $('#BeneficiaryData').empty().append(data);
-                      
 
 
 
-                
+
+
             }
         });
 
@@ -295,6 +316,6 @@
     };
 
 
-    
+
 </script>
 

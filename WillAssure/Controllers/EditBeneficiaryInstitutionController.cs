@@ -24,12 +24,11 @@ namespace WillAssure.Controllers
             ViewBag.documentlink = "true";
             ViewBag.collapse = "true";
 
-            return View("~/Views/EditBeneficiaryInstitution/EditBeneficiaryInstitution.cshtml");
-        }
 
 
-        public string BindInstitutionFormData()
-        {
+            ////////////////////////////////////////// bind institution ///////////////////////////////
+
+
             // check type 
             string typ5 = "";
             con.Open();
@@ -153,11 +152,11 @@ namespace WillAssure.Controllers
 
             //end
 
-         
+
 
             con.Open();
 
-     
+
             string query0 = "select top 1 tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "    ";
 
             SqlDataAdapter da0 = new SqlDataAdapter(query0, con);
@@ -170,10 +169,10 @@ namespace WillAssure.Controllers
             }
 
 
-       
 
 
-            string query = "select * from BeneficiaryInstitutions where tid="+tid+"";
+
+            string query = "select * from BeneficiaryInstitutions where tid=" + tid + "";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -276,8 +275,25 @@ namespace WillAssure.Controllers
 
             }
 
-            return data;
+            ViewBag.tabledata = data;
+
+
+
+
+
+
+
+            ///////////////////////////////////////////// end //////////////////////////////////////////
+
+
+
+
+
+            return View("~/Views/EditBeneficiaryInstitution/EditBeneficiaryInstitution.cshtml");
         }
+
+
+     
 
 
 

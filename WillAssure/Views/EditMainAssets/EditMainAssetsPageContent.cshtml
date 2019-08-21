@@ -30,7 +30,7 @@
                     {
                         if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
                         {
-                        
+
 
                             <div class="row">
                                 <div class="col-sm-3">  <div class="card-title text-primary">Gift Data</div></div>
@@ -39,7 +39,7 @@
                         }
                         else
                         {
-                           
+
 
                             <div class="row">
                                 <div class="col-sm-3">  <div class="card-title text-primary">Asset Information Data</div></div>
@@ -57,11 +57,14 @@
 
                                 <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>
                             </div>
-                            <div class="col-sm-6"></div>
+                            <div class="col-sm-5"></div>
                             <span>
                                 <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")"><button type="button" id="btnnext" style="display:;" class="btn btn-success ">Next&nbsp;&nbsp;<i class="icon-arrow-right"></i></button></a>
                             </span>
                         </div>
+
+                        <textarea id="getdata" style="display:none">@ViewBag.tabledata</textarea>
+
                         <hr class="div_rd">
                         <div class="table-responsive">
                             <table id="default-datatable" class="table table-bordered">
@@ -71,6 +74,7 @@
                                         <th>Assset Type</th>
                                         <th>Asset Category</th>
                                         <th>Data</th>
+                                        <th>Action</th>
 
                                     </tr>
                                 </thead>
@@ -81,7 +85,7 @@
                 </div>
             </div>
         </div><!-- End Row-->
-       <input type="button" id="btnmainassetDelete" style="display:none" name="name" value="" />
+        <input type="button" id="btnmainassetDelete" style="display:none" name="name" value="" />
     </div>
 
 </div>
@@ -91,23 +95,37 @@
 
 @*end*@
 
+@if (ViewBag.tabledata != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            var getdata = $("textarea#getdata").val();
+            $('#MappedData').empty().append(getdata);
+        });
+
+    </script>
+}
 
 <script>
 
-    $(document).ready(function () {
-       
-        $.ajax({
+
+
+   $(document).ready(function () {
+
+       @*    $.ajax({
 
             type: "POST",
             url:"@Url.Action("LoadData","EditMainAssets")",
             success: function (data) {
                 $('#MappedData').empty().append(data);
             }
-        });
+        });*@
 
-        
 
-          
+
+
 
 
          $.ajax({
@@ -117,11 +135,11 @@
                   success: function (data) {
 
                       $('#DDLTestator').append(data);
-                      
 
 
 
-                
+
+
             }
           });
 
@@ -172,7 +190,7 @@
 
         var $tr = $(this).closest('tr');
         var id = $(this).attr('id');
-        
+
         swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this record!",
@@ -256,10 +274,10 @@
             url:"@Url.Action("BindMappedFormData", "EditMainAssets")",
                  data: { value: value },
             success: function (data) {
-                
-         
+
+
                 $('#MappedData').empty().append(data);
-                      
+
 
                 var seen = {};
                 $('table tr').each(function () {
@@ -270,7 +288,7 @@
                         seen[txt] = true;
                 });
 
-                
+
             }
         });
 

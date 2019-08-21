@@ -1,9 +1,8 @@
 ﻿
-@{
-    ViewBag.Title = "EditBeneficiaryInstitution";
-}
 
-<h2>EditBeneficiaryInstitution</h2>
+@{
+    ViewBag.Title = "EditBeneficiaryMappingPageContent";
+}
 
 
 @*Main Content*@
@@ -34,47 +33,42 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="card">
-                    <div class="card-header"><i class="fa fa-table"></i>Beneficiary Institution</div>
+
+
+
                     <div class="card-body">
 
-
-
                         <div class="row">
-                            
-                                <a href="@Url.Action("AddBeneficiaryInstituteIndex", "AddBeneficiaryInstitute")"><button type="button" id="btnnext" style="display:; float:right;" class="btn btn-danger "><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
-                     
+                            <div class="col-sm-2">
+                                <a href="@Url.Action("Index", "QuickMapping")"><button type="button" id="btnnext" style="display:;" class="btn btn-danger  px-5"><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
+                            </div>
                             <div class="col-sm-3">
 
                                 <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>
                             </div>
-                            <div class="col-sm-6"></div>
+
+                            <div class="col-sm-5"></div>
+
                             <span>
-                                <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><button type="button" id="btnnext" style="display:; float:right;" class="btn btn-success ">Next&nbsp;&nbsp;<i class="icon-arrow-right"></i></button></a>
+                                <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new{ @NestId = Session["distid"] , @doctype= Session["doctype"] } )"><button type="button" id="btnnext" style="display:;" class="btn btn-success ">Next&nbsp;&nbsp;<i class="icon-arrow-right"></i></button></a>
                             </span>
                         </div>
-                        <textarea id="getdata" style="display:none">@ViewBag.tabledata</textarea>
-
                         <hr class="div_rd">
-
-
-
                         <div class="table-responsive">
                             <table id="default-datatable" class="table table-bordered">
                                 <thead>
                                     <tr class="ui-widget-header">
-                                        <th>BiId</th>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Registration No</th>
-                                        <th>Address</th>
-                                        <th>City</th>
-                                        <th>State</th>
-
+                                        <th>Mapped Id</th>
+                                        <th>Asset Type</th>
+                                        <th>Asset Category</th>
+                                        <th>Scheme Name</th>
+                                        <th>Instrument Name</th>
+                                        <th>Proportion</th>
                                         <th id="title">Action</th>
 
                                     </tr>
                                 </thead>
-                                <tbody id="InstituteData"></tbody>
+                                <tbody id="BMData"></tbody>
                             </table>
 
                         </div>
@@ -102,91 +96,24 @@
 
 
 
-@if (ViewBag.tabledata !=  null)
-{
-<script>
-
-    $(document).ready(function () {
-
-         var getdata = $("textarea#getdata").val();
-        $('#InstituteData').empty().append(getdata);
-    });
-
-</script>
-}
-
-
 
 
 <script>
 
     $(document).ready(function () {
 
-        @*$.ajax({
+        $.ajax({
 
             type: "POST",
-            url:"@Url.Action("BindInstitutionFormData", "EditBeneficiaryInstitution")",
+            url:"@Url.Action("BindBMData", "EditSingleBeneficiary")",
             success: function (data) {
-                $('#InstituteData').empty().append(data);
-            }
-        });*@
-
-
-
-              $.ajax({
-
-            type: "POST",
-            url:"@Url.Action("BindTestatorDDL", "EditBeneficiaryInstitution")",
-                  success: function (data) {
-
-                      $('#DDLTestator').append(data);
-                      
-
-
-
-                
-            }
-          });
-
-
-    });
-
-
-
-      function getDDLTestator(value) {
-        //var value = $(this).children(":selected").attr("value");
-        var text = $("#DDLTestator option:selected").html();
-
-
-
-
-
-        $("#ddltestatorname").val(text);
-        $("#ddltid").val(value);
-        var checkstatus =  $("#txtcheck").val();
-
-             $.ajax({
-
-            type: "POST",
-            url:"@Url.Action("BindTestatorFamilyFormData", "EditBeneficiaryInstitution")",
-                 data: { value: value },
-            success: function (data) {
-                
-         
-                $('#InstituteData').empty().append(data);
-                      
-
-
-
-                
+                $('#BMData').empty().append(data);
             }
         });
 
 
+    });
 
-
-
-    };
 
 
 
@@ -205,13 +132,13 @@
             $.ajax({
 
             type: "POST",
-            url: "@Url.Action("UpdateRoles", "EditBeneficiaryInstitution")",
+            url: "@Url.Action("UpdateBM", "EditSingleBeneficiary")",
             data: {  "send": "" + id + ""   },
             success: function (data) {
 
 
                 var NestId = data
-                var url = "/AddBeneficiaryInstitute/AddBeneficiaryInstituteIndex?NestId=" + NestId;
+                var url = "/UpdateBeneficiaryMapping/UpdateBeneficiaryMappingIndex?NestId=" + NestId;
                 window.location.href = url;
 
 
@@ -243,7 +170,7 @@
                   $.ajax({
 
             type: "POST",
-            url: "@Url.Action("DeleteRolesRecords", "EditBeneficiaryInstitution")",
+            url: "@Url.Action("DeleteBMRecords", "EditSingleBeneficiary")",
             data: {  "send": "" + id + ""   },
             success: function (data) {
                 $("#btndeleteroles").on("click", function () { });
@@ -287,6 +214,8 @@
 
 
 </script>
+
+
 
 
 

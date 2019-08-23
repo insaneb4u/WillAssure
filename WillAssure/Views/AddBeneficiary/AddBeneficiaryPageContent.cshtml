@@ -59,119 +59,353 @@
 
 
 
-                        @if (Session["WillType"] != null || Session["testatorID"] != null)
+                        @if (Session["WillType"] != null || Session["testatorID"] != null || Session["doctype"] != null)
                         {
                             if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
                             {
 
                                 <h5>
                                     <ul id="menu" style="font-weight:bold;">
-                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Testator></li></a>
-                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:black;">TestatorFamily ></li></a>
-                                        <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                            <li style="color:black;">Institution ></li>
-                                        </a>
-                                        <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:;">Beneficiary ></li></a>
+                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:#5e72e4;">Testator></li></a>
 
 
-                                        <li style="color:#e1e1e1">Executor > </li>
-                                        <li style="color:#e1e1e1">Witness > </li>
-                                        <li style="color:#e1e1e1">Mapping > </li>
-                                        <li style="color:#e1e1e1">Document</li>
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+
+                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:#5e72e4">TestatorFamily ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">TestatorFamily ></li>
+                                        }
+
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+
+                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                <li style="color:#5e72e4;">Institution ></li>
+                                            </a>
+
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Institution ></li>
+                                        }
+
+
+
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Beneficiary ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                        }
+
+
+                                        @if (ViewBag.executoractive == "true")
+                                        {
+                                            <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:#5e72e4">Executor ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Executor > </li>
+                                        }
+
+
+                                        @if (ViewBag.witnessactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                                <li style="color:#5e72e4">Witness > </li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Witness >  </li>
+                                        }
+
+                                        @if (ViewBag.mappingactive == "true")
+                                        {
+                                            <a href="@Url.Action("Index", "QuickMapping")">
+                                                <li style="color:#5e72e4">Mapping ></li>
+                                            </a>
+
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Mapping ></li>
+                                        }
+
+
+
+                                        @if (ViewBag.mappingactive == "true")
+                                        {
+                                            <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new { NestId = Convert.ToInt32(Session["distid"]) ,  doctype = Session["doctype"].ToString() })">
+                                                <li style="color:#5e72e4">Document ></li>
+                                            </a>
+
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Document</li>
+                                        }
+
+
+
+
+
                                     </ul>
                                 </h5>
 
 
                             }
-                            else
+
+
+
+
+
+                        }
+                        else
+                        {
+                            if (!Response.IsRequestBeingRedirected)
                             {
-                                if (Session["doctype"] != null || Session["testatorID"] != null)
-                                {
-                                    if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
-                                    {
-                                        <h5>
-                                            <ul id="menu" style="font-weight:bold;">
-
-                                                <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Donor ></li></a>
-                                                <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:">Donee ></li></a>
-                                                <li style="color:#e1e1e1">Gift ></li>
-                                                <li style="color:#e1e1e1">Asset Mapping ></li>
-                                                <li style="color:#e1e1e1">Witness Appointment ></li>
-                                                <li style="color:#e1e1e1">Document</li>
-
-
-
-                                            </ul>
-                                        </h5>
-                                    }
-                                    else
-                                    {
-                                        if (Session["Type"].ToString() != "Testator")
-                                        {
-                                            <h5>
-                                                <ul id="menu" style="font-weight:bold;">
-
-                                                    <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Testator></li></a>
-                                                    <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-
-                                                    <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                        <li style="color:black;">Institution ></li>
-                                                    </a>
-                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:;">Beneficiary ></li></a>
-                                                    <li style="color:#e1e1e1;">AssetInformation ></li>
-                                                 
-                                                    <li style="color:#e1e1e1">Mapping ></li>
-                                                    <li style="color:#e1e1e1">Nominee ></li>
-                                                    <li style="color:#e1e1e1">Executor > </li>
-                                                    <li style="color:#e1e1e1">Witness > </li>
-                                                    <li style="color:#e1e1e1">Document</li>
-
-                                                </ul>
-                                            </h5>
-                                        }
-                                        else
-                                        {
-                                            <h5>
-                                                <ul id="menu" style="font-weight:bold;">
-
-
-                                                    <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Testator></li></a>
-                                                    <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                                    <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                        <li style="color:black;">Institution ></li>
-                                                    </a>
-                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:;">Beneficiary ></li></a>
-                                                    <li style="color:#e1e1e1;">AssetInformation ></li>
-                                              
-                                                    <li style="color:#e1e1e1">Mapping ></li>
-                                                    @*<li style="color:#e1e1e1">Nominee ></li>*@
-                                                    <li style="color:#e1e1e1">Executor > </li>
-                                                    <li style="color:#e1e1e1">Witness > </li>
-                                                    <li style="color:#e1e1e1">Document</li>
-
-
-
-                                                </ul>
-                                            </h5>
-                                        }
-
-                                    }
-                                }
-                                else
-                                {
-
-                                    if (!Response.IsRequestBeingRedirected)
-                                    {
-                                        Response.Redirect("/LoginPage/LoginPageIndex");
-                                    }
-
-
-
-                                }
+                                Response.Redirect("/LoginPage/LoginPageIndex");
                             }
                         }
 
 
+
+
+
+
+                        @if (Session["WillType"] != null || Session["testatorID"] != null || Session["doctype"] != null)
+                        {
+                            if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                            {
+                                <h5>
+                                    <ul id="menu" style="font-weight:bold;">
+
+
+                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:#5e72e4;">Testator></li></a>
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+
+                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:#5e72e4">TestatorFamily ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">TestatorFamily ></li>
+                                        }
+
+
+
+
+
+
+
+
+
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                <li style="color:#5e72e4;">Institution ></li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Institution ></li>
+                                        }
+
+
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:black">Beneficiary ></li>
+                                        }
+
+
+
+
+                                        @if (ViewBag.assetinformationactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:#5e72e4;">AssetInformation ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">AssetInformation ></li>
+                                        }
+
+
+                                        @if (ViewBag.mappingactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
+                                                <li style="color:#5e72e4">Mapping ></li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Mapping ></li>
+                                        }
+
+
+
+                                        @if (ViewBag.executoractive == "true")
+                                        {
+                                            <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:#5e72e4">Executor ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Executor > </li>
+                                        }
+
+
+
+                                        @if (ViewBag.witnessactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                                <li style="color:#5e72e4">Witness > </li>
+                                            </a>
+
+
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Witness > </li>
+
+
+                                        }
+
+
+
+
+                                        @if (ViewBag.witnessactive == "true")
+                                        {
+                                            <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new { NestId = Convert.ToInt32(Session["distid"]) ,  doctype = Session["doctype"].ToString() })">
+                                                <li style="color:#5e72e4">Document ></li>
+                                            </a>
+
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Document</li>
+                                        }
+
+
+                                    </ul>
+                                </h5>
+
+
+                            }
+
+
+
+
+                        }
+                        else
+                        {
+                            if (!Response.IsRequestBeingRedirected)
+                            {
+                                Response.Redirect("/LoginPage/LoginPageIndex");
+                            }
+                        }
+
+
+
+
+
+                        @if (Session["testatorID"] != null || Session["doctype"] != null)
+                        {
+
+                            if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
+                            {
+                                <h5>
+                                    <ul id="menu" style="font-weight:bold;">
+
+                                        <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Donor ></li></a>
+
+
+
+
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:">Donee ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:">Donee ></li>
+                                        }
+
+
+                                        @if (ViewBag.assetinformationactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Gift ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Gift ></li>
+                                        }
+
+
+                                        @if (ViewBag.mappingactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
+                                                <li style="">Asset Mapping ></li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Asset Mapping ></li>
+                                        }
+
+
+
+                                        @if (ViewBag.witnessactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                                <li style="">Witness > </li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Witness Appointment ></li>
+                                        }
+
+
+
+                                        @if (ViewBag.witnessactive == "true")
+                                        {
+                                            <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new { NestId = Convert.ToInt32(Session["distid"]) ,  doctype = Session["doctype"].ToString() })">
+                                                <li style="">Document ></li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Document</li>
+                                        }
+
+
+
+
+
+
+
+                                    </ul>
+                                </h5>
+                            }
+
+
+                        }
+                        else
+                        {
+                            if (!Response.IsRequestBeingRedirected)
+                            {
+                                Response.Redirect("/LoginPage/LoginPageIndex");
+                            }
+                        }
 
 
                         <br />
@@ -319,64 +553,64 @@
                                 </div>
 
                                 @*@if (Model.RelationshipTxt != null)
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Relation</label>
-                                                <select id="ddlrelation" class="form-control input-shadow validate[required]">
-                                                    <option value="@Model.RelationshipTxt">@Model.RelationshipTxt</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid1" })
-                                                @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext1" })
-                                            </div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Relation</label>
-                                                <select id="ddlrelation" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
-                                                @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid1" })
-                                                @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext1" })
-                                            </div>
-                                        </div>
+                {
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">Relation</label>
+                            <select id="ddlrelation" class="form-control input-shadow validate[required]">
+                                <option value="@Model.RelationshipTxt">@Model.RelationshipTxt</option>
+                            </select>
+                            @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid1" })
+                            @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext1" })
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">Relation</label>
+                            <select id="ddlrelation" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
+                            @Html.HiddenFor(m => m.RelationshipId, new { id = "relationid1" })
+                            @Html.HiddenFor(m => m.RelationshipTxt, new { id = "relationtext1" })
+                        </div>
+                    </div>
 
-                                    }*@
+                }*@
 
 
 
                                 @*<div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="input-3">Marital Status</label>
-                                            @Html.DropDownListFor(x => x.Marital_Status, new SelectListItem[]{
-                                            new SelectListItem() {Text = "--Select--", Value=""},
-                                            new SelectListItem() {Text = "Married", Value="Married"},
-                                            new SelectListItem() {Text = "UnMarried", Value="UnMarried"}} , new { @class= "form-control input-shadow validate[required]", @id = "ddlMarital_Status" })
-                                            @Html.HiddenFor(m => m.Marital_Status_TXT, new { @id = "Marital_Status_TXT" })
-                                            @Html.HiddenFor(m => m.Marital_Status_ID, new { @id = "Marital_Status_ID" })
-                                        </div>
-                                    </div>
+                    <div class="form-group">
+                        <label for="input-3">Marital Status</label>
+                        @Html.DropDownListFor(x => x.Marital_Status, new SelectListItem[]{
+                        new SelectListItem() {Text = "--Select--", Value=""},
+                        new SelectListItem() {Text = "Married", Value="Married"},
+                        new SelectListItem() {Text = "UnMarried", Value="UnMarried"}} , new { @class= "form-control input-shadow validate[required]", @id = "ddlMarital_Status" })
+                        @Html.HiddenFor(m => m.Marital_Status_TXT, new { @id = "Marital_Status_TXT" })
+                        @Html.HiddenFor(m => m.Marital_Status_ID, new { @id = "Marital_Status_ID" })
+                    </div>
+                </div>
 
 
 
-                                    <div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label for="input-3">Religion</label>
-                                            @Html.DropDownListFor(x => x.Religion, new SelectListItem[]{
-                                     new SelectListItem() {Text = "--Select--", Value=""},
-                                     new SelectListItem() {Text = "Buddhism", Value="Buddhism"},
-                                     new SelectListItem() {Text = "Christians", Value="Christians"},
-                                     new SelectListItem() {Text = "Hinduism", Value="Hinduism"},
-                                     new SelectListItem() {Text = "Islam", Value="Islam"},
-                                     new SelectListItem() {Text = "Jainism", Value="Jainism"},
-                                     new SelectListItem() {Text = "Sikhism", Value="Sikhism"},
+                <div class="col-sm-6">
+                    <div class="form-group">
+                        <label for="input-3">Religion</label>
+                        @Html.DropDownListFor(x => x.Religion, new SelectListItem[]{
+                 new SelectListItem() {Text = "--Select--", Value=""},
+                 new SelectListItem() {Text = "Buddhism", Value="Buddhism"},
+                 new SelectListItem() {Text = "Christians", Value="Christians"},
+                 new SelectListItem() {Text = "Hinduism", Value="Hinduism"},
+                 new SelectListItem() {Text = "Islam", Value="Islam"},
+                 new SelectListItem() {Text = "Jainism", Value="Jainism"},
+                 new SelectListItem() {Text = "Sikhism", Value="Sikhism"},
 
-                                     new SelectListItem() {Text = "Zoroastrian", Value="Zoroastrian"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlReligion" })
-                                            @Html.HiddenFor(m => m.Religion_txt, new { @id = "Religion_txt" })
-                                            @Html.HiddenFor(m => m.Religion_id, new { @id = "Religion_id" })
-                                        </div>
-                                    </div>*@
+                 new SelectListItem() {Text = "Zoroastrian", Value="Zoroastrian"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlReligion" })
+                        @Html.HiddenFor(m => m.Religion_txt, new { @id = "Religion_txt" })
+                        @Html.HiddenFor(m => m.Religion_id, new { @id = "Religion_id" })
+                    </div>
+                </div>*@
 
 
 
@@ -398,11 +632,11 @@
                                         @if (Model.country_txt != null)
                                         {
 
-                                        <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
+                                            <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
 
-                                            <option value="@Model.country_txt">@Model.country_txt</option>
-                                            <option value="C">--Select--</option>
-                                        </select>
+                                                <option value="@Model.country_txt">@Model.country_txt</option>
+                                                <option value="C">--Select--</option>
+                                            </select>
                                             @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
                                             @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
                                         }
@@ -426,10 +660,10 @@
 
                                         @if (Model.State_txt != null)
                                         {
-                                        <select id="ddlstate" class="form-control input-shadow validate[required]">
-                                            <option value="@Model.State_txt">@Model.State_txt</option>
-                                            <option value="S">--Select--</option>
-                                        </select>
+                                            <select id="ddlstate" class="form-control input-shadow validate[required]">
+                                                <option value="@Model.State_txt">@Model.State_txt</option>
+                                                <option value="S">--Select--</option>
+                                            </select>
                                             @Html.HiddenFor(m => m.State_id, new { id = "stateid" })
                                             @Html.HiddenFor(m => m.State_txt, new { id = "statetext" })
                                         }
@@ -555,7 +789,7 @@
                                    new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
                                    new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @id="altddlidentityproof" , @style="display:none" ,  @onchange= "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
 
-                                      
+
                                     </div>
                                 </div>
                                 <script>
@@ -575,7 +809,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Identity proof Value</label>
-                                        <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_proof_value, new { @class = "form-control input-shadow validate[required] text-input", @onchange = "validateidentity(this.value)", @id = "txtIdentityProofValue",  @onfocus="txtfirst()" , @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
+                                        <div id="appendtxt"> @Html.TextBoxFor(m => m.Identity_proof_value, new { @class = "form-control input-shadow validate[required] text-input", @onchange = "validateidentity(this.value)", @id = "txtIdentityProofValue", @onfocus = "txtfirst()", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" })  </div>
                                         <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
 
                                     </div>
@@ -603,7 +837,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Alt Identity proof Value</label>
-                                        <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_proof_value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValue22", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" ,  @onfocus = "txtSecond()" }) </div>
+                                        <div id="appendtxt2"> @Html.TextBoxFor(m => m.Alt_Identity_proof_value, new { @class = "form-control input-shadow  text-input", @id = "txtIdentityProofValue22", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus = "txtSecond()" }) </div>
                                         <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
 
                                     </div>
@@ -619,134 +853,134 @@
 
 
                             @*<div class="row">
-                                        <div class="col-sm-1"></div>
+                    <div class="col-sm-1"></div>
 
-                                        @if (Session["doctype"] != null)
-                                        {
-                                            if (Session["doctype"].ToString() == "Will")
-                                            {
-                                                <div class="col-sm-2"> <label for="input-1" style="white-space:nowrap;">Add Alternate Beneficiary</label></div>
+                    @if (Session["doctype"] != null)
+                    {
+                        if (Session["doctype"].ToString() == "Will")
+                        {
+                            <div class="col-sm-2"> <label for="input-1" style="white-space:nowrap;">Add Alternate Beneficiary</label></div>
 
 
-                                                <div class="col-sm-6" id="showcompany">
+                            <div class="col-sm-6" id="showcompany">
 
-                                                    <div class="form-group">
+                                <div class="form-group">
 
-                                                        <br />
-                                                        <label class="checkbox-inline">
-                                                            <input type="checkbox" value="Yes" class="radio validate[required] altone" name="radio1">Yes
-                                                        </label>
-                                                        <label class="checkbox-inline">
-                                                            <input type="checkbox" value="No" class="radio validate[required] alttwo" name="radio1">No
-                                                        </label>
+                                    <br />
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="Yes" class="radio validate[required] altone" name="radio1">Yes
+                                    </label>
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" value="No" class="radio validate[required] alttwo" name="radio1">No
+                                    </label>
 
 
 
-                                                    </div>
-                                                </div>
-                                            }
-                                        }
+                                </div>
+                            </div>
+                        }
+                    }
 
 
 
-                                    </div>
+                </div>
 
 
 
 
-                                <hr style="border:1px solid black; border-color:lightgray">
+            <hr style="border:1px solid black; border-color:lightgray">
 
 
 
 
-                                <div class="altbeneficiaryclass" style="display:none;">
+            <div class="altbeneficiaryclass" style="display:none;">
 
 
-                                    <div class="row">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o" aria-hidden="true"></i>Personal Details</label></div>
 
 
 
-                                        <div class="col-sm-3">
+                    <div class="col-sm-3">
 
-                                            <div class="form-group">
-                                                @Html.HiddenFor(m => m.altbpId)
-                                                <label for="input-1">First Name</label>
-                                                @Html.TextBoxFor(m => m.altFirst_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "altfirstname", @placeholder = "Enter First Name", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
-                                        </div>
+                        <div class="form-group">
+                            @Html.HiddenFor(m => m.altbpId)
+                            <label for="input-1">First Name</label>
+                            @Html.TextBoxFor(m => m.altFirst_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "altfirstname", @placeholder = "Enter First Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                        </div>
+                    </div>
 
 
-                                        <div class="col-sm-3">
+                    <div class="col-sm-3">
 
-                                            <div class="form-group">
-                                                <label for="input-1">Middle Name</label>
+                        <div class="form-group">
+                            <label for="input-1">Middle Name</label>
 
-                                                @Html.TextBoxFor(m => m.altMiddle_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "altmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
-                                        </div>
+                            @Html.TextBoxFor(m => m.altMiddle_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "altmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                        </div>
+                    </div>
 
-                                        <div class="col-sm-3">
+                    <div class="col-sm-3">
 
-                                            <div class="form-group">
-                                                <label for="input-1">Last Name</label>
+                        <div class="form-group">
+                            <label for="input-1">Last Name</label>
 
-                                                @Html.TextBoxFor(m => m.altLast_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "altlastname", @placeholder = "Enter Last Name", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
-                                        </div>
+                            @Html.TextBoxFor(m => m.altLast_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "altlastname", @placeholder = "Enter Last Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                        </div>
+                    </div>
 
 
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-3">
+                </div>
+                <div class="row">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
 
 
-                                            @if (Model.altDob != null)
-                                            {
-                                                <div class="form-group">
+                        @if (Model.altDob != null)
+                        {
+                            <div class="form-group">
 
-                                                    <label for="input-1">Date Of Birth</label>
-                                                    <div id="datepicker02" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                        <input class="form-control input-shadow validate[required]" type="text" value="@Model.altDob" id="DOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
-                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                    </div>
+                                <label for="input-1">Date Of Birth</label>
+                                <div id="datepicker02" class="input-group date" data-date-format="dd-mm-yyyy">
+                                    <input class="form-control input-shadow validate[required]" type="text" value="@Model.altDob" id="DOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
 
-                                                    <span style="color:red; display:none;" id="datemsg2">Invalid Date Of Birth</span>
-                                                </div>
-                                            }
-                                            else
-                                            {
+                                <span style="color:red; display:none;" id="datemsg2">Invalid Date Of Birth</span>
+                            </div>
+                        }
+                        else
+                        {
 
-                                                <div class="form-group">
+                            <div class="form-group">
 
-                                                    <label for="input-1">Date Of Birth</label>
-                                                    <div id="datepicker02" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                        <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
-                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                    </div>
+                                <label for="input-1">Date Of Birth</label>
+                                <div id="datepicker02" class="input-group date" data-date-format="dd-mm-yyyy">
+                                    <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="altDob" autocomplete="off" placeholder="Select Date Of Birth" />
+                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                </div>
 
-                                                    <span style="color:red; display:none;" id="datemsg2">Invalid Date Of Birth</span>
-                                                </div>
-                                            }
+                                <span style="color:red; display:none;" id="datemsg2">Invalid Date Of Birth</span>
+                            </div>
+                        }
 
 
 
 
 
 
-                                        </div>
+                    </div>
 
 
-                                        <div class="col-sm-3">
+                    <div class="col-sm-3">
 
-                                            <div class="form-group">
-                                                <label for="input-1">Mobile</label>
+                        <div class="form-group">
+                            <label for="input-1">Mobile</label>
 
-                                                @Html.TextBoxFor(m => m.altMobile, new { @class = "form-control input-shadow validate[required] text-input", @id = "altmobile", @placeholder = "Enter Mobile", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
-                                        </div>
+                            @Html.TextBoxFor(m => m.altMobile, new { @class = "form-control input-shadow validate[required] text-input", @id = "altmobile", @placeholder = "Enter Mobile", @autocomplete = "off", alert = "LabourCost is requried" })
+                        </div>
+                    </div>
 
 
 
@@ -755,197 +989,197 @@
 
 
 
-                                    </div>
+                </div>
 
 
-                                    <hr />
+                <hr />
 
-                                    <div class="row">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-map-marker" aria-hidden="true"></i>Contact Details</label></div>
 
 
-                                        @if (Model.altstatetext != null)
-                                        {
-                                            <div class="col-sm-3">
+                    @if (Model.altstatetext != null)
+                    {
+                        <div class="col-sm-3">
 
-                                                <div class="form-group">
+                            <div class="form-group">
 
-                                                    <label for="input-1">State</label>
-                                                    <select id="altddlstate" class="form-control input-shadow validate[required]">
-                                                        <option value="@Model.altstatetext">@Model.altstatetext</option>
-                                                    </select>
-                                                    @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
-                                                    @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
-                                                </div>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="col-sm-3">
+                                <label for="input-1">State</label>
+                                <select id="altddlstate" class="form-control input-shadow validate[required]">
+                                    <option value="@Model.altstatetext">@Model.altstatetext</option>
+                                </select>
+                                @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
+                                @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-3">
 
-                                                <div class="form-group">
+                            <div class="form-group">
 
-                                                    <label for="input-1">State</label>
-                                                    <select id="altddlstate" class="form-control input-shadow validate[required]">
-                                                        <option value="">--Select State--</option>
-                                                    </select>
-                                                    @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
-                                                    @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
-                                                </div>
-                                            </div>
-                                        }
+                                <label for="input-1">State</label>
+                                <select id="altddlstate" class="form-control input-shadow validate[required]">
+                                    <option value="">--Select State--</option>
+                                </select>
+                                @Html.HiddenFor(m => m.altstateid, new { id = "altstateid" })
+                                @Html.HiddenFor(m => m.altstatetext, new { id = "altstatetext" })
+                            </div>
+                        </div>
+                    }
 
 
 
 
 
 
-                                        @if (Model.altcitytext != null)
-                                        {
-                                            <div class="col-sm-3">
+                    @if (Model.altcitytext != null)
+                    {
+                        <div class="col-sm-3">
 
-                                                <div class="form-group">
-                                                    <label for="input-1">City</label>
-                                                    <select id="altddlcity" class="form-control input-shadow validate[required]">
-                                                        <option value="@Model.altcitytext">@Model.altcitytext</option>
-                                                    </select>
-                                                    @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
-                                                    @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
+                            <div class="form-group">
+                                <label for="input-1">City</label>
+                                <select id="altddlcity" class="form-control input-shadow validate[required]">
+                                    <option value="@Model.altcitytext">@Model.altcitytext</option>
+                                </select>
+                                @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
+                                @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
 
-                                                </div>
+                            </div>
 
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="col-sm-3">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-sm-3">
 
-                                                <div class="form-group">
-                                                    <label for="input-1">City</label>
-                                                    <select id="altddlcity" class="form-control input-shadow validate[required]">
-                                                        <option value="">--Select City--</option>
-                                                    </select>
-                                                    @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
-                                                    @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
+                            <div class="form-group">
+                                <label for="input-1">City</label>
+                                <select id="altddlcity" class="form-control input-shadow validate[required]">
+                                    <option value="">--Select City--</option>
+                                </select>
+                                @Html.HiddenFor(m => m.altcityid, new { id = "altcityid" })
+                                @Html.HiddenFor(m => m.altcitytext, new { id = "altcitytext" })
 
-                                                </div>
+                            </div>
 
-                                            </div>
-                                        }
+                        </div>
+                    }
 
 
 
 
-                                        <div class="col-sm-3">
+                    <div class="col-sm-3">
 
-                                            <div class="form-group">
+                        <div class="form-group">
 
-                                                <label for="input-1">Pin</label>
-                                                @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required] text-input", @id = "altpin", @placeholder = "Enter Pin", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
-                                        </div>
-                                    </div>
+                            <label for="input-1">Pin</label>
+                            @Html.TextBoxFor(m => m.altPin, new { @class = "form-control input-shadow validate[required] text-input", @id = "altpin", @placeholder = "Enter Pin", @autocomplete = "off", alert = "LabourCost is requried" })
+                        </div>
+                    </div>
+                </div>
 
 
-                                    <div class="row">
+                <div class="row">
 
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-9">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9">
 
-                                            <div class="form-group">
+                        <div class="form-group">
 
-                                                <label for="input-1">Address 1</label>
-                                                @Html.TextAreaFor(m => m.altAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "altaddress1", @placeholder = "Enter Address 1", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
-                                        </div>
+                            <label for="input-1">Address 1</label>
+                            @Html.TextAreaFor(m => m.altAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "altaddress1", @placeholder = "Enter Address 1", @autocomplete = "off", alert = "LabourCost is requried" })
+                        </div>
+                    </div>
 
 
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-9">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9">
 
-                                            <div class="form-group">
+                        <div class="form-group">
 
-                                                <label for="input-1">Address 2</label>
-                                                @Html.TextAreaFor(m => m.altAddress2, new { @class = "form-control input-shadow text-input", @id = "altaddress2", @placeholder = "Enter Address 2", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
-                                        </div>
+                            <label for="input-1">Address 2</label>
+                            @Html.TextAreaFor(m => m.altAddress2, new { @class = "form-control input-shadow text-input", @id = "altaddress2", @placeholder = "Enter Address 2", @autocomplete = "off", alert = "LabourCost is requried" })
+                        </div>
+                    </div>
 
 
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-9">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9">
 
-                                            <div class="form-group">
-                                                <label for="input-1">Address 3</label>
+                        <div class="form-group">
+                            <label for="input-1">Address 3</label>
 
-                                                @Html.TextAreaFor(m => m.altAddress3, new { @class = "form-control input-shadow  text-input", @id = "altaddress3", @placeholder = "Enter Address 3", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
-                                        </div>
+                            @Html.TextAreaFor(m => m.altAddress3, new { @class = "form-control input-shadow  text-input", @id = "altaddress3", @placeholder = "Enter Address 3", @autocomplete = "off", alert = "LabourCost is requried" })
+                        </div>
+                    </div>
 
-                                    </div>
+                </div>
 
-                                    <hr />
+                <hr />
 
 
-                                    <div class="row">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
+                <div class="row">
+                    <div class="col-sm-1"></div>
+                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
 
 
 
-                                        <div class="col-sm-3">
+                    <div class="col-sm-3">
 
-                                            <div class="form-group">
+                        <div class="form-group">
 
-                                                <label for="input-1">Identity Proof</label>
-                                                @Html.DropDownListFor(x => x.altIdentity_Proof, new SelectListItem[]{
-                                           new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                           new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                           new SelectListItem() {Text = "Passport", Value="Passport"},
-                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow validate[required]", @id="seconddl" , @onchange= "altgetIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                            <label for="input-1">Identity Proof</label>
+                            @Html.DropDownListFor(x => x.altIdentity_Proof, new SelectListItem[]{
+                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow validate[required]", @id="seconddl" , @onchange= "altgetIdentityselection(this.options[this.selectedIndex].innerHTML)" })
 
-                                            </div>
-                                        </div>
+                        </div>
+                    </div>
 
 
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Identity Proof Value</label>
-                                                <div id="altappendtxt"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Identity Proof Number", @autocomplete = "off", @readonly = "true" })</div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">Identity Proof Value</label>
+                            <div id="altappendtxt"> @Html.TextBoxFor(m => m.altIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Identity Proof Number", @autocomplete = "off", @readonly = "true" })</div>
 
 
-                                            </div>
-                                        </div>
+                        </div>
+                    </div>
 
 
 
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Alt Identity Proof</label>
-                                                @Html.DropDownListFor(x => x.altAlt_Identity_Proof, new SelectListItem[]{
-                                           new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                           new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                           new SelectListItem() {Text = "Passport", Value="Passport"},
-                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ", @id="altddlidentityproof1" , @onchange= "altgetAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">Alt Identity Proof</label>
+                            @Html.DropDownListFor(x => x.altAlt_Identity_Proof, new SelectListItem[]{
+                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ", @id="altddlidentityproof1" , @onchange= "altgetAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
 
-                                                @Html.HiddenFor(m => m.altAlt_Identity_Proof, new { id = "altAlt_Identity_Proof" })
-                                            </div>
-                                        </div>
+                            @Html.HiddenFor(m => m.altAlt_Identity_Proof, new { id = "altAlt_Identity_Proof" })
+                        </div>
+                    </div>
 
 
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Alt Identity Proof Value</label>
-                                                <div id="altappendtxt2">  @Html.TextBoxFor(m => m.Alt_Identity_proof_value, new { @class = "form-control input-shadow  text-input", @id = "alttxtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="input-1">Alt Identity Proof Value</label>
+                            <div id="altappendtxt2">  @Html.TextBoxFor(m => m.Alt_Identity_proof_value, new { @class = "form-control input-shadow  text-input", @id = "alttxtIdentityProofValue", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true" }) </div>
 
 
-                                            </div>
-                                        </div>
+                        </div>
+                    </div>
 
-                                    </div>
+                </div>
 
 
 
@@ -958,7 +1192,7 @@
 
 
 
-                                </div>*@
+            </div>*@
 
 
 
@@ -1023,23 +1257,7 @@
 
 
                             </div>
-                            @*}
-                                    else
-                                    {
-                                        <div class="form-group" style="float:right">
-                                            <button type="submit" id="btnBeneficiaryformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Add Beneficiary</button>
-                                            <button type="submit" id="btnupdatewill" style="display:none;" formaction="updatetestatorfamily" class="btn btn-success shadow-primary px-5 btnwillup"><i class="icon-lock"></i>Update</button>
-                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><button type="button" id="btnnext" style="display:none" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button></a>
-                                        </div>
-                                    }
-                                }
-                                else
-                                {
-                                    if (!Response.IsRequestBeingRedirected)
-                                    {
-                                        Response.Redirect("/LoginPage/LoginPageIndex");
-                                    }
-                                }*@
+
 
 
 
@@ -1424,9 +1642,9 @@
 
             $("#btnBeneficiarySUCESS").click(); //trigger event after listening to it.
 
-            
-          
-   
+
+
+
         });
 
 
@@ -2108,7 +2326,7 @@
         $("#altddlidentityproof1").attr("disabled", "disabled");
         $("#alttxtIdentityProofValue").attr("disabled", "disabled");
         $("#Identity_Proof_txt").attr("disabled", "disabled");
-        
+
 
     });
 </script>
@@ -2133,7 +2351,7 @@
 
         $("#btnfieldedit").hide();
         $("#btneditmsg").hide();
-        
+
         $("#txtFirst_Name").removeAttr("disabled");
         $("#txtMiddle_Name").removeAttr("disabled");
         $("#txtLast_Name").removeAttr("disabled");
@@ -2154,7 +2372,7 @@
 
         $("#Identity_Proof_txt").removeAttr("disabled");
 
-                
+
         $("#Identity_Proof_txt").val("");
         $("#altfirstname").removeAttr("disabled");
         $("#altmiddlename").removeAttr("disabled");
@@ -2360,7 +2578,7 @@
                     data: {"send":""+value+""},
                     success: function (data) {
 
-                    
+
                         var data1 = data.split("~")[0];
                         var data2 = data.split("~")[1];
                         var data3 = data.split("~")[2];
@@ -2369,7 +2587,7 @@
 
 
 
-                    
+
                         if (data1 == "false") {
                             $("#lblidentityproof").show();
 
@@ -2377,14 +2595,14 @@
                         }
 
 
-                      
+
                         if (data2 == "false") {
                             $("#lblidentityproof").show();
                             $("#Identity_proof_value").val("");
                         }
 
 
-                    
+
 
 
 
@@ -2394,7 +2612,7 @@
                         }
 
 
-                      
+
                         if (data3 == "false") {
                             $("#lblidentityproof").show();
                             $("#Identity_proof_value").val("");
@@ -2444,7 +2662,7 @@
                         var data5 = data.split("~")[4];
 
 
-                       
+
                         if (data1 == "false") {
                             $("#altlblidentityproof").show();
                             $("#Alt_Identity_proof_Value").val("");
@@ -2459,7 +2677,7 @@
 
 
 
-                     
+
 
 
 
@@ -2470,7 +2688,7 @@
 
 
 
-                       
+
                         if (data3 == "false") {
                             $("#altlblidentityproof").show();
                             $("#Alt_Identity_proof_Value").val("");

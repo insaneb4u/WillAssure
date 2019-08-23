@@ -61,22 +61,100 @@
 
                                 <h5>
                                     <ul id="menu" style="font-weight:bold;">
-                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:black;">TestatorFamily ></li></a>
-                                        <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                            <li style="color:black;">Institution ></li>
-                                        </a>
-                                        <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:#5e72e4;">Testator></li></a>
+                                        @if (ViewBag.tfactive == "true")
+                                        {
+
+                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:#5e72e4">TestatorFamily ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">TestatorFamily ></li>
+                                        }
+
+                                        @if (ViewBag.beneinstitureactive == "true")
+                                        {
+
+                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                <li style="color:#5e72e4;">Institution ></li>
+                                            </a>
+
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                <li style="color:black;">Institution ></li>
+                                            </a>
+                                        }
 
 
-                                        <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:black">Executor ></li></a>
-                                        <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:#5e72e4;">Beneficiary ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:#5e72e4;">Beneficiary ></li></a>
+                                        }
+
+
+                                        @if (ViewBag.executoractive == "true")
+                                        {
+                                            <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:#5e72e4">Executor ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:black">Executor ></li></a>
+                                        }
+
+
+                                        @if (ViewBag.witnessactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                                <li style="color:black">Witness > </li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+
                                             <li style="">Witness > </li>
-                                        </a>
 
-                                        <li style="color:#e1e1e1">Mapping > </li>
+                                        }
 
-                                        <li style="color:#e1e1e1">Document</li>
+                                        @if (ViewBag.mappingactive == "true")
+                                        {
+                                            <a href="@Url.Action("Index", "QuickMapping")">
+                                                <li style="color:#5e72e4">Mapping ></li>
+                                            </a>
+
+                                        }
+                                        else
+                                        {
+
+                                            <li style="color:#e1e1e1">Mapping ></li>
+
+                                        }
+
+
+
+                                        @if (ViewBag.mappingactive == "true")
+                                        {
+                                            <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new { NestId = Convert.ToInt32(Session["distid"]) ,  doctype = Session["doctype"].ToString() })">
+                                                <li style="color:#5e72e4">Document ></li>
+                                            </a>
+
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Document ></li>
+
+                                        }
+
+
+
+
+
                                     </ul>
                                 </h5>
 
@@ -91,62 +169,207 @@
                                     {
                                         <h5>
                                             <ul id="menu" style="font-weight:bold;">
-                                                <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Donor ></li></a>
-                                                <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Donee ></li></a>
-                                                <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black">Gift ></li></a>
-                                                <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Asset Mapping ></li></a>
-                                                <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:">Witness Appointment ></li></a>
-                                                <li style="color:#e1e1e1">Document</li>
+
+                                                <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Donor ></li></a>
+
+
+
+
+                                                @if (ViewBag.beneactive == "true")
+                                                {
+                                                    <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:#5e72e4">Donee ></li></a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:">Donee ></li></a>
+                                                }
+
+
+                                                @if (ViewBag.assetinformationactive == "true")
+                                                {
+                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:#5e72e4;">Gift ></li></a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Gift ></li></a>
+                                                }
+
+
+                                                @if (ViewBag.mappingactive == "true")
+                                                {
+                                                    <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
+                                                        <li style="color:#5e72e4">Asset Mapping ></li>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
+                                                        <li style="">Asset Mapping ></li>
+                                                    </a>
+                                                }
+
+
+
+                                                @if (ViewBag.witnessactive == "true")
+                                                {
+                                                    <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                                        <li style="color:#5e72e4">Witness > </li>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                                        <li style="">Witness > </li>
+                                                    </a>
+                                                }
+
+
+
+                                                @if (ViewBag.witnessactive == "true")
+                                                {
+                                                    <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new { NestId = Convert.ToInt32(Session["distid"]) ,  doctype = Session["doctype"].ToString() })">
+                                                        <li style="color:#5e72e4">Document ></li>
+                                                    </a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new { NestId = Convert.ToInt32(Session["distid"]) ,  doctype = Session["doctype"].ToString() })">
+                                                        <li style="">Document ></li>
+                                                    </a>
+                                                }
+
+
+
+
+
+
+
                                             </ul>
                                         </h5>
                                     }
                                     else
                                     {
-                                        if (Session["Type"].ToString() != "Testator")
-                                        {
-                                            <h5>
-                                                <ul id="menu" style="font-weight:bold;">
-                                                    <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                                    <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
+                                        <h5>
+                                            <ul id="menu" style="font-weight:bold;">
+
+
+                                                <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:#5e72e4;">Testator></li></a>
+
+
+
+                                                @if (ViewBag.tfactive == "true")
+                                                {
+
+                                                    <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:#5e72e4">TestatorFamily ></li></a>
+                                                }
+                                                else
+                                                {
+                                                    <li style="color:#e1e1e1">TestatorFamily ></li>
+                                                }
+
+
+
+
+
+
+                                                @if (ViewBag.beneinstitureactive == "true")
+                                                {
+                                                    <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                        <li style="color:#5e72e4;">Institution ></li>
+                                                    </a>
+                                                }
+                                                else
+                                                {
                                                     <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
                                                         <li style="color:black;">Institution ></li>
                                                     </a>
-                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                                    <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
-                                                    @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
-                                                    <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="color:black">Executor ></li></a>
+                                                }
 
-                                                    <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")">
-                                                        <li style="">Witness > </li>
-                                                    </a>
-                                                    <li style="color:#e1e1e1">Document ></li>
-                                                </ul>
-                                            </h5>
-                                        }
-                                        else
-                                        {
-                                            <h5>
-                                                <ul id="menu" style="font-weight:bold;">
-                                                    <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["uuid"]) })"><li style="color:black;">Testator></li></a>
-                                                    <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                                    <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                        <li style="color:black;">Institution ></li>
-                                                    </a>
-                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
-                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Liabilites></li></a>
-                                                   <a href="@Url.Action("AddAssetMappingIndex","AddAssetMapping")"><li style="color:black">Mapping ></li></a>
-                                                    @*<a href="@Url.Action("AddNomineeIndex","AddNominee")"><li style="color:black">Nominee ></li></a>*@
-                                                    <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")"><li style="color:black;">Executor ></li></a>
 
-                                                    <a href="@Url.Action("AddAppointeesIndex", "AddAppointees")">
-                                                        <li style="">Witness > </li>
+                                                @if (ViewBag.beneactive == "true")
+                                                {
+                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:#5e72e4;">Beneficiary ></li></a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                                }
+
+
+
+
+                                                @if (ViewBag.assetinformationactive == "true")
+                                                {
+                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:#5e72e4;">AssetInformation ></li></a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
+                                                }
+
+
+                                                @if (ViewBag.mappingactive == "true")
+                                                {
+                                                    <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
+                                                        <li style="color:#5e72e4">Mapping ></li>
                                                     </a>
-                                                    <li style="color:#e1e1e1">Document ></li>
-                                                </ul>
-                                            </h5>
-                                        }
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
+                                                        <li style="">Mapping ></li>
+                                                    </a>
+                                                }
+
+
+
+                                                @if (ViewBag.executoractive == "true")
+                                                {
+                                                    <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:#5e72e4">Executor ></li></a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:black">Executor ></li></a>
+                                                }
+
+
+
+                                                @if (ViewBag.witnessactive == "true")
+                                                {
+                                                    <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                                        <li style="color:black">Witness > </li>
+                                                    </a>
+
+
+                                                }
+                                                else
+                                                {
+
+                                                    <li style="color:black">Witness > </li>
+
+
+
+                                                }
+
+
+
+
+                                                @if (ViewBag.witnessactive == "true")
+                                                {
+                                                    <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new { NestId = Convert.ToInt32(Session["distid"]) ,  doctype = Session["doctype"].ToString() })">
+                                                        <li style="color:#5e72e4">Document ></li>
+                                                    </a>
+
+                                                }
+                                                else
+                                                {
+                                                    <li style="color:#e1e1e1">Document</li>
+                                                }
+
+
+                                            </ul>
+                                        </h5>
+                                       
 
                                     }
                                 }
@@ -468,19 +691,19 @@
                                             <label for="input-1">Identity Proof</label>
 
 
-                                          
-                                                @Html.TextBoxFor(X=>X.Identity_Proof_txt1, new {  @placeholder = "--Select Identity Proof--" ,  @id = "Identity_Proof_txt1", @class="form-control input-shadow validate[required]" ,  @onfocus="firstidentity()" })
-                                            
-                                          
 
-                                                @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
-                                           new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                           new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                           new SelectListItem() {Text = "Passport", Value="Passport"},
-                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new {@style="display:none" , @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+                                            @Html.TextBoxFor(X => X.Identity_Proof_txt1, new { @placeholder = "--Select Identity Proof--", @id = "Identity_Proof_txt1", @class = "form-control input-shadow validate[required]", @onfocus = "firstidentity()" })
 
-                                            
+
+
+                                            @Html.DropDownListFor(x => x.Identity_Proof, new SelectListItem[]{
+                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new {@style="display:none" , @class = "form-control input-shadow validate[required]", @id = "ddlidentityproof", @onchange = "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+
 
 
 

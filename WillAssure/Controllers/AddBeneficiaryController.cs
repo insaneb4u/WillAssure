@@ -21,6 +21,345 @@ namespace WillAssure.Controllers
         // GET: AddBeneficiary
         public ActionResult AddBeneficiaryIndex(string NestId)
         {
+
+
+            string queryc1 = "";
+            string queryc2 = "";
+            string queryc3 = "";
+            string queryc4 = "";
+            string queryc5 = "";
+            string queryc6 = "";
+            string queryc7 = "";
+
+            //// check data for next page link if available active links
+
+            if (Session["distid"] != null && Session["willtype"] != null && Session["doctype"] != null)
+            {
+                con.Open();
+
+
+                //////// check beneficiary institution
+
+
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc1 = "select * from BeneficiaryInstitutions where tId = " + Convert.ToInt32(Session["distid"]) + "  and WillType = 'Quick'    ";
+                }
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc1 = "select * from BeneficiaryInstitutions where tId = " + Convert.ToInt32(Session["distid"]) + "  and WillType = 'Detailed'     ";
+                }
+                //if (Session["doctype"].ToString() == "POA")
+                //{
+                //    queryc1 = "select * from BeneficiaryInstitutions where tId = " + Convert.ToInt32(Session["distid"]) + "  and doctype = 'POA'    ";
+                //}
+                //if (Session["doctype"].ToString() == "Giftdeeds")
+                //{
+                //    queryc1 = "select * from BeneficiaryInstitutions where tId = " + Convert.ToInt32(Session["distid"]) + "  and doctype = 'Giftdeeds'    ";
+                //}
+
+
+               
+
+                SqlDataAdapter dac1 = new SqlDataAdapter(queryc1, con);
+                DataTable dtc1 = new DataTable();
+                dac1.Fill(dtc1);
+
+                if (dtc1.Rows.Count > 0)
+                {
+                    ViewBag.beneinstitureactive = "true";
+                }
+
+
+                /////end
+
+
+
+
+
+
+                //////// check beneficiary 
+
+
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc2 = "select * from BeneficiaryDetails where tId = " + Convert.ToInt32(Session["distid"]) + " and doctype = 'Will' and WillType = 'Quick'  and tId = " + Convert.ToInt32(Session["distid"]) + "  and beneficiary_type='Beneficiary'  ";
+                }
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc2 = "select * from BeneficiaryDetails where tId = " + Convert.ToInt32(Session["distid"]) + " and doctype = 'Will' and WillType = 'Detailed'  and tId = " + Convert.ToInt32(Session["distid"]) + "  and beneficiary_type='Beneficiary'  ";
+                }
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    queryc2 = "select * from BeneficiaryDetails where tId = " + Convert.ToInt32(Session["distid"]) + " and doctype = 'POA'   and tId = " + Convert.ToInt32(Session["distid"]) + "  and beneficiary_type='Beneficiary'  ";
+                }
+                if (Session["doctype"].ToString() == "Giftdeeds")
+                {
+                    queryc2 = "select * from BeneficiaryDetails where tId = " + Convert.ToInt32(Session["distid"]) + " and doctype = 'Giftdeeds'   and tId = " + Convert.ToInt32(Session["distid"]) + "  and beneficiary_type='Beneficiary'  ";
+                }
+
+
+                SqlDataAdapter dac2 = new SqlDataAdapter(queryc2, con);
+                DataTable dtc2 = new DataTable();
+                dac2.Fill(dtc2);
+
+                if (dtc2.Rows.Count > 0)
+                {
+                    ViewBag.beneactive = "true";
+                }
+
+
+                /////end
+
+
+
+
+
+
+
+                //////// check Executor 
+
+
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc3 = "select * from Appointees where Type = 'Executor' and doctype = 'Will' and WillType = 'Quick'  and tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc3 = "select * from Appointees where Type = 'Executor' and doctype = 'Will' and WillType = 'Detailed'  and tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    queryc3 = "select * from Appointees where Type = 'Executor' and doctype = 'POA'  and tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+                if (Session["doctype"].ToString() == "Giftdeeds")
+                {
+                    queryc3 = "select * from Appointees where Type = 'Executor' and doctype = 'Giftdeeds' and  tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+
+
+
+
+                SqlDataAdapter dac3 = new SqlDataAdapter(queryc3, con);
+                DataTable dtc3 = new DataTable();
+                dac3.Fill(dtc3);
+
+                if (dtc3.Rows.Count > 0)
+                {
+                    ViewBag.executoractive = "true";
+                }
+
+
+                /////end
+
+
+
+                //////// check Witness 
+
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc4 = "select * from Appointees where Type = 'Witness' and doctype = 'Will' and WillType='Quick'   and tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc4 = "select * from Appointees where Type = 'Witness' and doctype = 'Will' and WillType='Detailed'   and tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    queryc4 = "select * from Appointees where Type = 'Witness' and doctype = 'POA'  and tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+                if (Session["doctype"].ToString() == "Giftdeeds")
+                {
+                    queryc4 = "select * from Appointees where Type = 'Witness' and doctype = 'Giftdeeds'   and tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+
+
+
+                SqlDataAdapter dac4 = new SqlDataAdapter(queryc4, con);
+                DataTable dtc4 = new DataTable();
+                dac4.Fill(dtc4);
+
+                if (dtc4.Rows.Count > 0)
+                {
+                    ViewBag.witnessactive = "true";
+                }
+
+
+                /////end
+
+
+
+
+
+
+
+
+                /////////////////////////mAPPING
+
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc5 = "select * from BeneficiaryAssets where WillType = 'Quick' and doctype = 'Will' and tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc5 = "select * from BeneficiaryAssets where WillType = 'Detailed' and doctype = 'Will' and tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    queryc5 = "select * from BeneficiaryAssets where  doctype = 'POA' and tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+                if (Session["doctype"].ToString() == "Giftdeeds")
+                {
+                    queryc5 = "select * from BeneficiaryAssets where doctype = 'Giftdeeds' and tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+
+
+
+                SqlDataAdapter dac5 = new SqlDataAdapter(queryc5, con);
+                DataTable dtc5 = new DataTable();
+                dac5.Fill(dtc5);
+
+                if (dtc5.Rows.Count > 0)
+                {
+                    ViewBag.mappingactive = "true";
+                }
+
+
+
+
+
+                /////////////////////////Testator Details
+
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc6 = "select * from testatorFamily where  WillType = 'Quick' and tid = " + Convert.ToInt32(Session["distid"]) + "";
+                }
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc6 = "select * from testatorFamily where  WillType = 'Detailed' and tid = " + Convert.ToInt32(Session["distid"]) + "";
+                }
+
+
+
+
+                SqlDataAdapter dac6 = new SqlDataAdapter(queryc6, con);
+                DataTable dtc6 = new DataTable();
+                dac6.Fill(dtc6);
+
+                if (dtc6.Rows.Count > 0)
+                {
+                    ViewBag.tfactive = "true";
+                }
+
+
+                ////////END
+
+
+
+
+
+
+
+
+
+
+
+                con.Close();
+
+
+
+
+                /////////////////////////assetinformation
+
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+
+                    queryc7 = "select * from AssetInformation where doctype = 'Will' and WillType = 'Quick' and tid = " + Convert.ToInt32(Session["distid"]) + " ";
+
+                }
+
+
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+
+                    queryc7 = "select * from AssetInformation where doctype = 'Will' and WillType = 'Detailed' and tid = " + Convert.ToInt32(Session["distid"]) + " ";
+
+                }
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    queryc7 = "select * from AssetInformation where   doctype = 'POA' and tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+                if (Session["doctype"].ToString() == "Giftdeeds")
+                {
+                    queryc7 = "select * from AssetInformation where  doctype = 'Giftdeeds' and tid = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+
+
+
+                SqlDataAdapter dac7 = new SqlDataAdapter(queryc7, con);
+                DataTable dtc7 = new DataTable();
+                dac7.Fill(dtc7);
+
+                if (dtc7.Rows.Count > 0)
+                {
+                    ViewBag.assetinformationactive = "true";
+                }
+
+
+
+                //end
+
+
+
+            }
+            else
+            {
+                return RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+
+
+
+
+            con.Open();
+
+
+
+
+
+
+
+
+            // check testator family
+            string query1 = "select beneficiary_type from BeneficiaryDetails where  tid=" + Convert.ToInt32(Session["distid"]) + "";
+            SqlDataAdapter da1 = new SqlDataAdapter(query1, con);
+            DataTable dt1 = new DataTable();
+            da1.Fill(dt1);
+            if (dt1.Rows.Count > 0)
+            {
+                if (dt1.Rows[0]["beneficiary_type"].ToString() == "TestatorFamily" || dt1.Rows[0]["beneficiary_type"].ToString() == "Beneficiary" || dt1.Rows[0]["beneficiary_type"].ToString() == "Institution")
+                {
+                    ViewBag.beneactive = "true";
+
+                }
+
+
+
+            }
+
+
+
+
+            con.Close();
+
+
+
+
+
+
+
+
+
             if (TempData["Message"] != null)
             {
                 if (TempData["Message"].ToString() == "true")
@@ -2060,6 +2399,7 @@ namespace WillAssure.Controllers
                 {
                     if (dt1.Rows[0]["beneficiary_type"].ToString() == "TestatorFamily" || dt1.Rows[0]["beneficiary_type"].ToString() == "Beneficiary" || dt1.Rows[0]["beneficiary_type"].ToString() == "Institution")
                     {
+                        ViewBag.beneactive = "true";
                         TempData["showbenepopup"] = "true";
                     }
 

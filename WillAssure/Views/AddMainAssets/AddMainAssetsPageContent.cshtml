@@ -62,79 +62,231 @@
 
 
 
-                        @if (Session["doctype"] != null || Session["Type"] != null || Session["testatorID"] != null)
+                   
+
+
+
+
+
+                        @if (Session["WillType"] != null || Session["testatorID"] != null || Session["doctype"] != null)
                         {
+                            if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                            {
+                                <h5>
+                                    <ul id="menu" style="font-weight:bold;">
+
+
+                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:#5e72e4;">Testator></li></a>
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+
+                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:#5e72e4">TestatorFamily ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">TestatorFamily ></li>
+                                        }
+
+
+
+
+
+
+
+
+
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
+                                                <li style="color:#5e72e4;">Institution ></li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Institution ></li>
+                                        }
+
+
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:#5e72e4;">Beneficiary ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Beneficiary ></li>
+                                        }
+
+
+
+
+                                        @if (ViewBag.assetinformationactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:black">AssetInformation ></li>
+                                        }
+
+
+                                        @if (ViewBag.mappingactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
+                                                <li style="color:#5e72e4">Mapping ></li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Mapping ></li>
+                                        }
+
+
+
+                                        @if (ViewBag.executoractive == "true")
+                                        {
+                                            <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:#5e72e4">Executor ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Executor > </li>
+                                        }
+
+
+
+                                        @if (ViewBag.witnessactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                                <li style="color:#5e72e4">Witness > </li>
+                                            </a>
+
+
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Witness > </li>
+
+
+                                        }
+
+
+
+
+                                        @if (ViewBag.witnessactive == "true")
+                                        {
+                                            <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new { NestId = Convert.ToInt32(Session["distid"]) ,  doctype = Session["doctype"].ToString() })">
+                                                <li style="color:#5e72e4">Document ></li>
+                                            </a>
+
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Document</li>
+                                        }
+
+
+                                    </ul>
+                                </h5>
+
+
+                            }
+
+
+
+
+                        }
+                        else
+                        {
+                            if (!Response.IsRequestBeingRedirected)
+                            {
+                                Response.Redirect("/LoginPage/LoginPageIndex");
+                            }
+                        }
+
+
+
+
+
+                        @if (Session["testatorID"] != null || Session["doctype"] != null)
+                        {
+
                             if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
                             {
                                 <h5>
                                     <ul id="menu" style="font-weight:bold;">
 
-                                        <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Donor ></li></a>
-                                        <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black">Donee ></li></a>
-                                        <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:">Gift  ></li></a>
-                                        <li style="color:#e1e1e1">Asset Mapping ></li>
-                                        <li style="color:#e1e1e1">Witness Appointment ></li>
-                                        <li style="color:#e1e1e1">Document</li>
+                                        <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Donor ></li></a>
+
+
+
+
+                                        @if (ViewBag.beneactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:">Donee ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:">Donee ></li>
+                                        }
+
+
+                                        @if (ViewBag.assetinformationactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Gift ></li></a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Gift ></li>
+                                        }
+
+
+                                        @if (ViewBag.mappingactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
+                                                <li style="">Asset Mapping ></li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Asset Mapping ></li>
+                                        }
+
+
+
+                                        @if (ViewBag.witnessactive == "true")
+                                        {
+                                            <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
+                                                <li style="">Witness > </li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Witness Appointment ></li>
+                                        }
+
+
+
+                                        @if (ViewBag.witnessactive == "true")
+                                        {
+                                            <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new { NestId = Convert.ToInt32(Session["distid"]) ,  doctype = Session["doctype"].ToString() })">
+                                                <li style="">Document ></li>
+                                            </a>
+                                        }
+                                        else
+                                        {
+                                            <li style="color:#e1e1e1">Document</li>
+                                        }
+
+
+
+
 
 
 
                                     </ul>
                                 </h5>
                             }
-                            else
-                            {
-
-                                if (Session["Type"].ToString() != "Testator")
-                                {
-
-                                    <h5>
-                                        <ul id="menu" style="font-weight:bold;">
-
-                                            <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Testator></li></a>
-                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                <li style="color:black;">Institution ></li>
-                                            </a>
-
-                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li>AssetInformation ></li></a>
-                                         
-                                            <li style="color:#e1e1e1">Mapping ></li>
-                                            <li style="color:#e1e1e1">Nominee ></li>
-                                            <li style="color:#e1e1e1">Executor > </li>
-                                            <li style="color:#e1e1e1">Witness > </li>
-                                            <li style="color:#e1e1e1">Document</li>
-
-                                        </ul>
-                                    </h5>
-
-                                }
-                                else
-                                {
-                                    <h5>
-                                        <ul id="menu" style="font-weight:bold;">
-
-                                            <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Testator></li></a>
-                                            <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"><li style="color:black;">Testator Family ></li></a>
-                                            <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                <li style="color:black;">Institution ></li>
-                                            </a>
-                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
-                                            <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li>AssetInformation ></li></a>
-                                          
-                                            <li style="color:#e1e1e1">Mapping ></li>
-                                            @*<li style="color:#e1e1e1">Nominee ></li>*@
-                                            <li style="color:#e1e1e1">Executor > </li>
-                                            <li style="color:#e1e1e1">Witness > </li>
-                                            <li style="color:#e1e1e1">Document</li>
-
-                                        </ul>
-                                    </h5>
-                                }
 
 
-
-                            }
                         }
                         else
                         {
@@ -276,15 +428,15 @@
 
 
                             @*<center>
-                                    <div class="optional" style="display:none;">
-                                        <label for="input-1">Do You Like To Add More Nominee Details ?</label>
-                                        <br>
-                                        <label class="radio-inline">
-                                            <input type="radio" id="radioyes" name="nominationradio" onchange="opone(this.value)" value="Yes"> Yes
-                                        </label>
-                                        <label class="radio - inline"> <input type="radio" id="radiono" onchange="optwo(this.value)" name="nominationradio" value="No">No</label>
-                                    </div>
-                                </center>*@
+                <div class="optional" style="display:none;">
+                    <label for="input-1">Do You Like To Add More Nominee Details ?</label>
+                    <br>
+                    <label class="radio-inline">
+                        <input type="radio" id="radioyes" name="nominationradio" onchange="opone(this.value)" value="Yes"> Yes
+                    </label>
+                    <label class="radio - inline"> <input type="radio" id="radiono" onchange="optwo(this.value)" name="nominationradio" value="No">No</label>
+                </div>
+            </center>*@
 
 
                             <div class="row">
@@ -392,7 +544,7 @@
 
                                             <label for="input-1">Date Of Birth</label>
                                             <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="nomDob"  onchange="getinputdate(this.value)" autocomplete="off"  readonly="true" placeholder="Select Date Of Birth" />
+                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="nomDob" onchange="getinputdate(this.value)" autocomplete="off" readonly="true" placeholder="Select Date Of Birth" />
                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                                             </div>
 
@@ -541,159 +693,159 @@
 
 
                                     <div class="col-sm-3"></div>
-                                        <div class="col-sm-3">
+                                    <div class="col-sm-3">
 
-                                            <div class="form-group">
+                                        <div class="form-group">
 
-                                                <label for="input-1">Pin</label>
-                                                @Html.TextBoxFor(m => m.nomPin, new { @class = "form-control input-shadow required validate[required,custom[integer],maxSize[6]]", @id = "txtpin", @placeholder = "Enter Pin", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
+                                            <label for="input-1">Pin</label>
+                                            @Html.TextBoxFor(m => m.nomPin, new { @class = "form-control input-shadow required validate[required,custom[integer],maxSize[6]]", @id = "txtpin", @placeholder = "Enter Pin", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
-
-
-
                                     </div>
 
 
 
+                                </div>
 
 
 
 
 
-                                    <div class="row">
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-9">
 
-                                            <div class="form-group">
 
-                                                <label for="input-1">Address 1</label>
-                                                @Html.TextAreaFor(m => m.nomAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtaddress1", @placeholder = "Enter Address 1", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
+
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
+
+                                        <div class="form-group">
+
+                                            <label for="input-1">Address 1</label>
+                                            @Html.TextAreaFor(m => m.nomAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtaddress1", @placeholder = "Enter Address 1", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
-
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-9">
-
-                                            <div class="form-group">
-
-                                                <label for="input-1">Address 2</label>
-                                                @Html.TextAreaFor(m => m.nomAddress2, new { @class = "form-control input-shadow  text-input", @id = "txtaddress2", @placeholder = "Enter Address 2", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-9">
-
-                                            <div class="form-group">
-
-                                                <label for="input-1">Address 3</label>
-                                                @Html.TextAreaFor(m => m.nomAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3", @placeholder = "Enter Address 3", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
-                                        </div>
-
-
                                     </div>
 
-                                    <hr />
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
 
-                                    <div class="row">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
+                                        <div class="form-group">
 
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Identity Proof</label>
-                                                @Html.DropDownListFor(x => x.nomIdentity_Proof, new SelectListItem[]{
-                                           new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                           new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                           new SelectListItem() {Text = "Passport", Value="Passport"},
-                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @id="identityproof" , @onchange= "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-
-                                            </div>
+                                            <label for="input-1">Address 2</label>
+                                            @Html.TextAreaFor(m => m.nomAddress2, new { @class = "form-control input-shadow  text-input", @id = "txtaddress2", @placeholder = "Enter Address 2", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
-
-
-
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Identity Proof Value</label>
-                                                <div id="appendtxt">  @Html.TextBoxFor(m => m.nomIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Aadhaar Card", @style = "display:;", @autocomplete = "off", @onchange = "validateidentity(this.value)", })</div>
-                                                <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Alt Identity Proof</label>
-                                                @Html.DropDownListFor(x => x.nomAlt_Identity_Proof, new SelectListItem[]{
-                                           new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
-                                           new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
-                                           new SelectListItem() {Text = "Passport", Value="Passport"},
-                                           new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
-                                           new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ", @id="ddlidentityproof1" , @onchange= "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
-
-                                                @Html.HiddenFor(m => m.nomAlt_Identity_Proof, new { id = "Alt_Identity_Proof" })
-                                            </div>
-                                        </div>
-
-
-                                        <div class="col-sm-3"></div>
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">Alt Identity Proof Value</label>
-                                                <div id="appendtxt2"> @Html.TextBoxFor(m => m.nomAlt_Identity_Proof_Value, new { @class = "form-control input-shadow text-input", @id = "txtIdentityProofValue", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
-                                                <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
-
-                                            </div>
-                                        </div>
-
-
                                     </div>
-                                    <hr />
-                                    <div class="row">
-                                        <div class="col-sm-1"></div>
-                                        <div class="col-sm-2"> <label for="input-1">Description of Assets</label></div>
 
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-9">
 
+                                        <div class="form-group">
 
-
-
-
-
-
-
-                                        <div class="col-sm-6">
-
-                                            <div class="form-group">
-
-
-                                                @Html.TextAreaFor(m => m.nomDescription_of_Assets, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtdescriptionofasset", @placeholder = "Enter Description of Assets", @autocomplete = "off", alert = "LabourCost is requried" })
-                                            </div>
+                                            <label for="input-1">Address 3</label>
+                                            @Html.TextAreaFor(m => m.nomAddress3, new { @class = "form-control input-shadow  text-input", @id = "txtaddress3", @placeholder = "Enter Address 3", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
+                                    </div>
 
 
+                                </div>
 
+                                <hr />
 
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2"> <label for="input-1"><i class="fa fa-id-card-o" aria-hidden="true"></i>Identity Proof</label></div>
 
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Identity Proof</label>
+                                            @Html.DropDownListFor(x => x.nomIdentity_Proof, new SelectListItem[]{
+                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}} , new { @class= "form-control input-shadow validate[required]", @id="identityproof" , @onchange= "getIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                        </div>
                                     </div>
 
 
 
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Identity Proof Value</label>
+                                            <div id="appendtxt">  @Html.TextBoxFor(m => m.nomIdentity_Proof_Value, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtidentityproof", @placeholder = "Enter Aadhaar Card", @style = "display:;", @autocomplete = "off", @onchange = "validateidentity(this.value)", })</div>
+                                            <span id="lblidentityproof" style="color:red; display:none;">*Identity Proof Already Entered</span>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Alt Identity Proof</label>
+                                            @Html.DropDownListFor(x => x.nomAlt_Identity_Proof, new SelectListItem[]{
+                                       new SelectListItem() {Text = "--Select Identity Proof--", Value=""},
+                                       new SelectListItem() {Text = "Aadhaar Card", Value="Aadhaar Card"},
+                                       new SelectListItem() {Text = "Passport", Value="Passport"},
+                                       new SelectListItem() {Text = "Driving Licences", Value="Driving Licences"},
+                                       new SelectListItem() {Text = "Pan Card", Value="Pan Card"}}, new { @class= "form-control input-shadow ", @id="ddlidentityproof1" , @onchange= "getAltIdentityselection(this.options[this.selectedIndex].innerHTML)" })
+
+                                            @Html.HiddenFor(m => m.nomAlt_Identity_Proof, new { id = "Alt_Identity_Proof" })
+                                        </div>
+                                    </div>
+
+
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3">
+                                        <div class="form-group">
+                                            <label for="input-1">Alt Identity Proof Value</label>
+                                            <div id="appendtxt2"> @Html.TextBoxFor(m => m.nomAlt_Identity_Proof_Value, new { @class = "form-control input-shadow text-input", @id = "txtIdentityProofValue", @onchange = "Altvalidateidentity(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off" }) </div>
+                                            <span id="altlblidentityproof" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <hr />
+                                <div class="row">
+                                    <div class="col-sm-1"></div>
+                                    <div class="col-sm-2"> <label for="input-1">Description of Assets</label></div>
 
 
 
 
 
 
+
+
+
+                                    <div class="col-sm-6">
+
+                                        <div class="form-group">
+
+
+                                            @Html.TextAreaFor(m => m.nomDescription_of_Assets, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtdescriptionofasset", @placeholder = "Enter Description of Assets", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        </div>
+                                    </div>
 
 
 
 
 
                                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            </div>
 
 
 

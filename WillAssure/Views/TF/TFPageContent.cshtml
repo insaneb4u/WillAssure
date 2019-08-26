@@ -319,7 +319,7 @@
                         @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "FamilyForm" }))
                         {
 
-                           
+                            <div id="TestatorForm">
 
 
 
@@ -712,7 +712,7 @@
 
 
 
-                           
+                            </div>
 
 
 
@@ -724,7 +724,7 @@
 
 
                             @*/////////////////////////////////////////////////////////////////////////////////////////
-            // GUARDIAN*@
+                                // GUARDIAN*@
 
 
                             <div id="guardianform" style="display:none;">
@@ -997,7 +997,7 @@
 
 
                             @*//END
-            ///////////////////////////////////////////////////////////////////////////////////////////*@
+                                ///////////////////////////////////////////////////////////////////////////////////////////*@
 
 
 
@@ -1006,7 +1006,7 @@
 
 
                             @*/////////////////////////////////////////////////////////////////////////////////////////
-            //Alternate GUARDIAN*@
+                                //Alternate GUARDIAN*@
                             <br />
                             <br />
                             <br />
@@ -1273,7 +1273,7 @@
 
 
                             @*//END
-            ///////////////////////////////////////////////////////////////////////////////////////////*@
+                                ///////////////////////////////////////////////////////////////////////////////////////////*@
 
 
 
@@ -1337,7 +1337,72 @@
         <!--End Back To Top Button-->
 
 
-      
+        @if (ViewBag.testatorfamily == "true")
+        {
+            <script>
+
+
+                $(document).ready(function () {
+
+                    $("#Alternateguardianform").hide();
+                    $("#guardianform").hide();
+                    $("#TestatorForm").show();
+                    $("#btnview").show();
+                    $("#btnmore").show();
+                    $("#btnmore2").show();
+
+                });
+
+
+            </script>
+        }
+
+
+
+        @if (ViewBag.guardian == "true")
+        {
+            <script>
+
+
+                $(document).ready(function () {
+
+
+                    $("#Alternateguardianform").hide();
+                    $("#guardianform").show();
+                    $("#TestatorForm").hide();
+                    $("#btnview").show();
+                    $("#btnmore").show();
+                    $("#btnmore2").show();
+                });
+
+
+            </script>
+        }
+
+
+
+
+        @if (ViewBag.alternateguardian == "true")
+        {
+            <script>
+
+
+                $(document).ready(function () {
+
+
+                    $("#Alternateguardianform").show();
+                    $("#guardianform").hide();
+                    $("#TestatorForm").hide();
+                    $("#btnview").show();
+                    $("#btnmore").show();
+                    $("#btnmore2").show();
+                });
+
+
+            </script>
+        }
+
+
 
 
 
@@ -1380,7 +1445,7 @@
                     $.ajax({
 
                         type: "POST",
-                        url: "@Url.Action("BindStateDDL", "AddTestatorFamily")",
+                        url: "@Url.Action("BindStateDDL", "TF")",
                         data: { "send": "" + country + "" },
             success: function (data) {
 
@@ -1404,7 +1469,7 @@
                     $.ajax({
 
                         type: "POST",
-                        url: "@Url.Action("altBindStateDDL", "AddTestatorFamily")",
+                        url: "@Url.Action("altBindStateDDL", "TF")",
                         data: { "send": "" + altcountry + "" },
             success: function (data) {
 
@@ -1449,7 +1514,7 @@
                  $.ajax({
 
             type: "POST",
-            url:"@Url.Action("dateofbirth", "AddTestatorFamily")",
+            url:"@Url.Action("dateofbirth", "TF")",
             data: { "send": "" + value + "" },
                      success: function (data) {
 
@@ -1593,7 +1658,7 @@
              $.ajax({
 
             type: "POST",
-            url:"@Url.Action("gettestatoraddress", "AddTestatorFamily")",
+            url:"@Url.Action("gettestatoraddress", "TF")",
             data: { "send": "" + tid + "" },
             success: function (data) {
 
@@ -1671,7 +1736,7 @@
              $.ajax({
 
             type: "POST",
-            url:"@Url.Action("gettestatoraddress", "AddTestatorFamily")",
+            url:"@Url.Action("gettestatoraddress", "TF")",
             data: { "send": "" + tid + "" },
             success: function (data) {
 
@@ -1716,7 +1781,7 @@
                    $.ajax({
 
             type: "POST",
-            url:"@Url.Action("BindCountryDDL", "AddTestatorFamily")",
+            url:"@Url.Action("BindCountryDDL", "TF")",
             success: function (data) {
 
                 $('#ddlcountry').append(data);
@@ -1731,7 +1796,7 @@
                           $.ajax({
 
             type: "POST",
-            url:"@Url.Action("AlternateguardianBindCountryDDL", "AddTestatorFamily")",
+            url:"@Url.Action("AlternateguardianBindCountryDDL", "TF")",
             success: function (data) {
 
                 $('#altguaddlcountry').append(data);
@@ -1755,7 +1820,7 @@
                       $.ajax({
 
             type: "POST",
-            url: "@Url.Action("Onnamebindtfcity", "AddTestatorFamily")",
+            url: "@Url.Action("Onnamebindtfcity", "TF")",
            data: { "send": "" + tfstate+  ""},
             success: function (data) {
 
@@ -1778,7 +1843,7 @@
                       $.ajax({
 
             type: "POST",
-            url: "@Url.Action("Onnamebindguacity", "AddTestatorFamily")",
+            url: "@Url.Action("Onnamebindguacity", "TF")",
             data: { "send": "" + guastate+  ""},
             success: function (data) {
 
@@ -1807,7 +1872,7 @@
              $.ajax({
 
             type: "POST",
-            url:"@Url.Action("CheckTestatorUsers", "AddTestatorFamily")",
+            url:"@Url.Action("CheckTestatorUsers", "TF")",
                  data: { value: val, checkstatus: checkstatus },
             success: function (data) {
 
@@ -1849,7 +1914,7 @@
         $.ajax({
 
             type: "POST",
-            url: "@Url.Action("OnChangeBindCity", "AddTestatorFamily")",
+            url: "@Url.Action("OnChangeBindCity", "TF")",
             data: { "send": "" + value+  ""},
             success: function (data) {
 
@@ -1890,7 +1955,7 @@
         $.ajax({
 
             type: "POST",
-            url: "@Url.Action("altOnChangeBindCity", "AddTestatorFamily")",
+            url: "@Url.Action("altOnChangeBindCity", "TF")",
             data: { "send": "" + value+  ""},
             success: function (data) {
 
@@ -1930,7 +1995,7 @@
         $.ajax({
 
             type: "POST",
-            url: "@Url.Action("guaOnChangeBindCity", "AddTestatorFamily")",
+            url: "@Url.Action("guaOnChangeBindCity", "TF")",
             data: { "send": "" + value+  ""},
             success: function (data) {
 
@@ -1977,7 +2042,7 @@
         $.ajax({
 
             type: "post",
-            url: "@Url.Action("OnChangeBindState", "AddTestatorFamily")",
+            url: "@Url.Action("OnChangeBindState", "TF")",
             data: { "send": "" + value+  ""},
             success: function (data) {
 
@@ -2010,7 +2075,7 @@
         $.ajax({
 
             type: "post",
-            url: "@Url.Action("AlternateGuaBindStateDDL", "AddTestatorFamily")",
+            url: "@Url.Action("AlternateGuaBindStateDDL", "TF")",
             data: { "send": "" + value+  ""},
             success: function (data) {
 
@@ -2049,7 +2114,7 @@
         $.ajax({
 
             type: "Post",
-            url: "@Url.Action("AlternateGuardianOnChangeBindCity", "AddTestatorFamily")",
+            url: "@Url.Action("AlternateGuardianOnChangeBindCity", "TF")",
             data: { "send": "" + value+  ""},
             success: function (data) {
 
@@ -2158,7 +2223,7 @@
         					   $.ajax({
 
             type: "POST",
-            url:"@Url.Action("guaBindCountryDDL", "AddTestatorFamily")",
+            url:"@Url.Action("guaBindCountryDDL", "TF")",
             success: function (data) {
 
                 $('#guaddlcountry').append(data);
@@ -2183,7 +2248,7 @@
                     $.ajax({
 
             type: "POST",
-            url:"@Url.Action("guaBindStateDDL", "AddTestatorFamily")",
+            url:"@Url.Action("guaBindStateDDL", "TF")",
             success: function (data) {
                 $('#guaWithdatastate').append(data);
             }
@@ -2225,7 +2290,7 @@
         $.ajax({
 
             type: "POST",
-            url:"@Url.Action("BindRelationDDL", "AddTestatorFamily")",
+            url:"@Url.Action("BindRelationDDL", "TF")",
             success: function (data) {
                 $('#ddlrelation').append(data);
             }
@@ -2238,7 +2303,7 @@
             $.ajax({
 
             type: "POST",
-            url:"@Url.Action("AltBindRelationDDL", "AddTestatorFamily")",
+            url:"@Url.Action("AltBindRelationDDL", "TF")",
             success: function (data) {
                 $('#altddlrelation').append(data);
             }
@@ -2267,7 +2332,7 @@
               $.ajax({
 
             type: "POST",
-            url:"@Url.Action("BindTestatorDDL", "AddTestatorFamily")",
+            url:"@Url.Action("BindTestatorDDL", "TF")",
                   success: function (data) {
                       var splitted = data.split("~");
                       $("#DDLTestator").append(splitted[0]);
@@ -2521,7 +2586,7 @@
              $.ajax({
 
             type: "POST",
-            url:"@Url.Action("CheckTestatorUsers", "AddTestatorFamily")",
+            url:"@Url.Action("CheckTestatorUsers", "TF")",
                  data: { value: value, checkstatus: checkstatus },
             success: function (data) {
 
@@ -2642,7 +2707,7 @@
         }
 
 
-        @if (ViewBag.chkalternateguardian == "true")
+        @if (ViewBag.chkaltguardian == "true")
         {
             <script>
                 $(document).ready(function () {
@@ -3505,7 +3570,7 @@
                 $.ajax({
 
                     type: "POST",
-                    url: "@Url.Action("Validateidentity", "AddTestatorFamily")",
+                    url: "@Url.Action("Validateidentity", "TF")",
                     data: {"send":""+value+""},
                     success: function (data) {
 
@@ -3584,7 +3649,7 @@
                 $.ajax({
 
                     type: "POST",
-                    url: "@Url.Action("altValidateidentity", "AddTestatorFamily")",
+                    url: "@Url.Action("altValidateidentity", "TF")",
                     data: {"send":""+value+""},
                     success: function (data) {
 
@@ -3655,7 +3720,7 @@
                 $.ajax({
 
                     type: "POST",
-                    url: "@Url.Action("Validateidentity2", "AddTestatorFamily")",
+                    url: "@Url.Action("Validateidentity2", "TF")",
                     data: {"send":""+value+""},
                     success: function (data) {
 
@@ -3747,7 +3812,7 @@
                 $.ajax({
 
                     type: "POST",
-                    url: "@Url.Action("altValidateidentity2", "AddTestatorFamily")",
+                    url: "@Url.Action("altValidateidentity2", "TF")",
                     data: {"send":""+value+""},
                     success: function (data) {
 
@@ -3920,5 +3985,6 @@
                                                 /////////////////////////////////////////////////     end           ///////////////////////////////////////////////
 
         </script>
+
 
 

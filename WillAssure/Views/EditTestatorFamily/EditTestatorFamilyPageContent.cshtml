@@ -1,6 +1,8 @@
 ﻿
 @{
-    ViewBag.Title = "EditTestatorFamilyPageContent";
+                /**/
+
+                ViewBag.Title = "EditTestatorFamilyPageContent";
 }
 
 
@@ -34,9 +36,9 @@
                     <div class="card-body">
 
                         <div class="row">
-                            
-                                <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><button type="button" id="btnnext" style="display:; float:right;" class="btn btn-danger "><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
-                           
+
+                            <a href="@Url.Action("AddTestatorFamilyIndex", "AddTestatorFamily")"><button type="button" id="btnnext" style="display:; float:right;" class="btn btn-danger "><i class="icon-arrow-left"></i>&nbsp;&nbsp;Back</button></a>
+
                             <div class="col-sm-3">
 
                                 <select id='DDLTestator' onchange="getDDLTestator(this.value)" name="contentList" class='form-control input-shadow validate[required]'></select>
@@ -47,10 +49,12 @@
                             </span>
                         </div>
 
-                        <textarea id="getdata" style="display:none;" >@ViewBag.Tabledata</textarea>
-                      
+                        <textarea id="getdata" style="display:none;">@ViewBag.Tabledata</textarea>
+
                         <hr class="div_rd">
 
+                        <center><h5>Testator Family</h5></center>
+                        <hr style="border:1px solid gray" />
                         <div class="table-responsive">
                             <table id="default-datatable" class="table table-bordered">
                                 <thead>
@@ -60,7 +64,7 @@
                                         <th>Last Name</th>
                                         <th>Middle Name</th>
                                         <th>DOB</th>
-                                    
+
                                         <th>Relationship</th>
                                         <th>Address1</th>
                                         <th>Address2</th>
@@ -83,6 +87,93 @@
                             </table>
 
                         </div>
+
+                        <hr style="border:1px solid gray" />
+                        <center><h5>Guardian</h5></center>
+
+                        <textarea id="getdata1" style="display:none">@ViewBag.tabledata1</textarea>
+                        <div class="table-responsive">
+                            <table id="default-datatable" class="table table-bordered">
+                                <thead>
+                                    <tr class="ui-widget-header">
+                                        <th>Id</th>
+                                        <th>documentId</th>
+                                        <th>Type</th>
+                                        <th>subType</th>
+                                        <th>Name</th>
+                                        <th>middleName</th>
+                                        <th>Surname</th>
+                                        <th>Identity Proof</th>
+                                        <th>Identity Proof Value</th>
+                                        <th>Alt Identity Proof</th>
+                                        <th>Alt Identity Proof Value</th>
+                                        <th>DOB</th>
+                                        <th>Gender</th>
+                                        <th>Occupation</th>
+                                        <th>Relationship</th>
+                                        <th>Address1</th>
+                                        <th>Address2</th>
+                                        <th>Address3</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Pin</th>
+                                        <th>dateCreated</th>
+                                        <th>Rid</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="AppointeesData1"></tbody>
+                            </table>
+
+                        </div>
+
+
+
+                        <hr style="border:1px solid gray" />
+                        <center><h5>Alternate Guardian</h5></center>
+
+
+
+                        <div class="table-responsive">
+
+                            <textarea id="getdata2" style="display:none">@ViewBag.tabledata2</textarea>
+
+                            <table id="default-datatable" class="table table-bordered">
+                                <thead>
+                                    <tr class="ui-widget-header">
+                                        <th>Id</th>
+                                        <th>documentId</th>
+                                        <th>Type</th>
+                                        <th>subType</th>
+                                        <th>Name</th>
+                                        <th>middleName</th>
+                                        <th>Surname</th>
+                                        <th>Identity Proof</th>
+                                        <th>Identity Proof Value</th>
+                                        <th>Alt Identity Proof</th>
+                                        <th>Alt Identity Proof Value</th>
+                                        <th>DOB</th>
+                                        <th>Gender</th>
+                                        <th>Occupation</th>
+                                        <th>Relationship</th>
+                                        <th>Address1</th>
+                                        <th>Address2</th>
+                                        <th>Address3</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Pin</th>
+                                        <th>dateCreated</th>
+                                        <th>Rid</th>
+                                        <th>Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="AppointeesData2"></tbody>
+                            </table>
+
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -107,19 +198,58 @@
 
 @if (ViewBag.Tabledata != null)
 {
-<script>
+    <script>
 
-    $(document).ready(function () {
+        $(document).ready(function () {
 
-        var message = $('textarea#getdata').val();
-   
+            var message = $('textarea#getdata').val();
 
-        $('#TesttatorFamilyBind').empty().append(message);
-    });
 
-    
+            $('#TesttatorFamilyBind').empty().append(message);
+        });
 
-</script>
+
+
+    </script>
+}
+
+
+
+@if (ViewBag.Tabledata1 != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            var message = $('textarea#getdata1').val();
+
+
+            $('#AppointeesData1').empty().append(message);
+        });
+
+
+
+    </script>
+}
+
+
+
+
+@if (ViewBag.Tabledata2 != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            var message = $('textarea#getdata2').val();
+
+
+            $('#AppointeesData2').empty().append(message);
+        });
+
+
+
+    </script>
 }
 
 
@@ -130,11 +260,11 @@
     $(document).ready(function () {
 
 
-        
 
 
 
-        
+
+
         @*$.ajax({
 
             type: "POST",
@@ -142,8 +272,8 @@
             success: function (data) {
                 $('#TesttatorFamilyBind').empty().append(data);
 
-                
-               
+
+
 
             }
         });*@
@@ -157,11 +287,11 @@
                   success: function (data) {
 
                       $('#DDLTestator').append(data);
-                      
 
 
 
-                
+
+
             }
           });
 
@@ -193,7 +323,76 @@
 
 
                 var NestId = data
-                var url = "/AddTestatorFamily/AddTestatorFamilyIndex?NestId=" + NestId;
+                var url = "/TF/TFIndex?TestatorFamilyID=" + NestId;
+                window.location.href = url;
+
+
+            }
+
+
+
+        });
+
+    }
+
+
+
+
+
+
+    
+    function Edit1(id) {
+
+
+        var id = id;
+
+
+
+            $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("UpdateTestatorFamilyData", "EditTestatorFamily")",
+            data: {  "send": "" + id + ""   },
+            success: function (data) {
+
+
+                var NestId = data
+                var url = "/TF/TFIndex?guardian=" + NestId;
+                window.location.href = url;
+
+
+            }
+
+
+
+        });
+
+    }
+
+
+
+
+
+
+
+    
+    function Edit2(id) {
+
+
+        var id = id;
+
+
+
+            $.ajax({
+
+            type: "POST",
+            url: "@Url.Action("UpdateTestatorFamilyData", "EditTestatorFamily")",
+            data: {  "send": "" + id + ""   },
+            success: function (data) {
+
+
+                var NestId = data
+                var url = "/TF/TFIndex?alternateguardian=" + NestId;
                 window.location.href = url;
 
 
@@ -212,7 +411,7 @@
 
         var $tr = $(this).closest('tr');
         var id = $(this).attr('id');
-       
+
         swal({
             title: "Are you sure?",
             text: "Once deleted, you will not be able to recover this record!",
@@ -297,14 +496,14 @@
             url:"@Url.Action("BindTestatorFamilyFormData", "EditTestatorFamily")",
                  data: { value: value },
             success: function (data) {
-                
-         
+
+
                 $('#TesttatorFamilyBind').empty().append(data);
-                      
 
 
 
-                
+
+
             }
         });
 
@@ -316,7 +515,7 @@
 
 
 
-    
+
 
 </script>
 

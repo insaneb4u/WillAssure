@@ -80,7 +80,7 @@
                         <div class="col-sm-9">
                             <input type="button" id="btnverifyotp" style="color:white;" name="name" class="btn btn-success" value="Verify OTP" />
                             <input type="button" id="btnresend"  style="color:white; display:none; background-color:goldenrod;" name="name" class="btn btn-warning" value="Resend OTP" />
-                            <a href=""><button type="button" class="btn btn-danger">Cancel</button></a>
+                            @*<button type="button" style="display:none;" id="btncancel" class="btn btn-danger">Cancel</button>*@
                         </div>
 
 
@@ -119,6 +119,7 @@
     function clearmsg() {
         $("#lblemptycheck").hide();
         $("#lblfailed").hide();
+        
     }
 
 
@@ -163,8 +164,10 @@
 
             $("#otpmsg").hide();
             $("#btnresend").show();
+            $("#btncancel").show();
             $("#btnverifyotp").hide();
             $("#txtotp").attr('readonly', true);
+
 
 
         }
@@ -195,7 +198,7 @@
                          $("#btnresend").hide();
                          $("#btnverifyotp").show();
                          $("#txtotp").attr('readonly', false);
-
+                         $("#otpmsg").show();
                          var timer2 = "1:01";
                          var interval = setInterval(function () {
 
@@ -220,8 +223,8 @@
 
                                  $("#btnresend").show();
                                  $("#btnverifyotp").hide();
-
-
+                                 $("#otpmsg").hide();
+                                 $("#lblnew").hide();
 
                              }
 
@@ -279,6 +282,7 @@
 
                 if (data == "false") {
                     $("#lblfailed").show();
+                    $("#txtotp").val("");
                     $("#lblsuccess").hide();
                     $("#lblemptycheck").hide();
 

@@ -190,7 +190,19 @@ namespace WillAssure.Controllers
             }
 
             con.Open();
-            string checkuid = "select tId from TestatorDetails  where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+
+            string checkuid = "";
+            if (Session["WillType"].ToString() == "Quick")
+            {
+                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " and WillType='Quick' ";
+            }
+
+            if (Session["WillType"].ToString() == "Detailed")
+            {
+                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + "  and WillType='Detailed' ";
+            }
+
+            
             SqlDataAdapter checkda = new SqlDataAdapter(checkuid, con);
             DataTable checkdt = new DataTable();
             checkda.Fill(checkdt);
@@ -199,6 +211,12 @@ namespace WillAssure.Controllers
             {
                 chktid = Convert.ToInt32(checkdt.Rows[0]["tId"]);
             }
+
+
+
+
+
+
             con.Close();
 
             if (Convert.ToInt32(Session["uuid"]) != 1)

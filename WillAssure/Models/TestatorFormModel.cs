@@ -43,6 +43,7 @@ namespace WillAssure.Models
 
 
         public string Gendertext { get; set; }
+        public string Gendertxt { get; set; }
         public int GenderId { get; set; }
 
         public string Religiontext { get; set; }
@@ -143,6 +144,7 @@ namespace WillAssure.Models
 
 
         public string SpouseName { get; set; }
+        public string Spousetxt { get; set; }
     }
 
 

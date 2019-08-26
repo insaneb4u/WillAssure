@@ -123,10 +123,20 @@ namespace WillAssure.Views.ViewDocument
                 {
                     executors_category = Convert.ToInt32(checkdt.Rows[0]["executors_category"]);
                 }
+
+
+                if (Convert.ToInt32(checkdt.Rows[0]["AlternateBenficiaries"]) == 0)
+                {
+                    AlternateBenficiaries = 1;
+                }
+                else
+                {
+                    AlternateBenficiaries = Convert.ToInt32(checkdt.Rows[0]["AlternateBenficiaries"]);
+                }
+
+
+
                 
-
-
-                AlternateBenficiaries = Convert.ToInt32(checkdt.Rows[0]["AlternateBenficiaries"]);
                 AlternateGaurdian = Convert.ToInt32(checkdt.Rows[0]["AlternateGaurdian"]);
                 AlternateExecutors = Convert.ToInt32(checkdt.Rows[0]["AlternateExecutors"]);
               

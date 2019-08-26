@@ -1960,11 +1960,13 @@ function getDDLTestator(value) {
             $(this).closest('tr').remove();
             return false;
         });
-        function checkaltbeneficiaryduplicate(id) {
+        function checkaltbeneficiaryduplicate(id,value) {
+         
+
             var dt = '';
             var lang_name = $('#' + id).val();
             var selectedtext = $("#" + id + " option:selected").text();
-            var i = id.substr(id.length - 1);
+          
 
             $(".altbeneficiaryclass ").each(function () {
                 var myid = $(this).attr('id');

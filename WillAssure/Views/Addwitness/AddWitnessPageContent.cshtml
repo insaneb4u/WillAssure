@@ -484,8 +484,10 @@
                                         <input type="hidden" name="ddltid" id="tid" value="@Session["distid"].ToString()" />
 
                                     </div>
-                                    <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>
+                                    @*<div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button></div>*@
                                     <div class="col-sm-6"></div>
+                                    <div class="col-sm-6"></div>
+                                    
                                     <div class="col-sm-6"><h5>Witness 1</h5></div>
 
 
@@ -2555,141 +2557,141 @@
 
                             $(document).ready(function () {
 
-
-                                $("#Identity_Proof_txt").attr("disabled", "disabled");
-                                $("#ddlidentityproof1").attr("disabled", "disabled");
-                                $("#txtname").attr("disabled", "disabled");
-                                $("#ddlcountry").attr("disabled", "disabled");
-                                $("#ddltype").attr("disabled", "disabled");
-                                $("#ddlsubtype").attr("disabled", "disabled");
+                                $("#btnupdate").show();
+                                //$("#Identity_Proof_txt").attr("disabled", "disabled");
+                                //$("#ddlidentityproof1").attr("disabled", "disabled");
                                 //$("#txtname").attr("disabled", "disabled");
-                                $("#txtmiddlename").attr("disabled", "disabled");
-                                $("#txtsurname").attr("disabled", "disabled");
-                                $("#DOB").attr("disabled", "disabled");
-                                $("#Gender").attr("disabled", "disabled");
-                                $("#txtoccupation").attr("disabled", "disabled");
-                                $("#ddlrelation").attr("disabled", "disabled");
-                                $("#ddlstate").attr("disabled", "disabled");
-                                $("#ddlcity").attr("disabled", "disabled");
-                                $("#txtpin").attr("disabled", "disabled");
-                                $("#txtaddress1").attr("disabled", "disabled");
-                                $("#txtaddress2").attr("disabled", "disabled");
-                                $("#txtaddress3").attr("disabled", "disabled");
-                                $("#Identity_Proof").attr("disabled", "disabled");
-                                $("#txtidentityproof").attr("disabled", "disabled");
-                                $("#ddlidentityproof11").attr("disabled", "disabled");
-                                $("#txtIdentityProofValue").attr("disabled", "disabled");
+                                //$("#ddlcountry").attr("disabled", "disabled");
+                                //$("#ddltype").attr("disabled", "disabled");
+                                //$("#ddlsubtype").attr("disabled", "disabled");
+                                ////$("#txtname").attr("disabled", "disabled");
+                                //$("#txtmiddlename").attr("disabled", "disabled");
+                                //$("#txtsurname").attr("disabled", "disabled");
+                                //$("#DOB").attr("disabled", "disabled");
+                                //$("#Gender").attr("disabled", "disabled");
+                                //$("#txtoccupation").attr("disabled", "disabled");
+                                //$("#ddlrelation").attr("disabled", "disabled");
+                                //$("#ddlstate").attr("disabled", "disabled");
+                                //$("#ddlcity").attr("disabled", "disabled");
+                                //$("#txtpin").attr("disabled", "disabled");
+                                //$("#txtaddress1").attr("disabled", "disabled");
+                                //$("#txtaddress2").attr("disabled", "disabled");
+                                //$("#txtaddress3").attr("disabled", "disabled");
+                                //$("#Identity_Proof").attr("disabled", "disabled");
+                                //$("#txtidentityproof").attr("disabled", "disabled");
+                                //$("#ddlidentityproof11").attr("disabled", "disabled");
+                                //$("#txtIdentityProofValue").attr("disabled", "disabled");
 
 
-                                $("#ddltypealt2").attr("disabled", "disabled");
-                                $("#ddlsubtypealt2").attr("disabled", "disabled");
-                                $("#txtname2").attr("disabled", "disabled");
-                                $("#txtmiddlename2").attr("disabled", "disabled");
-                                $("#txtsurname2").attr("disabled", "disabled");
-                                $("#altGender").attr("disabled", "disabled");
-                                $("#txtoccupation2").attr("disabled", "disabled");
-                                $("#altddlrelation").attr("disabled", "disabled");
-                                $("#DOB2").attr("disabled", "disabled");
-                                $("#altddlstate").attr("disabled", "disabled");
-                                $("#altddlcity").attr("disabled", "disabled");
-                                $("#txtpin2").attr("disabled", "disabled");
-                                $("#txtaddress2alt1").attr("disabled", "disabled");
-                                $("#txtaddress2alt2").attr("disabled", "disabled");
-                                $("#txtaddress3alt3").attr("disabled", "disabled");
-                                $("#altIdentity_Proof").attr("disabled", "disabled");
-                                $("#txtIdentityProofValuealt").attr("disabled", "disabled");
-                                $("#ddlidentityproof22alt").attr("disabled", "disabled");
-                                $("#txtIdentityProofValuealt2").attr("disabled", "disabled");
-                                $("#Alt_Identity_proof_Value").attr("disabled", "disabled");
-
-
-
-
-
-
-                                // alternate
-
-                                $("#altfirstIdentity_Proof_txt").attr("disabled", "disabled");
-                                $("#altddlcountry").attr("disabled", "disabled");
-                                $("#wIdentity_Proof_txt").attr("disabled", "disabled");
-                                $("#wddlidentityproof1").attr("disabled", "disabled");
-                                $("#wtxtname").attr("disabled", "disabled");
-                                $("#wddlcountry").attr("disabled", "disabled");
-                                $("#wddltype").attr("disabled", "disabled");
-                                $("#wddlsubtype").attr("disabled", "disabled");
-                                $("#wtxtname").attr("disabled", "disabled");
-                                $("#wtxtmiddlename").attr("disabled", "disabled");
-                                $("#wtxtsurname").attr("disabled", "disabled");
-                                $("#wDOB").attr("disabled", "disabled");
-                                $("#wGender").attr("disabled", "disabled");
-                                $("#wtxtoccupation").attr("disabled", "disabled");
-                                $("#wddlrelation").attr("disabled", "disabled");
-                                $("#wddlstate").attr("disabled", "disabled");
-                                $("#wddlcity").attr("disabled", "disabled");
-                                $("#wtxtpin").attr("disabled", "disabled");
-                                $("#wtxtaddress1").attr("disabled", "disabled");
-                                $("#wtxtaddress2").attr("disabled", "disabled");
-                                $("#wtxtaddress3").attr("disabled", "disabled");
-                                $("#wIdentity_Proof").attr("disabled", "disabled");
-                                $("#wtxtidentityproof").attr("disabled", "disabled");
-                                $("#wddlidentityproof11").attr("disabled", "disabled");
-                                $("#wtxtIdentityProofValue").attr("disabled", "disabled");
-
-
-                                $("#wddltypealt2").attr("disabled", "disabled");
-                                $("#wddlsubtypealt2").attr("disabled", "disabled");
-                                $("#wtxtname2").attr("disabled", "disabled");
-                                $("#wtxtmiddlename2").attr("disabled", "disabled");
-                                $("#wtxtsurname2").attr("disabled", "disabled");
-                                $("#waltGender").attr("disabled", "disabled");
-                                $("#wtxtoccupation2").attr("disabled", "disabled");
-                                $("#waltddlrelation").attr("disabled", "disabled");
-                                $("#wDOB2").attr("disabled", "disabled");
-                                $("#waltddlstate").attr("disabled", "disabled");
-                                $("#waltddlcity").attr("disabled", "disabled");
-                                $("#wtxtpin2").attr("disabled", "disabled");
-                                $("#wtxtaddress2alt1").attr("disabled", "disabled");
-                                $("#wtxtaddress2alt2").attr("disabled", "disabled");
-                                $("#wtxtaddress3alt3").attr("disabled", "disabled");
-                                $("#waltIdentity_Proof").attr("disabled", "disabled");
-                                $("#wtxtIdentityProofValuealt").attr("disabled", "disabled");
-                                $("#wddlidentityproof22alt").attr("disabled", "disabled");
-                                $("#wtxtIdentityProofValuealt2").attr("disabled", "disabled");
-                                $("#wAlt_Identity_proof_Value").attr("disabled", "disabled");
+                                //$("#ddltypealt2").attr("disabled", "disabled");
+                                //$("#ddlsubtypealt2").attr("disabled", "disabled");
+                                //$("#txtname2").attr("disabled", "disabled");
+                                //$("#txtmiddlename2").attr("disabled", "disabled");
+                                //$("#txtsurname2").attr("disabled", "disabled");
+                                //$("#altGender").attr("disabled", "disabled");
+                                //$("#txtoccupation2").attr("disabled", "disabled");
+                                //$("#altddlrelation").attr("disabled", "disabled");
+                                //$("#DOB2").attr("disabled", "disabled");
+                                //$("#altddlstate").attr("disabled", "disabled");
+                                //$("#altddlcity").attr("disabled", "disabled");
+                                //$("#txtpin2").attr("disabled", "disabled");
+                                //$("#txtaddress2alt1").attr("disabled", "disabled");
+                                //$("#txtaddress2alt2").attr("disabled", "disabled");
+                                //$("#txtaddress3alt3").attr("disabled", "disabled");
+                                //$("#altIdentity_Proof").attr("disabled", "disabled");
+                                //$("#txtIdentityProofValuealt").attr("disabled", "disabled");
+                                //$("#ddlidentityproof22alt").attr("disabled", "disabled");
+                                //$("#txtIdentityProofValuealt2").attr("disabled", "disabled");
+                                //$("#Alt_Identity_proof_Value").attr("disabled", "disabled");
 
 
 
 
-                                $(".withdatacountry").attr("disabled", "disabled");
-                                $("#Identity_Proof_txt").attr("disabled", "disabled");
-                                $("#ddlidentityproof1").attr("disabled", "disabled");
-                                $("#wtxtname").attr("disabled", "disabled");
-                                $("#wtxtmiddlename").attr("disabled", "disabled");
-                                $("#wtxtsurname").attr("disabled", "disabled");
-                                $("#wGender").attr("disabled", "disabled");
-                                $("#wtxtpin").attr("disabled", "disabled");
-                                $("#wtxtaddress1").attr("disabled", "disabled");
-                                $("#wtxtaddress2").attr("disabled", "disabled");
-                                $("#wtxtaddress3").attr("disabled", "disabled");
-                                $("#altfirstIdentity_Proof_txt").attr("disabled", "disabled");
-                                $("#wddlidentityproof1").attr("disabled", "disabled");
+
+
+                                //// alternate
+
+                                //$("#altfirstIdentity_Proof_txt").attr("disabled", "disabled");
+                                //$("#altddlcountry").attr("disabled", "disabled");
+                                //$("#wIdentity_Proof_txt").attr("disabled", "disabled");
+                                //$("#wddlidentityproof1").attr("disabled", "disabled");
+                                //$("#wtxtname").attr("disabled", "disabled");
+                                //$("#wddlcountry").attr("disabled", "disabled");
+                                //$("#wddltype").attr("disabled", "disabled");
+                                //$("#wddlsubtype").attr("disabled", "disabled");
+                                //$("#wtxtname").attr("disabled", "disabled");
+                                //$("#wtxtmiddlename").attr("disabled", "disabled");
+                                //$("#wtxtsurname").attr("disabled", "disabled");
+                                //$("#wDOB").attr("disabled", "disabled");
+                                //$("#wGender").attr("disabled", "disabled");
+                                //$("#wtxtoccupation").attr("disabled", "disabled");
+                                //$("#wddlrelation").attr("disabled", "disabled");
+                                //$("#wddlstate").attr("disabled", "disabled");
+                                //$("#wddlcity").attr("disabled", "disabled");
+                                //$("#wtxtpin").attr("disabled", "disabled");
+                                //$("#wtxtaddress1").attr("disabled", "disabled");
+                                //$("#wtxtaddress2").attr("disabled", "disabled");
+                                //$("#wtxtaddress3").attr("disabled", "disabled");
+                                //$("#wIdentity_Proof").attr("disabled", "disabled");
+                                //$("#wtxtidentityproof").attr("disabled", "disabled");
+                                //$("#wddlidentityproof11").attr("disabled", "disabled");
+                                //$("#wtxtIdentityProofValue").attr("disabled", "disabled");
+
+
+                                //$("#wddltypealt2").attr("disabled", "disabled");
+                                //$("#wddlsubtypealt2").attr("disabled", "disabled");
+                                //$("#wtxtname2").attr("disabled", "disabled");
+                                //$("#wtxtmiddlename2").attr("disabled", "disabled");
+                                //$("#wtxtsurname2").attr("disabled", "disabled");
+                                //$("#waltGender").attr("disabled", "disabled");
+                                //$("#wtxtoccupation2").attr("disabled", "disabled");
+                                //$("#waltddlrelation").attr("disabled", "disabled");
+                                //$("#wDOB2").attr("disabled", "disabled");
+                                //$("#waltddlstate").attr("disabled", "disabled");
+                                //$("#waltddlcity").attr("disabled", "disabled");
+                                //$("#wtxtpin2").attr("disabled", "disabled");
+                                //$("#wtxtaddress2alt1").attr("disabled", "disabled");
+                                //$("#wtxtaddress2alt2").attr("disabled", "disabled");
+                                //$("#wtxtaddress3alt3").attr("disabled", "disabled");
+                                //$("#waltIdentity_Proof").attr("disabled", "disabled");
+                                //$("#wtxtIdentityProofValuealt").attr("disabled", "disabled");
+                                //$("#wddlidentityproof22alt").attr("disabled", "disabled");
+                                //$("#wtxtIdentityProofValuealt2").attr("disabled", "disabled");
+                                //$("#wAlt_Identity_proof_Value").attr("disabled", "disabled");
 
 
 
-                                $("#wetxtname").attr("disabled", "disabled");
-                                $("#wetxtmiddlename").attr("disabled", "disabled");
-                                $("#wetxtsurname").attr("disabled", "disabled");
-                                $("#weGender").attr("disabled", "disabled");
-                                $(".withdatacountry").attr("disabled", "disabled");
-                                $("#ealtddlstate").attr("disabled", "disabled");
-                                $("#ealtddlcity").attr("disabled", "disabled");
-                                $("#wetxtpin").attr("disabled", "disabled");
-                                $("#wetxtaddress1").attr("disabled", "disabled");
-                                $("#wetxtaddress2").attr("disabled", "disabled");
-                                $("#wetxtaddress3").attr("disabled", "disabled");
-                                $("#ealtfirstIdentity_Proof_txt").attr("disabled", "disabled");
-                                $("#ewddlidentityproof1").attr("disabled", "disabled");
-                                $("#weAlt_Identity_proof_Value").attr("disabled", "disabled");
+
+                                //$(".withdatacountry").attr("disabled", "disabled");
+                                //$("#Identity_Proof_txt").attr("disabled", "disabled");
+                                //$("#ddlidentityproof1").attr("disabled", "disabled");
+                                //$("#wtxtname").attr("disabled", "disabled");
+                                //$("#wtxtmiddlename").attr("disabled", "disabled");
+                                //$("#wtxtsurname").attr("disabled", "disabled");
+                                //$("#wGender").attr("disabled", "disabled");
+                                //$("#wtxtpin").attr("disabled", "disabled");
+                                //$("#wtxtaddress1").attr("disabled", "disabled");
+                                //$("#wtxtaddress2").attr("disabled", "disabled");
+                                //$("#wtxtaddress3").attr("disabled", "disabled");
+                                //$("#altfirstIdentity_Proof_txt").attr("disabled", "disabled");
+                                //$("#wddlidentityproof1").attr("disabled", "disabled");
+
+
+
+                                //$("#wetxtname").attr("disabled", "disabled");
+                                //$("#wetxtmiddlename").attr("disabled", "disabled");
+                                //$("#wetxtsurname").attr("disabled", "disabled");
+                                //$("#weGender").attr("disabled", "disabled");
+                                //$(".withdatacountry").attr("disabled", "disabled");
+                                //$("#ealtddlstate").attr("disabled", "disabled");
+                                //$("#ealtddlcity").attr("disabled", "disabled");
+                                //$("#wetxtpin").attr("disabled", "disabled");
+                                //$("#wetxtaddress1").attr("disabled", "disabled");
+                                //$("#wetxtaddress2").attr("disabled", "disabled");
+                                //$("#wetxtaddress3").attr("disabled", "disabled");
+                                //$("#ealtfirstIdentity_Proof_txt").attr("disabled", "disabled");
+                                //$("#ewddlidentityproof1").attr("disabled", "disabled");
+                                //$("#weAlt_Identity_proof_Value").attr("disabled", "disabled");
 
 
                             });

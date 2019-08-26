@@ -266,6 +266,7 @@
     <Compile Include="Controllers\RoleAddController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\TestatorHomePageController.cs" />
+    <Compile Include="Controllers\TFController.cs" />
     <Compile Include="Controllers\UpdateAlternateAppointeesController.cs" />
     <Compile Include="Controllers\UpdateAlternateBeneficiaryController.cs" />
     <Compile Include="Controllers\UpdateAppointeesController.cs" />
@@ -1909,6 +1910,7 @@
     <Content Include="Views\ChangingPassword\ChangingPasswordPageContent.cshtml" />
     <Content Include="Views\EditWitness\EditWitnessPageContent.cshtml" />
     <Content Include="Views\EditSingleBeneficiary\EditSingleBeneficiary.cshtml" />
+    <Content Include="Views\TF\TFPageContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

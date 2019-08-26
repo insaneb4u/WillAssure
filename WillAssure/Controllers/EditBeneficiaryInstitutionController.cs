@@ -155,9 +155,21 @@ namespace WillAssure.Controllers
 
 
             con.Open();
+            string query0 = "";
+
+            if (Session["WillType"].ToString() == "Quick")
+            {
+                query0 = "select top 1 tId from TestatorDetails where tId = " + Convert.ToInt32(Session["distid"]) + "  and WillType='Quick'    ";
+            }
+
+            if (Session["WillType"].ToString() == "Detailed")
+            {
+                query0 = "select top 1 tId from TestatorDetails where tId = " + Convert.ToInt32(Session["distid"]) + " and WillType='Detailed'     ";
+            }
+
+             
 
 
-            string query0 = "select top 1 tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "    ";
 
             SqlDataAdapter da0 = new SqlDataAdapter(query0, con);
             DataTable dt0 = new DataTable();

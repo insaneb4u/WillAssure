@@ -426,6 +426,8 @@ namespace WillAssure.Controllers
 
             if (dt.Rows.Count > 0)
             {
+
+                ViewBag.hasdata = "true";
                 TFM.tId = NestId;
 
 
@@ -495,7 +497,19 @@ namespace WillAssure.Controllers
 
                 if (dt.Rows[0]["Gender"].ToString() != "none                ")
                 {
-                    TFM.Gendertext = dt.Rows[0]["Gender"].ToString();
+                    TFM.Gendertxt = dt.Rows[0]["Gender"].ToString();
+
+                    if (TFM.Gendertxt == "Male                ")
+                    {
+                        ViewBag.gender = "Father";
+                    }
+
+
+                    if (TFM.Gendertxt == "Female              ")
+                    {
+                        ViewBag.gender = "Spouse";
+                    }
+
                 }
             
 
@@ -541,7 +555,7 @@ namespace WillAssure.Controllers
 
 
                
-                 TFM.SpouseName = dt.Rows[0]["SpouseName"].ToString();
+                 TFM.Spousetxt = dt.Rows[0]["SpouseName"].ToString();
                 
 
 
@@ -1267,7 +1281,7 @@ namespace WillAssure.Controllers
 
                 if (dt.Rows[0]["Gender"].ToString() != "none")
                 {
-                    TFM.Gendertext = dt.Rows[0]["Gender"].ToString();
+                    TFM.Gendertxt = dt.Rows[0]["Gender"].ToString();
                 }
 
                 if (dt.Rows[0]["Address1"].ToString() != "none")
@@ -1697,8 +1711,18 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@Alt_Identity_Proof", TFM.Alt_Identity_Proof);
             cmd.Parameters.AddWithValue("@Alt_Identity_proof_Value", TFM.Alt_Identity_proof_Value);
 
-           
+
+            if (TFM.Gendertext != null)
+            {
                 cmd.Parameters.AddWithValue("@Gender", TFM.Gendertext);
+
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@Gender", TFM.Gendertxt);
+            }
+
+                
             
 
 
@@ -1767,9 +1791,19 @@ namespace WillAssure.Controllers
             cmd.ExecuteNonQuery();
 
 
+            string spname = "";
+
+            if (TFM.SpouseName != null)
+            {
+                spname = TFM.SpouseName; 
+            }
+            else
+            {
+                spname = TFM.Spousetxt;
+            }
 
 
-            string queryu = "update testatordetails set SpouseName='"+TFM.SpouseName+"' where tId = "+TFM.tId+" ";
+            string queryu = "update testatordetails set SpouseName='"+ spname + "' where tId = "+TFM.tId+" ";
             SqlCommand cddu = new SqlCommand(queryu, con);
             cddu.ExecuteNonQuery();
 

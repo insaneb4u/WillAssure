@@ -423,175 +423,198 @@
                             @Html.HiddenFor(m => m.tId)
                             @Html.HiddenFor(m => m.uId)
 
-                            <div class="row">
+                        <div class="row">
 
-                                <div class="col-sm-1"></div>
-                                <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Personal Details</label></div>
+                            <div class="col-sm-1"></div>
+                            <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Personal Details</label></div>
 
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">First Name</label>
-                                        @Html.TextBoxFor(m => m.First_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtFirstName", @placeholder = "Enter First Name", @autocomplete = "off" })
-                                    </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="input-1">First Name</label>
+                                    @Html.TextBoxFor(m => m.First_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtFirstName", @placeholder = "Enter First Name", @autocomplete = "off" })
                                 </div>
-
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Middle Name</label>
-                                        @Html.TextBoxFor(m => m.Middle_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
-                                    </div>
-                                </div>
-
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Last Name</label>
-                                        @Html.TextBoxFor(m => m.Last_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtLastName", @placeholder = "Enter Last Name", @autocomplete = "off" })
-                                    </div>
-                                </div>
-
-
-                                <div class="col-sm-3"></div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Date Of Birth</label>
-
-
-
-                                        <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-                                            <input class="form-control input-shadow validate[required]" onchange="validatedate(this.value)" value="@Model.Dob" type="text" id="DOB" name="Dob" autocomplete="off" placeholder="Select Date Of Birth" readonly="true" />
-                                            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                        </div>
-
-                                        <span style="color:red; display:none;" id="datemsg">Should be 18+ Year</span>
-
-
-
-
-                                        @*<script>
-                            $("#DOB").focus(function () {
-
-                                $("#DOB").hide();
-                                $("#DOBB").show();
-                            });
-                        </script>*@
-
-
-
-
-
-
-                                    </div>
-                                </div>
-
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Mobile</label>
-                                        @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control input-shadow validate[required,custom[Mobile],maxSize[10]]text - input", @id = "txtmobile", @placeholder = "Enter Mobile Number", @autocomplete = "off" })
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Email</label>
-                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-shadow validate[required,custom[email]] text-input", @id = "txtEmail", @placeholder = "Enter Email", @autocomplete = "off" })
-                                    </div>
-                                </div>
-                                <div class="col-sm-3"></div>
-
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Marital Status</label>
-                                        @Html.DropDownListFor(x => x.material_status_txt, new SelectListItem[]{
-                                        new SelectListItem() {Text = "--Select--", Value=""},
-                                       new SelectListItem() {Text = "Married", Value="Married"},
-                                        new SelectListItem() {Text = "UnMarried", Value="UnMarried"}}, new { @class = "form-control input-shadow validate[required] txtmaritalstatus" , @onchange="txtmaritalstatus(this.value)" })
-
-                                    </div>
-                                </div>
-                                @*<div class="col-sm-6">
-                    <div class="form-group">
-                        <label for="input-3">Relationship</label>
-                        <select id="ddlrelation" style="display:none;" class="form-control input-shadow validate[required]">
-                            <option value="">--Select--</option>
-                        </select>
-                        @Html.HiddenFor(m => m.RelationshipId, new { id = "RelationshipId" })
-                        @Html.TextBoxFor(m => m.RelationshipTxt, new { id = "RelationshipTxt", @class = "form-control input-shadow" })
-                    </div>
-                    <script>
-                        $("#RelationshipTxt").focus(function () {
-                            $("#RelationshipTxt").hide();
-                            $("#ddlrelation").show();
-                        });
-                    </script>
-                </div>*@
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Religion</label>
-                                        @Html.DropDownListFor(x => x.Religiontext, new SelectListItem[]{
-                                 new SelectListItem() {Text = "--Select--", Value=""},
-                                 new SelectListItem() {Text = "Buddhism", Value="Buddhism"},
-                                 new SelectListItem() {Text = "Christians", Value="Christians"},
-                                 new SelectListItem() {Text = "Hinduism", Value="Hinduism"},
-                                 new SelectListItem() {Text = "Islam", Value="Islam"},
-                                 new SelectListItem() {Text = "Jainism", Value="Jainism"},
-                                 new SelectListItem() {Text = "Sikhism", Value="Sikhism"},
-
-                                 new SelectListItem() {Text = "Zoroastrian", Value="Zoroastrian"}}, new { @class = "form-control input-shadow validate[required]" })
-
-
-                                    </div>
-                                </div>
-
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Gender</label>
-                                        @Html.DropDownListFor(x => x.Gendertext, new SelectListItem[]{
-                                        new SelectListItem() {Text = "--Select--", Value=""},
-                                        new SelectListItem() {Text = "Male", Value="Male"},
-                                        new SelectListItem() {Text = "Female", Value="Female"},
-                                        new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow validate[required] ddlgender"  , @style="display:none;"   ,  @name= "Gendertext" , @onchange = "getgenderval(value)" })
-
-
-
-                                        @Html.TextBoxFor(m => m.Gendertext, new { @class = "form-control input-shadow", @id = "txtgender", @placeholder = "--Select--" })
-
-                                        <script>
-                                            $("#txtgender").focus(function () {
-
-                                                $("#txtgender").hide();
-                                                $(".ddlgender").show();
-                                            });
-                                        </script>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-3"></div>
-
-
-
-
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label for="input-1">Occupation</label>
-                                        @Html.TextBoxFor(m => m.Occupation, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtoccupation", @placeholder = "Enter Occupation", @autocomplete = "off" })
-                                    </div>
-                                </div>
-
-
-
-
-                                <div class="col-sm-3 changecontent" style="display:none;">
-                                    <div class="form-group">
-                                        <label for="input-1" id="lblchange"></label>
-                                        @Html.TextBoxFor(m => m.SpouseName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtchange", @placeholder = "Enter Father/Spouse Name", @autocomplete = "off" })
-                                    </div>
-                                </div>
-
                             </div>
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="input-1">Middle Name</label>
+                                    @Html.TextBoxFor(m => m.Middle_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="input-1">Last Name</label>
+                                    @Html.TextBoxFor(m => m.Last_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtLastName", @placeholder = "Enter Last Name", @autocomplete = "off" })
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="input-1">Date Of Birth</label>
+
+
+
+                                    <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                                        <input class="form-control input-shadow validate[required]" onchange="validatedate(this.value)" value="@Model.Dob" type="text" id="DOB" name="Dob" autocomplete="off" placeholder="Select Date Of Birth" readonly="true" />
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                    </div>
+
+                                    <span style="color:red; display:none;" id="datemsg">Should be 18+ Year</span>
+
+
+
+
+                                    @*<script>
+                    $("#DOB").focus(function () {
+
+                        $("#DOB").hide();
+                        $("#DOBB").show();
+                    });
+                </script>*@
+
+
+
+
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="input-1">Mobile</label>
+                                    @Html.TextBoxFor(m => m.Mobile, new { @class = "form-control input-shadow validate[required,custom[Mobile],maxSize[10]]text - input", @id = "txtmobile", @placeholder = "Enter Mobile Number", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="input-1">Email</label>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control input-shadow validate[required,custom[email]] text-input", @id = "txtEmail", @placeholder = "Enter Email", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3"></div>
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="input-1">Marital Status</label>
+                                    @Html.DropDownListFor(x => x.material_status_txt, new SelectListItem[]{
+                                    new SelectListItem() {Text = "--Select--", Value=""},
+                                   new SelectListItem() {Text = "Married", Value="Married"},
+                                    new SelectListItem() {Text = "UnMarried", Value="UnMarried"}}, new { @class = "form-control input-shadow validate[required] txtmaritalstatus" , @onchange="txtmaritalstatus(this.value)" })
+
+                                </div>
+                            </div>
+                            @*<div class="col-sm-6">
+            <div class="form-group">
+                <label for="input-3">Relationship</label>
+                <select id="ddlrelation" style="display:none;" class="form-control input-shadow validate[required]">
+                    <option value="">--Select--</option>
+                </select>
+                @Html.HiddenFor(m => m.RelationshipId, new { id = "RelationshipId" })
+                @Html.TextBoxFor(m => m.RelationshipTxt, new { id = "RelationshipTxt", @class = "form-control input-shadow" })
+            </div>
+            <script>
+                $("#RelationshipTxt").focus(function () {
+                    $("#RelationshipTxt").hide();
+                    $("#ddlrelation").show();
+                });
+            </script>
+        </div>*@
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="input-1">Religion</label>
+                                    @Html.DropDownListFor(x => x.Religiontext, new SelectListItem[]{
+                             new SelectListItem() {Text = "--Select--", Value=""},
+                             new SelectListItem() {Text = "Buddhism", Value="Buddhism"},
+                             new SelectListItem() {Text = "Christians", Value="Christians"},
+                             new SelectListItem() {Text = "Hinduism", Value="Hinduism"},
+                             new SelectListItem() {Text = "Islam", Value="Islam"},
+                             new SelectListItem() {Text = "Jainism", Value="Jainism"},
+                             new SelectListItem() {Text = "Sikhism", Value="Sikhism"},
+
+                             new SelectListItem() {Text = "Zoroastrian", Value="Zoroastrian"}}, new { @class = "form-control input-shadow validate[required]" })
+
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="input-1">Gender</label>
+                                    @Html.DropDownListFor(x => x.Gendertext, new SelectListItem[]{
+                                    new SelectListItem() {Text = "--Select--", Value=""},
+                                    new SelectListItem() {Text = "Male", Value="Male"},
+                                    new SelectListItem() {Text = "Female", Value="Female"},
+                                    new SelectListItem() {Text = "Transgender", Value="Transgender"}}, new { @class = "form-control input-shadow validate[required] ddlgender"  , @style="display:none;"   ,  @name= "Gendertext" , @onchange = "getgenderval(value)" })
+
+
+
+                                    @Html.TextBoxFor(m => m.Gendertxt, new { @class = "form-control input-shadow", @id = "txtgender", @placeholder = "--Select--" })
+
+                                    <script>
+                                        $("#txtgender").focus(function () {
+
+                                            $("#txtgender").hide();
+                                            $(".ddlgender").show();
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3"></div>
+
+
+
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label for="input-1">Occupation</label>
+                                    @Html.TextBoxFor(m => m.Occupation, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtoccupation", @placeholder = "Enter Occupation", @autocomplete = "off" })
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-3 changecontent2">
+                                <div class="form-group">
+                                    <label for="input-1" id="lbl">@ViewBag.gender</label>
+                                 
+                                    @Html.TextBoxFor(m => m.Spousetxt, new { @class = "form-control input-shadow validate[required] text-input", @onfocus = "changetxt()", @id = "txtchange2", @placeholder = "Enter Father/Spouse Name", @autocomplete = "off" })
+
+
+                                
+
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3 changecontent" style="display:none;">
+                                <div class="form-group">
+                                    <label for="input-1" id="lblchange"></label>
+                                    @Html.TextBoxFor(m => m.SpouseName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtchange", @placeholder = "Enter Father/Spouse Name", @autocomplete = "off" })
+
+
+
+                                    <script>
+
+                                        function changetxt() {
+
+                                            $("#changecontent2").hide();
+                                            $("#changecontent").show();
+                                        }
+
+                                    </script>
+
+                                </div>
+                            </div>
+
+                        </div>
 
 
                             <div class="row">
@@ -953,7 +976,7 @@
 
     function txtmaritalstatus(value) {
 
-      
+        $(".changecontent2").hide();
 
         var gender = $("#GenderId").val();
 
@@ -1048,7 +1071,7 @@
 
     function getgenderval(value)
     {
-
+        $(".changecontent2").hide();
         var maritalstatus = $(".txtmaritalstatus").val();
      
         if (maritalstatus != "") {
@@ -1330,6 +1353,25 @@
         $("#TestatorForm").validationEngine();
     });
 </script>
+
+
+
+@if (ViewBag.hasdata == "true")
+{
+    <script>
+
+        $(document).ready(function () {
+
+
+            $("#txtchange2").show();
+
+
+        });
+
+
+    </script>
+
+}
 
 
 @*validation script*@

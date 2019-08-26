@@ -472,7 +472,7 @@ namespace WillAssure.Controllers
 
                 d = "select * from BeneficiaryDetails where tid = " + Convert.ToInt32(Session["distid"]) + "";
 
-                string data11 = "<option value='0'>--Select--</option>";
+                string data11 = "<option value=''>--Select--</option>";
                 con.Open();
 
                 SqlDataAdapter da11 = new SqlDataAdapter(d, con);
@@ -574,8 +574,8 @@ namespace WillAssure.Controllers
                     res += "<tr class='rowclass'>";
 
 
-                    res += "<td><select disabled name='alt_proportion'  style='width:109px' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1' class='form-control altbeneficiaryclass disabledelement'>" + data11 + "</select></td>";
-                    res += "<td><input disabled type='text' name='alt_proportion' style='width:109px' id='alt_proportion1' class='form-control alt_proportioninput disabledelement'></td>";
+                    res += "<td><select disabled name='alt_proportion'  style='width:109px' onchange='checkaltbeneficiaryduplicate(this.id,this.value)' id='alt_beneficiary1' class='form-control altbeneficiaryclass disabledelement  '>" + data11 + "</select></td>";
+                    res += "<td><input disabled type='text' name='alt_proportion' style='width:109px' id='alt_proportion1' class='form-control alt_proportioninput disabledelement '></td>";
                     res += "<td><input disabled type='text' name='alt_total' style='Width:109px;'  id='alt_total1' value='100' class='form-control alt_totalinput disabledelement'></td>";
                     res += "<td><input disabled type='text' name='alt_proportion' style='display:none;' value='0' id='alt_pr1' class='form-control alt_propo disabledelement'></td>";
                     res += "<td><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add Alternate Beneficiary</button></td>";

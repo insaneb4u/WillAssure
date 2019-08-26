@@ -561,7 +561,7 @@
                                         <div class="form-group">
 
                                             <label for="input-1">Mobile</label>
-                                            @Html.TextBoxFor(m => m.nomMobile, new { @class = "form-control input-shadow required validate[required,custom[Mobile],maxSize[10]]", @id = "txtmobile", @placeholder = "Enter Mobile", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextBoxFor(m => m.nomMobile, new { @class = "form-control input-shadow required validate[custom[Mobile],maxSize[10]]", @id = "txtmobile", @placeholder = "Enter Mobile", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
 
@@ -805,7 +805,7 @@
 
                                 </div>
                                 <hr />
-                                <div class="row">
+                                @*<div class="row">
                                     <div class="col-sm-1"></div>
                                     <div class="col-sm-2"> <label for="input-1">Description of Assets</label></div>
 
@@ -830,7 +830,7 @@
 
 
 
-                                </div>
+                                </div>*@
 
 
 
@@ -1480,13 +1480,13 @@ else
 
             $("#txtasset").attr("disabled", "disabled");
 
-            $("#0").attr("disabled", "disabled");
-            $("#1").attr("disabled", "disabled");
-            $("#2").attr("disabled", "disabled");
-            $("#3").attr("disabled", "disabled");
-            $("#4").attr("disabled", "disabled");
-            $("#5").attr("disabled", "disabled");
-            $("#6").attr("disabled", "disabled");
+            //$("#0").attr("disabled", "disabled");
+            //$("#1").attr("disabled", "disabled");
+            //$("#2").attr("disabled", "disabled");
+            //$("#3").attr("disabled", "disabled");
+            //$("#4").attr("disabled", "disabled");
+            //$("#5").attr("disabled", "disabled");
+            //$("#6").attr("disabled", "disabled");
 
 
 
@@ -1549,7 +1549,7 @@ else
 
         $("#nomineeform").hide();
 
-
+        $("#btnnomineeformsubmit").show();
 
 
         $("#btneditmsg").hide();
@@ -1583,7 +1583,7 @@ else
 
         $("#nomineeform").hide();
 
-
+        $("#btnnomineeformsubmit").show();
 
 
         $("#btneditmsg").hide();
@@ -2498,27 +2498,30 @@ else
 
             $("#nomineeform").show();
 
+            $("#btnupdate").show();
 
 
-            $("#txtfirstname").attr("disabled", "disabled");
-            $("#txtmiddlename").attr("disabled", "disabled");
-            $("#txtlastname").attr("disabled", "disabled");
-            $("#DOB").attr("disabled", "disabled");
-            $("#txtmobile").attr("disabled", "disabled");
-            $("#ddlrelation").attr("disabled", "disabled");
-            $("#nommaritalstatus").attr("disabled", "disabled");
-            $("#nomreligion").attr("disabled", "disabled");
-            $("#ddlstate").attr("disabled", "disabled");
-            $("#ddlcity").attr("disabled", "disabled");
-            $("#txtpin").attr("disabled", "disabled");
-            $("#txtaddress1").attr("disabled", "disabled");
-            $("#txtaddress2").attr("disabled", "disabled");
-            $("#txtaddress3").attr("disabled", "disabled");
-            $("#identityproof").attr("disabled", "disabled");
-            $("#txtidentityproof").attr("disabled", "disabled");
-            $("#ddlidentityproof1").attr("disabled", "disabled");
-            $("#txtIdentityProofValue").attr("disabled", "disabled");
-            $("#txtdescriptionofasset").attr("disabled", "disabled");
+            $("#btnnomineeformsubmit").hide();
+
+            //$("#txtfirstname").attr("disabled", "disabled");
+            //$("#txtmiddlename").attr("disabled", "disabled");
+            //$("#txtlastname").attr("disabled", "disabled");
+            //$("#DOB").attr("disabled", "disabled");
+            //$("#txtmobile").attr("disabled", "disabled");
+            //$("#ddlrelation").attr("disabled", "disabled");
+            //$("#nommaritalstatus").attr("disabled", "disabled");
+            //$("#nomreligion").attr("disabled", "disabled");
+            //$("#ddlstate").attr("disabled", "disabled");
+            //$("#ddlcity").attr("disabled", "disabled");
+            //$("#txtpin").attr("disabled", "disabled");
+            //$("#txtaddress1").attr("disabled", "disabled");
+            //$("#txtaddress2").attr("disabled", "disabled");
+            //$("#txtaddress3").attr("disabled", "disabled");
+            //$("#identityproof").attr("disabled", "disabled");
+            //$("#txtidentityproof").attr("disabled", "disabled");
+            //$("#ddlidentityproof1").attr("disabled", "disabled");
+            //$("#txtIdentityProofValue").attr("disabled", "disabled");
+            //$("#txtdescriptionofasset").attr("disabled", "disabled");
 
         });
 

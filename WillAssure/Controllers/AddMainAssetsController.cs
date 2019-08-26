@@ -640,7 +640,16 @@ namespace WillAssure.Controllers
                     NM.nomLast_Name = dt22.Rows[i]["Last_Name"].ToString();
                     NM.nomMiddle_Name = dt22.Rows[i]["Middle_Name"].ToString();
                     NM.nomDob = Convert.ToDateTime(dt22.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
-                    NM.nomMobile = dt22.Rows[i]["Mobile"].ToString();
+
+                    if (dt22.Rows[i]["Mobile"].ToString() != "None")
+                    {
+                        NM.nomMobile = dt22.Rows[i]["Mobile"].ToString();
+                    }
+                   
+
+                   
+
+
                     NM.nomRelationshipTxt = dt22.Rows[i]["Relationship"].ToString();
                     NM.nomMarital_Status = dt22.Rows[i]["Marital_Status"].ToString();
                     NM.nomReligion = dt22.Rows[i]["Religion"].ToString();
@@ -654,12 +663,19 @@ namespace WillAssure.Controllers
                     NM.nomcitytext = dt22.Rows[i]["City"].ToString();
                     NM.nomstatetext = dt22.Rows[i]["State"].ToString();
                     NM.nomPin = dt22.Rows[i]["Pin"].ToString();
-
-
                     NM.nomcreatedBy = dt22.Rows[i]["createdBy"].ToString();
+
+
+
+
 
                     NM.nomDescription_of_Assets = dt22.Rows[i]["Description_of_Assets"].ToString();
 
+
+                    if (dt22.Rows[i]["Description_of_Assets"].ToString() != "None")
+                    {
+                        NM.nomMobile = dt22.Rows[i]["Mobile"].ToString();
+                    }
 
 
                 }
@@ -1761,7 +1777,23 @@ namespace WillAssure.Controllers
                     cmd2.Parameters.AddWithValue("@Middle_Name", collection["nomMiddle_Name"]);
                 
                     cmd2.Parameters.AddWithValue("@DOB", Convert.ToDateTime(collection["nomDob"]).ToString("yyyy-MM-dd"));
-                    cmd2.Parameters.AddWithValue("@Mobile", collection["nomMobile"]);
+
+
+
+                    if (collection["nomMobile"] != null)
+                    {
+
+                        cmd2.Parameters.AddWithValue("@Mobile", collection["nomMobile"]);
+                    }
+                    else
+                    {
+                        cmd2.Parameters.AddWithValue("@Mobile", "None");
+                    }
+
+                    
+
+
+
                     cmd2.Parameters.AddWithValue("@Relationship", collection["nomRelationshipTxt"]);
                     cmd2.Parameters.AddWithValue("@Marital_Status", collection["nomMarital_Status"]);
                     cmd2.Parameters.AddWithValue("@Religion", collection["nomReligion"]);
@@ -1819,7 +1851,7 @@ namespace WillAssure.Controllers
                     //cmd.Parameters.AddWithValue("@tId", NM.nomddltid);
                     cmd2.Parameters.AddWithValue("@createdBy", Convert.ToInt32(Session["uuid"]));
                     cmd2.Parameters.AddWithValue("@documentId", "0");
-                    cmd2.Parameters.AddWithValue("@Description_of_Assets", collection["nomDescription_of_Assets"]);
+                    cmd2.Parameters.AddWithValue("@Description_of_Assets", "None");
                     cmd2.Parameters.AddWithValue("@aid", Convert.ToInt32(dt.Rows[0]["aiid"]));
                     cmd2.Parameters.AddWithValue("@tId", Convert.ToInt32(Session["distid"]));
 

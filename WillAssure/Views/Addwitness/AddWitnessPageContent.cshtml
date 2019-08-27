@@ -62,7 +62,7 @@
                                 <h5>
                                     <ul id="menu" style="font-weight:bold;">
                                         <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:#5e72e4;">Testator></li></a>
-                                        @if (ViewBag.tfactive == "true")
+                                        @if (ViewBag.beneactive == "true")
                                         {
 
                                             <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:#5e72e4">TestatorFamily ></li></a>
@@ -72,7 +72,7 @@
                                             <li style="color:#e1e1e1">TestatorFamily ></li>
                                         }
 
-                                        @if (ViewBag.beneinstitureactive == "true")
+                                        @if (ViewBag.beneactive == "true")
                                         {
 
                                             <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
@@ -83,7 +83,7 @@
                                         else
                                         {
                                             <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                <li style="color:black;">Institution ></li>
+                                                <li style="color:#e1e1e1;">Institution ></li>
                                             </a>
                                         }
 
@@ -95,7 +95,7 @@
                                         }
                                         else
                                         {
-                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:#5e72e4;">Beneficiary ></li></a>
+                                            <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:#e1e1e1;">Beneficiary ></li></a>
                                         }
 
 
@@ -105,7 +105,7 @@
                                         }
                                         else
                                         {
-                                            <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:black">Executor ></li></a>
+                                            <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:#e1e1e1">Executor ></li></a>
                                         }
 
 
@@ -118,7 +118,7 @@
                                         else
                                         {
 
-                                            <li style="">Witness > </li>
+                                            <li style="color:black">Witness > </li>
 
                                         }
 
@@ -257,7 +257,7 @@
 
 
 
-                                                @if (ViewBag.tfactive == "true")
+                                                @if (ViewBag.beneactive == "true")
                                                 {
 
                                                     <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:#5e72e4">TestatorFamily ></li></a>
@@ -272,7 +272,7 @@
 
 
 
-                                                @if (ViewBag.beneinstitureactive == "true")
+                                                @if (ViewBag.beneactive == "true")
                                                 {
                                                     <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
                                                         <li style="color:#5e72e4;">Institution ></li>
@@ -281,7 +281,7 @@
                                                 else
                                                 {
                                                     <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
-                                                        <li style="color:black;">Institution ></li>
+                                                        <li style="color:#e1e1e1;">Institution ></li>
                                                     </a>
                                                 }
 
@@ -292,7 +292,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:black;">Beneficiary ></li></a>
+                                                    <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:#e1e1e1;">Beneficiary ></li></a>
                                                 }
 
 
@@ -304,7 +304,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">AssetInformation ></li></a>
+                                                    <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:#e1e1e1;">AssetInformation ></li></a>
                                                 }
 
 
@@ -317,7 +317,7 @@
                                                 else
                                                 {
                                                     <a href="@Url.Action("AddAssetMappingIndex", "AddAssetMapping")">
-                                                        <li style="">Mapping ></li>
+                                                        <li style="color:#e1e1e1">Mapping ></li>
                                                     </a>
                                                 }
 
@@ -329,7 +329,7 @@
                                                 }
                                                 else
                                                 {
-                                                    <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:black">Executor ></li></a>
+                                                    <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:#e1e1e1">Executor ></li></a>
                                                 }
 
 
@@ -1464,7 +1464,7 @@
                                         if (Session["distid"] != null)
                                         {
                                             @*<input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />*@
-                                            <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() } )">
+                                            <a href="@Url.Action("WillDetailsIndex","WillDetails" , new { NestId = Session["distid"].ToString() , doctype = Session["doctype"].ToString() , willtype=Session["WillType"].ToString() } )">
 
                                                 <button type="button" id="btnnext" style="display:none;" class="btn btn-danger shadow-primary px-5">Next&nbsp;&nbsp;<i class="icon-arrow-right-circle"></i></button>
 

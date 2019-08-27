@@ -30,13 +30,39 @@ namespace WillAssure.Controllers
             string queryc3 = "";
             string queryc4 = "";
             string queryc5 = "";
-
+            string queryc22 = "";
             //// check data for next page link if available active links
 
             if (Session["distid"] != null && Session["willtype"] != null && Session["doctype"] != null)
             {
                 con.Open();
 
+
+                //////// check TesttaorFamily 
+
+
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc22 = "select * from testatorFamily where WillType = 'Quick'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                }
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc22 = "select * from testatorFamily where WillType = 'Detailed'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                }
+
+
+
+                SqlDataAdapter dac22 = new SqlDataAdapter(queryc22, con);
+                DataTable dtc22 = new DataTable();
+                dac22.Fill(dtc22);
+
+                if (dtc22.Rows.Count > 0)
+                {
+                    ViewBag.beneactive = "true";
+                }
+
+
+                /////end
 
                 //////// check beneficiary institution
 
@@ -574,8 +600,8 @@ namespace WillAssure.Controllers
                     res += "<tr class='rowclass'>";
 
 
-                    res += "<td><select disabled name='alt_proportion'  style='width:109px' onchange='checkaltbeneficiaryduplicate(this.id,this.value)' id='alt_beneficiary1' class='form-control altbeneficiaryclass disabledelement  '>" + data11 + "</select></td>";
-                    res += "<td><input disabled type='text' name='alt_proportion' style='width:109px' id='alt_proportion1' class='form-control alt_proportioninput disabledelement '></td>";
+                    res += "<td><select disabled name='alt_proportion'  style='width:109px' onchange='checkaltbeneficiaryduplicate(this.id,this.value)' id='alt_beneficiary1' data-errormessage-value-missing='All Alternate Beneficiary Fields are Mandatory...!' class='form-control altbeneficiaryclass disabledelement  validate[required]'>" + data11 + "</select></td>";
+                    res += "<td><input disabled type='text' name='alt_proportion' style='width:109px' id='alt_proportion1' class='form-control alt_proportioninput disabledelement validate[required]'   data-errormessage-value-missing='All Alternate Beneficiary Fields are Mandatory...!'></td>";
                     res += "<td><input disabled type='text' name='alt_total' style='Width:109px;'  id='alt_total1' value='100' class='form-control alt_totalinput disabledelement'></td>";
                     res += "<td><input disabled type='text' name='alt_proportion' style='display:none;' value='0' id='alt_pr1' class='form-control alt_propo disabledelement'></td>";
                     res += "<td><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add Alternate Beneficiary</button></td>";

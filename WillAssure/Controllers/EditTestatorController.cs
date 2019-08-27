@@ -20,11 +20,11 @@ namespace WillAssure.Controllers
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         SqlConnection con = new SqlConnection(connectionString);
         // GET: EditTestator
-        public ActionResult EditTestatorIndex(string doctype)
+        public ActionResult EditTestatorIndex(string doctype , string Willtype)
         {
 
-            Session["WillType"] = "";
-            Session["doctype"] = "";
+            //Session["WillType"] = "";
+            //Session["doctype"] = "";
             TempData["selected"] = doctype;
             // check type 
             string typ5 = "";
@@ -292,10 +292,53 @@ namespace WillAssure.Controllers
             }
 
 
+            con.Open();
+            string checkuid = "";
+            int tid = 0;
+            if (Session["WillType"].ToString() == "Quick")
+            {
+                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+            }
+
+            if (Session["WillType"].ToString() == "Detailed")
+            {
+                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+            }
+
+            if (checkuid != "")
+            {
+                SqlDataAdapter chkda = new SqlDataAdapter(checkuid, con);
+                DataTable chkdt = new DataTable();
+                chkda.Fill(chkdt);
+                
+
+                if (chkdt.Rows.Count > 0)
+                {
+                    tid = Convert.ToInt32(chkdt.Rows[0]["tId"]);
+                }
+            }
+
+       
+            con.Close();
+
+
+
+
             if (Convert.ToInt32(Session["uuid"]) != 1)
             {
                 con.Open();
-                string query = "select b.tId , b.First_Name , b.Last_Name , b.Middle_Name , b.DOB , b.Occupation , b.Mobile , b.Email , b.maritalStatus , b.RelationShip , b.Religion , b.Identity_Proof , b.Identity_proof_Value , b.Alt_Identity_Proof , b.Alt_Identity_proof_Value , b.Gender , b.Address1 , b.Address2, b.Address3 , b.Country , b.State , b.City , b.Pin , b.active , b.uId , b.Contact_Verification , b.Email_Verification , b.Mobile_Verification_Status , b.dateCreated , b.Email_OTP , b.Mobile_OTP , b.PaymentStatus , b.documentstatus , b.WillType from users a inner join TestatorDetails b on a.uId=b.uId where Linked_user = " + Convert.ToInt32(Session["uuid"]) + "  ";
+                string query = "";
+                if (tid != 0)
+                {
+                     query = "select b.tId , b.First_Name , b.Last_Name , b.Middle_Name , b.DOB , b.Occupation , b.Mobile , b.Email , b.maritalStatus , b.RelationShip , b.Religion , b.Identity_Proof , b.Identity_proof_Value , b.Alt_Identity_Proof , b.Alt_Identity_proof_Value , b.Gender , b.Address1 , b.Address2, b.Address3 , b.Country , b.State , b.City , b.Pin , b.active , b.uId , b.Contact_Verification , b.Email_Verification , b.Mobile_Verification_Status , b.dateCreated , b.Email_OTP , b.Mobile_OTP , b.PaymentStatus , b.documentstatus , b.WillType from users a inner join TestatorDetails b on a.uId=b.uId and b.tId=" + tid + " ";
+                }
+                else
+                {
+                     query = "select b.tId , b.First_Name , b.Last_Name , b.Middle_Name , b.DOB , b.Occupation , b.Mobile , b.Email , b.maritalStatus , b.RelationShip , b.Religion , b.Identity_Proof , b.Identity_proof_Value , b.Alt_Identity_Proof , b.Alt_Identity_proof_Value , b.Gender , b.Address1 , b.Address2, b.Address3 , b.Country , b.State , b.City , b.Pin , b.active , b.uId , b.Contact_Verification , b.Email_Verification , b.Mobile_Verification_Status , b.dateCreated , b.Email_OTP , b.Mobile_OTP , b.PaymentStatus , b.documentstatus , b.WillType from users a inner join TestatorDetails b on a.uId=b.uId where Linked_user = " + Convert.ToInt32(Session["uuid"]) + "  ";
+                }
+
+                
+
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);

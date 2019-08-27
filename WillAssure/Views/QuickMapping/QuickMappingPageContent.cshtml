@@ -49,9 +49,17 @@
                             <h5>
                                 <ul id="menu" style="font-weight:bold;">
                                     <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:#5e72e4;">Testator></li></a>
-                                    <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li>TestatorFamily ></li></a>
+                                    @if (ViewBag.beneactive == "true")
+                                    {
 
-                                    @if (ViewBag.beneinstitureactive == "true")
+                                        <a href="@Url.Action("AddTestatorFamilyIndex","AddTestatorFamily")"> <li style="color:#5e72e4">TestatorFamily ></li></a>
+                                    }
+                                    else
+                                    {
+                                        <li style="color:#e1e1e1">TestatorFamily ></li>
+                                    }
+
+                                    @if (ViewBag.beneactive == "true")
                                     {
 
                                         <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">

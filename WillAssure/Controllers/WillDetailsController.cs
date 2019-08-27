@@ -15,7 +15,7 @@ namespace WillAssure.Controllers
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         SqlConnection con = new SqlConnection(connectionString);
         // GET: WillDetails
-        public ActionResult WillDetailsIndex(int NestId , string doctype)
+        public ActionResult WillDetailsIndex(int NestId , string doctype , string willtype)
         {
             ViewBag.Collapse = "true";
             //if (Session["Type"].ToString() != "DistributorAdmin")
@@ -42,12 +42,41 @@ namespace WillAssure.Controllers
             string queryc4 = "";
             string queryc5 = "";
             string queryc7 = "";
+            string queryc22 = "";
+            string queryc44 = "";
             //// check data for next page link if available active links
 
             if (Session["distid"] != null && Session["willtype"] != null && Session["doctype"] != null)
             {
                 con.Open();
 
+
+
+                //////// check TesttaorFamily 
+
+
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc22 = "select * from testatorFamily where WillType = 'Quick'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                }
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc22 = "select * from testatorFamily where WillType = 'Detailed'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                }
+
+
+
+                SqlDataAdapter dac22 = new SqlDataAdapter(queryc22, con);
+                DataTable dtc22 = new DataTable();
+                dac22.Fill(dtc22);
+
+                if (dtc22.Rows.Count > 0)
+                {
+                    ViewBag.beneactive = "true";
+                }
+
+
+                /////end
 
                 //////// check beneficiary institution
 
@@ -311,7 +340,7 @@ namespace WillAssure.Controllers
 
 
 
-
+            
 
 
 
@@ -496,11 +525,63 @@ namespace WillAssure.Controllers
             List<WillDetailModel> list7 = new List<WillDetailModel>();
             List<WillDetailModel> list8 = new List<WillDetailModel>();
             List<WillDetailModel> list9 = new List<WillDetailModel>();
+            List<WillDetailModel> list10 = new List<WillDetailModel>();
 
-        
-                con.Open();
 
-                string query = "select * from TestatorDetails where tId = "+NestId+" ";
+            con.Open();
+
+
+
+            string query11 = "select * from BeneficiaryInstitutions where tid = " + NestId + " ";
+            SqlDataAdapter da11 = new SqlDataAdapter(query11, con);
+            DataTable dt11 = new DataTable();
+            da11.Fill(dt11);
+            con.Close();
+
+
+            //WDM.VerifyId = NestId;
+            if (dt11.Rows.Count > 0)
+            {
+
+                // testator details
+                for (int i = 0; i < dt11.Rows.Count; i++)
+                {
+                    WillDetailModel WDM1 = new WillDetailModel();
+
+                    ViewBag.tid = Convert.ToInt32(dt11.Rows[i]["tId"]);
+                    WDM1.insFirstName = dt11.Rows[i]["Name"].ToString();
+                    WDM1.insTypeText = dt11.Rows[i]["Type"].ToString();
+                    WDM1.insRegistrationNo = dt11.Rows[i]["registrationNo"].ToString();
+                    WDM1.insAddress = dt11.Rows[i]["Address"].ToString();
+                    WDM1.insStateText = dt11.Rows[i]["State"].ToString();
+                    WDM1.insCityText = dt11.Rows[i]["City"].ToString();
+                    WDM1.inscountry_txt = dt11.Rows[i]["Country"].ToString();
+
+                    //end
+
+                    list10.Add(WDM1);
+
+                }
+
+
+                ViewBag.institution = list10;
+
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            string query = "select * from TestatorDetails where tId = "+NestId+" ";
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -565,18 +646,18 @@ namespace WillAssure.Controllers
 
                 if (Session["doctype"].ToString() == "Will")
                 {
-                    query2 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + " and a.doctype = 'Will'   ";
+                    query2 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + " and a.doctype = 'Will'  and a.beneficiary_type='Beneficiary' ";
                 }
 
                 if (Session["doctype"].ToString() == "POA")
                 {
-                    query2 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + " and a.doctype = 'POA'   ";
+                    query2 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + " and a.doctype = 'POA'  and a.beneficiary_type='Beneficiary'    ";
                 }
 
 
                 if (Session["doctype"].ToString() == "GiftDeeds")
                 {
-                    query2 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + " and a.doctype = 'GiftDeeds'   ";
+                    query2 = "select a.bpId , a.First_Name , a.Last_Name , a.Middle_Name , a.DOB , a.Mobile , a.Relationship , a.Marital_Status , a.Religion , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.aiid , a.tId , a.dateCreated , a.createdBy , a.documentId , a.beneficiary_type from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId where b.tId = " + NestId + " and a.doctype = 'GiftDeeds'  and a.beneficiary_type='Beneficiary'   ";
                 }
 
 
@@ -660,7 +741,7 @@ namespace WillAssure.Controllers
 
                 if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Quick")
                 {
-                    query3 = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = "+NestId+"   and a.Type='Executor' and a.WillType = 'Detailed'";
+                    query3 = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = "+NestId+"   and a.Type='Executor' and a.WillType = 'Quick'";
                 }
 
                 if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Detailed")
@@ -799,9 +880,14 @@ namespace WillAssure.Controllers
             if (Session["doctype"] != null)
             {
 
-                if (Session["doctype"].ToString() == "Will")
+                if (Session["WillType"].ToString() == "Quick")
                 {
-                    query6 = "select e.First_Name , c.AssetsType , b.AssetsCategory ,  a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId  inner join BeneficiaryDetails e on e.tId=a.tid where a.tid =  " + NestId + " and a.doctype = 'Will'";
+                    query6 = "select b.First_Name , a.Proportion from BeneficiaryAssets a inner join BeneficiaryDetails b on a.tid=b.tId where a.WillType = 'Quick' and a.tid = "+ NestId + "";
+                }
+
+                if (Session["WillType"].ToString() == "Detailed")
+                {
+                    query6 = "select e.First_Name , c.AssetsType , b.AssetsCategory ,  a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId  inner join BeneficiaryDetails e on e.tId=a.tid where a.tid =  " + NestId + " and a.doctype = 'Will' and a.WillType='Detailed'";
                 }
 
                 if (Session["doctype"].ToString() == "POA")
@@ -843,9 +929,14 @@ namespace WillAssure.Controllers
                 {
                     WillDetailModel WDM5 = new WillDetailModel();
                     WDM5.BeneficiaryName = dt6.Rows[i]["First_Name"].ToString();
-                    WDM5.bmassettype = dt6.Rows[i]["AssetsType"].ToString();
 
-                    WDM5.bmassetcat = dt6.Rows[i]["AssetsCategory"].ToString();
+                    if (Session["WillType"].ToString() != "Quick")
+                    {
+                        WDM5.bmassettype = dt6.Rows[i]["AssetsType"].ToString();
+
+                        WDM5.bmassetcat = dt6.Rows[i]["AssetsCategory"].ToString();
+                    }
+                  
              
                     WDM5.bmproportion = dt6.Rows[i]["Proportion"].ToString();
                     list6.Add(WDM5);
@@ -872,53 +963,7 @@ namespace WillAssure.Controllers
 
 
 
-                // altbene 
-
-
-
-                con.Open();
-                string query7 = "select * from alternate_Beneficiary where tid = " + NestId + "";
-                SqlDataAdapter da7 = new SqlDataAdapter(query7, con);
-                DataTable dt7 = new DataTable();
-                da7.Fill(dt7);
-
-                con.Close();
-
-                if (dt7.Rows.Count > 0)
-                {
-                for (int i = 0; i < dt7.Rows.Count; i++)
-                {
-                    WillDetailModel ABM = new WillDetailModel();
-                    ABM.altbenefirstname = dt7.Rows[i]["First_Name"].ToString();
-                    ABM.altbenelastname = dt7.Rows[i]["Last_Name"].ToString();
-                    ABM.altbenemiddlename = dt7.Rows[i]["Middle_Name"].ToString();
-
-                    ABM.altbenedob = Convert.ToDateTime(dt7.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
-                    ABM.altbenemobile = dt7.Rows[i]["Mobile"].ToString();
-                    ABM.altbenerelationship = dt7.Rows[i]["Relationship"].ToString();
-                    ABM.altbenemaritalstatus = dt7.Rows[i]["Marital_Status"].ToString();
-                    ABM.altbenereligion = dt7.Rows[i]["Religion"].ToString();
-                    ABM.altbeneidentityproof = dt7.Rows[i]["Identity_Proof"].ToString();
-                    ABM.altbeneidentityproofvalue = dt7.Rows[i]["Identity_Proof_Value"].ToString();
-                    ABM.altbenealtidentityproof = dt7.Rows[i]["Alt_Identity_Proof"].ToString();
-                    ABM.altbenealtidentityproofvalue = dt7.Rows[i]["Alt_Identity_Proof_Value"].ToString();
-                    ABM.altbeneaddress1 = dt7.Rows[i]["Address1"].ToString();
-                    ABM.altbeneaddress2 = dt7.Rows[i]["Address2"].ToString();
-                    ABM.altbeneaddress3 = dt7.Rows[i]["Address3"].ToString();
-                    ABM.altbenecity = dt7.Rows[i]["City"].ToString();
-                    ABM.altbenestate = dt7.Rows[i]["State"].ToString();
-                    ABM.altbenepin = dt7.Rows[i]["Pin"].ToString();
-
-                    list7.Add(ABM);
-
-                }
-
-                    ViewBag.altbene = list7;
-
-
-                }
-              
-
+                
 
 
 
@@ -965,77 +1010,120 @@ namespace WillAssure.Controllers
 
                     ViewBag.nominee = list8;
                 }
-                
-
-
-
-                //end
 
 
 
 
-                // alt appointment
+            //end
 
 
 
-                con.Open();
-                string query9 = "select a.id , a.apId , a.Name , a.MiddleName , a.Surname , a.Identity_proof , a.Identity_proof_value , a.Alt_Identity_proof , a.Alt_Identity_proof_value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.altguardian , a.altexec from alternate_Appointees a inner join TestatorDetails b on a.tid=b.tId where a.tid = " + NestId + "";
-                SqlDataAdapter da9 = new SqlDataAdapter(query9, con);
-                DataTable dt9 = new DataTable();
-                da9.Fill(dt9);
-                con.Close();
-                string data = "";
 
-                if (dt9.Rows.Count > 0)
+
+
+
+            // Witness 
+
+
+
+
+            con.Open();
+            string query33 = "";
+
+
+            if (Session["doctype"] != null)
+            {
+
+                if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Quick")
                 {
-
-
-                for (int i = 0; i < dt9.Rows.Count; i++)
-                {
-                    WillDetailModel Am = new WillDetailModel();
-
-
-                    Am.altappname = dt9.Rows[i]["Name"].ToString();
-                    Am.altappmiddlename = dt9.Rows[i]["middleName"].ToString();
-                    Am.altappsurname = dt9.Rows[i]["Surname"].ToString();
-                    Am.altappidentityproof = dt9.Rows[i]["Identity_Proof"].ToString();
-                    Am.altappidentityproofvalue = dt9.Rows[i]["Identity_Proof_Value"].ToString();
-                    Am.altappaltidentityproof = dt9.Rows[i]["Alt_Identity_Proof"].ToString();
-                    Am.altappaltidentityproofvalue = dt9.Rows[i]["Alt_Identity_Proof_Value"].ToString();
-
-                    //Am.altappdob = Convert.ToDateTime(dt9.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
-
-                    Am.altappgender = dt9.Rows[i]["Gender"].ToString();
-                    Am.altappoccupation = dt9.Rows[i]["Occupation"].ToString();
-                    Am.altapprelationship = dt9.Rows[i]["Relationship"].ToString();
-                    Am.altappaddress1 = dt9.Rows[i]["Address1"].ToString();
-                    Am.altappaddress2 = dt9.Rows[i]["Address2"].ToString();
-                    Am.altappaddress3 = dt9.Rows[i]["Address3"].ToString();
-                    Am.altappcity = dt9.Rows[i]["City"].ToString();
-                    Am.altappstate = dt9.Rows[i]["State"].ToString();
-                    Am.altapppin = dt9.Rows[i]["Pin"].ToString();
-                    Am.altappaltguardian = dt9.Rows[i]["altguardian"].ToString();
-                    Am.altappaltexec = dt9.Rows[i]["altexec"].ToString();
-
-
-                    list9.Add(Am);
-
+                    query33 = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = " + NestId + "   and a.Type='Witness' and a.WillType = 'Quick'";
                 }
 
-                    ViewBag.altappointment = list9;
+                if (Session["doctype"].ToString() == "Will" && Session["WillType"].ToString() == "Detailed")
+                {
+                    query33 = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = " + NestId + "   and a.Type='Witness' and a.WillType = 'Detailed'";
                 }
-             
+
+                if (Session["doctype"].ToString() == "POA")
+                {
+                    query33 = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = " + NestId + " and a.doctype = 'POA' and a.ExecutorType='Executor' ";
+                }
+
+
+                if (Session["doctype"].ToString() == "GiftDeeds")
+                {
+                    query33 = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = " + NestId + " and a.doctype = 'Giftdeeds' and a.ExecutorType='Executor' ";
+                }
+
+
+
+
+
+            }
+            else
+            {
+                return RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+
+
+
+
+            SqlDataAdapter da43 = new SqlDataAdapter(query33, con);
+            DataTable dt43 = new DataTable();
+            da43.Fill(dt43);
+            con.Close();
+
+
+
+            if (dt43.Rows.Count > 0)
+            {
+                for (int i = 0; i < dt43.Rows.Count; i++)
+                {
+                    WillDetailModel WDM4 = new WillDetailModel();
+
+
+                    WDM4.waltappointeesType = dt43.Rows[i]["Type"].ToString();
+
+                    WDM4.waltappointeesSubtype = dt43.Rows[i]["subType"].ToString();
+                    WDM4.waltappname = dt43.Rows[i]["Name"].ToString();
+                    WDM4.waltappmiddlename = dt43.Rows[i]["middleName"].ToString();
+                    WDM4.waltappsurname = dt43.Rows[i]["Surname"].ToString();
+                    WDM4.waltappidentityproof = dt43.Rows[i]["Identity_Proof"].ToString();
+                    WDM4.waltappidentityproofvalue = dt43.Rows[i]["Identity_Proof_Value"].ToString();
+                    WDM4.waltappaltidentityproof = dt43.Rows[i]["Alt_Identity_Proof"].ToString();
+                    WDM4.waltappaltidentityproofvalue = dt43.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                    //WDM4.appointeesDOB = Convert.ToDateTime(dt44.Rows[i]["DOB"]).ToString("dd-MM-yyyy");
+                    WDM4.waltappgender = dt43.Rows[i]["Gender"].ToString();
+                    WDM4.waltappoccupation = dt43.Rows[i]["Occupation"].ToString();
+                    WDM4.waltapprelationship = dt43.Rows[i]["Relationship"].ToString();
+                    WDM4.waltappaddress1 = dt43.Rows[i]["Address1"].ToString();
+                    WDM4.waltappaddress2 = dt43.Rows[i]["Address2"].ToString();
+                    WDM4.waltappaddress3 = dt43.Rows[i]["Address3"].ToString();
+                    WDM4.waltappcity = dt43.Rows[i]["City"].ToString();
+                    WDM4.waltappstate = dt43.Rows[i]["State"].ToString();
+                    WDM4.wltapppin = dt43.Rows[i]["Pin"].ToString();
+
+                    list5.Add(WDM4);
+                }
+            }
+            ViewBag.Witness = list5;
 
 
 
 
 
 
-                //end
+            //end
 
 
 
-            
+
+
+
+
+
+
+
 
 
 

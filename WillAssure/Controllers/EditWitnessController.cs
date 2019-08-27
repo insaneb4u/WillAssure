@@ -17,8 +17,14 @@ namespace WillAssure.Controllers
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         SqlConnection con = new SqlConnection(connectionString);
         // GET: EditWitness
-        public ActionResult EditWitnessIndex(string Type)
+        public ActionResult EditWitnessIndex(string Type , string typ)
         {
+            if (typ != null)
+            {
+                TempData["typ"] = typ;
+            }
+
+
             // check type 
 
             if (Type != "" || Type != null)
@@ -248,7 +254,15 @@ namespace WillAssure.Controllers
             if (Convert.ToInt32(Session["uuid"]) != 1)
             {
                 con.Open();
-                string query = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = " + chktid + "  and  a.Type='" + Session["typ"].ToString() + "'   ";
+                string query = "";
+                if (Session["typ"] != null)
+                {
+                    query = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = " + chktid + "  and  a.Type='" + Session["typ"].ToString() + "'   ";
+                }
+                else
+                {
+                    query = "select a.apId , a.documentId , a.Type , a.subType , a.Name , a.middleName  , a.Surname , a.Identity_Proof , a.Identity_Proof_Value , a.Alt_Identity_Proof , a.Alt_Identity_Proof_Value , a.DOB , a.Gender , a.Occupation , a.Relationship , a.Address1 , a.Address2 , a.Address3 , a.City , a.State , a.Pin , a.dateCreated, a.tid  from Appointees a inner join  TestatorDetails b on a.tid=b.tid where b.tId = " + chktid + "  and  a.Type='" + TempData["typ"].ToString() + "'   ";
+                }
                 SqlDataAdapter da = new SqlDataAdapter(query, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -708,10 +722,13 @@ namespace WillAssure.Controllers
 
 
 
+            if (TempData["typ"] != null)
+            {
+                Session["typ"] = TempData["typ"].ToString();
+            }
 
 
-
-
+           
 
             ////////////////////////////////////////////////end//////////////////////////////////////////////////////////////
 

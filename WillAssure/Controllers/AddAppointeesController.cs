@@ -31,11 +31,42 @@ namespace WillAssure.Controllers
             string queryc5 = "";
             string queryc6 = "";
             string queryc7 = "";
+            string queryc22 = "";
             //// check data for next page link if available active links
 
             if (Session["distid"] != null && Session["willtype"] != null && Session["doctype"] != null)
             {
                 con.Open();
+
+
+
+                //////// check TesttaorFamily 
+
+
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc22 = "select * from testatorFamily where WillType = 'Quick'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                }
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc22 = "select * from testatorFamily where WillType = 'Detailed'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                }
+
+
+
+                SqlDataAdapter dac22 = new SqlDataAdapter(queryc22, con);
+                DataTable dtc22 = new DataTable();
+                dac22.Fill(dtc22);
+
+                if (dtc22.Rows.Count > 0)
+                {
+                    ViewBag.beneactive = "true";
+                }
+
+
+                /////end
+
+
 
 
                 //////// check beneficiary institution
@@ -336,9 +367,9 @@ namespace WillAssure.Controllers
 
 
 
-            if (TempData["Message"] != null)
+            if (TempData["msg"] != null)
             {
-                if (TempData["Message"].ToString() == "true")
+                if (TempData["msg"].ToString() == "true")
                 {
                     ViewBag.Message = "Verified";
                 }
@@ -2929,7 +2960,7 @@ namespace WillAssure.Controllers
             // end
 
 
-            TempData["Message"] = "true";
+            TempData["msg"] = "true";
 
             ModelState.Clear();
 
@@ -4450,7 +4481,7 @@ namespace WillAssure.Controllers
             }
             con.Close();
 
-            TempData["Message"] = "true";
+            TempData["msg"] = "true";
 
             return RedirectToAction("AddAppointeesIndex", "AddAppointees");
         }
@@ -4535,7 +4566,7 @@ namespace WillAssure.Controllers
             con.Close();
 
 
-            TempData["Message"] = "true";
+            TempData["msg"] = "true";
             return RedirectToAction("AddAppointeesIndex", "AddAppointees");
         }
 

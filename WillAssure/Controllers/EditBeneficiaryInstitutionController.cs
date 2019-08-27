@@ -20,7 +20,7 @@ namespace WillAssure.Controllers
         // GET: EditBeneficiaryInstitution
         public ActionResult EditBeneficiaryInstitutionIndex()
         {
-
+           
             ViewBag.documentlink = "true";
             ViewBag.collapse = "true";
 

@@ -211,6 +211,8 @@
 
 
 
+
+
                                             @if (ViewBag.beneactive == "true")
                                             {
                                                 <a href="@Url.Action("AddBeneficiaryIndex", "AddBeneficiary")"><li style="color:">Donee ></li></a>
@@ -800,8 +802,8 @@
                                  res += "<tr class='rowclass'>";
 
                                
-                                 res += "<td><select disabled  name='alt_proportion' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1' class='form-control altbeneficiaryclass disabledelement'></select></td>";
-                                 res += "<td><input disabled type='text' name='alt_proportion' id='alt_proportion1' class='form-control alt_proportioninput disabledelement'></td>";
+                                 res += "<td><select disabled  name='alt_proportion' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1'  data-errormessage-value-missing='All Alternate Beneficiary Fields are Mandatory...!' class='validate[required] form-control altbeneficiaryclass disabledelement'></select></td>";
+                                 res += "<td><input disabled type='text' name='alt_proportion' id='alt_proportion1' class='validate[required] form-control alt_proportioninput disabledelement'  data-errormessage-value-missing='All Alternate Beneficiary Fields are Mandatory...!'></td>";
                                  res += "<td><input disabled type='text' name='alt_total'  id='alt_total1' value='100' class='form-control alt_totalinput disabledelement'></td>";
                                  res += "<td><input disabled type='text' name='alt_proportion' style='display:none;' id='alt_pr1' class='form-control alt_propo disabledelement'></td>";
                                  res += "<td><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add Alternate Beneficiary</button></td>";

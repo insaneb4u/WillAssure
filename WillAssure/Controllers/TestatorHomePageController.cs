@@ -19,13 +19,7 @@ namespace WillAssure.Controllers
         // GET: TestatorHomePage
         public ActionResult TestatorHomePageIndex(string status)
         {
-            if(TempData["setamount"] != null)
-            {
-                if (TempData["setamount"].ToString() != null)
-                {
-                    ViewBag.documentamount = TempData["setamount"];
-                }
-            }
+           
           
 
 

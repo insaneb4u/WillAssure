@@ -122,25 +122,28 @@ namespace WillAssure.Models
         public string altbenepin { get; set; }
 
 
-        public string altappname { get; set; }
-        public string altappmiddlename { get; set; }
-        public string altappsurname { get; set; }
-        public string altappidentityproof { get; set; }
-        public string altappidentityproofvalue { get; set; }
-        public string altappaltidentityproof { get; set; }
-        public string altappaltidentityproofvalue { get; set; }
-        public string altappdob { get; set; }
-        public string altappgender { get; set; }
-        public string altappoccupation { get; set; }
-        public string altapprelationship { get; set; }
-        public string altappaddress1 { get; set; }
-        public string altappaddress2 { get; set; }
-        public string altappaddress3 { get; set; }
-        public string altappcity { get; set; }
-        public string altappstate { get; set; }
-        public string altapppin { get; set; }
-        public string altappaltguardian { get; set; }
-        public string altappaltexec { get; set; }
+
+        public string waltappointeesType { get; set; }
+        public string waltappointeesSubtype { get; set; }
+        public string waltappname { get; set; }
+        public string waltappmiddlename { get; set; }
+        public string waltappsurname { get; set; }
+        public string waltappidentityproof { get; set; }
+        public string waltappidentityproofvalue { get; set; }
+        public string waltappaltidentityproof { get; set; }
+        public string waltappaltidentityproofvalue { get; set; }
+        public string waltappdob { get; set; }
+        public string waltappgender { get; set; }
+        public string waltappoccupation { get; set; }
+        public string waltapprelationship { get; set; }
+        public string waltappaddress1 { get; set; }
+        public string waltappaddress2 { get; set; }
+        public string waltappaddress3 { get; set; }
+        public string waltappcity { get; set; }
+        public string waltappstate { get; set; }
+        public string wltapppin { get; set; }
+        public string waltappaltguardian { get; set; }
+        public string waltappaltexec { get; set; }
 
 
 
@@ -163,6 +166,18 @@ namespace WillAssure.Models
         public string nomstate { get; set; }
         public string nompin { get; set; }
 
+
+
+
+        
+        public string insFirstName { get; set; }
+        public string insTypeText { get; set; }
+        public string insRegistrationNo { get; set; }
+        public string insAddress { get; set; }
+        public string insStateText { get; set; }
+        public string insCityText { get; set; }
+        public string inscountry_txt { get; set; }
+       
 
 
     }

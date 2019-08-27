@@ -30,12 +30,40 @@ namespace WillAssure.Controllers
             string queryc5 = "";
             string queryc6 = "";
             string queryc7 = "";
-
+            string queryc22 = "";
             //// check data for next page link if available active links
 
             if (Session["distid"] != null && Session["willtype"] != null && Session["doctype"] != null)
             {
                 con.Open();
+
+
+
+                //////// check TesttaorFamily 
+
+
+                if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc22 = "select * from testatorFamily where WillType = 'Quick'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                }
+                if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
+                {
+                    queryc22 = "select * from testatorFamily where WillType = 'Detailed'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                }
+
+
+
+                SqlDataAdapter dac22 = new SqlDataAdapter(queryc22, con);
+                DataTable dtc22 = new DataTable();
+                dac22.Fill(dtc22);
+
+                if (dtc22.Rows.Count > 0)
+                {
+                    ViewBag.beneactive = "true";
+                }
+
+
+                /////end
 
 
                 //////// check beneficiary institution
@@ -2355,21 +2383,18 @@ namespace WillAssure.Controllers
             // get tid
             if (Session["Type"].ToString() != "SuperAdmin")
             {
-                string qtest001 = "";
-                //if (Session["Type"].ToString() == "SuperAdmin")
-                //{
-                //    qtest001 = "select uId , WillType from users where Linked_user = " + Convert.ToInt32(Session["uuid"]) + " and Type = 'Testator'";
-                //}
-                //if (Session["Type"].ToString() == "Distributor")
-                //{
-                //    qtest001 = "select uId , WillType from users where Linked_user = " + Convert.ToInt32(Session["uuid"]) + " and Type = 'DistributorAdmin'";
-                //}
-                if (Session["Type"].ToString() == "Testator")
+                string checkuid = "";
+                if (Session["WillType"].ToString() == "Quick")
                 {
-                    qtest001 = "select tId , WillType from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
                 }
 
-                SqlDataAdapter test001da = new SqlDataAdapter(qtest001, con);
+                if (Session["WillType"].ToString() == "Detailed")
+                {
+                    checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+
+                SqlDataAdapter test001da = new SqlDataAdapter(checkuid, con);
                 DataTable test001dt = new DataTable();
                 test001da.Fill(test001dt);
 

@@ -22,8 +22,10 @@ namespace WillAssure
      
         protected void Session_End(Object sender, EventArgs e)
         {
-           
-        
+
+            //Redirect to Login Page if Session is null & Expires                   
+            new RedirectToRouteResult(new RouteValueDictionary { { "LoginPage", "LoginPageIndex" }, { "controller", "Login" } });
+
 
         }
 

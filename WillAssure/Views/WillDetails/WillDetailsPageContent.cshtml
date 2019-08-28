@@ -394,19 +394,22 @@
                                 <a class="nav-link" data-toggle="tab" href="#tabe-7"><i class="icon-user"></i> <span class="hidden-xs">Executor</span></a>
                             </li>
                             <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#tabe-10"><i class="icon-user"></i> <span class="hidden-xs">Witness</span></a>
-        </li>
+                                <a class="nav-link" data-toggle="tab" href="#tabe-10"><i class="icon-user"></i> <span class="hidden-xs">Witness</span></a>
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#tabe-5"><i class="icon-user"></i> <span class="hidden-xs">Mapping</span></a>
                             </li>
 
-                            @*@if (Session["doctype"] != null)
+                            @if (Session["WillType"] != null)
                             {
-                                if (Session["doctype"].ToString() == "Will")
+                                if (Session["WillType"].ToString() != "Quick")
                                 {
-                                    <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#tabe-6"><i class="icon-user"></i> <span class="hidden-xs">Nominee</span></a>
-                                    </li>
+                                    if (ViewBag.nominee != null)
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#tabe-6"><i class="icon-user"></i> <span class="hidden-xs">Nominee</span></a>
+                                        </li>
+                                    }
                                 }
                             }
                             else
@@ -415,7 +418,7 @@
                                 {
                                     Response.Redirect("/LoginPage/LoginPageIndex");
                                 }
-                            }*@
+                            }
 
 
 
@@ -772,19 +775,23 @@
 
 
 
+                                            if (item.tfmaritalstatus != "none" && item.tfmaritalstatus != "None")
+                                            {
 
+                                                <div class="col-sm-6">
+                                                    <label for="input-1" style="line-height:38px"> Marital Status : </label>
+                                                    <div class="form-group">
 
-                                            <div class="col-sm-6">
-                                                <label for="input-1" style="line-height:38px"> Marital Status : </label>
-                                                <div class="form-group">
-
-                                                    <input type="text" readonly="true" name="name" value="@item.tfmaritalstatus" class="form-control input-shadow" />
+                                                        <input type="text" readonly="true" name="name" value="@item.tfmaritalstatus" class="form-control input-shadow" />
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            }
 
 
 
 
+                                            if (item.tfreligion != "none" && item.tfreligion != "None")
+                                            {
 
                                             <div class="col-sm-6">
                                                 <label for="input-1" style="line-height:38px"> Religion : </label>
@@ -795,7 +802,7 @@
                                             </div>
 
 
-
+                                            }
 
 
                                             <div class="col-sm-6">
@@ -1015,7 +1022,7 @@
 
 
 
-
+                                        
 
                                             <div class="col-sm-6">
                                                 <label for="input-1" style="line-height:38px"> RelationShip : </label>
@@ -1026,9 +1033,12 @@
                                             </div>
 
 
+                                            
 
 
 
+                                            if (item.BeneficiaryMartialStatus != "none" && item.BeneficiaryMartialStatus != "None")
+                                            {
                                             <div class="col-sm-6">
                                                 <label for="input-1" style="line-height:38px"> Martial Status : </label>
                                                 <div class="form-group">
@@ -1037,10 +1047,11 @@
                                                 </div>
                                             </div>
 
+                                            }
 
 
-
-
+                                            if (item.BeneficiaryReligion != "none" && item.BeneficiaryReligion != "None")
+                                            {
 
                                             <div class="col-sm-6">
                                                 <label for="input-1" style="line-height:38px"> Religion : </label>
@@ -1051,7 +1062,7 @@
                                             </div>
 
 
-
+                                            }
 
 
                                             <div class="col-sm-6">

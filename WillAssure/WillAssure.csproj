@@ -303,10 +303,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CrystalReports\QuickWill1.cs">
-      <DependentUpon>QuickWill1.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
-      <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
+      <DependentUpon>QuickWill1.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="CrystalReports\QuickWill46.cs">
       <AutoGen>True</AutoGen>

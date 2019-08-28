@@ -990,32 +990,32 @@ namespace WillAssure.Controllers
                     }
 
 
-                    if (dt3.Rows[i]["CurrentStatus"].ToString() != "")
-                    {
-                        string testString = dt3.Rows[i]["CurrentStatus"].ToString();
-                        ArrayList result = new ArrayList(testString.Split('~'));
+                    //if (dt3.Rows[i]["CurrentStatus"].ToString() != "")
+                    //{
+                    //    string testString = dt3.Rows[i]["CurrentStatus"].ToString();
+                    //    ArrayList result = new ArrayList(testString.Split('~'));
 
-                        column = column + "<div class='col-sm-3'> <div class='form-group'><label for='input-1' >" + result[1].ToString() + "</label>";
-                        MAM.CurrentStatus = dt3.Rows[i]["CurrentStatus"].ToString();
-                    }
+                    //    column = column + "<div class='col-sm-3'> <div class='form-group'><label for='input-1' >" + result[1].ToString() + "</label>";
+                    //    MAM.CurrentStatus = dt3.Rows[i]["CurrentStatus"].ToString();
+                    //}
 
-                    if (dt3.Rows[i]["CurrentStatusControls"].ToString() != "")
-                    {
+                    //if (dt3.Rows[i]["CurrentStatusControls"].ToString() != "")
+                    //{
 
-                        if (dt3.Rows[i]["CurrentStatusControls"].ToString() == "RadioButton" && dt3.Rows[i]["CurrentStatusValues"].ToString() != "")
-                        {
+                    //    if (dt3.Rows[i]["CurrentStatusControls"].ToString() == "RadioButton" && dt3.Rows[i]["CurrentStatusValues"].ToString() != "")
+                    //    {
 
-                            string testString = dt3.Rows[i]["CurrentStatusValues"].ToString();
-                            ArrayList result = new ArrayList(testString.Split('/'));
+                    //        string testString = dt3.Rows[i]["CurrentStatusValues"].ToString();
+                    //        ArrayList result = new ArrayList(testString.Split('/'));
 
-                            column = column + " <br> <label class='radio-inline' >  <input type='radio'  id='ddlrole' name='Currentradio' value=" + result[0] + " checked> " + result[0] + "</label>  <label class='radio - inline'> <input type='radio' id='ddlrole' name='Currentradio'  value=" + result[1] + ">" + result[1] + "</label></div></div>";
+                    //        column = column + " <br> <label class='radio-inline' >  <input type='radio'  id='ddlrole' name='Currentradio' value=" + result[0] + " checked> " + result[0] + "</label>  <label class='radio - inline'> <input type='radio' id='ddlrole' name='Currentradio'  value=" + result[1] + ">" + result[1] + "</label></div></div>";
 
 
-                        }
+                    //    }
 
-                        MAM.CurrentStatusValues = dt3.Rows[i]["CurrentStatusValues"].ToString();
+                    //    MAM.CurrentStatusValues = dt3.Rows[i]["CurrentStatusValues"].ToString();
 
-                    }
+                    //}
 
 
 
@@ -1159,30 +1159,30 @@ namespace WillAssure.Controllers
                         MAM.WeightControls = dt3.Rows[i]["WeightControls"].ToString();
                     }
 
-                    if (dt3.Rows[i]["OwnerShip"].ToString() != "")
-                    {
-                        string testString = dt3.Rows[i]["OwnerShip"].ToString();
-                        ArrayList result = new ArrayList(testString.Split('~'));
-                        column = column + "<div class='col-sm-3'> <div class='form-group'><label for='input-1' >" + result[1].ToString() + "</label>";
-                        MAM.OwnerShip = dt3.Rows[i]["OwnerShip"].ToString();
-                    }
-                    if (dt3.Rows[i]["OwnerShipControls"].ToString() != "")
-                    {
-                        if (dt3.Rows[i]["OwnerShipControls"].ToString() == "RadioButton" && dt3.Rows[i]["OwnerShipValues"].ToString() != "")
-                        {
+                    //if (dt3.Rows[i]["OwnerShip"].ToString() != "")
+                    //{
+                    //    string testString = dt3.Rows[i]["OwnerShip"].ToString();
+                    //    ArrayList result = new ArrayList(testString.Split('~'));
+                    //    column = column + "<div class='col-sm-3'> <div class='form-group'><label for='input-1' >" + result[1].ToString() + "</label>";
+                    //    MAM.OwnerShip = dt3.Rows[i]["OwnerShip"].ToString();
+                    //}
+                    //if (dt3.Rows[i]["OwnerShipControls"].ToString() != "")
+                    //{
+                    //    if (dt3.Rows[i]["OwnerShipControls"].ToString() == "RadioButton" && dt3.Rows[i]["OwnerShipValues"].ToString() != "")
+                    //    {
 
-                            string testString = dt3.Rows[i]["OwnerShipValues"].ToString();
-                            ArrayList result = new ArrayList(testString.Split('/'));
+                    //        string testString = dt3.Rows[i]["OwnerShipValues"].ToString();
+                    //        ArrayList result = new ArrayList(testString.Split('/'));
 
-                            column = column + " <br> <label class='radio-inline' >  <input type='radio' id='ddlrole' name='ownershipRadio' value=" + result[0] + " checked> " + result[0] + "</label>  <label class='radio - inline'> <input type='radio' id='ddlrole' name='ownershipRadio' value=" + result[1] + ">" + result[1] + "</label></div></div>";
-
-
-                        }
-
-                        MAM.OwnerShipValues = dt3.Rows[i]["OwnerShipValues"].ToString();
+                    //        column = column + " <br> <label class='radio-inline' >  <input type='radio' id='ddlrole' name='ownershipRadio' value=" + result[0] + " checked> " + result[0] + "</label>  <label class='radio - inline'> <input type='radio' id='ddlrole' name='ownershipRadio' value=" + result[1] + ">" + result[1] + "</label></div></div>";
 
 
-                    }
+                    //    }
+
+                    //    MAM.OwnerShipValues = dt3.Rows[i]["OwnerShipValues"].ToString();
+
+
+                    //}
 
                     if (dt3.Rows[i]["Remark"].ToString() != "")
                     {
@@ -1816,8 +1816,13 @@ namespace WillAssure.Controllers
                     cmd2.Parameters.AddWithValue("@First_Name", collection["nomFirst_Name"]);
                     cmd2.Parameters.AddWithValue("@Last_Name", collection["nomLast_Name"]);
                     cmd2.Parameters.AddWithValue("@Middle_Name", collection["nomMiddle_Name"]);
-                
-                    cmd2.Parameters.AddWithValue("@DOB", Convert.ToDateTime(collection["nomDob"]).ToString("yyyy-MM-dd"));
+
+                    string dateString = collection["nomDob"];
+                    DateTime dd2 = Convert.ToDateTime(dateString,
+                        System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
+
+
+                    cmd2.Parameters.AddWithValue("@DOB", dd2);
 
 
 

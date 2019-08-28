@@ -19,8 +19,13 @@ namespace WillAssure.Controllers
         // GET: TestatorHomePage
         public ActionResult TestatorHomePageIndex(string status)
         {
-           
-          
+            if (TempData["setamount"] != null)
+            {
+                if (TempData["setamount"].ToString() != null)
+                {
+                    ViewBag.documentamount = TempData["setamount"];
+                }
+            }
 
 
             if (TempData["status"] != null)
@@ -1366,11 +1371,11 @@ namespace WillAssure.Controllers
                 TempData["setamount"] = total;
 
 
-
-               
-
+                ViewBag.documentamount = total;
 
 
+
+            TempData["MakePayment"] = "true";
 
 
 

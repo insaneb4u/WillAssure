@@ -453,8 +453,7 @@
                                                                 @Html.DropDownListFor(x => x.subTypetxt, new SelectListItem[]{
                                                                 new SelectListItem() {Text = "--Select--", Value=""},
                                                                 new SelectListItem() {Text = "Single", Value="Single"},
-                                                                new SelectListItem() {Text = "Many Joint", Value="Many Joint"},
-                                                                new SelectListItem() {Text = "Many Independent", Value="Many Independent"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlsubtype" })
+                                                                new SelectListItem() {Text = "Many Joint", Value="Many Independent"}}, new { @class = "form-control input-shadow validate[required]", @id = "ddlsubtype" })
                                                                 @*@Html.HiddenFor(m => m.subTypeId, new { id = "subTypeId" })
                                                 @Html.HiddenFor(m => m.subTypetxt, new { id = "subTypetxt" })*@
                                                             </div>
@@ -513,7 +512,7 @@
                                                         <div class="col-sm-3" id="ftxtmiddlename">
                                                             <div class="form-group">
                                                                 <label for="input-1">Middle Name</label>
-                                                                @Html.TextBoxFor(m => m.middleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                                                @Html.TextBoxFor(m => m.middleName, new { @class = "form-control input-shadow  text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-3"></div>
@@ -869,7 +868,7 @@
                                                             <div class="col-sm-3">
                                                                 <div class="form-group" id="stxtmiddlename2">
                                                                     <label for="input-1">Middle Name</label>
-                                                                    @Html.TextBoxFor(m => m.altmiddleName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtmiddlename2", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                                                    @Html.TextBoxFor(m => m.altmiddleName, new { @class = "form-control input-shadow  text-input", @id = "txtmiddlename2", @placeholder = "Enter Middle Name", @autocomplete = "off" })
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-3"></div>
@@ -1705,7 +1704,7 @@
 
                     $("#confirmtestatorfamily").click();
 
-                    $("#btnnext").show();
+                  
 
                 }
 
@@ -2260,7 +2259,7 @@
 
 
                                                 $("#confirmtestatorfamily").click(function () {
-                                                    $("#btnnext").show();
+                                                  
                                                     swal({
 
                                                         text: 'Your Appointees Data Submitted Successfully Do You Want To Add More ?',

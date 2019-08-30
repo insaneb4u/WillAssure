@@ -1430,7 +1430,24 @@ namespace WillAssure.Controllers
             string checkfinancial = "";
 
 
+            string checkuid = "";
+            if (Session["WillType"].ToString() == "Quick")
+            {
+                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+            }
 
+            if (Session["WillType"].ToString() == "Detailed")
+            {
+                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+            }
+            SqlDataAdapter dachk = new SqlDataAdapter(checkuid,con);
+            DataTable dtchk = new DataTable();
+            dachk.Fill(dtchk);
+            int tid = 0;
+            if (dtchk.Rows.Count > 0)
+            {
+                tid = Convert.ToInt32(dtchk.Rows[0]["tId"]);
+            }
 
 
             if (Session["doctype"] != null)
@@ -1438,18 +1455,18 @@ namespace WillAssure.Controllers
 
                 if (Session["doctype"].ToString() == "Will")
                 {
-                    checkfinancial = "select distinct a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid where a.tId = 1 and a.doctype = 'Will' and c.Type = 1";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid  inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid where a.tId = " + tid + " and a.doctype = 'Will' and c.Type = 1";
                 }
 
                 if (Session["doctype"].ToString() == "POA")
                 {
-                    checkfinancial = "select distinct a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid where a.tId = 1 and a.doctype = 'POA' and c.Type = 1";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid  inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid where a.tId = " + tid + " and a.doctype = 'POA' and c.Type = 1";
                 }
 
 
                 if (Session["doctype"].ToString() == "GiftDeeds")
                 {
-                    checkfinancial = "select distinct a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid where a.tId = 1 and a.doctype = 'GiftDeeds' and c.Type = 1";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid where a.tId = " + tid + " and a.doctype = 'GiftDeeds' and c.Type = 1";
                 }
 
 
@@ -1469,6 +1486,7 @@ namespace WillAssure.Controllers
             chkfinancialda.Fill(chkfinancialdt);
             string assetcat = "";
             string assettype = "";
+            string alternatedata = "";
             if (chkfinancialdt.Rows.Count > 0)
             {
                 for (int j = 0; j < 1; j++)
@@ -1493,6 +1511,29 @@ namespace WillAssure.Controllers
                         {
 
 
+                            /// alternate beneficiary records
+                            string queryalt = "select bd.First_Name , ab.alternateproportion from Alternate_BeneficiaryAssets ab inner join BeneficiaryDetails bd on ab.linkedbid=bd.bpId  where ab.linkedbid = " + Convert.ToInt32(chkfinancialdt.Rows[i]["alternatebenefciaryid"]) + "";
+                            SqlDataAdapter daalt = new SqlDataAdapter(queryalt, con);
+                            DataTable dtalt = new DataTable();
+                            daalt.Fill(dtalt);
+
+                            if (dtalt.Rows.Count > 0)
+                            {
+                                for (int z = 0; z < dtalt.Rows.Count; z++)
+                                {
+                                    alternatedata += "<div class='col-sm-3'>" +
+                          "<label for='input-1'>Alternate Beneficiary</label>" +
+                          "<input type='text' value='" + dtalt.Rows[z]["First_Name"].ToString() + "'  readonly='true' class='form-control' id='' />" +
+                          "</div>" +
+
+                          "<div class='col-sm-3'>" +
+                          "<label for='input-1'>Proportion</label>" +
+                          "<input type='text' value='" + dtalt.Rows[z]["alternateproportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
+                          "</div><div class='col-sm-6'></div>";
+                                }
+
+                            }
+                            //end
 
 
 
@@ -1507,11 +1548,23 @@ namespace WillAssure.Controllers
                                "<div class='col-sm-3'>" +
                                "<label for='input-1'>Proportion</label>" +
                                "<input type='text' value='" + chkfinancialdt.Rows[i]["Proportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
-                               "</div>" +
+                               "</div><div class='col-sm-6'></div>" +
+
+                                    "<br>" +
+                                    "<br>" +
+                                    "<br>" +
+                       "<button type='button' class='btn btn-link shadow - none text - success' data-toggle='collapse' data-target='#collapsesingleFA' aria-expanded='true' aria-controls='collapse-22'>" +
+                       "(Alternate Beneficiary)" +
+                       "</button>" +
+                       "<br>" +
+                       "<br>" +
+                       "<div class='row' id='alternatedata'>" +
+                       alternatedata +
+                       "</div>" +
 
 
 
-                           
+
                             "</div>";
 
 

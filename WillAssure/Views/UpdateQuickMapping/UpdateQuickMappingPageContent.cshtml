@@ -1,0 +1,319 @@
+﻿﻿@model WillAssure.Models.LoginModel
+@{
+    /**/
+
+    ViewBag.Title = "UpdateBeneficiaryMappingPageContent";
+}
+
+@*Main Content*@
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row pt-2 pb-2">
+            <div class="col-sm-3">
+                <div class="btn-group float-sm-right">
+                    <div class="dropdown-menu">
+                        <a href="javaScript:void();" class="dropdown-item">Action</a>
+                        <a href="javaScript:void();" class="dropdown-item">Another action</a>
+                        <a href="javaScript:void();" class="dropdown-item">Something else here</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javaScript:void();" class="dropdown-item">Separated link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Breadcrumb-->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-title text-primary">Update Beneficiary Mapping</div>
+
+                        <div style="float:right">
+
+                            <a href="@Url.Action("Index","QuickMapping")"><input type="button" name="name" class="btn btn-danger" value="Add" /></a>
+                            <a href="@Url.Action("EditSingleBeneficiaryIndex","EditSingleBeneficiary")"> <input type="button" name="name" class="btn btn-success" value="View" /></a>
+
+                        </div>
+
+
+                        <hr class="div_rd">
+                        @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "RoleForm" }))
+                        {
+
+                         
+                            <div class="row">
+                            
+
+                       
+
+                                <div class='col-sm-6'>
+                                    <div class='form-group'>
+                                        <label for='input-1'>Beneficiary</label>
+                                        <select id='ddlbeneficiary1' style="display:none;" onchange="checkbeneficiaryduplicate(this.value)" name="contentList" class='form-control input-shadow beneficiaryclass'></select>
+                                        @Html.HiddenFor(m => m.Beneficiaryid, new { id = "Beneficiaryid" })
+                                        @Html.TextBoxFor(m => m.Beneficiarytxt, new { id = "Beneficiarytxt", @class = "form-control input-shadow" })
+
+                                        <input type="text" class="form-control input-shadow" style="display:none" id="ddlbeneficiarytxt" name="name" value="" />
+
+                                        <script>
+                                            $("#Beneficiarytxt").focus(function () {
+                                                $("#Beneficiarytxt").hide();
+                                                $("#ddlbeneficiary1").show();
+                                            });
+                                        </script>
+
+                                    </div>
+                                </div>
+
+                                @*<div class='col-sm-6'>
+                                        <div class='form-group' style="display:none;" id="getidentifier">
+
+
+
+                                        </div>
+                                        <label for="input-1" id="lblscheme">SCHEME</label>
+                                        @Html.TextBoxFor(m => m.SchemeName, new { @class = "form-control input-shadow validate[required,custom[characteronly]] text-input", @id = "txtscheme", @placeholder = "Enter Role", @autocomplete = "off", alert = "LabourCost is requried" })
+                                    </div>*@
+
+
+                                <script>
+                                    $("#txtscheme").focus(function () {
+                                        $("#txtscheme").hide();
+                                        $("#lblscheme").hide();
+                                        $("#getidentifier").show();
+                                    });
+                                </script>
+
+                                @*<div class='col-sm-6'>
+                                        <label for='input-1'>Instruments</label>
+                                        <select id='DDLAssetColumn1' style="display:none;" onchange="getDDLAssetColumn(this.value)" name="contentList" class='form-control input-shadow instrumentclass'></select>
+                                        @Html.HiddenFor(m => m.InstrumentId, new { id = "InstrumentId" })
+                                        @Html.TextBoxFor(m => m.InstrumentName, new { id = "Instrumenttxt", @class = "form-control input-shadow" })
+
+
+                                        <script>
+                                            $("#Instrumenttxt").focus(function () {
+                                                $("#Instrumenttxt").hide();
+                                                $("#DDLAssetColumn1").show();
+                                            });
+                                        </script>
+
+                                    </div>*@
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label for="input-1">Proportion</label>
+                                        @Html.TextBoxFor(m => m.Proportion, new { @class = "form-control input-shadow validate[required,custom[characteronly]] text-input", @id = "txtRole", @placeholder = "Enter Role", @autocomplete = "off", alert = "LabourCost is requried" })
+                                    </div>
+                                </div>
+
+
+
+
+
+                            </div>
+
+                            <br />
+                            <div class="form-group">
+                                <button type="submit" id="btnRoleformsubmit" formaction="UpdateBeneficiaryMappingDATA" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update Beneficiary Mapping</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <button type="button" id="btnRoleformsubmitSUCCESS" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+                <button type="button" id="btnRoleformsubmitCHECK" style="display:none;" class="btnpopup btn btn-primary shadow-primary px-5"><i class="icon-lock"></i></button>
+            </div>
+
+        </div>
+
+    </div>
+    @*end*@
+
+    @if (ViewBag.assetdata != null)
+    {
+        <script>
+
+            $(document).ready(function () {
+
+                var data = $("#assetinfodata").val();
+
+                $("#updatedata").empty().append(data);
+
+                $("#Binddata").hide();
+
+            });
+
+
+        </script>
+    }
+
+    <script>
+        $(document).ready(function () {
+
+
+             $.ajax({
+                type: "POST",
+
+                 url: "@Url.Action("ddlassetname", "UpdateQuickMapping")",
+
+                success: function (data) {
+                    $("#DDLAssetColumn1").append(data);
+                }
+            });
+
+
+
+              $.ajax({
+
+                type: "POST",
+
+                 url: "@Url.Action("getassetcolumndata", "UpdateQuickMapping")",
+
+                success: function (data) {
+                    $("#getidentifier").append(data);
+                    var r = data;
+                    var str = data;
+                    var res = str.replace("<label for='input-1'>Scheme</label> <input type='text' class='form-control input-shadow' id='schemename'  value=", "").replace("/>", "");
+
+
+                }
+            });
+
+
+
+
+            $.ajax({
+
+                type: "POST",
+
+                url: "@Url.Action("BindBeneficiaryDDL", "UpdateQuickMapping")",
+                success: function (data) {
+                    $("#ddlbeneficiary1").append(data);
+                }
+            });
+
+
+
+
+            $.ajax({
+
+                type: "POST",
+
+                 url: "@Url.Action("BindAssetTypeDDL", "UpdateQuickMapping")",
+                success: function (data) {
+                    $("#ddlassettype").append(data);
+                }
+            });
+
+
+
+            $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindTestatorDDL", "UpdateQuickMapping")",
+                  success: function (data) {
+                      var splitted = data.split("~");
+                      $("#DDLTestator").append(splitted[0]);
+                      $("#ddltid").val(splitted[1]);
+                      var pop = splitted[2];
+                      //$('#DDLTestator').append(data);
+                      if (pop == "true") {
+
+                          $("#confirmtestatorfamily").on("click", function () { });
+
+                          $("#confirmtestatorfamily").click(); //trigger event after listening to it.
+                      }
+
+
+
+
+
+            }
+          });
+
+
+            $.ajax({
+                type: "POST",
+
+                 url: "@Url.Action("ddlassetname", "UpdateQuickMapping")",
+                data: { "send": "" + value + "" },
+                success: function (data) {
+                    $("#DDLAssetColumn1").append(data);
+                }
+            });
+
+
+
+
+
+
+
+        });
+
+
+
+            function getassettypeid(value) {
+
+
+
+                $("#assettypeid").val(value);
+
+            $.ajax({
+
+                type: "POST",
+
+                 url: "@Url.Action("bindassetcatDDL", "UpdateQuickMapping")",
+                data: { "send": "" + value + "" },
+                success: function (data) {
+                    $("#ddlassetcat").empty().append(data);
+
+
+                }
+            });
+
+
+
+
+
+        }
+
+
+
+         function getassetcatid(value) {
+
+
+             $("#assetcatid").val(value);
+
+
+        }
+
+
+
+
+        function checkbeneficiaryduplicate(value) {
+
+
+            $("#Beneficiaryid").val(value);
+
+        }
+
+
+
+        function getschemename(id) {
+
+            alert(id);
+
+
+
+        }
+
+
+        function getDDLAssetColumn(value) {
+            var selectedText = DDLAssetColumn1.options[DDLAssetColumn1.selectedIndex].innerHTML;
+
+            $("#InstrumentName").value(selectedText);
+
+
+        };
+
+    </script>

@@ -16,14 +16,14 @@ namespace WillAssure.CrystalReports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class QuickWill1 : ReportClass {
+    public class test : ReportClass {
         
-        public QuickWill1() {
+        public test() {
         }
         
         public override string ResourceName {
             get {
-                return "QuickWill1.rpt";
+                return "test.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace WillAssure.CrystalReports {
         
         public override string FullResourceName {
             get {
-                return "WillAssure.CrystalReports.QuickWill1.rpt";
+                return "WillAssure.CrystalReports.test.rpt";
             }
             set {
                 // Do nothing
@@ -359,20 +359,12 @@ namespace WillAssure.CrystalReports {
                 return this.DataDefinition.ParameterFields[27];
             }
         }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_QuickWill1Data_relationid {
-            get {
-                return this.DataDefinition.ParameterFields[28];
-            }
-        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedQuickWill1 : Component, ICachedReport {
+    public class Cachedtest : Component, ICachedReport {
         
-        public CachedQuickWill1() {
+        public Cachedtest() {
         }
         
         [Browsable(false)]
@@ -409,7 +401,7 @@ namespace WillAssure.CrystalReports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            QuickWill1 rpt = new QuickWill1();
+            test rpt = new test();
             rpt.Site = this.Site;
             return rpt;
         }

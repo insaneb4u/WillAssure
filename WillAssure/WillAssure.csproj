@@ -284,6 +284,7 @@
     <Compile Include="Controllers\UpdateMainAssetsController.cs" />
     <Compile Include="Controllers\UpdateNomineeController.cs" />
     <Compile Include="Controllers\UpdatePetCareController.cs" />
+    <Compile Include="Controllers\UpdateQuickMappingController.cs" />
     <Compile Include="Controllers\UpdateRolesController.cs" />
     <Compile Include="Controllers\UpdateSettingController.cs" />
     <Compile Include="Controllers\UpdateTestatorFamilyController.cs" />
@@ -302,10 +303,22 @@
       <DependentUpon>CrystalReport1.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="CrystalReports\test.cs">
+      <DependentUpon>test.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="CrystalReports\QuickWill1.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>QuickWill1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalReports\QuickWill1Data.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuickWill1Data.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="CrystalReports\QuickWill46.cs">
@@ -1911,6 +1924,7 @@
     <Content Include="Views\EditWitness\EditWitnessPageContent.cshtml" />
     <Content Include="Views\EditSingleBeneficiary\EditSingleBeneficiary.cshtml" />
     <Content Include="Views\TF\TFPageContent.cshtml" />
+    <Content Include="Views\UpdateQuickMapping\UpdateQuickMappingPageContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1935,9 +1949,17 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>CrystalReport1.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="CrystalReports\test.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>test.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="CrystalReports\QuickWill1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>QuickWill1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalReports\QuickWill1Data.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>QuickWill1Data.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="CrystalReports\QuickWill46.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

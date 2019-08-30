@@ -158,28 +158,15 @@ namespace WillAssure.Controllers
             }
 
             con.Close();
-            return View("~/Views/EditBeneficiaryMapping/EditBeneficiaryMappingPageContent.cshtml");
-        }
-
-        public string BindBMData()
-        {
-            // check type 
-            string typ5 = "";
-            con.Open();
-            string qq15 = "select Type from users where uId = " + Convert.ToInt32(Session["uuid"]) + " ";
-            SqlDataAdapter daa5 = new SqlDataAdapter(qq15, con);
-            DataTable dtt5 = new DataTable();
-            daa5.Fill(dtt5);
-            con.Close();
-
-            if (dtt5.Rows.Count > 0)
-            {
-                typ5 = dtt5.Rows[0]["Type"].ToString();
-            }
 
 
 
-            //end
+
+            /////////////////////////// bind beneficiary mapping /////////////////////////////////////
+
+
+
+          
 
 
 
@@ -247,53 +234,35 @@ namespace WillAssure.Controllers
                 ViewBag.documentlink = "true";
 
             }
-            // roleassignment
-            List<LoginModel> Lmlist = new List<LoginModel>();
-            con.Open();
-            string q3 = "select * from Assignment_Roles where RoleId = " + Convert.ToInt32(Session["rId"]) + "";
-            SqlDataAdapter da3 = new SqlDataAdapter(q3, con);
-            DataTable dt3 = new DataTable();
-            da3.Fill(dt3);
-            if (dt3.Rows.Count > 0)
+
+
+            string checkuid = "";
+            if (Session["WillType"].ToString() == "Quick")
             {
-
-                for (int i = 0; i < dt3.Rows.Count; i++)
-                {
-                    LoginModel lm = new LoginModel();
-                    lm.PageName = dt3.Rows[i]["PageName"].ToString();
-                    lm.PageStatus = dt3.Rows[i]["PageStatus"].ToString();
-                    lm.Action = dt3.Rows[i]["Action"].ToString();
-                    lm.Nav1 = dt3.Rows[i]["Nav1"].ToString();
-                    lm.Nav2 = dt3.Rows[i]["Nav2"].ToString();
-
-                    Lmlist.Add(lm);
-                }
-
-
-
-                ViewBag.PageName = Lmlist;
-
-
-
-
+                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
             }
 
-            con.Close();
-
-
-            //end
-
-
-
+            if (Session["WillType"].ToString() == "Detailed")
+            {
+                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+            }
+            SqlDataAdapter dachk = new SqlDataAdapter(checkuid, con);
+            DataTable dtchk = new DataTable();
+            dachk.Fill(dtchk);
+            int tid = 0;
+            if (dtchk.Rows.Count > 0)
+            {
+                tid = Convert.ToInt32(dtchk.Rows[0]["tId"]);
+            }
 
             con.Open();
-            string query = "select a.Beneficiary_Asset_ID , c.AssetsType , b.AssetsCategory , a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId";
+            string query = "select a.Beneficiary_Asset_ID , c.AssetsType , b.AssetsCategory , a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId where a.tid = "+tid+"";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
             string data = "";
-            
+
 
 
 
@@ -306,7 +275,7 @@ namespace WillAssure.Controllers
                     data = data + "<tr class='nr'><td>" + dt.Rows[i]["Beneficiary_Asset_ID"].ToString() + "</td>"
                    + "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>"
                    + "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>"
-                   
+
                     + "<td>" + dt.Rows[i]["Proportion"].ToString() + "</td>"
                    + "<td> <button type='button'   id='" + dt.Rows[i]["Beneficiary_Asset_ID"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
 
@@ -318,8 +287,29 @@ namespace WillAssure.Controllers
 
             }
 
-            return data;
+            ViewBag.tabledata = data;
+
+
+
+
+
+
+
+
+
+            /////////////////////////////   end //////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+            return View("~/Views/EditBeneficiaryMapping/EditBeneficiaryMappingPageContent.cshtml");
         }
+
+    
 
 
 
@@ -337,6 +327,144 @@ namespace WillAssure.Controllers
 
 
             return index;
+        }
+
+
+
+
+        public string BindTestatorDDL()
+        {
+
+            if (Convert.ToInt32(Session["uuid"]) != 1)
+            {
+                string ck = "select type from users where uId =" + Convert.ToInt32(Session["uuid"]) + "";
+                SqlDataAdapter cda = new SqlDataAdapter(ck, con);
+                DataTable cdt = new DataTable();
+                cda.Fill(cdt);
+                string type = "";
+                if (cdt.Rows.Count > 0)
+                {
+                    type = cdt.Rows[0]["type"].ToString();
+
+                }
+
+                if (type != "Testator")
+                {
+                    con.Open();
+                    string query = "select * from TestatorDetails a   inner join users b on a.uId = b.uId  where b.Linked_user = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlDataAdapter da = new SqlDataAdapter(query, con);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    con.Close();
+                    string data = "<option value='' >--Select--</option>";
+
+
+
+
+                    if (dt.Rows.Count > 0)
+                    {
+
+
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+
+
+
+
+                            data = data + "<option value=" + dt.Rows[i]["tId"].ToString() + " >" + dt.Rows[i]["First_Name"].ToString() + "</option>";
+
+
+
+                        }
+
+
+
+
+                    }
+
+                    return data;
+                }
+                else
+                {
+                    con.Open();
+                    string query = "select * from TestatorDetails a   inner join users b on a.uId = b.uId  where b.uId = " + Convert.ToInt32(Session["uuid"]) + " ";
+                    SqlDataAdapter da = new SqlDataAdapter(query, con);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    con.Close();
+                    string data = "";
+
+
+
+
+                    if (dt.Rows.Count > 0)
+                    {
+
+
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+
+
+
+
+                            data = data + "<option value=" + dt.Rows[i]["tId"].ToString() + " >" + dt.Rows[i]["First_Name"].ToString() + "</option>";
+
+
+
+                        }
+
+
+
+
+                    }
+
+                    return data;
+
+
+                }
+
+
+
+            }
+            else
+            {
+                con.Open();
+                string query = "select * from TestatorDetails";
+                SqlDataAdapter da = new SqlDataAdapter(query, con);
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                con.Close();
+                string data = "<option value='' >--Select--</option>";
+
+
+
+
+                if (dt.Rows.Count > 0)
+                {
+
+
+                    for (int i = 0; i < dt.Rows.Count; i++)
+                    {
+
+
+
+
+                        data = data + "<option value=" + dt.Rows[i]["tId"].ToString() + " >" + dt.Rows[i]["First_Name"].ToString() + "</option>";
+
+
+
+                    }
+
+
+
+
+                }
+
+                return data;
+
+            }
+
+
         }
 
     }

@@ -19,7 +19,7 @@ namespace WillAssure.Controllers
         SqlConnection con = new SqlConnection(connectionString);
         // GET: Addwitness
         static int btncount = 0;
-        public ActionResult AddwitnessIndex(string NestId,string send)
+        public ActionResult AddwitnessIndex(string NestId, string send)
         {
 
 
@@ -379,12 +379,12 @@ namespace WillAssure.Controllers
             {
                 ViewBag.skip = "true";
             }
-          
 
-        
+
+
 
             ViewBag.collapse = "true";
-          
+
             // check type 
             string typ = "";
             con.Open();
@@ -631,127 +631,143 @@ namespace WillAssure.Controllers
             AppointeesModel Am = new AppointeesModel();
             string distid = "";
 
-           
 
-                if (Session["distid"] != null)
+
+            if (Session["distid"] != null)
+            {
+                if (Session["distid"].ToString() != "")
                 {
-                    if (Session["distid"].ToString() != "")
+                    distid = Session["distid"].ToString();
+
+                    con.Open();
+
+                    if (NestId != null)
                     {
-                        distid = Session["distid"].ToString();
+                        query = "select * from Appointees where apId = " + NestId + " and  Type = 'Witness'";
+                    }
+                    else
+                    {
 
-                        con.Open();
 
-                        if (NestId != null)
+                        if (Session["doctype"] != null)
                         {
-                            query = "select * from Appointees where apId = " + NestId + " and  Type = 'Witness'";
+
+                            if (Session["doctype"].ToString() == "Will")
+                            {
+                                query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Will' and WitnessType not in ('third')  order by apId desc  ";
+                            }
+
+                            if (Session["doctype"].ToString() == "POA")
+                            {
+                                query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='POA' and WitnessType not in ('third')  order by apId desc ";
+                            }
+
+
+                            if (Session["doctype"].ToString() == "GiftDeeds")
+                            {
+                                query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Giftdeeds' and WitnessType not in ('third') order by apId desc ";
+                            }
+
+
+
+
+
                         }
                         else
                         {
+                            return RedirectToAction("LoginPageIndex", "LoginPage");
+                        }
 
 
-                            if (Session["doctype"] != null)
+
+
+
+
+                    }
+
+
+
+
+
+                    SqlDataAdapter da = new SqlDataAdapter(query, con);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+                    con.Close();
+                    string data = "";
+                    int count = 0;
+                    if (dt.Rows.Count > 0)
+                    {
+
+
+                        for (int i = 0; i < dt.Rows.Count; i++)
+                        {
+                            count++;
+                            ViewBag.disablefield = "true";
+
+
+                            if (count == 1)
                             {
+                                Am.wapId = Convert.ToInt32(dt.Rows[i]["apId"]);
+                                Am.wTypetxt = dt.Rows[i]["Type"].ToString();
+                                Am.wsubTypetxt = dt.Rows[i]["subType"].ToString();
+                                Am.wFirstname = dt.Rows[i]["Name"].ToString();
 
-                                if (Session["doctype"].ToString() == "Will")
+                               
+
+                                if (dt.Rows[i]["middleName"].ToString() != "None")
                                 {
-                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Will' and WitnessType not in ('third')  order by apId desc  ";
-                                }
-
-                                if (Session["doctype"].ToString() == "POA")
-                                {
-                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='POA' and WitnessType not in ('third')  order by apId desc ";
-                                }
-
-
-                                if (Session["doctype"].ToString() == "GiftDeeds")
-                                {
-                                    query = "select top 2 * from Appointees where tid = " + distid + "  and  Type = 'Witness' and doctype='Giftdeeds' and WitnessType not in ('third') order by apId desc ";
+                                    Am.wmiddleName = dt.Rows[i]["middleName"].ToString();
                                 }
 
 
-
-
-
+                                Am.wSurname = dt.Rows[i]["Surname"].ToString();
+                                Am.Identity_Proof_txt2 = dt.Rows[i]["Identity_Proof"].ToString();
+                                Am.wIdentity_Proof_Value = dt.Rows[i]["Identity_Proof_Value"].ToString();
+                                Am.wAlt_Identity_Proof = dt.Rows[i]["Alt_Identity_Proof"].ToString();
+                                Am.wAlt_Identity_Proof_Value = dt.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                                //Am.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+                                Am.wGender = dt.Rows[i]["Gender"].ToString();
+                                Am.wOccupation = dt.Rows[i]["Occupation"].ToString();
+                                Am.wRelationshipTxt = dt.Rows[i]["Relationship"].ToString();
+                                Am.wAddress1 = dt.Rows[i]["Address1"].ToString();
+                                Am.wAddress2 = dt.Rows[i]["Address2"].ToString();
+                                Am.wAddress3 = dt.Rows[i]["Address3"].ToString();
+                                Am.wcitytext = dt.Rows[i]["City"].ToString();
+                                Am.wstatetext = dt.Rows[i]["State"].ToString();
+                                Am.wPin = dt.Rows[i]["Pin"].ToString();
+                                Am.country_txt = dt.Rows[i]["Country"].ToString();
                             }
                             else
                             {
-                                return RedirectToAction("LoginPageIndex", "LoginPage");
-                            }
+                                Am.apId = Convert.ToInt32(dt.Rows[i]["apId"]);
+                                Am.Typetxt = dt.Rows[i]["Type"].ToString();
+                                Am.subTypetxt = dt.Rows[i]["subType"].ToString();
+                                Am.Firstname = dt.Rows[i]["Name"].ToString();
 
-
-
-
-
-
-                        }
-
-
-
-
-
-                        SqlDataAdapter da = new SqlDataAdapter(query, con);
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        con.Close();
-                        string data = "";
-                        int count = 0;
-                        if (dt.Rows.Count > 0)
-                        {
-
-
-                            for (int i = 0; i < dt.Rows.Count; i++)
-                            {
-                                count++;
-                                ViewBag.disablefield = "true";
-
-
-                                if (count == 1)
+                              
+                                if (dt.Rows[i]["middleName"].ToString() != "None")
                                 {
-                                    Am.wapId = Convert.ToInt32(dt.Rows[i]["apId"]);
-                                    Am.wTypetxt = dt.Rows[i]["Type"].ToString();
-                                    Am.wsubTypetxt = dt.Rows[i]["subType"].ToString();
-                                    Am.wFirstname = dt.Rows[i]["Name"].ToString();
-                                    Am.wmiddleName = dt.Rows[i]["middleName"].ToString();
-                                    Am.wSurname = dt.Rows[i]["Surname"].ToString();
-                                    Am.Identity_Proof_txt2 = dt.Rows[i]["Identity_Proof"].ToString();
-                                    Am.wIdentity_Proof_Value = dt.Rows[i]["Identity_Proof_Value"].ToString();
-                                    Am.wAlt_Identity_Proof = dt.Rows[i]["Alt_Identity_Proof"].ToString();
-                                    Am.wAlt_Identity_Proof_Value = dt.Rows[i]["Alt_Identity_Proof_Value"].ToString();
-                                    //Am.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
-                                    Am.wGender = dt.Rows[i]["Gender"].ToString();
-                                    Am.wOccupation = dt.Rows[i]["Occupation"].ToString();
-                                    Am.wRelationshipTxt = dt.Rows[i]["Relationship"].ToString();
-                                    Am.wAddress1 = dt.Rows[i]["Address1"].ToString();
-                                    Am.wAddress2 = dt.Rows[i]["Address2"].ToString();
-                                    Am.wAddress3 = dt.Rows[i]["Address3"].ToString();
-                                    Am.wcitytext = dt.Rows[i]["City"].ToString();
-                                    Am.wstatetext = dt.Rows[i]["State"].ToString();
-                                    Am.wPin = dt.Rows[i]["Pin"].ToString();
-                                    Am.country_txt = dt.Rows[i]["Country"].ToString();
-                            }
-                                else
-                                {
-                                    Am.apId = Convert.ToInt32(dt.Rows[i]["apId"]);
-                                    Am.Typetxt = dt.Rows[i]["Type"].ToString();
-                                    Am.subTypetxt = dt.Rows[i]["subType"].ToString();
-                                    Am.Firstname = dt.Rows[i]["Name"].ToString();
                                     Am.middleName = dt.Rows[i]["middleName"].ToString();
-                                    Am.Surname = dt.Rows[i]["Surname"].ToString();
-                                    Am.Identity_Proof_txt1 = dt.Rows[i]["Identity_Proof"].ToString();
-                                    Am.Identity_Proof_Value = dt.Rows[i]["Identity_Proof_Value"].ToString();
-                                    Am.Alt_Identity_Proof = dt.Rows[i]["Alt_Identity_Proof"].ToString();
-                                    Am.Alt_Identity_Proof_Value = dt.Rows[i]["Alt_Identity_Proof_Value"].ToString();
-                                    //Am.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
-                                    Am.Gender = dt.Rows[i]["Gender"].ToString();
-                                    Am.Occupation = dt.Rows[i]["Occupation"].ToString();
-                                    Am.RelationshipTxt = dt.Rows[i]["Relationship"].ToString();
-                                    Am.Address1 = dt.Rows[i]["Address1"].ToString();
-                                    Am.Address2 = dt.Rows[i]["Address2"].ToString();
-                                    Am.Address3 = dt.Rows[i]["Address3"].ToString();
-                                    Am.citytext = dt.Rows[i]["City"].ToString();
-                                    Am.statetext = dt.Rows[i]["State"].ToString();
-                                    Am.Pin = dt.Rows[i]["Pin"].ToString();
-                                    Am.altcountry_txt = dt.Rows[i]["Country"].ToString();
+                                }
+
+
+
+                                Am.Surname = dt.Rows[i]["Surname"].ToString();
+                                Am.Identity_Proof_txt1 = dt.Rows[i]["Identity_Proof"].ToString();
+                                Am.Identity_Proof_Value = dt.Rows[i]["Identity_Proof_Value"].ToString();
+                                Am.Alt_Identity_Proof = dt.Rows[i]["Alt_Identity_Proof"].ToString();
+                                Am.Alt_Identity_Proof_Value = dt.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                                //Am.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+                                Am.Gender = dt.Rows[i]["Gender"].ToString();
+                                Am.Occupation = dt.Rows[i]["Occupation"].ToString();
+                                Am.RelationshipTxt = dt.Rows[i]["Relationship"].ToString();
+                                Am.Address1 = dt.Rows[i]["Address1"].ToString();
+                                Am.Address2 = dt.Rows[i]["Address2"].ToString();
+                                Am.Address3 = dt.Rows[i]["Address3"].ToString();
+                                Am.citytext = dt.Rows[i]["City"].ToString();
+                                Am.statetext = dt.Rows[i]["State"].ToString();
+                                Am.Pin = dt.Rows[i]["Pin"].ToString();
+                                Am.altcountry_txt = dt.Rows[i]["Country"].ToString();
                             }
 
 
@@ -760,16 +776,16 @@ namespace WillAssure.Controllers
 
 
 
-                            }
                         }
                     }
                 }
-                else
-                {
-                    return RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+            else
+            {
+                return RedirectToAction("LoginPageIndex", "LoginPage");
 
 
-                }
+            }
 
 
 
@@ -821,55 +837,61 @@ namespace WillAssure.Controllers
             }
 
             SqlDataAdapter dae = new SqlDataAdapter(querye, con);
-                    DataTable dte = new DataTable();
-                    dae.Fill(dte);
-                    con.Close();
-                    string datae = "";
-                    
-                    if (dte.Rows.Count > 0)
+            DataTable dte = new DataTable();
+            dae.Fill(dte);
+            con.Close();
+            string datae = "";
+
+            if (dte.Rows.Count > 0)
+            {
+
+
+                for (int i = 0; i < dte.Rows.Count; i++)
+                {
+
+                    ViewBag.thirdwitnessdata = "true";
+
+
+                    Am.weapId = Convert.ToInt32(dte.Rows[i]["apId"]);
+                    Am.weTypetxt = dte.Rows[i]["Type"].ToString();
+                    Am.wesubTypetxt = dte.Rows[i]["subType"].ToString();
+                    Am.weFirstname = dte.Rows[i]["Name"].ToString();
+
+                    if (dte.Rows[i]["middleName"].ToString() != "None")
                     {
+                        Am.wemiddleName = dte.Rows[i]["middleName"].ToString();
+                    }
+                  
 
+                    Am.weSurname = dte.Rows[i]["Surname"].ToString();
+                    Am.Identity_Proof_txt3 = dte.Rows[i]["Identity_Proof"].ToString();
+                    Am.weIdentity_Proof_Value = dte.Rows[i]["Identity_Proof_Value"].ToString();
+                    Am.weAlt_Identity_Proof = dte.Rows[i]["Alt_Identity_Proof"].ToString();
+                    Am.weAlt_Identity_Proof_Value = dte.Rows[i]["Alt_Identity_Proof_Value"].ToString();
+                    //Am.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+                    Am.weGender = dte.Rows[i]["Gender"].ToString();
 
-                        for (int i = 0; i < dte.Rows.Count; i++)
-                        {
-                           
-                            ViewBag.thirdwitnessdata = "true";
-
-
-                            Am.weapId = Convert.ToInt32(dte.Rows[i]["apId"]);
-                            Am.weTypetxt = dte.Rows[i]["Type"].ToString();
-                            Am.wesubTypetxt = dte.Rows[i]["subType"].ToString();
-                            Am.weFirstname = dte.Rows[i]["Name"].ToString();
-                            Am.wemiddleName = dte.Rows[i]["middleName"].ToString();
-                            Am.weSurname = dte.Rows[i]["Surname"].ToString();
-                            Am.Identity_Proof_txt3 = dte.Rows[i]["Identity_Proof"].ToString();
-                            Am.weIdentity_Proof_Value = dte.Rows[i]["Identity_Proof_Value"].ToString();
-                            Am.weAlt_Identity_Proof = dte.Rows[i]["Alt_Identity_Proof"].ToString();
-                            Am.weAlt_Identity_Proof_Value = dte.Rows[i]["Alt_Identity_Proof_Value"].ToString();
-                            //Am.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
-                            Am.weGender = dte.Rows[i]["Gender"].ToString();
-                
-                            Am.weRelationshipTxt = dte.Rows[i]["Relationship"].ToString();
+                    Am.weRelationshipTxt = dte.Rows[i]["Relationship"].ToString();
                     Am.weAddress1 = dte.Rows[i]["Address1"].ToString();
                     Am.weAddress2 = dte.Rows[i]["Address2"].ToString();
-                            Am.weAddress3 = dte.Rows[i]["Address3"].ToString();
-                            Am.wecitytext = dte.Rows[i]["City"].ToString();
-                            Am.westatetext = dte.Rows[i]["State"].ToString();
-                            Am.wePin = dte.Rows[i]["Pin"].ToString();
-                            Am.wecountrytext = dte.Rows[i]["Country"].ToString();
+                    Am.weAddress3 = dte.Rows[i]["Address3"].ToString();
+                    Am.wecitytext = dte.Rows[i]["City"].ToString();
+                    Am.westatetext = dte.Rows[i]["State"].ToString();
+                    Am.wePin = dte.Rows[i]["Pin"].ToString();
+                    Am.wecountrytext = dte.Rows[i]["Country"].ToString();
 
 
 
 
 
-                        }
+                }
 
-                    }
+            }
 
 
 
-                
-            
+
+
 
 
 
@@ -1269,7 +1291,19 @@ namespace WillAssure.Controllers
 
 
                     cmd.Parameters.AddWithValue("@Name", AM.Firstname);
-                    cmd.Parameters.AddWithValue("@middleName", AM.middleName);
+
+                    if (AM.middleName != null)
+                    {
+                        cmd.Parameters.AddWithValue("@middleName", AM.middleName);
+                    }
+                    else
+                    {
+                        AM.middleName = "None";
+                        cmd.Parameters.AddWithValue("@middleName", AM.middleName);
+                    }
+                    
+
+
                     cmd.Parameters.AddWithValue("@Surname", AM.Surname);
                     cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);
                     cmd.Parameters.AddWithValue("@Identity_proof_value", AM.Identity_Proof_Value);
@@ -1367,7 +1401,7 @@ namespace WillAssure.Controllers
                     con.Open();
 
                     string getcountryname = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.country_txt + "";
-                    SqlDataAdapter dacou = new SqlDataAdapter(getcountryname,con);
+                    SqlDataAdapter dacou = new SqlDataAdapter(getcountryname, con);
                     DataTable dtcou = new DataTable();
                     dacou.Fill(dtcou);
                     string countryname = "";
@@ -1376,7 +1410,7 @@ namespace WillAssure.Controllers
                         countryname = dtcou.Rows[0]["CountryName"].ToString();
                     }
 
-                    string qte = "update Appointees set Country='"+countryname+"'  , documentstatus = 'Incompleted' , WillType='"+Session["WillType"].ToString()+"' where apId =" + appid + " ";
+                    string qte = "update Appointees set Country='" + countryname + "'  , documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid + " ";
                     SqlCommand cmdte = new SqlCommand(qte, con);
                     cmdte.ExecuteNonQuery();
                     con.Close();
@@ -1423,7 +1457,22 @@ namespace WillAssure.Controllers
 
 
                     cmdw.Parameters.AddWithValue("@Name", AM.wFirstname);
-                    cmdw.Parameters.AddWithValue("@middleName", AM.wmiddleName);
+
+
+                    if (AM.wmiddleName != null)
+                    {
+                        cmdw.Parameters.AddWithValue("@middleName", AM.wmiddleName);
+                    }
+                    else
+                    {
+                        AM.wmiddleName = "None";
+                        cmdw.Parameters.AddWithValue("@middleName", AM.wmiddleName);
+                    }
+                  
+
+
+
+
                     cmdw.Parameters.AddWithValue("@Surname", AM.wSurname);
                     cmdw.Parameters.AddWithValue("@Identity_proof", AM.wIdentity_Proof);
                     cmdw.Parameters.AddWithValue("@Identity_proof_value", AM.wIdentity_Proof_Value);
@@ -1498,7 +1547,7 @@ namespace WillAssure.Controllers
                     int appid22 = 0;
                     con.Open();
                     string query22 = "select top 1 * from Appointees order by apId desc";
-                    SqlDataAdapter da22= new SqlDataAdapter(query22, con);
+                    SqlDataAdapter da22 = new SqlDataAdapter(query22, con);
                     DataTable dt22 = new DataTable();
                     da22.Fill(dt22);
                     if (dt22.Rows.Count > 0)
@@ -1559,7 +1608,7 @@ namespace WillAssure.Controllers
 
 
 
-                   
+
 
 
                     if (AM.checkwitness3 == "true")
@@ -1589,7 +1638,21 @@ namespace WillAssure.Controllers
 
 
                         cmdw3.Parameters.AddWithValue("@Name", AM.weFirstname);
-                        cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+
+
+                        if (AM.wemiddleName != null)
+                        {
+                            cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+                        }
+                        else
+                        {
+                            AM.wemiddleName = "None";
+                            cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+                        }
+                        
+
+
+
                         cmdw3.Parameters.AddWithValue("@Surname", AM.weSurname);
                         cmdw3.Parameters.AddWithValue("@Identity_proof", AM.weIdentity_Proof);
                         cmdw3.Parameters.AddWithValue("@Identity_proof_value", AM.weIdentity_Proof_Value);
@@ -1706,7 +1769,7 @@ namespace WillAssure.Controllers
 
                         //end
 
-                       
+
 
                         con.Open();
                         string qt223 = "update Appointees set doctype = 'Will' , WitnessType = 'Third'  where   apId = " + thirdid + "";
@@ -1750,109 +1813,121 @@ namespace WillAssure.Controllers
             if (Session["doctype"] != null)
             {
                 if (Session["doctype"].ToString() == "POA")
-            {
-                ViewBag.disablefield = "true";
-                con.Open();
-                SqlCommand cmd = new SqlCommand("SP_CRUDAppointees", con);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@condition", "insert");
-                cmd.Parameters.AddWithValue("@documentId", AM.documentId);
-                cmd.Parameters.AddWithValue("@Type", "Witness");
-                cmd.Parameters.AddWithValue("@subType", "None");
-                cmd.Parameters.AddWithValue("@Name", AM.Firstname);
-                cmd.Parameters.AddWithValue("@middleName", AM.middleName);
-                cmd.Parameters.AddWithValue("@Surname", AM.Surname);
-                cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);
-                cmd.Parameters.AddWithValue("@Identity_proof_value", AM.Identity_Proof_Value);
-
-
-                if (AM.Alt_Identity_Proof != null)
                 {
-                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
-                }
-                else
-                {
-                    AM.Alt_Identity_Proof = "None";
-                    cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
-                }
+                    ViewBag.disablefield = "true";
+                    con.Open();
+                    SqlCommand cmd = new SqlCommand("SP_CRUDAppointees", con);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@condition", "insert");
+                    cmd.Parameters.AddWithValue("@documentId", AM.documentId);
+                    cmd.Parameters.AddWithValue("@Type", "Witness");
+                    cmd.Parameters.AddWithValue("@subType", "None");
+                    cmd.Parameters.AddWithValue("@Name", AM.Firstname);
+
+                    if (AM.middleName != null)
+                    {
+                        cmd.Parameters.AddWithValue("@middleName", AM.middleName);
+                    }
+                    else
+                    {
+                        AM.middleName = "None";
+                        cmd.Parameters.AddWithValue("@middleName", AM.middleName);
+                    }
+                    
 
 
-                if (AM.Alt_Identity_Proof_Value != null)
-                {
-                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
-                }
-                else
-                {
-                    AM.Alt_Identity_Proof_Value = "None";
-                    cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
-                }
+                    cmd.Parameters.AddWithValue("@Surname", AM.Surname);
+                    cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);
+                    cmd.Parameters.AddWithValue("@Identity_proof_value", AM.Identity_Proof_Value);
 
 
+                    if (AM.Alt_Identity_Proof != null)
+                    {
+                        cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+                    }
+                    else
+                    {
+                        AM.Alt_Identity_Proof = "None";
+                        cmd.Parameters.AddWithValue("@Alt_Identity_proof", AM.Alt_Identity_Proof);
+                    }
 
 
-
-
-
-
-
-                //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                //cmd.Parameters.AddWithValue("@DOB", "None");
-                cmd.Parameters.AddWithValue("@Gender", AM.Gender);
-                cmd.Parameters.AddWithValue("@Occupation", "None");
-                cmd.Parameters.AddWithValue("@Relationship", "None");
-                cmd.Parameters.AddWithValue("@Address1", AM.Address1);
-                if (AM.Address2 != null || AM.Address2 == "")
-                {
-                    cmd.Parameters.AddWithValue("@Address2", AM.Address2);
-                }
-                else
-                {
-                    AM.Address2 = "None";
-                    cmd.Parameters.AddWithValue("@Address2", AM.Address2);
-                }
-
-
-                if (AM.Address3 != null || AM.Address3 == "")
-                {
-                    cmd.Parameters.AddWithValue("@Address3", AM.Address3);
-                }
-                else
-                {
-                    AM.Address3 = "None";
-                    cmd.Parameters.AddWithValue("@Address3", AM.Address3);
-                }
-
-
-                cmd.Parameters.AddWithValue("@City", AM.citytext);
-                cmd.Parameters.AddWithValue("@State", AM.statetext);
-                cmd.Parameters.AddWithValue("@Pin", AM.Pin);
-                cmd.Parameters.AddWithValue("@tid", AM.ddltid);
-                cmd.Parameters.AddWithValue("@ExecutorType", "None");
-                cmd.ExecuteNonQuery();
-                con.Close();
+                    if (AM.Alt_Identity_Proof_Value != null)
+                    {
+                        cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+                    }
+                    else
+                    {
+                        AM.Alt_Identity_Proof_Value = "None";
+                        cmd.Parameters.AddWithValue("@Alt_Identity_proof_value", AM.Alt_Identity_Proof_Value);
+                    }
 
 
 
-                con.Open();
-                string query = "select top 1 * from Appointees order by apId desc";
-                SqlDataAdapter da2 = new SqlDataAdapter(query, con);
-                DataTable dt2 = new DataTable();
-                da2.Fill(dt2);
-                if (dt2.Rows.Count > 0)
-                {
-                    appid = Convert.ToInt32(dt2.Rows[0]["apId"]);
-                    apid = 1; // for yes
-                }
-                else
-                {
-                    apid = 2; //for no
-                }
-                con.Close();
 
 
 
-                //end
-                con.Open();
+
+
+
+                    //DateTime dat = DateTime.ParseExact(AM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
+                    //cmd.Parameters.AddWithValue("@DOB", "None");
+                    cmd.Parameters.AddWithValue("@Gender", AM.Gender);
+                    cmd.Parameters.AddWithValue("@Occupation", "None");
+                    cmd.Parameters.AddWithValue("@Relationship", "None");
+                    cmd.Parameters.AddWithValue("@Address1", AM.Address1);
+                    if (AM.Address2 != null || AM.Address2 == "")
+                    {
+                        cmd.Parameters.AddWithValue("@Address2", AM.Address2);
+                    }
+                    else
+                    {
+                        AM.Address2 = "None";
+                        cmd.Parameters.AddWithValue("@Address2", AM.Address2);
+                    }
+
+
+                    if (AM.Address3 != null || AM.Address3 == "")
+                    {
+                        cmd.Parameters.AddWithValue("@Address3", AM.Address3);
+                    }
+                    else
+                    {
+                        AM.Address3 = "None";
+                        cmd.Parameters.AddWithValue("@Address3", AM.Address3);
+                    }
+
+
+                    cmd.Parameters.AddWithValue("@City", AM.citytext);
+                    cmd.Parameters.AddWithValue("@State", AM.statetext);
+                    cmd.Parameters.AddWithValue("@Pin", AM.Pin);
+                    cmd.Parameters.AddWithValue("@tid", AM.ddltid);
+                    cmd.Parameters.AddWithValue("@ExecutorType", "None");
+                    cmd.ExecuteNonQuery();
+                    con.Close();
+
+
+
+                    con.Open();
+                    string query = "select top 1 * from Appointees order by apId desc";
+                    SqlDataAdapter da2 = new SqlDataAdapter(query, con);
+                    DataTable dt2 = new DataTable();
+                    da2.Fill(dt2);
+                    if (dt2.Rows.Count > 0)
+                    {
+                        appid = Convert.ToInt32(dt2.Rows[0]["apId"]);
+                        apid = 1; // for yes
+                    }
+                    else
+                    {
+                        apid = 2; //for no
+                    }
+                    con.Close();
+
+
+
+                    //end
+                    con.Open();
 
 
 
@@ -1871,9 +1946,9 @@ namespace WillAssure.Controllers
 
 
                     string qt = "update Appointees set  Country='" + countryname + "'  , doctype = 'POA'  , WitnessType = 'First' where  apId = " + apid + "";
-                SqlCommand cmdt = new SqlCommand(qt, con);
-                cmdt.ExecuteNonQuery();
-                con.Close();
+                    SqlCommand cmdt = new SqlCommand(qt, con);
+                    cmdt.ExecuteNonQuery();
+                    con.Close();
 
 
 
@@ -1908,7 +1983,19 @@ namespace WillAssure.Controllers
 
 
                     cmdw.Parameters.AddWithValue("@Name", AM.wFirstname);
-                    cmdw.Parameters.AddWithValue("@middleName", AM.wmiddleName);
+
+                    if (AM.wmiddleName != "None")
+                    {
+                        cmdw.Parameters.AddWithValue("@middleName", AM.wmiddleName);
+                    }
+                    else
+                    {
+                        AM.wmiddleName = "None";
+                        cmdw.Parameters.AddWithValue("@middleName", AM.wmiddleName);
+                    }
+                    
+
+
                     cmdw.Parameters.AddWithValue("@Surname", AM.wSurname);
                     cmdw.Parameters.AddWithValue("@Identity_proof", AM.wIdentity_Proof);
                     cmdw.Parameters.AddWithValue("@Identity_proof_value", AM.wIdentity_Proof_Value);
@@ -2075,7 +2162,22 @@ namespace WillAssure.Controllers
 
 
                         cmdw3.Parameters.AddWithValue("@Name", AM.weFirstname);
-                        cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+
+
+                        if (AM.wemiddleName != null)
+                        {
+                            cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+                        }
+                        else
+                        {
+                            AM.wemiddleName = "None";
+                            cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+                        }
+                      
+
+
+
+
                         cmdw3.Parameters.AddWithValue("@Surname", AM.weSurname);
                         cmdw3.Parameters.AddWithValue("@Identity_proof", AM.weIdentity_Proof);
                         cmdw3.Parameters.AddWithValue("@Identity_proof_value", AM.weIdentity_Proof_Value);
@@ -2234,7 +2336,19 @@ namespace WillAssure.Controllers
                     cmd.Parameters.AddWithValue("@Type", "Witness");
                     cmd.Parameters.AddWithValue("@subType", AM.subTypetxt);
                     cmd.Parameters.AddWithValue("@Name", AM.Firstname);
-                    cmd.Parameters.AddWithValue("@middleName", AM.middleName);
+
+                    if (AM.middleName != null)
+                    {
+                        cmd.Parameters.AddWithValue("@middleName", AM.middleName);
+                    }
+                    else
+                    {
+                        AM.middleName = "None";
+                        cmd.Parameters.AddWithValue("@middleName", AM.middleName);
+                    }
+                   
+
+
                     cmd.Parameters.AddWithValue("@Surname", AM.Surname);
                     cmd.Parameters.AddWithValue("@Identity_proof", AM.Identity_Proof);
                     cmd.Parameters.AddWithValue("@Identity_proof_value", AM.Identity_Proof_Value);
@@ -2380,7 +2494,20 @@ namespace WillAssure.Controllers
 
 
                     cmdw.Parameters.AddWithValue("@Name", AM.wFirstname);
-                    cmdw.Parameters.AddWithValue("@middleName", AM.wmiddleName);
+
+                    if (AM.wmiddleName != null)
+                    {
+                        cmdw.Parameters.AddWithValue("@middleName", AM.wmiddleName);
+                    }
+                    else
+                    {
+                        AM.wmiddleName = "None";
+                        cmdw.Parameters.AddWithValue("@middleName", AM.wmiddleName);
+                    }
+                  
+
+
+
                     cmdw.Parameters.AddWithValue("@Surname", AM.wSurname);
                     cmdw.Parameters.AddWithValue("@Identity_proof", AM.wIdentity_Proof);
                     cmdw.Parameters.AddWithValue("@Identity_proof_value", AM.wIdentity_Proof_Value);
@@ -2546,7 +2673,19 @@ namespace WillAssure.Controllers
 
 
                         cmdw3.Parameters.AddWithValue("@Name", AM.weFirstname);
-                        cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+
+                        if (AM.wemiddleName != null)
+                        {
+                            cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+                        }
+                        else
+                        {
+                            AM.wemiddleName = "None";
+                            cmdw3.Parameters.AddWithValue("@middleName", AM.wemiddleName);
+                        }
+                        
+
+
                         cmdw3.Parameters.AddWithValue("@Surname", AM.weSurname);
                         cmdw3.Parameters.AddWithValue("@Identity_proof", AM.weIdentity_Proof);
                         cmdw3.Parameters.AddWithValue("@Identity_proof_value", AM.weIdentity_Proof_Value);
@@ -2759,7 +2898,7 @@ namespace WillAssure.Controllers
 
 
 
-            
+
 
 
             ViewBag.Message = "Verified";
@@ -2860,9 +2999,9 @@ namespace WillAssure.Controllers
 
 
 
-            
 
-             int d= btncount++;
+
+            int d = btncount++;
 
             int send = d;
 
@@ -2870,7 +3009,7 @@ namespace WillAssure.Controllers
             TempData["Message"] = "true";
             ModelState.Clear();
 
-            return RedirectToAction("AddwitnessIndex", "Addwitness" , new { send = send });
+            return RedirectToAction("AddwitnessIndex", "Addwitness", new { send = send });
         }
 
 
@@ -3132,7 +3271,7 @@ namespace WillAssure.Controllers
             }
             else
             {
-                w2identity = "None"; 
+                w2identity = "None";
             }
 
             if (AM.weIdentity_Proof != null)
@@ -3146,7 +3285,7 @@ namespace WillAssure.Controllers
 
 
 
-         
+
 
 
 
@@ -3180,7 +3319,7 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@Pin", AM.Pin);
             cmd.Parameters.AddWithValue("@tid", AM.ddltid);
             cmd.Parameters.AddWithValue("@ExecutorType", "Single");
-          
+
 
             cmd.ExecuteNonQuery();
             con.Close();
@@ -3259,7 +3398,7 @@ namespace WillAssure.Controllers
             cmd3.Parameters.AddWithValue("@Pin", AM.wePin);
             cmd3.Parameters.AddWithValue("@tid", AM.ddltid);
             cmd3.Parameters.AddWithValue("@ExecutorType", "Single");
-   
+
             cmd3.ExecuteNonQuery();
 
             con.Close();
@@ -3371,7 +3510,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + "  ";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -3383,7 +3522,7 @@ namespace WillAssure.Controllers
                 {
                     testatorchk = "false";
                 }
-             
+
 
             }
 
@@ -3401,7 +3540,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.tid = '" + Convert.ToInt32(Session["distid"]) + "'";
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt3 = new DataTable();
             da3.Fill(dt3);
@@ -3414,7 +3553,7 @@ namespace WillAssure.Controllers
                     {
                         testatorfamilychk = "false";
                     }
-                 
+
 
 
 
@@ -3437,7 +3576,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
             DataTable dt4 = new DataTable();
             da4.Fill(dt4);
@@ -3450,7 +3589,7 @@ namespace WillAssure.Controllers
                     {
                         guardianchk = "false";
                     }
-                  
+
 
 
 
@@ -3474,7 +3613,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
             DataTable dt5 = new DataTable();
             da5.Fill(dt5);
@@ -3487,7 +3626,7 @@ namespace WillAssure.Controllers
                     {
                         benechk = "false";
                     }
-                 
+
 
 
 
@@ -3510,7 +3649,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.tid = " + Convert.ToInt32(Session["distid"]) + "   and a.Type = 'Witness'";
             SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
             DataTable dt6 = new DataTable();
             da6.Fill(dt6);
@@ -3523,7 +3662,7 @@ namespace WillAssure.Controllers
                     {
                         witchk = "false";
                     }
-                 
+
 
 
 
@@ -3585,7 +3724,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + "  ";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -3597,7 +3736,7 @@ namespace WillAssure.Controllers
                 {
                     testatorchk = "false";
                 }
-              
+
 
             }
 
@@ -3615,7 +3754,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.tid = '" + Convert.ToInt32(Session["distid"]) + "'";
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt3 = new DataTable();
             da3.Fill(dt3);
@@ -3628,7 +3767,7 @@ namespace WillAssure.Controllers
                     {
                         testatorfamilychk = "false";
                     }
-                  
+
 
 
 
@@ -3651,7 +3790,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
             DataTable dt4 = new DataTable();
             da4.Fill(dt4);
@@ -3664,7 +3803,7 @@ namespace WillAssure.Controllers
                     {
                         guardianchk = "false";
                     }
-                   
+
 
 
 
@@ -3688,7 +3827,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
             DataTable dt5 = new DataTable();
             da5.Fill(dt5);
@@ -3701,7 +3840,7 @@ namespace WillAssure.Controllers
                     {
                         benechk = "false";
                     }
-                 
+
 
 
 
@@ -3724,7 +3863,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.tid = " + Convert.ToInt32(Session["distid"]) + "   and a.Type = 'Witness'";
             SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
             DataTable dt6 = new DataTable();
             da6.Fill(dt6);
@@ -3737,7 +3876,7 @@ namespace WillAssure.Controllers
                     {
                         witchk = "false";
                     }
-                 
+
 
 
 
@@ -3805,7 +3944,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + "  ";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -3817,7 +3956,7 @@ namespace WillAssure.Controllers
                 {
                     testatorchk = "false";
                 }
-             
+
 
             }
 
@@ -3835,7 +3974,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.tid = '" + Convert.ToInt32(Session["distid"]) + "'";
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt3 = new DataTable();
             da3.Fill(dt3);
@@ -3848,7 +3987,7 @@ namespace WillAssure.Controllers
                     {
                         testatorfamilychk = "false";
                     }
-               
+
 
 
 
@@ -3871,7 +4010,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
             DataTable dt4 = new DataTable();
             da4.Fill(dt4);
@@ -3884,7 +4023,7 @@ namespace WillAssure.Controllers
                     {
                         guardianchk = "false";
                     }
-                
+
 
 
 
@@ -3908,7 +4047,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
             DataTable dt5 = new DataTable();
             da5.Fill(dt5);
@@ -3921,7 +4060,7 @@ namespace WillAssure.Controllers
                     {
                         benechk = "false";
                     }
-                 
+
 
 
 
@@ -3944,7 +4083,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.tid = " + Convert.ToInt32(Session["distid"]) + "   and a.Type = 'Witness'";
             SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
             DataTable dt6 = new DataTable();
             da6.Fill(dt6);
@@ -3957,7 +4096,8 @@ namespace WillAssure.Controllers
                     {
                         witchk = "false";
                     }
-                  
+
+
 
 
 
@@ -4018,7 +4158,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + "  ";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -4030,7 +4170,7 @@ namespace WillAssure.Controllers
                 {
                     testatorchk = "false";
                 }
-          
+
 
             }
 
@@ -4048,7 +4188,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.tid = '" + Convert.ToInt32(Session["distid"]) + "'";
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt3 = new DataTable();
             da3.Fill(dt3);
@@ -4061,7 +4201,7 @@ namespace WillAssure.Controllers
                     {
                         testatorfamilychk = "false";
                     }
-                
+
 
 
 
@@ -4084,7 +4224,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
             DataTable dt4 = new DataTable();
             da4.Fill(dt4);
@@ -4097,7 +4237,7 @@ namespace WillAssure.Controllers
                     {
                         guardianchk = "false";
                     }
-                 
+
 
 
 
@@ -4121,7 +4261,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
             DataTable dt5 = new DataTable();
             da5.Fill(dt5);
@@ -4134,7 +4274,7 @@ namespace WillAssure.Controllers
                     {
                         benechk = "false";
                     }
-                
+
 
 
 
@@ -4157,7 +4297,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.tid = " + Convert.ToInt32(Session["distid"]) + "   and a.Type = 'Witness'";
             SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
             DataTable dt6 = new DataTable();
             da6.Fill(dt6);
@@ -4170,7 +4310,7 @@ namespace WillAssure.Controllers
                     {
                         witchk = "false";
                     }
-              
+
 
 
 

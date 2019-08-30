@@ -26,7 +26,20 @@ namespace WillAssure.Controllers
             string response = Request["send"].ToString();
 
             string name = response.Split('~')[0];
-            string middlename = response.Split('~')[1];
+
+            string middlename = "";
+
+            if (response.Split('~')[1] != "" || response.Split('~')[1] != null)
+            {
+                 middlename = response.Split('~')[1];
+            }
+            else
+            {
+                middlename = "None";
+            }
+            
+
+
             string lastname = response.Split('~')[2];
             string contactno = response.Split('~')[3];
             string emailid = response.Split('~')[4];
@@ -126,7 +139,7 @@ namespace WillAssure.Controllers
                 }
 
                 // set document rules
-                string qdr = "insert into documentRules (tid,uid) values ( " + tid + " ,   " + userid + ") ";
+                string qdr = "insert into documentRules (tid,uid,documentType,executors_category,AlternateBenficiaries,AlternateExecutors) values ( " + tid + " ,   " + userid + " ,1,0,0,0) ";
                 SqlCommand cdr = new SqlCommand(qdr, con);
                 cdr.ExecuteNonQuery();
 
@@ -203,8 +216,8 @@ namespace WillAssure.Controllers
                     string subject = "Will Assure OTP for Login";
                     string OTP = "<font color='Green' style='font-size=3em;'>" + EmailOTP + "</font>";
                     string text = "Your OTP for Verification Is " + OTP + "";
-                    string body = "<font color='red'>" + text + "</font><br><a href='http://localhost:49735/frontend/otpindex?userid=" + userid + "'>click here to verify your otp</a>";
-                  //string body = "<font color='red'>" + text + "</font><br><a href='http://test.willassure.in/Frontend/OtpIndex?userid=" + userid + "'>Click Here To Verify Your OTP</a>";
+                    //string body = "<font color='red'>" + text + "</font><br><a href='http://localhost:49735/frontend/otpindex?userid=" + userid + "'>click here to verify your otp</a>";
+                    string body = "<font color='red'>" + text + "</font><br><a href='http://test.willassure.in/Frontend/OtpIndex?userid=" + userid + "'>Click Here To Verify Your OTP</a>";
 
                     MailMessage msg = new MailMessage();
                     msg.From = new MailAddress("info@drinco.in");

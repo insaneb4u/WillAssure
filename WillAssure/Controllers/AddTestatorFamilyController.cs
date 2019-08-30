@@ -609,7 +609,14 @@ namespace WillAssure.Controllers
                     alternatetfid = Convert.ToInt32(dt.Rows[i]["fId"]);
                     TFM.First_Name = dt.Rows[i]["First_Name"].ToString();
                     TFM.Last_Name = dt.Rows[i]["Last_Name"].ToString();
-                    TFM.Middle_Name = dt.Rows[i]["Middle_Name"].ToString();
+
+                    if (dt.Rows[i]["Middle_Name"].ToString() != "None")
+                    {
+                        TFM.Middle_Name = dt.Rows[i]["Middle_Name"].ToString();
+                    }
+                   
+
+
                     TFM.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
                     TFM.Marital_Status = dt.Rows[i]["Marital_Status"].ToString();
                     TFM.Religion = dt.Rows[i]["Religion"].ToString();
@@ -689,8 +696,17 @@ namespace WillAssure.Controllers
                             TFM.guaTypetxt = dt33.Rows[i]["Type"].ToString();
         TFM.guasubTypetxt = dt33.Rows[i]["subType"].ToString();
         TFM.guaName = dt33.Rows[i]["Name"].ToString();
-        TFM.guamiddleName = dt33.Rows[i]["middleName"].ToString();
-        TFM.guaSurname = dt33.Rows[i]["Surname"].ToString();
+
+                    if (dt33.Rows[i]["middleName"].ToString() != "None")
+                    {
+                        TFM.guamiddleName = dt33.Rows[i]["middleName"].ToString();
+                    }
+                  
+
+       
+
+
+                    TFM.guaSurname = dt33.Rows[i]["Surname"].ToString();
         TFM.guaIdentity_Proof_txt = dt33.Rows[i]["Identity_Proof"].ToString();
         TFM.guaIdentity_Proof_Value = dt33.Rows[i]["Identity_Proof_Value"].ToString();
         TFM.guaAlt_Identity_Proof = dt33.Rows[i]["Alt_Identity_Proof"].ToString();
@@ -752,7 +768,15 @@ namespace WillAssure.Controllers
                     TFM.altguaTypetxt = dt333.Rows[i]["Type"].ToString();
                     TFM.altguasubTypetxt = dt333.Rows[i]["subType"].ToString();
                     TFM.altguaName = dt333.Rows[i]["Name"].ToString();
-                    TFM.altguamiddleName = dt333.Rows[i]["middleName"].ToString();
+
+                    if (dt333.Rows[i]["middleName"].ToString() != "None")
+                    {
+                        TFM.altguamiddleName = dt333.Rows[i]["middleName"].ToString();
+                    }
+
+                   
+
+
                     TFM.altguaSurname = dt333.Rows[i]["Surname"].ToString();
                     TFM.altguaIdentity_Proof_txt = dt333.Rows[i]["Identity_Proof"].ToString();
                     TFM.altguaIdentity_Proof_Value = dt333.Rows[i]["Identity_Proof_Value"].ToString();
@@ -1532,7 +1556,17 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@condition", "insert");
                 cmd.Parameters.AddWithValue("@First_Name", TFM.First_Name);
                 cmd.Parameters.AddWithValue("@Last_Name", TFM.Last_Name);
+
+            if (TFM.Middle_Name != null)
+            {
                 cmd.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
+            }
+            else
+            {
+                TFM.Middle_Name = "None";
+                cmd.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
+            }
+                
            
             string dd = Convert.ToDateTime(TFM.Dob).ToString("dd-MM-yyyy");
             var d = DateTime.ParseExact(dd, "dd-MM-yyyy", CultureInfo.InvariantCulture);
@@ -1696,7 +1730,21 @@ namespace WillAssure.Controllers
 
 
                 cmd3.Parameters.AddWithValue("@Name", TFM.guaName);
-                cmd3.Parameters.AddWithValue("@middleName", TFM.guamiddleName);
+
+                if (TFM.guamiddleName != null)
+                {
+                    cmd3.Parameters.AddWithValue("@middleName", TFM.guamiddleName);
+                }
+                else
+                {
+                    TFM.guamiddleName = "None";
+                    cmd3.Parameters.AddWithValue("@middleName", TFM.guamiddleName);
+                }
+
+
+               
+
+
                 cmd3.Parameters.AddWithValue("@Surname", TFM.guaSurname);
                 cmd3.Parameters.AddWithValue("@Identity_proof", TFM.guaIdentity_Proof);
                 cmd3.Parameters.AddWithValue("@Identity_proof_value", TFM.guaIdentity_Proof_Value);
@@ -1856,7 +1904,21 @@ namespace WillAssure.Controllers
 
 
                 cmd3.Parameters.AddWithValue("@Name", TFM.altguaName);
-                cmd3.Parameters.AddWithValue("@middleName", TFM.altguamiddleName);
+
+
+                if (TFM.altguamiddleName != null)
+                {
+                    cmd3.Parameters.AddWithValue("@middleName", TFM.altguamiddleName);
+                }
+                else
+                {
+                    TFM.altguamiddleName = "None";
+                    cmd3.Parameters.AddWithValue("@middleName", TFM.altguamiddleName);
+                }
+                
+
+
+
                 cmd3.Parameters.AddWithValue("@Surname", TFM.altguaSurname);
                 cmd3.Parameters.AddWithValue("@Identity_proof", TFM.altguaIdentity_Proof);
                 cmd3.Parameters.AddWithValue("@Identity_proof_value", TFM.altguaIdentity_Proof_Value);
@@ -1985,7 +2047,18 @@ namespace WillAssure.Controllers
             cmd2.Parameters.AddWithValue("@condition", "insert");
             cmd2.Parameters.AddWithValue("@First_Name ", TFM.First_Name);
             cmd2.Parameters.AddWithValue("@Last_Name", TFM.Last_Name);
-            cmd2.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
+
+            if (TFM.Middle_Name != null)
+            {
+
+                cmd2.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
+            }
+            else
+            {
+                TFM.Middle_Name = "None";
+                cmd2.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
+            }
+
             
             cmd2.Parameters.AddWithValue("@DOB", Convert.ToDateTime(TFM.Dob));
             cmd2.Parameters.AddWithValue("@Mobile", "None");
@@ -2261,8 +2334,21 @@ namespace WillAssure.Controllers
                 
 
                 altcmd.Parameters.AddWithValue("@First_Name", TFM.altFirst_Name);
+
                 altcmd.Parameters.AddWithValue("@Last_Name", TFM.altLast_Name);
-                altcmd.Parameters.AddWithValue("@Middle_Name", TFM.altMiddle_Name);
+
+                if (TFM.altMiddle_Name != null)
+                {
+                    altcmd.Parameters.AddWithValue("@Middle_Name", TFM.altMiddle_Name);
+                }
+                else
+                {
+                    TFM.altMiddle_Name = "None";
+                    altcmd.Parameters.AddWithValue("@Middle_Name", TFM.altMiddle_Name);
+                }
+               
+
+
                 DateTime altdat = DateTime.ParseExact(TFM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 altcmd.Parameters.AddWithValue("@DOB", altdat);
                 altcmd.Parameters.AddWithValue("@Mobile", "None");
@@ -2952,7 +3038,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + "  ";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -2982,7 +3068,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "'";
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt3 = new DataTable();
             da3.Fill(dt3);
@@ -3018,7 +3104,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
             DataTable dt4 = new DataTable();
             da4.Fill(dt4);
@@ -3055,7 +3141,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
             DataTable dt5 = new DataTable();
             da5.Fill(dt5);
@@ -3091,7 +3177,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.tId = " + Convert.ToInt32(Session["distid"]) + "   and a.Type = 'Witness'";
             SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
             DataTable dt6 = new DataTable();
             da6.Fill(dt6);
@@ -3163,7 +3249,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + "  ";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -3193,7 +3279,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "'";
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt3 = new DataTable();
             da3.Fill(dt3);
@@ -3229,7 +3315,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
             DataTable dt4 = new DataTable();
             da4.Fill(dt4);
@@ -3266,7 +3352,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
             DataTable dt5 = new DataTable();
             da5.Fill(dt5);
@@ -3302,7 +3388,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.tId = " + Convert.ToInt32(Session["distid"]) + "   and a.Type = 'Witness'";
             SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
             DataTable dt6 = new DataTable();
             da6.Fill(dt6);
@@ -3375,7 +3461,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + "  ";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -3405,7 +3491,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "'";
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt3 = new DataTable();
             da3.Fill(dt3);
@@ -3441,7 +3527,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
             DataTable dt4 = new DataTable();
             da4.Fill(dt4);
@@ -3478,7 +3564,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
             DataTable dt5 = new DataTable();
             da5.Fill(dt5);
@@ -3514,7 +3600,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.tId = " + Convert.ToInt32(Session["distid"]) + "   and a.Type = 'Witness'";
             SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
             DataTable dt6 = new DataTable();
             da6.Fill(dt6);
@@ -3586,7 +3672,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + "  ";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -3616,7 +3702,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "'";
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt3 = new DataTable();
             da3.Fill(dt3);
@@ -3652,7 +3738,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
             DataTable dt4 = new DataTable();
             da4.Fill(dt4);
@@ -3689,7 +3775,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
             DataTable dt5 = new DataTable();
             da5.Fill(dt5);
@@ -3725,7 +3811,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.tId = " + Convert.ToInt32(Session["distid"]) + "   and a.Type = 'Witness'";
             SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
             DataTable dt6 = new DataTable();
             da6.Fill(dt6);

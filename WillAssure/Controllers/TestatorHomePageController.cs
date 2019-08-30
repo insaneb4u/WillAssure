@@ -1475,14 +1475,14 @@ namespace WillAssure.Controllers
                 if (Session["typeofWill"].ToString() == "Quick")
                 {
                     identify = 1;
-                    string qdr = "insert into documentRules (tid,uid,category) values ( " + Convert.ToInt32(ladt.Rows[0]["tId"]) + " ,   " + Convert.ToInt32(Session["uuid"]) + " , " + identify + ") ";
+                    string qdr = "insert into documentRules (tid,uid,category,executors_category,AlternateBenficiaries,AlternateExecutors) values ( " + Convert.ToInt32(ladt.Rows[0]["tId"]) + " ,   " + Convert.ToInt32(Session["uuid"]) + " , " + identify + " , 0 , 0 , 0) ";
                     SqlCommand cdr = new SqlCommand(qdr, con);
                     cdr.ExecuteNonQuery();
                 }
                 if (Session["typeofWill"].ToString() == "Detailed")
                 {
                     identify = 2;
-                    string qdr = "insert into documentRules (tid,uid,category) values ( " + Convert.ToInt32(ladt.Rows[0]["tId"]) + " ,   " + Convert.ToInt32(Session["uuid"]) + " , " + identify + ") ";
+                    string qdr = "insert into documentRules (tid,uid,category,executors_category,AlternateBenficiaries,AlternateExecutors) values ( " + Convert.ToInt32(ladt.Rows[0]["tId"]) + " ,   " + Convert.ToInt32(Session["uuid"]) + " , " + identify + " , 0 , 0 , 0) ";
                     SqlCommand cdr = new SqlCommand(qdr, con);
                     cdr.ExecuteNonQuery();
                 }

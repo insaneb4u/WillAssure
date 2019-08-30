@@ -1839,8 +1839,11 @@ namespace WillAssure.Controllers
 
                 string querydy2 = "";
                 string altbene = collection["alt_proportion"].ToString();
-                string linkid = collection["txtcapbeneid"].ToString();
 
+                altbene = altbene.Replace(",,", ",0,");
+
+                string linkid = collection["txtcapbeneid"].ToString();
+                linkid = linkid.Replace(",", "0,");
 
                 
              
@@ -2367,6 +2370,14 @@ namespace WillAssure.Controllers
             string financialstructure = "";
             con.Open();
             string checkfinancial = "";
+            string alternatedata = "";
+
+
+
+
+
+       
+
 
 
 
@@ -2377,18 +2388,18 @@ namespace WillAssure.Controllers
 
                 if (Session["doctype"].ToString() == "Will")
                 {
-                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 1 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1  and a.doctype  = 'Will' ";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid  where b.AssetType_ID = 1 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1  and a.doctype  = 'Will' ";
                 }
 
                 if (Session["doctype"].ToString() == "POA")
                 {
-                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 1 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype  = 'POA'  ";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid  where b.AssetType_ID = 1 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype  = 'POA'  ";
                 }
 
 
                 if (Session["doctype"].ToString() == "GiftDeeds")
                 {
-                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 1 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1  and a.doctype = 'Giftdeeds' ";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid  where b.AssetType_ID = 1 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1  and a.doctype = 'Giftdeeds' ";
                 }
 
 
@@ -2416,8 +2427,7 @@ namespace WillAssure.Controllers
 
 
 
-
-
+           
 
 
 
@@ -2427,6 +2437,29 @@ namespace WillAssure.Controllers
                 for (int i = 0; i < chkfinancialdt.Rows.Count; i++)
                 {
 
+                    /// alternate beneficiary records
+                    string queryalt = "select bd.First_Name , ab.alternateproportion from Alternate_BeneficiaryAssets ab inner join BeneficiaryDetails bd on ab.linkedbid=bd.bpId  where ab.linkedbid = " + Convert.ToInt32(chkfinancialdt.Rows[i]["alternatebenefciaryid"]) + "";
+                    SqlDataAdapter daalt = new SqlDataAdapter(queryalt, con);
+                    DataTable dtalt = new DataTable();
+                    daalt.Fill(dtalt);
+
+                    if (dtalt.Rows.Count > 0)
+                    {
+                        for (int j = 0; j < dtalt.Rows.Count; j++)
+                        {
+                            alternatedata += "<div class='col-sm-3'>" +
+                  "<label for='input-1'>Alternate Beneficiary</label>" +
+                  "<input type='text' value='" + dtalt.Rows[j]["First_Name"].ToString() + "'  readonly='true' class='form-control' id='' />" +
+                  "</div>" +
+
+                  "<div class='col-sm-3'>" +
+                  "<label for='input-1'>Proportion</label>" +
+                  "<input type='text' value='" + dtalt.Rows[j]["alternateproportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
+                  "</div><div class='col-sm-6'></div>";
+                        }
+                  
+                    }
+                    //end
 
                     string getassettype = "select b.AssetsType , a.AssetsCategory from AssetsCategory a inner join AssetsType b on a.atId=b.atId  where a.amId = " + Convert.ToInt32(chkfinancialdt.Rows[i]["AssetCategory_ID"]) + "";
                     SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
@@ -2466,6 +2499,15 @@ namespace WillAssure.Controllers
                        "<label for='input-1'>Proportion</label>" +
                        "<input type='text' value='" + chkfinancialdt.Rows[i]["Proportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
                        "</div>" +
+                       "</div>" +
+                       "<br>" +
+                       "<button type='button' class='btn btn-link shadow - none text - success' data-toggle='collapse' data-target='#collapsesingleFA-" + Convert.ToInt32(chkfinancialdt.Rows[i]["Beneficiary_Asset_ID"]) + "' aria-expanded='true' aria-controls='collapse-22'>" +
+                       "(Alternate Beneficiary)" +
+                       "</button>" +
+                       "<br>" +
+                       "<br>" +
+                       "<div class='row' id='alternatedata'>" +
+                       alternatedata+
                        "</div>" +
                        "</div>" +
                        "</div>" +
@@ -2563,18 +2605,18 @@ namespace WillAssure.Controllers
 
                 if (Session["doctype"].ToString() == "Will")
                 {
-                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 2 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype = 'Will' ";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid  where b.AssetType_ID = 2 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype = 'Will' ";
                 }
 
                 if (Session["doctype"].ToString() == "POA")
                 {
-                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 2 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype = 'POA'  ";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid  where b.AssetType_ID = 2 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype = 'POA'  ";
                 }
 
 
                 if (Session["doctype"].ToString() == "GiftDeeds")
                 {
-                    checkfinancial = "select distinct b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  where b.AssetType_ID = 2 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype = 'Giftdeeds'   ";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , b.Type , a.Remark , c.First_Name , b.Beneficiary_Asset_ID , b.AssetType_ID , b.AssetCategory_ID  , b.Proportion , b.tid , b.doctype  from AssetInformation a inner join BeneficiaryAssets b  on a.amId=b.AssetCategory_ID inner join BeneficiaryDetails c on b.Beneficiary_ID = c.bpId  inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid where b.AssetType_ID = 2 and a.Remark = 'Completed'  and b.tid = " + Convert.ToInt32(Session["distid"]) + "  and b.Type = 1 and a.doctype = 'Giftdeeds'   ";
                 }
 
 
@@ -2598,13 +2640,13 @@ namespace WillAssure.Controllers
             chkfinancialda.Fill(chkfinancialdt);
             string assetcat = "";
             string assettype = "";
+            string alternatedata = "";
             if (chkfinancialdt.Rows.Count > 0)
             {
 
 
 
-
-
+             
 
 
 
@@ -2615,6 +2657,30 @@ namespace WillAssure.Controllers
 
                 for (int i = 0; i < chkfinancialdt.Rows.Count; i++)
                 {
+
+                    /// alternate beneficiary records
+                    string queryalt = "select bd.First_Name , ab.alternateproportion from Alternate_BeneficiaryAssets ab inner join BeneficiaryDetails bd on ab.linkedbid=bd.bpId  where ab.linkedbid = " + Convert.ToInt32(chkfinancialdt.Rows[i]["alternatebenefciaryid"]) + "";
+                    SqlDataAdapter daalt = new SqlDataAdapter(queryalt, con);
+                    DataTable dtalt = new DataTable();
+                    daalt.Fill(dtalt);
+
+                    if (dtalt.Rows.Count > 0)
+                    {
+                        for (int j = 0; j < dtalt.Rows.Count; j++)
+                        {
+                            alternatedata += "<div class='col-sm-3'>" +
+                  "<label for='input-1'>Alternate Beneficiary</label>" +
+                  "<input type='text' value='" + dtalt.Rows[j]["First_Name"].ToString() + "'  readonly='true' class='form-control' id='' />" +
+                  "</div>" +
+
+                  "<div class='col-sm-3'>" +
+                  "<label for='input-1'>Proportion</label>" +
+                  "<input type='text' value='" + dtalt.Rows[j]["alternateproportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
+                  "</div><div class='col-sm-6'></div>";
+                        }
+
+                    }
+                    //end
 
 
                     string getassettype = "select b.AssetsType , a.AssetsCategory from AssetsCategory a inner join AssetsType b on a.atId=b.atId  where a.amId = " + Convert.ToInt32(chkfinancialdt.Rows[i]["AssetCategory_ID"]) + "";
@@ -2656,6 +2722,17 @@ namespace WillAssure.Controllers
                        "<input type='text' value='" + chkfinancialdt.Rows[i]["Proportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
                        "</div>" +
                        "</div>" +
+
+                        "<br>" +
+                       "<button type='button' class='btn btn-link shadow - none text - success' data-toggle='collapse' data-target='#collapsesingleFA-" + Convert.ToInt32(chkfinancialdt.Rows[i]["Beneficiary_Asset_ID"]) + "' aria-expanded='true' aria-controls='collapse-22'>" +
+                       "(Alternate Beneficiary)" +
+                       "</button>" +
+                       "<br>" +
+                       "<br>" +
+                       "<div class='row' id='alternatedata'>" +
+                       alternatedata +
+                       "</div>" +
+
                        "</div>" +
                        "</div>" +
                        "</div>" +
@@ -2715,6 +2792,7 @@ namespace WillAssure.Controllers
             string financialstructure = "";
 
             string body = "";
+            string alternatedata = "";
             con.Open();
             string checkfinancial = "";
 
@@ -2796,10 +2874,10 @@ namespace WillAssure.Controllers
 
 
 
-                    string getassettype = "select distinct ba.Beneficiary_Asset_ID,bd.First_Name,at.AssetsType,ba.Proportion from BeneficiaryAssets ba ";
+                    string getassettype = "select distinct bas.linkedbid , ba.Beneficiary_Asset_ID,bd.First_Name,at.AssetsType,ba.Proportion from BeneficiaryAssets ba ";
                     getassettype += " left join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
                     getassettype += " left join BeneficiaryDetails bd on bd.bpId = ba.Beneficiary_ID ";
-                    getassettype += " left join AssetsType at on at.atId = ba.AssetType_ID ";
+                    getassettype += " left join AssetsType at on at.atId = ba.AssetType_ID inner join Alternate_BeneficiaryAssets bas on bas.alternatebenefciaryid = bd.bpId";
                     getassettype += " where ba.AssetType_ID = 1 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 and ba.AssetCategory_ID = " + Convert.ToInt32(assetcatid);
 
                     SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
@@ -2809,6 +2887,40 @@ namespace WillAssure.Controllers
                     {
                         for (int i = 0; i < atdt.Rows.Count; i++)
                         {
+
+                            /// alternate beneficiary records
+                            string queryalt = "select bd.First_Name , ab.alternateproportion from Alternate_BeneficiaryAssets ab inner join BeneficiaryDetails bd on ab.linkedbid=bd.bpId  where ab.linkedbid = " + Convert.ToInt32(atdt.Rows[i]["linkedbid"]) + "";
+                            SqlDataAdapter daalt = new SqlDataAdapter(queryalt, con);
+                            DataTable dtalt = new DataTable();
+                            daalt.Fill(dtalt);
+
+                            if (dtalt.Rows.Count > 0)
+                            {
+                                for (int z = 0; z < dtalt.Rows.Count; z++)
+                                {
+                                    alternatedata += "<div class='col-sm-3'>" +
+                          "<label for='input-1'>Alternate Beneficiary</label>" +
+                          "<input type='text' value='" + dtalt.Rows[z]["First_Name"].ToString() + "'  readonly='true' class='form-control' id='' />" +
+                          "</div>" +
+
+                          "<div class='col-sm-3'>" +
+                          "<label for='input-1'>Proportion</label>" +
+                          "<input type='text' value='" + dtalt.Rows[z]["alternateproportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
+                          "</div><div class='col-sm-6'></div>";
+                                }
+
+                            }
+                            //end
+
+
+
+
+
+
+
+
+
+
                             string First_Name = "";
                             string Proportion = "";
                             string assettype = "";
@@ -2837,7 +2949,14 @@ namespace WillAssure.Controllers
                     "<label for='input-1'>Proportion</label>" +
                     "<input type='text' value='" + Proportion + "' id=''  readonly='true' class='form-control' />" +
                     "</div>" +
-                    "</div>";
+                    "</div>" +
+                    "<br>" +
+                    
+                       "<br>" +
+                       "<div class='row' id='alternatedata'>" +
+                       alternatedata +
+                       "</div>";
+                    
 
 
 
@@ -2899,6 +3018,7 @@ namespace WillAssure.Controllers
             string financialstructure = "";
 
             string body = "";
+            string alternatedata = "";
             con.Open();
             string checkfinancial = "";
 
@@ -2979,10 +3099,10 @@ namespace WillAssure.Controllers
 
 
 
-                    string getassettype = "select distinct ba.Beneficiary_Asset_ID,bd.First_Name,at.AssetsType,ba.Proportion from BeneficiaryAssets ba ";
+                    string getassettype = "select distinct bas.linkedbid , ba.Beneficiary_Asset_ID,bd.First_Name,at.AssetsType,ba.Proportion from BeneficiaryAssets ba ";
                     getassettype += " left join AssetInformation ai on ai.amId = ba.AssetCategory_ID ";
                     getassettype += " left join BeneficiaryDetails bd on bd.bpId = ba.Beneficiary_ID ";
-                    getassettype += " left join AssetsType at on at.atId = ba.AssetType_ID ";
+                    getassettype += " left join AssetsType at on at.atId = ba.AssetType_ID inner join Alternate_BeneficiaryAssets bas on bas.alternatebenefciaryid = bd.bpId ";
                     getassettype += " where ba.AssetType_ID = 2 and ai.Remark = 'Completed'  and ba.tid = " + Convert.ToInt32(Session["distid"]) + "  and ba.Type = 2 and ba.AssetCategory_ID = " + Convert.ToInt32(assetcatid);
 
                     SqlDataAdapter atda = new SqlDataAdapter(getassettype, con);
@@ -2992,6 +3112,33 @@ namespace WillAssure.Controllers
                     {
                         for (int i = 0; i < atdt.Rows.Count; i++)
                         {
+
+                            /// alternate beneficiary records
+                            string queryalt = "select bd.First_Name , ab.alternateproportion from Alternate_BeneficiaryAssets ab inner join BeneficiaryDetails bd on ab.linkedbid=bd.bpId  where ab.linkedbid = " + Convert.ToInt32(atdt.Rows[i]["linkedbid"]) + "";
+                            SqlDataAdapter daalt = new SqlDataAdapter(queryalt, con);
+                            DataTable dtalt = new DataTable();
+                            daalt.Fill(dtalt);
+
+                            if (dtalt.Rows.Count > 0)
+                            {
+                                for (int z = 0; z < dtalt.Rows.Count; z++)
+                                {
+                                    alternatedata += "<div class='col-sm-3'>" +
+                          "<label for='input-1'>Alternate Beneficiary</label>" +
+                          "<input type='text' value='" + dtalt.Rows[z]["First_Name"].ToString() + "'  readonly='true' class='form-control' id='' />" +
+                          "</div>" +
+
+                          "<div class='col-sm-3'>" +
+                          "<label for='input-1'>Proportion</label>" +
+                          "<input type='text' value='" + dtalt.Rows[z]["alternateproportion"].ToString() + "' id=''  readonly='true' class='form-control' />" +
+                          "</div><div class='col-sm-6'></div>";
+                                }
+
+                            }
+                            //end
+
+
+
                             string First_Name = "";
                             string Proportion = "";
                             string assettype = "";
@@ -3020,7 +3167,13 @@ namespace WillAssure.Controllers
                     "<label for='input-1'>Proportion</label>" +
                     "<input type='text' value='" + Proportion + "' id=''  readonly='true' class='form-control' />" +
                     "</div>" +
-                    "</div>";
+                    "</div>"+
+                      "<br>" +
+
+                       "<br>" +
+                       "<div class='row' id='alternatedata'>" +
+                       alternatedata +
+                       "</div>";
 
 
 

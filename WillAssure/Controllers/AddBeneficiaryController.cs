@@ -626,7 +626,16 @@ namespace WillAssure.Controllers
                 BM.bpId = Convert.ToInt32(dt.Rows[0]["bpId"]);
                 BM.First_Name = dt.Rows[0]["First_Name"].ToString();
                 BM.Last_Name = dt.Rows[0]["Last_Name"].ToString();
-                BM.Middle_Name = dt.Rows[0]["Middle_Name"].ToString();
+
+                if (dt.Rows[0]["Middle_Name"].ToString() != "None")
+                {
+                    BM.Middle_Name = dt.Rows[0]["Middle_Name"].ToString();
+                }
+
+                
+
+
+
                 BM.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
                 BM.Mobile = dt.Rows[0]["Mobile"].ToString();
                 BM.RelationshipTxt = dt.Rows[0]["Relationship"].ToString();
@@ -971,7 +980,21 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@condition", "insert");
                 cmd.Parameters.AddWithValue("@First_Name ", BM.First_Name);
                 cmd.Parameters.AddWithValue("@Last_Name", BM.Last_Name);
-                cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
+
+                if (BM.Middle_Name != null)
+                {
+                    cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
+                }
+                else
+                {
+                    BM.Middle_Name = "None";
+                    cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
+                }
+
+               
+
+
+
                 DateTime dat = DateTime.ParseExact(BM.Dob, "dd/MM/yyyy", CultureInfo.InvariantCulture);
                 cmd.Parameters.AddWithValue("@DOB", dat);
                 if (BM.Mobile != null)
@@ -1089,7 +1112,15 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@condition", "insert");
                 cmd.Parameters.AddWithValue("@First_Name ", BM.First_Name);
                 cmd.Parameters.AddWithValue("@Last_Name", BM.Last_Name);
-                cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
+                if (BM.Middle_Name != null)
+                {
+                    cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
+                }
+                else
+                {
+                    BM.Middle_Name = "None";
+                    cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
+                }
                 string dd = Convert.ToDateTime(BM.Dob).ToString("dd-MM-yyyy");
                 var d = DateTime.ParseExact(dd, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 //DateTime dat = DateTime.ParseExact(BM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
@@ -1201,7 +1232,15 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@condition", "insert");
                 cmd.Parameters.AddWithValue("@First_Name ", BM.First_Name);
                 cmd.Parameters.AddWithValue("@Last_Name", BM.Last_Name);
-                cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
+                if (BM.Middle_Name != null)
+                {
+                    cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
+                }
+                else
+                {
+                    BM.Middle_Name = "None";
+                    cmd.Parameters.AddWithValue("@Middle_Name", BM.Middle_Name);
+                }
                 string dd = Convert.ToDateTime(BM.Dob).ToString("dd-MM-yyyy");
                 var d = DateTime.ParseExact(dd, "dd-MM-yyyy", CultureInfo.InvariantCulture);
                 //DateTime dat = DateTime.ParseExact(BM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
@@ -1305,92 +1344,7 @@ namespace WillAssure.Controllers
 
 
 
-            if (BM.check == "true")
-            {
-                con.Open();
-                SqlCommand altcmd = new SqlCommand("SP_CRUD_alternate_Beneficiary", con);
-                altcmd.CommandType = CommandType.StoredProcedure;
-                altcmd.Parameters.AddWithValue("@condition", "insert");
-                if (bpid != 0)
-                {
-                    altcmd.Parameters.AddWithValue("@bpId", bpid);
-                }
-                else
-                {
-                    BM.altbpId = 0;
-                    altcmd.Parameters.AddWithValue("@bpId",BM.altbpId);
-                }
-                
-                altcmd.Parameters.AddWithValue("@First_Name", BM.altFirst_Name);
-                altcmd.Parameters.AddWithValue("@Last_Name", BM.altLast_Name);
-                altcmd.Parameters.AddWithValue("@Middle_Name", BM.altMiddle_Name);
-                DateTime altdat = DateTime.ParseExact(BM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                altcmd.Parameters.AddWithValue("@DOB", altdat);
-                altcmd.Parameters.AddWithValue("@Mobile", BM.altMobile);
-                altcmd.Parameters.AddWithValue("@Relationship", "None");
-                altcmd.Parameters.AddWithValue("@Marital_Status", BM.altMarital_Status_Txt);
-                altcmd.Parameters.AddWithValue("@Religion", "none");
-                altcmd.Parameters.AddWithValue("@Identity_Proof", BM.altIdentity_Proof);
-                altcmd.Parameters.AddWithValue("@Identity_Proof_Value", BM.altIdentity_Proof_Value);
-
-
-
-                
-
-                if (BM.altAlt_Identity_Proof != null)
-                {
-                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof", BM.altAlt_Identity_Proof);
-                }
-                else
-                {
-                    BM.altAlt_Identity_Proof = "None";
-                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof", BM.altAlt_Identity_Proof);
-                }
-
-                if (BM.altAlt_Identity_Proof_Value != null)
-                {
-                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", BM.altAlt_Identity_Proof_Value);
-                }
-                else
-                {
-                    BM.altAlt_Identity_Proof_Value = "None";
-                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", BM.altAlt_Identity_Proof_Value);
-                }
-
-
-                
-                altcmd.Parameters.AddWithValue("@Address1", BM.altAddress1);
-                if (BM.Address2 != null || BM.Address2 == "")
-                {
-                    altcmd.Parameters.AddWithValue("@Address2", BM.Address2);
-
-                }
-                else
-                {
-                    BM.Address2 = "None";
-                    altcmd.Parameters.AddWithValue("@Address2", BM.Address2);
-                }
-
-
-                if (BM.Address3 != null || BM.Address3 == "")
-                {
-                    altcmd.Parameters.AddWithValue("@Address3", BM.Address3);
-
-                }
-                else
-                {
-                    BM.Address3 = "None";
-                    altcmd.Parameters.AddWithValue("@Address3", BM.Address3);
-                }
-                altcmd.Parameters.AddWithValue("@City", BM.altcitytext);
-                altcmd.Parameters.AddWithValue("@State", BM.altstatetext);
-                altcmd.Parameters.AddWithValue("@Pin", BM.altPin);
-                altcmd.Parameters.AddWithValue("@tid", BM.ddltid);
-
-                altcmd.ExecuteNonQuery();
-                con.Close();
-                ViewBag.disablefield = "true";
-            }
+            
 
 
 
@@ -1929,7 +1883,7 @@ namespace WillAssure.Controllers
             con.Open();
 
 
-            string query = "select tId from TestatorDetails where uId = " + Convert.ToInt32(Session["uuid"]) + "";
+            string query = "select tId from TestatorDetails where tId = " + Convert.ToInt32(Session["distid"]) + "";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -1942,7 +1896,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + "  ";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -1954,7 +1908,7 @@ namespace WillAssure.Controllers
                 {
                     testatorchk = "false";
                 }
-               
+
 
             }
 
@@ -1972,7 +1926,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "'";
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt3 = new DataTable();
             da3.Fill(dt3);
@@ -1985,7 +1939,7 @@ namespace WillAssure.Controllers
                     {
                         testatorfamilychk = "false";
                     }
-                  
+
 
 
 
@@ -2008,7 +1962,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
             DataTable dt4 = new DataTable();
             da4.Fill(dt4);
@@ -2021,7 +1975,7 @@ namespace WillAssure.Controllers
                     {
                         guardianchk = "false";
                     }
-                   
+
 
 
 
@@ -2045,7 +1999,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
             DataTable dt5 = new DataTable();
             da5.Fill(dt5);
@@ -2058,7 +2012,7 @@ namespace WillAssure.Controllers
                     {
                         benechk = "false";
                     }
-                  
+
 
 
 
@@ -2081,7 +2035,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.tId = " + Convert.ToInt32(Session["distid"]) + "   and a.Type = 'Witness'";
             SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
             DataTable dt6 = new DataTable();
             da6.Fill(dt6);
@@ -2153,7 +2107,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + tid + "  ";
+            string query2 = "select Identity_proof_Value , Alt_Identity_proof_value from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + "  ";
             SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
             DataTable dt2 = new DataTable();
             da2.Fill(dt2);
@@ -2183,7 +2137,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "'";
+            string query3 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from testatorFamily a inner join TestatorDetails b on a.tId=b.tId where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "'";
             SqlDataAdapter da3 = new SqlDataAdapter(query3, con);
             DataTable dt3 = new DataTable();
             da3.Fill(dt3);
@@ -2219,7 +2173,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query4 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where a.Type='Guardian' and b.tid = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da4 = new SqlDataAdapter(query4, con);
             DataTable dt4 = new DataTable();
             da4.Fill(dt4);
@@ -2256,7 +2210,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.uId = '" + Convert.ToInt32(Session["uuid"]) + "' ";
+            string query5 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from BeneficiaryDetails a inner join TestatorDetails b on a.tId=b.tId  where  b.tId = '" + Convert.ToInt32(Session["distid"]) + "' ";
             SqlDataAdapter da5 = new SqlDataAdapter(query5, con);
             DataTable dt5 = new DataTable();
             da5.Fill(dt5);
@@ -2292,7 +2246,7 @@ namespace WillAssure.Controllers
 
 
 
-            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.uId = " + Convert.ToInt32(Session["uuid"]) + "   and a.Type = 'Witness'";
+            string query6 = "select a.Alt_Identity_proof_Value , a.Identity_proof_Value from Appointees a inner join TestatorDetails b on a.tId=b.tId where  b.tId = " + Convert.ToInt32(Session["distid"]) + "   and a.Type = 'Witness'";
             SqlDataAdapter da6 = new SqlDataAdapter(query6, con);
             DataTable dt6 = new DataTable();
             da6.Fill(dt6);

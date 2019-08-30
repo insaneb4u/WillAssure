@@ -484,7 +484,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string q2 = "insert into documentRules (documentType,category,tid) values (" + typeid + " , " + typecat + "  , " + testatorid + " )";
+            string q2 = "insert into documentRules (documentType,category,tid,executors_category,AlternateBenficiaries,AlternateExecutors) values (" + typeid + " , " + typecat + "  , " + testatorid + " , 0 , 0 , 0 )";
             SqlCommand c1 = new SqlCommand(q2, con);
             c1.ExecuteNonQuery();
             con.Close();

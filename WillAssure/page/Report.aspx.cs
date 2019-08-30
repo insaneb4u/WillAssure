@@ -186,6 +186,13 @@ namespace WillAssure.Views.ViewDocument
             DataTable matchdt = new DataTable();
             matchda.Fill(matchdt);
 
+            // change it
+            ViewState["TemplateID"] = 1;
+
+            //end
+
+
+
             if (matchdt.Rows.Count > 0)
             {
 
@@ -516,6 +523,8 @@ namespace WillAssure.Views.ViewDocument
 
 
                     QuickWill1 rpt = new QuickWill1();
+
+
                     rpt.SetParameterValue("TestatorName", testator);
                     rpt.SetParameterValue("Son-Daughter-Wife", SonDaughterWife);   // check gender and marital status 
                     rpt.SetParameterValue("Father-Husband", FatherHusband);
@@ -528,7 +537,13 @@ namespace WillAssure.Views.ViewDocument
                     rpt.SetParameterValue("TestatorFamily2", TestatorFamily2);
                     rpt.SetParameterValue("TestatorFamily3", TestatorFamily3);
                     rpt.SetParameterValue("SystemDay", SystemDay);
-                    rpt.SetParameterValue("SytemMonth", SytemMonth);
+
+                    
+                        rpt.SetParameterValue("SystemMonth", SytemMonth);
+          
+                   
+
+
                     rpt.SetParameterValue("SystemYear", SystemYear);
                     rpt.SetParameterValue("TestatorCity", TestatorCity);
                     rpt.SetParameterValue("Witness1", Witness1);
@@ -538,11 +553,21 @@ namespace WillAssure.Views.ViewDocument
                     rpt.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
                     rpt.SetParameterValue("TestatorGender", TestatorGender);
                     rpt.SetParameterValue("Witness2", Witness2);
-
-
                     rpt.SetParameterValue("relationid", documentId);
-                    rpt.SetParameterValue("primarytid", documentId);
-                    rpt.SetParameterValue("alternatebenetid", documentId);
+                    //rpt.SetParameterValue("primarytid", documentId);
+                    //rpt.SetParameterValue("alternatebenetid", documentId);
+
+
+
+
+                    //rpt.OpenSubreport("QuickWillData").SetParameterValue("relationid", documentId);
+                    //rpt.OpenSubreport("primarytid").SetParameterValue("relationid", documentId);
+                    //rpt.OpenSubreport("alternatebenetid").SetParameterValue("relationid", documentId);
+
+
+
+
+
 
 
 
@@ -564,6 +589,10 @@ namespace WillAssure.Views.ViewDocument
 
                     }
 
+
+                   
+
+                   
 
 
                 }

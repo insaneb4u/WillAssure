@@ -1124,6 +1124,7 @@ namespace WillAssure.Controllers
                     string countryname = "";
                     string statename = "";
                     string cityname = "";
+                    string middlename = "";
                     for (int i = 0; dy1dt.Rows.Count >= 0; i++)
                     {
 
@@ -1192,6 +1193,10 @@ namespace WillAssure.Controllers
                         }
 
 
+                        if (dy1dt.Rows[0]["middleName"].ToString() != "None")
+                        {
+                            middlename = dy1dt.Rows[0]["middleName"].ToString();
+                        }
 
                         ViewBag.disablefield = "true";
                         structure += 
@@ -1255,7 +1260,7 @@ namespace WillAssure.Controllers
             "<div class='col-sm-3' id='Middletxthide" + i + "'>" +
             "<div class='form-group'>" +
             "<label for='input-1'>Middle Name</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtmiddlename" + i + "' name='inputfield' placeholder='Enter Middle Name' type='text' value='" + dy1dt.Rows[i]["middleName"].ToString() + "' >" +
+            "<input autocomplete = 'off' class='form-control input-shadow  text-input' id='txtmiddlename" + i + "' name='inputfield' placeholder='Enter Middle Name' type='text' value='" + middlename + "' >" +
             "</div>" +
             "</div>" +
             "<div class='col-sm-3'></div>" +
@@ -1529,6 +1534,7 @@ namespace WillAssure.Controllers
                     string countryname = "";
                     string statename = "";
                     string cityname = "";
+                    string middlename = "";
                     for (int i = 0; dy2dt.Rows.Count >= 0; i++)
                     {
 
@@ -1597,6 +1603,11 @@ namespace WillAssure.Controllers
                         }
 
 
+                        if (dy2dt.Rows[0]["middleName"].ToString() != "None" )
+                        {
+                            middlename = dy2dt.Rows[0]["middleName"].ToString();
+                        }
+
 
 
 
@@ -1662,7 +1673,7 @@ namespace WillAssure.Controllers
             "<div class='col-sm-3' id='Middletxthide" + i + "'>" +
             "<div class='form-group'>" +
             "<label for='input-1'>Middle Name</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtmiddlename" + i + "' name='altinputfield' placeholder='Enter Middle Name' type='text' value='" + dy2dt.Rows[i]["middleName"].ToString() + "' >" +
+            "<input autocomplete = 'off' class='form-control input-shadow  text-input' id='txtmiddlename" + i + "' name='altinputfield' placeholder='Enter Middle Name' type='text' value='" + middlename + "' >" +
             "</div>" +
             "</div>" +
             "<div class='col-sm-3'></div>" +
@@ -2214,7 +2225,19 @@ namespace WillAssure.Controllers
 
 
             cmd.Parameters.AddWithValue("@Name", collection["Firstname"]);
-            cmd.Parameters.AddWithValue("@middleName", collection["middleName"]);
+
+            if (collection["middleName"] != null || collection["middleName"] != "")
+            {
+                cmd.Parameters.AddWithValue("@middleName", collection["middleName"]);
+            }
+            else
+            {
+                collection["middleName"] = "None";
+                cmd.Parameters.AddWithValue("@middleName", collection["middleName"]);
+            }
+          
+
+
             cmd.Parameters.AddWithValue("@Surname", collection["Surname"]);
             cmd.Parameters.AddWithValue("@Identity_proof", collection["Identity_Proof"]);
             cmd.Parameters.AddWithValue("@Identity_proof_value", collection["Identity_Proof_Value"]);
@@ -2471,7 +2494,20 @@ namespace WillAssure.Controllers
 
 
                 cmdd.Parameters.AddWithValue("@Name", collection["altName"]);
-                cmdd.Parameters.AddWithValue("@middleName", collection["altmiddleName"]);
+
+                if (collection["altmiddleName"] != null || collection["altmiddleName"] != "None")
+                {
+                    cmdd.Parameters.AddWithValue("@middleName", collection["altmiddleName"]);
+                }
+                else
+                {
+                    collection["altmiddleName"] = "None";
+                    cmdd.Parameters.AddWithValue("@middleName", collection["altmiddleName"]);
+                }
+
+               
+
+
                 cmdd.Parameters.AddWithValue("@Surname", collection["altSurname"]);
                 cmdd.Parameters.AddWithValue("@Identity_proof", collection["wIdentity_Proof"]);
                 cmdd.Parameters.AddWithValue("@Identity_proof_value", collection["wIdentity_Proof_Value"]);
@@ -2738,8 +2774,12 @@ namespace WillAssure.Controllers
                 ArrayList result = new ArrayList(value.Split(','));
                 string data = "";
 
-                int getcount = 0;
+                if (result[3].ToString() == "")
+                {
+                    result[3] = "None";
+                }
 
+                int getcount = 0;
                 con.Open();
                 for (int i = 0; i <= result.Count; i++)
                 {
@@ -2769,6 +2809,7 @@ namespace WillAssure.Controllers
 
                         data = data.Remove(data.Length - 2, 2);
                         data = data + "'";
+                      
                         querydy = "insert into Appointees (Name,middleName,Surname,Gender,Country,State,City,Pin,Address1,Identity_Proof,Identity_Proof_Value,tid,doctype,ExecutorType,Type,documentstatus) values (" + data + " , " + Convert.ToInt32(Session["distid"]) + " , '" + Session["doctype"].ToString() + "' , 'Multiple' , 'Executor' , 'Incompleted') ";
                         SqlCommand cmdy = new SqlCommand(querydy, con);
                         cmdy.ExecuteNonQuery();
@@ -2780,7 +2821,7 @@ namespace WillAssure.Controllers
 
                         try
                         {
-                            data = "'" + result[i].ToString() + "',";
+                            data += "'" + result[i].ToString() + "',";
                         }
                         catch (Exception)
                         {
@@ -2798,7 +2839,15 @@ namespace WillAssure.Controllers
                     else
                     {
 
-                        data += "'" + result[i].ToString() + "',";
+                        try
+                        {
+                            data += "'" + result[i].ToString() + "',";
+                        }
+                        catch (Exception)
+                        {
+
+
+                        }
 
 
 
@@ -2854,7 +2903,15 @@ namespace WillAssure.Controllers
 
 
             ArrayList result2 = new ArrayList(value2.Split(','));
-            string data2 = "";
+
+                if (result2[3].ToString() == "")
+                {
+                    result2[3] = "None";
+                }
+
+
+
+                string data2 = "";
 
             int getcount2 = 0;
 
@@ -2888,6 +2945,7 @@ namespace WillAssure.Controllers
 
                     data2 = data2.Remove(data2.Length - 2, 2);
                     data2 = data2 + "'";
+                 
                     querydy2 = "insert into alternate_Appointees (Name,MiddleName,Surname,Gender,Country,State,City,Pin,Address1,Identity_Proof,Identity_Proof_Value,tid,apId,ExecutorType) values (" + data2 + " , " + Convert.ToInt32(Session["distid"]) + " , " + appid + " , 'Multiple')";
                     SqlCommand cmdy2 = new SqlCommand(querydy2, con);
                     cmdy2.ExecuteNonQuery();
@@ -2899,7 +2957,7 @@ namespace WillAssure.Controllers
 
                     try
                     {
-                        data2 = "'" + result2[i].ToString() + "',";
+                        data2 += "'" + result2[i].ToString() + "',";
                     }
                     catch (Exception)
                     {
@@ -3996,7 +4054,7 @@ namespace WillAssure.Controllers
      "<div class='col-sm-3' id='Middletxthide" + i + "'>" +
      "<div class='form-group'>" +
      "<label for='input-1'>Middle Name</label>" +
-     "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtmiddlename" + i + "' name='inputfield' placeholder='Enter Middle Name' type='text' value='' >" +
+     "<input autocomplete = 'off' class='form-control input-shadow  text-input' id='txtmiddlename" + i + "' name='inputfield' placeholder='Enter Middle Name' type='text' value='' >" +
      "</div>" +
      "</div>" +
         "<div class='col-sm-3'></div>" +
@@ -4217,7 +4275,7 @@ namespace WillAssure.Controllers
      "<div class='col-sm-3' id='altMiddletxthide"+i+"'>" +
      "<div class='form-group'>" +
      "<label for='input-1'>Middle Name</label>" +
-     "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='alttxtmiddlename" + i + "' name='altinputfield' placeholder='Enter Middle Name' type='text' value='' >" +
+     "<input autocomplete = 'off' class='form-control input-shadow  text-input' id='alttxtmiddlename" + i + "' name='altinputfield' placeholder='Enter Middle Name' type='text' value='' >" +
      "</div>" +
      "</div>" +
      "<div class='col-sm-3'></div>" +

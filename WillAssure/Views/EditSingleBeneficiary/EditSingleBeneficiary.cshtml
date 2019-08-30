@@ -1,7 +1,9 @@
 ﻿
 
 @{
-    ViewBag.Title = "EditBeneficiaryMappingPageContent";
+                /**/
+
+                ViewBag.Title = "EditBeneficiaryMappingPageContent";
 }
 
 
@@ -53,16 +55,16 @@
                                 <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new{ @NestId = Session["distid"] , @doctype= Session["doctype"] } )"><button type="button" id="btnnext" style="display:;" class="btn btn-success ">Next&nbsp;&nbsp;<i class="icon-arrow-right"></i></button></a>
                             </span>
                         </div>
+
+                        <textarea id="getdata" style="display:none">@ViewBag.tabledata</textarea>
                         <hr class="div_rd">
                         <div class="table-responsive">
                             <table id="default-datatable" class="table table-bordered">
                                 <thead>
                                     <tr class="ui-widget-header">
                                         <th>Mapped Id</th>
-                                        <th>Asset Type</th>
-                                        <th>Asset Category</th>
-                                        <th>Scheme Name</th>
-                                        <th>Instrument Name</th>
+                                        <th>Beneficiary Name</th>
+
                                         <th>Proportion</th>
                                         <th id="title">Action</th>
 
@@ -95,6 +97,18 @@
 @*end*@
 
 
+@if (ViewBag.tabledata != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            var getdata = $("textarea#getdata").val();
+            $('#BMData').empty().append(getdata);
+        });
+
+    </script>
+}
 
 
 
@@ -102,14 +116,33 @@
 
     $(document).ready(function () {
 
-        $.ajax({
+        @*$.ajax({
 
             type: "POST",
             url:"@Url.Action("BindBMData", "EditSingleBeneficiary")",
             success: function (data) {
                 $('#BMData').empty().append(data);
             }
-        });
+        });*@
+
+
+
+
+
+           $.ajax({
+
+            type: "POST",
+            url:"@Url.Action("BindTestatorDDL", "EditSingleBeneficiary")",
+                  success: function (data) {
+
+                      $('#DDLTestator').append(data);
+
+
+
+
+
+            }
+          });
 
 
     });
@@ -138,7 +171,7 @@
 
 
                 var NestId = data
-                var url = "/UpdateBeneficiaryMapping/UpdateBeneficiaryMappingIndex?NestId=" + NestId;
+                var url = "/UpdateQuickMapping/UpdateQuickMappingIndex?NestId=" + NestId;
                 window.location.href = url;
 
 

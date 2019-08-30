@@ -435,11 +435,11 @@
                                 {
                                     if (Session["Type"].ToString() == "SuperAdmin" || Session["Type"].ToString() == "Distributor")
                                     {
-                                        <center><a href="@Url.Action("ViewDocumentIndex","ViewDocument" , new { doctype = Session["doctype"].ToString()  })"><input type="button" class="btn btn-primary" name="name" value="Edit TestatorDetails" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                        <center><button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
                                     }
                                     else
                                     {
-                                        <center><a href="@Url.Action("EditTestatorIndex","EditTestator" , new { doctype = Session["doctype"].ToString()  })"><input type="button" class="btn btn-primary" name="name" value="Edit TestatorDetails" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                        <center><button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
                                     }
                                 }
 
@@ -723,7 +723,7 @@
                             </div>
                             <div id="tabe-2" class="container tab-pane fade">
                                 
-                                <center><a href="@Url.Action("EditTestatorFamilyIndex","EditTestatorFamily")"><input type="button" class="btn btn-primary" name="name" value="Edit TestatorFamily" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend1" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                <center><button type="button" id="btnend1" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
 
                                 <div class="row">
                                     @if (ViewBag.testatorFamily != null)
@@ -958,7 +958,7 @@
                             </div>
                             <div id="tabe-3" class="container tab-pane fade">
 
-                                <center><a href="@Url.Action("EditBeneficiaryIndex","EditBeneficiary")"><input type="button" class="btn btn-primary" name="name" value="Edit Beneficiary" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend2" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                <center><button type="button" id="btnend2" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
 
                                 <div class="row">
                                     @if (ViewBag.beneficiary != null)
@@ -1192,7 +1192,7 @@
                                 </div>
                             </div>
                             <div id="tabe-4" class="container tab-pane fade">
-                                <center> <a href="@Url.Action("EditAlternateBeneficiaryIndex","EditAlternateBeneficiary")"><input type="button" class="btn btn-primary" name="name" value="Edit Alternate Beneficiary" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                <center><button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
 
                                 <div class="row">
                                     @if (ViewBag.altbene != null)
@@ -1370,7 +1370,7 @@
                                 </div>
                             </div>
                             <div id="tabe-5" class="container tab-pane fade">
-                                <center> <a href="@Url.Action("EditBeneficiaryMappingIndex","EditBeneficiaryMapping")"><input type="button" class="btn btn-primary" name="name" value="Edit Beneficiary Mapping" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend3" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                <center><button type="button" id="btnend3" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
 
                                 <div class="row">
                                     @if (ViewBag.BeneficiaryMapping != null)
@@ -1445,7 +1445,7 @@
                                 </div>
                             </div>
                             <div id="tabe-6" class="container tab-pane fade">
-                                <center><a href="@Url.Action("EditNomineeIndex","EditNominee")"><input type="button" class="btn btn-primary" name="name" value="Edit Nominee" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                <center><button type="button" id="btnend" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
 
                                 <div class="row">
                                     @if (Session["WillType"].ToString() != "Quick")
@@ -1631,7 +1631,7 @@
                                 </div>
                             </div>
                             <div id="tabe-7" class="container tab-pane fade">
-                                <center><a href="@Url.Action("EditAppointeesIndex","EditAppointees" , new { typ = "Executor" } )"><input type="button" class="btn btn-primary" name="name" value="Edit Executor" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend4" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                <center><button type="button" id="btnend4" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
 
                                 <div class="row">
                                     @if (ViewBag.appointees != null)
@@ -1868,7 +1868,7 @@
                                 </div>
                             </div>
                             <div id="tabe-8" class="container tab-pane fade">
-                                <center><a href="@Url.Action("EditAlternateAppointeesIndex","EditAlternateAppointees")"><input type="button" class="btn btn-primary" name="name" value="Edit Alternate Appointees" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend4" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                <center><button type="button" id="btnend4" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
 
                                 <div class="row">
                                     @if (ViewBag.altappointment != null)
@@ -2055,11 +2055,13 @@
                             </div>
 
                             <div id="tabe-9" class="container tab-pane fade">
-                                <center><a href="@Url.Action("EditBeneficiaryInstitutionIndex","EditBeneficiaryInstitution")"><input type="button" class="btn btn-primary" name="name" value="Edit Institution" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend5" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                <center><button type="button" id="btnend5" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
 
                                 <div class="row">
-                                    
-                                        @foreach (var item in ViewBag.institution)
+
+                                    @if (ViewBag.institution != null)
+                                    {
+                                        foreach (var item in ViewBag.institution)
                                         {
                                             <div class="col-sm-6">
                                                 <label for="input-1" style="line-height:38px"> Name Of Institute: </label>
@@ -2123,10 +2125,13 @@
 
 
 
-                                          
-                                        }
 
-                                    
+                                        }
+                                    }
+
+
+
+
 
 
 
@@ -2135,7 +2140,7 @@
 
 
                             <div id="tabe-10" class="container tab-pane fade">
-                                <center><a href="@Url.Action("EditWitnessIndex","EditWitness" , new { typ = "Witness" } )"><input type="button" class="btn btn-primary" name="name" value="Edit Witness" /></a>&nbsp;&nbsp;&nbsp;<button type="button" id="btnend6" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
+                                <center><button type="button" id="btnend6" class="btn btn-success">End Document &nbsp;&nbsp;&nbsp;<i class="fa fa-file-text" style="height:10px; color:#e5da4b;"></i></button></center>
 
                                 <div class="row">
                                     @{ int count = 0; int getcount = 0; }

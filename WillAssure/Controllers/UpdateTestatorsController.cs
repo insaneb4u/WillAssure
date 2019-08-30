@@ -447,7 +447,13 @@ namespace WillAssure.Controllers
 
                 TFM.Last_Name = dt.Rows[0]["Last_Name"].ToString();
                 TFM.Dob = Convert.ToDateTime(dt.Rows[0]["DOB"]).ToString("dd/MM/yyyy");
-                TFM.Middle_Name = dt.Rows[0]["Middle_Name"].ToString();
+
+                if (dt.Rows[0]["Middle_Name"].ToString() != "None")
+                {
+                    TFM.Middle_Name = dt.Rows[0]["Middle_Name"].ToString();
+                }
+
+                
 
                 if (dt.Rows[0]["Occupation"].ToString() != "none")
                 {
@@ -1740,7 +1746,18 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@tId", TFM.tId);
             cmd.Parameters.AddWithValue("@First_Name", TFM.First_Name);
             cmd.Parameters.AddWithValue("@Last_Name", TFM.Last_Name);
-            cmd.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
+
+            if (TFM.Middle_Name != null)
+            {
+                cmd.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
+            }
+            else
+            {
+                TFM.Middle_Name = "None";
+               cmd.Parameters.AddWithValue("@Middle_Name", TFM.Middle_Name);
+            }
+            
+
             cmd.Parameters.AddWithValue("@DOB", dd);
             cmd.Parameters.AddWithValue("@Occupation", TFM.Occupation);
             cmd.Parameters.AddWithValue("@Mobile", TFM.Mobile);

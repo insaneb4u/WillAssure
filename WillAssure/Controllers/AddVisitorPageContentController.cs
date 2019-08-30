@@ -320,7 +320,7 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string q2 = "insert into documentRules (documentType,category) values ('" + typeid + "' ,  1 )";
+            string q2 = "insert into documentRules (documentType,category,executors_category,AlternateBenficiaries,AlternateExecutors) values ('" + typeid + "' ,0,0,0,0 )";
             SqlCommand c1 = new SqlCommand(q2, con);
             c1.ExecuteNonQuery();
             con.Close();

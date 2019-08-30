@@ -13,12 +13,12 @@ using Newtonsoft.Json;
 
 namespace WillAssure.Controllers
 {
-    public class UpdateBeneficiaryMappingController : Controller
+    public class UpdateQuickMappingController : Controller
     {
         public static string connectionString = ConfigurationManager.ConnectionStrings["DBCS"].ConnectionString;
         SqlConnection con = new SqlConnection(connectionString);
-        // GET: UpdateBeneficiaryMapping
-        public ActionResult UpdateBeneficiaryMappingIndex(int NestId)
+        // GET: UpdateQuickMapping
+        public ActionResult UpdateQuickMappingIndex(int NestId)
         {
 
             // check type 
@@ -173,15 +173,15 @@ namespace WillAssure.Controllers
             LoginModel MAM = new LoginModel();
 
             con.Open();
-            string query = "select c.atId , b.amId , e.bpId , a.Beneficiary_Asset_ID , e.First_Name , c.AssetsType , b.AssetsCategory , a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID = b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId inner join BeneficiaryDetails e on a.Beneficiary_ID = e.bpId where a.Beneficiary_Asset_ID = " + NestId+" ";
+            string query = "select c.atId , b.amId , e.bpId , a.Beneficiary_Asset_ID , e.First_Name , c.AssetsType , b.AssetsCategory , a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID = b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId inner join BeneficiaryDetails e on a.Beneficiary_ID = e.bpId where a.Beneficiary_Asset_ID = " + NestId + " ";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            
 
 
-           
+
+
 
 
             if (dt.Rows.Count > 0)
@@ -189,21 +189,21 @@ namespace WillAssure.Controllers
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                   MAM.Beneficiary_Asset_ID = Convert.ToInt32(dt.Rows[i]["Beneficiary_Asset_ID"]);
+                    MAM.Beneficiary_Asset_ID = Convert.ToInt32(dt.Rows[i]["Beneficiary_Asset_ID"]);
 
-                   MAM.AssetsType = dt.Rows[i]["AssetsType"].ToString();
-                   MAM.assettypeid = Convert.ToInt32(dt.Rows[i]["atId"]);
-
-
-                   MAM.AssetsCategory = dt.Rows[i]["AssetsCategory"].ToString();
-                   MAM.assetcatid = Convert.ToInt32(dt.Rows[i]["amId"]);
+                    MAM.AssetsType = dt.Rows[i]["AssetsType"].ToString();
+                    MAM.assettypeid = Convert.ToInt32(dt.Rows[i]["atId"]);
 
 
-                   MAM.Proportion = dt.Rows[i]["Proportion"].ToString();
+                    MAM.AssetsCategory = dt.Rows[i]["AssetsCategory"].ToString();
+                    MAM.assetcatid = Convert.ToInt32(dt.Rows[i]["amId"]);
 
 
-                   MAM.Beneficiarytxt = dt.Rows[i]["First_Name"].ToString();
-                   MAM.Beneficiaryid = Convert.ToInt32(dt.Rows[i]["bpId"]);
+                    MAM.Proportion = dt.Rows[i]["Proportion"].ToString();
+
+
+                    MAM.Beneficiarytxt = dt.Rows[i]["First_Name"].ToString();
+                    MAM.Beneficiaryid = Convert.ToInt32(dt.Rows[i]["bpId"]);
                 }
 
 
@@ -218,7 +218,7 @@ namespace WillAssure.Controllers
             string structure = "";
 
             queryt = "select a.aiid , c.AssetsType , d.AssetsCategory , a.tid , a.docid , a.Json from AssetInformation a  inner join TestatorDetails b on a.tid=b.tId inner join AssetsType c on a.atId = c.atId inner join AssetsCategory d on a.amId=d.amId inner join users e on e.uId=b.uId  where a.aiid = 1  ";
-            
+
 
 
 
@@ -301,9 +301,7 @@ namespace WillAssure.Controllers
 
 
 
-
-
-            return View("~/Views/UpdateBeneficiaryMapping/UpdateBeneficiaryMappingPageContent.cshtml", MAM);
+            return View("~/Views/UpdateQuickMapping/UpdateQuickMappingPageContent.cshtml",MAM);
         }
 
 
@@ -448,7 +446,7 @@ namespace WillAssure.Controllers
 
 
 
-            string catq = "select amId from AssetsCategory where AssetsCategory = '"+ M.AssetsCategory + "' ";
+            string catq = "select amId from AssetsCategory where AssetsCategory = '" + M.AssetsCategory + "' ";
             SqlDataAdapter catda3 = new SqlDataAdapter(catq, con);
             DataTable catdt3 = new DataTable();
             catda3.Fill(catdt3);
@@ -462,7 +460,7 @@ namespace WillAssure.Controllers
 
 
 
-            string beneq = "select bpId from BeneficiaryDetails where First_Name = '"+M.Beneficiarytxt+"' ";
+            string beneq = "select bpId from BeneficiaryDetails where First_Name = '" + M.Beneficiarytxt + "' ";
             SqlDataAdapter beneda3 = new SqlDataAdapter(beneq, con);
             DataTable benedt3 = new DataTable();
             beneda3.Fill(benedt3);
@@ -478,15 +476,15 @@ namespace WillAssure.Controllers
 
 
             con.Open();
-            string update = "update BeneficiaryAssets set AssetType_ID = "+M.assettypeid+ " , AssetCategory_ID ="+ M.assetcatid + " ,   Beneficiary_ID = "+M.Beneficiaryid+"   ,Proportion =" + M.Proportion+ " where Beneficiary_Asset_ID = "+ M.Beneficiary_Asset_ID+" ";
-            SqlCommand cmd = new SqlCommand(update,con);
+            string update = "update BeneficiaryAssets set AssetType_ID = " + M.assettypeid + " , AssetCategory_ID =" + M.assetcatid + " ,   Beneficiary_ID = " + M.Beneficiaryid + "   ,Proportion =" + M.Proportion + " where Beneficiary_Asset_ID = " + M.Beneficiary_Asset_ID + " ";
+            SqlCommand cmd = new SqlCommand(update, con);
             cmd.ExecuteNonQuery();
 
             con.Close();
 
 
 
-            return RedirectToAction("UpdateBeneficiaryMappingIndex", "UpdateBeneficiaryMapping" , new { NestId = M.Beneficiary_Asset_ID });
+            return RedirectToAction("UpdateBeneficiaryMappingIndex", "UpdateBeneficiaryMapping", new { NestId = M.Beneficiary_Asset_ID });
         }
 
 
@@ -614,7 +612,7 @@ namespace WillAssure.Controllers
 
         public string getassetcolumndata()
         {
-           
+
 
 
 
@@ -696,7 +694,7 @@ namespace WillAssure.Controllers
 
         public string ddlassetname()
         {
-            
+
 
             string bindddlname = "<option value='0'>--Select--</option>";
             con.Open();
@@ -750,8 +748,5 @@ namespace WillAssure.Controllers
 
             return bindddlname;
         }
-
-
-
     }
 }

@@ -346,9 +346,9 @@
 
                                         <div class="form-group">
                                             <label for="input-1">Asset Type</label>
-
-                                            <select id="ddlasset" class="form-control input-shadow validate[required]">
-                                                <option value="@ViewBag.assettype">@ViewBag.assettype</option>
+                                            <input type="text"  style="background-color:#e9ecef; border-color:white"  id="txtassettype" class="form-control" onfocus="changetxt()" name="name" value="@ViewBag.assettype" />
+                                            <select id="ddlasset" style="display:none" onChange='getassetcolumntext(this.options[this.selectedIndex].innerHTML)' class="form-control input-shadow validate[required]">
+                                                <option value="">--Select--</option>
                                             </select>
 
                                         </div>
@@ -371,7 +371,15 @@
 
 
 
+                                <script>
 
+                                    function changetxt() {
+                                        $("#txtassettype").hide();
+                                        $("#ddlasset").show();
+                                    }
+
+
+                                </script>
 
 
 
@@ -380,7 +388,7 @@
                                     <div class="form-group">
                                         <label for="input-1">Asset Category</label>
 
-                                        <select id="ddlassetcat11" class="form-control input-shadow validate[required]">
+                                        <select id="ddlassetcat11"  class="form-control input-shadow validate[required]">
                                             <option value="@ViewBag.assetcategory">@ViewBag.assetcategory</option>
                                         </select>
 
@@ -852,7 +860,7 @@
                             <div class="form-group" style="float:right">
                                 <input type="button" style="display:none;" id="btnmore2" name="name" value="Add More" class="btn btn-danger" />
                                 <button type="submit" id="btnnomineeformsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
-                                <button type="submit" id="btnupdate" style="display:none;" formaction="@Url.Action("updateNominee","AddNominee")" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
+                                <button type="submit" id="btnupdate" style="display:none;" formaction="@Url.Action("UpdateAssetInformation","AddMainAssetsIndex")" class="btn btn-success shadow-primary px-5"><i class="icon-lock"></i>Update</button>
 
                                 @if (Session["doctype"] != null)
                                 {
@@ -1463,6 +1471,11 @@ else
 
         $("#btnmore").show();
         $("#btnmore2").show();
+
+        $("#btnupdate").show();
+
+        $("#btnnomineeformsubmit").hide();
+
         $("#btnview").show();
 
         $("#btnfieldedit").show();

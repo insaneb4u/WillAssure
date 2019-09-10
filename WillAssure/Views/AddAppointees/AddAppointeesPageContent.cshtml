@@ -832,10 +832,10 @@
                                                                     <label for="input-1">Type</label>
                                                                     <br />
                                                                     <label class="checkbox-inline">
-                                                                        <input type="checkbox" value="Individual" class="radio validate[required] alttypeone" onchange="sddtypeone(this.value)" name="radio" checked>Individual
+                                                                        <input type="checkbox" value="Individual" class="alttypeone" onchange="sddtypeone(this.value)" name="radio" checked>Individual
                                                                     </label>
                                                                     <label class="checkbox-inline">
-                                                                        <input type="checkbox" value="Company" class="radio validate[required] alttypetwo" onchange="sddtypetwo(this.value)" name="radio">Company
+                                                                        <input type="checkbox" value="Company" class="alttypetwo" onchange="sddtypetwo(this.value)" name="radio">Company
                                                                     </label>
                                                                 </div>
 
@@ -1514,11 +1514,12 @@
                                     $("#stxtmiddlename2").show();
                                     $("#stxtsurname2").show();
                                     $("#stxtgender2").show();
+                                    $(".alttypetwo").prop("checked", false);
 
                                 }
 
 
-                                $("#ra2").prop("checked", false);
+                             
 
                             }
 

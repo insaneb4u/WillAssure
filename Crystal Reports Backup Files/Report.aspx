@@ -17,6 +17,7 @@
     <script src="~/assets/plugins/alerts-boxes/js/sweet-alert-script.js"></script>
 
 </head>
+
 <body>
     <form id="form1" runat="server">
      
@@ -35,10 +36,17 @@
        <%-- <asp:Button CssClass="btn btn-primary" ID="btnChangeTemplate" Text="ChangeTemplate" runat="server" OnClick="btnChangeTemplate_Click"  />--%>
             <br />
             <br />
-           
-              <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" EnableDatabaseLogonPrompt="False" EnableParameterPrompt="False" ReportSourceID="CrystalReportSource1" Visible="true" ToolPanelView="None" HasCrystalLogo="False" HasDrilldownTabs="False" HasDrillUpButton="False" HasExportButton="False" HasPrintButton="False" HasSearchButton="False" HasToggleGroupTreeButton="False" HasToggleParameterPanelButton="False" HasZoomFactorList="False" PrintMode="ActiveX" EnableDrillDown="False" />
+         
+            
+
+            <asp:Label ID="lblmsgquickwill" ForeColor="#cc0000" Visible="false" runat="server"></asp:Label>
+
+             <asp:Label ID="lblsuccessmsg" ForeColor="#33cc33" Visible="false" runat="server"></asp:Label>
+
+            
+            <CR:CrystalReportViewer ID="CrystalReportViewer1" runat="server" AutoDataBind="true" EnableParameterPrompt="False" ReportSourceID="CrystalReportSource1" Visible="true" ToolPanelView="None" HasCrystalLogo="False" HasDrilldownTabs="False" HasDrillUpButton="False" HasExportButton="False" HasPrintButton="False" HasSearchButton="False" HasToggleGroupTreeButton="False" HasToggleParameterPanelButton="False" HasZoomFactorList="False" PrintMode="ActiveX" EnableDrillDown="False" ReuseParameterValuesOnRefresh="True" ViewStateMode="Enabled" HasRefreshButton="True" EnableDatabaseLogonPrompt="False" />
        <CR:CrystalReportSource ID="CrystalReportSource1" runat="server" Visible="true">
-            <Report FileName="~/CrystalReports/WillTestator1.rpt">
+            <Report FileName="~/CrystalReports/QuickWill1.rpt">
             </Report>
         </CR:CrystalReportSource>
         </center>

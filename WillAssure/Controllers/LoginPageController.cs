@@ -19,8 +19,14 @@ namespace WillAssure.Controllers
 
         SqlConnection con = new SqlConnection(connectionString);
         // GET: LoginPage
-        public ActionResult LoginPageIndex()
+        public ActionResult LoginPageIndex(string PC)
         {
+            if (PC == "true")
+            {
+                ViewBag.change = "true";
+            }
+
+
             if (Request.QueryString["Type"] != null)
             {
                 if (Request.QueryString["Type"].ToString() == "message")

@@ -217,6 +217,7 @@
     <Compile Include="Controllers\AssetTypeController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\ChangeTemplateController.cs" />
+    <Compile Include="Controllers\ChangingPasswordController.cs" />
     <Compile Include="Controllers\CodocilController.cs" />
     <Compile Include="Controllers\CodocilWitnessController.cs" />
     <Compile Include="Controllers\CompletedDocumentController.cs" />
@@ -249,11 +250,13 @@
     <Compile Include="Controllers\EditRelationController.cs" />
     <Compile Include="Controllers\EditRoleController.cs" />
     <Compile Include="Controllers\EditSettingController.cs" />
+    <Compile Include="Controllers\EditSingleBeneficiaryController.cs" />
     <Compile Include="Controllers\EditTestatorController.cs" />
     <Compile Include="Controllers\EditTestatorFamilyController.cs" />
     <Compile Include="Controllers\EditUserFormController.cs" />
     <Compile Include="Controllers\EditVisitorController.cs" />
     <Compile Include="Controllers\EditWillEmployeeController.cs" />
+    <Compile Include="Controllers\EditWitnessController.cs" />
     <Compile Include="Controllers\EmailVerificationController.cs" />
     <Compile Include="Controllers\FrontendController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -263,6 +266,7 @@
     <Compile Include="Controllers\RoleAddController.cs" />
     <Compile Include="Controllers\SettingsController.cs" />
     <Compile Include="Controllers\TestatorHomePageController.cs" />
+    <Compile Include="Controllers\TFController.cs" />
     <Compile Include="Controllers\UpdateAlternateAppointeesController.cs" />
     <Compile Include="Controllers\UpdateAlternateBeneficiaryController.cs" />
     <Compile Include="Controllers\UpdateAppointeesController.cs" />
@@ -280,6 +284,7 @@
     <Compile Include="Controllers\UpdateMainAssetsController.cs" />
     <Compile Include="Controllers\UpdateNomineeController.cs" />
     <Compile Include="Controllers\UpdatePetCareController.cs" />
+    <Compile Include="Controllers\UpdateQuickMappingController.cs" />
     <Compile Include="Controllers\UpdateRolesController.cs" />
     <Compile Include="Controllers\UpdateSettingController.cs" />
     <Compile Include="Controllers\UpdateTestatorFamilyController.cs" />
@@ -292,34 +297,58 @@
     <Compile Include="Controllers\ViewTestatorController.cs" />
     <Compile Include="Controllers\VisitorDataController.cs" />
     <Compile Include="Controllers\WillDetailsController.cs" />
-    <Compile Include="CrystalReports\WillTestator5.cs">
-      <DependentUpon>WillTestator5.rpt</DependentUpon>
+    <Compile Include="CrystalReports\CrystalReport1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CrystalReport1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalReports\test.cs">
+      <DependentUpon>test.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="CrystalReports\WillTestator4.cs">
-      <DependentUpon>WillTestator4.rpt</DependentUpon>
+    <Compile Include="CrystalReports\QuickWill1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuickWill1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalReports\QuickWill1Data.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuickWill1Data.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalReports\QuickWill46.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuickWill46.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CrystalReports\QuickWill5.cs">
+      <DependentUpon>QuickWill5.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="CrystalReports\WillTestator3.cs">
-      <DependentUpon>WillTestator3.rpt</DependentUpon>
+    <Compile Include="CrystalReports\QuickWill48.cs">
+      <DependentUpon>QuickWill48.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="CrystalReports\WillTestator2.cs">
-      <DependentUpon>WillTestator2.rpt</DependentUpon>
+    <Compile Include="CrystalReports\QuickWill44.cs">
+      <DependentUpon>QuickWill44.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="CrystalReports\WillTestator1.cs">
+    <Compile Include="CrystalReports\QuickWill3.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>WillTestator1.rpt</DependentUpon>
+      <DependentUpon>QuickWill3.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -1442,7 +1471,6 @@
     <Content Include="assets\plugins\summernote\dist\font\summernote291f291f.ttf" />
     <Content Include="assets\plugins\summernote\dist\font\summernote291f291f.woff" />
     <Content Include="assets\plugins\summernote\dist\font\summernoted41dd41d.eot" />
-    <Content Include="Documents\WillDocument.docx" />
     <Content Include="Views\AddAssetMapping\Mapping.aspx" />
     <Content Include="WillAssureFrontend\about-us.html" />
     <Content Include="WillAssureFrontend\ch1.png" />
@@ -1721,6 +1749,12 @@
     <Content Include="FErevolution\fonts\revicons\revicons90c6.woff" />
     <Content Include="FEstylesheets\fonts\flexslider-icon.ttf" />
     <Content Include="FEstylesheets\fonts\flexslider-icon.woff" />
+    <Content Include="Documents\QuickWill1.docx" />
+    <Content Include="Documents\QuickWill3.docx" />
+    <Content Include="Documents\QuickWill44.docx" />
+    <Content Include="Documents\QuickWill46.docx" />
+    <Content Include="Documents\QuickWill48.docx" />
+    <Content Include="Documents\QuickWill5.docx" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -1886,6 +1920,11 @@
     <Content Include="Views\CodocilWitness\CodocilWitnessPageContent.cshtml" />
     <Content Include="Views\UpdateDocumentPricing\UpdateDocumentPricingPageContent.cshtml" />
     <Content Include="Views\Frontend\otpscreen.cshtml" />
+    <Content Include="Views\ChangingPassword\ChangingPasswordPageContent.cshtml" />
+    <Content Include="Views\EditWitness\EditWitnessPageContent.cshtml" />
+    <Content Include="Views\EditSingleBeneficiary\EditSingleBeneficiary.cshtml" />
+    <Content Include="Views\TF\TFPageContent.cshtml" />
+    <Content Include="Views\UpdateQuickMapping\UpdateQuickMappingPageContent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1906,25 +1945,41 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="CrystalReports\WillTestator5.rpt">
+    <EmbeddedResource Include="CrystalReports\CrystalReport1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>WillTestator5.cs</LastGenOutput>
+      <LastGenOutput>CrystalReport1.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="CrystalReports\WillTestator4.rpt">
+    <EmbeddedResource Include="CrystalReports\test.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>WillTestator4.cs</LastGenOutput>
+      <LastGenOutput>test.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="CrystalReports\WillTestator3.rpt">
+    <EmbeddedResource Include="CrystalReports\QuickWill1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>WillTestator3.cs</LastGenOutput>
+      <LastGenOutput>QuickWill1.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="CrystalReports\WillTestator2.rpt">
+    <EmbeddedResource Include="CrystalReports\QuickWill1Data.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>WillTestator2.cs</LastGenOutput>
+      <LastGenOutput>QuickWill1Data.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="CrystalReports\WillTestator1.rpt">
+    <EmbeddedResource Include="CrystalReports\QuickWill46.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>WillTestator1.cs</LastGenOutput>
+      <LastGenOutput>QuickWill46.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalReports\QuickWill5.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>QuickWill5.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalReports\QuickWill48.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>QuickWill48.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalReports\QuickWill44.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>QuickWill44.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CrystalReports\QuickWill3.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>QuickWill3.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

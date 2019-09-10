@@ -80,6 +80,7 @@
                         <div class="col-sm-9">
                             <input type="button" id="btnverifyotp" style="color:white;" name="name" class="btn btn-success" value="Verify OTP" />
                             <input type="button" id="btnresend"  style="color:white; display:none; background-color:goldenrod;" name="name" class="btn btn-warning" value="Resend OTP" />
+                            <span id="attempt" style="color:darkred;display:none;">Resend Attempt Has Been Expired..!</span>
                             @*<button type="button" style="display:none;" id="btncancel" class="btn btn-danger">Cancel</button>*@
                         </div>
 
@@ -164,6 +165,7 @@
 
             $("#otpmsg").hide();
             $("#btnresend").show();
+           
             $("#btncancel").show();
             $("#btnverifyotp").hide();
             $("#txtotp").attr('readonly', true);
@@ -190,12 +192,16 @@
                  data: { "send": "" + userid +""},
                  success: function (data) {
 
-
+                     if (data=="disable") {
+                         $("#btnresend").hide();
+                         $("#attempt").show();
+                     }
 
                      if (data == "true") {
 
                          $("#lblnew").show();
                          $("#btnresend").hide();
+                       
                          $("#btnverifyotp").show();
                          $("#txtotp").attr('readonly', false);
                          $("#otpmsg").show();

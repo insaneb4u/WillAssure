@@ -1,15 +1,15 @@
-﻿﻿﻿﻿@model WillAssure.Models.AssetMappingModel
+﻿﻿﻿﻿﻿@model WillAssure.Models.AssetMappingModel
 @{
     ViewBag.Title = "AddAssetMappingPageContent";
 }
 <style>
 
 
+
     ul#menu li {
         display: inline;
     }
 </style>
-
 @*Main Content*@
 <div class="content-wrapper">
     <div class="container-fluid">
@@ -39,7 +39,6 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-
                             @if (Session["doctype"] != null)
                             {
                                 if (Session["doctype"].ToString() != "")
@@ -57,16 +56,12 @@
 
 
 
-
-
-
                             @if (Session["WillType"] != null || Session["testatorID"] != null || Session["doctype"] != null)
                             {
                                 if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
                                 {
                                     <h5>
                                         <ul id="menu" style="font-weight:bold;">
-
 
                                             <a href="@Url.Action("UpdateTestatorsIndex","UpdateTestators" , new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:#5e72e4;">Testator></li></a>
                                             @if (ViewBag.beneactive == "true")
@@ -82,11 +77,6 @@
 
 
 
-
-
-
-
-
                                             @if (ViewBag.beneactive == "true")
                                             {
                                                 <a href="@Url.Action("AddBeneficiaryInstituteIndex","AddBeneficiaryInstitute")">
@@ -98,7 +88,6 @@
                                                 <li style="color:#e1e1e1">Institution ></li>
                                             }
 
-
                                             @if (ViewBag.beneactive == "true")
                                             {
                                                 <a href="@Url.Action("AddBeneficiaryIndex","AddBeneficiary")"><li style="color:#5e72e4;">Beneficiary ></li></a>
@@ -109,8 +98,6 @@
                                             }
 
 
-
-
                                             @if (ViewBag.assetinformationactive == "true")
                                             {
                                                 <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:#5e72e4;">AssetInformation ></li></a>
@@ -119,7 +106,6 @@
                                             {
                                                 <li style="color:#e1e1e1">AssetInformation ></li>
                                             }
-
 
                                             @if (ViewBag.mappingactive == "true")
                                             {
@@ -132,8 +118,6 @@
                                                 <li style="color:black">Mapping ></li>
                                             }
 
-
-
                                             @if (ViewBag.executoractive == "true")
                                             {
                                                 <a href="@Url.Action("AddAppointeesIndex","AddAppointees")">    <li style="color:#5e72e4">Executor ></li></a>
@@ -142,8 +126,6 @@
                                             {
                                                 <li style="color:#e1e1e1">Executor > </li>
                                             }
-
-
 
                                             @if (ViewBag.witnessactive == "true")
                                             {
@@ -161,8 +143,6 @@
                                             }
 
 
-
-
                                             @if (ViewBag.witnessactive == "true")
                                             {
                                                 <a href="@Url.Action("WillDetailsIndex", "WillDetails" , new { NestId = Convert.ToInt32(Session["distid"]) ,  doctype = Session["doctype"].ToString() })">
@@ -174,7 +154,6 @@
                                             {
                                                 <li style="color:#e1e1e1">Document</li>
                                             }
-
 
                                         </ul>
                                     </h5>
@@ -195,9 +174,6 @@
                             }
 
 
-
-
-
                             @if (Session["testatorID"] != null || Session["doctype"] != null)
                             {
 
@@ -205,11 +181,7 @@
                                 {
                                     <h5>
                                         <ul id="menu" style="font-weight:bold;">
-
                                             <a href="@Url.Action("UpdateTestatorsIndex", "UpdateTestators", new { NestId = Convert.ToInt32(Session["testatorID"]) })"><li style="color:black;">Donor ></li></a>
-
-
-
 
 
 
@@ -222,7 +194,6 @@
                                                 <li style="color:">Donee ></li>
                                             }
 
-
                                             @if (ViewBag.assetinformationactive == "true")
                                             {
                                                 <a href="@Url.Action("AddMainAssetsIndex","AddMainAssets")"><li style="color:black;">Gift ></li></a>
@@ -231,7 +202,6 @@
                                             {
                                                 <li style="color:#e1e1e1">Gift ></li>
                                             }
-
 
                                             @if (ViewBag.mappingactive == "true")
                                             {
@@ -244,8 +214,6 @@
                                                 <li style="color:#e1e1e1">Asset Mapping ></li>
                                             }
 
-
-
                                             @if (ViewBag.witnessactive == "true")
                                             {
                                                 <a href="@Url.Action("AddwitnessIndex", "Addwitness")">
@@ -256,8 +224,6 @@
                                             {
                                                 <li style="color:#e1e1e1">Witness Appointment ></li>
                                             }
-
-
 
                                             @if (ViewBag.witnessactive == "true")
                                             {
@@ -272,10 +238,6 @@
 
 
 
-
-
-
-
                                         </ul>
                                     </h5>
                                 }
@@ -292,27 +254,17 @@
 
 
 
-
-
-
-
                             <br>
-
 
                             <div class="row">
                                 <div class='col-sm-1'><label for='input-1' style="line-height:40px;">Testator <span id='errproportion' style='color:red;display:;'>(*)</span></label></div>
                                 <div class="col-sm-3">
-
                                     <input type="text" readonly="true" name="ddltestatorname" class="form-control" value="@Session["disttestator"].ToString()" />
                                     <input type="hidden" id="tid" name="ddltid" value="@Session["distid"].ToString()" />
-
-
 
                                     <input type="hidden" id="txtcount" name="name" value="" />
                                 </div>
                                 <div class="col-sm-6"><button type="button" style="display:none;" id="btnfieldedit" class="btn btn-primary shadow-primary px-5">Enable Details</button><button type="button" style="display:none;" id="btnfieldedit1" class="btn btn-primary shadow-primary px-5">Disable Details</button><a href="@Url.Action("EditBeneficiaryMappingIndex", "EditBeneficiaryMapping")"><input type="button" id="btnview" name="name" value="View" class="btn btn-success" /></a></div>
-
-
 
                             </div>
                             @*<div class="row">
@@ -322,133 +274,100 @@
 
 
 
-            <input type="hidden" id="txtcheck" value="" name="name" />
+                                    <input type="hidden" id="txtcheck" value="" name="name" />
 
-            <div class='col-sm-6'>
-                <div class='form-group'>
-                    <label for='input-1'>Assets Type</label>
-                    <select id='ddlassettype' name="contentList" onChange='getassettypeid(this.value)' class='form-control'></select>
-                    @Html.HiddenFor(m => m.assettypeid, new { id = "assettypeid" })
-                    @Html.HiddenFor(m => m.assettypetext, new { id = "assettypetext" })
-                </div>
-            </div>
+                                    <div class='col-sm-6'>
+                                        <div class='form-group'>
+                                            <label for='input-1'>Assets Type</label>
+                                            <select id='ddlassettype' name="contentList" onChange='getassettypeid(this.value)' class='form-control'></select>
+                                            @Html.HiddenFor(m => m.assettypeid, new { id = "assettypeid" })
+                                            @Html.HiddenFor(m => m.assettypetext, new { id = "assettypetext" })
+                                        </div>
+                                    </div>
 
-            <div class='col-sm-6'>
-                <div class='form-group'>
-                    <label for='input-1'>Assets Category</label>
-                    <select id='ddlassetcat' name="contentList" onChange='getassetcatid(this.value)' class='form-control'><option value="">--Select--</option></select>
-                    @Html.HiddenFor(m => m.assetcatid, new { id = "assetcatid" })
-                    @Html.HiddenFor(m => m.assetcattext, new { id = "assetcattext" })
-                </div>
-            </div>
-        </div>*@
+                                    <div class='col-sm-6'>
+                                        <div class='form-group'>
+                                            <label for='input-1'>Assets Category</label>
+                                            <select id='ddlassetcat' name="contentList" onChange='getassetcatid(this.value)' class='form-control'><option value="">--Select--</option></select>
+                                            @Html.HiddenFor(m => m.assetcatid, new { id = "assetcatid" })
+                                            @Html.HiddenFor(m => m.assetcattext, new { id = "assetcattext" })
+                                        </div>
+                                    </div>
+                                </div>*@
                             @*<div class='col-sm-3' id="type" style="display:none;">
-            <div class='form-group'>
-                <label for='input-1'>Type</label>
-                <br />
-                <form>
-                    <label class="radio-inline">
-                        <input type="radio" onchange="getvalone(this.value)" name="optradio" value="Single" checked>Single
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" onchange="getvaltwo(this.value)" name="optradio" value="Multiple">Multiple
-                    </label>
-                </form>
-            </div>
-        </div>*@
+                                    <div class='form-group'>
+                                        <label for='input-1'>Type</label>
+                                        <br />
+                                        <form>
+                                            <label class="radio-inline">
+                                                <input type="radio" onchange="getvalone(this.value)" name="optradio" value="Single" checked>Single
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" onchange="getvaltwo(this.value)" name="optradio" value="Multiple">Multiple
+                                            </label>
+                                        </form>
+                                    </div>
+                                </div>*@
                             <hr>
                             <input type='hidden' id='txttotalval' name='name' value='100' />
 
-
                             <input type='hidden' id='assettypeidforliablities' name='name' value='@Session["assettypeidforliablities"]' />
-
-
 
 
                             <input type='hidden' id='assetcategoryidforliablities' name='name' value='@Session["assetcategoryidforliablities"]' />
 
 
-
-
                             <input type='hidden' id='totalliablities' name='name' value='@Session["totalliablities"]' />
 
-
-
                             <input type='hidden' id='assettypeidforpetcare' name='name' value='@Session["assettypeidforpetcare"]' />
-
-
 
                             <input type='hidden' id='assetcategoryidforpetcare' name='name' value='@Session["assetcategoryidforpetcare"]' />
 
 
-
-
                             <input type='hidden' id='totalpetcare' name='name' value='@Session["totalpetcare"]' />
-
-
 
                             <div id="lastsinglefinancialrecords">
 
-
-
                             </div>
-
                             <div id="lastmultiplefinancialrecords">
 
-
-
                             </div>
-
-
 
                             <div id="lastsinglenonfinancialrecords">
 
-
                             </div>
-
-
 
 
                             <div id="lastmultiplenonfinancialrecords">
 
-
                             </div>
-
 
                             <!--End Row-->
                             @*<center style="display:none" id="financialtitle"><h6 style="color:green;" class='text-uppercase'>(Completed Financial Assets)</h6></center>
 
 
-        <br />
-        <center style="display:none" id="nonfinancialtitle"><h6 style="color:green;" class='text-uppercase'>(Completed Non Financial Assets)</h6></center>
-        <div id="lastnonfinancialrecords" class="row" style="border:2px solid #ca1136; padding:20px">
+                                <br />
+                                <center style="display:none" id="nonfinancialtitle"><h6 style="color:green;" class='text-uppercase'>(Completed Non Financial Assets)</h6></center>
+                                <div id="lastnonfinancialrecords" class="row" style="border:2px solid #ca1136; padding:20px">
 
 
 
-        </div>*@
-
+                                </div>*@
                             <br />
                             <br />
                             <br />
-
                             <div class="row">
 
 
 
-
-
-
                                 <div class="col-lg-12">
-                                    <form>
+                                
                                         <div id="accordion8">
 
-
-
                                         </div>
-                                    </form>
+                                  
                                 </div>
                             </div>
-
 
                             @if (Session["doctype"] != null)
                             {
@@ -473,67 +392,65 @@
                                 }
                             }
 
-
                             @*<div class="card-body" id="fetchdata">
-            <div class='col-sm-3' id="type">
-                <div class='form-group'>
-                    <label for='input-1'>Type</label>
-                    <br />
-                    <form>
-                        <label class="radio-inline">
-                            <input type="radio" onchange="getvalone(this.value)" name="optradio" value="Single" checked>Single
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" onchange="getvaltwo(this.value)" name="optradio" value="Multiple">Multiple
-                        </label>
-                    </form>
-                </div>
-            </div>
-            <div id="parentdiv">
-                <div class="row rowdiv" id="beneficiarydetails" style="display:;">
+                                    <div class='col-sm-3' id="type">
+                                        <div class='form-group'>
+                                            <label for='input-1'>Type</label>
+                                            <br />
+                                            <form>
+                                                <label class="radio-inline">
+                                                    <input type="radio" onchange="getvalone(this.value)" name="optradio" value="Single" checked>Single
+                                                </label>
+                                                <label class="radio-inline">
+                                                    <input type="radio" onchange="getvaltwo(this.value)" name="optradio" value="Multiple">Multiple
+                                                </label>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <div id="parentdiv">
+                                        <div class="row rowdiv" id="beneficiarydetails" style="display:;">
 
 
-                    <div class='col-sm-2'>
-                        <div class='form-group'>
-                            <label for='input-1'>Beneficiary</label>
-                            <select id='ddlbeneficiary1' onchange="checkbeneficiaryduplicate(this.id)" name="contentList" class='form-control beneficiaryclass'></select>
-                            @Html.HiddenFor(m => m.Beneficiaryid, new { id = "Beneficiaryid" })
-                            @Html.HiddenFor(m => m.Beneficiarytxt, new { id = "Beneficiarytxt" })
+                                            <div class='col-sm-2'>
+                                                <div class='form-group'>
+                                                    <label for='input-1'>Beneficiary</label>
+                                                    <select id='ddlbeneficiary1' onchange="checkbeneficiaryduplicate(this.id)" name="contentList" class='form-control beneficiaryclass'></select>
+                                                    @Html.HiddenFor(m => m.Beneficiaryid, new { id = "Beneficiaryid" })
+                                                    @Html.HiddenFor(m => m.Beneficiarytxt, new { id = "Beneficiarytxt" })
 
-                            <input type="text" class="form-control" style="display:none" id="ddlbeneficiarytxt" name="name" value="" />
-                        </div>
-                    </div>
-                    <div class='col-sm-2'><div class='form-group' id="getidentifier"></div></div>
-                    <div class='col-sm-3'>
-                        <label for='input-1'>Instruments</label>
-                        <select id='DDLAssetColumn1' onchange="getDDLAssetColumn(this.id)" name="contentList" class='form-control instrumentclass'></select>
-                        @Html.HiddenFor(m => m.InstrumentId, new { id = "InstrumentId" })
-                        @Html.HiddenFor(m => m.Instrumenttxt, new { id = "Instrumenttxt" })
-                    </div>
-                    <div class='col-sm-2 grandparent'>
-                        <div class='form-group parent'>
-                            <label for='input-1'>Proportion</label>
-                            <input type='text' class='form-control proportioninput' onkeypress="return isNumberKey(event)" onchange="gettxtproportion(this.value)" name="rank" id="txtproportion" />
-                        </div>
-                    </div>
-                    <div class='col-sm-2'>
-                        <div class='form-group start'>
-                            <label for='input-1'>Total</label>
-                            <input type='text' id="txttotal" class='form-control totalinput' readonly />
-                            <input type="hidden" id="txttotalval" name="name" value="" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <button type="submit" id="btnmappingsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
-                <button type="button" id="btnadd" style="display:none;" class="btn btn-danger shadow-primary px-5"><i class="icon-lock"></i>Add</button>
+                                                    <input type="text" class="form-control" style="display:none" id="ddlbeneficiarytxt" name="name" value="" />
+                                                </div>
+                                            </div>
+                                            <div class='col-sm-2'><div class='form-group' id="getidentifier"></div></div>
+                                            <div class='col-sm-3'>
+                                                <label for='input-1'>Instruments</label>
+                                                <select id='DDLAssetColumn1' onchange="getDDLAssetColumn(this.id)" name="contentList" class='form-control instrumentclass'></select>
+                                                @Html.HiddenFor(m => m.InstrumentId, new { id = "InstrumentId" })
+                                                @Html.HiddenFor(m => m.Instrumenttxt, new { id = "Instrumenttxt" })
+                                            </div>
+                                            <div class='col-sm-2 grandparent'>
+                                                <div class='form-group parent'>
+                                                    <label for='input-1'>Proportion</label>
+                                                    <input type='text' class='form-control proportioninput' onkeypress="return isNumberKey(event)" onchange="gettxtproportion(this.value)" name="rank" id="txtproportion" />
+                                                </div>
+                                            </div>
+                                            <div class='col-sm-2'>
+                                                <div class='form-group start'>
+                                                    <label for='input-1'>Total</label>
+                                                    <input type='text' id="txttotal" class='form-control totalinput' readonly />
+                                                    <input type="hidden" id="txttotalval" name="name" value="" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button type="submit" id="btnmappingsubmit" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
+                                        <button type="button" id="btnadd" style="display:none;" class="btn btn-danger shadow-primary px-5"><i class="icon-lock"></i>Add</button>
 
 
-            </div>
+                                    </div>
 
-        </div>*@
-
+                                </div>*@
                             <input type="text" id="checkaltbenestatus" name="checkaltbenestatus" style="display:none;" value="" />
                             <textarea id="query" style="display:none;" class="form-control">
                                
@@ -566,7 +483,7 @@
 
 
 
-            
+
 
 
 
@@ -579,7 +496,7 @@
                     $("#financialtitle").show();
                     $("#lastsinglefinancialrecords").empty().append(data);
 
-                            }      
+                            }
             });
 
 
@@ -596,7 +513,7 @@
                     $("#financialtitle").show();
                     $("#lastmultiplefinancialrecords").append(data);
 
-                            }      
+                            }
             });
 
 
@@ -612,9 +529,9 @@
                     $("#nonfinancialtitle").show();
                     $("#lastsinglenonfinancialrecords").empty().append(data);
 
-                    
 
-                            }      
+
+                            }
             });
 
 
@@ -633,7 +550,7 @@
                     $("#financialtitle").show();
                     $("#lastmultiplenonfinancialrecords").append(data);
 
-                            }      
+                            }
             });
 
 
@@ -657,7 +574,7 @@
                  url: "@Url.Action("bindassetcatDDL", "AddAssetMapping")",
 
                      success: function (response1) {
-                      
+
                          //console.log(JSON.stringify(data));
                          var totalval = 100;
                          var response = groupArrayMain(response1, "atId", "AssetsType");
@@ -728,7 +645,7 @@
                                  }
 
                                  var res = "";
-                             
+
                                  res += "<div class='card mb-2 border border-danger' id='accparent'>";
 
                                  res += "<div class='card-header'>";
@@ -738,7 +655,7 @@
                                  res += "</button>";
                                  res += "</div>";
                                  res += "<div id='accordio" + data[i].assetcatid + "' class='collapse  accordiondiv' data-parent='#accordion8'>";
-                                
+
 
                                  res += "<div class='card-body'>";
                                  res += "<div id='main-body"+data[i].assetcatid+"'>";
@@ -747,7 +664,7 @@
                                  res += "<input type='hidden' id='petcare_proportion_" + data[i].assetcatid + "' name='name' value='" + petcare_proportion + "' />";
                                  res += "<input type='hidden' class='total_liability_petcare_proportion' id='total_liability_petcare_proportion_" + data[i].assetcatid + "' name='name' value='" + total_liability_petcare_proportion + "' />";
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class='col-sm-3' id='type" + data[i].assetcatid + "'>";
-                               
+
                                  res += "<div class='form-group'>";
                                  res += "<label for='input-1'>Type</label>";
                                  res += "<br />";
@@ -771,8 +688,8 @@
                                  res += "<select id='ddlbeneficiary" + data[i].assetcatid + "' onchange='checkbeneficiaryduplicate(this.id,this.value)' name='multiproportion' class='form-control beneficiaryclass validate[required]'></select>";
                                  res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                                  res += "</div>";
-                                 res += "</div>";  
-                                 
+                                 res += "</div>";
+
                                  res += "<div class='col-sm-2 grandparent'>";
                                  res += "<div class='form-group parent'>";
                                  res += "<label for='input-1'>Proportion</label><span id='errproportion' style='color:red;display:;'>(*)</span>";
@@ -784,14 +701,14 @@
                                  res += "<label for='input-1'>Balance Proportion</label>";
                                  res += "<input type='text' id='txttotal"+data[i].assetcatid+"' min=0  class='form-control totalinput' readonly />";
                                  res += "<button type='button' id='btnremove' style='position:relative; top:-39px; right:-638px;'  value='" + data[i].assetcatid + "' style='display:;'    class='btn btn-danger  btnremove'><i class='icon-trash'></i></button>";
-                                 res += "<input type='text' id='txtcapbeneid' style='display:none;' name='txtcapbeneid' class='txtcapclass'  />"; 
+                                 res += "<input type='text' id='txtcapbeneid' style='display:none;' name='txtcapbeneid' class='txtcapclass'  />";
                                  res += "</div>";
                                  res += "</div>";
 
                                  res += "<div class='col-sm-2' id='singlepropo" + data[i].assetcatid + "' style='display:none;'>";
                                  res += "<div class='form-group start'>";
                                  res += "<label for='input-1'>single Proportion</label>";
-                                 res += "<input type='text' id='txtsingleproportion" + data[i].assetcatid + "' Value='100'  class='form-control' readonly />";
+                                 res += "<input type='text' name='multiproportion' id='txtsingleproportion" + data[i].assetcatid + "' Value='100'  class='form-control' readonly />";
 
                                  res += "</div>";
                                  res += "</div>";
@@ -801,16 +718,16 @@
                                  res += "<table class='table tblalternaterow'>";
                                  res += "<tr class='rowclass'>";
 
-                               
+
                                  res += "<td><select disabled  name='alt_proportion' onchange='checkaltbeneficiaryduplicate(this.id)' id='alt_beneficiary1'  data-errormessage-value-missing='All Alternate Beneficiary Fields are Mandatory...!' class='validate[required] form-control altbeneficiaryclass disabledelement'></select></td>";
                                  res += "<td><input disabled type='text' name='alt_proportion' id='alt_proportion1' class='validate[required] form-control alt_proportioninput disabledelement'  data-errormessage-value-missing='All Alternate Beneficiary Fields are Mandatory...!'></td>";
                                  res += "<td><input disabled type='text' name='alt_total'  id='alt_total1' value='100' class='form-control alt_totalinput disabledelement'></td>";
-                                 res += "<td><input disabled type='text' name='alt_proportion' style='display:;' id='alt_pr1' class='form-control alt_propo disabledelement'></td>";
+                                 res += "<td><input disabled type='text' name='alt_proportion' style='display:none;' id='alt_pr1' class='form-control alt_propo disabledelement'></td>";
                                  res += "<td><button type='button' class='btn btn-sm btn-success btnaddalternate'>Add Alternate Beneficiary</button></td>";
                                  res += "</tr>";
                                  res += "</table>";
                                  res += "</div>";
-                                 
+
 
                                  res += "<div class='col-sm-2' id='alternatefield' style='display:none'>";
                                  res += "<div class='form-group' id='mainbeneddl" + data[i].assetcatid + "'>";
@@ -818,7 +735,7 @@
                                  res += "<select id='ddlbeneficiaryalt" + data[i].assetcatid + "' onchange='altcheckbeneficiaryduplicate(this.id,this.value)' name='contentList' class='form-control altbeneficiaryclass '></select>";
                                  res += "<input type='text' class='form-control' style='display: none' id='ddlbeneficiarytxt' name='name' value='' />";
                                  res += "</div>";
-                                 res += "</div>";  
+                                 res += "</div>";
 
 
 
@@ -833,7 +750,7 @@
 
 
 
-                             
+
 
 
 
@@ -849,7 +766,7 @@
 
 
                                  res += "<div class='form-group'>";
-                                 res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='submit'  formaction='InsertMultipleAssetMappeddata' id='btnmappingsubmit' value=" + data[i].assetcatid + "  class='btn btn-primary shadow-primary px-5 btn" + data[i].assetcatid + "'><i class='icon-lock'></i>Submit</button>";
+                                 res += "&nbsp;&nbsp;&nbsp;&nbsp;<input type='submit'  formaction='/AddAssetMapping/InsertMultipleAssetMappeddata/' id='btn' value='Submit'  class='btn btn-primary shadow-primary px-5 btn" + data[i].assetcatid + "' />";
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;<button type='button' id='btnadd'   value='" + data[i].assetcatid + "' style='display:none;' disabled='disabled'    class='btn btn-success shadow-primary px-5 btnadd"+data[i].assetcatid+"'><i class='icon-lock'></i>Add Multiple</button>";
                                  res += "&nbsp;&nbsp;&nbsp;&nbsp;<input type='button' value='Reset' class='btn btn-danger' id='btnreset' />";
                                  res += " </div>";
@@ -857,7 +774,7 @@
                                  res += " </div>";
                                  res += " </div>";
                                  res += " </div>";
-                             
+
 
                                  $("#accordion8").append(res);
 
@@ -872,11 +789,11 @@
 
                                      $("#mainbeneddl" + data[i].assetcatid + "").show();
 
-                                    
-                                  
+
+
                                  }
 
-                               
+
 
                              }
 
@@ -886,7 +803,7 @@
                              var md = data.split("~")[0];
                              var count = data.split("~")[1];
                              var alterbene = data.split("~")[2];
-                         
+
                              $("#txtcount").val(count);
                              for (var i = 1; i < count; i++) {
 
@@ -973,7 +890,7 @@
 
 
 
-           
+
 
 
 
@@ -1095,7 +1012,7 @@
             $("#checkaltbenestatus").val('true');
 
             $("#alternatebtn").hide();
-            
+
 
         });
 
@@ -1113,9 +1030,9 @@
         }
         $(document).on('keyup', '.proportioninput', function () {
 
-          
 
-           
+
+
 
             var $rowdiv = $(this).closest('.rowdiv');
             var $prevdiv = $rowdiv.prev('.rowdiv');
@@ -1133,8 +1050,8 @@
 
             $prevdiv.find('.proportioninput').prop('readonly', true);
 
-            
-            
+
+
 
 
             if (typeof prevtotalinputval === "undefined") {
@@ -1144,7 +1061,7 @@
             var proportionvalue = $(this).val();
 
             //$rowdiv.find("table").find("tr:first").find('.alt_totalinput').val(proportionvalue);
-           
+
             if (prevtotalinputval != "") {
                 if (parseInt(prevtotalinputval) > parseInt(proportionvalue) || parseInt(prevtotalinputval) == parseInt(proportionvalue)  ) {
 
@@ -1191,8 +1108,8 @@
 
                     }
 
-                    
-               
+
+
                     if (temp == "100") {
                         // alert('2nd');
 
@@ -1301,7 +1218,7 @@
         //}
 
             var d = this.id;
-            
+
             //$("#"++"").attr("disabled", "disabled");
 
 
@@ -1374,14 +1291,14 @@
 
 
         function checkbeneficiaryduplicate(id, value) {
-       
+
             var dt = '';
             var lang_name = $('#' + id).val();
             var selectedtext = $("#" + id + " option:selected").text();
             var check = 'active';
             $(".beneficiaryclass").each(function () {
                 var myid = $(this).attr('id');
-            
+
                 var myval = $('#' + myid).val();
                 if (id != myid) {
                     if (lang_name == myval && lang_name != '') {
@@ -1542,15 +1459,15 @@
             $("#parentdiv" + myClass + "").find(".rowdiv").not(':first').last().remove();
 
             $(".grandparent").hide();
-           
+
             $("#singlepropo" + myClass + "").show();
             $(".btn"+myClass+"").removeAttr("disabled");
 
             $("#totaldiv" + myClass + "").hide();
-       
 
-       
-        
+
+
+
 
             $(".btn" + myClass + "").removeAttr("disabled");
 
@@ -1564,10 +1481,10 @@
 
             $("#benetempddl" + myClass).show();
 
-           
 
-            
-            
+
+
+
         });
 
         $(document).on("change", "#getvaltwo", function () {
@@ -1576,7 +1493,7 @@
 
 
             var myClass = $(this).attr("class");
-          
+
 
             $(".alt").show();
 
@@ -1628,12 +1545,12 @@
 
 
             var x = $(this).closest("#accordio1").find("#addalt:last").addClass("btn-"+cloneCount);
-           
-         //   alert(x);
-           
 
-      
-            
+         //   alert(x);
+
+
+
+
 
             //get parentdiv last div element whose class name is rowdiv
 
@@ -1666,7 +1583,7 @@
 
             $clone.find('.beneficiaryclass').each(function () {
                 var el = $(this);
-                
+
                 var id = el.attr('id') || null;
 
                 if (id) {
@@ -1839,7 +1756,7 @@
 
 
         $(document).on("click", "#btnmappingsubmit", function () {
-           
+
             var btnidentify = $(this).val();
 
             var radioValue = $("input[class="+btnidentify+"]:checked").val();
@@ -1857,7 +1774,7 @@
             if (radioValue == "Single") {
 
 
-                
+
 
 
 
@@ -1880,7 +1797,7 @@
                         success: function (data) {
 
 
-                           
+
 
 
 
@@ -1899,10 +1816,10 @@
 
 
 
-                            
+
 
                             $(".btn" + data + "").hide();
-                            
+
                             $("#main-body" + data + "").hide();
 
 
@@ -1936,8 +1853,8 @@
                         url:"@Url.Action("InsertMultipleAssetMappeddata", "AddAssetMapping")",
                         data: { data: data, assetcat: assetcat, tid: tid, btnidentify:btnidentify },
                         success: function (data) {
-                            
-                            
+
+
 
                             $("#btnmainassetsuccess").on("click", function () { });
 
@@ -1953,8 +1870,8 @@
                             $("#txtproportion").val("");
 
 
-                          
-                          
+
+
                             $(".btn" + data + "").hide();
 
                             $("#main-body" + data + "").hide();
@@ -1981,15 +1898,15 @@
 
         /*$(document).on("click", ".btnaddalternate", function () {
             var $rowdiv = $(this).closest('.rowdiv');
-            
+
             var $alternaterow = $rowdiv.find(".alternaterow");
-           
+
             var $clone = $alternaterow.clone();
-           
+
             $clone.insertAfter($alternaterow);
            // $("#alternatefield").toggle();
-            
-            
+
+
 
 
         });*/
@@ -2226,7 +2143,6 @@ function getDDLTestator(value) {
 
 
     </script>
-
     @*@if (Session["assettypeidforpetcare"] != null || Session["assetcategoryidforpetcare"] != null)
         {
             <script>
@@ -2256,7 +2172,6 @@ function getDDLTestator(value) {
               </script>
         }*@
 
-
     <script>
 
 
@@ -2266,7 +2181,7 @@ function getDDLTestator(value) {
             url:"@Url.Action("LastAssetsRecords", "AddAssetMapping")",
             success: function (data) {
 
-            
+
 
             }
         });
@@ -2276,7 +2191,7 @@ function getDDLTestator(value) {
 
 
             location.reload();
-            
+
 
         });
         $(document).on('click', '.btnaddalternate', function () {
@@ -2284,19 +2199,19 @@ function getDDLTestator(value) {
             $("#checkaltbenestatus").val("true");
 
             var val = $(this).closest("#accordio1").find(".beneficiaryclass:last").val();
-    
+
             $(this).closest("#accordio1").find(".txtcapclass:last").val(val);
 
             var $tr = $(this).closest('tr');
             var $numberofrows = $tr.closest('table > tbody > tr').length;
             var rowelementbool = false;
-            
+
             if ($tr.hasClass('rowclass')) {
 
                         rowelementbool = true;
 
                     }
-             
+
            // console.log(rowelementbool);
 
             var $lastTr = $tr.closest('table').find('tr:last');
@@ -2324,7 +2239,7 @@ function getDDLTestator(value) {
                 }
             });
             // insert a remove link in the last cell
-           
+
             if ($numberofrows == 1 && rowelementbool) {
                 //enable elements in current row if there is only row
                 $tr.each(function () {
@@ -2337,8 +2252,8 @@ function getDDLTestator(value) {
                 $('td:last-child', $lastTr).html('<a href="javascript:void(0);" class="btn btn-sm btn-danger remove removeDefault"><i class="fa fa-minus" aria-hidden="true"></i></a>');
                 $tr.closest('tbody').append($clone);
             }
-          
-          
+
+
             // add the remove function to the new row
             $('a.remove', $lastTr).click(function () {
 
@@ -2378,16 +2293,16 @@ function getDDLTestator(value) {
             // linked bid
             $getprimarybeneid = $(this).closest("#accordion8").find(".beneficiaryclass:last").val();
 
-            
+
             var thisid = $(this).attr('id');
             var fid = thisid.replace('txtproportion', '');
             var fid2 = thisid.replace('txtproportion', '');
             fid = fid.substring(14);
             fid2 = fid2.substring(13);
-          
+
             $("#alt_pr" + fid + "").val($getprimarybeneid);
             $("#altpr" + fid2 + "").val($getprimarybeneid);
-            
+
           //end
 
 
@@ -2395,16 +2310,16 @@ function getDDLTestator(value) {
             var $rowdiv1 = $(this).closest('tr').closest('.rowdiv');
             var $prevdiv = $rowdiv.prev('tr');
             var parentaccordionid = $rowdiv1.parent('div').parent('div').parent('div').parent('div').attr('id');
-           
+
             var rr = $(this).attr('id');
             var f = rr.replace('txtproportion', '');
-            
+
             // var temp = $("#txttotalval").val();
             //var temp = $rowdiv.find('.alt_totalinput').val();
             var temp = 100;
 
             var prevtotalinputval = $prevdiv.find('.alt_totalinput').val();
-          
+
             $prevdiv.find('.alt_proportioninput').prop('readonly', true);
 
 

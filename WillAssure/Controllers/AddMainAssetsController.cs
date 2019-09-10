@@ -2563,6 +2563,20 @@ namespace WillAssure.Controllers
             string queryup = "update AssetInformation set Json = '" + jdata + "' where  aiid = " + assetid + "";
             SqlCommand cmd = new SqlCommand(queryup, con);
             cmd.ExecuteNonQuery();
+
+
+
+
+            //updatenominee();
+
+
+
+
+
+
+
+
+
             con.Close();
 
 
@@ -2587,7 +2601,51 @@ namespace WillAssure.Controllers
 
 
 
+        //public static void updatenominee()
+        //{
+        //    /// update nominee data 
+        //    FormCollection form;
 
+        //    SqlCommand cmd = new SqlCommand("SP_CRUDNominee", con);
+        //    cmd.CommandType = CommandType.StoredProcedure;
+        //    cmd.Parameters.AddWithValue("@action", "update");
+        //    cmd.Parameters.AddWithValue("@nId", NM.nId);
+        //    cmd.Parameters.AddWithValue("@First_Name", NM.First_Name);
+        //    cmd.Parameters.AddWithValue("@Last_Name", NM.Last_Name);
+        //    cmd.Parameters.AddWithValue("@Middle_Name", NM.Middle_Name);
+        //    string dateString = NM.Dob;
+        //    DateTime dd = Convert.ToDateTime(dateString,
+        //        System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
+        //    //DateTime dat = DateTime.ParseExact(Convert.ToDateTime(NM.Dob), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+        //    cmd.Parameters.AddWithValue("@DOB", dd);
+        //    cmd.Parameters.AddWithValue("@Mobile", NM.Mobile);
+        //    cmd.Parameters.AddWithValue("@Relationship", NM.RelationshipTxt);
+        //    cmd.Parameters.AddWithValue("@Marital_Status", NM.Marital_Status);
+        //    cmd.Parameters.AddWithValue("@Religion", NM.Religion);
+        //    cmd.Parameters.AddWithValue("@Identity_Proof", NM.Identity_Proof);
+        //    cmd.Parameters.AddWithValue("@Identity_Proof_Value", NM.Identity_Proof_Value);
+        //    cmd.Parameters.AddWithValue("@Alt_Identity_Proof", NM.Alt_Identity_Proof);
+        //    cmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", NM.Alt_Identity_Proof_Value);
+        //    cmd.Parameters.AddWithValue("@Address1", NM.Address1);
+        //    cmd.Parameters.AddWithValue("@Address2", NM.Address2);
+        //    cmd.Parameters.AddWithValue("@Address3", NM.Address3);
+        //    cmd.Parameters.AddWithValue("@City", NM.citytext);
+        //    cmd.Parameters.AddWithValue("@State", NM.statetext);
+        //    cmd.Parameters.AddWithValue("@Pin", NM.Pin);
+        //    cmd.Parameters.AddWithValue("@aid", NM.aid);
+        //    cmd.Parameters.AddWithValue("@tId", NM.ddltid);
+        //    cmd.Parameters.AddWithValue("@createdBy", "None");
+        //    cmd.Parameters.AddWithValue("@documentId", NM.documentId);
+        //    cmd.Parameters.AddWithValue("@Description_of_Assets", NM.Description_of_Assets);
+        //    cmd.ExecuteNonQuery();
+
+
+
+
+
+
+        //    /// end
+        //}
 
 
 

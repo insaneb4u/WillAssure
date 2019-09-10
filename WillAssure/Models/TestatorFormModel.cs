@@ -7,7 +7,7 @@ namespace WillAssure.Models
 {
     public class TestatorFormModel
     {
-
+       
         public string typeofwill { get; set; }
 
         public string will { get; set; }

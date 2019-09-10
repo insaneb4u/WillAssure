@@ -84,9 +84,9 @@ namespace WillAssure.Controllers
 
 
 
-            TempData["success"] = "true";
+            string msg = "true";
 
-            return RedirectToAction("ChangingPassword", "ChangingPassword");
+            return RedirectToAction("LoginPageIndex", "LoginPage" , new { PC = msg });
         }
     }
 }

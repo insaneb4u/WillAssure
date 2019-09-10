@@ -643,7 +643,7 @@ namespace WillAssure.Controllers
 
             d = "select * from BeneficiaryDetails where tId = " + tid + "";
 
-            string data11 = "<option value='0'>--Select--</option>";
+            string data11 = "<option value=''>--Select--</option>";
             con.Open();
 
             SqlDataAdapter da11 = new SqlDataAdapter(d, con);
@@ -1725,7 +1725,7 @@ namespace WillAssure.Controllers
 
             combine = collection["txtassetcat"].ToString() + assetcatid;
 
-
+            
 
 
             ArrayList result = new ArrayList(propo.Split(','));

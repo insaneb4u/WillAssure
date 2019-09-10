@@ -840,8 +840,11 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@First_Name", NM.First_Name);
             cmd.Parameters.AddWithValue("@Last_Name", NM.Last_Name);
             cmd.Parameters.AddWithValue("@Middle_Name", NM.Middle_Name);
+            string dateString = NM.Dob;
+            DateTime dd = Convert.ToDateTime(dateString,
+                System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
             //DateTime dat = DateTime.ParseExact(Convert.ToDateTime(NM.Dob), "dd-MM-yyyy", CultureInfo.InvariantCulture);
-            cmd.Parameters.AddWithValue("@DOB", Convert.ToDateTime(NM.Dob));
+            cmd.Parameters.AddWithValue("@DOB", dd);
             cmd.Parameters.AddWithValue("@Mobile", NM.Mobile);
             cmd.Parameters.AddWithValue("@Relationship", NM.RelationshipTxt);
             cmd.Parameters.AddWithValue("@Marital_Status", NM.Marital_Status);

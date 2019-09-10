@@ -208,6 +208,7 @@
                                             </center>
 
                                         }
+                                        <button id="change" style="display:none;"></button>
                                     </div>
                                 </div>
                             </div>
@@ -392,6 +393,27 @@
 
 
         </script>
+
+
+
+        @if (ViewBag.change == "true")
+        {
+            <script>
+
+                $(document).ready(function () {
+
+
+                    $("#change").on("click", function () { });
+
+                    $("#change").click(); //trigger event after listening to it.
+
+
+
+                });
+            </script>
+
+        }
+
 
 
         <script type="text/javascript">

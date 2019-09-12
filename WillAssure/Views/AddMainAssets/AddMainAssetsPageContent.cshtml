@@ -302,7 +302,7 @@
 
                         <div style="float:right;">
 
-                            <input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" />&nbsp;&nbsp; <a href="@Url.Action("EditMainAssetsIndex", "EditMainAssets")"><input type="button" name="name" class="btn btn-success" value="View" /></a>
+                            <input type="button" style="display:none;" id="btnmore" name="name" value="Add More" class="btn btn-danger" />&nbsp;&nbsp; <a href="@Url.Action("EditMainAssetsIndex", "EditMainAssets")"><input type="button" style="display:none;" name="name" id="btnview" class="btn btn-success" value="View" /></a>
                         </div>
 
                         @using (Html.BeginForm("InsertMainAsset", null, FormMethod.Post, new { id = "mainassetinfo" }))
@@ -1058,6 +1058,8 @@
             $("#updatedata").empty().append(data);
 
             $("#Binddata").hide();
+
+            $("#btnview").show();
 
         });
 

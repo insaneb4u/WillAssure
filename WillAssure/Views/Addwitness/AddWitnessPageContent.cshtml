@@ -661,7 +661,7 @@
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 1</label>
-                                            @Html.TextAreaFor(m => m.Address1, new { @class = "form-control input-shadow  text-input validate[required]", @id = "txtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
+                                            @Html.TextAreaFor(m => m.Address1, new { @class = "form-control input-shadow  text-input", @id = "txtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3"></div>
@@ -996,7 +996,7 @@
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 1</label>
-                                            @Html.TextAreaFor(m => m.wAddress1, new { @class = "form-control input-shadow  text-input validate[required]", @id = "wtxtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
+                                            @Html.TextAreaFor(m => m.wAddress1, new { @class = "form-control input-shadow  text-input", @id = "wtxtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3"></div>
@@ -1310,7 +1310,7 @@
                                     <div class="col-sm-9">
                                         <div class="form-group">
                                             <label for="input-1">Address 1</label>
-                                            @Html.TextAreaFor(m => m.weAddress1, new { @class = "form-control input-shadow  text-input validate[required]", @id = "wetxtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
+                                            @Html.TextAreaFor(m => m.weAddress1, new { @class = "form-control input-shadow  text-input", @id = "wetxtaddress1", @placeholder = "Enter Address1", @autocomplete = "off" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3"></div>
@@ -1372,6 +1372,12 @@
                                         </div>
                                     </div>
 
+                                    <script>
+                                        function ealtfirst() {
+                                            $("#elblidentityproof2").hide();
+                                        }
+                                    </script>
+
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof</label>
@@ -1389,13 +1395,18 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Alt Identity Proof Value</label>
-                                            <div id="eappendtxttwo"> @Html.TextBoxFor(m => m.weAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altsecond", @id = "wAlt_Identity_proof_Value", @onchange = "ealtAltvalidate2(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus = "altsecond()" }) </div>
+                                            <div id="eappendtxttwo"> @Html.TextBoxFor(m => m.weAlt_Identity_Proof_Value, new { @class = "form-control input-shadow  text-input altsecond", @id = "wAlt_Identity_proof_Value", @onchange = "ealtAltvalidate2(this.value)", @placeholder = "Enter Identity Proof Value", @autocomplete = "off", @readonly = "true", @onfocus = "aeltsecond()" }) </div>
                                             <span id="ealtlblidentityproof2" style="color:red; display:none;">*Alt Identity Proof Already Entered</span>
                                         </div>
                                     </div>
 
 
+                                    <script>
+                                        function aeltsecond() {
+                                            $("#ealtlblidentityproof2").hide();
+                                        }
 
+                                    </script>
 
 
                                 </div>
@@ -1933,7 +1944,9 @@
                         function getIdentityselection(id) {
 
                           
-
+                            if (id != "") {
+                                $("#ddlidentityproof").validationEngine("hide");
+                            }
 
                             $("#ddlidentityproof1 option:disabled").removeAttr('disabled');
                             //var a =  $("#Identity_Proof_txt").val(id);
@@ -3692,6 +3705,9 @@
                     <script>
                         function getIdentityselection1(id) {
 
+                            if (id != "") {
+                                $("#wddlidentityproof").validationEngine("hide");
+                            }
 
                             $("#wddlidentityproof1 option:disabled").removeAttr('disabled');
                             //var a =  $("#Identity_Proof_txt").val(id);
@@ -3773,24 +3789,24 @@
 
 
                             if (id == "Aadhaar Card") {
-                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  ,  onchange='ealtAltvalidate2(this.value)'  , onfocus='altsecond()' />");
+                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[adharCard]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Aadhaar Card' autocomplete='off'  ,  onchange='ealtAltvalidate2(this.value)'  , onfocus='aeltsecond()' />");
                             }
 
 
                             if (id == "Passport") {
-                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='ealtAltvalidate2(this.value)' , onfocus='altsecond()'  />");
+                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[Passport]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value'  placeholder='Enter Passport Number' autocomplete='off' , onchange='ealtAltvalidate2(this.value)' , onfocus='aeltsecond()'  />");
                             }
 
 
 
                             if (id == "Driving Licences") {
-                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='ealtAltvalidate2(this.value)' , onfocus='altsecond()' />");
+                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[carnumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Driving Licences' autocomplete='off'  , onchange='ealtAltvalidate2(this.value)' , onfocus='aeltsecond()' />");
                             }
 
 
 
                             if (id == "Pan Card") {
-                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='ealtAltvalidate2(this.value)' , onfocus='altsecond()'  />");
+                                $("#eappendtxttwo").empty().append("<input type='text' class='form-control input-shadow validate[custom[pannumber]] text-input altsecond' id='wAlt_Identity_proof_Value' name='wAlt_Identity_proof_Value' placeholder='Enter Pan Card' autocomplete='off' , onchange='ealtAltvalidate2(this.value)' , onfocus='aeltsecond()'  />");
                             }
 
 
@@ -3809,7 +3825,9 @@
                     <script>
                         function egetIdentityselection1(id) {
 
-
+                            if (id != "") {
+                                $("#ewddlidentityproof").validationEngine("hide");
+                            }
                             $("#ewddlidentityproof1 option:disabled").removeAttr('disabled');
                             //var a =  $("#Identity_Proof_txt").val(id);
 

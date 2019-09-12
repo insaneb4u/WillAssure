@@ -93,7 +93,7 @@ namespace WillAssure.Controllers
 
                 if (dtc1.Rows.Count > 0)
                 {
-                    ViewBag.beneinstitureactive = "true";
+                    ViewBag.beneactive = "true";
                 }
 
 

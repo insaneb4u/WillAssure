@@ -551,7 +551,7 @@ namespace WillAssure.Controllers
             DataTable dt = new DataTable();
             da.Fill(dt);
             con.Close();
-            string data = "<option value='C'>--Select Country--</option>";
+            string data = "<option value=''>--Select Country--</option>";
 
             if (dt.Rows.Count > 0)
             {

@@ -359,14 +359,6 @@ namespace WillAssure.CrystalReports {
                 return this.DataDefinition.ParameterFields[27];
             }
         }
-        
-        [Browsable(false)]
-        [DesignerSerializationVisibilityAttribute(System.ComponentModel.DesignerSerializationVisibility.Hidden)]
-        public CrystalDecisions.Shared.IParameterField Parameter_QuickWill1Data_relationid {
-            get {
-                return this.DataDefinition.ParameterFields[28];
-            }
-        }
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]

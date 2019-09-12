@@ -1451,11 +1451,10 @@ namespace WillAssure.Controllers
                 chktdar.Fill(chk008dtr);
 
                 string dateString = Convert.ToDateTime(chk008dtr.Rows[0]["DOB"]).ToString("dd/MM/yyyy");
-                DateTime dd = Convert.ToDateTime(dateString,
-                    System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
+                DateTime dd = Convert.ToDateTime(dateString,System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
 
 
-                string query3 = "insert into TestatorDetails (First_Name,Middle_Name,Last_Name,Mobile,Email,uid ,DOB,Occupation,maritalStatus,RelationShip,Religion,Identity_Proof,Identity_proof_Value,Alt_Identity_Proof,Alt_Identity_proof_Value,Gender,Address1,Address2,Address3,City ,State,Country ,Pin,active,documentstatus) values ('" + chk008dtr.Rows[0]["First_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Middle_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Last_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Mobile"].ToString() + "' , '" + chk008dtr.Rows[0]["Email"].ToString() + "' , " + Convert.ToInt32(Session["uuid"]) + " , '" + dd + "' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'no' , 'incompleted' )    ";
+                string query3 = "insert into TestatorDetails (First_Name,Middle_Name,Last_Name,Mobile,Email,uid ,DOB,Occupation,maritalStatus,RelationShip,Religion,Identity_Proof,Identity_proof_Value,Alt_Identity_Proof,Alt_Identity_proof_Value,Gender,Address1,Address2,Address3,City ,State,Country ,Pin,active,documentstatus) values ('" + chk008dtr.Rows[0]["First_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Middle_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Last_Name"].ToString() + "' , '" + chk008dtr.Rows[0]["Mobile"].ToString() + "' , '" + chk008dtr.Rows[0]["Email"].ToString() + "' , " + Convert.ToInt32(Session["uuid"]) + " , '"+dd+"' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'none' ,'no' , 'incompleted' )    ";
                 SqlCommand cmd3 = new SqlCommand(query3, con);
                 cmd3.ExecuteNonQuery();
 

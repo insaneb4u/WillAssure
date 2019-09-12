@@ -728,7 +728,7 @@
                                         <div class="form-group">
 
                                             <label for="input-1">Address 1</label>
-                                            @Html.TextAreaFor(m => m.nomAddress1, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtaddress1", @placeholder = "Enter Address 1", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextAreaFor(m => m.nomAddress1, new { @class = "form-control input-shadow  text-input", @id = "txtaddress1", @placeholder = "Enter Address 1", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
 
@@ -1425,7 +1425,26 @@ else
 
         $("#nomineecheck").val("true");
 
+        $("#txtfirstname").val("");
+        $("#txtmiddlename").val("");
+        $("#DOB").val("");
+        $("#txtmobile").val("");
+        $("#txtpin").val("");
+        $("#txtaddress1").val("");
+        $("#txtaddress2").val("");
+        $("#txtaddress3").val("");
+        $("#txtidentityproof").val("");
+        $("#txtIdentityProofValue").val("");
 
+
+        $('#ddlrelation').val('').trigger('change');
+        $('#nommaritalstatus').val('').trigger('change');
+        $('#nomreligion').val('').trigger('change');
+        $('#ddlcountry').val('').trigger('change');
+        $('#ddlstate').val('').trigger('change');
+        $('#ddlcity').val('').trigger('change');
+        $('#identityproof').val('').trigger('change');
+        $('#ddlidentityproof1').val('').trigger('change');
     }
 
 

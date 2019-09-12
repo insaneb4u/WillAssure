@@ -561,6 +561,13 @@ namespace WillAssure.Controllers
                                 string first = removecomma.Split('~')[0];
                                 string second = removecomma.Split('~')[1];
 
+                                if (kv.Value == "Yes")
+                                {
+                                    ViewBag.disablefield = "true";
+                                    ViewBag.nomineedata = "true";
+                                }
+
+
                                 final = final + kv.Key + ":" + kv.Value;
 
 
@@ -658,10 +665,10 @@ namespace WillAssure.Controllers
             if (dt22.Rows.Count > 0)
             {
 
-                ViewBag.nomineedata = "true";
+                
                 for (int i = 0; i < dt22.Rows.Count; i++)
                 {
-                    ViewBag.disablefield = "true";
+                    
                     NM.nId = Convert.ToInt32(dt22.Rows[i]["nId"]);
                     NM.nomFirst_Name = dt22.Rows[i]["First_Name"].ToString();
                     NM.nomLast_Name = dt22.Rows[i]["Last_Name"].ToString();

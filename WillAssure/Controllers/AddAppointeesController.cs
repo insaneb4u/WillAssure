@@ -98,7 +98,7 @@ namespace WillAssure.Controllers
 
                 if (dtc1.Rows.Count > 0)
                 {
-                    ViewBag.beneinstitureactive = "true";
+                    ViewBag.beneactive = "true";
                 }
 
 
@@ -677,7 +677,14 @@ namespace WillAssure.Controllers
                             Am.Gender = dt.Rows[i]["Gender"].ToString();
                             Am.Occupation = dt.Rows[i]["Occupation"].ToString();
                             Am.RelationshipTxt = dt.Rows[i]["Relationship"].ToString();
-                            Am.Address1 = dt.Rows[i]["Address1"].ToString();
+                          
+
+
+                            if (dt.Rows[i]["Address1"].ToString() != "None")
+                            {
+                                Am.Address1 = dt.Rows[i]["Address1"].ToString();
+                            }
+
 
                             if (dt.Rows[i]["Address2"].ToString() != "None")
                             {
@@ -852,8 +859,11 @@ namespace WillAssure.Controllers
                         Am.altGender = dt2.Rows[i]["Gender"].ToString();
                         Am.altOccupation = dt2.Rows[i]["Occupation"].ToString();
                         Am.altRelationshipTxt = dt2.Rows[i]["Relationship"].ToString();
-                        Am.altAddress1 = dt2.Rows[i]["Address1"].ToString();
-
+                       
+                        if (dt2.Rows[i]["Address1"].ToString() != "None")
+                        {
+                            Am.altAddress1 = dt2.Rows[i]["Address1"].ToString();
+                        }
 
                         if (dt2.Rows[i]["Address2"].ToString() != "None")
                         {
@@ -1125,6 +1135,7 @@ namespace WillAssure.Controllers
                     string statename = "";
                     string cityname = "";
                     string middlename = "";
+                    string Address = "";
                     for (int i = 0; dy1dt.Rows.Count >= 0; i++)
                     {
 
@@ -1196,6 +1207,12 @@ namespace WillAssure.Controllers
                         if (dy1dt.Rows[0]["middleName"].ToString() != "None")
                         {
                             middlename = dy1dt.Rows[0]["middleName"].ToString();
+                        }
+
+
+                        if (dy1dt.Rows[0]["Address1"].ToString() != "None")
+                        {
+                            Address = dy1dt.Rows[0]["Address1"].ToString();
                         }
 
                         ViewBag.disablefield = "true";
@@ -1359,7 +1376,7 @@ namespace WillAssure.Controllers
             "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
             "<label for='input-1'>Address 1</label>" +
-            "<textarea autocomplete = 'off' class='form-control input-shadow  text-input validate[required]' cols='20' id='txtaddress1" + i + "' name='inputfield' placeholder='Enter Address1' rows='2' >" + dy1dt.Rows[i]["Address1"].ToString() + "</textarea>" +
+            "<textarea autocomplete = 'off' class='form-control input-shadow  text-input validate[required]' cols='20' id='txtaddress1" + i + "' name='inputfield' placeholder='Enter Address1' rows='2' >" + Address + "</textarea>" +
             "</div>" +
             "</div>" +
 
@@ -2277,7 +2294,19 @@ namespace WillAssure.Controllers
             cmd.Parameters.AddWithValue("@Gender", collection["Gender"]);
             cmd.Parameters.AddWithValue("@Occupation", "None");
             cmd.Parameters.AddWithValue("@Relationship", "None");
-            cmd.Parameters.AddWithValue("@Address1", collection["Address1"]);
+           
+
+            if (collection["Address1"] != null || collection["Address1"] == "")
+            {
+                cmd.Parameters.AddWithValue("@Address1", collection["Address1"]);
+            }
+            else
+            {
+                collection["Address1"] = "None";
+                cmd.Parameters.AddWithValue("@Address1", collection["Address1"]);
+            }
+
+
             if (collection["Address2"] != null || collection["Address2"] == "")
             {
                 cmd.Parameters.AddWithValue("@Address2", collection["Address2"]);
@@ -2540,7 +2569,20 @@ namespace WillAssure.Controllers
                 cmdd.Parameters.AddWithValue("@Gender", collection["altGender"]);
                 cmdd.Parameters.AddWithValue("@Occupation", "None");
                 cmdd.Parameters.AddWithValue("@Relationship", "None");
-                cmdd.Parameters.AddWithValue("@Address1", collection["altAddress1"]);
+              
+
+
+                if (collection["altAddress1"] != null || collection["altAddress1"] == "")
+                {
+                    cmdd.Parameters.AddWithValue("@Address1", collection["altAddress1"]);
+                }
+                else
+                {
+                    collection["altAddress1"] = "None";
+                    cmdd.Parameters.AddWithValue("@Address1", collection["altAddress1"]);
+                }
+
+
                 if (collection["altAddress2"] != null || collection["altAddress2"] == "")
                 {
                     cmdd.Parameters.AddWithValue("@Address2", collection["altAddress2"]);
@@ -2779,6 +2821,11 @@ namespace WillAssure.Controllers
                     result[3] = "None";
                 }
 
+                if (result[7].ToString() == "")
+                {
+                    result[7] = "None";
+                }
+
                 int getcount = 0;
                 con.Open();
                 for (int i = 0; i <= result.Count; i++)
@@ -2908,7 +2955,10 @@ namespace WillAssure.Controllers
                 {
                     result2[3] = "None";
                 }
-
+                if (result2[7].ToString() == "")
+                {
+                    result2[7] = "None";
+                }
 
 
                 string data2 = "";
@@ -4149,7 +4199,7 @@ namespace WillAssure.Controllers
         "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>Address 1</label>" +
-                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input validate[required]' cols='20' id='txtaddress1" + i + "' name='inputfield' placeholder='Enter Address1' rows='2' ></textarea>" +
+                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input ' cols='20' id='txtaddress1" + i + "' name='inputfield' placeholder='Enter Address1' rows='2' ></textarea>" +
             "</div>" +
         "</div>" +
  
@@ -4366,7 +4416,7 @@ namespace WillAssure.Controllers
         "<div class='col-sm-3'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>Address 1</label>" +
-                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input validate[required]' cols='20' id='alttxtaddress1" + i + "' name='altinputfield' placeholder='Enter Address1' rows='2' ></textarea>" +
+                "<textarea autocomplete = 'off' class='form-control input-shadow  text-input' cols='20' id='alttxtaddress1" + i + "' name='altinputfield' placeholder='Enter Address1' rows='2' ></textarea>" +
             "</div>" +
         "</div>" +
         //"<div class='col-sm-3'>" + "</div>" +

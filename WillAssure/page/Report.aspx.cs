@@ -523,8 +523,10 @@ namespace WillAssure.Views.ViewDocument
 
 
                     QuickWill1 rpt = new QuickWill1();
+                    QuickWill1Data rp = new QuickWill1Data();
 
 
+                    rpt.SetDatabaseLogon("WillAssure_DB", "willassureadmin@1234", "103.87.173.108", "WillAssure_DB");
                     rpt.SetParameterValue("TestatorName", testator);
                     rpt.SetParameterValue("Son-Daughter-Wife", SonDaughterWife);   // check gender and marital status 
                     rpt.SetParameterValue("Father-Husband", FatherHusband);
@@ -539,7 +541,7 @@ namespace WillAssure.Views.ViewDocument
                     rpt.SetParameterValue("SystemDay", SystemDay);
 
                     
-                        rpt.SetParameterValue("SystemMonth", SytemMonth);
+                    rpt.SetParameterValue("SystemMonth", SytemMonth);
           
                    
 
@@ -553,9 +555,32 @@ namespace WillAssure.Views.ViewDocument
                     rpt.SetParameterValue("AlternateBeneficiaryName", AlternateBeneficiaryName);
                     rpt.SetParameterValue("TestatorGender", TestatorGender);
                     rpt.SetParameterValue("Witness2", Witness2);
-                    rpt.SetParameterValue("relationid", documentId);
-                    //rpt.SetParameterValue("primarytid", documentId);
-                    //rpt.SetParameterValue("alternatebenetid", documentId);
+                    rpt.SetParameterValue("AlternateExecutorName", AppointeesName);
+                    rpt.SetParameterValue("GuardianName", guardian);
+                    rpt.SetParameterValue("relationid", documentId.ToString());
+                    rpt.SetParameterValue("primarytid", documentId.ToString());
+                    rpt.SetParameterValue("alternatebenetid", documentId.ToString());
+
+
+                    //rpt.SetParameterValue("relationid", documentId);
+                    //SqlConnection con = new SqlConnection(@"Data Source=103.87.173.108;Initial Catalog=WillAssure_DB;Persist Security Info=True;User ID=WillAssure_DB;Password=willassureadmin@1234");
+                    //SqlCommand cmd = new SqlCommand("DisplayRelationShipData", con);
+                    //cmd.CommandType = CommandType.StoredProcedure;
+                    //cmd.Parameters.AddWithValue("@relationid" , documentId);
+                    //SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                    //DataTable dt = new DataTable();
+                    //sda.Fill(dt);
+                    //rp.SetDataSource(dt);
+
+                    //rp.SetParameterValue("@relationid", documentId);
+
+
+
+
+                    //rpt.SetParameterValue("relationid", documentId);
+
+                    //rpt.SetParameterValue("primarytid(QuickWill1Data2)", documentId);
+                    //rpt.SetParameterValue("alternatebenetid(QuickWill1Data3)", documentId);
 
 
 
@@ -575,8 +600,10 @@ namespace WillAssure.Views.ViewDocument
 
 
                     CrystalReportViewer1.ReportSource = rpt;
-
+                  
+                   
                     CrystalReportViewer1.Zoom(125);
+
                     var path3 = Server.MapPath("~/GeneratedPdf/file.pdf");
 
                     try

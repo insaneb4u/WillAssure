@@ -32,8 +32,9 @@ namespace WillAssure.Views.ViewDocument
 
             int documentId = Convert.ToInt32(Request.QueryString["NestId"]);
             string WillType = Request.QueryString["WillType"].ToString();
+            ViewState["willtype"] = WillType;
             ViewState["tid"] = documentId;
-
+            
             con.Open();
 
            
@@ -515,7 +516,7 @@ namespace WillAssure.Views.ViewDocument
 
 
 
-
+                ViewState["testator"] = testator;
 
                 if (Convert.ToInt32(ViewState["TemplateID"]) == 1)
                 {
@@ -604,7 +605,7 @@ namespace WillAssure.Views.ViewDocument
                    
                     CrystalReportViewer1.Zoom(125);
 
-                    var path3 = Server.MapPath("~/GeneratedPdf/file.pdf");
+                    var path3 = Server.MapPath("~/GeneratedPdf/"+ViewState["willtype"]+"Will_"+ViewState["testator"]+".pdf");
 
                     try
                     {
@@ -951,7 +952,7 @@ namespace WillAssure.Views.ViewDocument
 
             string body = "As Per Your Details Will Has Been Generated Please Check The Attachment Below";
 
-            var path = Server.MapPath("~/GeneratedPdf/file.pdf");
+            var path = Server.MapPath("~/GeneratedPdf/" + ViewState["willtype"] + "Will_" + ViewState["testator"] + ".pdf");
             MailMessage msg = new MailMessage();
             Attachment data = new Attachment(path, MediaTypeNames.Application.Octet);
 

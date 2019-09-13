@@ -535,7 +535,7 @@
                                  new SelectListItem() {Text = "Buddhism", Value="Buddhism"},
                                  new SelectListItem() {Text = "Christians", Value="Christians"},
                                  new SelectListItem() {Text = "Hinduism", Value="Hinduism"},
-                                 new SelectListItem() {Text = "Islam", Value="Islam"},
+                               
                                  new SelectListItem() {Text = "Jainism", Value="Jainism"},
                                  new SelectListItem() {Text = "Sikhism", Value="Sikhism"},
 
@@ -557,7 +557,7 @@
 
 
 
-                                        @Html.TextBoxFor(m => m.Gendertxt, new { @class = "form-control input-shadow", @id = "txtgender", @placeholder = "--Select--" })
+                                        @Html.TextBoxFor(m => m.Gendertxt, new { @class = "form-control input-shadow validate[required]", @id = "txtgender", @placeholder = "--Select--" })
 
                                         <script>
                                             $("#txtgender").focus(function () {

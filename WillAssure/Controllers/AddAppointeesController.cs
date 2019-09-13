@@ -638,11 +638,11 @@ namespace WillAssure.Controllers
 
                     if (NestId != null)
                     {
-                        query = "select * from Appointees where apId = " + NestId + " and  ExecutorType = 'Single'";
+                        query = "select * from Appointees where apId = " + NestId + " and  ExecutorType = 'Single' and Type = 'Executor'";
                     }
                     else
                     {
-                        query = "select * from Appointees where tid = " + distid + "  and  ExecutorType = 'Single'";
+                        query = "select * from Appointees where tid = " + distid + "  and  ExecutorType = 'Single' and Type = 'Executor'";
                     }
 
 
@@ -1018,7 +1018,7 @@ namespace WillAssure.Controllers
 
             con.Open();
 
-            string dyquery1 = "SELECT * FROM appointees where ExecutorType = 'Multiple' and tid = " + Convert.ToInt32(Session["distid"]) + "";
+            string dyquery1 = "SELECT * FROM appointees where ExecutorType = 'Multiple' and tid = " + Convert.ToInt32(Session["distid"]) + " and Type='Executor'";
             SqlDataAdapter dy1da = new SqlDataAdapter(dyquery1, con);
             DataTable dy1dt = new DataTable();
             dy1da.Fill(dy1dt);
@@ -2821,9 +2821,9 @@ namespace WillAssure.Controllers
                     result[3] = "None";
                 }
 
-                if (result[7].ToString() == "")
+                if (result[10].ToString() == "")
                 {
-                    result[7] = "None";
+                    result[10] = "None";
                 }
 
                 int getcount = 0;
@@ -2955,9 +2955,9 @@ namespace WillAssure.Controllers
                 {
                     result2[3] = "None";
                 }
-                if (result2[7].ToString() == "")
+                if (result2[10].ToString() == "")
                 {
-                    result2[7] = "None";
+                    result2[10] = "None";
                 }
 
 

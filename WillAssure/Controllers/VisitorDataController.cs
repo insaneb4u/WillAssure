@@ -705,7 +705,7 @@ namespace WillAssure.Controllers
                 {
                     msg = "false";
                 }
-                if (age >= 18)
+                if (age > 18)
                 {
                     msg = "true";
                 }

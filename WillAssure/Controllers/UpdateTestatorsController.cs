@@ -1613,11 +1613,11 @@ namespace WillAssure.Controllers
 
 
 
-                    con.Open();
-                    string query33 = "update users set  userID= '" + TFM.Email + "' , userPwd='" + TFM.userPassword + "'   where uId = " + TFM.uId + "";
-                    SqlCommand cmd33 = new SqlCommand(query33, con);
-                    cmd33.ExecuteNonQuery();
-                    con.Close();
+                    //con.Open();
+                    //string query33 = "update users set  userID= '" + TFM.Email + "' , userPwd='" + TFM.userPassword + "'   where uId = " + TFM.uId + "";
+                    //SqlCommand cmd33 = new SqlCommand(query33, con);
+                    //cmd33.ExecuteNonQuery();
+                    //con.Close();
 
 
                     // update otp for email and mobile
@@ -1867,16 +1867,16 @@ namespace WillAssure.Controllers
             cddu.ExecuteNonQuery();
 
 
-          
 
 
 
 
 
+           // eMail = '" + TFM.Email + "' ,
 
             if (TFM.EmailOTP != null)
             {
-                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + dd + "' , Mobile = '" + TFM.Mobile + "' ,  eMail = '" + TFM.Email + "' , Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '2'   where uId = " + TFM.uId + "     ";
+                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + dd + "' , Mobile = '" + TFM.Mobile + "' , Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '2'   where uId = " + TFM.uId + "     ";
                 SqlCommand cdd = new SqlCommand(query2, con);
                 cdd.ExecuteNonQuery();
                 con.Close();
@@ -1884,7 +1884,7 @@ namespace WillAssure.Controllers
             else
             {
            
-                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + dd + "' , Mobile = '" + TFM.Mobile + "' ,  eMail = '" + TFM.Email + "' , Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '1'   where uId = " + TFM.uId + "     ";
+                string query2 = "update users set First_Name= '" + TFM.First_Name + "' , Last_Name='" + TFM.Last_Name + "' ,  Middle_Name='" + TFM.Middle_Name + "' , DOB = '" + dd + "' , Mobile = '" + TFM.Mobile + "' ,   Address1='" + TFM.Address1 + "' , Address2='" + TFM.Address2 + "' , Address3 = '" + TFM.Address3 + "' , City='" + TFM.citytext + "' ,State= '" + TFM.statetext + "' , Pin='" + TFM.Pin + "' , Designation = '1'   where uId = " + TFM.uId + "     ";
                 SqlCommand cdd = new SqlCommand(query2, con);
                 cdd.ExecuteNonQuery();
                 con.Close();

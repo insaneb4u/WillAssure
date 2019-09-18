@@ -323,7 +323,7 @@
 
 
 
-
+                            <div id="testatorfamily" style="display:none">
 
 
 
@@ -333,20 +333,20 @@
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">First Name</label>
-                                            @Html.TextBoxFor(m => m.First_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtFirstName", @placeholder = "Enter First Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextBoxFor(m => m.First_Name, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtFirstName", @placeholder = "Enter First Name", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
 
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Middle Name</label>
-                                            @Html.TextBoxFor(m => m.Middle_Name, new { @class = "form-control input-shadow  text-input", @id = "txtMiddle_Name", @placeholder = "Enter Middle Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextBoxFor(m => m.Middle_Name, new { @class = "form-control input-shadow validate[custom[onlyLetterSp]]  text-input", @id = "txtMiddle_Name", @placeholder = "Enter Middle Name", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">Last Name</label>
-                                            @Html.TextBoxFor(m => m.Last_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtLastName", @placeholder = "Enter Last Name", @autocomplete = "off", alert = "LabourCost is requried" })
+                                            @Html.TextBoxFor(m => m.Last_Name, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtLastName", @placeholder = "Enter Last Name", @autocomplete = "off", alert = "LabourCost is requried" })
                                         </div>
                                     </div>
                                     <div class="col-sm-3"></div>
@@ -716,7 +716,7 @@
 
 
 
-
+</div>
 
 
 
@@ -727,7 +727,7 @@
             // GUARDIAN*@
 
 
-                            <div id="guardianform" style="display:none;">
+                            <div id="guardianform" style="display:;">
                                 <center><h5> Guardian Details</h5></center>
                                 <br />
                                 <br />
@@ -754,19 +754,19 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">First Name</label>
-                                                @Html.TextBoxFor(m => m.guaName, new { @class = "form-control input-shadow required validate[required]", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
+                                                @Html.TextBoxFor(m => m.guaName, new { @class = "form-control input-shadow required validate[required,custom[onlyLetterSp]]", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Middle Name</label>
-                                                @Html.TextBoxFor(m => m.guamiddleName, new { @class = "form-control input-shadow  text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                                @Html.TextBoxFor(m => m.guamiddleName, new { @class = "form-control input-shadow  text-input validate[custom[onlyLetterSp]]", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Last Name</label>
-                                                @Html.TextBoxFor(m => m.guaSurname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname", @placeholder = "Enter Surname", @autocomplete = "off" })
+                                                @Html.TextBoxFor(m => m.guaSurname, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtsurname", @placeholder = "Enter Surname", @autocomplete = "off" })
                                             </div>
                                         </div>
                                         <div class="col-sm-3"></div>
@@ -983,7 +983,7 @@
 
 
 
-                            <div id="alternateoption" style="display:none">
+                            <div id="alternateoption" style="display:">
                                 <center>
                                     <h6>Do You Like To Add Alternate Guardian</h6>
                                     <label>
@@ -1041,19 +1041,19 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">First Name</label>
-                                                @Html.TextBoxFor(m => m.altguaName, new { @class = "form-control input-shadow required validate[required]", @id = "altguaName", @placeholder = "Enter Name", @autocomplete = "off" })
+                                                @Html.TextBoxFor(m => m.altguaName, new { @class = "form-control input-shadow required validate[required,custom[onlyLetterSp]]", @id = "altguaName", @placeholder = "Enter Name", @autocomplete = "off" })
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Middle Name</label>
-                                                @Html.TextBoxFor(m => m.altguamiddleName, new { @class = "form-control input-shadow  text-input", @id = "altguamiddleName", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                                @Html.TextBoxFor(m => m.altguamiddleName, new { @class = "form-control input-shadow  text-input validate[custom[onlyLetterSp]]", @id = "altguamiddleName", @placeholder = "Enter Middle Name", @autocomplete = "off" })
                                             </div>
                                         </div>
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">Last Name</label>
-                                                @Html.TextBoxFor(m => m.altguaSurname, new { @class = "form-control input-shadow validate[required] text-input", @id = "altguaSurname", @placeholder = "Enter Surname", @autocomplete = "off" })
+                                                @Html.TextBoxFor(m => m.altguaSurname, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "altguaSurname", @placeholder = "Enter Surname", @autocomplete = "off" })
                                             </div>
                                         </div>
                                         <div class="col-sm-3"></div>
@@ -2638,6 +2638,12 @@
         {
             <script>
                 $("#guardianform").show();
+                $(document).ready(function () {
+
+                    $(".altradio1").prop('checked', true)
+
+                });
+
             </script>
         }
 
@@ -2972,7 +2978,7 @@
 
                 $("#btnfieldedit").hide();
 
-                $("#guardianform").hide();
+                //$("#guardianform").hide();
 
                 $("#ddr").hide();
 
@@ -3075,7 +3081,21 @@
 
 
 
-
+                $("#altguaName").val("");
+                $("#altguamiddleName").val("");
+                $("#altguaSurname").val("");
+                $("#altguaGender").val("");
+                $("#altguaddlcountry").val("");
+                $("#altguaddlstate").val("");
+                $("#altguaddlcity").val("");
+                $("#altguaPin").val("");
+                $("#altguaAddress1").val("");
+                $("#altguaAddress2").val("");
+                $("#altguaAddress3").val("");
+                $("#altaltfirstIdentity_Proof_txt").val("");
+                $("#altguaIdentity_Proof_Value").val("");
+                $("#altguaddlidentityproof11").val("");
+                $("#altguaAlt_Identity_Proof_Value").val("");
 
 
 
@@ -3103,7 +3123,7 @@
 
                 $("#btnfieldedit").hide();
 
-                $("#guardianform").hide();
+                //$("#guardianform").hide();
 
                 $("#ddr").hide();
 
@@ -3207,6 +3227,21 @@
 
 
 
+                $("#altguaName").val("");
+                $("#altguamiddleName").val("");
+                $("#altguaSurname").val("");
+                $("#altguaGender").val("");
+                $("#altguaddlcountry").val("");
+                $("#altguaddlstate").val("");
+                $("#altguaddlcity").val("");
+                $("#altguaPin").val("");
+                $("#altguaAddress1").val("");
+                $("#altguaAddress2").val("");
+                $("#altguaAddress3").val("");
+                $("#altaltfirstIdentity_Proof_txt").val("");
+                $("#altguaIdentity_Proof_Value").val("");
+                $("#altguaddlidentityproof11").val("");
+                $("#altguaAlt_Identity_Proof_Value").val("");
 
 
 

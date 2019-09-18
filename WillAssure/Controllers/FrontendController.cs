@@ -66,6 +66,28 @@ namespace WillAssure.Controllers
 
 
 
+        public string checkgetotp()
+        {
+
+            con.Open();
+            string query = "select top 1 uId  from users order by uId desc";
+            SqlDataAdapter da = new SqlDataAdapter(query,con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            string userid = "";
+            if (dt.Rows.Count > 0)
+            {
+                userid = dt.Rows[0]["uId"].ToString();
+            }
+            con.Close();
+
+
+            return userid;
+        }
+
+
+
+
 
         public string Resendotp()
         {

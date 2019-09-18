@@ -1264,27 +1264,27 @@ namespace WillAssure.Controllers
             "<div class='col-sm-3' id='comptwo" + i + "' style='display:none'>" +
             "<div class='form-group'>" +
             "<label for='input-1' style='white-space:nowrap;'>Registration No</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='registrationno" + i + "' name='inputfield' placeholder='Registration No' type='text' value=''>" +
+            "<input autocomplete = 'off' class='form-control input-shadow   text-input' id='registrationno" + i + "' name='inputfield' placeholder='Registration No' type='text' value=''>" +
             "</div>" +
             "</div>" +
             "<div class='col-sm-3' id='Firsttxthide" + i + "'>" +
             "<div class='form-group'>" +
             "<label for='input-1'>First Name</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow required validate[required]' id='txtname" + i + "' name='inputfield' placeholder='Enter Name' type='text' value='" + dy1dt.Rows[i]["Name"].ToString() + "' >" +
+            "<input autocomplete = 'off' class='form-control input-shadow required validate[required,custom[onlyLetterSp]]' id='txtname" + i + "' name='inputfield' placeholder='Enter Name' type='text' value='" + dy1dt.Rows[i]["Name"].ToString() + "' >" +
             "</div>" +
             "</div>" +
 
             "<div class='col-sm-3' id='Middletxthide" + i + "'>" +
             "<div class='form-group'>" +
             "<label for='input-1'>Middle Name</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow  text-input' id='txtmiddlename" + i + "' name='inputfield' placeholder='Enter Middle Name' type='text' value='" + middlename + "' >" +
+            "<input autocomplete = 'off' class='form-control input-shadow validate[custom[onlyLetterSp]]  text-input' id='txtmiddlename" + i + "' name='inputfield' placeholder='Enter Middle Name' type='text' value='" + middlename + "' >" +
             "</div>" +
             "</div>" +
             "<div class='col-sm-3'></div>" +
             "<div class='col-sm-2' id='Lasttxthide" + i + "'>" +
             "<div class='form-group'>" +
             "<label for='input-1'>Last Name</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtsurname" + i + "' name='inputfield' placeholder='Surname' type='text' value='" + dy1dt.Rows[i]["Surname"].ToString() + "' >" +
+            "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[onlyLetterSp]] text-input' id='txtsurname" + i + "' name='inputfield' placeholder='Surname' type='text' value='" + dy1dt.Rows[i]["Surname"].ToString() + "' >" +
             "</div>" +
             "</div>" +
 
@@ -1677,27 +1677,27 @@ namespace WillAssure.Controllers
             "<div class='col-sm-3' id='comptwo" + i + "' style='display:none'>" +
             "<div class='form-group'>" +
             "<label for='input-1' style='white-space:nowrap;'>Registration No</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='registrationno" + i + "' name='inputfield' placeholder='Registration No' type='text' value=''>" +
+            "<input autocomplete = 'off' class='form-control input-shadow   text-input' id='registrationno" + i + "' name='inputfield' placeholder='Registration No' type='text' value=''>" +
             "</div>" +
             "</div>" +
             "<div class='col-sm-3' id='Firsttxthide" + i + "'>" +
             "<div class='form-group'>" +
             "<label for='input-1'>First Name</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow required validate[required]' id='txtname" + i + "' name='altinputfield' placeholder='Enter Name' type='text' value='" + dy2dt.Rows[i]["Name"].ToString() + "' >" +
+            "<input autocomplete = 'off' class='form-control input-shadow required validate[required,custom[onlyLetterSp]]' id='txtname" + i + "' name='altinputfield' placeholder='Enter Name' type='text' value='" + dy2dt.Rows[i]["Name"].ToString() + "' >" +
             "</div>" +
             "</div>" +
 
             "<div class='col-sm-3' id='Middletxthide" + i + "'>" +
             "<div class='form-group'>" +
             "<label for='input-1'>Middle Name</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow  text-input' id='txtmiddlename" + i + "' name='altinputfield' placeholder='Enter Middle Name' type='text' value='" + middlename + "' >" +
+            "<input autocomplete = 'off' class='form-control validate[custom[onlyLetterSp]] input-shadow  text-input' id='txtmiddlename" + i + "' name='altinputfield' placeholder='Enter Middle Name' type='text' value='" + middlename + "' >" +
             "</div>" +
             "</div>" +
             "<div class='col-sm-3'></div>" +
             "<div class='col-sm-2' id='Lasttxthide" + i + "'>" +
             "<div class='form-group'>" +
             "<label for='input-1'>Last Name</label>" +
-            "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtsurname" + i + "' name='altinputfield' placeholder='Surname' type='text' value='" + dy2dt.Rows[i]["Surname"].ToString() + "' >" +
+            "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[onlyLetterSp]] text-input' id='txtsurname" + i + "' name='altinputfield' placeholder='Surname' type='text' value='" + dy2dt.Rows[i]["Surname"].ToString() + "' >" +
             "</div>" +
             "</div>" +
 
@@ -4091,27 +4091,27 @@ namespace WillAssure.Controllers
         "<div class='col-sm-3' id='comptwo" + i + "' style='display:none'>" +
             "<div class='form-group'>" +
                 "<label for='input-1' style='white-space:nowrap;'>Registration No</label>" +
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='registrationno" + i + "' name='inputfield' placeholder='Registration No' type='text' value=''>" +
+                "<input autocomplete = 'off' class='form-control input-shadow   text-input' id='registrationno" + i + "' name='inputfield' placeholder='Registration No' type='text' value=''>" +
             "</div>" +
         "</div>" +
      "<div class='col-sm-3' id='Firsttxthide" + i+"'>" +
      "<div class='form-group'>" +
      "<label for='input-1'>First Name</label>" +
-     "<input autocomplete = 'off' class='form-control input-shadow required validate[required]' id='txtname" + i + "' name='inputfield' placeholder='Enter Name' type='text' value='' >" +
+     "<input autocomplete = 'off' class='form-control input-shadow required validate[required,custom[onlyLetterSp]]' id='txtname" + i + "' name='inputfield' placeholder='Enter Name' type='text' value='' >" +
      "</div>" +
      "</div>" +
 
      "<div class='col-sm-3' id='Middletxthide" + i + "'>" +
      "<div class='form-group'>" +
      "<label for='input-1'>Middle Name</label>" +
-     "<input autocomplete = 'off' class='form-control input-shadow  text-input' id='txtmiddlename" + i + "' name='inputfield' placeholder='Enter Middle Name' type='text' value='' >" +
+     "<input autocomplete = 'off' class='form-control validate[custom[onlyLetterSp]] input-shadow  text-input' id='txtmiddlename" + i + "' name='inputfield' placeholder='Enter Middle Name' type='text' value='' >" +
      "</div>" +
      "</div>" +
         "<div class='col-sm-3'></div>" +
         "<div class='col-sm-2' id='Lasttxthide" + i + "'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>Last Name</label>" +
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='txtsurname" + i + "' name='inputfield' placeholder='Surname' type='text' value='' >" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[onlyLetterSp]] text-input' id='txtsurname" + i + "' name='inputfield' placeholder='Surname' type='text' value='' >" +
             "</div>" +
         "</div>" +
 
@@ -4312,27 +4312,27 @@ namespace WillAssure.Controllers
         "<div class='col-sm-3' id='altcomptwo" + i + "' style='display:none'>" +
             "<div class='form-group'>" +
                 "<label for='input-1' style='white-space:nowrap;'>Registration No</label>" +
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required]  text-input' id='altregistrationno" + i + "' name='altinputfield' placeholder='Registration No' type='text' value=''>" +
+                "<input autocomplete = 'off' class='form-control input-shadow   text-input' id='altregistrationno" + i + "' name='altinputfield' placeholder='Registration No' type='text' value=''>" +
             "</div>" +
         "</div>" +
      "<div class='col-sm-3' id='altFirsttxthide" + i + "'>" +
      "<div class='form-group'>" +
      "<label for='input-1'>First Name</label>" +
-     "<input autocomplete = 'off' class='form-control input-shadow required validate[required]' id='alttxtname" + i + "' name='altinputfield' placeholder='Enter Name' type='text' value='' >" +
+     "<input autocomplete = 'off' class='form-control input-shadow required validate[required,custom[onlyLetterSp]]' id='alttxtname" + i + "' name='altinputfield' placeholder='Enter Name' type='text' value='' >" +
      "</div>" +
      "</div>" +
 
      "<div class='col-sm-3' id='altMiddletxthide"+i+"'>" +
      "<div class='form-group'>" +
      "<label for='input-1'>Middle Name</label>" +
-     "<input autocomplete = 'off' class='form-control input-shadow  text-input' id='alttxtmiddlename" + i + "' name='altinputfield' placeholder='Enter Middle Name' type='text' value='' >" +
+     "<input autocomplete = 'off' class='form-control input-shadow validate[custom[onlyLetterSp]]  text-input' id='alttxtmiddlename" + i + "' name='altinputfield' placeholder='Enter Middle Name' type='text' value='' >" +
      "</div>" +
      "</div>" +
      "<div class='col-sm-3'></div>" +
        "<div class='col-sm-2' id='altLasttxthide" + i + "'>" +
             "<div class='form-group'>" +
                 "<label for='input-1'>Last Name</label>" +
-                "<input autocomplete = 'off' class='form-control input-shadow validate[required] text-input' id='alttxtsurname" + i + "' name='altinputfield' placeholder='Surname' type='text' value='' >" +
+                "<input autocomplete = 'off' class='form-control input-shadow validate[required,custom[onlyLetterSp]] text-input' id='alttxtsurname" + i + "' name='altinputfield' placeholder='Surname' type='text' value='' >" +
             "</div>" +
         "</div>" +
 

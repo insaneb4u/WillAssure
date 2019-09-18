@@ -483,14 +483,14 @@
                                     <div class="form-group">
                                         <label for="input-1">First Name</label>
                                         <input type="hidden" id="txtcheck" value="" name="name" />
-                                        @Html.TextBoxFor(m => m.First_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtFirst_Name", @placeholder = "Enter First Name", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.First_Name, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtFirst_Name", @placeholder = "Enter First Name", @autocomplete = "off" })
                                     </div>
                                 </div>
 
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Middle Name</label>
-                                        @Html.TextBoxFor(m => m.Middle_Name, new { @class = "form-control input-shadow  text-input", @id = "txtMiddle_Name", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.Middle_Name, new { @class = "form-control input-shadow  text-input validate[custom[onlyLetterSp]]", @id = "txtMiddle_Name", @placeholder = "Enter Middle Name", @autocomplete = "off" })
                                     </div>
                                 </div>
 
@@ -499,7 +499,7 @@
                                     <div class="form-group">
 
                                         <label for="input-1">Last Name</label>
-                                        @Html.TextBoxFor(m => m.Last_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtLast_Name", @placeholder = "Enter Last Name", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.Last_Name, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtLast_Name", @placeholder = "Enter Last Name", @autocomplete = "off" })
                                     </div>
                                 </div>
 

@@ -497,7 +497,7 @@
                                                         <div class="col-sm-3" id="comptwo" style="display:none">
                                                             <div class="form-group">
                                                                 <label for="input-1" style="white-space:nowrap;">Registration No</label>
-                                                                @Html.TextBoxFor(m => m.registrationno, new { @class = "form-control input-shadow validate[required]  text-input", @id = "registrationno", @placeholder = "Registration No", @autocomplete = "off" })
+                                                                @Html.TextBoxFor(m => m.registrationno, new { @class = "form-control input-shadow   text-input", @id = "registrationno", @placeholder = "Registration No", @autocomplete = "off" })
                                                             </div>
                                                         </div>
 
@@ -505,21 +505,21 @@
                                                         <div class="col-sm-3" id="ftxtname">
                                                             <div class="form-group">
                                                                 <label for="input-1">First Name</label>
-                                                                @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control input-shadow required validate[required]", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
+                                                                @Html.TextBoxFor(m => m.Firstname, new { @class = "form-control input-shadow required validate[required,custom[onlyLetterSp]]", @id = "txtname", @placeholder = "Enter Name", @autocomplete = "off" })
                                                             </div>
                                                         </div>
 
                                                         <div class="col-sm-3" id="ftxtmiddlename">
                                                             <div class="form-group">
                                                                 <label for="input-1">Middle Name</label>
-                                                                @Html.TextBoxFor(m => m.middleName, new { @class = "form-control input-shadow  text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                                                @Html.TextBoxFor(m => m.middleName, new { @class = "form-control input-shadow validate[custom[onlyLetterSp]] text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-3"></div>
                                                         <div class="col-sm-2" id="ftxtsurname">
                                                             <div class="form-group">
                                                                 <label for="input-1">Last Name</label>
-                                                                @Html.TextBoxFor(m => m.Surname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname", @placeholder = "Surname", @autocomplete = "off" })
+                                                                @Html.TextBoxFor(m => m.Surname, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtsurname", @placeholder = "Surname", @autocomplete = "off" })
                                                             </div>
                                                         </div>
 
@@ -853,7 +853,7 @@
                                                             <div class="col-sm-3" id="scomptwo" style="display:none">
                                                                 <div class="form-group">
                                                                     <label for="input-1" style="white-space:nowrap;">Registration No</label>
-                                                                    @Html.TextBoxFor(m => m.registrationno, new { @class = "form-control input-shadow validate[required]  text-input", @id = "registrationno", @placeholder = "Registration No", @autocomplete = "off" })
+                                                                    @Html.TextBoxFor(m => m.registrationno, new { @class = "form-control input-shadow   text-input", @id = "registrationno", @placeholder = "Registration No", @autocomplete = "off" })
                                                                 </div>
                                                             </div>
 
@@ -861,21 +861,21 @@
                                                             <div class="col-sm-3" id="stxtname2">
                                                                 <div class="form-group">
                                                                     <label for="input-1">First Name</label>
-                                                                    @Html.TextBoxFor(m => m.altName, new { @class = "form-control input-shadow required validate[required]", @id = "txtname2", @placeholder = "Enter Name", @autocomplete = "off" })
+                                                                    @Html.TextBoxFor(m => m.altName, new { @class = "form-control input-shadow required validate[required,custom[onlyLetterSp]]", @id = "txtname2", @placeholder = "Enter Name", @autocomplete = "off" })
                                                                 </div>
                                                             </div>
 
                                                             <div class="col-sm-3">
                                                                 <div class="form-group" id="stxtmiddlename2">
                                                                     <label for="input-1">Middle Name</label>
-                                                                    @Html.TextBoxFor(m => m.altmiddleName, new { @class = "form-control input-shadow  text-input", @id = "txtmiddlename2", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                                                    @Html.TextBoxFor(m => m.altmiddleName, new { @class = "form-control input-shadow validate[custom[onlyLetterSp]] text-input", @id = "txtmiddlename2", @placeholder = "Enter Middle Name", @autocomplete = "off" })
                                                                 </div>
                                                             </div>
                                                             <div class="col-sm-3"></div>
                                                             <div class="col-sm-3">
                                                                 <div class="form-group" id="stxtsurname2">
                                                                     <label for="input-1">Last Name</label>
-                                                                    @Html.TextBoxFor(m => m.altSurname, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtsurname2", @placeholder = "Enter Surname", @autocomplete = "off" })
+                                                                    @Html.TextBoxFor(m => m.altSurname, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtsurname2", @placeholder = "Enter Surname", @autocomplete = "off" })
                                                                 </div>
                                                             </div>
 

@@ -44,6 +44,17 @@
         <script src="javascript/html5shiv.js"></script>
         <script src="javascript/respond.min.js"></script>
     <![endif]-->
+
+
+
+    <script type="text/javascript">
+    
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+
+    </script>
 </head>
 <body>
     <!-- Preloader -->

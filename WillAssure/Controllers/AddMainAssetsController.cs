@@ -1822,7 +1822,18 @@ namespace WillAssure.Controllers
                     cmd2.Parameters.AddWithValue("@action", "insert");
                     cmd2.Parameters.AddWithValue("@First_Name", collection["nomFirst_Name"]);
                     cmd2.Parameters.AddWithValue("@Last_Name", collection["nomLast_Name"]);
-                    cmd2.Parameters.AddWithValue("@Middle_Name", collection["nomMiddle_Name"]);
+
+                    if (collection["nomMiddle_Name"] != "" || collection["nomMiddle_Name"] != null)
+                    {
+                        cmd2.Parameters.AddWithValue("@Middle_Name", collection["nomMiddle_Name"]);
+                    }
+                    else
+                    {
+                        cmd2.Parameters.AddWithValue("@Middle_Name", "None");
+                    }
+
+                 
+
 
                     string dateString = collection["nomDob"];
                     DateTime dd2 = Convert.ToDateTime(dateString,

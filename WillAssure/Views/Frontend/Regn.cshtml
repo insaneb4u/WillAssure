@@ -153,6 +153,8 @@
 
                                 <div class="col-sm-12 text-right" style="float: left;">
                                     <button type="button" id="btnsubmit" class="btn btn-success ">Submit</button>
+                                    <button type="button" id="btnotpp" style="display:none" class="btn btn-danger ">Please Click Here For OTP</button>
+                              
                                 </div>
                             </form>
                             <button style="display:none;" class="btn btn-outline-primary btn-block m-1" id="btnotp" data-toggle="modal" data-target="#primarymodal" backdrop="static" data-keyboard="false">Primary</button>
@@ -212,7 +214,34 @@
 
 
 
+<script>
 
+    $("#btnotpp").click(function () {
+
+   
+        $.ajax({
+
+          type: "POST",
+          url: "@Url.Action("checkgetotp", "Frontend")",
+          success: function (data) {
+
+              alert(data);
+
+              var url = "/Frontend/OtpIndex?userid="+data+"";
+              window.location.href = url;
+
+            }
+        
+        });
+
+    });
+
+
+
+
+   
+
+</script>
 
 
 
@@ -458,7 +487,10 @@
                 success: function (data) {
 
                     if (data == "true") {
-                        alert("Records Inserted SuccessFully Please Check Your Email For OTP");
+
+
+
+                        alert("Records Inserted SuccessFully Please Click On The OTP Link Below For Login....!");
 
 
                         ////$('#primarymodal').modal('show');
@@ -473,7 +505,7 @@
 
 
 
-
+                        $("#btnotpp").show();
                         $("#txtfirstname").val("");
                         $("#txtmiddlename").val("");
                         $("#txtlastname").val("");

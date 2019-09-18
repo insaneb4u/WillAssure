@@ -38,62 +38,62 @@
 
 
                         @*@if (Session["doctype"] != null)
-        {
-            if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
-            {
-                <h5>
-                    <ul id="menu" class="menu" style="font-weight:bold;">
+                            {
+                                if (Session["doctype"].ToString() == "POA" || Session["doctype"].ToString() == "GiftDeeds")
+                                {
+                                    <h5>
+                                        <ul id="menu" class="menu" style="font-weight:bold;">
 
-                        <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:#5e72e4">Donor ></li></a>
-                        <li style="color:#e1e1e1">Donee ></li>
-                        <li style="color:#e1e1e1">Gift ></li>
-                        <li style="color:#e1e1e1">Asset Mapping ></li>
-                        <li style="color:#e1e1e1">Witness Appointment ></li>
-
-
+                                            <a href="@Url.Action("AddTestatorsFormIndex","AddTestatorsForm")"><li style="color:#5e72e4">Donor ></li></a>
+                                            <li style="color:#e1e1e1">Donee ></li>
+                                            <li style="color:#e1e1e1">Gift ></li>
+                                            <li style="color:#e1e1e1">Asset Mapping ></li>
+                                            <li style="color:#e1e1e1">Witness Appointment ></li>
 
 
 
-                    </ul>
-                </h5>
-            }
-            else
-            {
-                <h5>
-                    <ul id="menuforwill" class="menu" style="font-weight:bold;">
-
-                        <li style="color:#5e72e4">Testator  ></li>
-                        <li style="color:#e1e1e1">Testator Family ></li>
-                        <li style="color:#e1e1e1">Beneficiary ></li>
-                        <li style="color:#e1e1e1">AssetInformation ></li>
-                        <li style="color:#e1e1e1">Liabilites></li>
-                        <li style="color:#e1e1e1">PetCare ></li>
-                        <li style="color:#e1e1e1">Mapping ></li>
-                        <li style="color:#e1e1e1">Nominee ></li>
-                        <li style="color:#e1e1e1">Appointees > </li>
 
 
-                    </ul>
-                </h5>
-            }
-        }
-        else
-        {
-            <h5>
-                <ul id="menuforwill" class="menu" style="font-weight:bold;">
+                                        </ul>
+                                    </h5>
+                                }
+                                else
+                                {
+                                    <h5>
+                                        <ul id="menuforwill" class="menu" style="font-weight:bold;">
 
-                    <li style="color:#5e72e4">Testator ></li>
-                    <li style="color:#e1e1e1">Testator Family ></li>
-                    <li style="color:#e1e1e1">Beneficiary ></li>
-                    <li style="color:#e1e1e1">AssetInformation ></li>
-                    <li style="color:#e1e1e1">Mapping ></li>
-                    <li style="color:#e1e1e1">Nominee ></li>
-                    <li style="color:#e1e1e1">Appointees > </li>
+                                            <li style="color:#5e72e4">Testator  ></li>
+                                            <li style="color:#e1e1e1">Testator Family ></li>
+                                            <li style="color:#e1e1e1">Beneficiary ></li>
+                                            <li style="color:#e1e1e1">AssetInformation ></li>
+                                            <li style="color:#e1e1e1">Liabilites></li>
+                                            <li style="color:#e1e1e1">PetCare ></li>
+                                            <li style="color:#e1e1e1">Mapping ></li>
+                                            <li style="color:#e1e1e1">Nominee ></li>
+                                            <li style="color:#e1e1e1">Appointees > </li>
 
 
-                </ul>
-            </h5>
-        }*@
+                                        </ul>
+                                    </h5>
+                                }
+                            }
+                            else
+                            {
+                                <h5>
+                                    <ul id="menuforwill" class="menu" style="font-weight:bold;">
+
+                                        <li style="color:#5e72e4">Testator ></li>
+                                        <li style="color:#e1e1e1">Testator Family ></li>
+                                        <li style="color:#e1e1e1">Beneficiary ></li>
+                                        <li style="color:#e1e1e1">AssetInformation ></li>
+                                        <li style="color:#e1e1e1">Mapping ></li>
+                                        <li style="color:#e1e1e1">Nominee ></li>
+                                        <li style="color:#e1e1e1">Appointees > </li>
+
+
+                                    </ul>
+                                </h5>
+                            }*@
 
 
                         <br />
@@ -125,39 +125,39 @@
 
                             <div class="row">
                                 <div class="col-sm-1"></div><div class='col-sm-2'><label for='input-1' style="line-height:40px;"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Distributor</label></div>
-                                                            <div class='col-sm-3'>
-                                                                @if (Session["Type"] != null)
-                                                                {
-                                                                    if (Session["Type"].ToString() != "DistributorAdmin")
-                                                                    {
-                                                                        <select id="ddlDistributor" class="form-control input-shadow validate[required]">
-                                                                            <option value="">--Select Distributor--</option>
-                                                                        </select>
-                                                                        @Html.HiddenFor(m => m.distributor_id, new { id = "distributor_id" })
-                                                                        @Html.HiddenFor(m => m.distributor_txt, new { id = "distributor_txt" })
-                                                                    }
-                                                                    else
-                                                                    {
+                                <div class='col-sm-3'>
+                                    @if (Session["Type"] != null)
+                                    {
+                                        if (Session["Type"].ToString() != "DistributorAdmin")
+                                        {
+                                            <select id="ddlDistributor" class="form-control input-shadow validate[required]">
+                                                <option value="">--Select Distributor--</option>
+                                            </select>
+                                            @Html.HiddenFor(m => m.distributor_id, new { id = "distributor_id" })
+                                            @Html.HiddenFor(m => m.distributor_txt, new { id = "distributor_txt" })
+                                        }
+                                        else
+                                        {
 
-                                                                        <input type="text" class="form-control" id="distributor_txt" name="name" value="" />
-                                                                        <input type="text" class="form-control" id="distributor_id" style="display:none;" name="distributor_id" value="" />
+                                            <input type="text" class="form-control" id="distributor_txt" name="name" value="" />
+                                            <input type="text" class="form-control" id="distributor_id" style="display:none;" name="distributor_id" value="" />
 
-                                                                    }
+                                        }
 
-                                                                }
-                                                                else
-                                                                {
-                                                                    if (!Response.IsRequestBeingRedirected)
-                                                                    {
-                                                                        Response.Redirect("/LoginPage/LoginPageIndex");
-                                                                    }
-                                                                }
+                                    }
+                                    else
+                                    {
+                                        if (!Response.IsRequestBeingRedirected)
+                                        {
+                                            Response.Redirect("/LoginPage/LoginPageIndex");
+                                        }
+                                    }
 
 
-                                                            </div>
+                                </div>
                             </div>
                             <hr class="div_rd">
-                          
+
                             <div class="row">
                                 <div class="col-sm-1"></div>
                                 <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Personal Details</label></div>
@@ -260,7 +260,7 @@
 
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
@@ -425,7 +425,7 @@
 
                             <div class="row">
                                 <div class="col-sm-1"></div>
-                              
+
                                 <div class="col-sm-2"> <label for="input-1"><i class="fa fa-user-circle-o  " aria-hidden="true"></i>Status</label></div>
 
 
@@ -456,9 +456,9 @@
 
                             <div class="form-group" style="float:right;">
                                 <button type="submit" id="alert-success" formaction="InsertTestatorFormData" class="btn btn-primary shadow-primary px-5"><i class="icon-lock"></i>Submit</button>
-                               
+
                             </div>
-                         
+
 
 
                         }
@@ -561,7 +561,7 @@
 
                                         </div>
                                         <hr class="div_rd">
-                                        <div class="row">
+                                        <div class="row" id="couponcontent" style="display:none">
                                             <div class="col-sm-3">
                                                 <label for="input-1">Enter Coupon Number</label>
                                             </div>
@@ -927,6 +927,16 @@
                             $("#Document_Created_By_ID").val(value);
 
 
+                            if (value == "Distributor") {
+                                $("#couponcontent").show();
+                            }
+
+
+
+                            if (value == "Testator") {
+                                $("#couponcontent").hide();
+                            }
+
 
 
                         });
@@ -1025,18 +1035,18 @@
 
 
                             var previousid = $("#Identity_Proof_txt").val();
-                           
-                      
-                          
+
+
+
                             $("#Alt_Identity_Proof").find("option[value='" + previousid + "']").attr("disabled", "disabled");
-                            
+
 
                         }
                     </script>
                     <script>
                         function getAltIdentityselection(id) {
 
-                          
+
 
                             $("#Alt_Identity_Proof").val(id);
 
@@ -1232,3 +1242,91 @@
 
 
 
+                    @*payment integration script*@
+
+                    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+                    <script>
+                        var v = parseInt($("#test").val()) * 100;
+
+                        var options = {
+                            "key": "rzp_test_GMBr5S3CwTimPr",
+                            "amount": "" + v + "", /// The amount is shown in currency subunits. Actual amount is ₹599.
+                            "name": "WillAssure",
+                            "order_id": "", // Pass the order ID if you are using Razorpay Orders.
+                            "currency": "INR", // Optional. Same as the Order currency
+                            "description": "Purchase Description",
+                            "image": "/assets/images/logo-icon.png",
+                            //"callback_url": "https://www.google.com/",
+                            //"redirect": "true",
+                            "handler": function (response) {
+
+                                $("#rzp-button1").hide();
+                                //var url = "/TestatorHomePage//";
+                                //window.location.href = url;
+
+                                $("#btnsub").on("click", function () { });
+
+                                $("#btnsub").click();
+
+
+                            },
+                            "prefill": {
+                                "name": "Gaurav Kumar",
+                                "email": "test@test.com"
+                            },
+                            "notes": {
+                                "address": "Hello World"
+                            },
+                            "theme": {
+                                "color": "#F37254"
+                            }
+                        };
+                        var rzp1 = new Razorpay(options);
+
+                        document.getElementById('rzp-button1').onclick = function (e) {
+                            rzp1.open();
+                            e.preventDefault();
+
+
+                        }
+
+
+                        $("#btnpay").click(function () {
+
+                            $('#btnpay').dialog('close');
+                            return false;
+
+                        });
+
+        //end payment gateway integration
+
+
+
+
+
+  @if (TempData["MakePayment"] != null)
+{
+
+    if (TempData["MakePayment"].ToString() == "true")
+    {
+        <script>
+
+            $(document).ready(function () {
+
+
+                //$("#rzp-button1").hide()
+
+                $("#rzp-button1").on("click", function () { });
+
+                $("#rzp-button1").click(); //trigger event after listening to it.
+
+
+
+            })
+
+        </script>
+
+
+    }
+
+}

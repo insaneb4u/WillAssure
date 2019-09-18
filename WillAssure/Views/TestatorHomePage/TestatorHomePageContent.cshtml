@@ -125,7 +125,7 @@
 
                                             <div class="col-sm-6" id="paymentfields" style="display:none;">
                                                 <div class="form-group">
-                                                    <label>Do You Like To Use Coupon Number</label>
+                                                    <label> Have a Promo Code</label>
 
 
 
@@ -135,14 +135,14 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label class="radio-inline">
+                                                    @*<label class="radio-inline">
                                                         <input type="radio" id="getvalone" name="optradio">Yes
                                                     </label>
                                                     <label class="radio-inline">
                                                         <input type="radio" id="getvaltwo" name="optradio">No
-                                                    </label>
+                                                    </label>*@
 
-                                                    <input type="text" id="txtvoucher" placeholder="Enter A Coupon Number" class="form-control" style="width:215px; display:none;" name="name" value="" />
+                                                    <input type="text" id="txtvoucher" placeholder="Enter Promo Code Number" class="form-control" style="width:215px; display:;" name="name" value="" />
                                                 </div>
 
 
@@ -1073,21 +1073,21 @@
 
 
 
-    $(document).on("change", "#getvalone", function () {
+    //$(document).on("change", "#getvalone", function () {
 
 
 
-        $("#txtvoucher").show();
+    //    $("#txtvoucher").show();
 
 
-    });
+    //});
 
-    $(document).on("change", "#getvaltwo", function () {
+    //$(document).on("change", "#getvaltwo", function () {
 
-        $("#txtvoucher").hide();
+    //    $("#txtvoucher").hide();
 
 
-    });
+    //});
 
 
 

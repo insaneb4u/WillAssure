@@ -343,7 +343,7 @@
 
                                     <div class="form-group">
                                         <label for="input-1">Name Of Institute</label>
-                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtfirstname", @placeholder = "Name Of Institute", @autocomplete = "off", alert = "LabourCost is requried" })
+                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtfirstname", @placeholder = "Name Of Institute", @autocomplete = "off", alert = "LabourCost is requried" })
 
                                     </div>
                                 </div>

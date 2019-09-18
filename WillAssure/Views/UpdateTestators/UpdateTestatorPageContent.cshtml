@@ -390,13 +390,20 @@
 
 
                         <br />
-                        <div class="col-12 12">
-                            <div class="card bg-transparent shadow-none border border-light-3">
-                                <div class="card-header text-white border-light-3" style="background: #199d4b">
-                                    Instructions
 
+                        <div class="panel-group" >
+                            <div class="panel panel-success">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" href="#collapse1">
+                                            <div class="card-header text-white border-light-3" style="background: #199d4b">
+                                                Instructions
+
+                                            </div>
+                                        </a>
+                                    </h4>
                                 </div>
-                                <div class="card-body" style="background: #fff; border:1px solid #199d4b">
+                                <div id="collapse1" class="panel-collapse collapse">
                                     <ul>
                                         <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
                                         <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
@@ -404,12 +411,16 @@
                                         <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
                                         <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</li>
                                     </ul>
+                                    
                                 </div>
                             </div>
                         </div>
+                    </div>
 
 
-                        <div class="card-title text-primary">Testators Details</div>
+                 
+
+
 
 
 
@@ -431,7 +442,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">First Name</label>
-                                        @Html.TextBoxFor(m => m.First_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtFirstName", @placeholder = "Enter First Name", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.First_Name, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtFirstName", @placeholder = "Enter First Name", @autocomplete = "off" })
                                     </div>
                                 </div>
 
@@ -439,7 +450,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Middle Name</label>
-                                        @Html.TextBoxFor(m => m.Middle_Name, new { @class = "form-control input-shadow  text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.Middle_Name, new { @class = "form-control input-shadow  validate[custom[onlyLetterSp]]  text-input", @id = "txtmiddlename", @placeholder = "Enter Middle Name", @autocomplete = "off" })
                                     </div>
                                 </div>
 
@@ -447,7 +458,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Last Name</label>
-                                        @Html.TextBoxFor(m => m.Last_Name, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtLastName", @placeholder = "Enter Last Name", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.Last_Name, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtLastName", @placeholder = "Enter Last Name", @autocomplete = "off" })
                                     </div>
                                 </div>
 
@@ -577,7 +588,7 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Occupation</label>
-                                        @Html.TextBoxFor(m => m.Occupation, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtoccupation", @placeholder = "Enter Occupation", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.Occupation, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtoccupation", @placeholder = "Enter Occupation", @autocomplete = "off" })
                                     </div>
                                 </div>
 
@@ -586,7 +597,7 @@
                                     <div class="form-group">
                                         <label for="input-1" id="lbl">@ViewBag.gender</label>
 
-                                        @Html.TextBoxFor(m => m.Spousetxt, new { @class = "form-control input-shadow validate[required] text-input", @onfocus = "changetxt()", @id = "txtchange2", @placeholder = "Enter Father/Spouse Name", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.Spousetxt, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @onfocus = "changetxt()", @id = "txtchange2", @placeholder = "Enter Father/Spouse Name", @autocomplete = "off" })
 
 
 
@@ -597,7 +608,7 @@
                                 <div class="col-sm-3 changecontent" style="display:none;">
                                     <div class="form-group">
                                         <label for="input-1" id="lblchange"></label>
-                                        @Html.TextBoxFor(m => m.SpouseName, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtchange", @placeholder = "Enter Father/Spouse Name", @autocomplete = "off" })
+                                        @Html.TextBoxFor(m => m.SpouseName, new { @class = "form-control input-shadow validate[required,custom[onlyLetterSp]] text-input", @id = "txtchange", @placeholder = "Enter Father/Spouse Name", @autocomplete = "off" })
 
 
 

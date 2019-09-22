@@ -112,9 +112,11 @@ namespace WillAssure.Controllers
                 SqlDataAdapter da = new SqlDataAdapter(q, con);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
+                string firstname = "";
                 if (dt.Rows.Count > 0)
                 {
                     emailid = dt.Rows[0]["eMail"].ToString();
+                    firstname = dt.Rows[0]["First_Name"].ToString();
                 }
                 con.Close();
 
@@ -184,10 +186,17 @@ namespace WillAssure.Controllers
                     string Userid = emailid;
 
                     Session["userid"] = Userid;
-                    string subject = "Will Assure OTP for Login";
-                    string OTP = "<font color='Green' style='font-size=3em;'>" + EmailOTP + "</font>";
-                    string text = "Your OTP for Verification Is " + OTP + "";
-                    string body = "<font color='red'>" + text + "</font>";
+                    string subject = "Resend OTP request for Willassure registration";
+                 
+                    string body = "<font style='font-size:large'>Dear "+ firstname + ",<br>" +
+                        "We have received your request to resend the OTP to complete your registration on <br>" +
+                        "Willassure.<br>" +
+                        "<br>" +
+                        "Your new OTP is "+EmailOTP+"<br>" +
+                        "<br>" +
+                        "<br>" +
+                        "Regards,<br>" +
+                        "Team Willassure";
 
                     MailMessage msg = new MailMessage();
                     msg.From = new MailAddress("info@drinco.in");

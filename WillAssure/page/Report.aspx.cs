@@ -948,9 +948,17 @@ namespace WillAssure.Views.ViewDocument
 
 
 
-            string subject = "Will Assure";
+            string subject = ""+ ViewState["willtype"] + "PDF of" + ViewState["testator"] + " ";
 
-            string body = "As Per Your Details Will Has Been Generated Please Check The Attachment Below";
+            string body = "<font style='font-size:large'>Dear "+ ViewState["testator"] + ", <br>" +
+                "<br>" +
+                "Please find attached[document type] of [creators name]. You are requested to print the <br>" +
+                "document. The printed document should be signed by the maker and two witnesses. This <br>" +
+                "shall complete the process of making a [document type]. The duly signed document can be <br>" +
+                "considered as a valid document.<br>" +
+                "<br>" +
+                "Regards,<br>" +
+                "Team Willassure";
 
             var path = Server.MapPath("~/GeneratedPdf/" + ViewState["willtype"] + "Will_" + ViewState["testator"] + ".pdf");
             MailMessage msg = new MailMessage();

@@ -26,7 +26,7 @@ namespace WillAssure.Controllers
             string response = Request["send"].ToString();
 
             string name = response.Split('~')[0];
-
+            TempData["name"] = name;
             string middlename = "";
 
             if (response.Split('~')[1] != "" || response.Split('~')[1] != null)
@@ -128,14 +128,16 @@ namespace WillAssure.Controllers
 
                 con.Open();
 
-                string gettid = "select top 1 tId from TestatorDetails order by tId desc";
+                string gettid = "select top 1 * from TestatorDetails order by tId desc";
                 SqlDataAdapter dattid = new SqlDataAdapter(gettid, con);
                 DataTable dttid = new DataTable();
                 dattid.Fill(dttid);
                 int tid = 0;
+                string emailname = "";
                 if (dttid.Rows.Count > 0)
                 {
                     tid = Convert.ToInt32(dttid.Rows[0]["tId"]);
+                    emailname = dttid.Rows[0]["tId"].ToString();
                 }
 
                 // set document rules
@@ -213,11 +215,19 @@ namespace WillAssure.Controllers
                     string Userid = emailid;
 
                     Session["userid"] = Userid;
-                    string subject = "Will Assure OTP for Login";
-                    string OTP = "<font color='Green' style='font-size=3em;'>" + EmailOTP + "</font>";
-                    string text = "Your OTP for Verification Is " + OTP + "";
-                   // string body = "<font color='red'>" + text + "</font><br><a href='http://localhost:49735/frontend/otpindex?userid=" + userid + "'>click here to verify your otp</a>";
-                    string body = "<font color='red'>" + text + "</font><br><a href='http://test.willassure.in/Frontend/OtpIndex?userid=" + userid + "'>Click Here To Verify Your OTP</a>";
+                    string subject = "Registration OTP for Willassure";
+                   
+                    string body = "<font style='font-size:large;color:black;'>Dear " + name + ",<br>" +
+                        "Your registration on Willassure has commenced. In order to complete the registration <br>" +
+                        "process, we request you to kindly enter the OTP sent to you at the marked OTP place on<br>" +
+                        "registration page.<br>" +
+                        "Your OTP is " + EmailOTP + "<br>" +
+                        "<br>" +
+                        "<br>" +
+                        "Regards,<br>" +
+                        "Team Willassure";
+                    // string body = "<font color='red'>" + text + "</font><br><a href='http://localhost:49735/frontend/otpindex?userid=" + userid + "'>click here to verify your otp</a>";
+                    // string body = "<font color='red'>" + text + "</font><br><a href='http://test.willassure.in/Frontend/OtpIndex?userid=" + userid + "'>Click Here To Verify Your OTP</a>";
 
                     MailMessage msg = new MailMessage();
                     msg.From = new MailAddress("info@drinco.in");
@@ -483,11 +493,22 @@ namespace WillAssure.Controllers
                             string userlogin = email;
 
 
-                            string subject = "Will Assure Login Credentials";
+                            string subject = "Login ID and Password for Willassure";
 
-                            string text = "<font color='Green' style='font-size=3em;'>Your UserId And Password For Logging In Is <br> UserID : " + userlogin + " <br> Password : " + userPassword + "</font>";
-                            string body = "<font color='red'>" + text + "</font>";
-
+                          
+                            string body = "<font style='font-size:large'>Dear " + TempData["name"] + ",<br>" +
+                                "<br>" +
+                                "Welcome to Willassure !!!<br>" +
+                                "<br>"+
+                                "Congratulations !!! Your registration has been completed successfully. Request you to kindly <br>" +
+                                "enter the login credentials provided below to access the services provided by Willassure. <br>"+
+                                "<br>"+
+                                "Login ID: " + userlogin + " <br>" +
+                                "Password: " + userPassword + "<br>" +
+                                "You can change your password at anytime by clicking on the change password option <br>" +
+                                "available post login.<br> " +
+                                "Regards,<br>" +
+                                "Team Willassure";
 
                             MailMessage msg = new MailMessage();
                             msg.From = new MailAddress("info@drinco.in");

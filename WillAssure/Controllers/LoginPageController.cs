@@ -510,11 +510,35 @@ namespace WillAssure.Controllers
             string mailto = LM.EmailID;
             string Userid = LM.EmailID;
 
+            con.Open();
+            string query7 = "select * from TestatorDetails where  Email = '"+Userid+"'";
+            SqlDataAdapter da7 = new SqlDataAdapter(query7,con);
+            DataTable dt7 = new DataTable();
+            da7.Fill(dt7);
+            string name = "";
+            if (dt7.Rows.Count > 0)
+            {
+                name = dt7.Rows[0]["First_Name"].ToString();
+            }
+            con.Close();
+
+
             Session["userid"] = Userid;
-            string subject = "OTP For Forgot Password Request";
-            string OTP = "<font color='Green' style='font-size=3em;'>" + EmailOTP + "</font>";
-            string text = "Your OTP for Forgot Password Process Is " + OTP + "";
-            string body = "<font color='red'>" + text + "</font>";
+            string subject = "Forgot/Reset password request";
+        
+            string body = "<font style='font-size:large'>Dear "+ name + "," +
+                "<br>" +
+                "You have applied for a forgot password request. You are requested to enter a new password <br>" +
+                "and the OTP sent to you.<br>" +
+                "<br>" +
+                "Your OTP is "+EmailOTP+"<br>" +
+                "<br>" +
+                "Post Login you can change your password anytime by clicking on the change password <br>" +
+                "option." +
+                "<br>" +
+                "<br>" +
+                "Regards,<br>" +
+                "Team Willassure";
 
 
             MailMessage msg = new MailMessage();

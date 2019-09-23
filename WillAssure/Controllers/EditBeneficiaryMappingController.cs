@@ -256,7 +256,7 @@ namespace WillAssure.Controllers
             }
 
             con.Open();
-            string query = "select a.Beneficiary_Asset_ID , c.AssetsType , b.AssetsCategory , a.Proportion from BeneficiaryAssets a inner join AssetsCategory b on a.AssetCategory_ID=b.amId inner join AssetsType c on b.atId = c.atId inner join TestatorDetails d on a.tid = d.tId where a.tid = "+tid+"";
+            string query = "select  ba.Beneficiary_Asset_ID , bd.First_Name , at.AssetsType , ac.AssetsCategory , ba.Proportion from BeneficiaryAssets ba inner join AssetsCategory ac on ba.AssetCategory_ID=ac.amId inner join AssetsType at on at.atId=ac.atId inner join BeneficiaryDetails bd on bd.bpId=ba.Beneficiary_ID where bd.tId = " + tid+"";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -273,7 +273,8 @@ namespace WillAssure.Controllers
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     data = data + "<tr class='nr'><td>" + dt.Rows[i]["Beneficiary_Asset_ID"].ToString() + "</td>"
-                   + "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>"
+                   + "<td>" + dt.Rows[i]["First_Name"].ToString() + "</td>"
+                        + "<td>" + dt.Rows[i]["AssetsType"].ToString() + "</td>"
                    + "<td>" + dt.Rows[i]["AssetsCategory"].ToString() + "</td>"
 
                     + "<td>" + dt.Rows[i]["Proportion"].ToString() + "</td>"
@@ -302,6 +303,55 @@ namespace WillAssure.Controllers
 
 
 
+
+
+
+            /////////////////////////// bind alternate beneficiary mapping /////////////////////////////////////
+
+
+
+            con.Open();
+            string query2 = "select ab.alternateid , bd.First_Name , ab.alternateproportion  from Alternate_BeneficiaryAssets ab inner join BeneficiaryDetails bd on ab.alternatebenefciaryid=bd.bpId where bd.tId = " + tid + "";
+            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+            DataTable dt2 = new DataTable();
+            da2.Fill(dt2);
+            con.Close();
+            string data2 = "";
+
+
+
+
+
+            if (dt2.Rows.Count > 0)
+            {
+
+                for (int i = 0; i < dt2.Rows.Count; i++)
+                {
+                    data2 = data2 + "<tr class='nr'><td>" + dt2.Rows[i]["alternateid"].ToString() + "</td>"
+                   + "<td>" + dt2.Rows[i]["First_Name"].ToString() + "</td>"
+                        + "<td>" + dt2.Rows[i]["alternateproportion"].ToString() + "</td>"
+            
+                   + "<td> <button type='button'   id='" + dt2.Rows[i]["alternateid"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
+
+                }
+
+
+
+
+
+            }
+
+            ViewBag.tabledata2 = data2;
+
+
+
+
+
+
+
+
+
+            /////////////////////////////   end //////////////////////////////////////////////////////
 
 
 

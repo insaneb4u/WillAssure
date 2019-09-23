@@ -239,15 +239,28 @@ namespace WillAssure.Controllers
 
 
             string checkuid = "";
-            if (Session["WillType"].ToString() == "Quick")
+
+
+            if (Session["WillType"] != null)
             {
-                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                if (Session["WillType"].ToString() == "Quick")
+                {
+                    checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+
+                if (Session["WillType"].ToString() == "Detailed")
+                {
+                    checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
+            }
+            else
+            {
+
+                return RedirectToAction("LoginPageIndex", "LoginPage");
+
             }
 
-            if (Session["WillType"].ToString() == "Detailed")
-            {
-                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
-            }
+     
             SqlDataAdapter dachk = new SqlDataAdapter(checkuid, con);
             DataTable dtchk = new DataTable();
             dachk.Fill(dtchk);
@@ -258,7 +271,7 @@ namespace WillAssure.Controllers
             }
 
             con.Open();
-            string query = "select ROW_NUMBER() over (order by ba.Beneficiary_Asset_ID )  as srno ,  ba.Beneficiary_Asset_ID , bd.First_Name , ba.Proportion from BeneficiaryAssets ba inner join BeneficiaryDetails bd on ba.tid=bd.tId where ba.WillType = 'Quick' and ba.tid = " + tid + "";
+            string query = "select ROW_NUMBER() over (order by ba.Beneficiary_Asset_ID )  as srno ,  ba.Beneficiary_Asset_ID , bd.First_Name , ba.Proportion from BeneficiaryAssets ba inner join BeneficiaryDetails bd on ba.Beneficiary_ID=bd.bpId where ba.WillType = 'Quick' and ba.tid = " + tid + "";
             SqlDataAdapter da = new SqlDataAdapter(query, con);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -290,6 +303,69 @@ namespace WillAssure.Controllers
             }
 
             ViewBag.tabledata = data;
+
+
+
+
+
+
+
+
+
+            /////////////////////////////   end //////////////////////////////////////////////////////
+
+
+
+
+
+            /////////////////////////// bind alternate beneficiary mapping /////////////////////////////////////
+
+
+
+
+            con.Open();
+            string query2 = "select ab.alternateid   as srno , bd.First_Name , ab.alternateproportion from Alternate_BeneficiaryAssets ab inner join BeneficiaryDetails bd on ab.alternatebenefciaryid = bd.bpId where bd.WillType = 'Quick' and bd.tid = " + tid + "";
+            SqlDataAdapter da2 = new SqlDataAdapter(query2, con);
+            DataTable dt2 = new DataTable();
+            da2.Fill(dt2);
+            con.Close();
+            string data2 = "";
+
+
+
+
+
+            if (dt2.Rows.Count > 0)
+            {
+
+                try
+                {
+
+                    for (int i = 0; i < dt2.Rows.Count; i++)
+                    {
+                        data2 = data2 + "<tr class='nr'><td>" + dt2.Rows[i]["srno"].ToString() + "</td>"
+                       + "<td>" + dt2.Rows[i]["First_Name"].ToString() + "</td>"
+
+
+                        + "<td>" + dt2.Rows[i]["alternateproportion"].ToString() + "</td>"
+                       + "<td> <button type='button'   id='" + dt2.Rows[i]["srno"].ToString() + "' onClick='Edit(this.id)'   class='btn btn-primary'>Edit</button></td></tr>";
+
+                    }
+
+                }
+                catch (Exception)
+                {
+
+                    
+                }
+
+
+
+
+
+            }
+
+            ViewBag.tabledata2 = data2;
 
 
 

@@ -621,11 +621,11 @@ namespace WillAssure.Controllers
 
                 if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
                 {
-                    queryc22 = "select * from testatorFamily where WillType = 'Quick'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                    queryc22 = "select * from Appointees where WillType = 'Quick'  and tId = " + Convert.ToInt32(Session["distid"]) + " and Type = 'Guardian'   ";
                 }
                 if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
                 {
-                    queryc22 = "select * from testatorFamily where WillType = 'Detailed'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                    queryc22 = "select * from Appointees where WillType = 'Detailed'  and tId = " + Convert.ToInt32(Session["distid"]) + "  and Type = 'Guardian'  ";
                 }
           
 

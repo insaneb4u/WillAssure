@@ -452,6 +452,7 @@
 
                                 </div>*@
                             <input type="text" id="checkaltbenestatus" name="checkaltbenestatus" style="display:none;" value="" />
+                            <input type="hidden" name="mappingtype" value="" id="mappingtype" />
                             <textarea id="query" style="display:none;" class="form-control">
                                
                            </textarea>
@@ -789,7 +790,7 @@
 
                                      $("#mainbeneddl" + data[i].assetcatid + "").show();
 
-
+                                     $("#mappingtype").val("1");
 
                                  }
 
@@ -1467,7 +1468,7 @@
 
 
 
-
+            $("#mappingtype").val("1");
 
             $(".btn" + myClass + "").removeAttr("disabled");
 
@@ -1498,7 +1499,7 @@
             $(".alt").show();
 
             $(".btnadd" + myClass).show();
-            $(".btn" + myClass + "").attr("disabled","disabled");
+            //$(".btn" + myClass + "").attr("disabled","disabled");
             $(".grandparent").show();
           var x = $("#totaldiv"+myClass+"").show();
 
@@ -1512,7 +1513,7 @@
 
             $("#txttotal" + myClass + "").val("100");
             $("#txttotalval").val("100");
-
+            $("#mappingtype").val("2");
         });
 
         $(document).on("click", "#btnremove", function () {

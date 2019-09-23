@@ -1,9 +1,9 @@
 ﻿
 
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "EditBeneficiaryMappingPageContent";
+    ViewBag.Title = "EditBeneficiaryMappingPageContent";
 }
 
 
@@ -57,7 +57,10 @@
                         </div>
 
                         <textarea id="getdata" style="display:none">@ViewBag.tabledata</textarea>
+
+                        <textarea id="getdata2" style="display:none">@ViewBag.tabledata2</textarea>
                         <hr class="div_rd">
+                        <center><h5>Beneficiary Data</h5></center>
                         <div class="table-responsive">
                             <table id="default-datatable" class="table table-bordered">
                                 <thead>
@@ -71,6 +74,26 @@
                                     </tr>
                                 </thead>
                                 <tbody id="BMData"></tbody>
+                            </table>
+
+                        </div>
+
+
+
+                        <center><h5>Alternate Beneficiary Data</h5></center>
+                        <div class="table-responsive">
+                            <table id="default-datatable" class="table table-bordered">
+                                <thead>
+                                    <tr class="ui-widget-header">
+                                        <th>Mapped Id</th>
+                                        <th>Alternate Beneficiary Name</th>
+
+                                        <th>Alternate Beneficiary Proportion</th>
+                                        <th id="title">Action</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="BMData2"></tbody>
                             </table>
 
                         </div>
@@ -105,6 +128,22 @@
 
             var getdata = $("textarea#getdata").val();
             $('#BMData').empty().append(getdata);
+        });
+
+    </script>
+}
+
+
+
+
+@if (ViewBag.tabledata2 != null)
+{
+    <script>
+
+        $(document).ready(function () {
+
+            var getdata2 = $("textarea#getdata2").val();
+            $('#BMData2').empty().append(getdata2);
         });
 
     </script>

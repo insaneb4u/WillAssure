@@ -49,11 +49,11 @@ namespace WillAssure.Controllers
 
                 if (Session["WillType"].ToString() == "Quick" && Session["doctype"].ToString() == "Will")
                 {
-                    queryc22 = "select * from testatorFamily where WillType = 'Quick'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                    queryc22 = "select * from Appointees where WillType = 'Quick'  and tId = " + Convert.ToInt32(Session["distid"]) + " and Type = 'Guardian'   ";
                 }
                 if (Session["WillType"].ToString() == "Detailed" && Session["doctype"].ToString() == "Will")
                 {
-                    queryc22 = "select * from testatorFamily where WillType = 'Detailed'  and tId = " + Convert.ToInt32(Session["distid"]) + "   ";
+                    queryc22 = "select * from Appointees where WillType = 'Detailed'  and tId = " + Convert.ToInt32(Session["distid"]) + "  and Type = 'Guardian'  ";
                 }
 
 
@@ -1838,7 +1838,7 @@ namespace WillAssure.Controllers
                 }
 
 
-                string qt = "update Appointees set Country='" + dcountryname + "' ,  documentstatus='incompleted' , tfid=" + fid + " where apId = " + appid + "";
+                string qt = "update Appointees set Country='" + dcountryname + "' ,  documentstatus='incompleted' , tfid=" + fid + " , WillType='"+Session["WillType"] +"' where apId = " + appid + "";
                 SqlCommand cmd33e = new SqlCommand(qt, con);
                 cmd33e.ExecuteNonQuery();
                 con.Close();
@@ -2243,215 +2243,29 @@ namespace WillAssure.Controllers
 
 
 
-            // alternate testator family
-            if (TFM.altchek == "true")
-            {
 
-               
 
 
-                if (TFM.altMarital_Status == null)
-                {
-                    TFM.altMarital_Status = "None";
-                }
+            //int bpid = 0;
+            //con.Open();
+            //string qcheck = "select max(bpId) as bpId from BeneficiaryDetails ";
+            //SqlDataAdapter dachk = new SqlDataAdapter(qcheck,con);
+            //DataTable dtchk = new DataTable();
+            //dachk.Fill(dtchk);
+            //if (dtchk.Rows.Count > 0)
+            //{
+            //    bpid = Convert.ToInt32(dtchk.Rows[0]["bpId"]);
+            //}
 
+            //con.Close();
 
-                if (TFM.altReligion == null)
-                {
-                    TFM.altReligion = "None";
-                }
 
+            //con.Open();
+            //string qu = "update BeneficiaryDetails set fetchid = 'TF' where  bpId = "+ bpid.ToString() + "";
+            //SqlCommand cmdu = new SqlCommand(qu,con);
+            //cmdu.ExecuteNonQuery();
 
-                if (TFM.altAddress2 == null)
-                {
-                    TFM.altAddress2 = "None";
-                }
-
-                if (TFM.altAddress3 == null)
-                {
-                    TFM.altAddress3 = "None";
-                }
-
-
-                if (TFM.altactive == null)
-                {
-                    TFM.altactive = "None";
-                }
-
-
-                if (TFM.altIdentity_Proof == null)
-                {
-                    TFM.altIdentity_Proof = "None";
-                }
-
-
-
-
-                if (TFM.altIdentity_Proof_Value == null)
-                {
-                    TFM.altIdentity_Proof_Value = "None";
-                }
-
-
-
-                if (TFM.altAlt_Identity_Proof == null)
-                {
-                    TFM.altAlt_Identity_Proof = "None";
-                }
-
-
-
-
-                if (TFM.altAlt_Identity_Proof_Value == null)
-                {
-                    TFM.altAlt_Identity_Proof_Value = "None";
-                }
-
-
-                if (TFM.altIs_Informed_Person == null)
-                {
-                    TFM.altIs_Informed_Person = "None";
-                }
-
-
-
-
-                con.Open();
-                string query = "insert into alttestatorFamily (altFirst_Name , altLast_Name , altMiddle_Name , altDOB , altMarital_Status , altReligion , altRelationship , altAddress1 , altAddress2 , altAddress3 , altCity , altState , altPin  , altactive , altIdentity_Proof , altIdentity_Proof_Value , altAlt_Identity_Proof , altAlt_Identity_Proof_Value , altIs_Informed_Person , testatorfamilyid , alttId) values ('" + TFM.altFirst_Name+"' , '"+TFM.altLast_Name+"' , '"+TFM.Middle_Name+"' , '"+ Convert.ToDateTime(TFM.altDob).ToString("yyyy-MM-dd") + "' , '"+TFM.altMarital_Status+"' , '"+TFM.altReligion+"' , '"+TFM.RelationshipTxt+"' , '"+TFM.altAddress1+ "' , '" + TFM.altAddress2 + "' , '"+TFM.altAddress3+"' , '"+TFM.City_txt+"' , '"+TFM.altState_txt+"' , '"+TFM.altPin+"'  ,  '"+TFM.altactive+ "' , '"+TFM.altIdentity_Proof + "' , '"+TFM.altIdentity_Proof_Value + "' , '"+TFM.altAlt_Identity_Proof + "' , '"+TFM.altAlt_Identity_Proof_Value + "' , '"+TFM.altIs_Informed_Person + "' , "+tfid+ " ,  "+TFM.ddltid+"  )  ";
-                SqlCommand cmd3t = new SqlCommand(query,con);
-                cmd3t.ExecuteNonQuery();
-                con.Close();
-
-
-
-                // alternate beneficiary 
-                con.Open();
-                SqlCommand altcmd = new SqlCommand("SP_CRUD_alternate_Beneficiary", con);
-                altcmd.CommandType = CommandType.StoredProcedure;
-                altcmd.Parameters.AddWithValue("@condition", "insert");
-            
-                    altcmd.Parameters.AddWithValue("@bpId", "0");
-                
-
-                altcmd.Parameters.AddWithValue("@First_Name", TFM.altFirst_Name);
-
-                altcmd.Parameters.AddWithValue("@Last_Name", TFM.altLast_Name);
-
-                if (TFM.altMiddle_Name != null)
-                {
-                    altcmd.Parameters.AddWithValue("@Middle_Name", TFM.altMiddle_Name);
-                }
-                else
-                {
-                    TFM.altMiddle_Name = "None";
-                    altcmd.Parameters.AddWithValue("@Middle_Name", TFM.altMiddle_Name);
-                }
-               
-
-
-                DateTime altdat = DateTime.ParseExact(TFM.altDob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-                altcmd.Parameters.AddWithValue("@DOB", altdat);
-                altcmd.Parameters.AddWithValue("@Mobile", "None");
-                altcmd.Parameters.AddWithValue("@Relationship", "None");
-                altcmd.Parameters.AddWithValue("@Marital_Status", TFM.altMarital_Status);
-                altcmd.Parameters.AddWithValue("@Religion", "none");
-                altcmd.Parameters.AddWithValue("@Identity_Proof", TFM.altIdentity_Proof);
-                altcmd.Parameters.AddWithValue("@Identity_Proof_Value", TFM.altIdentity_Proof_Value);
-
-
-
-
-
-                if (TFM.altAlt_Identity_Proof != null)
-                {
-                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof", TFM.altAlt_Identity_Proof);
-                }
-                else
-                {
-                    TFM.altAlt_Identity_Proof = "None";
-                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof", TFM.altAlt_Identity_Proof);
-                }
-
-                if (TFM.altAlt_Identity_Proof_Value != null)
-                {
-                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", TFM.altAlt_Identity_Proof_Value);
-                }
-                else
-                {
-                    TFM.altAlt_Identity_Proof_Value = "None";
-                    altcmd.Parameters.AddWithValue("@Alt_Identity_Proof_Value", TFM.altAlt_Identity_Proof_Value);
-                }
-
-
-
-                altcmd.Parameters.AddWithValue("@Address1", TFM.altAddress1);
-                if (TFM.altAddress2 != null || TFM.altAddress2 == "")
-                {
-                    altcmd.Parameters.AddWithValue("@Address2", TFM.altAddress2);
-
-                }
-                else
-                {
-                    TFM.altAddress2 = "None";
-                    altcmd.Parameters.AddWithValue("@Address2", TFM.altAddress2);
-                }
-
-
-                if (TFM.altAddress3 != null || TFM.altAddress3 == "")
-                {
-                    altcmd.Parameters.AddWithValue("@Address3", TFM.altAddress3);
-
-                }
-                else
-                {
-                    TFM.altAddress3 = "None";
-                    altcmd.Parameters.AddWithValue("@Address3", TFM.altAddress3);
-                }
-                altcmd.Parameters.AddWithValue("@City", TFM.altCity_txt);
-                altcmd.Parameters.AddWithValue("@State", TFM.altState_txt);
-                altcmd.Parameters.AddWithValue("@Pin", TFM.altPin);
-                altcmd.Parameters.AddWithValue("@tid", Convert.ToInt32(Session["distid"]));
-
-                altcmd.ExecuteNonQuery();
-                con.Close();
-
-
-
-
-                //end
-
-
-
-            }
-
-
-
-
-
-            //end
-
-
-
-            int bpid = 0;
-            con.Open();
-            string qcheck = "select max(bpId) as bpId from BeneficiaryDetails ";
-            SqlDataAdapter dachk = new SqlDataAdapter(qcheck,con);
-            DataTable dtchk = new DataTable();
-            dachk.Fill(dtchk);
-            if (dtchk.Rows.Count > 0)
-            {
-                bpid = Convert.ToInt32(dtchk.Rows[0]["bpId"]);
-            }
-
-            con.Close();
-
-
-            con.Open();
-            string qu = "update BeneficiaryDetails set fetchid = 'TF' where  bpId = "+ bpid.ToString() + "";
-            SqlCommand cmdu = new SqlCommand(qu,con);
-            cmdu.ExecuteNonQuery();
-
-            con.Close();
+            //con.Close();
 
 
 

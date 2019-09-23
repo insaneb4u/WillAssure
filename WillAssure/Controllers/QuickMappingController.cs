@@ -1455,18 +1455,18 @@ namespace WillAssure.Controllers
 
                 if (Session["doctype"].ToString() == "Will")
                 {
-                    checkfinancial = "select distinct ab.alternatebenefciaryid , a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid  inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid where a.tId = " + tid + " and a.doctype = 'Will' and c.Type = 1";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid  inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid where a.tId = " + tid + "  and c.doctype = 'Will' and c.WillType = 'Quick' and c.Type = 1";
                 }
 
                 if (Session["doctype"].ToString() == "POA")
                 {
-                    checkfinancial = "select distinct ab.alternatebenefciaryid , a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid  inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid where a.tId = " + tid + " and a.doctype = 'POA' and c.Type = 1";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid  inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid where a.tId = " + tid + "  and c.doctype = 'Will' and c.WillType = 'Quick' and c.Type =1";
                 }
 
 
                 if (Session["doctype"].ToString() == "GiftDeeds")
                 {
-                    checkfinancial = "select distinct ab.alternatebenefciaryid , a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid where a.tId = " + tid + " and a.doctype = 'GiftDeeds' and c.Type = 1";
+                    checkfinancial = "select distinct ab.alternatebenefciaryid , a.First_Name as beneficiary , c.Proportion from BeneficiaryDetails a inner join BeneficiaryAssets b on a.bpId=b.Beneficiary_ID inner join BeneficiaryAssets c on a.tId=c.tid inner join Alternate_BeneficiaryAssets ab on b.Beneficiary_ID=ab.alternatebenefciaryid where a.tId = " + tid + " and   c.doctype = 'Will' and c.WillType = 'Quick' and c.Type =1";
                 }
 
 

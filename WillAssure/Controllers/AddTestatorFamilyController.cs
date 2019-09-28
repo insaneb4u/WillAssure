@@ -1827,18 +1827,10 @@ namespace WillAssure.Controllers
                     appid = Convert.ToInt32(dtchkee.Rows[0]["apId"]);
                 }
 
-                string cq1 = "select CountryName from country_tbl where CountryID = " + TFM.guacountrytext + " ";
-                SqlDataAdapter cda1 = new SqlDataAdapter(cq1, con);
-                DataTable cdt1 = new DataTable();
-                cda1.Fill(cdt1);
-                string dcountryname = "";
-                if (cdt1.Rows.Count > 0)
-                {
-                    dcountryname = cdt1.Rows[0]["CountryName"].ToString();
-                }
+          
 
 
-                string qt = "update Appointees set Country='" + dcountryname + "' ,  documentstatus='incompleted' , tfid=" + fid + " , WillType='"+Session["WillType"] +"' where apId = " + appid + "";
+                string qt = "update Appointees set Country='" + TFM.guacountrytext + "' ,  documentstatus='incompleted' , tfid=" + fid + " , WillType='"+Session["WillType"] +"' where apId = " + appid + "";
                 SqlCommand cmd33e = new SqlCommand(qt, con);
                 cmd33e.ExecuteNonQuery();
                 con.Close();
@@ -1981,18 +1973,10 @@ namespace WillAssure.Controllers
                 }
 
 
-                string cityquery = "select city_name from tbl_city where id = " + TFM.altguacitytext + " ";
-                SqlDataAdapter citda = new SqlDataAdapter(cityquery, con);
-                DataTable citdata = new DataTable();
-                citda.Fill(citdata);
-                string cityname = "";
-                if (citdata.Rows.Count > 0)
-                {
-                    cityname = citdata.Rows[0]["city_name"].ToString();
-                }
+           
 
 
-                cmd33.Parameters.AddWithValue("@City", cityname);
+                cmd33.Parameters.AddWithValue("@City", TFM.altguacitytext);
                 cmd33.Parameters.AddWithValue("@State", TFM.altguastatetext);
                 cmd33.Parameters.AddWithValue("@Pin", TFM.altguaPin);
                 cmd33.Parameters.AddWithValue("@tid", Convert.ToInt32(Session["distid"]));

@@ -904,192 +904,20 @@ namespace WillAssure.Controllers
         }
 
 
-        public String BindCountryDDL()
-        {
 
-            con.Open();
-            string query = "select distinct * from country_tbl order by CountryName asc  ";
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            string data = "";
+      
 
-            if (dt.Rows.Count > 0)
-            {
 
 
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
+        
 
 
 
 
-                    data = data + "<option value=" + dt.Rows[i]["CountryID"].ToString() + " >" + dt.Rows[i]["CountryName"].ToString() + "</option>";
+   
 
 
-
-                }
-
-
-
-
-            }
-
-            return data;
-
-        }
-
-
-        public String BindStateDDL()
-        {
-            string response = Request["send"].ToString();
-            con.Open();
-            string query = "select distinct * from tbl_state where country_id = " + response + " order by statename asc  ";
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            string data = "<select value='0'>--Select State--</select>";
-
-            if (dt.Rows.Count > 0)
-            {
-
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-
-
-
-
-                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
-
-
-
-                }
-
-
-
-
-            }
-
-            return data;
-
-        }
-
-
-
-        public string OnChangeBindCity()
-        {
-            string response = Request["send"];
-            con.Open();
-            string query = "select distinct * from tbl_city where state_id ='" + response + "' order by city_name asc ";
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            string data = "<option value='0'>--Select--</option>";
-
-            if (dt.Rows.Count > 0)
-            {
-
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-
-
-
-
-                    data = data + "<option value=" + dt.Rows[i]["id"].ToString() + " >" + dt.Rows[i]["city_name"].ToString() + "</option>";
-
-
-
-                }
-
-
-
-
-            }
-
-            return data;
-        }
-
-
-
-
-        public String altBindStateDDL()
-        {
-
-            con.Open();
-            string query = "select distinct * from tbl_state where country_id = 101 order by statename asc  ";
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            string data = "<select value='0'>--Select State--</select>";
-
-            if (dt.Rows.Count > 0)
-            {
-
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-
-
-
-
-                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
-
-
-
-                }
-
-
-
-
-            }
-
-            return data;
-
-        }
-
-
-
-        public string altOnChangeBindCity()
-        {
-            string response = Request["send"];
-            con.Open();
-            string query = "select distinct * from tbl_city where state_id ='" + response + "' order by city_name asc ";
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            string data = "<option value='0'>--Select--</option>";
-
-            if (dt.Rows.Count > 0)
-            {
-
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-
-
-
-
-                    data = data + "<option value=" + dt.Rows[i]["id"].ToString() + " >" + dt.Rows[i]["city_name"].ToString() + "</option>";
-
-
-
-                }
-
-
-
-
-            }
-
-            return data;
-        }
-
+ 
 
 
 
@@ -1400,17 +1228,9 @@ namespace WillAssure.Controllers
 
                     con.Open();
 
-                    string getcountryname = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.country_txt + "";
-                    SqlDataAdapter dacou = new SqlDataAdapter(getcountryname, con);
-                    DataTable dtcou = new DataTable();
-                    dacou.Fill(dtcou);
-                    string countryname = "";
-                    if (dtcou.Rows.Count > 0)
-                    {
-                        countryname = dtcou.Rows[0]["CountryName"].ToString();
-                    }
+                 
 
-                    string qte = "update Appointees set Country='" + countryname + "'  , documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid + " ";
+                    string qte = "update Appointees set Country='" + AM.country_txt + "'  , documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid + " ";
                     SqlCommand cmdte = new SqlCommand(qte, con);
                     cmdte.ExecuteNonQuery();
                     con.Close();
@@ -1569,19 +1389,11 @@ namespace WillAssure.Controllers
 
                     con.Open();
 
-                    string altgetcountryname = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.altcountry_txt + "";
-                    SqlDataAdapter altdacou = new SqlDataAdapter(altgetcountryname, con);
-                    DataTable altdtcou = new DataTable();
-                    altdacou.Fill(altdtcou);
-                    string altcountryname = "";
-                    if (altdtcou.Rows.Count > 0)
-                    {
-                        altcountryname = altdtcou.Rows[0]["CountryName"].ToString();
-                    }
+               
 
 
 
-                    string qte22 = "update Appointees set Country='" + altcountryname + "'  ,  documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid22 + " ";
+                    string qte22 = "update Appointees set Country='" + AM.altcountry_txt + "'  ,  documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + appid22 + " ";
                     SqlCommand cmdte22 = new SqlCommand(qte22, con);
                     cmdte22.ExecuteNonQuery();
                     con.Close();
@@ -1749,19 +1561,10 @@ namespace WillAssure.Controllers
 
                         con.Open();
 
-                        string altgetcountryname3 = "select distinct top 1 CountryName from country_tbl where CountryID = " + AM.wecountrytext + "";
-                        SqlDataAdapter altdacou3 = new SqlDataAdapter(altgetcountryname3, con);
-                        DataTable altdtcou3 = new DataTable();
-                        altdacou3.Fill(altdtcou3);
-                        string altcountryname3 = "";
-                        if (altdtcou3.Rows.Count > 0)
-                        {
-                            altcountryname3 = altdtcou3.Rows[0]["CountryName"].ToString();
-                        }
 
                         int thirdid = appid22 + 1;
 
-                        string qte223 = "update Appointees set Country='" + altcountryname3 + "'  ,  documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + thirdid + " ";
+                        string qte223 = "update Appointees set Country='" + AM.wecountrytext + "'  ,  documentstatus = 'Incompleted' , WillType='" + Session["WillType"].ToString() + "' where apId =" + thirdid + " ";
                         SqlCommand cmdte223 = new SqlCommand(qte223, con);
                         cmdte223.ExecuteNonQuery();
                         con.Close();

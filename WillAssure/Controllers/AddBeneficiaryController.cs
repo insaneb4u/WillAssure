@@ -764,78 +764,78 @@ namespace WillAssure.Controllers
             return data;
         }
 
-        public String BindStateDDL()
-        {
-            string response = Request["send"].ToString();
-            con.Open();
-            string query = "select distinct * from tbl_state where country_id = "+response+" order by statename asc  ";
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            string data = "<option value=''>--Select--</option>";
+        //public String BindStateDDL()
+        //{
+        //    string response = Request["send"].ToString();
+        //    con.Open();
+        //    string query = "select distinct * from tbl_state where country_id = "+response+" order by statename asc  ";
+        //    SqlDataAdapter da = new SqlDataAdapter(query, con);
+        //    DataTable dt = new DataTable();
+        //    da.Fill(dt);
+        //    con.Close();
+        //    string data = "<option value=''>--Select--</option>";
 
-            if (dt.Rows.Count > 0)
-            {
-
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
+        //    if (dt.Rows.Count > 0)
+        //    {
 
 
-
-
-                    data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
-
-
-
-                }
+        //        for (int i = 0; i < dt.Rows.Count; i++)
+        //        {
 
 
 
 
-            }
-
-            return data;
-
-        }
+        //            data = data + "<option value=" + dt.Rows[i]["state_id"].ToString() + " >" + dt.Rows[i]["statename"].ToString() + "</option>";
 
 
 
-        public string OnChangeBindCity()
-        {
-            string response = Request["send"];
-            con.Open();
-            string query = "select distinct * from tbl_city where state_id = '" + response + "' order by city_name asc";
-            SqlDataAdapter da = new SqlDataAdapter(query, con);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            con.Close();
-            string data = "<option value='0'>--Select City--</option>";
-
-            if (dt.Rows.Count > 0)
-            {
-
-
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
+        //        }
 
 
 
 
-                    data = data + "<option value=" + dt.Rows[i]["id"].ToString() + " >" + dt.Rows[i]["city_name"].ToString() + "</option>";
+        //    }
+
+        //    return data;
+
+        //}
 
 
 
-                }
+        //public string OnChangeBindCity()
+        //{
+        //    string response = Request["send"];
+        //    con.Open();
+        //    string query = "select distinct * from tbl_city where state_id = '" + response + "' order by city_name asc";
+        //    SqlDataAdapter da = new SqlDataAdapter(query, con);
+        //    DataTable dt = new DataTable();
+        //    da.Fill(dt);
+        //    con.Close();
+        //    string data = "<option value='0'>--Select City--</option>";
+
+        //    if (dt.Rows.Count > 0)
+        //    {
+
+
+        //        for (int i = 0; i < dt.Rows.Count; i++)
+        //        {
 
 
 
 
-            }
+        //            data = data + "<option value=" + dt.Rows[i]["id"].ToString() + " >" + dt.Rows[i]["city_name"].ToString() + "</option>";
 
-            return data;
-        }
+
+
+        //        }
+
+
+
+
+        //    }
+
+        //    return data;
+        //}
 
 
 

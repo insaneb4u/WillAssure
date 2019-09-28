@@ -668,12 +668,12 @@ namespace WillAssure.Controllers
                 
                 for (int i = 0; i < dt22.Rows.Count; i++)
                 {
-                    
+                    ViewBag.hasnominee = "true";
                     NM.nId = Convert.ToInt32(dt22.Rows[i]["nId"]);
                     NM.nomFirst_Name = dt22.Rows[i]["First_Name"].ToString();
                     NM.nomLast_Name = dt22.Rows[i]["Last_Name"].ToString();
                     NM.nomMiddle_Name = dt22.Rows[i]["Middle_Name"].ToString();
-                    NM.nomDob = Convert.ToDateTime(dt22.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
+                    NM.setdob = Convert.ToDateTime(dt22.Rows[0]["DOB"]).ToString("dd-MM-yyyy");
 
                     if (dt22.Rows[i]["Mobile"].ToString() != "None")
                     {
@@ -684,7 +684,7 @@ namespace WillAssure.Controllers
                    
 
 
-                    NM.nomRelationshipTxt = dt22.Rows[i]["Relationship"].ToString();
+                    NM.setrelation = dt22.Rows[i]["Relationship"].ToString();
                     NM.nomMarital_Status = dt22.Rows[i]["Marital_Status"].ToString();
                     NM.nomReligion = dt22.Rows[i]["Religion"].ToString();
                     NM.nomIdentity_Proof = dt22.Rows[i]["Identity_Proof"].ToString();
@@ -699,7 +699,7 @@ namespace WillAssure.Controllers
                     NM.nomPin = dt22.Rows[i]["Pin"].ToString();
                     NM.nomcreatedBy = dt22.Rows[i]["createdBy"].ToString();
 
-
+                    NM.country_txt = dt22.Rows[i]["Country"].ToString();
 
 
 
@@ -1863,6 +1863,7 @@ namespace WillAssure.Controllers
                     cmd2.Parameters.AddWithValue("@Religion", collection["nomReligion"]);
                     cmd2.Parameters.AddWithValue("@Identity_Proof", collection["nomIdentity_Proof"]);
                     cmd2.Parameters.AddWithValue("@Identity_Proof_Value", collection["Identity_Proof_Value"]);
+                    cmd2.Parameters.AddWithValue("@Country", collection["country_txt"]);
 
                     if (collection["nomAlt_Identity_Proof"] != "")
                     {

@@ -406,24 +406,8 @@
                                     <div class="form-group">
 
                                         <label for="input-1">Country</label>
-
-                                        @if (Model.country_txt != null)
-                                        {
-
-                                            <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
-
-                                                <option value="@Model.country_txt">@Model.country_txt</option>
-                                            </select>
-                                            @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
-                                            @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
-                                        }
-                                        else
-                                        {
-
-                                            <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"></select>
-                                            @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
-                                            @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
-                                        }
+                                        @Html.TextBoxFor(m => m.country_txt, new { id = "countrytext", @class = "form-control input-shadow validate[required,custom[onlyLetterSp]]", @placeholder = "Enter Country Name" })
+                                      
 
 
                                     </div>
@@ -432,64 +416,27 @@
 
 
 
-                                @if (Model.StateText != null)
-                                {
                                     <div class="col-sm-3">
                                         <div class="form-group">
                                             <label for="input-1">State</label>
-                                            <select id="ddlstate" class="Withdatastate form-control input-shadow validate[required]">
-
-                                                <option value="@Model.StateText">@Model.StateText</option>
-                                                <option value="S">--Select State--</option>
-                                            </select>
-                                            @Html.HiddenFor(m => m.StateId, new { id = "stateid" })
-                                            @Html.HiddenFor(m => m.StateText, new { id = "statetext" })
+                                            @Html.TextBoxFor(m => m.StateText, new { id = "StateText", @class = "form-control input-shadow validate[required,custom[onlyLetterSp]]", @placeholder = "Enter State Name" })
+                              
+                                           
                                         </div>
                                     </div>
-                                }
-                                else
-                                {
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label for="input-1">State</label>
-                                            <select id="ddlstate" class="form-control input-shadow validate[required]">
-                                                <option value="">--Select State--</option>
-                                            </select>
-                                            @Html.HiddenFor(m => m.StateId, new { id = "stateid" })
-                                            @Html.HiddenFor(m => m.StateText, new { id = "statetext" })
-                                        </div>
-                                    </div>
-                                }
+                              
                                 <div class="col-sm-3"></div>
 
-                                    @if (Model.CityText != null)
-                                    {
+                                  
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <label for="input-1">City</label>
-                                                <select id="ddlcity" class="form-control input-shadow validate[required]">
-
-                                                    <option value="@Model.CityText">@Model.CityText</option>
-                                                    <option value="D">--Select City--</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.CityId, new { id = "cityid" })
-                                                @Html.HiddenFor(m => m.CityText, new { id = "citytext" })
+                                                @Html.TextBoxFor(m => m.CityText, new { id = "CityText", @class = "form-control input-shadow validate[required,custom[onlyLetterSp]]", @placeholder = "Enter City Name" })
+                                              
                                             </div>
                                         </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="col-sm-3">
-                                            <div class="form-group">
-                                                <label for="input-1">City</label>
-                                                <select id="ddlcity" class="form-control input-shadow validate[required]">
-                                                    <option value="">--Select City--</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.CityId, new { id = "cityid" })
-                                                @Html.HiddenFor(m => m.CityText, new { id = "citytext" })
-                                            </div>
-                                        </div>
-                                    }
+                                    
+                                  
 
 
 

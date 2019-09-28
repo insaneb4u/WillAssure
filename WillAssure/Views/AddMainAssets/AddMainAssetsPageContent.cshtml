@@ -551,10 +551,25 @@
                                         <div class="form-group">
 
                                             <label for="input-1">Date Of Birth</label>
-                                            <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
-                                                <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="nomDob" onchange="getinputdate(this.value)" autocomplete="off" readonly="true" placeholder="Select Date Of Birth" />
-                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                            </div>
+
+                                         
+                                                @Html.TextBoxFor(m => m.setdob, new { id = "setdob", @class = "form-control" , @style= "display:none;border:none;background-color:#f1f5f8;", @onfocus= "changedob(this.value)" })
+                                          
+                                                <div id="datepicker" class="input-group date" data-date-format="dd-mm-yyyy">
+                                                    <input class="form-control input-shadow validate[required]" type="text" id="DOB" name="nomDob" onchange="getinputdate(this.value)" autocomplete="off" readonly="true" placeholder="Select Date Of Birth" />
+                                                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                                                </div>
+                                            
+
+                                            <script>
+                                                function changedob() {
+
+                                                    $("#setdob").hide();
+                                                    $("#datepicker").show();
+                                                }
+                                            </script>
+
+
 
 
                                         </div>
@@ -580,6 +595,7 @@
                                         <div class="form-group">
 
                                             <label for="input-1">Relation</label>
+                                            @Html.TextBoxFor(m => m.setrelation, new { id = "setrelation", @class = "form-control input-shadow", @onfocus= "changerelation()" , @style = "display:none" })
                                             <select id="ddlrelation" class="form-control input-shadow validate[required]">
                                                 <option value="">--Select--</option>
                                             </select>
@@ -588,7 +604,13 @@
                                         </div>
 
 
+                                        <script>
+                                            function changerelation() {
 
+                                                $("#setrelation").hide();
+                                                $("#ddlrelation").show();
+                                            }
+                                        </script>
 
 
 
@@ -617,7 +639,7 @@
                                          new SelectListItem() {Text = "Buddhism", Value="Buddhism"},
                                          new SelectListItem() {Text = "Christians", Value="Christians"},
                                          new SelectListItem() {Text = "Hinduism", Value="Hinduism"},
-                                         new SelectListItem() {Text = "Islam", Value="Islam"},
+                                         
                                          new SelectListItem() {Text = "Jainism", Value="Jainism"},
                                          new SelectListItem() {Text = "Sikhism", Value="Sikhism"},
 
@@ -643,23 +665,9 @@
 
                                             <label for="input-1">Country</label>
 
-                                            @if (Model.country_txt != null)
-                                            {
-
-                                                <select id="ddlcountry" style="display:;" class="withdatacountry form-control input-shadow validate[required]">
-
-                                                    <option value="@Model.country_txt">@Model.country_txt</option>
-                                                </select>
-                                                @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
-                                                @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
-                                            }
-                                            else
-                                            {
-
-                                                <select id="ddlcountry" style="display:;" class="form-control input-shadow validate[required]"><option value="">--Select--</option></select>
-                                                @Html.HiddenFor(m => m.country_id, new { id = "countryid" })
-                                                @Html.HiddenFor(m => m.country_txt, new { id = "countrytext" })
-                                            }
+                                       
+                                                @Html.TextBoxFor(m => m.country_txt, new { id = "ddlcountry", @class = "form-control input-shadow validate[required,custom[onlyLetterSp]]", @placeholder = "Enter Country Name" })
+                                               
 
 
                                         </div>
@@ -674,11 +682,10 @@
                                         <div class="form-group">
 
                                             <label for="input-1">State</label>
-                                            <select id="ddlstate" class="widthdatastate form-control input-shadow validate[required]">
-                                                <option value="">--Select State--</option>
-                                            </select>
-                                            @Html.HiddenFor(m => m.nomstateid, new { id = "stateid" })
-                                            @Html.HiddenFor(m => m.nomstatetext, new { id = "statetext" })
+
+                                            @Html.TextBoxFor(m => m.nomstatetext, new { id = "ddlstate", @class = "form-control input-shadow validate[required,custom[onlyLetterSp]]", @placeholder = "Enter State Name" })
+
+                                            
                                         </div>
                                     </div>
 
@@ -691,11 +698,8 @@
 
                                         <div class="form-group">
                                             <label for="input-1">City</label>
-                                            <select id="ddlcity" class="form-control input-shadow validate[required]">
-                                                <option value="">--Select City--</option>
-                                            </select>
-                                            @Html.HiddenFor(m => m.nomcityid, new { id = "cityid" })
-                                            @Html.HiddenFor(m => m.nomcitytext, new { id = "citytext" })
+                                        
+                                            @Html.TextBoxFor(m => m.nomcitytext, new { id = "ddlcity", @class = "form-control input-shadow validate[required,custom[onlyLetterSp]]", @placeholder = "Enter City Name" })
                                         </div>
                                     </div>
 
@@ -1306,9 +1310,27 @@ else
 
 
         });
-
+        datepicker
     </script>
 
+}
+
+
+@if (ViewBag.hasnominee == "true")
+{
+    <script>
+        $(document).ready(function () {
+
+            $("#datepicker").hide();
+            $("#setdob").show();
+
+
+            $("#ddlrelation").hide();
+            $("#setrelation").show();
+            
+        });
+      
+    </script>
 }
 
 <script>
@@ -1358,6 +1380,8 @@ else
 
     };
 
+
+    
 
      $("#confirmtestatorfamily").click(function () {
          $("#btnnext").show();

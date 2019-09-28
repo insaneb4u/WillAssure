@@ -635,54 +635,19 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">Country</label>
-                                        <select id="ddlcountry" style="display:none;" class="form-control input-shadow validate[required]"></select>
-                                        @Html.HiddenFor(m => m.countryid, new { id = "countryid" })
-                                        @Html.TextBoxFor(m => m.countrytext, new { id = "countrytext", @class = "form-control input-shadow", @placeholder = "--Select Country--" })
-                                        <script>
-                                            $("#countrytext").focus(function () {
-                                                $("#countrytext").hide();
-                                                $("#ddlcountry").show();
-                                            });
-                                        </script>
+                                      
+                                        @Html.TextBoxFor(m => m.countrytext, new { id = "countrytext", @class = "form-control input-shadow validate[required,custom[onlyLetterSp]]", @placeholder = "Enter Country Name" })
+                                     
                                     </div>
                                 </div>
 
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label for="input-1">State</label>
-                                        <select id="ddlstate" style="display:none;" onchange="updatestate(this.value)" class="form-control input-shadow validate[required]">
-                                            <option value="">--Select State--</option>
-                                        </select>
-                                        @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
-                                        @Html.TextBoxFor(m => m.statetext, new { id = "statetext", @class = "form-control input-shadow", @placeholder = "--Select State--" })
+                                      
+                                       @Html.TextBoxFor(m => m.statetext, new { id = "statetext", @class = "form-control input-shadow validate[required,custom[onlyLetterSp]]", @placeholder = "Enter State Name" })
 
-                                        <script>
-                                            $("#statetext").focus(function () {
-                                                $("#statetext").hide();
-                                                $("#ddlstate").show();
-                                                var value = $("#statetext").val();
-
-                                                 $.ajax({
-
-            type: "POST",
-            url: "@Url.Action("BindStateDDL", "UpdateTestators")",
-            data: { "statename": "" + value+  ""},
-            success: function (data) {
-                if (data != "") {
-                    $('#ddlstate').empty().append(data);
-                }
-
-            }
-
-
-
-        });
-
-
-
-
-                                            });
-                                        </script>
+                                      
                                     </div>
                                 </div>
 
@@ -691,29 +656,10 @@
                                     <div class="form-group">
                                         <label for="input-1">City</label>
 
-                                        @if (Model.citytext != null)
-                                        {
-
-                                            <select id="ddlcity" style="display:none;" class="form-control input-shadow validate[required]">
-                                                <option value="@Model.citytext">@Model.citytext</option>
-                                            </select>
-                                        }
-                                        else
-                                        {
-                                            <select id="ddlcity" style="display:none;" class="form-control input-shadow validate[required]">
-                                                <option value="">--Select City--</option>
-                                            </select>
-                                        }
 
 
-                                        @Html.HiddenFor(m => m.cityid, new { id = "cityid", @placeholder = "--Select City--" })
-                                        @Html.TextBoxFor(m => m.citytext, new { id = "citytext", @class = "form-control input-shadow", @placeholder = "--Select City--" })
-                                        <script>
-                                            $("#citytext").focus(function () {
-                                                $("#citytext").hide();
-                                                $("#ddlcity").show();
-                                            });
-                                        </script>
+                                       @Html.TextBoxFor(m => m.citytext, new { id = "citytext", @class = "form-control input-shadow validate[required,custom[onlyLetterSp]]", @placeholder = "Enter City Name" })
+                                     
                                     </div>
                                 </div>
                                 <div class="col-sm-3"></div>
@@ -1378,7 +1324,6 @@
                 success: function (data) {
                     $('#ddlstate').append(data);
 
-                    $("#citytext").hide();
                     $("#ddlcity").show();
 
 

@@ -7,8 +7,17 @@ namespace WillAssure.Models
 {
     public class AppointeesModel
     {
+        public string ddlcountry { get; set; }
+        public string ddlstate { get; set; }
+        public string ddlcity { get; set; }
 
-      public int? apId { get; set;}
+
+        public string altddlcountry { get; set; }
+        public string altstatetext { get; set; }
+        public string altcitytext { get; set; }
+
+
+        public int? apId { get; set;}
       public int? documentId { get; set;}
       public string Type  { get; set;}
         public int? TypeId { get; set; }
@@ -76,7 +85,7 @@ namespace WillAssure.Models
         public string altDob { get; set; }
         public string altGender { get; set; }
         public string altOccupation { get; set; }
-        public string altddlcountry { get; set; }
+       
         public string altRelationship { get; set; }
         public int altRelationshipId { get; set; }
         public string altRelationshipTxt { get; set; }
@@ -87,11 +96,11 @@ namespace WillAssure.Models
 
         public string altCity { get; set; }
         public int altcityid { get; set; }
-        public string altcitytext { get; set; }
+      
 
         public string altState { get; set; }
         public int altstateid { get; set; }
-        public string altstatetext { get; set; }
+      
 
         public string altPin { get; set; }
 

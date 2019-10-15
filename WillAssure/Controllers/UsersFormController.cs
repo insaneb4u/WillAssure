@@ -343,7 +343,17 @@ namespace WillAssure.Controllers
                     cmd.Parameters.AddWithValue("@Dob", dt);
                     cmd.Parameters.AddWithValue("@Mobile", UFM.Mobile);
                     cmd.Parameters.AddWithValue("@Email", UFM.Email);
+                  
+
+                if (UFM.Address1 != null)
+                {
                     cmd.Parameters.AddWithValue("@Address1", UFM.Address1);
+                }
+                else
+                {
+                    UFM.Address1 = "None";
+                    cmd.Parameters.AddWithValue("@Address1", UFM.Address1);
+                }
 
 
                 if (UFM.Address2 != null)

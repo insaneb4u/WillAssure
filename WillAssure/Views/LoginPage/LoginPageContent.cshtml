@@ -14,6 +14,12 @@
     <title>Will Assure</title>
 
     @*Master Style Links*@
+    <script>
+        history.pushState(null, null, location.href);
+        window.onpopstate = function () {
+            history.go(1);
+        };
+    </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <!--Sweet Alerts -->
     <script src="~/assets/plugins/alerts-boxes/js/sweetalert.min.js"></script>
@@ -47,6 +53,9 @@
             margin: 20px;
         }
     </style>
+
+
+
 </head>
 <body class="bg-dark">
     <!-- Start wrapper-->

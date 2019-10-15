@@ -1394,6 +1394,13 @@
                                 $("#ftxtsurname").show();
                                 $("#ftxtgender").show();
 
+
+                                $('#ddlidentityproof').attr('value', '');
+                                $('#Identity_Proof_Value').addClass('validate[required]');
+
+                                $('#ddlidentityproof').attr('value', '');
+                                $('#Alt_Identity_Proof_Value').addClass('validate[required]');
+
                             }
 
                         }
@@ -1413,6 +1420,9 @@
                                 $("#ftxtsurname").hide();
                                 $("#ftxtgender").hide();
 
+
+
+                              
                             }
 
                             $("#ra1").prop("checked", false);

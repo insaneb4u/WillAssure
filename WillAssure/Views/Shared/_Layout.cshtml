@@ -127,6 +127,9 @@
     </script>
 </head>
 
+<input type="button" name="name" id="disablebtn" value="DISABLE BACK BUTTON" style="display:none;"   />
+
+
 
 @*@if (Session["Role"] == null)
     {
@@ -1541,7 +1544,11 @@
 
 
 
-
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#disablebtn").click();
+    });
+</script>
 
 @*Master Scripts Link End*@
 

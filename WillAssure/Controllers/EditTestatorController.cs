@@ -295,15 +295,27 @@ namespace WillAssure.Controllers
             con.Open();
             string checkuid = "";
             int tid = 0;
-            if (Session["WillType"].ToString() == "Quick")
+            if (Session["WillType"] != null)
             {
-                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
-            }
+                if (Session["WillType"].ToString() == "Quick")
+                {
+                    checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
 
-            if (Session["WillType"].ToString() == "Detailed")
-            {
-                checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+
+
+                if (Session["WillType"].ToString() == "Detailed")
+                {
+                    checkuid = "select tId from TestatorDetails  where tId = " + Convert.ToInt32(Session["distid"]) + " ";
+                }
             }
+            else
+            {
+                RedirectToAction("LoginPageIndex", "LoginPage");
+            }
+           
+
+            
 
             if (checkuid != "")
             {

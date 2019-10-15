@@ -307,14 +307,24 @@ namespace WillAssure.Controllers
                 cmd.Parameters.AddWithValue("@MiddleName", UFM.MiddleName);
 
 
+                string dateString = UFM.Dob;
+                DateTime dd = Convert.ToDateTime(dateString,
+                    System.Globalization.CultureInfo.GetCultureInfo("hi-IN").DateTimeFormat);
+              
 
-                DateTime dat = DateTime.ParseExact(UFM.Dob, "dd-MM-yyyy", CultureInfo.InvariantCulture);
-
-                cmd.Parameters.AddWithValue("@Dob", dat);
+                cmd.Parameters.AddWithValue("@Dob", dd);
                 cmd.Parameters.AddWithValue("@Mobile", UFM.Mobile);
                 cmd.Parameters.AddWithValue("@Email", UFM.Email);
-                cmd.Parameters.AddWithValue("@Address1", UFM.Address1);
-                if (UFM.Address2 != null || UFM.Address2 != "")
+                if (UFM.Address1 != null )
+                {
+                    cmd.Parameters.AddWithValue("@Address1", UFM.Address1);
+                }
+                else
+                {
+                    UFM.Address1 = "None";
+                    cmd.Parameters.AddWithValue("@Address1", UFM.Address1);
+                }
+                if (UFM.Address2 != null)
                 {
                     cmd.Parameters.AddWithValue("@Address2", UFM.Address2);
                 }
@@ -324,7 +334,7 @@ namespace WillAssure.Controllers
                     cmd.Parameters.AddWithValue("@Address2", UFM.Address2);
                 }
 
-                if (UFM.Address3 != null || UFM.Address3 != "")
+                if (UFM.Address3 != null)
                 {
                     cmd.Parameters.AddWithValue("@Address3", UFM.Address3);
                 }

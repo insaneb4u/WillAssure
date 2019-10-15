@@ -530,7 +530,7 @@ namespace WillAssure.Controllers
                             getcount = detailedcount++;
                             try
                             {
-                                btnwillDetailed = btnwillDetailed + "<a href='/page/Report.aspx?NestId="+chk008dt.Rows[i]["tid"].ToString()+"&WillType=Detailed' id='compdocumentbtn1' ><button type='button' class='btn btn-primary waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Detailed-Will-(" + i + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
+                                btnwillDetailed = btnwillDetailed + "<a href='/page/Report.aspx?NestId="+chk008dt.Rows[i]["tid"].ToString()+"&WillType=Detailed' id='compdocumentbtn1' ><button type='button' class='btn btn-primary waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Comprehensive-Will-(" + i + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
                             }
                             catch (Exception)
                             {
@@ -574,7 +574,7 @@ namespace WillAssure.Controllers
                     getcount22 = detailedcount22++;
                     try
                     {
-                        btnwillDetailed22 = btnwillDetailed22 + "<a href='/page/Report.aspx?NestId=" + chk008dt22.Rows[i]["tid"].ToString() + "&WillType=Quick' id='compdocumentbtn1' ><button type='button' class='btn btn-primary waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Quick-Will-(" + i + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
+                        btnwillDetailed22 = btnwillDetailed22 + "<a href='/page/Report.aspx?NestId=" + chk008dt22.Rows[i]["tid"].ToString() + "&WillType=Quick' id='compdocumentbtn1' ><button type='button' class='btn btn-primary waves-effect waves-lightm-1'> <i class='fa fa-file' style='color:#f7dddd;'></i> <span>Swift-Will-(" + i + ")</span> </button> &nbsp;&nbsp;&nbsp;&nbsp;";
                     }
                     catch (Exception)
                     {

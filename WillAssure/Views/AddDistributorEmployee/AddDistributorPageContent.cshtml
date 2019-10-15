@@ -127,7 +127,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label for="input-3">Address 1</label>
-                                        @Html.TextAreaFor(m => m.Address1, new { @class = "form-control input-shadow validate[required] text-input", @id = "txtaddress1", @placeholder = "Enter Address 1", @autocomplete = "off" })
+                                        @Html.TextAreaFor(m => m.Address1, new { @class = "form-control input-shadow  text-input", @id = "txtaddress1", @placeholder = "Enter Address 1", @autocomplete = "off" })
                                     </div>
                                 </div>
 
@@ -161,11 +161,9 @@
                                     <div class="form-group">
                                         <label for="input-1">State</label>
 
-                                        <select id="ddlstate" class="form-control input-shadow validate[required]">
-                                            <option value="">--Select State--</option>
-                                        </select>
-                                        @Html.HiddenFor(m => m.stateid, new { id = "stateid" })
-                                        @Html.HiddenFor(m => m.statetext, new { id = "statetext" })
+                                     
+
+                                        @Html.TextBoxFor(m => m.statetext, new { @id = "statetext", @class = "form-control validate[required]", @placeholder = "Enter State Name", @style = "background-color:#f1f5f8; border-color:white;" })
                                     </div>
                                 </div>
 
@@ -174,12 +172,8 @@
 
                                     <div class="form-group">
                                         <label for="input-1">City</label>
-                                        <select id="ddlcity" class="form-control input-shadow validate[required]">
-                                            <option value=''>--Select City--</option>
-                                        </select>
-                                        @Html.HiddenFor(m => m.cityid, new { id = "cityid" })
-                                        @Html.HiddenFor(m => m.citytext, new { id = "citytext" })
-
+                                    
+                                        @Html.TextBoxFor(m => m.citytext, new { @id = "citytext", @class = "form-control validate[required]", @placeholder = "Enter City Name", @style = "background-color:#f1f5f8; border-color:white;" })
                                     </div>
 
                                 </div>
